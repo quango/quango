@@ -1,3 +1,7 @@
+Quango is a fork of the Shapado project ( http://github.com/patcito/shapado )
+It adds a bunch of stuff that is highly relevant to Quango, but not terribly relevant to Shapado
+
+
 == Dependencies
 
 - git >= 1.5
