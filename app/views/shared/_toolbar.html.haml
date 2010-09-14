@@ -1,8 +1,8 @@
-#toolbar
+#top-bar
   -if logged_in?
     -if !current_group.isolate && AppConfig.enable_groups
-      .edition
-        %ul.combobox.left
+      .entry
+        %ul.combobox
           %li
             =link_to t(current_group), groups_path
             %ul
