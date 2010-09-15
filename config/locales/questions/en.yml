@@ -1,7 +1,7 @@
 en:
   questions:
     index:
-      title: All questions
+      title: All discussions
       hot:     Hot
       active:  Active
       votes:   Votes
@@ -77,9 +77,9 @@ en:
       my_tags: My tags
       expert: Experts
     tags:
-      title: Tags
-      tooltip: Show questions tagged %{tag}
-      filter: Search for tags
+      title: Topics
+      tooltip: Show stuff tagged %{tag}
+      filter: Search for topics
     new:
       title: Ask question
       how_to_ask: How to ask

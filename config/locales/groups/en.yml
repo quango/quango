@@ -1,12 +1,12 @@
 en:
   groups:
     index:
-      title: Groups
-      filter: "Search for groups"
+      title: Communities
+      filter: "Search for communities"
       actives: Active
       pendings: Pending
       most_active: Most active
-      request_group: Request a new group
+      request_group: Request a community
       name: Name
     group:
       about: About

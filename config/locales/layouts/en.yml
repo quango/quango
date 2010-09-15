@@ -1,21 +1,21 @@
 en:
   layouts:
     application:
-      title: "Questions & Answers"
-      questions: Questions
-      questions_in: Questions in
+      title: "Community Engine"
+      questions: Discussions
+      questions_in: Discussions in
       questions_tagged: tagged with
-      ask_question: Ask question
-      tags: Tags
-      users: Users
+      ask_question: Start discussion
+      tags: Topics
+      users: Members
       badges: Badges
-      unanswered: Unanswered
+      unanswered: Nada
       pages: Pages
-      logout: Log out
+      logout: Logout
       logged: Logged in as %{login}
       search: Search
       forgot: Forgot?
-      log_in: Login
+      log_in: Sign in
       signup: Sign up
       settings: Settings
       languages: Languages

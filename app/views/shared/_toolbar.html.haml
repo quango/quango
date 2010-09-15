@@ -1,15 +1,17 @@
-#top-bar
+#top-bar.left
   -if logged_in?
     -if !current_group.isolate && AppConfig.enable_groups
-      .entry
-        %ul.combobox
+      .edition
+        %ul.combobox.left
           %li
             =link_to t(current_group), groups_path
             %ul
               -current_user.groups(:select => [:name, :domain]).each do |group|
                 %li
                   =link_to h(group.name), domain_url(:custom => group.domain)
-        |
+
+#top-bar.right        
+  -if logged_in?
     -if current_user.owner_of?(current_group)
       .entry
         =link_to t(".admin"), manage_properties_path, :class => "manage_link"
@@ -30,12 +32,14 @@
             %li
               =link_to t("layouts.application.settings"), settings_path
       |
+
     -top_bar_links.each do |link|
       .entry
         =link
         |
     .entry
       =link_to t("layouts.application.logout"), destroy_user_session_path
+
   -else
     -if AppConfig.is_shapadocom && !current_group.isolate
       .entry
@@ -45,7 +49,10 @@
       .entry
         =link
         |
+
     .entry
       =link_to t("layouts.application.log_in"), new_user_session_path
 
 .clear
+
+
