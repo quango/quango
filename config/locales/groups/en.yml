@@ -58,6 +58,8 @@ en:
         owner: "This group was created by %{login}"
         group_created_by: created by
         language: Language
+        has_custom_channels: "Use custom channels"
+        custom_channels: "Custom Channels"
         default_tags: "Default tags"
         logo: Logo
         forum: Allow more than one answer by user

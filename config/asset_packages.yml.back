@@ -9,7 +9,7 @@ javascripts:
   - jquery.autocomplete
   - jquery.autoSuggest
   - jquery.notifyBar
-  - jquery.marquee
+  - jquery.marquee.js
   - showdown
   - highlight/prettify
   - components/search

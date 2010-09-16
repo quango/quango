@@ -96,6 +96,16 @@
       = t('.legend_legend')
 
 .group
+  = form.check_box :has_custom_channels, :class => "checkbox"
+  = form.label :has_custom_channels, t('has_custom_channels', :scope => "activerecord.attributes.group"), :class => "radio"
+
+.group
+  = form.label :custom_channels, t('custom_channels', :scope => "activerecord.attributes.group"), :class => "label"
+  = form.text_field :custom_channels, :value => @group.custom_channels.join(", "), :class => "text_field"
+  .description
+    = t('.custom_channels_legend')
+
+.group
   = form.label :default_tags, t('default_tags', :scope => "activerecord.attributes.group"), :class => "label"
   = form.text_field :default_tags, :value => @group.default_tags.join(", "), :class => "text_field"
   .description

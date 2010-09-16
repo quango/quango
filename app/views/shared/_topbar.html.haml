@@ -4,21 +4,23 @@
       .edition
         %ul.topbar.combobox.left
           %li
-            %span.left=image_tag(favicon_group_path(current_group), :style => "height:18px; width:18px")
-            %span=link_to h(current_group.name), domain_url(:custom => current_group.domain)
+            =image_tag(favicon_group_path(current_group), :style => "")
+            =link_to h(current_group.name), domain_url(:custom => current_group.domain)
             %ul
               -current_user.groups(:select => [:name, :domain]).each do |group|
                 %li
-                  %span.left
                   -if group.has_custom_favicon?
-                    = image_tag(favicon_group_path(group), :style => "height:16px; width:16px")
+                    = image_tag(favicon_group_path(group), :style => "")
                   -else
-                    = image_tag("/favicon.ico", :style => "height:16px; width:16px")
-                  %span=link_to h(group.name), domain_url(:custom => group.domain)
+                    = image_tag("/favicon.ico", :style => "")
+                  =link_to h(group.name), domain_url(:custom => group.domain)
 
   -else
     .edition
       =link_to h(current_group.name), domain_url(:custom => current_group.domain)
+
+#top-bar.date{:style => "float:left;width:auto;"}
+  =Date.today.strftime("%a, %d %B")
 
 
 #top-bar{:style => "float:right;width:auto;"}
@@ -33,7 +35,7 @@
         |
     .entry
       = gravatar(current_user.email.to_s, :size => 18)
-      = link_to(h(current_user.login), user_path(current_user))
+      %strong= link_to(h(current_user.login), user_path(current_user))
       %span.reputation{:title => t("activerecord.attributes.user.reputation")}=format_number(current_user.reputation_on(current_group))
       |
     .entry

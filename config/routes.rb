@@ -34,6 +34,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :announcements, :collection => {:hide => :any }
   map.resources :imports, :collection => {:send_confirmation => :post}
 
+  map.resources :channels
+  map.resources :channels, :collection => {:tags => :get}
+  map.connect 'channels/:tags', :controller => :channels, :action => :index,:requirements => {:tags => /\S+/}
 
   def build_questions_routes(router, options ={})
     router.with_options(options) do |route|

@@ -18,6 +18,8 @@ class Group
   key :domain, String
   key :legend, String
   key :description, String
+  key :has_custom_channels, Boolean, :default => false
+  key :custom_channels, Array #, :default => "something, something else"
   key :default_tags, Array
   key :has_custom_ads, Boolean, :default => true
   key :state, String, :default => "pending" #pending, active, closed

@@ -5,21 +5,16 @@
 
 -content_for :subtabs do
   .navtitle
-    = t(".recent_questions", :default => "Recent Questions")
+    %h3=t(".recent_questions", :default => "Recent Activity")
     -if @questions
-      == (#{@questions.total_entries})
+    == (#{@questions.total_entries})
 
-  %ul{:style => "display: inline"}
-    %li.activity
-      = link_to t("questions.index.active"), root_path(:tab=>"activity"), :title => t("questions.index.active_tooltip"), :rel => "nofollow"
-    %li.hot
-      = link_to t("questions.index.hot"), root_path(:tab=>"hot"), :title => t("questions.index.hot_tooltip"), :rel => "nofollow"
+%ul{:style => "display: inline"}
+  %li.activity
+    = link_to t("questions.index.active"), root_path(:tab=>"activity"), :title => t("questions.index.active_tooltip"), :rel => "nofollow"
+  %li.hot
+    = link_to t("questions.index.hot"), root_path(:tab=>"hot"), :title => t("questions.index.hot_tooltip"), :rel => "nofollow"
 
-%div
-  #quick_question
-    =render :partial => "quick_question_box"
-  %ul.items#related_questions
-    %li
 %ul.items#questions
   -if @questions.empty?
     .box.highlight

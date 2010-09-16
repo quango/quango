@@ -16,14 +16,19 @@
         = render :partial => "shared/topbar"
       #header
         = render :partial => "shared/header"
+      #channels
+        = render :partial => "shared/channel_navigation"
 
       #wrapper
-        #main
-          #navigation
-            = render :partial => "shared/user_navigation"
-          #announcement
-            = render :partial => "shared/announcements"
 
+        #navigation
+          = render :partial => "shared/user_navigation"
+        #announcement
+          = render :partial => "shared/announcements"
+          = '<!---->'
+
+
+        #main.left
           = render :partial => "shared/ads/header_ads"
           #block-text.block
             .secondary-navigation{:class => @active_subtab.to_s}
@@ -36,24 +41,27 @@
               .inner
                 = yield
                 .clear
-        #sidebar
-          = render :partial => "shared/contribute"
-          = yield :sidebar
-          = render :partial => "shared/ads/context_panel_ads"
+        #main.right
+          #stuff
+            %h3="Stuff"
+          #sidebar
+            = render :partial => "shared/contribute"
+            = yield :sidebar
+            = render :partial => "shared/ads/context_panel_ads"
 
-          -unless feed_urls.empty?
-            .block
-              %h3
-                = t(".subscribe")
-              .sidebar-block
-                .feeds
-                  -feed_urls.each do |title, url|
-                    .feed_entry
-                      %a{:href => url}
-                        %span
-                          =image_tag "atom.png", :width => 20
-                        =h(title)
-                  .clear
+            -unless feed_urls.empty?
+              .block
+                %h3
+                  = t(".subscribe")
+                .sidebar-block
+                  .feeds
+                    -feed_urls.each do |title, url|
+                      .feed_entry
+                        %a{:href => url}
+                          %span
+                            =image_tag "atom.png", :width => 20
+                          =h(title)
+                    .clear
         .clear
         = render :partial => "shared/ads/footer_ads"
 

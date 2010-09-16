@@ -92,6 +92,66 @@ module ApplicationHelper
     end
   end
 
+  def autochannel(tags = [], options = {})
+    if tags.empty?
+      tags = Question.tag_cloud({:group_id => current_group.id, :banned => false}.
+                        merge(language_conditions.merge(language_conditions)))
+    end
+
+    #First convert the tags into array
+    cloud = ''
+    tag_array = Array.new
+
+    tags.each do |tag|
+      tag_array << [tag["count"],tag["name"]]
+    end
+
+    sorted_array = tag_array.sort_by{|a|a.to_s}.reverse
+
+    sorted_array[(1..8)].each do |s|
+      #url = s.to_s
+      url = url_for(:controller => "channels", :action => "index", :tags => s[1].to_s)
+      cloud << "<button>#{link_to(s[1].to_s, url, :class => "channel")}"
+      #if current_user.owner_of?(current_group)
+       #cloud << "("+s[0].to_s+")"
+      #end      
+      cloud << "</button> "
+    end
+
+    cloud
+  end
+
+  def trending_topics(tags = [], options = {})
+    if tags.empty?
+      tags = Question.tag_cloud({:group_id => current_group.id, :banned => false}.
+                        merge(language_conditions.merge(language_conditions)))
+    end
+
+    return '' if tags.size <= 2
+
+    # Sizes: xxs xs s l xl xxl
+    css = {1 => "xxs", 2 => "xs", 3 => "s", 4 => "l", 5 => "xl" }
+    max_size = 5
+    min_size = 1
+
+    tag_class = options.delete(:tag_class) || "tag"
+
+    lowest_value = tags.min { |a, b| a["count"].to_i <=> b["count"].to_i }
+    highest_value = tags.max { |a, b| a["count"].to_i <=> b["count"].to_i }
+
+    spread = (highest_value["count"] - lowest_value["count"])
+    spread = 1 if spread == 0
+    ratio = (max_size - min_size) / spread
+
+    cloud = ''
+    tags.each do |tag|
+      size = min_size + (tag["count"] - lowest_value["count"]) * ratio
+      url = url_for(:controller => "questions", :action => "index", :tags => tag["name"])
+      cloud << "<span>#{link_to(tag["name"], url, :class => "#{tag_class} #{css[size.round]}")}</span> "
+    end
+    cloud += ""
+    cloud
+  end
 
   def tag_cloud(tags = [], options = {})
     if tags.empty?

@@ -1,0 +1,17 @@
+-if !current_group.has_custom_channels
+  %div.channels
+    -cache("autochannel_#{current_group.id}") do
+      %span.left
+        = "Autochannel:"
+        %span
+        = self.autochannel
+  .clear
+
+
+-if current_group.has_custom_channels
+  %div.channels
+    = h(current_group.custom_channels)
+
+.clear
+
+-#so now write the controllers

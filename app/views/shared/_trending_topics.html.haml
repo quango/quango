@@ -1,0 +1,24 @@
+-cache("trending_topics_#{current_group.id}") do
+  %span.left
+    = "Trending Topics:"
+  %marquee.right{:behavior => 'scroll',:scrollamount => '1',}
+    = self.trending_topics
+  .clear
+
+%script
+  = "$(function() {"
+  = "//$('marquee').marquee();"
+  = "$('marquee').marquee('pointer').mouseover(function () {"
+  = "       $(this).trigger('stop');"
+  = "   }).mouseout(function () {"
+  = "       $(this).trigger('start');"
+  = "   }).mousemove(function (event) {"
+  = "       if ($(this).data('drag') == true) {"
+  = "           this.scrollLeft = $(this).data('scrollX') + ($(this).data('x') - event.clientX);"
+  = "       }"
+  = "   }).mousedown(function (event) {"
+  = "       $(this).data('drag', true).data('x', event.clientX).data('scrollX', this.scrollLeft);"
+  = "   }).mouseup(function () {"
+  = "       $(this).data('drag', false);"
+  = "   });"
+  = "});"
