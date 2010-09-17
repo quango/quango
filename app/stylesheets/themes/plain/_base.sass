@@ -9,7 +9,7 @@ body
   color: #333
   background: #fff
   font-family: Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif
-  font-size: 0.75em
+  font-size: 1em
 
 
 hr
@@ -43,13 +43,19 @@ input.checkbox
   color: #999
 
 #toolbar
-  background: gainsboro
+  background: #ababab
+  a
+    color: white
+    &:hover
+      color: black
 
 #header
+  background-color: #cdcdcd
   padding: 0
   h1 a
     &:link, &:active, &:hover, &:visited
       color: #eaeaea
+
 
 
 #main
@@ -190,7 +196,7 @@ input.checkbox
 
 .secondary-navigation
   background: #fff
-  border-bottom: 1px solid #222
+  border-top: 1px solid gainsboro
   color: #222
 
   ul
@@ -200,9 +206,9 @@ input.checkbox
   ul li
     color: black
     margin-right: 5px
-    border-top-left-radius: 5px
-    border-top-right-radius: 5px
-    padding: 1px 1px 0px 1px
+    border-bottom-left-radius: 5px
+    border-bottom-right-radius: 5px
+    padding: 0px 1px 1px 1px
 
     a
       padding: 3px 10px

@@ -44,6 +44,7 @@ Rails::Initializer.run do |config|
   config.gem "twitter_oauth", :version => "0.4.3"
   config.gem "sanitize", :version => "1.2.1"
   config.gem "rack-recaptcha", :lib => "rack/recaptcha", :version => "0.2.2"
+  config.gem "tabs_on_rails"
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named

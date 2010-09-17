@@ -1,3 +1,10 @@
+-content_for :navigation do
+  = render :partial => "shared/channel_navigation"
+
+-content_for :trends do
+  = render :partial => "shared/trending_topics", :object => @tag_cloud
+
+
 -feed_url = url_for(:format => "atom", :tags => params[:tags])
 
 -content_for :rss do
@@ -12,13 +19,13 @@
 
   %ul
     %li.newest
-      = link_to t("questions.index.newest"), questions_path(:sort=>"newest"), :title => t("questions.index.newest_tooltip")
+      = link_to t("questions.index.newest"), channels_path(:sort=>"newest",:tags=>current_tags.to_s), :title => t("questions.index.newest_tooltip")
     %li.hot
-      = link_to t("questions.index.hot"), questions_path(:sort=>"hot"), :title => t("questions.index.hot_tooltip"), :rel => "nofollow"
+      = link_to t("questions.index.hot"), channels_path(:sort=>"hot",:tags=>current_tags.to_s), :title => t("questions.index.hot_tooltip"), :rel => "nofollow"
     %li.votes
-      = link_to t("questions.index.votes"), questions_path(:sort=>"votes"), :title =>  t("questions.index.votes_tooltip"), :rel => "nofollow"
+      = link_to t("questions.index.votes"), channels_path(:sort=>"votes",:tags=>current_tags.to_s), :title =>  t("questions.index.votes_tooltip"), :rel => "nofollow"
     %li.activity
-      = link_to t("questions.index.active"), questions_path(:sort=>"activity"), :title => t("questions.index.active_tooltip"), :rel => "nofollow"
+      = link_to t("questions.index.active"), channels_path(:sort=>"activity",:tags=>current_tags.to_s), :title => t("questions.index.active_tooltip"), :rel => "nofollow"
 
 
 -content_for :sidebar do

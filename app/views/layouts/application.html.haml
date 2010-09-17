@@ -16,20 +16,22 @@
         = render :partial => "shared/topbar"
       #header
         = render :partial => "shared/header"
-      #channels
-        = render :partial => "shared/channel_navigation"
+      #navigation_container
+        = yield :navigation
+      .clear
+      #trends
+        = yield :trends
+      .clear
+      #announcement
+        = render :partial => "shared/announcements"
+
 
       #wrapper
-
-        #navigation
-          = render :partial => "shared/user_navigation"
-        #announcement
-          = render :partial => "shared/announcements"
-          = '<!---->'
-
-
         #main.left
           = render :partial => "shared/ads/header_ads"
+
+
+
           #block-text.block
             .secondary-navigation{:class => @active_subtab.to_s}
               = yield :subtabs

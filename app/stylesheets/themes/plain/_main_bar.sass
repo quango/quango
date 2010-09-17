@@ -1,7 +1,13 @@
 #navigation
-  width: 100%
+  width: 702px
+  background-color: #cdcdcd
   float: left
-  margin: 0 0 13px 0
+  margin: 0 0 4px 0
+  h1
+    margin: 4px 0 0 4px
+    font-weight: bold
+    color: white
+    letter-spacing: -1px
 
   #logo
     float: left
@@ -9,16 +15,16 @@
 
 #navigation ul
   list-style-type: none
+  overflow: hidden
 
 #navigation ul li
-  background: #2A5FB3
-  margin-right: 5px
-  color: #F8F0E6
+
+
   float: left
 
   &:hover
-    background: #F67620
-    color: #fff
+    background: white
+    color: black
 
   &.active
     border-top: 1px solid #fff
@@ -31,13 +37,17 @@
 #navigation ul li
   a
     display: block
-    font-size: 1em
-    font-weight: bold
-    padding: 2px 3px
+    color: white
+    font-size: 1.1em
+    padding: 2px 7px
+    border-right: 1px solid white
+    text-decoration: none
 
-    &:link, &:visited, &:hover, &:active
-      text-decoration: none
-      color: #FFF
+    &:hover
+      color: black
+
+ 
+
 
   &.ask_question
     float: right

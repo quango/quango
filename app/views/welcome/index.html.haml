@@ -1,19 +1,21 @@
+-content_for :navigation do
+  = render :partial => "shared/channel_navigation"
+
+-content_for :trends do
+  = render :partial => "shared/trending_topics", :object => @tag_cloud
+
 -content_for :head do
   -if !current_group.default_tags.empty?
     %meta{:name => "keywords", :content => current_group.default_tags.join(", ")}
   %meta{:name => "description", :content => markdown(current_group.description).gsub(/<\/?[^>]*>/, "")[0, 255] }
 
 -content_for :subtabs do
-  .navtitle
-    %h3=t(".recent_questions", :default => "Recent Activity")
-    -if @questions
-    == (#{@questions.total_entries})
-
-%ul{:style => "display: inline"}
-  %li.activity
-    = link_to t("questions.index.active"), root_path(:tab=>"activity"), :title => t("questions.index.active_tooltip"), :rel => "nofollow"
-  %li.hot
-    = link_to t("questions.index.hot"), root_path(:tab=>"hot"), :title => t("questions.index.hot_tooltip"), :rel => "nofollow"
+  .subtabs
+    %ul{:style => "display: inline"}
+      %li.activity
+        = link_to t("questions.index.active"), root_path(:tab=>"activity"), :title => t("questions.index.active_tooltip"), :rel => "nofollow"
+      %li.hot
+        = link_to t("questions.index.hot"), root_path(:tab=>"hot"), :title => t("questions.index.hot_tooltip"), :rel => "nofollow"
 
 %ul.items#questions
   -if @questions.empty?

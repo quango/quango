@@ -1,5 +1,5 @@
 = current_group.head
-#main-bar{:class => @active_tab}
+#main-bar
   #logo{:style => "float:left;min-height: 63px"}
     -if current_group.has_logo?
       = link_to image_tag(logo_group_path(current_group), :class => "group_logo", :width => current_group.logo_info["width"], :height => current_group.logo_info["height"]), domain_url(:custom => current_group.domain)

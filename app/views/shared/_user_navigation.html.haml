@@ -1,23 +1,14 @@
 %ul
   %li.channels
-    =link_to h("Channels"), channels_path
+    =link_to h("Channels"), questions_path
   %li.newswires
     =link_to t("layouts.application.wires"), questions_path
   %li.questions
     =link_to t("layouts.application.questions"), questions_path
-  %li.tags
-    =link_to t("layouts.application.tags"), tags_questions_path
   %li.users
     =link_to t("layouts.application.users"), users_path
-  %li.badges
-    =link_to t("layouts.application.badges"), badges_path
-  %li.unanswered
-    =link_to t("layouts.application.unanswered"), unanswered_questions_path
+  %li.links
+    =link_to t("layouts.application.links"), links_path
   %li.pages.last
     =link_to t("layouts.application.pages"), pages_path
 .clear
-
-
-%div.trends
-  = render :partial => "shared/trending_topics", :object => @tag_cloud
-  = '<!---->'

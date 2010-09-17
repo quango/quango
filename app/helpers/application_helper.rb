@@ -99,7 +99,7 @@ module ApplicationHelper
     end
 
     #First convert the tags into array
-    cloud = ''
+    cloud = '<ul>'
     tag_array = Array.new
 
     tags.each do |tag|
@@ -111,13 +111,13 @@ module ApplicationHelper
     sorted_array[(1..8)].each do |s|
       #url = s.to_s
       url = url_for(:controller => "channels", :action => "index", :tags => s[1].to_s)
-      cloud << "<button>#{link_to(s[1].to_s, url, :class => "channel")}"
+      cloud << "<li>#{link_to(s[1].capitalize, url, :class => "channel")}"
       #if current_user.owner_of?(current_group)
        #cloud << "("+s[0].to_s+")"
       #end      
-      cloud << "</button> "
+      cloud << "</li> "
     end
-
+    cloud << "</ul>"
     cloud
   end
 

@@ -1,4 +1,4 @@
-class ChannelsController < ApplicationController
+class LinksController < ApplicationController
   before_filter :login_required, :except => [:new, :create, :index, :show, :tags, :unanswered, :related_questions, :tags_for_autocomplete, :retag, :retag_to]
   before_filter :admin_required, :only => [:move, :move_to]
   before_filter :moderator_required, :only => [:close]
@@ -9,8 +9,7 @@ class ChannelsController < ApplicationController
   before_filter :check_age, :only => [:show]
   before_filter :check_retag_permissions, :only => [:retag, :retag_to]
 
- # tabs :default => :channels, :tags => :tags,
-  tabs :default => [:tags.to_s],
+  tabs :default => :questions, :tags => :tags,
        :unanswered => :unanswered, :new => :ask_question
 
   subtabs :index => [[:newest, "created_at desc"], [:hot, "hotness desc, views_count desc"], [:votes, "votes_average desc"], [:activity, "activity_at desc"], [:expert, "created_at desc"]],
@@ -152,7 +151,7 @@ class ChannelsController < ApplicationController
     end
   end
 
-  def taggies
+  def tags
     conditions = scoped_conditions({:answered_with_id => nil, :banned => false})
     if params[:q].blank?
       @tag_cloud = Question.tag_cloud(conditions)

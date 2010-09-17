@@ -24,8 +24,9 @@ ActionController::Routing::Routes.draw do |map|
   map.privacy '/privacy', :controller => 'doc', :action => 'privacy'
   map.resources :users, :member => { :change_preferred_tags => :any,
                                      :follow => :any, :unfollow => :any},
-                        :collection => {:autocomplete_for_user_login => :get}
-  map.resource :session
+                        :collection => {:autocomplete_for_user_login => :get},
+                        :as => "members"
+  map.resources :session
   map.resources :ads
   map.resources :adsenses
   map.resources :adbards
@@ -34,9 +35,13 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :announcements, :collection => {:hide => :any }
   map.resources :imports, :collection => {:send_confirmation => :post}
 
-  map.resources :channels
-  map.resources :channels, :collection => {:tags => :get}
-  map.connect 'channels/:tags', :controller => :channels, :action => :index,:requirements => {:tags => /\S+/}
+  map.resources :links
+
+  map.channels 'channels/:tags', :controller => :channels, :action => :index,:requirements => {:tags => /\S+/}
+  #map.resources :channels
+  #map.resources :channels, :collection => {:tags => :get}
+  #map.connect 'channels/explore/:tags', :controller => :channels, :action => :index,:requirements => {:tags => /\S+/}
+              #:as => "channels"
 
   def build_questions_routes(router, options ={})
     router.with_options(options) do |route|
