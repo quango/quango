@@ -1,3 +1,5 @@
+# remember rake:asset-packager:buildall 
+
 ---
 javascripts:
 - base:

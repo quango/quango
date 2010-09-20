@@ -12,6 +12,7 @@
   %body
     = render :partial => "shared/analytics"
     #container{:class => @current_class}
+      = @current_class
       #toolbar-container
         = render :partial => "shared/toolbar"
       #header

@@ -20,7 +20,8 @@
   -#so now write the controllers
   %script
     = "$(function() {"
-    = "$('li."+ @active_tag.gsub(/tag_/,'')+"').css('background-color','orange');"
+    = "$('li."+ @active_tag.gsub(/tag_/,'')+"').css({'background-color':'white'});"
+    = "$('li."+ @active_tag.gsub(/tag_/,'')+" a').css({'color':'#990000'});"
     = "});"
 
 -else

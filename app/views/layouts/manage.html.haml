@@ -11,17 +11,15 @@
   %body
     = render :partial => "shared/analytics"
     #container
-      = render :partial => "shared/topbar"
+      #toolbar-container
+        = render :partial => "shared/toolbar"
       #header
-        = current_group.head
-        #main-bar{:class => @active_tab}
-          #logo
-            -if current_group.has_logo?
-              =link_to image_tag(logo_group_path(current_group), :class => "group_logo", :width => current_group.logo_info["width"], :height => current_group.logo_info["height"]), domain_url(:custom => current_group.domain)
-            -else
-              = link_to image_tag("default_logo.png", :class => "group_logo"), domain_url(:custom => current_group.domain)
-          = render :partial => "shared/manage_navigation"
-          .clear
+        = render :partial => "shared/header_admin"
+
+      #main-bar{:class => @active_tab}
+        = @active_tab
+        = render :partial => "shared/manage_navigation"
+        .clear
       #wrapper
         #main{:style=>"width: 100%"}
           #block-text.block

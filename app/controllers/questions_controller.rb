@@ -9,7 +9,7 @@ class QuestionsController < ApplicationController
   before_filter :check_age, :only => [:show]
   before_filter :check_retag_permissions, :only => [:retag, :retag_to]
 
-  tabs :default => :questions, :tags => :tags,
+  tabs :default => :discussion, :tags => :tags,
        :unanswered => :unanswered, :new => :ask_question
 
   subtabs :index => [[:newest, "created_at desc"], [:hot, "hotness desc, views_count desc"], [:votes, "votes_average desc"], [:activity, "activity_at desc"], [:expert, "created_at desc"]],

@@ -26,7 +26,8 @@
       %li
         = t(".empty", :default => :"questions.index.empty")
   -@questions.each do |question|
-    = render :partial => "questions/question", :object => question
+    = render :partial => "questions/question", :object => question    
+    
 
 #additional_info
   #help_us

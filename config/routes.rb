@@ -82,8 +82,9 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.resources :questions, :as => "discussions"
 
-  map.connect 'questions/tags/:tags', :controller => :questions, :action => :index,:requirements => {:tags => /\S+/}
-  map.connect 'questions/unanswered/tags/:tags', :controller => :questions, :action => :unanswered
+
+  map.connect 'discussion/topic/:tags', :controller => :questions, :action => :index,:requirements => {:tags => /\S+/}
+  map.connect 'discussions/unanswered/tags/:tags', :controller => :questions, :action => :unanswered
 
   build_questions_routes(map)
   build_questions_routes(map, :path_prefix => '/:language', :name_prefix => "with_language_") #deprecated route
