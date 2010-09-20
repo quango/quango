@@ -1,6 +1,6 @@
 en:
   shared:
-    topbar:
+    toolbar:
       logged_as: "Logged in as %{login}"
       admin: Admin
       user_page: My page

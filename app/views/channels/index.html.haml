@@ -14,18 +14,17 @@
 -content_for :subtabs do
   .navtitle
     = t(".title")
-    -if @questions
-      == (#{@questions.total_entries})
-
-  %ul
-    %li.newest
-      = link_to t("questions.index.newest"), channels_path(:sort=>"newest",:tags=>current_tags.to_s), :title => t("questions.index.newest_tooltip")
-    %li.hot
-      = link_to t("questions.index.hot"), channels_path(:sort=>"hot",:tags=>current_tags.to_s), :title => t("questions.index.hot_tooltip"), :rel => "nofollow"
-    %li.votes
-      = link_to t("questions.index.votes"), channels_path(:sort=>"votes",:tags=>current_tags.to_s), :title =>  t("questions.index.votes_tooltip"), :rel => "nofollow"
-    %li.activity
-      = link_to t("questions.index.active"), channels_path(:sort=>"activity",:tags=>current_tags.to_s), :title => t("questions.index.active_tooltip"), :rel => "nofollow"
+  .clear
+  .subtabs  
+    %ul
+      %li.newest
+        = link_to t("questions.index.newest"), channels_path(:sort=>"newest",:tags=>current_tags.to_s), :title => t("questions.index.newest_tooltip")
+      %li.hot
+        = link_to t("questions.index.hot"), channels_path(:sort=>"hot",:tags=>current_tags.to_s), :title => t("questions.index.hot_tooltip"), :rel => "nofollow"
+      %li.votes
+        = link_to t("questions.index.votes"), channels_path(:sort=>"votes",:tags=>current_tags.to_s), :title =>  t("questions.index.votes_tooltip"), :rel => "nofollow"
+      %li.activity
+        = link_to t("questions.index.active"), channels_path(:sort=>"activity",:tags=>current_tags.to_s), :title => t("questions.index.active_tooltip"), :rel => "nofollow"
 
 
 -content_for :sidebar do

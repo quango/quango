@@ -1,22 +1,47 @@
-%h1
-  = "Channels > " << h(current_tags.to_s).capitalize
+-if @active_tag
 
-#navigation{:class => @active_tag.gsub(/tag_/, '')}
-  -if !current_group.has_custom_channels
-  .channels
-    -cache("autochannel_#{current_group.id}") do
-      = self.autochannel
-.clear
+  %h1
+    = "Channels > " << h(current_tags.to_s).capitalize
+
+  #navigation{:class => @active_tag.gsub(/tag_/,'')}
+    -if !current_group.has_custom_channels
+    .channels
+      -cache("autochannel_#{current_group.id}") do
+        = self.autochannel
+  .clear
 
 
--if current_group.has_custom_channels
-  %div.channels
-    = h(current_group.custom_channels)
+  -if current_group.has_custom_channels
+    %div.channels
+      = h(current_group.custom_channels)
 
-.clear
+  .clear
 
--#so now write the controllers
-%script
-  = "$(function() {"
-  = "$('li."+ @active_tag.gsub(/tag_/,'')+"').css('background-color','orange');"
-  = "});"
+  -#so now write the controllers
+  %script
+    = "$(function() {"
+    = "$('li."+ @active_tag.gsub(/tag_/,'')+"').css('background-color','orange');"
+    = "});"
+
+-else
+
+  %h1
+    = h(current_group.name)
+
+  #navigation
+    -if !current_group.has_custom_channels
+    .channels
+      -cache("autochannel_#{current_group.id}") do
+        = self.autochannel
+  .clear
+
+
+  -if current_group.has_custom_channels
+    %div.channels
+      = h(current_group.custom_channels)
+
+  .clear
+
+
+
+

@@ -1,9 +1,8 @@
 -content_for :navigation do
-  %div
-    %h1.navtitle.title.entry-title
-      &= @question.title
-    = render :partial => "shared/user_navigation"
-    = render :partial => "shared/trending_topics", :object => @tag_cloud
+  = render :partial => "shared/user_navigation"
+
+-content_for :trends do
+  = render :partial => "shared/trending_topics", :object => @tag_cloud
 
 = javascript_include_merged :show
 

@@ -1,5 +1,5 @@
 -content_for :navigation do
-  = render :partial => "shared/channel_navigation"
+  = render :partial => "shared/channel_navigation", :object => @active_tag
 
 -content_for :trends do
   = render :partial => "shared/trending_topics", :object => @tag_cloud
@@ -10,6 +10,9 @@
   %meta{:name => "description", :content => markdown(current_group.description).gsub(/<\/?[^>]*>/, "")[0, 255] }
 
 -content_for :subtabs do
+  .navtitle
+    = t(".title")
+  .clear
   .subtabs
     %ul{:style => "display: inline"}
       %li.activity

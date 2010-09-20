@@ -37,8 +37,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :links
 
+  #map.channels :channels
   map.channels 'channels/:tags', :controller => :channels, :action => :index,:requirements => {:tags => /\S+/}
-  #map.resources :channels
+
   #map.resources :channels, :collection => {:tags => :get}
   #map.connect 'channels/explore/:tags', :controller => :channels, :action => :index,:requirements => {:tags => /\S+/}
               #:as => "channels"
@@ -79,7 +80,7 @@ ActionController::Routing::Routes.draw do |map|
       end
     end
   end
-
+  map.resources :questions, :as => "discussions"
 
   map.connect 'questions/tags/:tags', :controller => :questions, :action => :index,:requirements => {:tags => /\S+/}
   map.connect 'questions/unanswered/tags/:tags', :controller => :questions, :action => :unanswered

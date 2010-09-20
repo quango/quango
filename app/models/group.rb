@@ -14,6 +14,7 @@ class Group
 
   key :_id, String
   key :name, String, :required => true
+  key :name_highlight, String
   key :subdomain, String
   key :domain, String
   key :legend, String

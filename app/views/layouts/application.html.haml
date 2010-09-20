@@ -12,11 +12,11 @@
   %body
     = render :partial => "shared/analytics"
     #container{:class => @current_class}
-      #toolbar
-        = render :partial => "shared/topbar"
+      #toolbar-container
+        = render :partial => "shared/toolbar"
       #header
         = render :partial => "shared/header"
-      #navigation_container
+      #navigation-container
         = yield :navigation
       .clear
       #trends
@@ -47,7 +47,6 @@
           #stuff
             %h3="Stuff"
           #sidebar
-            = render :partial => "shared/contribute"
             = yield :sidebar
             = render :partial => "shared/ads/context_panel_ads"
 

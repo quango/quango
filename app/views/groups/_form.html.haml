@@ -5,6 +5,11 @@
   = form.text_field :name, :class => "text_field"
 
 .group
+  = form.label :name_highlight, t('name_highlight', :scope => "activerecord.attributes.group"), :class => "label"
+  = form.text_field :name_highlight, :class => "text_field"
+
+
+.group
   = form.label :subdomain, "URL", :class => "label"
   %div
     %span.description
