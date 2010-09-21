@@ -1,13 +1,9 @@
 -if @active_tag
 
-  #contextual-navigation-title
-    %h1
-      = "Topic > " << h(current_tags.to_s).capitalize
-
   #contextual-navigation
     %ul
-      %li.channels
-        =link_to h("layouts.application.channels"), links_path #channels_path
+      %li.label      
+        = "Show: "
       %li.newswires
         =link_to t("layouts.application.wires"), questions_path #{:tags => @active_tag}
       %li.questions
@@ -15,20 +11,20 @@
       %li.users
         =link_to t("layouts.application.users"), users_path
       %li.links
-        =link_to t("layouts.application.links"), links_path
+        =link_to t("layouts.application.links"), links_path, :options => current_tags
       %li.pages.last
         =link_to t("layouts.application.pages"), pages_path
+      %li
+        %small
+          = "(current_tags: " << h(current_tags.to_s).capitalize << ")"
   .clear
 
 -else
 
   #contextual-navigation
-    #contextual-navigation-title
-      %h1
-        = "Discussions > " << h(current_tags.to_s).capitalize
+    %span.label
+      = "Show: "<< h(current_tags.to_s).capitalize
     %ul
-      %li.channels
-        =link_to h("layouts.application.channels"), links_path #channels_path
       %li.newswires
         =link_to t("layouts.application.wires"), questions_path #{:tags => @active_tag}
       %li.questions
@@ -36,7 +32,10 @@
       %li.users
         =link_to t("layouts.application.users"), users_path
       %li.links
-        =link_to t("layouts.application.links"), links_path
+        =link_to t("layouts.application.links")#, links_path
       %li.pages.last
         =link_to t("layouts.application.pages"), pages_path
+      %li
+        %small
+          = "(current_tags: " << h(current_tags.to_s).capitalize << ")"
   .clear

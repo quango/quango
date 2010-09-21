@@ -11,6 +11,8 @@
     = h(current_group.name)
   #label-highlight
     = h(current_group.name_highlight)
+  #label-special
+    = h(@active_tab)
 
   #search
     = render :partial => "shared/search"

@@ -1,5 +1,7 @@
 class WelcomeController < ApplicationController
   helper :questions
+  helper :channels
+
   tabs :default => :welcome
 
   def index

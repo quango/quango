@@ -10,6 +10,8 @@ class Question
   ensure_index :language
 
   key :_id, String
+  key :mode, String, :default => "discussion"
+  key :bookmark, String
   key :title, String, :required => true
   key :body, String
   slug_key :title, :unique => true, :min_length => 8
@@ -299,6 +301,8 @@ class Question
   def update_language
     self.language = self.language.split("-").first
   end
+
+
 
 end
 

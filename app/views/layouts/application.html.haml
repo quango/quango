@@ -18,7 +18,10 @@
       #header
         = render :partial => "shared/header"
       #navigation-container
-        = yield :navigation
+        = render :partial => "shared/channel_navigation", :object => @active_tag
+      .clear
+      #contextual-navigation-container
+        = render :partial => "shared/contextual_navigation"
       .clear
       #trends
         = yield :trends
@@ -46,7 +49,7 @@
                 .clear
         #main.right
           #stuff
-            %h3="Stuff"
+            = yield :stuff
           #sidebar
             = yield :sidebar
             = render :partial => "shared/ads/context_panel_ads"

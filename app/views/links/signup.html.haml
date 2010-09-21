@@ -1,0 +1,7 @@
+%form{:action=> "signup" }
+
+  = hidden_field_tag "current_stage", "#{@current_stage}"
+  = "current_stage: " << @current_stage.to_s << "<br/>"
+  = render :partial => "#{@current_stage}", :object => @current_stage
+
+  %input{:type => "submit"}

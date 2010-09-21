@@ -8,14 +8,16 @@ class LinksController < ApplicationController
   before_filter :set_active_tag
   before_filter :check_age, :only => [:show]
   before_filter :check_retag_permissions, :only => [:retag, :retag_to]
+  #before_filter :get_partial_user_from_session
 
-  tabs :default => :questions, :tags => :tags,
-       :unanswered => :unanswered, :new => :ask_question
+  tabs :default => :links , :tags => :tags,
+       :unanswered => :unanswered, :new => :bookmarks
 
   subtabs :index => [[:newest, "created_at desc"], [:hot, "hotness desc, views_count desc"], [:votes, "votes_average desc"], [:activity, "activity_at desc"], [:expert, "created_at desc"]],
           :unanswered => [[:newest, "created_at desc"], [:votes, "votes_average desc"], [:mytags, "created_at desc"]],
           :show => [[:votes, "votes_average desc"], [:oldest, "created_at asc"], [:newest, "created_at desc"]]
   helper :votes
+  helper :channels
 
   # GET /questions
   # GET /questions.xml
@@ -231,12 +233,33 @@ class LinksController < ApplicationController
   # GET /questions/new
   # GET /questions/new.xml
   def new
+    @current_stage = "stage1"
     @question = Question.new(params[:question])
-    respond_to do |format|
+ 
+  #end
+
+
+  #def signup
+    @current_stage = params['current_stage']
+      if @current_stage == "stage1"
+        @current_stage = "stage2"
+        @bookmark = params['bookmark']
+      elsif @current_stage == "stage2"
+        @current_stage = "stage3"
+      elsif @current_stage == "stage3"
+        @current_stage = "stage1"
+      end
+
+   respond_to do |format|
       format.html # new.html.erb
       format.json  { render :json => @question.to_json }
+      format.xml
     end
+
+
   end
+
+
 
   # GET /questions/1/edit
   def edit
@@ -621,6 +644,21 @@ class LinksController < ApplicationController
         render(:json => {:success => true, :html => render_to_string(:partial => "questions/retag_form",
                                                    :member  => @question)}.to_json)
       }
+    end
+  end
+
+  private
+  def get_partial_question_from_session
+    unless @session['partial_question'].nil?
+      @question = @session['partial_question']
+    else
+      @question = Question.new
+    end
+  end
+
+  def save_partial_question_in_session
+    unless @question.nil?
+      @session['partial_question'] = @question
     end
   end
 

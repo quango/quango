@@ -1,0 +1,7 @@
+= "Stage 2"
+
+.group
+  = f.label "Processing"
+  = f.text_field :bookmark, :class => "text_field", :value => params['bookmark']
+  %hr 
+    = h(@question.to_s)

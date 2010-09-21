@@ -35,7 +35,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :announcements, :collection => {:hide => :any }
   map.resources :imports, :collection => {:send_confirmation => :post}
 
-  map.resources :links
+  #map.resources :links
+  #map.resources :links, :controller => :links, :as => "bookmarks"
+  map.links 'bookmarks/signup', :controller => :links, :action => :signup #:requirements => {:tags => /\S+/}
+  map.links 'bookmarks/new', :controller => :links, :action => :new #:requirements => {:tags => /\S+/}
+  map.links 'bookmarks/:tags', :controller => :links, :action => :index,:requirements => {:tags => /\S+/}
+  #map.links :as => "bookmarks"
 
   #map.channels :channels
   map.channels 'channels/:tags', :controller => :channels, :action => :index,:requirements => {:tags => /\S+/}

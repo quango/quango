@@ -10,7 +10,7 @@ class ChannelsController < ApplicationController
   before_filter :check_retag_permissions, :only => [:retag, :retag_to]
 
  # tabs :default => :channels, :tags => :tags,
-  tabs :default => [:tags.to_s],
+  tabs :default => [:channels.to_s],
        :unanswered => :unanswered, :new => :ask_question
 
   subtabs :index => [[:newest, "created_at desc"], [:hot, "hotness desc, views_count desc"], [:votes, "votes_average desc"], [:activity, "activity_at desc"], [:expert, "created_at desc"]],

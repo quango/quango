@@ -10,12 +10,13 @@ class QuestionsController < ApplicationController
   before_filter :check_retag_permissions, :only => [:retag, :retag_to]
 
   tabs :default => :discussion, :tags => :tags,
-       :unanswered => :unanswered, :new => :ask_question
+       :unanswered => :unanswered, :new => :contribute
 
   subtabs :index => [[:newest, "created_at desc"], [:hot, "hotness desc, views_count desc"], [:votes, "votes_average desc"], [:activity, "activity_at desc"], [:expert, "created_at desc"]],
           :unanswered => [[:newest, "created_at desc"], [:votes, "votes_average desc"], [:mytags, "created_at desc"]],
           :show => [[:votes, "votes_average desc"], [:oldest, "created_at asc"], [:newest, "created_at desc"]]
   helper :votes
+  helper :channels
 
   # GET /questions
   # GET /questions.xml

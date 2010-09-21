@@ -1,12 +1,29 @@
-= "New Discussion"
+= "New Bookmark<br/>"
 
 = f.error_messages
 = error_messages_for(:user)
+
+.group
+  = f.label "Mode: ", :class => "label"
+  = f.text_field :mode, :class => "text_field", :value => "Bookmark", :readonly => "readonly"
+
+
+.group
+  = f.label :bookmark, "#{t(:bookmark, :scope => "activerecord.attributes.question")}*", :class => "label"
+  = f.text_field :bookmark, :class => "text_field", :value => "To be processed on submit"
+  .description
+    = t(".bookmark_tip")
+
+
+#so then we need to make a controller that processes the bookmark and adds it to the database
+
+
+
 .group
   = f.label :title, "#{t(:title, :scope => "activerecord.attributes.question")}*", :class => "label"
-  = f.text_field :title, :class => "text_field"
+  = f.text_field :title, :class => "text_field", :value => "To be processed on submit"
   .description
-    = current_group.question_prompt
+    = t(".title_tip")
 
 .group
   = f.label :tags, "#{t(:tags, :scope => "activerecord.attributes.question")}", :class => "label"
@@ -26,8 +43,7 @@
   -else
     = f.text_area :body, :class => "text_area", :id => "markdown_editor"
 
-    #markdown_preview.markdown
-      =markdown(@question.body)
+
 
 -if current_group.language.nil? && AppConfig.enable_i18n
   .group

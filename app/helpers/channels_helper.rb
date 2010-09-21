@@ -2,11 +2,12 @@
 module ChannelsHelper
   def autochannel(tags = [], options = {})
     if tags.empty?
-      tags = "Empty"
+      tags = Question.tag_cloud({:group_id => current_group.id, :banned => false}.
+                        merge(language_conditions.merge(language_conditions)))
     end
 
     #First convert the tags into array
-    cloud = '<ul>'
+    cloud = ''
     tag_array = Array.new
 
     tags.each do |tag|
@@ -24,7 +25,6 @@ module ChannelsHelper
       #end      
       cloud << "</li> "
     end
-    cloud << "</ul>"
     cloud
   end
 end

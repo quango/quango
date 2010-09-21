@@ -1,5 +1,8 @@
 -content_for :navigation do
-  = render :partial => "shared/user_navigation"
+  = render :partial => "shared/channel_navigation"
+
+-content_for :contextual_navigation do
+  = render :partial => "shared/contextual_navigation"
 
 -content_for :trends do
   = render :partial => "shared/trending_topics", :object => @tag_cloud
