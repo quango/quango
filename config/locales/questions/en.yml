@@ -125,6 +125,8 @@ en:
       questions: Questions
       question: Question
     attributes:
+      bookmark:
+        title: Bookmark
       question:
         title: Title
         body: Body

@@ -1,4 +1,86 @@
+class GetMetadata
+
+ def initialize(link)
+  scrape =  Nokogiri::XML(open(link, "User-Agent" => "Ruby/#{RUBY_VERSION}"))
+  @metatitle = scrape.xpath('//title')
+ end
+
+ def metatitle
+  return @metatitle
+ end
+
+ def metakeywords
+  #something = open(@parselink)
+  #puts (something)
+  #return @metatitle
+ end 
+ 
+ def metadescription
+  #something = open(@parselink)
+  #puts (something)
+  #return @metatitle
+ end 
+
+end
+
+class URLGetRankedKeywords
+
+ def initialize(link)
+  mykey = AppConfig.alchemy["key"]
+  endpoint = 'http://access.alchemyapi.com/calls/url/URLGetRankedKeywords?apikey='+mykey+'&url='	
+  options = '&keywordExtractMode=strict&maxRetrieve=24'
+  parselink = endpoint << link << options
+  rankedkeywordsxml = Nokogiri::XML(open(parselink, "User-Agent" => "Ruby/#{RUBY_VERSION}"))
+  extractkeywords = rankedkeywordsxml.xpath("//keyword/text") 
+  @parsedlink = parselink
+
+  #let's quickly turn the hash into an array
+  @ee = extractkeywords.to_s.gsub(/<text>/,"")
+  @aa = @ee.to_s.gsub(/<\/text>/,",")
+
+
+ end
+
+ def extractedkeywords
+   return @aa
+ end
+
+ def showlink
+  #something = open(@parselink)
+  #puts (something)
+  return @parsedlink
+ end 
+end 
+
+class URLGetRankedEntities
+
+ def initialize(link)
+  mykey = AppConfig.alchemy["key"]
+  endpoint = 'http://access.alchemyapi.com/calls/url/URLGetNamedEntities?apikey='+mykey+'&url='	
+  options = '&disambiguate=1&linkedData=0&keywordExtractMode=strict' # or strict&maxRetrieve=12	
+  @parselink = endpoint+link+options
+ end
+
+ def showlink
+  #something = open(@parselink)
+  #puts (something)
+  return @parselink
+ end 
+end
+
 class LinksController < ApplicationController
+
+class EntryLink
+ def initialize(link)
+ @parselink = link
+ end
+ 
+ def showlink
+     return @parselink
+ end 
+end
+
+
   before_filter :login_required, :except => [:new, :create, :index, :show, :tags, :unanswered, :related_questions, :tags_for_autocomplete, :retag, :retag_to]
   before_filter :admin_required, :only => [:move, :move_to]
   before_filter :moderator_required, :only => [:close]
@@ -18,6 +100,7 @@ class LinksController < ApplicationController
           :show => [[:votes, "votes_average desc"], [:oldest, "created_at asc"], [:newest, "created_at desc"]]
   helper :votes
   helper :channels
+  helper :links
 
   # GET /questions
   # GET /questions.xml

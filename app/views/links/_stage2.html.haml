@@ -1,7 +1,57 @@
-= "Stage 2"
+-link = @question.bookmark
 
 .group
-  = f.label "Processing"
-  = f.text_field :bookmark, :class => "text_field", :value => params['bookmark']
-  %hr 
-    = h(@question.to_s)
+  = f.label :bookmark, "#{t(:bookmark, :scope => "activerecord.attributes.bookmark")}", :class => "label"
+  = h(link)
+
+-mytitle = GetMetadata.new(link)
+
+.group
+  = f.label :title, "#{t(:title, :scope => "activerecord.attributes.bookmark")}", :class => "label"
+  = f.text_field :title, :class => "text_field", :value => mytitle.metatitle.to_s
+  .description
+    = h(mytitle.metatitle.to_s)
+
+-getkeywords = URLGetRankedKeywords.new(link)
+
+-#todo: sort n match
+
+.group
+  = f.label :title, "Ranked Keywords from Alchemy", :class => "label"
+  %span
+    =h(getkeywords.extractedkeywords.to_s)
+
+  = link_to "xml", "view-source:" << getkeywords.showlink, :target => "_blank"
+
+
+
+-getentities = URLGetRankedEntities.new(link)
+-rankedentitiesxml = Nokogiri::XML(open(getentities.showlink, "User-Agent" => "Ruby/#{RUBY_VERSION}"))
+-extractentities = rankedentitiesxml.xpath("//entity//text") 
+-#let's deduplicate this array
+-ee = extractentities.to_s.split(/<text>/)
+-a = ee.to_s.split(/<\/text>/)
+-b = Hash.new(0)
+-# iterate over the array, counting duplicate entries
+-a.each do |v|
+  b[v] += 1
+
+
+.group
+  = f.label :title, "Ranked Entities from Alchemy", :class => "label"
+  -keywords = alchemy_ranked_keywords(link)
+  = h(keywords)
+
+  = link_to "xml", "view-source:" << getentities.showlink, :target => "_blank"
+
+
+
+%br
+%hr
+%br
+%input{:type => "submit"}
+
+
+
+%hr 
+  = h(@question)
