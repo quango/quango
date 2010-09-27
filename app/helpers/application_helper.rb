@@ -342,5 +342,19 @@ module ApplicationHelper
       render_page_links(line.strip)
     end
   end
+  
+
+  #take any comma seperated string and spit out an unordered list
+  def comma_to_list(string)
+    stringtobreak = string.split(',')
+    stringie = "<ol>"
+    stringtobreak.each do |s|
+      stringie << "<li>" + s + "</li>"
+    end
+    stringie += "</ol>"
+    stringie
+  end
+
+
 end
 

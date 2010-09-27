@@ -1,31 +1,29 @@
--content_for :stuff do
-
-  = "Mode:"
-  = "<a href='/bookmarks/new'>New Link</a><br/>"
-  = "<a href='/discussions/new'>New Discussion</a>"
-
-
 -content_for :subtabs do
   .navtitle
     = t(".title")
+
+
 -content_for :sidebar do
-  -if !current_group.question_help.empty?
-    .help
-      %h4
-        = t(".how_to_ask")
-      =current_group.question_help
+  #main.sidebar
+    = "Mode:"
+    = "<a href='/bookmarks/new'>New Link</a><br/>"
+    = "<a href='/discussions/new'>New Discussion</a>"
+    -if !current_group.question_help.empty?
+      .help
+        %h4
+          = t(".how_to_ask")
+        =current_group.question_help
 
--#=%form{:action=> "new"}
--# form_for(@question, :html=>{:class => "form", :id => "ask_question"}) do |f|
-- form_for(@question, :url => "new", :html => {:class => "form"}) do |f|
+-content_for :main do
+  #main.content
+    -form_for(@question, :url => "new", :html => {:class => "form", :id => "ask_question"}) do |f|
+      -if params['current_stage'] == nil
+        - @current_stage = "stage1"
 
-  -if params['current_stage'] == nil
-    - @current_stage = "stage1"
-
-  = hidden_field_tag "current_stage", "#{@current_stage}"
-  = "current_stage: " << @current_stage << "<br/>"
-  = render :partial => "#{@current_stage}", :object => @current_stage, :locals => {:f => f}
-  =#render :partial => "form", :locals => {:f => f}
+      = hidden_field_tag "current_stage", "#{@current_stage}"
+      = "current_stage: " << @current_stage << "<br/>"
+      = render :partial => "#{@current_stage}", :object => @current_stage, :locals => {:f => f}
+      =#render :partial => "form", :locals => {:f => f}
 
 
 

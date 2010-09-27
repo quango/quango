@@ -1,25 +1,78 @@
 class GetMetadata
 
  def initialize(link)
-  scrape =  Nokogiri::XML(open(link, "User-Agent" => "Ruby/#{RUBY_VERSION}"))
-  @metatitle = scrape.xpath('//title')
+  scrape =  Nokogiri::HTML(open(link, "User-Agent" => "Ruby/#{RUBY_VERSION}"))
+  @rawhead = scrape.xpath('//html/head')
+  @rawmetatitle = scrape.xpath('//title')
+  @rawmetakeywords = scrape.xpath("//meta[@name='keywords']/@content")
+  @rawmetadescription = scrape.xpath("//meta[@name='description']/@content")
+  @rawlink = link
+  @rawscrape = scrape
+ end
+
+ def rawscrapings
+  return @rawhead
  end
 
  def metatitle
+  #in the event that we cannot get the title directly we scrape instead.
+  if @rawmetatitle.empty?
+    @rawmetatitle = "Please type your bookmark title"
+  end
+  @metatitle = @rawmetatitle.to_s.gsub(/<title>/,"").gsub(/<\/title>/,"").strip
   return @metatitle
  end
 
  def metakeywords
-  #something = open(@parselink)
-  #puts (something)
-  #return @metatitle
+  if @rawmetakeywords.empty?
+    @rawmetakeywords = "[!] No Meta Keywords detected"
+  end
+  @metakeywords = @rawmetakeywords
+  return @metakeywords
  end 
  
  def metadescription
-  #something = open(@parselink)
-  #puts (something)
-  #return @metatitle
+  if @rawmetadescription.empty?
+    @rawmetadescription = "[!] No Meta Description detected"
+  end
+
+  @metadescription = @rawmetadescription
+  return @metadescription
  end 
+end
+
+class URLGetTitle
+ def initialize(link)
+  mykey = AppConfig.alchemy["key"]
+  endpoint = 'http://access.alchemyapi.com/calls/url/URLGetTitle?apikey='+mykey+'&url='	
+  options = ''
+  parselink = endpoint << link << options
+  titlexml = Nokogiri::XML(open(parselink, "User-Agent" => "Ruby/#{RUBY_VERSION}"))
+  extracttitle = titlexml.xpath("//title") 
+  @aa = extracttitle
+ end
+
+ def page_title
+   return @aa
+ end
+
+
+end
+
+class URLGetText
+ def initialize(link)
+  mykey = AppConfig.alchemy["key"]
+  endpoint = 'http://access.alchemyapi.com/calls/url/URLGetText?apikey='+mykey+'&url='	
+  options = ''
+  parselink = endpoint << link << options
+  extractedtext = Nokogiri::XML(open(parselink, "User-Agent" => "Ruby/#{RUBY_VERSION}"))
+
+  @aa = extractedtext
+ end
+
+ def extractedtext
+   return @aa
+ end
 
 end
 
@@ -28,7 +81,7 @@ class URLGetRankedKeywords
  def initialize(link)
   mykey = AppConfig.alchemy["key"]
   endpoint = 'http://access.alchemyapi.com/calls/url/URLGetRankedKeywords?apikey='+mykey+'&url='	
-  options = '&keywordExtractMode=strict&maxRetrieve=24'
+  options = '&keywordExtractMode=normal&sourceText=raw' #&maxRetrieve=24
   parselink = endpoint << link << options
   rankedkeywordsxml = Nokogiri::XML(open(parselink, "User-Agent" => "Ruby/#{RUBY_VERSION}"))
   extractkeywords = rankedkeywordsxml.xpath("//keyword/text") 
@@ -57,16 +110,201 @@ class URLGetRankedEntities
  def initialize(link)
   mykey = AppConfig.alchemy["key"]
   endpoint = 'http://access.alchemyapi.com/calls/url/URLGetNamedEntities?apikey='+mykey+'&url='	
-  options = '&disambiguate=1&linkedData=0&keywordExtractMode=strict' # or strict&maxRetrieve=12	
-  @parselink = endpoint+link+options
+  options = '&disambiguate=1&linkedData=1&quotations=1' # &maxRetrieve=12	
+  parselink = endpoint+link+options
+  entitiesxml = Nokogiri::XML(open(parselink, "User-Agent" => "Ruby/#{RUBY_VERSION}"))
+  extractentities = entitiesxml.xpath("//entity//text") 
+  entities = entitiesxml.xpath("//entity") 
+
+  @entity = extractentities
+
+  #Split out the different entity types into objects
+  @person = entities.xpath("//entity[type='Person']/text")
+  @person_unique = entities.xpath("//entity[type='Person unique']/text")
+  @dperson = entities.xpath("//entity[type='Person']/disambiguated/name")
+  @dperson_unique = entities.xpath("//entity[type='Person unique']/disambiguated/name")
+  @organisation = entities.xpath("//entity[type='Organization']/text") 
+  @company = entities.xpath("//entity[type='Company']/text") 
+  @facility = entities.xpath("//entity[type='Facility']/text") 
+  @country = entities.xpath("//entity[type='Country']/text") 
+  @city = entities.xpath("//entity[type='City']/text") 
+  #Distinct Terminologies
+  @fieldterminology = entities.xpath("//entity[type='FieldTerminology']/text") 
+  @healthcondition = entities.xpath("//entity[type='HealthCondition']/text")
+  @technology = entities.xpath("//entity[type='Technology']/text")
+  @sport = entities.xpath("//entity[type='Sport']/text")
+
+  @parsedlink = parselink
+ end
+
+ def entities
+  @entities = ''
+ 
+  #this simply joins the text
+  @pop = @entity
+
+  @p = @pop.to_s.split(/<text>/)
+  @pp = @p.to_s.split(/<\/text>/)
+
+  a = Hash.new(0)
+
+  @pp.each do |v|
+   a[v] += 1
+  end
+
+  a.each do |k, v|
+   puts "#{k} appears #{v} times"
+  end
+
+  a.keys.sort_by {|key|-a[key]}.each do |key|
+   if a[key]>0
+    @entities << key
+    @entities << '<sup>'+a[key].to_s+'</sup>'
+    @entities << ','
+   end
+  end
+
+  return @entities
+
+ end
+
+ def persons
+  #lets grab all the persons, deduplicate and convert to comma seperated array
+
+  @persons = ''
+
+  #this simply joins the text
+  @d = @dperson|@dperson_unique
+  @dd = @d.to_s.split(/<name>/)
+  @ddd = @dd.to_s.split(/<\/name>/)
+
+  @p = @person|@person_unique
+  @pp = @p.to_s.split(/<text>/)
+  @ppp = @pp.to_s.split(/<\/text>/)
+
+  @dp = @ddd|@ppp
+
+  a = Hash.new(0)
+
+  @ddd.each do |v|
+   a[v] += 1
+  end
+
+  a.each do |k, v|
+   puts "#{k} appears #{v} times"
+  end
+
+  a.keys.sort_by {|key|-a[key]}.each do |key|
+   if a[key]>0
+    @persons << key
+    @persons << '<sup>'+a[key].to_s+'</sup>'
+    @persons << ','
+   end
+  end
+
+  return @persons
+ end
+
+ def organisations
+  #lets grab all the persons, deduplicate and convert to comma seperated array
+
+  @organisations = ''
+
+  @pop = @organisation|@company|@facility
+
+  @p = @pop.to_s.split(/<text>/)
+  @pp = @p.to_s.split(/<\/text>/)
+
+  a = Hash.new(0)
+
+  @pp.each do |v|
+   a[v] += 1
+  end
+
+  a.keys.sort_by {|key|-a[key]}.each do |key|
+   if a[key]>0
+    @organisations << key
+    @organisations << '<sup>'+a[key].to_s+'</sup>'
+    @organisations << ','
+   end
+  end
+
+  return @organisations
+ end
+
+ def locations
+  #lets grab all the persons, deduplicate and convert to comma seperated array
+
+  @locations = ''
+
+  @pop = @country|@city
+
+  @p = @pop.to_s.split(/<text>/)
+  @pp = @p.to_s.split(/<\/text>/)
+
+  a = Hash.new(0)
+
+  @pp.each do |v|
+   a[v] += 1
+  end
+
+  a.keys.sort_by {|key|-a[key]}.each do |key|
+   if a[key]>0
+    @locations << key
+    @locations << '<sup>'+a[key].to_s+'</sup>'
+    @locations << ','
+   end
+  end
+
+  return @locations
+ end
+
+ def terminologies
+  @terminologies = ''
+ 
+  #this simply joins the text
+  @pop = @fieldterminology|@technology|@sport|@healthcondition
+
+  @p = @pop.to_s.split(/<text>/)
+  @pp = @p.to_s.split(/<\/text>/)
+
+  a = Hash.new(0)
+
+  @pp.each do |v|
+   a[v] += 1
+  end
+
+
+  a.keys.sort_by {|key|-a[key]}.each do |key|
+   if a[key]>0
+    @terminologies << key
+    @terminologies << '<sup>'+a[key].to_s+'</sup>'
+    @terminologies << ','
+   end
+  end
+
+  return @terminologies
+
+ end
+
+ def allentities
+   return @allentities
+ end
+
+ def extractedentities
+   return @temparray
  end
 
  def showlink
   #something = open(@parselink)
   #puts (something)
-  return @parselink
+  return @parsedlink
  end 
 end
+
+
+
+
 
 class LinksController < ApplicationController
 

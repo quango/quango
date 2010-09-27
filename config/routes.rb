@@ -40,7 +40,7 @@ ActionController::Routing::Routes.draw do |map|
   map.links 'bookmarks/signup', :controller => :links, :action => :signup #:requirements => {:tags => /\S+/}
   map.links 'bookmarks/new', :controller => :links, :action => :new #:requirements => {:tags => /\S+/}
   map.links 'bookmarks/:tags', :controller => :links, :action => :index,:requirements => {:tags => /\S+/}
-  #map.links :as => "bookmarks"
+  map.links 'bookmarks', :controller => :links, :as => "bookmarks"
 
   #map.channels :channels
   map.channels 'channels/:tags', :controller => :channels, :action => :index,:requirements => {:tags => /\S+/}

@@ -31,7 +31,10 @@
 
 
       #wrapper
-        #main.left
+        -#Need to sort this out
+        #main
+          = yield :main
+        -#main.left
           = render :partial => "shared/ads/header_ads"
 
 

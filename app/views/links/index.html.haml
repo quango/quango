@@ -33,15 +33,15 @@
       = render :partial => "shared/tag_list", :object => @tag_cloud
 
 
--#= render :partial => "searches/search_box"
+-content_for :main do
 
-/Questions
-%ul.items#questions
-  -if @questions.empty?
-    %li.highlight
-      = t(".empty")
-  -@questions.each do |question|
-    = render :partial => "question", :object => question
+  /Questions
+  %ul.items#questions
+    -if @questions.empty?
+      %li.highlight
+        = t(".empty")
+    -@questions.each do |question|
+      = render :partial => "question", :object => question
 
 #additional_info
   =will_paginate @questions

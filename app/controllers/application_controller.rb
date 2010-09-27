@@ -269,3 +269,8 @@ class ApplicationController < ActionController::Base
     Time.zone.parse("#{params["#{name}(1i)"]}-#{params["#{name}(2i)"]}-#{params["#{name}(3i)"]} #{params["#{name}(4i)"]}:#{params["#{name}(5i)"]}") rescue nil
   end
 end
+
+
+
+
+
