@@ -13,6 +13,8 @@
     = render :partial => "shared/analytics"
     #container{:class => @current_class}
       = @current_class
+      #leaderboard-container
+        = render :partial => "shared/ads/header_ads"
       #toolbar-container
         = render :partial => "shared/toolbar"
       #header
@@ -34,46 +36,12 @@
         -#Need to sort this out
         #main
           = yield :main
-        -#main.left
-          = render :partial => "shared/ads/header_ads"
-
-
-
-          #block-text.block
-            .secondary-navigation{:class => @active_subtab.to_s}
-              = yield :subtabs
-              .clear
-            .content
-              %p.markdown
-                = show_flash_messages(:class => "flash", :markdown => true)
-                = render :partial => "shared/ads/content_ads"
-              .inner
-                = yield
-                .clear
-        #main.right
-          #stuff
-            = yield :stuff
-          #sidebar
-            = yield :sidebar
-            = render :partial => "shared/ads/context_panel_ads"
-
-            -unless feed_urls.empty?
-              .block
-                %h3
-                  = t(".subscribe")
-                .sidebar-block
-                  .feeds
-                    -feed_urls.each do |title, url|
-                      .feed_entry
-                        %a{:href => url}
-                          %span
-                            =image_tag "atom.png", :width => 20
-                          =h(title)
-                    .clear
+          = yield :stuff
+          = yield :sidebar
         .clear
-        = render :partial => "shared/ads/footer_ads"
+
 
     #footer
       .block.content
         = render :partial => "layouts/footer"
-
+        = render :partial => "shared/ads/footer_ads"

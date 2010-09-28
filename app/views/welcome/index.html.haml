@@ -26,38 +26,53 @@
     %span.right 
       = "Show me:"
 
-%ul.items#questions
-  -if @questions.empty?
-    .box.highlight
-      %li
-        = t(".empty", :default => :"questions.index.empty")
-  -@questions.each do |question|
-    = render :partial => "questions/question", :object => question    
+
+-content_for :main do
+  #inner{:style=>'width:468px;'}
+    .secondary-navigation{:class => @active_subtab.to_s}
+      = yield :subtabs
+      .clear
+    .content
+      %p.markdown
+        = show_flash_messages(:class => "flash", :markdown => true)
+        = render :partial => "shared/ads/content_ads"
+        .inner
+          = yield
+          .clear
+
+
+  
+    %ul.items#questions
+      -if @questions.empty?
+        .box.highlight
+          %li
+            = t(".empty", :default => :"questions.index.empty")
+      -@questions.each do |question|
+        = render :partial => "questions/question", :object => question    
     
 
-#additional_info
-  #help_us
-    = t(".browse_all_or_by_tags", :full_list_of_questions => link_to(t('.full_list_of_questions'), questions_path), :browse_by_tags => link_to(t('.browse_by_tags'), tags_questions_path))
-    %br
-    = t("questions.index.help_to_answer")
-    = link_to t("questions.index.unanswered_questions"), unanswered_questions_path
+  #additional_info
+    #help_us
+      = t(".browse_all_or_by_tags", :full_list_of_questions => link_to(t('.full_list_of_questions'), questions_path), :browse_by_tags => link_to(t('.browse_by_tags'), tags_questions_path))
+      %br
+      = t("questions.index.help_to_answer")
+      = link_to t("questions.index.unanswered_questions"), unanswered_questions_path
 
-  .clear
+
 
 -content_for :sidebar do
-  .block.notice
-    = render :partial => "shared/layout/notice"
+  #sidebar.left
+    .block.notice
+      = render :partial => "shared/layout/notice"
+      -current_group.widgets.each do |widget|
+        .widget.block{:id => widget.name}
+          = render :partial => widget.partial_name, :locals => {:widget => widget}
 
-  -current_group.widgets.each do |widget|
-    .widget.block{:id => widget.name}
-      = render :partial => widget.partial_name, :locals => {:widget => widget}
-
-  -if logged_in?
-    = render :partial => "shared/preferred_tags"
-  -if AppConfig.enable_i18n
-    = render :partial => "shared/language_filter"
-
-  -if !current_group.isolate && AppConfig.enable_groups
-    .block{:style => "background: transparent"}
-      .content
-        = link_to t(".create_own_site"), new_group_path, :id => "create_own_site"
+    -if logged_in?
+      = render :partial => "shared/preferred_tags"
+    -if AppConfig.enable_i18n
+      = render :partial => "shared/language_filter"
+    -if !current_group.isolate && AppConfig.enable_groups
+      .block{:style => "background: transparent"} 
+        .content
+          = link_to t(".create_own_site"), new_group_path, :id => "create_own_site"

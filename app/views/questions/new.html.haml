@@ -15,14 +15,16 @@
         = t(".how_to_ask")
       =current_group.question_help
 
-- form_for(@question, :html=>{:class => "form", :id => "ask_question"}) do |f|
-  =render :partial => "form", :locals => {:f => f}
 
-  .group.navform
-    .right
-      = f.label :wiki, "Wiki", :class => "radio"
-      = f.check_box :wiki, :class => "checkbox"
+-content_for :main do
+  - form_for(@question, :html=>{:class => "form", :id => "ask_question"}) do |f|
+    =render :partial => "form", :locals => {:f => f}
 
-    = f.submit t('scaffold.create')
-    = t("global.or")
-    = link_to t('scaffold.cancel'), questions_path, :class => "button cancel"
+    .group.navform
+      .right
+        = f.label :wiki, "Wiki", :class => "radio"
+        = f.check_box :wiki, :class => "checkbox"
+
+      = f.submit t('scaffold.create')
+      = t("global.or")
+      = link_to t('scaffold.cancel'), questions_path, :class => "button cancel"

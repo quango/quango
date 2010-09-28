@@ -32,6 +32,13 @@
     = link_to "xml", "view-source:" << getkeywords.showlink, :target => "_blank"
     -string = getkeywords.extractedkeywords.to_s
     = comma_to_list(string)
+
+  .meta{:style => 'float:right;'}
+    = "Combined and deduped" 
+    =# link_to "xml", "view-source:" << getkeywords.showlink, :target => "_blank"
+    -#string = combining_strings(mytitle.metakeywords,getkeywords.extractedkeywords).to_s
+    =# comma_to_list(string)
+
   .clear
 
 .admin{:style => 'font-size:0.7em;border:1px solid red'}
@@ -39,8 +46,8 @@
   .meta{:style => 'float:right;'}
     = "Alchemy Entities" 
     = link_to "xml", "view-source:" << getentities.showlink, :target => "_blank"
-    -string = getentities.entities.to_s
-    = comma_to_list(string)
+    -#string = getentities.entities.to_s
+    =# comma_to_list(string)
 
   .meta{:style => 'float:right;'}
     = "<b>Terminologies:</b>" 

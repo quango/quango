@@ -81,7 +81,7 @@ class URLGetRankedKeywords
  def initialize(link)
   mykey = AppConfig.alchemy["key"]
   endpoint = 'http://access.alchemyapi.com/calls/url/URLGetRankedKeywords?apikey='+mykey+'&url='	
-  options = '&keywordExtractMode=normal&sourceText=raw' #&maxRetrieve=24
+  options = '&keywordExtractMode=strict&sourceText=cquery&cquery=p' #&maxRetrieve=24
   parselink = endpoint << link << options
   rankedkeywordsxml = Nokogiri::XML(open(parselink, "User-Agent" => "Ruby/#{RUBY_VERSION}"))
   extractkeywords = rankedkeywordsxml.xpath("//keyword/text") 
@@ -110,7 +110,7 @@ class URLGetRankedEntities
  def initialize(link)
   mykey = AppConfig.alchemy["key"]
   endpoint = 'http://access.alchemyapi.com/calls/url/URLGetNamedEntities?apikey='+mykey+'&url='	
-  options = '&disambiguate=1&linkedData=1&quotations=1' # &maxRetrieve=12	
+  options = '&disambiguate=1&linkedData=1&quotations=0&sourceText=cquery&cquery=p' # &maxRetrieve=12	
   parselink = endpoint+link+options
   entitiesxml = Nokogiri::XML(open(parselink, "User-Agent" => "Ruby/#{RUBY_VERSION}"))
   extractentities = entitiesxml.xpath("//entity//text") 
@@ -119,14 +119,20 @@ class URLGetRankedEntities
   @entity = extractentities
 
   #Split out the different entity types into objects
-  @person = entities.xpath("//entity[type='Person']/text")
-  @person_unique = entities.xpath("//entity[type='Person unique']/text")
-  @dperson = entities.xpath("//entity[type='Person']/disambiguated/name")
-  @dperson_unique = entities.xpath("//entity[type='Person unique']/disambiguated/name")
+  @aperson = entities.xpath("//entity[type='Person']") #
+  @person_unique = entities.xpath("//entity[type='Person unique']/disambiguated/name")
+  #|//entity[type='Person unique']/text")
+  @disambiguatedperson = entities.xpath("//entity[type='Person']/disambiguated/name|//entity[type='Person unique']/disambiguated/name")
+  #|//entity[type='Person']/text")
+  #@dperson = entities.xpath("//entity[type='Person']/disambiguated/name|//entity[type='Person unique']/disambiguated/name")
+  #@dperson_unique = entities.xpath("//entity[type='Person unique']/disambiguated/name")
   @organisation = entities.xpath("//entity[type='Organization']/text") 
   @company = entities.xpath("//entity[type='Company']/text") 
   @facility = entities.xpath("//entity[type='Facility']/text") 
+  @continent = entities.xpath("//entity[type='Continent']/text") 
+  @region = entities.xpath("//entity[type='Region']/text") 
   @country = entities.xpath("//entity[type='Country']/text") 
+  @StateOrCounty = entities.xpath("//entity[type='StateOrCounty']/text") 
   @city = entities.xpath("//entity[type='City']/text") 
   #Distinct Terminologies
   @fieldterminology = entities.xpath("//entity[type='FieldTerminology']/text") 
@@ -169,24 +175,26 @@ class URLGetRankedEntities
  end
 
  def persons
-  #lets grab all the persons, deduplicate and convert to comma seperated array
+  #lets grab all the persons, disambiguate, deduplicate and finally convert to comma seperated array
+  #later we will need to think about retaining these as hashes to pass back into the item itself
 
   @persons = ''
 
+  #test = @person.xpath(//text)
+
+
   #this simply joins the text
-  @d = @dperson|@dperson_unique
-  @dd = @d.to_s.split(/<name>/)
-  @ddd = @dd.to_s.split(/<\/name>/)
+  @dp = @disambiguatedperson.to_s.split(/<name>/)
+  @disambiguatedpersons = @dp.to_s.split(/<\/name>/)
 
-  @p = @person|@person_unique
-  @pp = @p.to_s.split(/<text>/)
-  @ppp = @pp.to_s.split(/<\/text>/)
+  @psu = @person_unique.to_s.split(/<name>/)
+  @pu = @psu.to_s.split(/<\/name>/)
 
-  @dp = @ddd|@ppp
+  @pup = @pu|@p
 
   a = Hash.new(0)
 
-  @ddd.each do |v|
+  @disambiguatedpersons.each do |v|
    a[v] += 1
   end
 
@@ -201,7 +209,7 @@ class URLGetRankedEntities
     @persons << ','
    end
   end
-
+  #return pp
   return @persons
  end
 
@@ -237,7 +245,7 @@ class URLGetRankedEntities
 
   @locations = ''
 
-  @pop = @country|@city
+  @pop = @continent|@region|@country|@StateOrCounty|@city
 
   @p = @pop.to_s.split(/<text>/)
   @pp = @p.to_s.split(/<\/text>/)
