@@ -1,5 +1,5 @@
 -content_for :trends do
-  = render :partial => "shared/trending_topics", :object => @tag_cloud
+  = render :partial => "discussion_topics", :object => @discussions
 
 -feed_url = url_for(:format => "atom", :tags => params[:tags])
 
@@ -37,7 +37,7 @@
         = render :partial => "shared/tag_list", :object => @tag_cloud
 
 
-  = render :partial => "searches/search_box"
+
 
 /Bookmarks
 -content_for :main do

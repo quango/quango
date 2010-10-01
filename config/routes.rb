@@ -174,8 +174,8 @@ def build_discussions_routes(router, options ={})
       end
     end
   end
-  map.connect 'discussions/topic/:tags', :controller => :bookmarks, :action => :index,:requirements => {:tags => /\S+/}
-  map.connect 'discussions/unanswered/tags/:tags', :controller => :bookmarks, :action => :unanswered
+  map.connect 'discussion/topics/:tags', :controller => :discussions, :action => :index,:requirements => {:tags => /\S+/}
+  map.connect 'discussions/unanswered/tags/:tags', :controller => :discussions, :action => :unanswered
 
   build_discussions_routes(map)
   build_discussions_routes(map, :path_prefix => '/:language', :name_prefix => "with_language_") #deprecated route

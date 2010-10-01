@@ -1,5 +1,5 @@
 -content_for :trends do
-  = render :partial => "shared/trending_topics", :object => @tag_cloud
+  = render :partial => "bookmark_topics", :object => @tag_cloud
 
 -feed_url = url_for(:format => "atom", :tags => params[:tags])
 
@@ -7,21 +7,6 @@
   %link{:rel=>"alternate", :type=>"application/atom+xml", :title => "atom", :href=> url_for(:format => "atom", :tags => params[:tags])}
   %link{:rel=>"alternate", :type=>"application/atom+xml", :title => "atom", :href=> url_for(:format => "atom")}
 
--content_for :subtabs do
-  .navtitle
-    = t(".title")
-    -if @bookmarks
-      == (#{@bookmarks.total_entries})
-
-  %ul
-    %li.newest
-      = link_to t("bookmarks.index.newest"), bookmarks_path(:sort=>"newest"), :title => t("bookmarks.index.newest_tooltip")
-    %li.hot
-      = link_to t("bookmarks.index.hot"), bookmarks_path(:sort=>"hot"), :title => t("bookmarks.index.hot_tooltip"), :rel => "nofollow"
-    %li.votes
-      = link_to t("bookmarks.index.votes"), bookmarks_path(:sort=>"votes"), :title =>  t("bookmarks.index.votes_tooltip"), :rel => "nofollow"
-    %li.activity
-      = link_to t("bookmarks.index.active"), bookmarks_path(:sort=>"activity"), :title => t("bookmarks.index.active_tooltip"), :rel => "nofollow"
 
 
 -content_for :sidebar do
@@ -36,24 +21,50 @@
       .content
         = render :partial => "shared/tag_list", :object => @tag_cloud
 
+-content_for :subtabs do
+  .navtitle
+    = t(".title")
+    %button.right
+      = "&#9733;"
+  .clear
+  .subtabs
+    %ul
+      %li.newest
+        = link_to t("bookmarks.index.newest"), bookmarks_path(:sort=>"newest"), :title => t("bookmarks.index.newest_tooltip")
+      %li.hot
+        = link_to t("bookmarks.index.hot"), bookmarks_path(:sort=>"hot"), :title => t("bookmarks.index.hot_tooltip"), :rel => "nofollow"
+      %li.votes
+        = link_to t("bookmarks.index.votes"), bookmarks_path(:sort=>"votes"), :title =>  t("bookmarks.index.votes_tooltip"), :rel => "nofollow"
+      %li.activity
+        = link_to t("bookmarks.index.active"), bookmarks_path(:sort=>"activity"), :title => t("bookmarks.index.active_tooltip"), :rel => "nofollow"
 
-  = render :partial => "searches/search_box"
+
 
 /Bookmarks
 -content_for :main do
+  #inner{:style=>'width:468px;'}
+    .secondary-navigation{:class => @active_subtab.to_s}
+      = yield :subtabs
+      .clear
+    .content
+      %p.markdown
+        = show_flash_messages(:class => "flash", :markdown => true)
+        = render :partial => "shared/ads/content_ads"
+        .inner
+          = yield
+          .clear
+    %ul.items#bookmarks
+      -if @bookmarks.empty?
+        %li.highlight
+          = t(".empty")
+      -@bookmarks.each do |bookmark|
+        = render :partial => "bookmark", :object => bookmark
 
-  %ul.items#bookmarks
-    -if @bookmarks.empty?
-      %li.highlight
-        = t(".empty")
-    -@bookmarks.each do |bookmark|
-      = render :partial => "bookmark", :object => bookmark
+    #additional_info
+      =will_paginate @bookmarks
 
-  #additional_info
-    =will_paginate @bookmarks
+    #help_us
+      = t(".help_to_answer")
+      =link_to t(".unanswered_bookmarks"), unanswered_bookmarks_path
 
-  #help_us
-    = t(".help_to_answer")
-    =link_to t(".unanswered_bookmarks"), unanswered_bookmarks_path
-
-  .clear
+    .clear
