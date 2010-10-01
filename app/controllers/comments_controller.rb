@@ -123,15 +123,21 @@ class CommentsController < ApplicationController
   end
 
   def find_scope
-    @question = Question.by_slug(params[:question_id])
-    @answer = @question.answers.find(params[:answer_id]) unless params[:answer_id].blank?
+    if Question
+      @question = Question.by_slug(params[:question_id])
+      @answer = @question.answers.find(params[:answer_id]) unless params[:answer_id].blank?    
+    end
+    if Discussion
+      @discussion = Discussion.by_slug(params[:discussion_id])
+      @answer = @discussion.answers.find(params[:answer_id]) unless params[:answer_id].blank?
+    end
   end
 
   def scope
     unless @answer.nil?
       @answer
     else
-      @question
+      @discussion
     end
   end
 

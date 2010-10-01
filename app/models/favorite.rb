@@ -11,11 +11,14 @@ class Favorite
   key :question_id, String
   belongs_to :question
 
+  key :discussion_id, String
+  belongs_to :discussion
+
   validate :should_be_unique # FIXME
 
   protected
   def should_be_unique
-    favorite = Favorite.first({:question_id => self.question_id,
+    favorite = Favorite.first({:question_id => self.question_id,:discussion_id => self.discussion_id,
                                 :user_id     => self.user_id,
                                 :group_id    => self.group_id
                                })

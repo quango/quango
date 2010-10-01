@@ -24,7 +24,7 @@
       = "current_stage: " << @current_stage << "<br/>"
       = render :partial => "#{@current_stage}", :object => @current_stage, :locals => {:f => f}
       =#render :partial => "form", :locals => {:f => f}
-
+      =f.submit t('scaffold.create')
 
 
 

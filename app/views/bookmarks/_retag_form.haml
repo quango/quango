@@ -1,0 +1,5 @@
+- form_for @bookmark, :url => retag_to_bookmark_path(@bookmark.id), :html => {:class => "form retag-form"} do |f|
+  = f.label :tags, "#{t(:tags, :scope => "activerecord.attributes.bookmark")}", :class => "label"
+  = f.text_field :tags, :value => @bookmark.tags.join(", "), :class => "text_field autocomplete_for_tags"
+  = submit_tag t(".submit")
+  = link_to t('.cancel'), bookmark_path(@bookmark), :class => 'cancel-retag'

@@ -1,0 +1,30 @@
+-content_for :stuff do
+
+  = "Mode:<br/>"
+  = "<a href='/discussions/new'>New Link</a><br/>"
+  = "<a href='/discussions/new'>New Discussion</a>"
+
+
+-content_for :subtabs do
+  .navtitle
+    = t(".title")
+-content_for :sidebar do
+  -if !current_group.discussion_help.empty?
+    .help
+      %h4
+        = t(".how_to_ask")
+      =current_group.discussion_help
+
+
+-content_for :main do
+  - form_for(@discussion, :html=>{:class => "form", :id => "ask_discussion"}) do |f|
+    =render :partial => "form", :locals => {:f => f}
+
+    .group.navform
+      .right
+        = f.label :wiki, "Wiki", :class => "radio"
+        = f.check_box :wiki, :class => "checkbox"
+
+      = f.submit t('scaffold.create')
+      = t("global.or")
+      = link_to t('scaffold.cancel'), discussions_path, :class => "button cancel"

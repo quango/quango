@@ -4,6 +4,7 @@ class MembersController < ApplicationController
   before_filter :login_required, :except => [:index, :show]
   before_filter :check_permissions, :only => [:create, :update, :edit, :destroy]
   tabs :default => :members
+  helper :channels
 
   def index
     @group = current_group

@@ -1,0 +1,287 @@
+-content_for :trends do
+  = render :partial => "shared/trending_topics", :object => @tag_cloud
+
+= javascript_include_merged :show
+
+- @current_class = 'bookmark hentry entry post'
+
+- show_close_request_form = !@bookmark.closed && logged_in? && @bookmark.can_be_requested_to_close_by?(current_user)
+- show_open_request_form = @bookmark.closed && logged_in? && @bookmark.can_be_requested_to_open_by?(current_user)
+
+- if logged_in?
+  - if current_user.mod_of?(current_group) && @bookmark.closed
+    - show_close_request_form = (@bookmark.close_reason.user_id == current_user.id)
+  - @flag = current_user.has_flagged?(@bookmark) || Flag.new
+
+- @flag ||= Flag.new
+
+- if show_open_request_form
+  - @open_request = current_user.has_requested_to_open?(@bookmark) || OpenRequest.new
+
+- if show_close_request_form
+  - @close_request = @bookmark.close_requests.detect{ |rq| rq.user_id == current_user.id } || CloseRequest.new(:reason => "dupe")
+
+- bookmark_body = find_and_preserve(shapado_auto_link(markdown(@bookmark.body.present? ? @bookmark.body : @bookmark.title)))
+
+- content_for :head do
+  %meta{:name => "keywords", :content => clean_seo_keywords(@bookmark.tags.dup, @bookmark.title)}
+  %meta{:name => "description", :content => bookmark_body.gsub(/<\/?[^>]*>/, "")[0, 255] }
+  %link{:rel => "canonical", :href => bookmark_url(@bookmark) }
+
+- content_for :subtabs do
+  %h1.navtitle.title.entry-title
+    &= @bookmark.title
+    - if @bookmark.closed
+      =" [#{t("closed", :scope => "activerecord.attributes.bookmark").upcase}]"
+
+- source = bookmark_path(@bookmark)
+= error_messages_for 'answer'
+
+- content_for :main do
+
+  #bookmark-vote-col
+    - if current_user && @bookmark.watch_for?(current_user)
+      = link_to image_tag("layer-visible-on.png", 'data-src' => "/images/layer-visible-off.png"), unwatch_bookmark_path(@bookmark), :class => 'bookmark-action', "data-undo" =>  watch_bookmark_path(@bookmark), "data-title" => t(".watch_tooltip"), :title => t(".unwatch_tooltip"), :id => "watch-bookmark"
+    - else
+      = link_to image_tag("layer-visible-off.png", 'data-src' => "/images/layer-visible-on.png"), watch_bookmark_path(@bookmark), :title => t(".watch_tooltip"), :class => 'bookmark-action', "data-undo" =>  unwatch_bookmark_path(@bookmark), "data-title" => t(".unwatch_tooltip"), :id => "watch-bookmark"
+
+    =vote_box(@bookmark, bookmark_path(@bookmark), @bookmark.closed)
+
+    - if logged_in? && favorite = current_user.favorite(@bookmark)
+      = link_to image_tag("favorites.png", 'data-src' => "/images/unfavorites.png"), unfavorite_bookmark_path(@bookmark), :id => "unfavorite-link", :title => t(".unfavorite_tooltip"), :class => 'bookmark-action', "data-undo" =>  favorite_bookmark_path(@bookmark), "data-title" => t(".favorite_tooltip"), 'data-counter' => '.favorites_count'
+    - else
+      = link_to image_tag("unfavorites.png", 'data-src' => "/images/favorites.png"), favorite_bookmark_path(@bookmark), :id => "favorite-link", :title => t(".favorite_tooltip"), :class => 'bookmark-action', "data-undo" =>  unfavorite_bookmark_path(@bookmark), "data-title" => t(".unfavorite_tooltip"), 'data-counter' => '.favorites_count'
+    .favorites_count
+      &= @bookmark.favorites_count
+
+
+  #bookmark-body-col.commentable.markdown
+    %a{:name => @bookmark.id}
+    #body
+      - if @bookmark.closed && @bookmark.close_reason
+        #close_reason
+          = t(".close_reason")
+          = t(@bookmark.close_reason.reason, :scope=>"close_requests.form")
+          - if !@bookmark.close_reason.comment.empty?
+            .comment
+              =find_and_preserve(shapado_auto_link(@bookmark.close_reason.comment))
+      .post-text.entry-content
+        = bookmark_body
+    .tag-list
+      - @bookmark.tags.each do |tag|
+        %span.tag
+          = link_to h(tag), url_for(:controller => "bookmarks", :action => "index", :tags => tag), :rel => "tag"
+      - if logged_in? && (current_user.can_modify?(@bookmark) || current_user.can_retag_others_bookmarks_on?(current_group))
+        %span.retag
+          = link_to t('.retag'), retag_bookmark_path(@bookmark), :id => 'retag'
+    .post-info
+      .author.user_info.vcard
+        .gravatar.logo
+          = gravatar(@bookmark.user.email.to_s, :size => 32)
+        .user_data
+          %span.asked_by
+            = t('activerecord.attributes.bookmark.asked_by')
+          =render :partial => "users/user_mini", :locals => {:user => @bookmark.user}
+          %span.time_ago.published{:title => @bookmark.created_at, :class => "relativetime"}
+            = t("time.ago", :time => time_ago_in_words(@bookmark.created_at))
+            - if @bookmark.wiki
+              .wiki_flag
+                wiki
+          %span.adr
+            - if !@bookmark.user.hide_country
+              %span.country-name
+                = t("global.from", :site => @bookmark.user.country_name)
+                = country_flag(@bookmark.user.country_code, @bookmark.user.country_name)
+        .clear
+      - if @bookmark.updated_by.present?
+        .user_info
+          .gravatar.logo
+            = gravatar(@bookmark.updated_by.email.to_s, :size => 32)
+          .user_data
+            %span.asked_by
+              = t('activerecord.attributes.bookmark.updated_by')
+            =render :partial => "users/user_mini", :locals => {:user => @bookmark.updated_by}
+            %span.time_ago.published{:title => @bookmark.updated_at, :class => "relativetime"}
+              = t("time.ago", :time => time_ago_in_words(@bookmark.updated_at))
+            %span.adr
+              - if !@bookmark.updated_by.hide_country
+                %span.country-name
+                  = t("global.from", :site => @bookmark.updated_by.country_name)
+                  = country_flag(@bookmark.updated_by.country_code, @bookmark.updated_by.country_name)
+          .clear
+    .controls
+      .actions
+        - if !@flag.new?
+          .flagged
+            = "#{t('.flagged_as')} #{t(@flag.reason, :scope=>'flags.form')}"
+            = link_to t("scaffold.edit"), edit_bookmark_flag_path(@bookmark,@flag), :class => "flag-link", :id => "edit_bookmark_flag_link", :rel => 'nofollow'
+            = link_to t("scaffold.destroy"), bookmark_flag_path(@bookmark,@flag), :id => "destroy_bookmark_flag_link", :rel => 'nofollow', :confirm => "are you sure?", :method => :delete
+        - elsif logged_in? && current_user != @bookmark.user
+          = link_to t(".flag"), new_bookmark_flag_path(@bookmark), :class => "flag-link", :id => "bookmark_flag_link", :rel => 'nofollow'
+
+        - if logged_in?
+          - if show_close_request_form
+            -if !@close_request.new?
+              .flagged
+                = "#{t('.requested_close_as')} #{t(@close_request.reason, :scope=>'close_requests.form')}"
+                = link_to t(".edit_request"), edit_bookmark_close_request_path(@bookmark,@close_request), :class => "flag-link", :id => "edit_bookmark_close_request_link", :rel => 'nofollow'
+                = link_to t(".retract_request"), bookmark_close_request_path(@bookmark,@close_request), :id => "destroy_bookmark_close_request_link", :rel => 'nofollow', :confirm => "are you sure?", :method => :delete
+            = link_to t(".request_closing"), @close_request.new? ? new_bookmark_close_request_path(@bookmark) : edit_bookmark_close_request_path(@bookmark, @close_request), :id => "request-close-link", :rel => 'nofollow', :title => t('.request_closing_details')
+
+          - if show_open_request_form
+            -if !@open_request.new?
+              .flagged
+                = "#{t('.requested_reopening')} #{@open_request.comment}"
+                = link_to t(".edit_request"), edit_bookmark_open_request_path(@bookmark, @open_request), :class => "flag-link", :id => "edit_bookmark_open_request_link", :rel => 'nofollow'
+                = link_to t(".retract_request"), bookmark_open_request_path(@bookmark,@open_request), :id => "destroy_bookmark_open_request_link", :rel => 'nofollow', :confirm => "are you sure?", :method => :delete
+
+            -if current_user.mod_of?(current_group)
+              = link_to t(".open"), open_bookmark_path(@bookmark), :rel => 'nofollow', :title => t('.request_opening_details'), :method => "put"
+            -else
+              = link_to t(".request_opening"), new_bookmark_open_request_path(@bookmark), :id => "request-open-link", :rel => 'nofollow', :title => t('.request_opening_details')
+
+          - if (@bookmark.wiki && current_user.can_edit_wiki_post_on?(@bookmark.group)) || current_user.can_edit_others_posts_on?(@bookmark.group) || current_user.can_modify?(@bookmark)
+            = link_to t('scaffold.edit'), edit_bookmark_path(@bookmark), :class => "button"
+          - if @bookmark.versions.count > 0
+            = link_to t(".history", :default => "history"), history_bookmark_path(@bookmark)
+          - if (current_user.can_modify?(@bookmark) || current_user.owner_of?(@bookmark.group))
+            = link_to t("scaffold.destroy"), bookmark_path(@bookmark.id), :confirm => "are you sure?", :method => :delete
+          - if current_user.mod_of?(@bookmark.group)
+            -if !@bookmark.closed
+              = link_to t('.close'), bookmark_close_requests_path(@bookmark)
+            = link_to t(".ban"), ban_path(:bookmark_ids => [@bookmark.id]), :class => "button", :confirm => "are you sure?"
+      .forms
+        -# render :partial => "flags/form", :locals => {:flag => @flag, :flaggeable => @bookmark, :source => source, :form_id => "bookmark_flag_form" }
+
+        -# if !@bookmark.closed && show_close_request_form
+          -#= render :partial => "close_requests/form", :locals => { :bookmark => @bookmark, :close_request => @close_request, :hide => true, :form_id => "request_close_bookmark_form"}
+
+    - if logged_in?
+      = link_to t("comments.shared.add_comment"), new_bookmark_comment_path(@bookmark), :id => "add_comment_link", :rel => 'nofollow'
+
+    .comments
+      -@bookmark.comments.each do |comment|
+        = render :partial => "comments/comment", :object => comment, :locals => {:source => source, :mini => true}
+    .clear
+    .forms
+      .comment-form-bookmark
+        -form_tag bookmark_comments_path(@bookmark), :class => "form commentForm nestedAnswerForm", :id => "add_comment_form" do
+          -@comment = Comment.new
+          = render :partial => "comments/form", :locals => {:source => source, :commentable => @bookmark}
+          .group.navform
+            = submit_tag t("comments.shared.comment_submit"), :class => "button"
+            = t("global.or")
+            = link_to t('scaffold.cancel'), '', :class => 'cancel_comment'
+
+%a{:name=>"answers"}
+#answers
+  .secondary-navigation{:class => @active_subtab.to_s}
+    .navtitle
+      = t(".answers_title", :count => @answers.total_entries + (@bookmark.accepted ? 1 : 0))
+
+    %ul
+      %li.newest
+        = link_to t("bookmarks.index.newest"), bookmark_path(@bookmark, :sort=>"newest", :anchor => "answers"), :rel => "nofollow"
+      %li.votes
+        = link_to t("bookmarks.index.votes"), bookmark_path(@bookmark, :sort=>"votes", :anchor => "answers"), :rel => "nofollow"
+      %li.oldest
+        = link_to t("bookmarks.index.oldest"), bookmark_path(@bookmark, :sort=>"oldest", :anchor => "answers"), :rel => "nofollow"
+    .clear
+  .block
+    - if @bookmark.accepted
+      -solution = @bookmark.answer
+      =render :partial=> "answer", :locals=> {:bookmark => @bookmark, :answer => solution} unless solution.nil?
+    .hentry
+      -@answers.each do |answer|
+        =render :partial=> "answer", :locals=> {:bookmark => @bookmark, :answer => answer}
+    =will_paginate(@answers)
+
+-unless @bookmark.closed
+  %a{:name=>"to_answer"}
+  -form_for @answer, :url => bookmark_answers_path(@bookmark.id), :html => {:class => "form mainAnswerForm"} do |f|
+    = render :partial => "answers/form", :locals => {:f => f, :markdown => true}
+    .group.navform
+      .right
+        = f.label :wiki, "Wiki", :class => "radio"
+        = f.check_box :wiki, :class => "checkbox"
+      = submit_tag t('answers.form.submit'), :class => "button"
+    .clear
+
+-content_for :sidebar do
+  - if AppConfig.enable_sharing
+    .block
+      %h3
+        = t(".share")
+      .content
+        = render :partial => "share"
+      .clear
+
+  - if logged_in? && (current_user.mod_of?(current_group) || current_user.can_view_offensive_counts_on?(current_group))
+    -unless @bookmark.flags.count == 0
+      .block
+        %h3
+          = t(:flags, :scope => "activerecord.models")
+        .content
+          = render :partial => "flags/list", :locals => {:flaggeable => @bookmark}
+
+    -unless @bookmark.close_requests.size == 0
+      .block
+        %h3
+          = t(:prural_name, :scope => "close_requests.model")
+        .content
+          = render :partial => "close_requests/list", :locals => {:bookmark => @bookmark}
+
+    -unless @bookmark.open_requests.size == 0
+      .block
+        %h3
+          = t(:prural_name, :scope => "open_requests.model")
+        .content
+          = render :partial => "open_requests/list", :locals => {:bookmark => @bookmark}
+
+  .block
+    %h3
+      = t('.tags', :default => [:"layouts.application.tags", :"activerecord.attributes.user.tags", "tags"])
+    = render :partial => "shared/tag_list", :object => @tag_cloud, :locals => { :extra_params => {:controller => "bookmarks", :action => "index"} }
+    .clear
+
+  - if @bookmark.badges.size > 0
+    .block
+      %h3
+        = t('badges', :scope => "activerecord.models")
+      .content
+        %ul.list
+          -@bookmark.badges.each do |badge|
+            %li
+              = render :partial => "badges/badge", :object => badge, :locals => {:hide_user => false}
+
+  .block.stats
+    - if @bookmark.group_id != current_group.id
+      = t(".asked_on")
+      &= @bookmark.group.name
+
+    .entry
+      .text.asked
+        = t('activerecord.attributes.bookmark.created_at')
+        .data
+          = t("time.ago", :time => time_ago_in_words(@bookmark.created_at))
+    .entry
+      .text.viewed
+        = t('.viewed')
+      .data
+        = t('number.x_time', :count => number_with_delimiter(@bookmark.views_count))
+    .entry
+      .text.last_activity
+        = t(".last_activity")
+      .data.updated{:title => @bookmark.activity_at, :class => "relativetime"}
+        = t("time.ago", :time => time_ago_in_words(@bookmark.activity_at))
+
+  -related_bookmarks = Bookmark.related_bookmarks(@bookmark, :language => find_languages)
+  - if !related_bookmarks.empty?
+    .block
+      %h3
+        =t(".related_bookmarks")
+      .content
+        %ul.list
+          -related_bookmarks.each do |rq|
+            %li
+              = link_to h(rq.title), bookmark_path(rq), :title => truncate(strip_tags(rq.body), :length => 200)

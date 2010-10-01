@@ -1,0 +1,9 @@
+%ul.share
+  %li
+    = link_to(image_tag('/images/share/twitter_32.png', :class => 'microblogging'),share_url(@discussion, :twitter), :rel=>"external nofollow", :title => t("discussions.show.share_on", :site => "twitter"))
+  %li
+    = link_to(image_tag('/images/share/linkedin_32.png', :class => 'microblogging'),share_url(@discussion, :linkedin), :rel=>"external nofollow", :title => t("discussions.show.share_on", :site => "linked in"))
+  %li
+    = link_to(image_tag('/images/share/think_32.png', :class => 'microblogging'),share_url(@discussion, :think), :rel=>"external nofollow", :title => t("discussions.show.share_on", :site => "think.it"))
+  %li
+    = share_url(@discussion, :facebook) #Todo: Fix this

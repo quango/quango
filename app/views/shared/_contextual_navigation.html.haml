@@ -8,10 +8,12 @@
         =link_to t("layouts.application.wires"), questions_path #{:tags => @active_tag}
       %li.questions
         =link_to t("layouts.application.questions"), questions_path
+      %li.discussions
+        =link_to t("layouts.application.discussions"), discussions_path
+      %li.links
+        =link_to t("layouts.application.bookmarks"), bookmarks_path, :options => current_tags
       %li.users
         =link_to t("layouts.application.users"), users_path
-      %li.links
-        =link_to t("layouts.application.links"), links_path, :options => current_tags
       %li.pages.last
         =link_to t("layouts.application.pages"), pages_path
       %li
@@ -29,10 +31,12 @@
         =link_to t("layouts.application.wires"), questions_path #{:tags => @active_tag}
       %li.questions
         =link_to t("layouts.application.questions"), questions_path
+      %li.discussions
+        =link_to t("layouts.application.discussions"), discussions_path
+      %li.links
+        =link_to t("layouts.application.bookmarks"), bookmarks_path
       %li.users
         =link_to t("layouts.application.users"), users_path
-      %li.links
-        =link_to t("layouts.application.links")#, links_path
       %li.pages.last
         =link_to t("layouts.application.pages"), pages_path
       %li

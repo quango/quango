@@ -14,6 +14,9 @@ class Question
   key :bookmark, String
   key :title, String, :required => true
   key :body, String
+  key :persons, String
+  key :locations, String
+
   slug_key :title, :unique => true, :min_length => 8
   key :slugs, Array, :index => true
 
@@ -100,6 +103,18 @@ class Question
     end
 
     self[:tags] = t
+  end
+
+  def first_locations
+    locations[0..5]
+  end
+
+  def locations=(l)
+    if l.kind_of?(String)
+      l = l.downcase.split(",").join(" ").split(" ").uniq
+    end
+
+    self[:locations] = l
   end
 
   def self.related_questions(question, opts = {})

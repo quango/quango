@@ -1,0 +1,19 @@
+
+-content_for :subtabs do
+  .navtitle
+    = t(".title", :title => h(@bookmark.title))
+
+#move_bookmark
+  .markdown{:style => "width: 92%"}
+    = markdown(@bookmark.body)
+
+  .tag-list
+    -@bookmark.tags.each do |tag|
+      %span.tag
+        = link_to h(tag), url_for(:controller => "bookmarks", :action => "index", :tags => tag), :rel => "tag"
+  %div
+    %b
+      = t("bookmarks.show.asked_on")
+      = link_to h(@bookmark.group.name), domain_url(:custom => @bookmark.group.domain)
+
+  = render :partial => "bookmarks/retag_form"

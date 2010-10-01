@@ -277,6 +277,50 @@ module ApplicationHelper
     klass
   end
 
+  def class_for_bookmark(bookmark)
+    klass = ""
+
+    if bookmark.accepted
+      klass << "accepted"
+    elsif !bookmark.answered
+      klass << "unanswered"
+    end
+
+    if logged_in?
+      if current_user.is_preferred_tag?(current_group, *bookmark.tags)
+        klass << " highlight"
+      end
+
+      if current_user == bookmark.user
+        klass << " own_bookmark"
+      end
+    end
+
+    klass
+  end
+
+  def class_for_discussion(discussion)
+    klass = ""
+
+    if discussion.accepted
+      klass << "accepted"
+    elsif !discussion.answered
+      klass << "unanswered"
+    end
+
+    if logged_in?
+      if current_user.is_preferred_tag?(current_group, *discussion.tags)
+        klass << " highlight"
+      end
+
+      if current_user == discussion.user
+        klass << " own_discussion"
+      end
+    end
+
+    klass
+  end
+
   def googlean_script(analytics_id, domain)
     "<script type=\"text/javascript\">
        var _gaq = _gaq || [];

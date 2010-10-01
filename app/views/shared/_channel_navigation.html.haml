@@ -22,9 +22,9 @@
 
   #navigation
     %ul
-      -if !current_group.has_custom_channels
-        -cache("autochannel_#{current_group.id}") do
-          = self.autochannel
+      -#if !current_group.has_custom_channels
+        -#cache("autochannel_#{current_group.id}") do
+          =# self.autochannel
       %li.welcome
         = link_to ("..."), domain_url(:custom => current_group.domain)
   .clear

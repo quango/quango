@@ -2,17 +2,18 @@ en:
   layouts:
     application:
       title: "Community Engine"
-      questions: Discussions
-      questions_in: Discussions in
+      questions: Questions
+      questions_in: Questions in
       questions_tagged: tagged with
-      ask_question: Start discussion
+      ask_question: Ask question
+      discussions: Discussions
       tags: Topics
       users: Members
-      wires: Newswire
+      wires: The Newswires
       badges: Badges
-      links: Bookmarks
+      bookmarks: Bookmarks
       unanswered: Nada
-      pages: Pages
+      pages: (Pages)
       logout: Logout
       logged: Logged in as %{login}
       search: Search

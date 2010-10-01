@@ -37,10 +37,10 @@ ActionController::Routing::Routes.draw do |map|
 
   #map.resources :links
   #map.resources :links, :controller => :links, :as => "bookmarks"
-  map.links 'bookmarks/signup', :controller => :links, :action => :signup #:requirements => {:tags => /\S+/}
-  map.links 'bookmarks/new', :controller => :links, :action => :new #:requirements => {:tags => /\S+/}
-  map.links 'bookmarks/:tags', :controller => :links, :action => :index,:requirements => {:tags => /\S+/}
-  map.links 'bookmarks', :controller => :links, :as => "bookmarks"
+  #map.bookmarks 'bookmarks/signup', :controller => :bookmarks, :action => :signup #:requirements => {:tags => /\S+/}
+  #map.bookmarks 'bookmarks/new', :controller => :bookmarks, :action => :new #:requirements => {:tags => /\S+/}
+  #map.bookmarks 'bookmarks/:tags', :controller => :bookmarks, :action => :index,:requirements => {:tags => /\S+/}
+  #map.bookmarks 'bookmarks', :controller => :bookmarks
 
   #map.channels :channels
   map.channels 'channels/:tags', :controller => :channels, :action => :index,:requirements => {:tags => /\S+/}
@@ -85,14 +85,101 @@ ActionController::Routing::Routes.draw do |map|
       end
     end
   end
-  map.resources :questions, :as => "discussions"
+  #map.resources :questions, :as => "discussions"
 
-
-  map.connect 'discussion/topic/:tags', :controller => :questions, :action => :index,:requirements => {:tags => /\S+/}
-  map.connect 'discussions/unanswered/tags/:tags', :controller => :questions, :action => :unanswered
+  map.connect 'questions/topic/:tags', :controller => :questions, :action => :index,:requirements => {:tags => /\S+/}
+  map.connect 'questions/unanswered/tags/:tags', :controller => :questions, :action => :unanswered
 
   build_questions_routes(map)
   build_questions_routes(map, :path_prefix => '/:language', :name_prefix => "with_language_") #deprecated route
+
+  #Bookmarks
+def build_bookmarks_routes(router, options ={})
+    router.with_options(options) do |route|
+      route.se_url "/bookmarks/:id/:slug", :controller => "bookmarks", :action => "show", :id => /\d+/,
+ :conditions => { :method => :get }
+      route.resources :bookmarks, :collection => {:tags => :get,
+                                                  :tags_for_autocomplete => :get,
+                                                  :unanswered => :get,
+                                                  :related_questions => :get},
+                                :member => {:solve => :get,
+                                            :unsolve => :get,
+                                            :favorite => :any,
+                                            :unfavorite => :any,
+                                            :watch => :any,
+                                            :unwatch => :any,
+                                            :history => :get,
+                                            :revert => :get,
+                                            :diff => :get,
+                                            :move => :get,
+                                            :move_to => :put,
+                                            :retag => :get,
+                                            :retag_to => :put,
+                                            :close => :put,
+                                            :open => :put} do |bookmarks|
+        bookmarks.resources :comments
+        bookmarks.resources :answers, :member => {:history => :get,
+                                                  :diff => :get,
+                                                  :revert => :get} do |answers|
+          answers.resources :comments
+          answers.resources :flags
+        end
+        bookmarks.resources :flags
+        bookmarks.resources :close_requests
+        bookmarks.resources :open_requests
+      end
+    end
+  end
+  map.connect 'bookmarks/topic/:tags', :controller => :bookmarks, :action => :index,:requirements => {:tags => /\S+/}
+  map.connect 'bookmarks/unanswered/tags/:tags', :controller => :bookmarks, :action => :unanswered
+
+  build_bookmarks_routes(map)
+  build_bookmarks_routes(map, :path_prefix => '/:language', :name_prefix => "with_language_") #deprecated route
+
+
+  #Discussions
+def build_discussions_routes(router, options ={})
+    router.with_options(options) do |route|
+      route.se_url "/discussions/:id/:slug", :controller => "discussions", :action => "show", :id => /\d+/,
+ :conditions => { :method => :get }
+      route.resources :discussions, :collection => {:tags => :get,
+                                                  :tags_for_autocomplete => :get,
+                                                  :unanswered => :get,
+                                                  :related_discussions => :get},
+                                :member => {:solve => :get,
+                                            :unsolve => :get,
+                                            :favorite => :any,
+                                            :unfavorite => :any,
+                                            :watch => :any,
+                                            :unwatch => :any,
+                                            :history => :get,
+                                            :revert => :get,
+                                            :diff => :get,
+                                            :move => :get,
+                                            :move_to => :put,
+                                            :retag => :get,
+                                            :retag_to => :put,
+                                            :close => :put,
+                                            :open => :put} do |discussions|
+        discussions.resources :comments
+        discussions.resources :answers, :member => {:history => :get,
+                                                  :diff => :get,
+                                                  :revert => :get} do |answers|
+          answers.resources :comments
+          answers.resources :flags
+        end
+        discussions.resources :flags
+        discussions.resources :close_requests
+        discussions.resources :open_requests
+      end
+    end
+  end
+  map.connect 'discussions/topic/:tags', :controller => :bookmarks, :action => :index,:requirements => {:tags => /\S+/}
+  map.connect 'discussions/unanswered/tags/:tags', :controller => :bookmarks, :action => :unanswered
+
+  build_discussions_routes(map)
+  build_discussions_routes(map, :path_prefix => '/:language', :name_prefix => "with_language_") #deprecated route
+
 
   map.resources :groups, :member => {:accept => :get,
                                      :close => :get,

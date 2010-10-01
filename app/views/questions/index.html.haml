@@ -38,19 +38,20 @@
 
 = render :partial => "searches/search_box"
 
-/Questions
-%ul.items#questions
-  -if @questions.empty?
-    %li.highlight
-      = t(".empty")
-  -@questions.each do |question|
-    = render :partial => "question", :object => question
+-content_for :main do
 
-#additional_info
-  =will_paginate @questions
+  %ul.items#questions
+    -if @questions.empty?
+      %li.highlight
+        = t(".empty")
+    -@questions.each do |question|
+      = render :partial => "question", :object => question
 
-  #help_us
-    = t(".help_to_answer")
-    =link_to t(".unanswered_questions"), unanswered_questions_path
+  #additional_info
+    =will_paginate @questions
 
-  .clear
+    #help_us
+      = t(".help_to_answer")
+      =link_to t(".unanswered_questions"), unanswered_questions_path
+
+    .clear

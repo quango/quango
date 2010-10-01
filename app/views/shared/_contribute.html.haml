@@ -1,3 +1,7 @@
+%div.discussion{:onclick => 'window.location(/bookmarks/new)'}
+  =link_to "&#9733;", '/discussions/new', :rel => 'nofollow'
+%div.bookmark{:onclick => 'window.location(/bookmarks/new)'}
+  =link_to "BM", '/bookmarks/new', :rel => 'nofollow'
+%div.question{:onclick => 'window.location('+new_question_path+')'}
+  =link_to "Q", new_question_path, :rel => 'nofollow'
 
-%div.contribute{:onclick => 'window.location('+new_question_path+')'}
-  =link_to "Contribute &#9733;", new_question_path, :rel => 'nofollow'

@@ -112,28 +112,35 @@ class URLGetRankedEntities
   endpoint = 'http://access.alchemyapi.com/calls/url/URLGetNamedEntities?apikey='+mykey+'&url='	
   options = '&disambiguate=1&linkedData=1&quotations=0&sourceText=cquery&cquery=p' # &maxRetrieve=12	
   parselink = endpoint+link+options
-  entitiesxml = Nokogiri::XML(open(parselink, "User-Agent" => "Ruby/#{RUBY_VERSION}"))
-  extractentities = entitiesxml.xpath("//entity//text") 
-  entities = entitiesxml.xpath("//entity") 
+  @entitiesxml = Nokogiri::XML(open(parselink, "User-Agent" => "Ruby/#{RUBY_VERSION}"))
+  extractentities = @entitiesxml.xpath("//entity//text") 
+  entities = @entitiesxml.xpath("//entity") 
 
   @entity = extractentities
 
   #Split out the different entity types into objects
   @aperson = entities.xpath("//entity[type='Person']") #
+
   @person_unique = entities.xpath("//entity[type='Person unique']/disambiguated/name")
   #|//entity[type='Person unique']/text")
   @disambiguatedperson = entities.xpath("//entity[type='Person']/disambiguated/name|//entity[type='Person unique']/disambiguated/name")
   #|//entity[type='Person']/text")
   #@dperson = entities.xpath("//entity[type='Person']/disambiguated/name|//entity[type='Person unique']/disambiguated/name")
   #@dperson_unique = entities.xpath("//entity[type='Person unique']/disambiguated/name")
+
+  # Build an object that contains all the Persons
+
+
+
+
   @organisation = entities.xpath("//entity[type='Organization']/text") 
   @company = entities.xpath("//entity[type='Company']/text") 
   @facility = entities.xpath("//entity[type='Facility']/text") 
-  @continent = entities.xpath("//entity[type='Continent']/text") 
-  @region = entities.xpath("//entity[type='Region']/text") 
-  @country = entities.xpath("//entity[type='Country']/text") 
-  @StateOrCounty = entities.xpath("//entity[type='StateOrCounty']/text") 
-  @city = entities.xpath("//entity[type='City']/text") 
+  @continent = entities.xpath("//entity[type='Continent']/disambiguated/name") 
+  @region = entities.xpath("//entity[type='Region']/disambiguated/name") 
+  @country = entities.xpath("//entity[type='Country']/disambiguated/name") 
+  @StateOrCounty = entities.xpath("//entity[type='StateOrCounty']/disambiguated/name") 
+  @city = entities.xpath("//entity[type='City']/disambiguated/name") 
   #Distinct Terminologies
   @fieldterminology = entities.xpath("//entity[type='FieldTerminology']/text") 
   @healthcondition = entities.xpath("//entity[type='HealthCondition']/text")
@@ -141,6 +148,44 @@ class URLGetRankedEntities
   @sport = entities.xpath("//entity[type='Sport']/text")
 
   @parsedlink = parselink
+ end
+
+ def entity
+  @entities = ''
+ 
+  #this simply joins the text
+  @pop = @entitiesxml
+
+  pp = Hash.new(0)
+
+  @pop.each do |entity|
+   if entity.xpath("/disambiguated")
+    pp = entity.xpath("/disambiguated/name")
+    else 
+    pp = entity.xpath("/text")
+   end
+  end
+
+  a = Hash.new(0)
+
+  @pp.each do |v|
+   a[v] += 1
+  end
+
+  a.each do |k, v|
+   puts "#{k} appears #{v} times"
+  end
+
+  a.keys.sort_by {|key|-a[key]}.each do |key|
+   if a[key]>0
+    @entities << key
+    @entities << '<sup>'+a[key].to_s+'</sup>'
+    @entities << ','
+   end
+  end
+
+  return @entities
+
  end
 
  def entities
@@ -247,8 +292,8 @@ class URLGetRankedEntities
 
   @pop = @continent|@region|@country|@StateOrCounty|@city
 
-  @p = @pop.to_s.split(/<text>/)
-  @pp = @p.to_s.split(/<\/text>/)
+  @p = @pop.to_s.split(/<name>/)
+  @pp = @p.to_s.split(/<\/name>/)
 
   a = Hash.new(0)
 
@@ -257,9 +302,9 @@ class URLGetRankedEntities
   end
 
   a.keys.sort_by {|key|-a[key]}.each do |key|
-   if a[key]>0
+   if a[key]>1
     @locations << key
-    @locations << '<sup>'+a[key].to_s+'</sup>'
+    #@locations << '<sup>'+a[key].to_s+'</sup>'
     @locations << ','
    end
   end
@@ -518,6 +563,28 @@ end
         # if no results, show default tags
         if results.empty?
           results = current_group.default_tags.map  {|tag|{:value=> tag, :caption => tag}}
+        end
+        render :json => results
+      end
+    end
+  end
+
+  def locations_for_autocomplete
+    respond_to do |format|
+      format.js do
+        result = []
+        if q = params[:locations]
+          result = Question.find_locations(/^#{Regexp.escape(q.downcase)}/i,
+                                      :group_id => current_group.id,
+                                      :banned => false)
+        end
+
+        results = result.map do |t|
+          {:caption => "#{t["name"]} (#{t["count"].to_i})", :value => t["name"]}
+        end
+        # if no results, show default locations
+        if results.empty?
+          results = current_group.default_locations.map  {|tag|{:value=> tag, :caption => tag}}
         end
         render :json => results
       end

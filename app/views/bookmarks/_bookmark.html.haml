@@ -1,0 +1,81 @@
+-title = h(bookmark.title)
+
+
+
+
+-if bookmark.closed
+  -title += " [#{t("closed", :scope => "activerecord.attributes.bookmark").upcase}]"
+
+-if !local_assigns[:mini]
+  -owner = nil
+  -if bookmark.last_target.present?
+    -last_target = bookmark.last_target
+    -if last_target.respond_to?(:updated_by) && last_target.updated_by.present?
+      -owner= last_target.updated_by
+    -else
+      -owner= last_target.user
+  -else
+    -last_target = bookmark
+    -owner = bookmark.user
+
+  %li.entry.item{:class => class_for_bookmark(bookmark)}
+    / Question Stats
+    .stats
+      .box.votes
+        .counter{:class => class_for_number(bookmark.votes_average) }
+          =format_number(bookmark.votes_average)
+      .box.answers{:class => class_for_bookmark(bookmark), :title => bookmark.accepted ? t(".accepted_tooltip") : "" }
+        .counter
+          =format_number(bookmark.answers_count)
+      .box.views
+        .counter{:class => class_for_number(bookmark.views_count) }
+          =format_number(bookmark.views_count)
+    / Question Summary
+    .summary
+      .left.vote-icon
+        -unless bookmark.closed
+          -if logged_in? && (vote = current_user.vote_on(bookmark))
+            -if vote.value < 0
+              = image_tag "edit-delete.png"
+            -else
+              = image_tag "dialog-ok-apply.png"
+          -elsif current_user != bookmark.user
+            -form_tag votes_path, :class => "vote-up-form" do
+              .fields
+                = hidden_field_tag "voteable_type", bookmark.class.name, :id => "voteable_type_#{bookmark.id}"
+                = hidden_field_tag "voteable_id", bookmark.id, :id =>  "voteable_id_#{bookmark.id}"
+                = hidden_field_tag "source", bookmarks_path, :id =>  "source_#{bookmark.id}"
+                = image_submit_tag("dialog-ok.png", :name=>"vote_up", :value=>"1", :title => t("votes.control.to_vote_up"), :class => "quick-vote-button")
+
+      -cache("bookmark_on_index_#{bookmark.id}") do
+        %h3= link_to title, bookmark_path(bookmark), :title => truncate(strip_tags(bookmark.body), :length => 200)
+        .tag-list
+          -if bookmark.tags.empty? && logged_in? && (current_user.can_modify?(@bookmark) || current_user.can_retag_others_bookmarks_on?(current_group))
+            %span.retag
+              = link_to t('bookmarks.show.retag'), retag_bookmark_path(bookmark), :id => 'retag', :class => "important"
+          -bookmark.first_tags.each do |tag|
+            %span.tag{:class => "tag_#{h(tag)}"}
+              = link_to h(tag), url_for(:controller => "bookmarks", :action => "index", :tags => tag), :rel => "tag", :title => t("bookmarks.tags.tooltip", :tag => tag)
+
+      .owner-data
+        =render :partial => "users/user_mini", :locals => {:user => owner}
+        %strong.time_ago
+          = link_to t("time.ago", :time => time_ago_in_words(last_target.updated_at)), bookmark_path(bookmark)+"##{last_target.id}"
+        -if bookmark.wiki
+          %span.wiki_flag
+            wiki
+    .clear
+-else
+  -cache("mini_bookmark_on_index_#{bookmark.id}") do
+    %li.item{:class => "#{class_for_bookmark(bookmark)} #{local_assigns[:lite] ? 'lite' : ''}"}
+      .stats
+        .box.answers{:class => bookmark.accepted ? "accepted" : "" }
+          .counter
+            =format_number(bookmark.answers_count)
+          -if !local_assigns[:lite]
+            .text
+              =t(:answers, :scope => "activerecord.attributes.bookmark")
+      .summary
+        %h3
+          = link_to title, bookmark_path(bookmark)
+      .clear

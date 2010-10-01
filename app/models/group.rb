@@ -65,6 +65,8 @@ class Group
 
   has_many :badges, :dependent => :destroy
   has_many :questions, :dependent => :destroy
+  has_many :bookmarks, :dependent => :destroy
+  has_many :discussions, :dependent => :destroy
   has_many :answers, :dependent => :destroy
   has_many :votes, :dependent => :destroy
   has_many :pages, :dependent => :destroy
@@ -130,6 +132,22 @@ class Group
 
   def question_help
     self.custom_html.question_help[I18n.locale.to_s.split("-").first] || ""
+  end
+
+  def bookmark_prompt
+    self.custom_html.question_prompt[I18n.locale.to_s.split("-").first] || ""
+  end
+
+  def bookmark_help
+    self.custom_html.question_help[I18n.locale.to_s.split("-").first] || ""
+  end
+
+  def discussion_prompt
+    self.custom_html.discussion_prompt[I18n.locale.to_s.split("-").first] || ""
+  end
+
+  def discussion_help
+    self.custom_html.discussion_help[I18n.locale.to_s.split("-").first] || ""
   end
 
   def head

@@ -28,6 +28,8 @@ $(document).ready(function() {
   })
 
   initAutocomplete();
+  initAutocompleteLocations();
+  initAutocompletePersons();
 
   $(".quick-vote-button").live("click", function(event) {
     var btn = $(this);
@@ -86,6 +88,34 @@ function initAutocomplete(){
   var tagInput = $('.autocomplete_for_tags');
   tagInput.autoSuggest('/questions/tags_for_autocomplete.js', {
     queryParam: 'tag',
+    formatList: function(data, elem){
+      return elem.html(data.caption);
+    },
+    preFill: tagInput.val(),
+    startText: '',
+    emptyText: 'No Results',
+    limitText: 'No More Selections Are Allowed'
+  });
+}
+
+function initAutocompleteLocations(){
+  var tagInput = $('.autocomplete_for_locations');
+  tagInput.autoSuggest('/questions/tags_for_locations.js', {
+    queryParam: 'location',
+    formatList: function(data, elem){
+      return elem.html(data.caption);
+    },
+    preFill: tagInput.val(),
+    startText: '',
+    emptyText: 'No Results',
+    limitText: 'No More Selections Are Allowed'
+  });
+}
+
+function initAutocompletePersons(){
+  var tagInput = $('.autocomplete_for_persons');
+  tagInput.autoSuggest('/questions/tags_for_persons.js', {
+    queryParam: 'person',
     formatList: function(data, elem){
       return elem.html(data.caption);
     },
