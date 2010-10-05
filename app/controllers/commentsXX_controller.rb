@@ -104,7 +104,7 @@ class CommentsController < ApplicationController
     if params[:action] == "destroy"
       valid = @comment.can_be_deleted_by?(current_user)
     else
-      valid = current_user.can_modify?(@comment) || current_user.mod_of?(@comment.group)
+      valid = current_user.can_modify?(@comment)
     end
 
     if !valid
@@ -113,7 +113,6 @@ class CommentsController < ApplicationController
           flash[:error] = t("global.permission_denied")
           redirect_to params[:source] || questions_path
         end
-        format.js { render :json => {:success => false, :message => t("global.permission_denied") } }
         format.json { render :json => {:message => t("global.permission_denied")}, :status => :unprocessable_entity }
       end
     end
@@ -124,15 +123,21 @@ class CommentsController < ApplicationController
   end
 
   def find_scope
-    @question = Question.by_slug(params[:question_id])
-    @answer = @question.answers.find(params[:answer_id]) unless params[:answer_id].blank?
+    if Question
+      @question = Question.by_slug(params[:question_id])
+      @answer = @question.answers.find(params[:answer_id]) unless params[:answer_id].blank?    
+    end
+    if Discussion
+      @discussion = Discussion.by_slug(params[:discussion_id])
+      @answer = @discussion.answers.find(params[:answer_id]) unless params[:answer_id].blank?
+    end
   end
 
   def scope
     unless @answer.nil?
       @answer
     else
-      @question
+      @discussion
     end
   end
 

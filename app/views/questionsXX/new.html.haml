@@ -1,3 +1,9 @@
+-content_for :stuff do
+
+  = "Mode:<br/>"
+  = "<a href='/bookmarks/new'>New Link</a><br/>"
+  = "<a href='/discussions/new'>New Discussion</a>"
+
 
 -content_for :subtabs do
   .navtitle
@@ -9,19 +15,15 @@
         = t(".how_to_ask")
       =current_group.question_help
 
--content_for :main do
 
+-content_for :main do
   - form_for(@question, :html=>{:class => "form", :id => "ask_question"}) do |f|
     =render :partial => "form", :locals => {:f => f}
 
     .group.navform
-      .controls.right{:style => "width: 50%"}
-        .left{:style => "width: 49.5%"}
-          = f.label :wiki, "Wiki", :class => "radio"
-          = f.check_box :wiki, :class => "checkbox"
-        .left{:style => "width: 49.5%"}
-          = f.label :anonymous, t("scaffold.post_as_anonymous"), :class => "radio"
-          = f.check_box :anonymous, :class => "checkbox"
+      .right
+        = f.label :wiki, "Wiki", :class => "radio"
+        = f.check_box :wiki, :class => "checkbox"
 
       = f.submit t('scaffold.create')
       = t("global.or")

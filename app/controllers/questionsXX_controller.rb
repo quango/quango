@@ -10,7 +10,7 @@ class QuestionsController < ApplicationController
   before_filter :check_retag_permissions, :only => [:retag, :retag_to]
 
   tabs :default => :questions, :tags => :tags,
-       :unanswered => :unanswered, :new => :ask_question
+       :unanswered => :unanswered, :new => :contribute
 
   subtabs :index => [[:newest, "created_at desc"], [:hot, "hotness desc, views_count desc"], [:votes, "votes_average desc"], [:activity, "activity_at desc"], [:expert, "created_at desc"]],
           :unanswered => [[:newest, "created_at desc"], [:votes, "votes_average desc"], [:mytags, "created_at desc"]],
@@ -35,10 +35,9 @@ class QuestionsController < ApplicationController
     end
 
     @questions = Question.paginate({:per_page => 25, :page => params[:page] || 1,
-                       :order => current_order,
-                       :fields => {:_keywords => 0, :watchers => 0, :flags => 0,
-                                   :close_requests => 0, :open_requests => 0,
-                                   :versions => 0}}.merge(conditions))
+                                   :order => current_order,
+                                   :fields => (Question.keys.keys - ["_keywords", "watchers"])}.
+                                               merge(conditions))
 
     @langs_conds = scoped_conditions[:language][:$in]
 
@@ -106,14 +105,11 @@ class QuestionsController < ApplicationController
       @question.group_id = current_group.id
     end
 
-    @question.tags += @question.title.downcase.split(",").join(" ").split(" ") if @question.title
+    @question.tags += @question.title.downcase.split(",").join(" ").split(" ")
 
     @questions = Question.related_questions(@question, :page => params[:page],
                                                        :per_page => params[:per_page],
-                                                       :order => "answers_count desc",
-                                                       :fields => {:_keywords => 0, :watchers => 0, :flags => 0,
-                                                                  :close_requests => 0, :open_requests => 0,
-                                                                  :versions => 0})
+                                                       :order => "answers_count desc")
 
     respond_to do |format|
       format.js do
@@ -147,9 +143,7 @@ class QuestionsController < ApplicationController
     @questions = Question.paginate({:order => current_order,
                                     :per_page => 25,
                                     :page => params[:page] || 1,
-                                    :fields => {:_keywords => 0, :watchers => 0, :flags => 0,
-                                                :close_requests => 0, :open_requests => 0,
-                                                :versions => 0}
+                                    :fields => (Question.keys.keys - ["_keywords", "watchers"])
                                    }.merge(conditions))
 
     respond_to do |format|
@@ -174,6 +168,7 @@ class QuestionsController < ApplicationController
         render :json => {:html => html}
       end
       format.json  { render :json => @tag_cloud.to_json }
+      format.xml  { render :json => @tag_cloud.to_xml }
     end
   end
 
@@ -212,7 +207,6 @@ class QuestionsController < ApplicationController
     options = {:per_page => 25, :page => params[:page] || 1,
                :order => current_order, :banned => false}
     options[:_id] = {:$ne => @question.answer_id} if @question.answer_id
-    options[:fields] = {:_keywords => 0}
     @answers = @question.answers.paginate(options)
 
     @answer = Answer.new(params[:answer])
@@ -253,25 +247,23 @@ class QuestionsController < ApplicationController
   # POST /questions.xml
   def create
     @question = Question.new
-    @question.safe_update(%w[title body language tags wiki anonymous], params[:question])
+    @question.safe_update(%w[title body language tags wiki], params[:question])
     @question.group = current_group
     @question.user = current_user
 
     if !logged_in?
       if recaptcha_valid? && params[:user]
-        @user = User.first(:email => params[:user][:email])
+        @user = User.find(:email => params[:user][:email])
         if @user.present?
           if !@user.anonymous
             flash[:notice] = "The user is already registered, please log in"
             return create_draft!
-          else
-            @question.user = @user
           end
         else
           @user = User.new(:anonymous => true, :login => "Anonymous")
           @user.safe_update(%w[name email website], params[:user])
           @user.login = @user.name if @user.name.present?
-          @user.save!
+          @user.save
           @question.user = @user
         end
       elsif !AppConfig.recaptcha["activate"]
@@ -280,36 +272,36 @@ class QuestionsController < ApplicationController
     end
 
     respond_to do |format|
-      if (logged_in? ||  (@question.user.valid? && recaptcha_valid?)) && @question.save
+      if (recaptcha_valid? || logged_in?) && @question.user.valid? && @question.save
         sweep_question_views
 
+        @question.user.stats.add_question_tags(*@question.tags)
         current_group.tag_list.add_tags(*@question.tags)
-        unless @question.anonymous
-          @question.user.stats.add_question_tags(*@question.tags)
-          @question.user.on_activity(:ask_question, current_group)
-          Magent.push("actors.judge", :on_ask_question, @question.id)
 
-          # TODO: move to magent
-          users = User.find_experts(@question.tags, [@question.language],
-                                                    :except => [@question.user.id],
-                                                    :group_id => current_group.id)
-          followers = @question.user.followers(:group_id => current_group.id, :languages => [@question.language])
+        @question.user.on_activity(:ask_question, current_group)
+        current_group.on_activity(:ask_question)
 
-          (users - followers).each do |u|
-            if !u.email.blank?
-              Notifier.deliver_give_advice(u, current_group, @question, false)
-            end
-          end
+        Magent.push("actors.judge", :on_ask_question, @question.id)
 
-          followers.each do |u|
-            if !u.email.blank?
-              Notifier.deliver_give_advice(u, current_group, @question, true)
-            end
+        flash[:notice] = t(:flash_notice, :scope => "questions.create")
+
+        # TODO: move to magent
+        users = User.find_experts(@question.tags, [@question.language],
+                                                  :except => [@question.user.id],
+                                                  :group_id => current_group.id)
+        followers = @question.user.followers(:group_id => current_group.id, :languages => [@question.language])
+
+        (users - followers).each do |u|
+          if !u.email.blank?
+            Notifier.deliver_give_advice(u, current_group, @question, false)
           end
         end
 
-        current_group.on_activity(:ask_question)
-        flash[:notice] = t(:flash_notice, :scope => "questions.create")
+        followers.each do |u|
+          if !u.email.blank?
+            Notifier.deliver_give_advice(u, current_group, @question, true)
+          end
+        end
 
         format.html { redirect_to(question_path(@question)) }
         format.json { render :json => @question.to_json(:except => %w[_keywords watchers]), :status => :created}
@@ -325,7 +317,7 @@ class QuestionsController < ApplicationController
   # PUT /questions/1.xml
   def update
     respond_to do |format|
-      @question.safe_update(%w[title body language tags wiki adult_content version_message  anonymous], params[:question])
+      @question.safe_update(%w[title body language tags wiki adult_content version_message], params[:question])
       @question.updated_by = current_user
       @question.last_target = @question
 

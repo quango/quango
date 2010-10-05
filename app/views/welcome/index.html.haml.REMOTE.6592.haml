@@ -1,0 +1,57 @@
+-content_for :head do
+  -if !current_group.default_tags.empty?
+    %meta{:name => "keywords", :content => current_group.default_tags.join(", ")}
+  %meta{:name => "description", :content => markdown(current_group.description).gsub(/<\/?[^>]*>/, "")[0, 255] }
+
+-content_for :subtabs do
+  .navtitle
+    = t(".recent_questions", :default => "Recent Questions")
+    -if @questions
+      == (#{@questions.total_entries})
+
+  %ul{:style => "display: inline"}
+    %li.activity
+      = link_to t("questions.index.active"), root_path(:tab=>"activity"), :title => t("questions.index.active_tooltip"), :rel => "nofollow"
+    %li.hot
+      = link_to t("questions.index.hot"), root_path(:tab=>"hot"), :title => t("questions.index.hot_tooltip"), :rel => "nofollow"
+
+%div
+  -if logged_in?
+    #quick_question
+      =render :partial => "quick_question_box"
+    %ul.items#related_questions
+      %li
+%ul.items#questions
+  -if @questions.empty?
+    .box.highlight
+      %li
+        = t(".empty", :default => :"questions.index.empty")
+  -@questions.each do |question|
+    = render :partial => "questions/question", :object => question
+
+#additional_info
+  #help_us
+    = t(".browse_all_or_by_tags", :full_list_of_questions => link_to(t('.full_list_of_questions'), questions_path), :browse_by_tags => link_to(t('.browse_by_tags'), tags_questions_path))
+    %br
+    = t("questions.index.help_to_answer")
+    = link_to t("questions.index.unanswered_questions"), unanswered_questions_path
+
+  .clear
+
+-content_for :sidebar do
+  .block.notice
+    = render :partial => "shared/layout/notice"
+
+  -current_group.widgets.each do |widget|
+    .widget.block{:id => widget.name}
+      = render :partial => widget.partial_name, :locals => {:widget => widget}
+
+  -if logged_in?
+    = render :partial => "shared/preferred_tags"
+  -if AppConfig.enable_i18n
+    = render :partial => "shared/language_filter"
+
+  -if !current_group.isolate && AppConfig.enable_groups
+    .block{:style => "background: transparent"}
+      .content
+        = link_to t(".create_own_site"), new_group_path, :id => "create_own_site"

@@ -1,5 +1,5 @@
 -content_for :trends do
-  = render :partial => "question_topics", :object => @tag_cloud
+  = render :partial => "shared/trending_topics", :object => @tag_cloud
 
 = javascript_include_merged :show
 
@@ -40,9 +40,24 @@
 - content_for :main do
   = show_flash_messages(:class => "flash", :markdown => true)
 
+  #question-vote-col
+    - if current_user && @question.watch_for?(current_user)
+      = link_to image_tag("layer-visible-on.png", 'data-src' => "/images/layer-visible-off.png"), unwatch_question_path(@question), :class => 'question-action', "data-undo" =>  watch_question_path(@question), "data-title" => t(".watch_tooltip"), :title => t(".unwatch_tooltip"), :id => "watch-question"
+    - else
+      = link_to image_tag("layer-visible-off.png", 'data-src' => "/images/layer-visible-on.png"), watch_question_path(@question), :title => t(".watch_tooltip"), :class => 'question-action', "data-undo" =>  unwatch_question_path(@question), "data-title" => t(".unwatch_tooltip"), :id => "watch-question"
+
+    =vote_box(@question, question_path(@question), @question.closed)
+
+    - if logged_in? && favorite = current_user.favorite(@question)
+      = link_to image_tag("favorites.png", 'data-src' => "/images/unfavorites.png"), unfavorite_question_path(@question), :id => "unfavorite-link", :title => t(".unfavorite_tooltip"), :class => 'question-action', "data-undo" =>  favorite_question_path(@question), "data-title" => t(".favorite_tooltip"), 'data-counter' => '.favorites_count'
+    - else
+      = link_to image_tag("unfavorites.png", 'data-src' => "/images/favorites.png"), favorite_question_path(@question), :id => "favorite-link", :title => t(".favorite_tooltip"), :class => 'question-action', "data-undo" =>  unfavorite_question_path(@question), "data-title" => t(".unfavorite_tooltip"), 'data-counter' => '.favorites_count'
+    .favorites_count
+      &= @question.favorites_count
+
+
   #question-body-col.commentable.markdown
     %a{:name => @question.id}
-    =render :partial => "toolbox"
     #body
       - if @question.closed && @question.close_reason
         #close_reason
@@ -51,10 +66,7 @@
           - if !@question.close_reason.comment.empty?
             .comment
               =find_and_preserve(shapado_auto_link(@question.close_reason.comment))
-      .entry-title
-        = @question.title
-
-      .entry-content
+      .post-text.entry-content
         = question_body
     .tag-list
       - @question.tags.each do |tag|
@@ -66,15 +78,11 @@
     .post-info
       .author.user_info.vcard
         .gravatar.logo
-          -if !@question.anonymous
-            = gravatar(@question.user.email.to_s, :size => 32)
+          = gravatar(@question.user.email.to_s, :size => 32)
         .user_data
           %span.asked_by
             = t('activerecord.attributes.question.asked_by')
-          -if @question.anonymous
-            =t("global.anonymous")
-          -else
-            =render :partial => "users/user_mini", :locals => {:user => @question.user}
+          =render :partial => "users/user_mini", :locals => {:user => @question.user}
           %span.time_ago.published{:title => @question.created_at, :class => "relativetime"}
             = t("time.ago", :time => time_ago_in_words(@question.created_at))
             - if @question.wiki
@@ -165,7 +173,7 @@
             = submit_tag t("comments.shared.comment_submit"), :class => "button"
             = t("global.or")
             = link_to t('scaffold.cancel'), '', :class => 'cancel_comment'
-  .clear
+
   %a{:name=>"answers"}
   #answers
     .secondary-navigation{:class => @active_subtab.to_s}
@@ -192,92 +200,83 @@
   -unless @question.closed
     %a{:name=>"to_answer"}
     -form_for @answer, :url => question_answers_path(@question.id), :html => {:class => "form mainAnswerForm"} do |f|
-      = render :partial => "answers/form", :locals => {:f => f, :markdown => true}
+      = render :partial => "answers/form", :locals => {:f => f, :markdown => true, :mode => "question"}
       .group.navform
-        .controls.right{:style => "width: 50%"}
-          .left{:style => "width: 49.5%"}
-            = f.label :wiki, "Wiki", :class => "radio"
-            = f.check_box :wiki, :class => "checkbox"
-          .left{:style => "width: 49.5%"}
-            = f.label :anonymous, t("scaffold.post_as_anonymous"), :class => "radio"
-            = f.check_box :anonymous, :class => "checkbox"
+        .right
+          = f.label :wiki, "Wiki", :class => "radio"
+          = f.check_box :wiki, :class => "checkbox"
         = submit_tag t('answers.form.submit'), :class => "button"
       .clear
 
 -content_for :sidebar do
-  #sidebar
-    .block
-      %h3
-        = "Sidebar"
-      .content
-        = "Content"
-
-    - if logged_in? && (current_user.mod_of?(current_group) || current_user.can_view_offensive_counts_on?(current_group))
-      -unless @question.flags.count == 0
-        .block
-          %h3
-            = t(:flags, :scope => "activerecord.models")
-          .content
-            = render :partial => "flags/list", :locals => {:flaggeable => @question}
-
-      -unless @question.close_requests.size == 0
-        .block
-          %h3
-            = t(:prural_name, :scope => "close_requests.model")
-          .content
-            = render :partial => "close_requests/list", :locals => {:question => @question}
-
-      -unless @question.open_requests.size == 0
-        .block
-          %h3
-            = t(:prural_name, :scope => "open_requests.model")
-          .content
-            = render :partial => "open_requests/list", :locals => {:question => @question}
-
-    .block
-      %h3
-        = t('.tags', :default => [:"layouts.application.tags", :"activerecord.attributes.user.tags", "tags"])
-      = render :partial => "shared/tag_list", :object => @tag_cloud, :locals => { :extra_params => {:controller => "questions", :action => "index"} }
 
 
-    - if @question.badges.size > 0
+  - if logged_in? && (current_user.mod_of?(current_group) || current_user.can_view_offensive_counts_on?(current_group))
+    -unless @question.flags.count == 0
       .block
         %h3
-          = t('badges', :scope => "activerecord.models")
+          = t(:flags, :scope => "activerecord.models")
         .content
-          %ul.list
-            -@question.badges.each do |badge|
-              %li
-                = render :partial => "badges/badge", :object => badge, :locals => {:hide_user => false}
+          = render :partial => "flags/list", :locals => {:flaggeable => @question}
 
-      .block.stats
-        - if @question.group_id != current_group.id
-          = t(".asked_on")
-          &= @question.group.name
+    -unless @question.close_requests.size == 0
+      .block
+        %h3
+          = t(:prural_name, :scope => "close_requests.model")
+        .content
+          = render :partial => "close_requests/list", :locals => {:question => @question}
 
-        .entry
-          .text.asked
-            = t('activerecord.attributes.question.created_at')
-            .data
-              = t("time.ago", :time => time_ago_in_words(@question.created_at))
-        .entry
-          .text.viewed
-            = t('.viewed')
-          .data
-            = t('number.x_time', :count => number_with_delimiter(@question.views_count))
-        .entry
-          .text.last_activity
-            = t(".last_activity")
-          .data.updated{:title => @question.activity_at, :class => "relativetime"}
-            = t("time.ago", :time => time_ago_in_words(@question.activity_at))
+    -unless @question.open_requests.size == 0
+      .block
+        %h3
+          = t(:prural_name, :scope => "open_requests.model")
+        .content
+          = render :partial => "open_requests/list", :locals => {:question => @question}
 
-      -related_questions = Question.related_questions(@question, :language => find_languages)
-      - if !related_questions.empty?
-        .block
-          %h3
-            =t(".related_questions")
-          .content
-            %ul.list
-              -related_questions.each do |rq|
-                %li
-                  = link_to h(rq.title), question_path(rq), :title => truncate(strip_tags(rq.body), :length => 200)
+  .block
+    %h3
+      = t('.tags', :default => [:"layouts.application.tags", :"activerecord.attributes.user.tags", "tags"])
+    = render :partial => "shared/tag_list", :object => @tag_cloud, :locals => { :extra_params => {:controller => "questions", :action => "index"} }
+    .clear
+
+  - if @question.badges.size > 0
+    .block
+      %h3
+        = t('badges', :scope => "activerecord.models")
+      .content
+        %ul.list
+          -@question.badges.each do |badge|
+            %li
+              = render :partial => "badges/badge", :object => badge, :locals => {:hide_user => false}
+
+  .block.stats
+    - if @question.group_id != current_group.id
+      = t(".asked_on")
+      &= @question.group.name
+
+    .entry
+      .text.asked
+        = t('activerecord.attributes.question.created_at')
+        .data
+          = t("time.ago", :time => time_ago_in_words(@question.created_at))
+    .entry
+      .text.viewed
+        = t('.viewed')
+      .data
+        = t('number.x_time', :count => number_with_delimiter(@question.views_count))
+    .entry
+      .text.last_activity
+        = t(".last_activity")
+      .data.updated{:title => @question.activity_at, :class => "relativetime"}
+        = t("time.ago", :time => time_ago_in_words(@question.activity_at))
+
+  -related_questions = Question.related_questions(@question, :language => find_languages)
+  - if !related_questions.empty?
+    .block
+      %h3
+        =t(".related_questions")
+      .content
+        %ul.list
+          -related_questions.each do |rq|
+            %li
+              = link_to h(rq.title), question_path(rq), :title => truncate(strip_tags(rq.body), :length => 200)

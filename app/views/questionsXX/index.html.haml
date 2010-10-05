@@ -1,3 +1,6 @@
+-content_for :trends do
+  = render :partial => "shared/trending_topics", :object => @tag_cloud
+
 -feed_url = url_for(:format => "atom", :tags => params[:tags])
 
 -content_for :rss do
@@ -35,19 +38,8 @@
 
 = render :partial => "searches/search_box"
 
-/Questions
 -content_for :main do
-  #inner{:style=>'width:468px;'}
-    .secondary-navigation{:class => @active_subtab.to_s}
-      = yield :subtabs
-      .clear
-    .content
-      %p.markdown
-        = show_flash_messages(:class => "flash", :markdown => true)
-        = render :partial => "shared/ads/content_ads"
-        .inner
-          = yield
-          .clear
+
   %ul.items#questions
     -if @questions.empty?
       %li.highlight

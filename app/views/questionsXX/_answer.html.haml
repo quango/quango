@@ -7,7 +7,10 @@
 
 .answer.commentable{:class => "post-#{answer.id} #{solution ? "solution" : ""}" }
   %a{:name=>answer.id}
-
+  .vote-col
+    =vote_box(answer, question_path(question), question.closed)
+    -if solution
+      =image_tag "correct.png", :width => 48, :alt => "correct_answer", :title => "chose as answer by the author"
   .body-col
     .markdown.entry-content
       =find_and_preserve(shapado_auto_link(markdown(answer.body), :link_users => true))
@@ -39,17 +42,14 @@
             = t("time.ago", :time => time_ago_in_words(answer.created_at))
 
       .avatar.logo
-        = gravatar(answer.user.email.to_s, :size => 32) unless answer.anonymous
+        = gravatar(answer.user.email.to_s, :size => 32)
       .user
-        -unless answer.anonymous
-          = render :partial => "users/user_mini", :locals => {:user => answer.user}
-          -unless answer.user.hide_country
-            .adr
-              .country-name
-                = t("global.from", :site => answer.user.country_name)
-              = country_flag(answer.user.country_code, answer.user.country_name)
-        -else
-          %b=t("global.anonymous")
+        = render :partial => "users/user_mini", :locals => {:user => answer.user}
+        -unless answer.user.hide_country
+          .adr
+            .country-name
+              = t("global.from", :site => answer.user.country_name)
+            = country_flag(answer.user.country_code, answer.user.country_name)
     .controls
       .actions
         = link_to t('activerecord.attributes.answer.link'), question_answer_path(@question.id, answer.id), :class => "bookmark"
@@ -91,10 +91,6 @@
     .children.comments
       -answer.comments.each do |comment|
         = render :partial => "comments/comment", :object => comment, :locals => {:source => source, :mini => true}
-  .vote-col.right
-    =vote_box(answer, question_path(question), question.closed)
-    -if solution
-      =image_tag "correct.png", :width => 48, :alt => "correct_answer", :title => "chose as answer by the author"
   .clear
   .forms.comment-form
     -form_tag question_answer_comments_path(@question, answer), :class => "form commentForm nestedAnswerForm" do

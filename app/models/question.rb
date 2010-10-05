@@ -32,6 +32,8 @@ class Question
   key :closed, Boolean, :default => false
   key :closed_at, Time
 
+  key :anonymous, Boolean, :default => false, :index => true
+
   key :answered_with_id, String
   belongs_to :answered_with, :class_name => "Answer"
 
