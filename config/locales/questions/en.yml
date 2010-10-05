@@ -1,5 +1,26 @@
 en:
   questions:
+    controls:
+      close: Close
+      request_closing: Request Closure
+      request_closing_details: Request to close this question
+      requested_close_as: "You requested to close this question as"
+      close_reason: "The question has been closed for the following reason:"
+      ban: Ban
+      history: Check history
+      retract_request: "Retract request"
+      edit_request: "Edit request"
+      open: Open
+      requested_reopening: "You requested reopening this question"
+      request_opening: Request reopening
+      request_opening_details: Request to re-open this question
+
+      ban: Ban
+      retract_request: You have already made a request. Would you like to retract it?
+      flags: Reported as
+      flag: Report this question
+      flagged_as: Flagged as
+
     index:
       title: All discussions
       hot:     Hot
@@ -22,9 +43,7 @@ en:
       share: "Share this question on"
       share_on: "Share this question on %{site}"
       related_questions: Related questions
-      flags: Reported as
-      flag: Flag
-      flagged_as: Flagged as
+
       viewed: viewed
       to_answer_question: to answer this question
       watch_tooltip: "Watch this question"
@@ -36,19 +55,9 @@ en:
       last_activity: Latest activity
       retag: Retag
       unauthenticated_retag: You need an account to retag questions
-      request_closing: Request closing
-      request_closing_details: Request to close this question
-      close: Close
-      request_opening: Request reopening
-      request_opening_details: Request to re-open this question
-      open: Open
-      ban: Ban
-      retract_request: You have already made a request. Would you like to retract it?
-      close_reason: "The question has been closed for the following reason:"
-      requested_close_as: "You requested to close this question as"
-      requested_reopening: "You requested reopening this question"
-      retract_request: "Retract request"
-      edit_request: "Edit request"
+
+
+
       answers_title:
         one: "%{count} answer"
         other: "%{count} answers"

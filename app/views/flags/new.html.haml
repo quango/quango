@@ -1,6 +1,7 @@
+-content_for :main do
+  -content_for :subtabs do
+    .navtitle
+      = t(".title", :model => I18n.t("activerecord.models.#{@resource.class.to_s.tableize.singularize}"))
 
--content_for :subtabs do
-  .navtitle
-    = t(".title", :model => I18n.t("activerecord.models.#{@resource.class.to_s.tableize.singularize}"))
 
-= render :partial => "flags/form", :locals => {:flag => @flag, :source => @source, :flaggeable => @resource, :form_id => "question_flag_form" }
+  = render :partial => "flags/form", :locals => {:flag => @flag, :source => @source, :flaggeable => @resource, :form_id => "question_flag_form" }
