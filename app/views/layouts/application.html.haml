@@ -33,14 +33,23 @@
 
 
       #wrapper
-        -#Need to sort this out
+
         #main
-          = yield :main
-          = yield :stuff
-        = yield :sidebar
-        .clear
 
+          #block-text.block
+            .secondary-navigation{:class => @active_subtab.to_s}
+              = yield :subtabs
+              .clear
+            .content
+              %p.markdown
+                = show_flash_messages(:class => "flash", :markdown => true)
 
+              .inner
+                = yield :main
+                .clear
+        #sidebar
+          = yield :sidebar
+    .clear  
     #footer
       .block.content
         = render :partial => "layouts/footer"

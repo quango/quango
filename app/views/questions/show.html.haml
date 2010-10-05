@@ -1,7 +1,7 @@
 -content_for :trends do
   = render :partial => "question_topics", :object => @tag_cloud
 
-= javascript_include_merged :show
+
 
 - @current_class = 'question hentry entry post'
 
@@ -38,14 +38,11 @@
 = error_messages_for 'answer'
 
 - content_for :main do
-  = show_flash_messages(:class => "flash", :markdown => true)
-
+  = javascript_include_merged :show
+  =render :partial => "toolbox"
+  =render :partial => "controls" #, :object=>@question
   #question-body-col.commentable.markdown
     %a{:name => @question.id}
-    =render :partial => "toolbox"
-    =render :partial => "controls" #, :object=>@question
-
-
     #body
       - if @question.closed && @question.close_reason
         #close_reason

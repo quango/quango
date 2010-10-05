@@ -256,9 +256,9 @@ $(document).ready(function() {
     var isreply = link.hasClass('reply');
     var form = $("#add_comment_form");
     var textarea = form.find('textarea');
-    /*$("#request_close_question_form").slideUp();
+    $("#request_close_question_form").slideUp();
     $("#question_flag_form").slideUp();
-    $("#close_question_form").slideUp();*/
+    $("#close_question_form").slideUp();
     $("#add_comment_form").slideDown();
     textarea.text('').focus();
     var viewportHeight = window.innerHeight ? window.innerHeight : $(window).height();
