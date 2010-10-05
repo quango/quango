@@ -1,7 +1,7 @@
+=local_assigns[:mode]
 
 .group
-  %label.label
-    = t('.answer_label')
+  = f.hidden_field :mode, :value=> local_assigns[:mode]
 
   -opts = {:class => "text_area", :rows => 'auto', :cols => 'auto'}
   -if local_assigns[:markdown]

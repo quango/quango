@@ -44,21 +44,49 @@ class AnswersController < ApplicationController
   end
 
   def show
-    @answer = Answer.find(params[:id])
-    raise PageNotFound if @answer.nil?
-    @question = @answer.question
-    respond_to do |format|
-      format.html
-      format.json  { render :json => @answer.to_json }
+    mode = params[:answer]
+    moded = mode[:mode]
+    if moded == "question"
+      @answer = Answer.find(params[:id])
+      raise PageNotFound if @answer.nil?
+      @question = @answer.question
+      respond_to do |format|
+        format.html
+        format.json  { render :json => @answer.to_json }
+      end
+    end
+    if moded == "discussion"
+      @answer = Answer.find(params[:id])
+      raise PageNotFound if @answer.nil?
+      @discussion = @answer.discussion
+      respond_to do |format|
+        format.html
+        format.json  { render :json => @answer.to_json }
+      end
     end
   end
 
   def create
     @answer = Answer.new
-    @answer.safe_update(%w[body wiki], params[:answer])
-    @question = Question.find_by_slug_or_id(params[:question_id])
-    @answer.question = @question
-    @answer.group_id = @question.group_id
+    @answer.safe_update(%w[mode body wiki], params[:answer])
+
+    mode = params[:answer]
+    moded = mode[:mode]
+
+
+    if moded == "question"
+     @question = Question.find_by_slug_or_id(params[:question_id])
+     @answer.question = @question
+     @answer.group_id = @question.group_id
+     puts "create question answer"
+    end
+
+    if moded == "discussion"
+     @discussion = Discussion.find_by_slug_or_id(params[:discussion_id])
+     @answer.discussion = @discussion
+     @answer.group_id = @discussion.group_id
+     puts "create discussion answer"
+    end
 
     # workaround, seems like mm default values are broken
     @answer.votes_count = 0
@@ -87,25 +115,52 @@ class AnswersController < ApplicationController
     end
 
     respond_to do |format|
-      if recaptcha_valid? && @question && @answer.user.valid? && @answer.save
-        after_create_answer
+      #question mode
+      if moded == "question"
+        if recaptcha_valid? && @question && @answer.user.valid? && @answer.save
+          after_create_answer(:mode=>"question")
 
-        flash[:notice] = t(:flash_notice, :scope => "answers.create")
-        format.html{redirect_to question_path(@question)}
-        format.json { render :json => @answer.to_json(:except => %w[_keywords]) }
-        format.js do
-          render(:json => {:success => true, :message => flash[:notice],
-            :html => render_to_string(:partial => "questions/answer",
-                                      :object => @answer,
-                                      :locals => {:question => @question})}.to_json)
+          flash[:notice] = t(:flash_notice, :scope => "answers.create")
+          format.html{redirect_to question_path(@question)}
+          format.json { render :json => @answer.to_json(:except => %w[_keywords]) }
+          format.js do
+            render(:json => {:success => true, :message => flash[:notice],
+              :html => render_to_string(:partial => "questions/answer",
+                                        :object => @answer,
+                                        :locals => {:question => @question})}.to_json)
+          end
+        else
+          @answer.errors.add(:captcha, "is invalid") unless recaptcha_valid?
+          flash[:error] = t(:flash_error, :scope => "answers.create")
+          format.html{redirect_to question_path(@question)}
+          format.json { render :json => @answer.errors, :status => :unprocessable_entity }
+          format.js {render :json => {:success => false, :message => flash[:error] }.to_json }
         end
-      else
-        @answer.errors.add(:captcha, "is invalid") unless recaptcha_valid?
-        flash[:error] = t(:flash_error, :scope => "answers.create")
-        format.html{redirect_to question_path(@question)}
-        format.json { render :json => @answer.errors, :status => :unprocessable_entity }
-        format.js {render :json => {:success => false, :message => flash[:error] }.to_json }
       end
+
+      #discussion mode
+      if moded == "discussion"
+        if recaptcha_valid? && @discussion && @answer.user.valid? && @answer.save
+          after_create_answer(:mode=>"discussion")
+
+          flash[:notice] = t(:flash_notice, :scope => "answers.create")
+          format.html{redirect_to discussion_path(@discussion)}
+          format.json { render :json => @answer.to_json(:except => %w[_keywords]) }
+          format.js do
+            render(:json => {:success => true, :message => flash[:notice],
+              :html => render_to_string(:partial => "discussion/answer",
+                                        :object => @answer,
+                                        :locals => {:discussion => @discussion})}.to_json)
+          end
+        else
+          @answer.errors.add(:captcha, "is invalid") unless recaptcha_valid?
+          flash[:error] = t(:flash_error, :scope => "answers.create")
+          format.html{redirect_to discussion_path(@discussion)}
+          format.json { render :json => @answer.errors, :status => :unprocessable_entity }
+          format.js {render :json => {:success => false, :message => flash[:error] }.to_json }
+        end
+      end
+
     end
   end
 
@@ -155,19 +210,41 @@ class AnswersController < ApplicationController
 
   protected
   def check_permissions
-    @answer = Answer.find(params[:id])
-    if !@answer.nil?
-      unless (current_user.can_modify?(@answer) || current_user.mod_of?(@answer.group))
-        flash[:error] = t("global.permission_denied")
-        redirect_to question_path(@answer.question)
+
+    mode = params[:answer]
+    moded = mode[:mode]
+
+    if moded == "question"
+      @answer = Answer.find(params[:id])
+      if !@answer.nil?
+        unless (current_user.can_modify?(@answer) || current_user.mod_of?(@answer.group))
+          flash[:error] = t("global.permission_denied")
+          redirect_to question_path(@answer.question)
+        end
+      else
+        redirect_to questions_path
       end
-    else
-      redirect_to questions_path
     end
+
+    if moded == "discussion"
+      @answer = Answer.find(params[:id])
+      if !@answer.nil?
+        unless (current_user.can_modify?(@answer) || current_user.mod_of?(@answer.group))
+          flash[:error] = t("global.permission_denied")
+          redirect_to discussion_path(@answer.discussion)
+        end
+      else
+        redirect_to discussion_path
+      end
+    end
+
   end
 
   def check_update_permissions
     @answer = Answer.find(params[:id])
+    mode = params[:answer]
+    moded = mode[:mode]
+
 
     allow_update = true
     unless @answer.nil?
@@ -192,7 +269,12 @@ class AnswersController < ApplicationController
         return redirect_to question_path(@answer.question) if !allow_update
       end
     else
-      return redirect_to questions_path
+      if moded == "question"
+        return redirect_to questions_path
+      end
+      if moded == "discussion"
+        return redirect_to discussions_path
+      end
     end
   end
 
@@ -204,34 +286,71 @@ class AnswersController < ApplicationController
 
   # TODO: use magent to do it
   def after_create_answer
-    sweep_question(@question)
+    puts "after create answer!"
 
-    Question.update_last_target(@question.id, @answer)
-    @answer.user.stats.add_answer_tags(*@question.tags)
-    @question.answer_added!
+    if moded == "question"
+      sweep_question(@question)
 
-    current_group.on_activity(:answer_question)
-    @answer.user.on_activity(:answer_question, current_group)
+      Question.update_last_target(@question.id, @answer)
+      @answer.user.stats.add_answer_tags(*@question.tags)
+      @question.answer_added!
 
-    search_opts = {"notification_opts.#{current_group.id}.new_answer" => {:$in => ["1", true]},
-                    :_id => {:$ne => @answer.user.id},
-                    :select => ["email"]}
+      current_group.on_activity(:answer_question)
+      @answer.user.on_activity(:answer_question, current_group)
 
-    users = User.find(@question.watchers, search_opts)
-    users.push(@question.user) if !@question.user.nil? && @question.user != @answer.user
-    followers = @answer.user.followers(:languages => [@question.language], :group_id => current_group.id)
+      search_opts = {"notification_opts.#{current_group.id}.new_answer" => {:$in => ["1", true]},
+                      :_id => {:$ne => @answer.user.id},
+                      :select => ["email"]}
 
-    users ||= []
-    followers ||= []
-    (users - followers).each do |u|
-      if !u.email.blank? && u.notification_opts.new_answer
-        Notifier.deliver_new_answer(u, current_group, @answer, false)
+      users = User.find(@question.watchers, search_opts)
+      users.push(@question.user) if !@question.user.nil? && @question.user != @answer.user
+      followers = @answer.user.followers(:languages => [@question.language], :group_id => current_group.id)
+
+      users ||= []
+      followers ||= []
+      (users - followers).each do |u|
+        if !u.email.blank? && u.notification_opts.new_answer
+          Notifier.deliver_new_answer(u, current_group, @answer, false)
+        end
+      end
+
+      followers.each do |u|
+        if !u.email.blank? && u.notification_opts.new_answer
+          Notifier.deliver_new_answer(u, current_group, @answer, true)
+        end
       end
     end
+    #
+    if moded == "discussion"
+      sweep_discussion(@discussion)
 
-    followers.each do |u|
-      if !u.email.blank? && u.notification_opts.new_answer
-        Notifier.deliver_new_answer(u, current_group, @answer, true)
+      Discussion.update_last_target(@discussion.id, @answer)
+      @answer.user.stats.add_answer_tags(*@discussion.tags)
+      @discussion.answer_added!
+
+      current_group.on_activity(:answer_discussion)
+      @answer.user.on_activity(:answer_discussion, current_group)
+
+      search_opts = {"notification_opts.#{current_group.id}.new_answer" => {:$in => ["1", true]},
+                      :_id => {:$ne => @answer.user.id},
+                      :select => ["email"]}
+
+      users = User.find(@discussion.watchers, search_opts)
+      users.push(@discussion.user) if !@discussion.user.nil? && @discussion.user != @answer.user
+      followers = @answer.user.followers(:languages => [@discussion.language], :group_id => current_group.id)
+
+      users ||= []
+      followers ||= []
+      (users - followers).each do |u|
+        if !u.email.blank? && u.notification_opts.new_answer
+          Notifier.deliver_new_answer(u, current_group, @answer, false)
+        end
+      end
+
+      followers.each do |u|
+        if !u.email.blank? && u.notification_opts.new_answer
+          Notifier.deliver_new_answer(u, current_group, @answer, true)
+        end
       end
     end
   end

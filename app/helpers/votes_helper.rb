@@ -12,22 +12,21 @@ module VotesHelper
           #{hidden_field_tag "voteable_type", class_name, :id => "voteable_type_#{class_name}_#{voteable.id}"}
           #{hidden_field_tag "voteable_id", voteable.id, :id => "voteable_id_#{class_name}_#{voteable.id}"}
           #{hidden_field_tag "source", source, :id => "source_#{class_name}_#{voteable.id}"}
-          <button type="submit" name="vote_up" value="1" class="arrow vote_up">
+          <button type="submit" name="vote_up" value="1" class="button-like">
             #{if vote && vote.value > 0
-                image_tag("vote_up.png", :width => 30, :height => 16, :title => I18n.t("votes.control.have_voted_up"))
+                image_tag("spacer.gif", :width => 18, :height => 18, :title => I18n.t("votes.control.have_voted_up"), :class=>'voted') + h('I like this')
               else
-                image_tag("to_vote_up.png", :width => 30, :height => 16, :title => I18n.t("votes.control.to_vote_up"))
+                image_tag("spacer.gif", :width => 18, :height => 18, :title => I18n.t("votes.control.to_vote_up"), :class=>'novoted')
               end
              }
+
           </button>
-          <div class="votes_average">
-            #{calculate_votes_average(voteable)}
-          </div>
-          <button type="submit" name="vote_down" value="-1" class="arrow vote_down">
+
+          <button type="submit" name="vote_down" value="-1" class="button-dislike">
             #{if vote && vote.value < 0
-                image_tag("vote_down.png", :width => 30, :height => 16, :title => I18n.t("votes.control.have_voted_down"))
+                image_tag("spacer.gif", :width => 18, :height => 18, :title => I18n.t("votes.control.have_voted_down"), :class=>'voted')
               else
-                image_tag("to_vote_down.png", :width => 30, :height => 16, :title => I18n.t("votes.control.to_vote_down"))
+                image_tag("spacer.gif", :width => 18, :height => 18, :title => I18n.t("votes.control.to_vote_down"), :class=>'novoted')
               end}
           </button>
         </div>
@@ -36,15 +35,20 @@ module VotesHelper
     else
       %@
         <div class='vote_box'>
-          <div class="arrow vote_up">
-            #{image_tag("to_vote_up.png", :width => 30, :height => 16)}
+          <div class="button_like">
+            <button type="submit" name="vote_up" value="1" class="button-like">
+              #{image_tag("spacer.gif", :width => 18, :height => 18, :class=>'voted')}
+              <span class='button-content'>
+                Vote
+              </span>
+            </button>
           </div>
-          <div class="votes_average">
-            #{calculate_votes_average(voteable)}
+          <div class="button_dislike">
+            <button type="submit" name="vote_up" value="1" class="button-like">
+              #{image_tag("spacer.gif", :width => 18, :height => 18, :class=>'novoted')}
+            </button>
           </div>
-          <div class="arrow vote_down">
-            #{image_tag("to_vote_down.png", :width => 30, :height => 16)}
-          </div>
+
         </div>
       @
     end
@@ -59,4 +63,19 @@ module VotesHelper
       t
     end
   end
+
+  def button_label(label)
+    labelled = ''
+    labelled << '<span class=button_label>'
+    labelled << label
+    labelled << '</span>'
+    labelled
+  end
+
 end
+
+
+          #<div class="votes_average">
+            #{calculate_votes_average(voteable)}
+          #</div>
+

@@ -1,0 +1,30 @@
+#toolbox
+  #vote-col
+    - if current_user && @discussion.watch_for?(current_user)
+      %button.watch
+        = link_to image_tag("layer-visible-on.png", 'data-src' => "/images/layer-visible-off.png", :width => 18, :height => 18), unwatch_discussion_path(@discussion), :class => 'question-action', "data-undo" =>  watch_discussion_path(@discussion), "data-title" => t(".watch_tooltip"), :title => t(".unwatch_tooltip"), :id => "watch-discussion"
+        %span.button-content
+          = h('Watched')
+    - else
+      %button.watch
+        = link_to image_tag("layer-visible-off.png", 'data-src' => "/images/layer-visible-on.png", :width => 18, :height => 18), watch_discussion_path(@discussion), :title => t(".watch_tooltip"), :class => 'discussion-action', "data-undo" =>  unwatch_discussion_path(@discussion), "data-title" => t(".unwatch_tooltip"), :id => "watch-discussion"
+        %span.button-content
+          = h('Watch')
+    - if logged_in? && favorite = current_user.favorite(@discussion)
+      %button.favourite
+        = link_to image_tag("favorites.png", 'data-src' => "/images/unfavorites.png", :width => 18, :height => 18), unfavorite_discussion_path(@discussion), :id => "unfavorite-link", :title => t(".unfavorite_tooltip"), :class => 'discussion-action', "data-undo" =>  favorite_discussion_path(@discussion), "data-title" => t(".favorite_tooltip"), 'data-counter' => '.favorites_count'
+        %span.button-content
+          = h('Favourites')
+    - else
+      %button.favourite
+        = link_to image_tag("unfavorites.png", 'data-src' => "/images/favorites.png", :width => 18, :height => 18), favorite_discussion_path(@discussion), :id => "favorite-link", :title => t(".favorite_tooltip"), :class => 'discussion-action', "data-undo" =>  unfavorite_discussion_path(@discussion), "data-title" => t(".unfavorite_tooltip"), 'data-counter' => '.favorites_count'
+        %span.button-content
+          = h('Favourites')
+
+    %button.share
+      = render :partial => "share"
+
+    =vote_box(@discussion, discussion_path(@discussion), @discussion.closed)
+
+.clear
+

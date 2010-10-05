@@ -18,7 +18,7 @@
 
 -content_for :main do
   - form_for(@discussion, :html=>{:class => "form", :id => "ask_discussion"}) do |f|
-    =render :partial => "form", :locals => {:f => f}
+    =render :partial => "form", :locals => {:f => f, :mode=>"discussion"}
 
     .group.navform
       .right

@@ -1,5 +1,5 @@
--content_for :trends do
-  = render :partial => "shared/trending_topics", :object => @tag_cloud
+-#content_for :trends do
+  =# render :partial => "discussion_topics", :object => @tag_cloud
 
 = javascript_include_merged :show
 
@@ -29,6 +29,7 @@
   %link{:rel => "canonical", :href => discussion_url(@discussion) }
 
 - content_for :subtabs do
+
   %h1.navtitle.title.entry-title
     &= @discussion.title
     - if @discussion.closed
@@ -38,25 +39,10 @@
 = error_messages_for 'answer'
 
 - content_for :main do
-
-  #discussion-vote-col
-    - if current_user && @discussion.watch_for?(current_user)
-      = link_to image_tag("layer-visible-on.png", 'data-src' => "/images/layer-visible-off.png"), unwatch_discussion_path(@discussion), :class => 'discussion-action', "data-undo" =>  watch_discussion_path(@discussion), "data-title" => t(".watch_tooltip"), :title => t(".unwatch_tooltip"), :id => "watch-discussion"
-    - else
-      = link_to image_tag("layer-visible-off.png", 'data-src' => "/images/layer-visible-on.png"), watch_discussion_path(@discussion), :title => t(".watch_tooltip"), :class => 'discussion-action', "data-undo" =>  unwatch_discussion_path(@discussion), "data-title" => t(".unwatch_tooltip"), :id => "watch-discussion"
-
-    =vote_box(@discussion, discussion_path(@discussion), @discussion.closed)
-
-    - if logged_in? && favorite = current_user.favorite(@discussion)
-      = link_to image_tag("favorites.png", 'data-src' => "/images/unfavorites.png"), unfavorite_discussion_path(@discussion), :id => "unfavorite-link", :title => t(".unfavorite_tooltip"), :class => 'discussion-action', "data-undo" =>  favorite_discussion_path(@discussion), "data-title" => t(".favorite_tooltip"), 'data-counter' => '.favorites_count'
-    - else
-      = link_to image_tag("unfavorites.png", 'data-src' => "/images/favorites.png"), favorite_discussion_path(@discussion), :id => "favorite-link", :title => t(".favorite_tooltip"), :class => 'discussion-action', "data-undo" =>  unfavorite_discussion_path(@discussion), "data-title" => t(".unfavorite_tooltip"), 'data-counter' => '.favorites_count'
-    .favorites_count
-      &= @discussion.favorites_count
-
-
+  = show_flash_messages(:class => "flash", :markdown => true)
   #discussion-body-col.commentable.markdown
     %a{:name => @discussion.id}
+    =render :partial => "toolbox"
     #body
       - if @discussion.closed && @discussion.close_reason
         #close_reason
@@ -65,7 +51,10 @@
           - if !@discussion.close_reason.comment.empty?
             .comment
               =find_and_preserve(shapado_auto_link(@discussion.close_reason.comment))
-      .post-text.entry-content
+      .entry-title
+        = @discussion.title
+
+      .entry-content
         = discussion_body
     .tag-list
       - @discussion.tags.each do |tag|
@@ -74,87 +63,10 @@
       - if logged_in? && (current_user.can_modify?(@discussion) || current_user.can_retag_others_discussions_on?(current_group))
         %span.retag
           = link_to t('.retag'), retag_discussion_path(@discussion), :id => 'retag'
-    .post-info
-      .author.user_info.vcard
-        .gravatar.logo
-          = gravatar(@discussion.user.email.to_s, :size => 32)
-        .user_data
-          %span.asked_by
-            = t('activerecord.attributes.discussion.asked_by')
-          =render :partial => "users/user_mini", :locals => {:user => @discussion.user}
-          %span.time_ago.published{:title => @discussion.created_at, :class => "relativetime"}
-            = t("time.ago", :time => time_ago_in_words(@discussion.created_at))
-            - if @discussion.wiki
-              .wiki_flag
-                wiki
-          %span.adr
-            - if !@discussion.user.hide_country
-              %span.country-name
-                = t("global.from", :site => @discussion.user.country_name)
-                = country_flag(@discussion.user.country_code, @discussion.user.country_name)
-        .clear
-      - if @discussion.updated_by.present?
-        .user_info
-          .gravatar.logo
-            = gravatar(@discussion.updated_by.email.to_s, :size => 32)
-          .user_data
-            %span.asked_by
-              = t('activerecord.attributes.discussion.updated_by')
-            =render :partial => "users/user_mini", :locals => {:user => @discussion.updated_by}
-            %span.time_ago.published{:title => @discussion.updated_at, :class => "relativetime"}
-              = t("time.ago", :time => time_ago_in_words(@discussion.updated_at))
-            %span.adr
-              - if !@discussion.updated_by.hide_country
-                %span.country-name
-                  = t("global.from", :site => @discussion.updated_by.country_name)
-                  = country_flag(@discussion.updated_by.country_code, @discussion.updated_by.country_name)
-          .clear
-    .controls
-      .actions
-        - if !@flag.new?
-          .flagged
-            = "#{t('.flagged_as')} #{t(@flag.reason, :scope=>'flags.form')}"
-            = link_to t("scaffold.edit"), edit_discussion_flag_path(@discussion,@flag), :class => "flag-link", :id => "edit_discussion_flag_link", :rel => 'nofollow'
-            = link_to t("scaffold.destroy"), discussion_flag_path(@discussion,@flag), :id => "destroy_discussion_flag_link", :rel => 'nofollow', :confirm => "are you sure?", :method => :delete
-        - elsif logged_in? && current_user != @discussion.user
-          = link_to t(".flag"), new_discussion_flag_path(@discussion), :class => "flag-link", :id => "discussion_flag_link", :rel => 'nofollow'
 
-        - if logged_in?
-          - if show_close_request_form
-            -if !@close_request.new?
-              .flagged
-                = "#{t('.requested_close_as')} #{t(@close_request.reason, :scope=>'close_requests.form')}"
-                = link_to t(".edit_request"), edit_discussion_close_request_path(@discussion,@close_request), :class => "flag-link", :id => "edit_discussion_close_request_link", :rel => 'nofollow'
-                = link_to t(".retract_request"), discussion_close_request_path(@discussion,@close_request), :id => "destroy_discussion_close_request_link", :rel => 'nofollow', :confirm => "are you sure?", :method => :delete
-            = link_to t(".request_closing"), @close_request.new? ? new_discussion_close_request_path(@discussion) : edit_discussion_close_request_path(@discussion, @close_request), :id => "request-close-link", :rel => 'nofollow', :title => t('.request_closing_details')
-
-          - if show_open_request_form
-            -if !@open_request.new?
-              .flagged
-                = "#{t('.requested_reopening')} #{@open_request.comment}"
-                = link_to t(".edit_request"), edit_discussion_open_request_path(@discussion, @open_request), :class => "flag-link", :id => "edit_discussion_open_request_link", :rel => 'nofollow'
-                = link_to t(".retract_request"), discussion_open_request_path(@discussion,@open_request), :id => "destroy_discussion_open_request_link", :rel => 'nofollow', :confirm => "are you sure?", :method => :delete
-
-            -if current_user.mod_of?(current_group)
-              = link_to t(".open"), open_discussion_path(@discussion), :rel => 'nofollow', :title => t('.request_opening_details'), :method => "put"
-            -else
-              = link_to t(".request_opening"), new_discussion_open_request_path(@discussion), :id => "request-open-link", :rel => 'nofollow', :title => t('.request_opening_details')
-
-          - if (@discussion.wiki && current_user.can_edit_wiki_post_on?(@discussion.group)) || current_user.can_edit_others_posts_on?(@discussion.group) || current_user.can_modify?(@discussion)
-            = link_to t('scaffold.edit'), edit_discussion_path(@discussion), :class => "button"
-          - if @discussion.versions.count > 0
-            = link_to t(".history", :default => "history"), history_discussion_path(@discussion)
-          - if (current_user.can_modify?(@discussion) || current_user.owner_of?(@discussion.group))
-            = link_to t("scaffold.destroy"), discussion_path(@discussion.id), :confirm => "are you sure?", :method => :delete
-          - if current_user.mod_of?(@discussion.group)
-            -if !@discussion.closed
-              = link_to t('.close'), discussion_close_requests_path(@discussion)
-            = link_to t(".ban"), ban_path(:discussion_ids => [@discussion.id]), :class => "button", :confirm => "are you sure?"
-      .forms
-        -# render :partial => "flags/form", :locals => {:flag => @flag, :flaggeable => @discussion, :source => source, :form_id => "discussion_flag_form" }
-
-        -# if !@discussion.closed && show_close_request_form
-          -#= render :partial => "close_requests/form", :locals => { :discussion => @discussion, :close_request => @close_request, :hide => true, :form_id => "request_close_discussion_form"}
+    =render :partial => "user_info"
+    =render :partial => "controls"
+  
 
     - if logged_in?
       = link_to t("comments.shared.add_comment"), new_discussion_comment_path(@discussion), :id => "add_comment_link", :rel => 'nofollow'
@@ -167,121 +79,114 @@
       .comment-form-discussion
         -form_tag discussion_comments_path(@discussion), :class => "form commentForm nestedAnswerForm", :id => "add_comment_form" do
           -@comment = Comment.new
-          = render :partial => "comments/form", :locals => {:source => source, :commentable => @discussion}
+          = render :partial => "comments/form", :locals => {:source => source, :commentable => @discussion, :mode=>"discussion"}
           .group.navform
             = submit_tag t("comments.shared.comment_submit"), :class => "button"
             = t("global.or")
             = link_to t('scaffold.cancel'), '', :class => 'cancel_comment'
 
-%a{:name=>"answers"}
-#answers
-  .secondary-navigation{:class => @active_subtab.to_s}
-    .navtitle
-      = t(".answers_title", :count => @answers.total_entries + (@discussion.accepted ? 1 : 0))
+  %a{:name=>"answers"}
+  #answers
+    .secondary-navigation{:class => @active_subtab.to_s}
+      .navtitle
+        = t("discussions.index.answers_title", :count => @answers.total_entries + (@discussion.accepted ? 1 : 0))
 
-    %ul
-      %li.newest
-        = link_to t("discussions.index.newest"), discussion_path(@discussion, :sort=>"newest", :anchor => "answers"), :rel => "nofollow"
-      %li.votes
-        = link_to t("discussions.index.votes"), discussion_path(@discussion, :sort=>"votes", :anchor => "answers"), :rel => "nofollow"
-      %li.oldest
-        = link_to t("discussions.index.oldest"), discussion_path(@discussion, :sort=>"oldest", :anchor => "answers"), :rel => "nofollow"
-    .clear
-  .block
-    - if @discussion.accepted
-      -solution = @discussion.answer
-      =render :partial=> "answer", :locals=> {:discussion => @discussion, :answer => solution} unless solution.nil?
-    .hentry
-      -@answers.each do |answer|
-        =render :partial=> "answer", :locals=> {:discussion => @discussion, :answer => answer}
-    =will_paginate(@answers)
-
--unless @discussion.closed
-  %a{:name=>"to_answer"}
-  -form_for @answer, :url => discussion_answers_path(@discussion.id), :html => {:class => "form mainAnswerForm"} do |f|
-    = render :partial => "answers/form", :locals => {:f => f, :markdown => true}
-    .group.navform
-      .right
-        = f.label :wiki, "Wiki", :class => "radio"
-        = f.check_box :wiki, :class => "checkbox"
-      = submit_tag t('answers.form.submit'), :class => "button"
-    .clear
-
--content_for :sidebar do
-  - if AppConfig.enable_sharing
+      %ul
+        %li.newest
+          = link_to t("discussions.index.newest"), discussion_path(@discussion, :sort=>"newest", :anchor => "answers"), :rel => "nofollow"
+        %li.votes
+          = link_to t("discussions.index.votes"), discussion_path(@discussion, :sort=>"votes", :anchor => "answers"), :rel => "nofollow"
+        %li.oldest
+          = link_to t("discussions.index.oldest"), discussion_path(@discussion, :sort=>"oldest", :anchor => "answers"), :rel => "nofollow"
+      .clear
     .block
-      %h3
-        = t(".share")
-      .content
-        = render :partial => "share"
+      - if @discussion.accepted
+        -solution = @discussion.answer
+        =render :partial=> "answer", :locals=> {:discussion => @discussion, :answer => solution} unless solution.nil?
+      .hentry
+        -@answers.each do |answer|
+          =render :partial=> "answer", :locals=> {:discussion => @discussion, :answer => answer}
+      =will_paginate(@answers)
+
+  -unless @discussion.closed
+    %a{:name=>"to_answer"}
+    -form_for @answer, :url => discussion_answers_path(@discussion.id), :html => {:class => "form mainAnswerForm"} do |f|
+      = render :partial => "answers/form", :locals => {:f => f, :markdown => true, :mode => "discussion"}
+      .group.navform
+        .right
+          =# f.label :wiki, "Wiki", :class => "radio"
+          =# f.check_box :wiki, :class => "checkbox"
+        = submit_tag t('answers.form.submit'), :class => "button"
       .clear
 
-  - if logged_in? && (current_user.mod_of?(current_group) || current_user.can_view_offensive_counts_on?(current_group))
-    -unless @discussion.flags.count == 0
-      .block
-        %h3
-          = t(:flags, :scope => "activerecord.models")
-        .content
-          = render :partial => "flags/list", :locals => {:flaggeable => @discussion}
+-content_for :sidebar do
+  #sidebar
+    - if logged_in? && (current_user.mod_of?(current_group) || current_user.can_view_offensive_counts_on?(current_group))
+      -unless @discussion.flags.count == 0
+        .block
+          %h3
+            = t(:flags, :scope => "activerecord.models")
+          .content
+            = render :partial => "flags/list", :locals => {:flaggeable => @discussion}
 
-    -unless @discussion.close_requests.size == 0
-      .block
-        %h3
-          = t(:prural_name, :scope => "close_requests.model")
-        .content
-          = render :partial => "close_requests/list", :locals => {:discussion => @discussion}
+      -unless @discussion.close_requests.size == 0
+        .block
+          %h3
+            = t(:prural_name, :scope => "close_requests.model")
+          .content
+            = render :partial => "close_requests/list", :locals => {:discussion => @discussion}
 
-    -unless @discussion.open_requests.size == 0
-      .block
-        %h3
-          = t(:prural_name, :scope => "open_requests.model")
-        .content
-          = render :partial => "open_requests/list", :locals => {:discussion => @discussion}
+      -unless @discussion.open_requests.size == 0
+        .block
+          %h3
+            = t(:prural_name, :scope => "open_requests.model")
+          .content
+            = render :partial => "open_requests/list", :locals => {:discussion => @discussion}
 
-  .block
-    %h3
-      = t('.tags', :default => [:"layouts.application.tags", :"activerecord.attributes.user.tags", "tags"])
-    = render :partial => "shared/tag_list", :object => @tag_cloud, :locals => { :extra_params => {:controller => "discussions", :action => "index"} }
-    .clear
-
-  - if @discussion.badges.size > 0
     .block
       %h3
-        = t('badges', :scope => "activerecord.models")
-      .content
-        %ul.list
-          -@discussion.badges.each do |badge|
-            %li
-              = render :partial => "badges/badge", :object => badge, :locals => {:hide_user => false}
+        = t('.tags', :default => [:"layouts.application.tags", :"activerecord.attributes.user.tags", "tags"])
+      = render :partial => "shared/tag_list", :object => @tag_cloud, :locals => { :extra_params => {:controller => "discussions", :action => "index"} }
+      .clear
 
-  .block.stats
-    - if @discussion.group_id != current_group.id
-      = t(".asked_on")
-      &= @discussion.group.name
+    - if @discussion.badges.size > 0
+      .block
+        %h3
+          = t('badges', :scope => "activerecord.models")
+        .content
+          %ul.list
+            -@discussion.badges.each do |badge|
+              %li
+                = render :partial => "badges/badge", :object => badge, :locals => {:hide_user => false}
 
-    .entry
-      .text.asked
-        = t('activerecord.attributes.discussion.created_at')
+    .block.stats
+      - if @discussion.group_id != current_group.id
+        = t(".asked_on")
+        &= @discussion.group.name
+
+      .entry
+        .text.asked
+          = t('activerecord.attributes.discussion.created_at')
+          .data
+            = t("time.ago", :time => time_ago_in_words(@discussion.created_at))
+      .entry
+        .text.viewed
+          = t('.viewed')
         .data
-          = t("time.ago", :time => time_ago_in_words(@discussion.created_at))
-    .entry
-      .text.viewed
-        = t('.viewed')
-      .data
-        = t('number.x_time', :count => number_with_delimiter(@discussion.views_count))
-    .entry
-      .text.last_activity
-        = t(".last_activity")
-      .data.updated{:title => @discussion.activity_at, :class => "relativetime"}
-        = t("time.ago", :time => time_ago_in_words(@discussion.activity_at))
+          = t('number.x_time', :count => number_with_delimiter(@discussion.views_count))
+      .entry
+        .text.last_activity
+          = t(".last_activity")
+        .data.updated{:title => @discussion.activity_at, :class => "relativetime"}
+          = t("time.ago", :time => time_ago_in_words(@discussion.activity_at))
 
-  -related_discussions = Discussion.related_discussions(@discussion, :language => find_languages)
-  - if !related_discussions.empty?
-    .block
-      %h3
-        =t(".related_discussions")
-      .content
-        %ul.list
-          -related_discussions.each do |rq|
-            %li
-              = link_to h(rq.title), discussion_path(rq), :title => truncate(strip_tags(rq.body), :length => 200)
+    -related_discussions = Discussion.related_discussions(@discussion, :language => find_languages)
+    - if !related_discussions.empty?
+      .block
+        %h3
+          =t(".related_discussions")
+        .content
+          %ul.list
+            -related_discussions.each do |rq|
+              %li
+                = link_to h(rq.title), discussion_path(rq), :title => truncate(strip_tags(rq.body), :length => 200)

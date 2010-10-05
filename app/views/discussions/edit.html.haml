@@ -6,7 +6,7 @@
 
 -content_for :main do
 
-  - form_for(@bookmark, :url => bookmark_path(@bookmark), :html => {:class => "form"}) do |f|
+  - form_for(@discussion, :url => discussion_path(@discussion), :html => {:class => "form"}) do |f|
     =render :partial => "form", :locals => {:f => f}
     .group.navform
       .right
@@ -15,4 +15,4 @@
 
       = f.submit t("scaffold.update")
       = t("global.or")
-      = link_to t('scaffold.cancel'), bookmarks_path, :class => "button cancel"
+      = link_to t('scaffold.cancel'), discussions_path, :class => "button cancel"

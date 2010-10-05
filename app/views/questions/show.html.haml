@@ -38,7 +38,7 @@
 = error_messages_for 'answer'
 
 - content_for :main do
-
+  = show_flash_messages(:class => "flash", :markdown => true)
   #question-vote-col
     - if current_user && @question.watch_for?(current_user)
       = link_to image_tag("layer-visible-on.png", 'data-src' => "/images/layer-visible-off.png"), unwatch_question_path(@question), :class => 'question-action', "data-undo" =>  watch_question_path(@question), "data-title" => t(".watch_tooltip"), :title => t(".unwatch_tooltip"), :id => "watch-question"
@@ -199,7 +199,7 @@
   -unless @question.closed
     %a{:name=>"to_answer"}
     -form_for @answer, :url => question_answers_path(@question.id), :html => {:class => "form mainAnswerForm"} do |f|
-      = render :partial => "answers/form", :locals => {:f => f, :markdown => true}
+      = render :partial => "answers/form", :locals => {:f => f, :markdown => true, :mode => "question"}
       .group.navform
         .right
           = f.label :wiki, "Wiki", :class => "radio"
@@ -208,26 +208,7 @@
       .clear
 
 -content_for :sidebar do
-  - if AppConfig.enable_sharing
-    .block
-      %h3
-        = t(".share")
-      .content
-        %ul.share
-          %li
-            = render :partial => "identica"
-          - if current_group.domain != AppConfig.domain
-            %li
-              = render :partial => "shapado"
-          %li
-            = render :partial => "twitter"
-          %li
-            = render :partial => "linkedin"
-          %li
-            = render :partial => "think"
-          %li
-            = render :partial => "facebook"
-      .clear
+
 
   - if logged_in? && (current_user.mod_of?(current_group) || current_user.can_view_offensive_counts_on?(current_group))
     -unless @question.flags.count == 0

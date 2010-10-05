@@ -4,6 +4,8 @@ class Answer < Comment
   include Support::Versionable
   key :_id, String
 
+  key :mode, String
+
   key :body, String, :required => true
   key :language, String, :default => "en"
   key :flags_count, Integer, :default => 0
@@ -18,12 +20,16 @@ class Answer < Comment
   key :question_id, String
   belongs_to :question
 
+  key :discussion_id, String
+  belongs_to :discussion
+
   has_many :flags
 
   has_many :comments, :foreign_key => "commentable_id", :class_name => "Comment", :order => "created_at asc", :dependent => :destroy
 
   validates_presence_of :user_id
-  validates_presence_of :question_id
+  #validates_presence_of :question_id
+  #validates_presence_of :discussion_id
 
   versionable_keys :body
   filterable_keys :body

@@ -1,7 +1,7 @@
 -cache("trending_topics_#{current_group.id}") do
   %div{:style=>"width:962px;height:26px; margin:13px 0; line-height:26px;"}
     %div{:style=>"float:right;width:234px;"}
-      %div.toolbar.discussion{:onclick => 'window.location('+new_discussion_path+''}
+      %button{:onclick => 'window.location('+new_discussion_path+''}
         =link_to "&#9733; Start a new discussion", new_discussion_path, :rel => 'nofollow'
     %div.left
       = "Discussion Trends:" 
@@ -12,7 +12,7 @@
 
 
 
-.clear
+  .clear
 
 %script
   = "$(function() {"
