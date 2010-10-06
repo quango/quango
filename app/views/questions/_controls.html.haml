@@ -42,3 +42,4 @@
         -if !@question.closed
           = link_to t('.close'), question_close_requests_path(@question)
         = link_to t(".ban"), ban_path(:question_ids => [@question.id]), :class => "ban-button", :confirm => "are you sure?"
+  .forms

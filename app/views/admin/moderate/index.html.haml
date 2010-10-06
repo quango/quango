@@ -12,5 +12,7 @@
     %li.banneds
       = link_to t(".banned", :default => :"activerecord.models"), moderate_path(:tab=>"banned")
 
-= render :partial => "admin/moderate/subtabs/#{@active_subtab}"
+
+-content_for :main do
+  = render :partial => "admin/moderate/subtabs/#{@active_subtab}"
 

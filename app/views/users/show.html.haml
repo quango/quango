@@ -139,19 +139,7 @@
       = will_paginate @answers, :param_name => "answers_page"
       .clear
 
-    /Badges
-    %h2.title
-      .counter
-        = number_with_delimiter(@badges.total_entries)
-      = t(:badges, :scope => "activerecord.models", :default => "Badges")
 
-    %ul.list#badges
-      -@badges.each do |badge|
-        %li
-          = render :partial => "badges/badge", :object => badge, :locals => {:hide_user => true}
-    .additional_info
-      = will_paginate @badges, :param_name => "badges_page"
-      .clear
 
 -content_for :sidebar do
   .block.stats
@@ -171,3 +159,19 @@
         = t(:reputation, :scope => "activerecord.attributes.user")
       .data
         = @user.reputation_on(current_group)
+
+    /Badges
+    %h2.title
+      .counter
+        = number_with_delimiter(@badges.total_entries)
+      = t(:badges, :scope => "activerecord.models", :default => "Badges")
+
+    %ul.list#badges
+      -@badges.each do |badge|
+        %li
+          = render :partial => "badges/badge", :object => badge, :locals => {:hide_user => true}
+    .additional_info
+      = will_paginate @badges, :param_name => "badges_page"
+      .clear
+
+
