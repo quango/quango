@@ -1,5 +1,10 @@
 en:
   questions:
+    toolbox:
+      watch_tooltip: "Start watching this question"
+      unwatch_tooltip: "Stop watching this question"
+      favorite_tooltip: "Add this question to your favorites"
+      unfavorite_tooltip: "Remove this question from your favorites"
     controls:
       close: Close
       request_closing: Request Closure
@@ -22,7 +27,7 @@ en:
       flagged_as: Flagged as
 
     index:
-      title: All discussions
+      title: All questions
       hot:     Hot
       active:  Active
       votes:   Votes
@@ -48,9 +53,8 @@ en:
       to_answer_question: to answer this question
       watch_tooltip: "Watch this question"
       accepted_tooltip: "One of the answers was accepted as the correct answer."
-      unwatch_tooltip: "Stop watching this question"
-      favorite_tooltip: "Add this question to your favorites"
-      unfavorite_tooltip: "Remove this question from your favorites"
+
+
       asked_on: "asked on"
       last_activity: Latest activity
       retag: Retag

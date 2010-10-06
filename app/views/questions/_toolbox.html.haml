@@ -1,26 +1,16 @@
 #toolbox
   #vote-col
     - if current_user && @question.watch_for?(current_user)
-      %button.watch
-        = link_to image_tag("layer-visible-on.png", 'data-src' => "/images/layer-visible-off.png", :width => 18, :height => 18), unwatch_question_path(@question), :class => 'question-action', "data-undo" =>  watch_question_path(@question), "data-title" => t(".watch_tooltip"), :title => t(".unwatch_tooltip"), :id => "watch-question"
-        %span.button-content
-          = h('Watched')
+      = link_to image_tag("layer-visible-on.png", 'data-src' => "/images/layer-visible-off.png", :width => 18, :height => 18), unwatch_question_path(@question), :class => 'question-action button', "data-undo" =>  watch_question_path(@question), "data-title" => t(".watch_tooltip"), :title => t(".unwatch_tooltip"), :id => "watch-question"
+
     - else
-      %button.watch
-        = link_to image_tag("layer-visible-off.png", 'data-src' => "/images/layer-visible-on.png", :width => 18, :height => 18), watch_question_path(@question), :title => t(".watch_tooltip"), :class => 'question-action', "data-undo" =>  unwatch_question_path(@question), "data-title" => t(".unwatch_tooltip"), :id => "watch-question"
-        %span.button-content
-          = h('Watch')
+      = link_to image_tag("layer-visible-off.png", 'data-src' => "/images/layer-visible-on.png", :width => 18, :height => 18), watch_question_path(@question), :class => 'question-action button', "data-undo" =>  unwatch_question_path(@question), "data-title" => t(".unwatch_tooltip"), :title => t(".watch_tooltip"), :id => "watch-question"
+
     - if logged_in? && favorite = current_user.favorite(@question)
-      %button.favourite
-        = link_to image_tag("favorites.png", 'data-src' => "/images/unfavorites.png", :width => 18, :height => 18), unfavorite_question_path(@question), :id => "unfavorite-link", :title => t(".unfavorite_tooltip"), :class => 'question-action', "data-undo" =>  favorite_question_path(@question), "data-title" => t(".favorite_tooltip"), 'data-counter' => '.favorites_count'
-        %span.button-content
-          = h('Favourites')
-          &= "(" + @question.favorites_count.to_s + ")"
+      = link_to image_tag("favorites.png", 'data-src' => "/images/unfavorites.png", :width => 18, :height => 18), unfavorite_question_path(@question), :id => "unfavorite-link", :title => t(".unfavorite_tooltip"), :class => 'question-action button watch', "data-undo" =>  favorite_question_path(@question), "data-title" => t(".favorite_tooltip"), 'data-counter' => '.favorites_count'
+
     - else
-      %button.favourite
-        = link_to image_tag("unfavorites.png", 'data-src' => "/images/favorites.png", :width => 18, :height => 18), favorite_question_path(@question), :id => "favorite-link", :title => t(".favorite_tooltip"), :class => 'question-action', "data-undo" =>  unfavorite_question_path(@question), "data-title" => t(".unfavorite_tooltip"), 'data-counter' => '.favorites_count'
-        %span.button-content
-          = h('Favourites')
+      = link_to image_tag("unfavorites.png", 'data-src' => "/images/favorites.png", :width => 18, :height => 18), favorite_question_path(@question), :id => "favorite-link", :title => t(".favorite_tooltip"), :class => 'question-action button unwatch', "data-undo" =>  unfavorite_question_path(@question), "data-title" => t(".unfavorite_tooltip"), 'data-counter' => '.favorites_count'
 
     %button.share
       = render :partial => "share"

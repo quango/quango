@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  //$("a.button[title]").tooltip({position: "bottom center"}) #do later
   $("form.nestedAnswerForm").hide();
   $("#add_comment_form").hide();
   $("form").live('submit', function() {

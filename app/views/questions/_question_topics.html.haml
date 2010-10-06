@@ -1,8 +1,9 @@
 -cache("trending_topics_#{current_group.id}") do
   %div{:style=>"width:962px;height:26px; margin:13px 0; line-height:26px;"}
     %div{:style=>"float:right;width:234px;"}
-      %button{:onclick => 'window.location('+new_question_path+''}
-        =link_to "&#9733; Start a new question", new_question_path, :rel => 'nofollow'
+      %form{:action=>"#{new_question_path}"}
+        %button{:class=>"sidebar", :type=>"submit", :value=>"&#9733; Ask a question"}
+          = "&#9733; Ask a question"
     %div.left
       = "Question Trends:" 
 

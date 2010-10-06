@@ -36,15 +36,12 @@ module VotesHelper
       %@
         <div class='vote_box'>
           <div class="button_like">
-            <button type="submit" name="vote_up" value="1" class="button-like">
+            <button type="submit" name="vote_up" value="1" class="button-like" disabled>
               #{image_tag("spacer.gif", :width => 18, :height => 18, :class=>'voted')}
-              <span class='button-content'>
-                Vote
-              </span>
             </button>
           </div>
           <div class="button_dislike">
-            <button type="submit" name="vote_up" value="1" class="button-like">
+            <button type="submit" name="vote_down" value="1" class="button-dislike" disabled>
               #{image_tag("spacer.gif", :width => 18, :height => 18, :class=>'novoted')}
             </button>
           </div>

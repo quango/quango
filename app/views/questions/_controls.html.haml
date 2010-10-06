@@ -33,7 +33,7 @@
           = link_to t(".request_opening"), new_question_open_request_path(@question), :id => "request-open-link", :rel => 'nofollow', :title => t('.request_opening_details')
 
       - if (@question.wiki && current_user.can_edit_wiki_post_on?(@question.group)) || current_user.can_edit_others_posts_on?(@question.group) || current_user.can_modify?(@question)
-        = link_to t('scaffold.edit'), edit_question_path(@question), :class => "button"
+        = link_to t('scaffold.edit'), edit_question_path(@question), :class => "edit-button"
       - if @question.versions.count > 0
         = link_to t(".history", :default => "history"), history_question_path(@question)
       - if (current_user.can_modify?(@question) || current_user.owner_of?(@question.group))
@@ -41,4 +41,4 @@
       - if current_user.mod_of?(@question.group)
         -if !@question.closed
           = link_to t('.close'), question_close_requests_path(@question)
-        = link_to t(".ban"), ban_path(:question_ids => [@question.id]), :class => "button", :confirm => "are you sure?"
+        = link_to t(".ban"), ban_path(:question_ids => [@question.id]), :class => "ban-button", :confirm => "are you sure?"
