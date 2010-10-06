@@ -112,6 +112,8 @@ class FlagsController < ApplicationController
       @resource = current_group.answers.find(params[:answer_id])
     elsif params[:question_id]
       @resource = current_group.questions.find_by_slug_or_id(params[:question_id])
+    elsif params[:discussion_id]
+      @resource = current_group.discussions.find_by_slug_or_id(params[:discussion_id])
     end
   end
 
@@ -120,6 +122,8 @@ class FlagsController < ApplicationController
       question_path(@resource.question)
     elsif @resource.is_a?(Question)
       question_path(@resource)
+    elsif @resource.is_a?(Discussion)
+      discussion_path(@resource)
     else
       params[:return_to]
     end

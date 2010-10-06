@@ -55,6 +55,17 @@ class Comment
     question
   end
 
+  def find_discussion
+    discussion = nil
+    if self.commentable.kind_of?(Discussion)
+      discussion = self.commentable
+    elsif self.commentable.respond_to?(:discussion)
+      discussion = self.commentable.discussion
+    end
+
+    discussion
+  end
+
   def question_id
     question_id = nil
 
@@ -68,6 +79,21 @@ class Comment
 
     question_id
   end
+
+  def discussion_id
+    discussion_id = nil
+
+    if self.commentable_type == "Discussion"
+      discussion_id = self.commentable_id
+    elsif self.commentable_type == "Answer"
+      discussion_id = self.commentable.discussion_id
+    elsif self.commentable.respond_to?(:discussion)
+      discussion_id = self.commentable.discussion_id
+    end
+
+    discussion_id
+  end
+
 
   def find_recipient
     if self.commentable.respond_to?(:user)

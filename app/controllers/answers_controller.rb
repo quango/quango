@@ -55,10 +55,26 @@ class AnswersController < ApplicationController
 
   def create
     @answer = Answer.new
-    @answer.safe_update(%w[body wiki anonymous], params[:answer])
-    @question = Question.find_by_slug_or_id(params[:question_id])
-    @answer.question = @question
-    @answer.group_id = @question.group_id
+    @answer.safe_update(%w[body wiki anonymous mode], params[:answer])
+
+    mode = params[:answer]
+    moded = mode[:mode]
+
+    if moded == "question"
+     @question = Question.find_by_slug_or_id(params[:question_id])
+     @answer.question = @question
+     @answer.group_id = @question.group_id
+     puts "create question answer"
+    end
+
+    if moded == "discussion"
+     @discussion = Discussion.find_by_slug_or_id(params[:discussion_id])
+     @answer.discussion = @discussion
+     @answer.group_id = @discussion.group_id
+     puts "create discussion answer"
+    end
+
+
 
     # workaround, seems like mm default values are broken
     @answer.votes_count = 0
@@ -89,8 +105,10 @@ class AnswersController < ApplicationController
     end
 
     respond_to do |format|
+
+      if moded == "question"
       if (logged_in? || (recaptcha_valid? && @answer.user.valid?)) && @answer.save
-        after_create_answer
+        after_create_question_answer
 
         flash[:notice] = t(:flash_notice, :scope => "answers.create")
         format.html{redirect_to question_path(@question)}
@@ -113,8 +131,38 @@ class AnswersController < ApplicationController
         format.json { render :json => errors, :status => :unprocessable_entity }
         format.js {render :json => {:success => false, :message => flash.now[:error] }.to_json }
       end
-    end
-  end
+      end #end question mode
+
+     if moded == "discussion"
+      if (logged_in? || (recaptcha_valid? && @answer.user.valid?)) && @answer.save
+        after_create_discussion_answer
+
+        flash[:notice] = t(:flash_notice, :scope => "answers.create")
+        format.html{redirect_to discussion_path(@discussion)}
+        format.json { render :json => @answer.to_json(:except => %w[_keywords]) }
+        format.js do
+          render(:json => {:success => true, :message => flash[:notice],
+            :html => render_to_string(:partial => "discussion/answer",
+                                      :object => @answer,
+                                      :locals => {:discussion => @discussion})}.to_json)
+        end
+      else
+        @answer.errors.add(:captcha, "is invalid") if !logged_in? && !recaptcha_valid?
+
+        errors = @answer.errors
+        errors.merge!(@answer.user.errors) if @answer.user.anonymous && !@answer.user.valid?
+        puts errors.full_messages
+
+        flash.now[:error] = errors.full_messages
+        format.html{redirect_to discussion_path(@discussion)}
+        format.json { render :json => errors, :status => :unprocessable_entity }
+        format.js {render :json => {:success => false, :message => flash.now[:error] }.to_json }
+      end
+      end #end discussion mode
+
+    end #end do format
+
+  end #end create
 
   def edit
     @question = @answer.question
@@ -210,7 +258,7 @@ class AnswersController < ApplicationController
   end
 
   # TODO: use magent to do it
-  def after_create_answer
+  def after_create_question_answer
     sweep_question(@question)
 
     Question.update_last_target(@question.id, @answer)
@@ -245,4 +293,43 @@ class AnswersController < ApplicationController
       end
     end
   end
+
+ # TODO: use magent to do it
+  def after_create_discussion_answer
+    sweep_discussion(@discussion)
+
+    Discussion.update_last_target(@discussion.id, @answer)
+
+    @discussion.answer_added!
+    current_group.on_activity(:answer_discussion)
+
+    unless @answer.anonymous
+      @answer.user.stats.add_answer_tags(*@discussion.tags)
+      @answer.user.on_activity(:answer_discussion, current_group)
+
+      search_opts = {"notification_opts.#{current_group.id}.new_answer" => {:$in => ["1", true]},
+                      :_id => {:$ne => @answer.user.id},
+                      :select => ["email"]}
+
+      users = User.all(search_opts.merge(:_id => @discussion.watchers))
+      users.push(@discussion.user) if !@discussion.user.nil? && @discussion.user != @answer.user
+      followers = @answer.user.followers(:languages => [@discussion.language], :group_id => current_group.id)
+
+      users ||= []
+      followers ||= []
+      (users - followers).each do |u|
+        if !u.email.blank? && u.notification_opts.new_answer
+          Notifier.deliver_new_answer(u, current_group, @answer, false)
+        end
+      end
+
+      followers.each do |u|
+        if !u.email.blank? && u.notification_opts.new_answer
+          Notifier.deliver_new_answer(u, current_group, @answer, true)
+        end
+      end
+    end
+  end
+
+
 end

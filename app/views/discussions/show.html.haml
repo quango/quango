@@ -61,7 +61,7 @@
       - @discussion.tags.each do |tag|
         %span.tag
           = link_to h(tag), url_for(:controller => "discussions", :action => "index", :tags => tag), :rel => "tag"
-      - if logged_in? && (current_user.can_modify?(@discussion) || current_user.can_retag_others_discussions_on?(current_group))
+      - if logged_in? && (current_user.can_modify?(@discussion) || current_user.can_retag_others_questions_on?(current_group)) #tofix
         %span.retag
           = link_to t('.retag'), retag_discussion_path(@discussion), :id => 'retag'
 
@@ -77,7 +77,7 @@
       .comment-form-discussion
         -form_tag discussion_comments_path(@discussion), :class => "form commentForm nestedAnswerForm", :id => "add_comment_form" do
           -@comment = Comment.new
-          = render :partial => "comments/form", :locals => {:source => source, :commentable => @discussion}
+          = render :partial => "comments/form", :locals => {:source => source, :commentable => @discussion, :mode=>"discussion"}
           .group.navform
             = submit_tag t("comments.shared.comment_submit"), :class => "button"
             = t("global.or")
@@ -109,7 +109,7 @@
   -unless @discussion.closed
     %a{:name=>"to_answer"}
     -form_for @answer, :url => discussion_answers_path(@discussion.id), :html => {:class => "form mainAnswerForm"} do |f|
-      = render :partial => "answers/form", :locals => {:f => f, :markdown => true}
+      = render :partial => "answers/form", :locals => {:f => f, :markdown => true, :mode => "discussion"}
       .group.navform
         .controls.right{:style => "width: 50%"}
           .left{:style => "width: 49.5%"}

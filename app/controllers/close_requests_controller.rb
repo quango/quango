@@ -5,7 +5,12 @@ class CloseRequestsController < ApplicationController
   before_filter :check_permissions, :except => [:create, :new, :index]
 
   def index
+   if @question
     @close_requests = @question.close_requests
+   end
+   if @discussion
+    @close_requests = @discussion.close_requests
+   end
   end
 
   def new

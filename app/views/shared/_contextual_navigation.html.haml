@@ -4,18 +4,22 @@
     %ul
       %li.label      
         = "Show: "
-      %li.newswires
-        =link_to t("layouts.application.wires"), questions_path #{:tags => @active_tag}
+      %li.news
+        =link_to t("layouts.application.news"), questions_path #{:tags => @active_tag}
+      %li.videos
+        =link_to t("layouts.application.videos"), questions_path
+      %li.articles
+        =link_to t("layouts.application.articles"), questions_path
+      %li.articles
+        =link_to t("layouts.application.articles"), questions_path
       %li.questions
         =link_to t("layouts.application.questions"), questions_path
       %li.discussions
         =link_to t("layouts.application.discussions"), discussions_path
-      %li.links
+      %li.bookmarks
         =link_to t("layouts.application.bookmarks"), bookmarks_path, :options => current_tags
-      %li.users
+      %li.users.last
         =link_to t("layouts.application.users"), users_path
-      %li.pages.last
-        =link_to t("layouts.application.pages"), pages_path
       %li
         %small
           = "(current_tags: " << h(current_tags.to_s).capitalize << ")"
@@ -27,18 +31,22 @@
     %span.label
       = "Show: "<< h(current_tags.to_s).capitalize
     %ul
-      %li.newswires
-        =link_to t("layouts.application.wires"), questions_path #{:tags => @active_tag}
+      %li.news
+        =link_to t("layouts.application.news"), questions_path #{:tags => @active_tag}
+      %li.videos
+        =link_to t("layouts.application.videos"), questions_path
+      %li.articles
+        =link_to t("layouts.application.articles"), questions_path
+      %li.blogs
+        =link_to t("layouts.application.articles"), questions_path
       %li.questions
         =link_to t("layouts.application.questions"), questions_path
       %li.discussions
         =link_to t("layouts.application.discussions"), discussions_path
-      %li.links
+      %li.bookmarks
         =link_to t("layouts.application.bookmarks"), bookmarks_path
       %li.users
         =link_to t("layouts.application.users"), users_path
-      %li.pages.last
-        =link_to t("layouts.application.pages"), pages_path
       %li
         %small
           = "(current_tags: " << h(current_tags.to_s).capitalize << ")"

@@ -1,6 +1,6 @@
 
--solution = question.accepted && question.answer_id == answer.id
--source = question_path(@question)
+-solution = discussion.accepted && discussion.answer_id == answer.id
+-source = discussion_path(@discussion)
 
 - @aflag = current_user.has_flagged?(answer) if logged_in?
 - @aflag ||= Flag.new
@@ -52,32 +52,32 @@
           %b=t("global.anonymous")
     .controls
       .actions
-        = link_to t('activerecord.attributes.answer.link'), question_answer_path(@question.id, answer.id), :class => "bookmark"
+        = link_to t('activerecord.attributes.answer.link'), discussion_answer_path(@discussion.id, answer.id), :class => "bookmark"
         - if logged_in? && @aflag.new? && current_user != answer.user
-          = link_to t(".flag"), new_question_answer_flag_path(@question,answer), :class => "flag-link", :rel => 'nofollow'
+          = link_to t(".flag"), new_discussion_answer_flag_path(@discussion,answer), :class => "flag-link", :rel => 'nofollow'
 
         -if logged_in?
-          -if (current_user.mod_of?(@question.group) || current_user.can_modify?(@question))
-            -unless @question.accepted
-              = link_to t(".pick_answer"), solve_question_path(@question, :answer_id => answer)
+          -if (current_user.mod_of?(@discussion.group) || current_user.can_modify?(@discussion))
+            -unless @discussion.accepted
+              = link_to t(".pick_answer"), solve_discussion_path(@discussion, :answer_id => answer)
             -if solution
-              = link_to t(".unset_answer"),  unsolve_question_path(@question)
+              = link_to t(".unset_answer"),  unsolve_discussion_path(@discussion)
           -if answer.wiki || current_user.can_edit_others_posts_on?(answer.group) || current_user.can_modify?(answer)
-            = link_to t("scaffold.edit"), edit_question_answer_path(@question, answer)
+            = link_to t("scaffold.edit"), edit_discussion_answer_path(@discussion, answer)
           -if current_user.can_modify?(answer)
-            = link_to t("scaffold.destroy"), question_answer_path(@question, answer), :confirm => t("scaffold.sure", :model => "answer"), :method => :delete, :class =>"cancel"
+            = link_to t("scaffold.destroy"), discussion_answer_path(@discussion, answer), :confirm => t("scaffold.sure", :model => "answer"), :method => :delete, :class =>"cancel"
           -if !@aflag.new?
             .flagged
-              = "#{t('questions.show.flagged_as')} #{t(@aflag.reason, :scope=>'flags.form')}"
-              =link_to t("scaffold.edit"), edit_question_answer_flag_path(@question,answer,@aflag), :class => "flag-link", :id => "edit_answer_flag_link", :rel => 'nofollow'
-              =link_to t("scaffold.destroy"), question_answer_flag_path(@question,answer,@aflag), :id => "destroy_answer_flag_link", :rel => 'nofollow', :confirm => "are you sure?", :method => :delete
+              = "#{t('discussions.show.flagged_as')} #{t(@aflag.reason, :scope=>'flags.form')}"
+              =link_to t("scaffold.edit"), edit_discussion_answer_flag_path(@discussion,answer,@aflag), :class => "flag-link", :id => "edit_answer_flag_link", :rel => 'nofollow'
+              =link_to t("scaffold.destroy"), discussion_answer_flag_path(@discussion,answer,@aflag), :id => "destroy_answer_flag_link", :rel => 'nofollow', :confirm => "are you sure?", :method => :delete
 
         -if answer.versions.count > 0
-          = link_to t(".history", :default => "history"), history_question_answer_path(@question, answer)
+          = link_to t(".history", :default => "history"), history_discussion_answer_path(@discussion, answer)
         -if logged_in?
-          -if(current_user.can_modify?(@question) || current_user.mod_of?(@question.group))
-            = link_to t("scaffold.destroy"), question_answer_path(@question.id, answer.id), :confirm => "are you sure?", :method => :delete
-          -if current_user.mod_of?(@question.group)
+          -if(current_user.can_modify?(@discussion) || current_user.mod_of?(@discussion.group))
+            = link_to t("scaffold.destroy"), discussion_answer_path(@discussion.id, answer.id), :confirm => "are you sure?", :method => :delete
+          -if current_user.mod_of?(@discussion.group)
             = link_to "ban", ban_path(:answer_ids => [answer.id]), :confirm => "are you sure?"
       .clear
       .forms
@@ -85,21 +85,21 @@
     .clear
 
     -if logged_in?
-      = link_to t(".add_comment"), new_question_comment_path(@question, answer), :class => "addNestedAnswer add_answer_comment_link"
+      = link_to t(".add_comment"), new_discussion_comment_path(@discussion, answer), :class => "addNestedAnswer add_answer_comment_link"
 
     / Nested Answers
     .children.comments
       -answer.comments.each do |comment|
         = render :partial => "comments/comment", :object => comment, :locals => {:source => source, :mini => true}
   .vote-col.right
-    =vote_box(answer, question_path(question), question.closed)
+    =vote_box(answer, discussion_path(discussion), discussion.closed)
     -if solution
       =image_tag "correct.png", :width => 48, :alt => "correct_answer", :title => "chose as answer by the author"
   .clear
   .forms.comment-form
-    -form_tag question_answer_comments_path(@question, answer), :class => "form commentForm nestedAnswerForm" do
+    -form_tag discussion_answer_comments_path(@discussion, answer), :class => "form commentForm nestedAnswerForm" do
       -@comment = Comment.new
-      = render :partial => "comments/form", :locals => {:source => source, :commentable => answer}
+      = render :partial => "comments/form", :locals => {:source => source, :commentable => answer, :mode=>"discussion"}
       .group.navform
         = submit_tag t("comments.shared.comment_submit"), :class => "button"
         = t("global.or")

@@ -3,6 +3,8 @@
   -object_form = [flaggeable.question, flaggeable, flag]
 -elsif flaggeable.is_a?(Question)
   -object_form = [flaggeable, flag]
+-elsif flaggeable.is_a?(Discussion)
+  -object_form = [flaggeable, flag]
 
 -form_for object_form, :html => {:class=>"form flag_form", :id => local_assigns[:form_id]} do |f|
   .fields

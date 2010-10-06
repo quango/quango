@@ -7,7 +7,10 @@
 
 -content_for :main do
   %h2.title
-    =link_to h(@question.title), question_path(@question)
+    - if @question
+      =link_to h(@question.title), question_path(@question)
+    - if @discussion
+      =link_to h(@discussion.title), discussion_path(@discussion)
 
   -content_for :close_requests_table do
     %table.table

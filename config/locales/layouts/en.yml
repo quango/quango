@@ -8,8 +8,10 @@ en:
       ask_question: Ask question
       discussions: Discussions
       tags: Topics
-      users: Members
-      wires: The Newswires
+      users: (Members)
+      news: News
+      videos: Video
+      articles: Articles
       badges: Badges
       bookmarks: Bookmarks
       unanswered: Nada
