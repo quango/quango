@@ -1,8 +1,4 @@
 -title = h(discussion.title)
-
-
-
-
 -if discussion.closed
   -title += " [#{t("closed", :scope => "activerecord.attributes.discussion").upcase}]"
 
@@ -16,21 +12,27 @@
       -owner= last_target.user
   -else
     -last_target = discussion
-    -owner = discussion.user
+    -owner = discussion.user unless discussion.anonymous
 
   %li.entry.item{:class => class_for_discussion(discussion)}
-    / Question Stats
+    / discussion Stats
     .stats
       .box.votes
         .counter{:class => class_for_number(discussion.votes_average) }
           =format_number(discussion.votes_average)
+        .text
+          =t(:votes, :scope => "activerecord.attributes.discussion")
       .box.answers{:class => class_for_discussion(discussion), :title => discussion.accepted ? t(".accepted_tooltip") : "" }
         .counter
           =format_number(discussion.answers_count)
+        .text
+          =t(:answers, :scope => "activerecord.attributes.discussion")
       .box.views
         .counter{:class => class_for_number(discussion.views_count) }
           =format_number(discussion.views_count)
-    / Question Summary
+        .text
+          =t(:views, :scope => "activerecord.attributes.discussion")
+    / discussion Summary
     .summary
       .left.vote-icon
         -unless discussion.closed
@@ -47,7 +49,7 @@
                 = hidden_field_tag "source", discussions_path, :id =>  "source_#{discussion.id}"
                 = image_submit_tag("dialog-ok.png", :name=>"vote_up", :value=>"1", :title => t("votes.control.to_vote_up"), :class => "quick-vote-button")
 
-      -cache("discussion_on_index_#{discussion.id}") do
+      -cache("discussion_on_index_#{discussion.id}_#{I18n.locale}") do
         %h3= link_to title, discussion_path(discussion), :title => truncate(strip_tags(discussion.body), :length => 200)
         .tag-list
           -if discussion.tags.empty? && logged_in? && (current_user.can_modify?(@discussion) || current_user.can_retag_others_discussions_on?(current_group))
@@ -58,7 +60,10 @@
               = link_to h(tag), url_for(:controller => "discussions", :action => "index", :tags => tag), :rel => "tag", :title => t("discussions.tags.tooltip", :tag => tag)
 
       .owner-data
-        =render :partial => "users/user_mini", :locals => {:user => owner}
+        -if owner
+          =render :partial => "users/user_mini", :locals => {:user => owner}
+        -else
+          =t("global.anonymous")
         %strong.time_ago
           = link_to t("time.ago", :time => time_ago_in_words(last_target.updated_at)), discussion_path(discussion)+"##{last_target.id}"
         -if discussion.wiki
@@ -66,7 +71,7 @@
             wiki
     .clear
 -else
-  -cache("mini_discussion_on_index_#{discussion.id}") do
+  -cache("mini_discussion_on_index_#{discussion.id}_#{I18n.locale}") do
     %li.item{:class => "#{class_for_discussion(discussion)} #{local_assigns[:lite] ? 'lite' : ''}"}
       .stats
         .box.answers{:class => discussion.accepted ? "accepted" : "" }

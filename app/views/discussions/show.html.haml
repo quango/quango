@@ -1,7 +1,7 @@
--#content_for :trends do
-  =# render :partial => "discussion_topics", :object => @tag_cloud
+-content_for :trends do
+  = render :partial => "discussion_topics", :object => @tag_cloud
 
-= javascript_include_merged :show
+
 
 - @current_class = 'discussion hentry entry post'
 
@@ -29,7 +29,6 @@
   %link{:rel => "canonical", :href => discussion_url(@discussion) }
 
 - content_for :subtabs do
-
   %h1.navtitle.title.entry-title
     &= @discussion.title
     - if @discussion.closed
@@ -39,10 +38,11 @@
 = error_messages_for 'answer'
 
 - content_for :main do
-  = show_flash_messages(:class => "flash", :markdown => true)
+  = javascript_include_merged :show
+  =render :partial => "toolbox"
+  =render :partial => "controls", :object=>@discussion
   #discussion-body-col.commentable.markdown
     %a{:name => @discussion.id}
-    =render :partial => "toolbox"
     #body
       - if @discussion.closed && @discussion.close_reason
         #close_reason
@@ -56,6 +56,7 @@
 
       .entry-content
         = discussion_body
+        =render :partial => "post_info"
     .tag-list
       - @discussion.tags.each do |tag|
         %span.tag
@@ -64,9 +65,6 @@
         %span.retag
           = link_to t('.retag'), retag_discussion_path(@discussion), :id => 'retag'
 
-    =render :partial => "user_info"
-    =render :partial => "controls"
-  
 
     - if logged_in?
       = link_to t("comments.shared.add_comment"), new_discussion_comment_path(@discussion), :id => "add_comment_link", :rel => 'nofollow'
@@ -79,17 +77,17 @@
       .comment-form-discussion
         -form_tag discussion_comments_path(@discussion), :class => "form commentForm nestedAnswerForm", :id => "add_comment_form" do
           -@comment = Comment.new
-          = render :partial => "comments/form", :locals => {:source => source, :commentable => @discussion, :mode=>"discussion"}
+          = render :partial => "comments/form", :locals => {:source => source, :commentable => @discussion}
           .group.navform
             = submit_tag t("comments.shared.comment_submit"), :class => "button"
             = t("global.or")
             = link_to t('scaffold.cancel'), '', :class => 'cancel_comment'
-
+  .clear
   %a{:name=>"answers"}
   #answers
     .secondary-navigation{:class => @active_subtab.to_s}
       .navtitle
-        = t("discussions.index.answers_title", :count => @answers.total_entries + (@discussion.accepted ? 1 : 0))
+        = t(".answers_title", :count => @answers.total_entries + (@discussion.accepted ? 1 : 0))
 
       %ul
         %li.newest
@@ -111,16 +109,31 @@
   -unless @discussion.closed
     %a{:name=>"to_answer"}
     -form_for @answer, :url => discussion_answers_path(@discussion.id), :html => {:class => "form mainAnswerForm"} do |f|
-      = render :partial => "answers/form", :locals => {:f => f, :markdown => true, :mode => "discussion"}
+      = render :partial => "answers/form", :locals => {:f => f, :markdown => true}
       .group.navform
-        .right
-          =# f.label :wiki, "Wiki", :class => "radio"
-          =# f.check_box :wiki, :class => "checkbox"
+        .controls.right{:style => "width: 50%"}
+          .left{:style => "width: 49.5%"}
+            = f.label :wiki, "Wiki", :class => "radio"
+            = f.check_box :wiki, :class => "checkbox"
+          .left{:style => "width: 49.5%"}
+            = f.label :anonymous, t("scaffold.post_as_anonymous"), :class => "radio"
+            = f.check_box :anonymous, :class => "checkbox"
         = submit_tag t('answers.form.submit'), :class => "button"
       .clear
 
 -content_for :sidebar do
   #sidebar
+    .block
+      %h3
+        = "Asked by"
+      .content
+        =render :partial => "member_panel"
+    .block
+      %h3
+        = "Sidebar"
+      .content
+        = "Content"
+
     - if logged_in? && (current_user.mod_of?(current_group) || current_user.can_view_offensive_counts_on?(current_group))
       -unless @discussion.flags.count == 0
         .block
@@ -147,7 +160,7 @@
       %h3
         = t('.tags', :default => [:"layouts.application.tags", :"activerecord.attributes.user.tags", "tags"])
       = render :partial => "shared/tag_list", :object => @tag_cloud, :locals => { :extra_params => {:controller => "discussions", :action => "index"} }
-      .clear
+
 
     - if @discussion.badges.size > 0
       .block
@@ -159,34 +172,34 @@
               %li
                 = render :partial => "badges/badge", :object => badge, :locals => {:hide_user => false}
 
-    .block.stats
-      - if @discussion.group_id != current_group.id
-        = t(".asked_on")
-        &= @discussion.group.name
+      .block.stats
+        - if @discussion.group_id != current_group.id
+          = t(".asked_on")
+          &= @discussion.group.name
 
-      .entry
-        .text.asked
-          = t('activerecord.attributes.discussion.created_at')
+        .entry
+          .text.asked
+            = t('activerecord.attributes.discussion.created_at')
+            .data
+              = t("time.ago", :time => time_ago_in_words(@discussion.created_at))
+        .entry
+          .text.viewed
+            = t('.viewed')
           .data
-            = t("time.ago", :time => time_ago_in_words(@discussion.created_at))
-      .entry
-        .text.viewed
-          = t('.viewed')
-        .data
-          = t('number.x_time', :count => number_with_delimiter(@discussion.views_count))
-      .entry
-        .text.last_activity
-          = t(".last_activity")
-        .data.updated{:title => @discussion.activity_at, :class => "relativetime"}
-          = t("time.ago", :time => time_ago_in_words(@discussion.activity_at))
+            = t('number.x_time', :count => number_with_delimiter(@discussion.views_count))
+        .entry
+          .text.last_activity
+            = t(".last_activity")
+          .data.updated{:title => @discussion.activity_at, :class => "relativetime"}
+            = t("time.ago", :time => time_ago_in_words(@discussion.activity_at))
 
-    -related_discussions = Discussion.related_discussions(@discussion, :language => find_languages)
-    - if !related_discussions.empty?
-      .block
-        %h3
-          =t(".related_discussions")
-        .content
-          %ul.list
-            -related_discussions.each do |rq|
-              %li
-                = link_to h(rq.title), discussion_path(rq), :title => truncate(strip_tags(rq.body), :length => 200)
+      -related_discussions = discussion.related_discussions(@discussion, :language => find_languages)
+      - if !related_discussions.empty?
+        .block
+          %h3
+            =t(".related_discussions")
+          .content
+            %ul.list
+              -related_discussions.each do |rq|
+                %li
+                  = link_to h(rq.title), discussion_path(rq), :title => truncate(strip_tags(rq.body), :length => 200)

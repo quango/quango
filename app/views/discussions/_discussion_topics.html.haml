@@ -1,10 +1,11 @@
 -cache("trending_topics_#{current_group.id}") do
   %div{:style=>"width:962px;height:26px; margin:13px 0; line-height:26px;"}
     %div{:style=>"float:right;width:234px;"}
-      %button{:onclick => 'window.location('+new_discussion_path+''}
-        =link_to "&#9733; Start a new discussion", new_discussion_path, :rel => 'nofollow'
+      %form{:action=>"#{new_discussion_path}"}
+        %button{:class=>"sidebar", :type=>"submit", :value=>"&#9733; Ask a discussion"}
+          = "&#9733; Start a discussion"
     %div.left
-      = "Discussion Trends:" 
+      = "discussion Trends:" 
 
     %div{:style=>"float:left;width:580px;margin-right:26px;"}
       %marquee{ :behavior => 'scroll',:scrollamount => '1',}

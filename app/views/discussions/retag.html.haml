@@ -1,19 +1,19 @@
 
 -content_for :subtabs do
   .navtitle
-    = t(".title", :title => h(@bookmark.title))
+    = t(".title", :title => h(@question.title))
 
-#move_bookmark
+#move_question
   .markdown{:style => "width: 92%"}
-    = markdown(@bookmark.body)
+    = markdown(@question.body)
 
   .tag-list
-    -@bookmark.tags.each do |tag|
+    -@question.tags.each do |tag|
       %span.tag
-        = link_to h(tag), url_for(:controller => "bookmarks", :action => "index", :tags => tag), :rel => "tag"
+        = link_to h(tag), url_for(:controller => "questions", :action => "index", :tags => tag), :rel => "tag"
   %div
     %b
-      = t("bookmarks.show.asked_on")
-      = link_to h(@bookmark.group.name), domain_url(:custom => @bookmark.group.domain)
+      = t("questions.show.asked_on")
+      = link_to h(@question.group.name), domain_url(:custom => @question.group.domain)
 
-  = render :partial => "bookmarks/retag_form"
+  = render :partial => "questions/retag_form"

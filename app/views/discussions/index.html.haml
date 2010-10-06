@@ -1,7 +1,7 @@
--content_for :trends do
-  = render :partial => "discussion_topics", :object => @discussions
-
 -feed_url = url_for(:format => "atom", :tags => params[:tags])
+
+-content_for :trends do
+  = render :partial => "discussion_topics", :object => @tag_cloud
 
 -content_for :rss do
   %link{:rel=>"alternate", :type=>"application/atom+xml", :title => "atom", :href=> url_for(:format => "atom", :tags => params[:tags])}
@@ -25,33 +25,22 @@
 
 
 -content_for :sidebar do
-  #sidebar
-    -if logged_in?
-      = render :partial => "shared/language_filter"
+  -if logged_in?
+    = render :partial => "shared/language_filter"
 
-    = render :partial => "shared/current_tags"
-    .block
-      %h3
-        = t('.tags', :default => [:"layout.application.tags", :"activerecord.attributes.user.tags", "tags"])
-      .content
-        = render :partial => "shared/tag_list", :object => @tag_cloud
-
-
-
-
-/Bookmarks
--content_for :main do
-  #inner{:style=>'width:468px;'}
-    .secondary-navigation{:class => @active_subtab.to_s}
-      = yield :subtabs
-      .clear
+  = render :partial => "shared/current_tags"
+  .block
+    %h3
+      = t('.tags', :default => [:"layout.application.tags", :"activerecord.attributes.user.tags", "tags"])
     .content
-      %p.markdown
-        = show_flash_messages(:class => "flash", :markdown => true)
-        = render :partial => "shared/ads/content_ads"
-        .inner
-          = yield
-          .clear
+      = render :partial => "shared/tag_list", :object => @tag_cloud
+
+
+= render :partial => "searches/search_box"
+
+/discussions
+-content_for :main do
+
   %ul.items#discussions
     -if @discussions.empty?
       %li.highlight
@@ -62,8 +51,8 @@
   #additional_info
     =will_paginate @discussions
 
-  #help_us
-    = t(".help_to_answer")
-    =link_to t(".unanswered_discussions"), unanswered_discussions_path
+    #help_us
+      = t(".help_to_answer")
+      =link_to t(".unanswered_discussions"), unanswered_discussions_path
 
-  .clear
+    .clear

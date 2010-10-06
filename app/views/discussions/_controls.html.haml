@@ -33,7 +33,7 @@
           = link_to t(".request_opening"), new_discussion_open_request_path(@discussion), :id => "request-open-link", :rel => 'nofollow', :title => t('.request_opening_details')
 
       - if (@discussion.wiki && current_user.can_edit_wiki_post_on?(@discussion.group)) || current_user.can_edit_others_posts_on?(@discussion.group) || current_user.can_modify?(@discussion)
-        = link_to t('scaffold.edit'), edit_discussion_path(@discussion), :class => "button"
+        = link_to t('scaffold.edit'), edit_discussion_path(@discussion), :class => "edit-button"
       - if @discussion.versions.count > 0
         = link_to t(".history", :default => "history"), history_discussion_path(@discussion)
       - if (current_user.can_modify?(@discussion) || current_user.owner_of?(@discussion.group))
@@ -41,10 +41,5 @@
       - if current_user.mod_of?(@discussion.group)
         -if !@discussion.closed
           = link_to t('.close'), discussion_close_requests_path(@discussion)
-        = link_to t(".ban"), ban_path(:discussion_ids => [@discussion.id]), :class => "button", :confirm => "are you sure?"
+        = link_to t(".ban"), ban_path(:discussion_ids => [@discussion.id]), :class => "ban-button", :confirm => "are you sure?"
   .forms
-    -# render :partial => "flags/form", :locals => {:flag => @flag, :flaggeable => @discussion, :source => source, :form_id => "discussion_flag_form" }
-
-    -# if !@discussion.closed && show_close_request_form
-      -#= render :partial => "close_requests/form", :locals => { :discussion => @discussion, :close_request => @close_request, :hide => true, :form_id => "request_close_discussion_form"}
-

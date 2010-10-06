@@ -1,11 +1,15 @@
 .post-info
   .author.user_info.vcard
     .gravatar.logo
-      = gravatar(@discussion.user.email.to_s, :size => 32)
+      -if !@discussion.anonymous
+        = gravatar(@discussion.user.email.to_s, :size => 32)
     .user_data
       %span.asked_by
         = t('activerecord.attributes.discussion.asked_by')
-      =render :partial => "users/user_mini", :locals => {:user => @discussion.user}
+      -if @discussion.anonymous
+        =t("global.anonymous")
+      -else
+        =render :partial => "users/user_mini", :locals => {:user => @discussion.user}
       %span.time_ago.published{:title => @discussion.created_at, :class => "relativetime"}
         = t("time.ago", :time => time_ago_in_words(@discussion.created_at))
         - if @discussion.wiki
@@ -33,3 +37,4 @@
               = t("global.from", :site => @discussion.updated_by.country_name)
               = country_flag(@discussion.updated_by.country_code, @discussion.updated_by.country_name)
       .clear
+.clear
