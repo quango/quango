@@ -35,7 +35,7 @@
       - if (@discussion.wiki && current_user.can_edit_wiki_post_on?(@discussion.group)) || current_user.can_edit_others_posts_on?(@discussion.group) || current_user.can_modify?(@discussion)
         = link_to t('scaffold.edit'), edit_discussion_path(@discussion), :class => "edit-button"
       - if @discussion.versions.count > 0
-        = link_to t(".history", :default => "history"), history_discussion_path(@discussion)
+        = link_to t(".history", :default => "History"), history_discussion_path(@discussion)
       - if (current_user.can_modify?(@discussion) || current_user.owner_of?(@discussion.group))
         = link_to t("scaffold.destroy"), discussion_path(@discussion.id), :confirm => "are you sure?", :method => :delete
       - if current_user.mod_of?(@discussion.group)

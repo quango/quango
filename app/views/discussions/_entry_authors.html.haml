@@ -1,0 +1,21 @@
+.author
+  .user_data
+    %span.asked_by
+      = t('activerecord.attributes.discussion.asked_by')
+    -if @discussion.anonymous
+      =t("global.anonymous")
+    -else
+      =render :partial => "users/user_mini", :locals => {:user => @discussion.user}
+    %span.time_ago.published{:title => @discussion.created_at, :class => "relativetime"}
+      = t("time.ago", :time => time_ago_in_words(@discussion.created_at))
+  .clear
+- if @discussion.updated_by.present?
+  .editor
+    .user_data
+      %span.asked_by
+        = t('activerecord.attributes.discussion.updated_by')
+      =render :partial => "users/user_mini", :locals => {:user => @discussion.updated_by}
+      %span.time_ago.published{:title => @discussion.updated_at, :class => "relativetime"}
+        = t("time.ago", :time => time_ago_in_words(@discussion.updated_at))
+    .clear
+.clear

@@ -32,11 +32,19 @@
 
 
   - if logged_in? && current_user.mod_of?(current_group)
-    - form_for @question, :url => close_question_url(@question), :method => :post, :html => {:class => "form"} do |form|
-      = yield :close_requests_table
-      .group.navform
-        = form.submit t("scaffold.update"), :id => "close_question_submit_#{@question.id}"
-        = t("global.or")
-        = link_to t("scaffold.cancel"), question_path(@question), :class => "button cancel"
+    - if @question
+      - form_for @question, :url => close_question_url(@question), :method => :post, :html => {:class => "form"} do |form|
+        = yield :close_requests_table
+        .group.navform
+          = form.submit t("scaffold.update"), :id => "close_question_submit_#{@question.id}"
+          = t("global.or")
+          = link_to t("scaffold.cancel"), question_path(@question), :class => "button cancel"
+    - if @discussion
+      - form_for @discussion, :url => close_discussion_url(@discussion), :method => :post, :html => {:class => "form"} do |form|
+        = yield :close_requests_table
+        .group.navform
+          = form.submit t("scaffold.update"), :id => "close_question_submit_#{@discussion.id}"
+          = t("global.or")
+          = link_to t("scaffold.cancel"), discussion_path(@discussion), :class => "button cancel"
   - else
     = yield :close_requests_table

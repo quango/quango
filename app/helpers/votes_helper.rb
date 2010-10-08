@@ -19,7 +19,7 @@ module VotesHelper
                 image_tag("spacer.gif", :width => 18, :height => 18, :title => I18n.t("votes.control.to_vote_up"), :class=>'novoted')
               end
              }
-
+              <span class="label">I like</span>
           </button>
 
           <button type="submit" name="vote_down" value="-1" class="button-dislike">
@@ -38,6 +38,7 @@ module VotesHelper
           <div class="button_like">
             <button type="submit" name="vote_up" value="1" class="button-like" disabled>
               #{image_tag("spacer.gif", :width => 18, :height => 18, :class=>'voted')}
+              <span class="label">I like</span>
             </button>
           </div>
           <div class="button_dislike">

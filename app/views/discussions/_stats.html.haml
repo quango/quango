@@ -1,0 +1,12 @@
+/#todo
+
+.stats
+  .box.votes
+    .counter{:class => class_for_number(discussion.votes_average) }
+      =format_number(discussion.votes_average)
+  .box.answers{:class => class_for_discussion(discussion), :title => discussion.accepted ? t(".accepted_tooltip") : "" }
+    .counter
+      =format_number(discussion.answers_count)
+  .box.views
+    .counter{:class => class_for_number(discussion.views_count) }
+      =format_number(discussion.views_count)

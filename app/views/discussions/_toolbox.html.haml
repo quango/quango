@@ -1,21 +1,21 @@
 #toolbox
-  #vote-col
-    - if current_user && @discussion.watch_for?(current_user)
-      = link_to image_tag("layer-visible-on.png", 'data-src' => "/images/layer-visible-off.png", :width => 18, :height => 18), unwatch_discussion_path(@discussion), :class => 'discussion-action button', "data-undo" =>  watch_discussion_path(@discussion), "data-title" => t(".watch_tooltip"), :title => t(".unwatch_tooltip"), :id => "watch-discussion"
+  /#vote-col
+  - if current_user && @discussion.watch_for?(current_user)
+    = link_to image_tag("layer-visible-on.png", 'data-src' => "/images/layer-visible-off.png", :width => 18, :height => 18), unwatch_discussion_path(@discussion), :class => 'discussion-action button', "data-undo" =>  watch_discussion_path(@discussion), "data-title" => t(".watch_tooltip"), :title => t(".unwatch_tooltip"), :id => "watch-discussion"
 
-    - else
-      = link_to image_tag("layer-visible-off.png", 'data-src' => "/images/layer-visible-on.png", :width => 18, :height => 18), watch_discussion_path(@discussion), :class => 'discussion-action button', "data-undo" =>  unwatch_discussion_path(@discussion), "data-title" => t(".unwatch_tooltip"), :title => t(".watch_tooltip"), :id => "watch-discussion"
+  - else
+    = link_to image_tag("layer-visible-off.png", 'data-src' => "/images/layer-visible-on.png", :width => 18, :height => 18), watch_discussion_path(@discussion), :class => 'discussion-action button', "data-undo" =>  unwatch_discussion_path(@discussion), "data-title" => t(".unwatch_tooltip"), :title => t(".watch_tooltip"), :id => "watch-discussion"
 
-    - if logged_in? && favorite = current_user.favorite(@discussion)
-      = link_to image_tag("favorites.png", 'data-src' => "/images/unfavorites.png", :width => 18, :height => 18), unfavorite_discussion_path(@discussion), :id => "unfavorite-link", :title => t(".unfavorite_tooltip"), :class => 'discussion-action button watch', "data-undo" =>  favorite_discussion_path(@discussion), "data-title" => t(".favorite_tooltip"), 'data-counter' => '.favorites_count'
+  - if logged_in? && favorite = current_user.favorite(@discussion)
+    = link_to image_tag("favorites.png", 'data-src' => "/images/unfavorites.png", :width => 18, :height => 18), unfavorite_discussion_path(@discussion), :id => "unfavorite-link", :title => t(".unfavorite_tooltip"), :class => 'discussion-action button watch', "data-undo" =>  favorite_discussion_path(@discussion), "data-title" => t(".favorite_tooltip"), 'data-counter' => '.favorites_count'
 
-    - else
-      = link_to image_tag("unfavorites.png", 'data-src' => "/images/favorites.png", :width => 18, :height => 18), favorite_discussion_path(@discussion), :id => "favorite-link", :title => t(".favorite_tooltip"), :class => 'discussion-action button unwatch', "data-undo" =>  unfavorite_discussion_path(@discussion), "data-title" => t(".unfavorite_tooltip"), 'data-counter' => '.favorites_count'
+  - else
+    = link_to image_tag("unfavorites.png", 'data-src' => "/images/favorites.png", :width => 18, :height => 18), favorite_discussion_path(@discussion), :id => "favorite-link", :title => t(".favorite_tooltip"), :class => 'discussion-action button unwatch', "data-undo" =>  unfavorite_discussion_path(@discussion), "data-title" => t(".unfavorite_tooltip"), 'data-counter' => '.favorites_count'
 
-    %button.share
-      = render :partial => "share"
+  %a.button.share
+    = render :partial => "share"
 
-    =vote_box(@discussion, discussion_path(@discussion), @discussion.closed)
+  =vote_box(@discussion, discussion_path(@discussion), @discussion.closed)
 
 .clear
 

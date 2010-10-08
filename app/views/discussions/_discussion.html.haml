@@ -16,22 +16,7 @@
 
   %li.entry.item{:class => class_for_discussion(discussion)}
     / discussion Stats
-    .stats
-      .box.votes
-        .counter{:class => class_for_number(discussion.votes_average) }
-          =format_number(discussion.votes_average)
-        .text
-          =t(:votes, :scope => "activerecord.attributes.discussion")
-      .box.answers{:class => class_for_discussion(discussion), :title => discussion.accepted ? t(".accepted_tooltip") : "" }
-        .counter
-          =format_number(discussion.answers_count)
-        .text
-          =t(:answers, :scope => "activerecord.attributes.discussion")
-      .box.views
-        .counter{:class => class_for_number(discussion.views_count) }
-          =format_number(discussion.views_count)
-        .text
-          =t(:views, :scope => "activerecord.attributes.discussion")
+    =render :partial => "stats", :locals => {:discussion => discussion}
     / discussion Summary
     .summary
       .left.vote-icon
@@ -64,7 +49,7 @@
           =render :partial => "users/user_mini", :locals => {:user => owner}
         -else
           =t("global.anonymous")
-        %strong.time_ago
+        %small.time_ago
           = link_to t("time.ago", :time => time_ago_in_words(last_target.updated_at)), discussion_path(discussion)+"##{last_target.id}"
         -if discussion.wiki
           %span.wiki_flag

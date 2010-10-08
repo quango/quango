@@ -6,7 +6,7 @@ en:
       favorite_tooltip: "Add this question to your favorites"
       unfavorite_tooltip: "Remove this question from your favorites"
     controls:
-      close: Close
+      close: List Close Requests
       request_closing: Request Closure
       request_closing_details: Request to close this question
       requested_close_as: "You requested to close this question as"
@@ -21,7 +21,7 @@ en:
       request_opening_details: Request to re-open this question
 
       ban: Ban
-      retract_request: You have already made a request. Would you like to retract it?
+
       flags: Reported as
       flag: Report this question
       flagged_as: Flagged as

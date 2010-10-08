@@ -62,26 +62,30 @@ ul.items
       float: left
 
     .summary
-      width: 78%
+      width: 100%
       float: left
+
 
       a:link, a:active, a:visited
         color: #990000
-        font-weight: bold
+        font-weight: normal
       a:hover
         color: #F67620
 
       .tag-list
         float: left
         margin-top: 0px
+
       .owner-data
+        background: #efefef
         float: right
-        padding-top: 4px
+        padding: 2px
+        border: 1px solid gainsboro
+        +rounded(4px,4px,4px,4px)
         .time_ago
           a
-            color: black
+            color: #ababab
         .reputation
-          font-weight: bold
           color: #666
 
     .actions

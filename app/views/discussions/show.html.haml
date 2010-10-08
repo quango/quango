@@ -1,7 +1,5 @@
 -content_for :trends do
-  = render :partial => "discussion_topics", :object => @tag_cloud
-
-
+  = render :partial => "discussion_trends", :object => @tag_cloud
 
 - @current_class = 'discussion hentry entry post'
 
@@ -28,12 +26,6 @@
   %meta{:name => "description", :content => discussion_body.gsub(/<\/?[^>]*>/, "")[0, 255] }
   %link{:rel => "canonical", :href => discussion_url(@discussion) }
 
-- content_for :subtabs do
-  %h1.navtitle.title.entry-title
-    &= @discussion.title
-    - if @discussion.closed
-      =" [#{t("closed", :scope => "activerecord.attributes.discussion").upcase}]"
-
 - source = discussion_path(@discussion)
 = error_messages_for 'answer'
 
@@ -51,52 +43,46 @@
           - if !@discussion.close_reason.comment.empty?
             .comment
               =find_and_preserve(shapado_auto_link(@discussion.close_reason.comment))
-      .entry-title
-        = @discussion.title
+      .entry-details
+        .entry-title
+          = @discussion.title
+          - if @discussion.closed
+            =" [#{t("closed", :scope => "activerecord.attributes.discussion").upcase}]"
+
+        .entry-authors
+          = render :partial => "entry_authors"
+
+        .entry-tags.tag-list
+          - @discussion.tags.each do |tag|
+            %span.tag
+              = link_to h(tag), url_for(:controller => "discussions", :action => "index", :tags => tag), :rel => "tag"
+          - if logged_in? && (current_user.can_modify?(@discussion) || current_user.can_retag_others_questions_on?(current_group)) #tofix
+            %span.retag
+              = link_to t('.retag'), retag_discussion_path(@discussion), :id => 'retag'
 
       .entry-content
         = discussion_body
-        =render :partial => "post_info"
-    .tag-list
-      - @discussion.tags.each do |tag|
-        %span.tag
-          = link_to h(tag), url_for(:controller => "discussions", :action => "index", :tags => tag), :rel => "tag"
-      - if logged_in? && (current_user.can_modify?(@discussion) || current_user.can_retag_others_questions_on?(current_group)) #tofix
-        %span.retag
-          = link_to t('.retag'), retag_discussion_path(@discussion), :id => 'retag'
 
 
-    - if logged_in?
-      = link_to t("comments.shared.add_comment"), new_discussion_comment_path(@discussion), :id => "add_comment_link", :rel => 'nofollow'
-
-    .comments
-      -@discussion.comments.each do |comment|
-        = render :partial => "comments/comment", :object => comment, :locals => {:source => source, :mini => true}
-    .clear
-    .forms
-      .comment-form-discussion
-        -form_tag discussion_comments_path(@discussion), :class => "form commentForm nestedAnswerForm", :id => "add_comment_form" do
-          -@comment = Comment.new
-          = render :partial => "comments/form", :locals => {:source => source, :commentable => @discussion, :mode=>"discussion"}
-          .group.navform
-            = submit_tag t("comments.shared.comment_submit"), :class => "button"
-            = t("global.or")
-            = link_to t('scaffold.cancel'), '', :class => 'cancel_comment'
   .clear
   %a{:name=>"answers"}
   #answers
     .secondary-navigation{:class => @active_subtab.to_s}
-      .navtitle
-        = t(".answers_title", :count => @answers.total_entries + (@discussion.accepted ? 1 : 0))
+      .navlabel
+        = t("discussions.show.answers", :count => @answers.total_entries + (@discussion.accepted ? 1 : 0))
+      .navcontrols
+        .subtabs
+          %ul
+            %li.newest
+              = link_to t("discussions.index.newest"), discussion_path(@discussion, :sort=>"newest", :anchor => "answers"),:class=>"button", :rel => "nofollow"
+            %li.votes
+              = link_to t("discussions.index.votes"), discussion_path(@discussion, :sort=>"votes", :anchor => "answers"),:class=>"button", :rel => "nofollow"
+            %li.oldest
+              = link_to t("discussions.index.oldest"), discussion_path(@discussion, :sort=>"oldest", :anchor => "answers"),:class=>"button", :rel => "nofollow"
+            %li.spin
+              = link_to "&#9733;", "#",:class=>"button"
+    .clear
 
-      %ul
-        %li.newest
-          = link_to t("discussions.index.newest"), discussion_path(@discussion, :sort=>"newest", :anchor => "answers"), :rel => "nofollow"
-        %li.votes
-          = link_to t("discussions.index.votes"), discussion_path(@discussion, :sort=>"votes", :anchor => "answers"), :rel => "nofollow"
-        %li.oldest
-          = link_to t("discussions.index.oldest"), discussion_path(@discussion, :sort=>"oldest", :anchor => "answers"), :rel => "nofollow"
-      .clear
     .block
       - if @discussion.accepted
         -solution = @discussion.answer
@@ -125,9 +111,14 @@
   #sidebar
     .block
       %h3
-        = "Asked by"
+        = "Started by"
       .content
         =render :partial => "member_panel"
+    .block
+      %h3
+        = "Participants"
+      .content
+        = "Content"
     .block
       %h3
         = "Sidebar"
