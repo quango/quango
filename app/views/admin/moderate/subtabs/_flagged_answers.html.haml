@@ -5,7 +5,7 @@
       %th
         =t(:flags, :scope => "activerecord.models")
       %th
-        =t(:title, :scope => "activerecord.attributes.question")
+        =t(:title, :scope => "activerecord.attributes.item")
       %th
         =t(:body, :scope => "activerecord.attributes.answer")
     -@answers.each do |answer|
@@ -15,7 +15,7 @@
         %td
           = render :partial => "flags/list", :locals=> {:flaggeable => answer}
         %td
-          = link_to h(answer.question.title), question_path(answer.question)+"##{answer.id}"
+          = link_to h(answer.item.title), item_path(answer.item)+"##{answer.id}"
         %td
           = truncate(h(answer.body), :length => 100)
   = will_paginate @answers, :param_name => "answers_page"

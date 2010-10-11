@@ -1,5 +1,5 @@
 class WelcomeController < ApplicationController
-  helper :questions
+  helper :items
   helper :channels
 
   tabs :default => :welcome
@@ -25,11 +25,11 @@ class WelcomeController < ApplicationController
       feed_params = {  :lang => I18n.locale,
                           :mylangs => current_languages }
     end
-    add_feeds_url(url_for({:controller => 'questions', :action => 'index',
-                            :format => "atom"}.merge(feed_params)), t("feeds.questions"))
-    @questions = Question.paginate({:per_page => 15,
+    add_feeds_url(url_for({:controller => 'items', :action => 'index',
+                            :format => "atom"}.merge(feed_params)), t("feeds.items"))
+    @items = Item.paginate({:per_page => 15,
                                    :page => params[:page] || 1,
-                                   :fields => (Question.keys.keys - ["_keywords", "watchers"]),
+                                   :fields => (Item.keys.keys - ["_keywords", "watchers"]),
                                    :order => order}.merge(conditions))
   end
 
@@ -79,7 +79,7 @@ class WelcomeController < ApplicationController
       session["user.language_filter"] =  params[:language][:filter]
     end
     respond_to do |format|
-      format.html {redirect_to(params[:source] || questions_path)}
+      format.html {redirect_to(params[:source] || items_path)}
     end
   end
 

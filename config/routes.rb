@@ -49,14 +49,14 @@ ActionController::Routing::Routes.draw do |map|
   #map.connect 'channels/explore/:tags', :controller => :channels, :action => :index,:requirements => {:tags => /\S+/}
               #:as => "channels"
 
-  def build_questions_routes(router, options ={})
+  def build_items_routes(router, options ={})
     router.with_options(options) do |route|
-      route.se_url "/questions/:id/:slug", :controller => "questions", :action => "show", :id => /\d+/,
+      route.se_url "/items/:id/:slug", :controller => "items", :action => "show", :id => /\d+/,
  :conditions => { :method => :get }
-      route.resources :questions, :collection => {:tags => :get,
+      route.resources :items, :collection => {:tags => :get,
                                                   :tags_for_autocomplete => :get,
                                                   :unanswered => :get,
-                                                  :related_questions => :get},
+                                                  :related_items => :get},
                                 :member => {:solve => :get,
                                             :unsolve => :get,
                                             :favorite => :any,
@@ -71,27 +71,27 @@ ActionController::Routing::Routes.draw do |map|
                                             :retag => :get,
                                             :retag_to => :put,
                                             :close => :put,
-                                            :open => :put} do |questions|
-        questions.resources :comments
-        questions.resources :answers, :member => {:history => :get,
+                                            :open => :put} do |items|
+        items.resources :comments
+        items.resources :answers, :member => {:history => :get,
                                                   :diff => :get,
                                                   :revert => :get} do |answers|
           answers.resources :comments
           answers.resources :flags
         end
-        questions.resources :flags
-        questions.resources :close_requests
-        questions.resources :open_requests
+        items.resources :flags
+        items.resources :close_requests
+        items.resources :open_requests
       end
     end
   end
-  #map.resources :questions, :as => "discussions"
+  #map.resources :items, :as => "discussions"
 
-  map.connect 'questions/topic/:tags', :controller => :questions, :action => :index,:requirements => {:tags => /\S+/}
-  map.connect 'questions/unanswered/tags/:tags', :controller => :questions, :action => :unanswered
+  map.connect 'items/topic/:tags', :controller => :items, :action => :index,:requirements => {:tags => /\S+/}
+  map.connect 'items/unanswered/tags/:tags', :controller => :items, :action => :unanswered
 
-  build_questions_routes(map)
-  build_questions_routes(map, :path_prefix => '/:language', :name_prefix => "with_language_") #deprecated route
+  build_items_routes(map)
+  build_items_routes(map, :path_prefix => '/:language', :name_prefix => "with_language_") #deprecated route
 
   #Bookmarks
 def build_bookmarks_routes(router, options ={})
@@ -101,7 +101,7 @@ def build_bookmarks_routes(router, options ={})
       route.resources :bookmarks, :collection => {:tags => :get,
                                                   :tags_for_autocomplete => :get,
                                                   :unanswered => :get,
-                                                  :related_questions => :get},
+                                                  :related_items => :get},
                                 :member => {:solve => :get,
                                             :unsolve => :get,
                                             :favorite => :any,

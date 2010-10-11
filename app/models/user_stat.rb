@@ -6,7 +6,7 @@ class UserStat
   belongs_to :user
 
   key :answer_tags, Array
-  key :question_tags, Array
+  key :item_tags, Array
   key :bookmark_tags, Array
   key :discussion_tags, Array
   key :expert_tags, Array
@@ -22,10 +22,10 @@ class UserStat
                            {:upsert => true})
   end
 
-  def add_question_tags(*tags)
+  def add_item_tags(*tags)
     self.collection.update({:_id => self._id,
-                            :question_tags => {:$nin => tags} },
-                           {:$pushAll => {:question_tags => tags}},
+                            :item_tags => {:$nin => tags} },
+                           {:$pushAll => {:item_tags => tags}},
                            {:upsert => true})
   end
 

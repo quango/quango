@@ -1,0 +1,21 @@
+= javascript_include_merged :show
+
+-content_for :subtabs do
+  .navtitle
+    = t(".title")
+
+-content_for :main do
+  - form_for(@item, :url => item_path(@item), :html => {:class => "form"}) do |f|
+    =render :partial => "form", :locals => {:f => f}
+    .group.navform
+      .controls.right{:style => "width: 50%"}
+        .left{:style => "width: 49.5%"}
+          = f.label :wiki, "Wiki", :class => "radio"
+          = f.check_box :wiki, :class => "checkbox"
+        .left{:style => "width: 49.5%"}
+          = f.label :anonymous, t("scaffold.post_as_anonymous"), :class => "radio"
+          = f.check_box :anonymous, :class => "checkbox"
+
+      = f.submit t("scaffold.update")
+      = t("global.or")
+      = link_to t('scaffold.cancel'), items_path, :class => "button cancel"

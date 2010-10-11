@@ -56,7 +56,7 @@
           - @discussion.tags.each do |tag|
             %span.tag
               = link_to h(tag), url_for(:controller => "discussions", :action => "index", :tags => tag), :rel => "tag"
-          - if logged_in? && (current_user.can_modify?(@discussion) || current_user.can_retag_others_questions_on?(current_group)) #tofix
+          - if logged_in? && (current_user.can_modify?(@discussion) || current_user.can_retag_others_items_on?(current_group)) #tofix
             %span.retag
               = link_to t('.retag'), retag_discussion_path(@discussion), :id => 'retag'
 

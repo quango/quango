@@ -2,10 +2,10 @@
   / User Stats
   .stats
     .box.votes
-      .counter{:class => class_for_number(user.questions.count) }
-        =format_number(user.questions.count)
+      .counter{:class => class_for_number(user.items.count) }
+        =format_number(user.items.count)
       .text
-        = t(:questions, :scope => "activerecord.models")
+        = t(:items, :scope => "activerecord.models")
     .box.answers
       .counter
         =format_number(user.badges_on(current_group).count)

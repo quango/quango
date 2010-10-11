@@ -8,8 +8,8 @@ class Favorite
   key :user_id, String, :index => true
   belongs_to :user
 
-  key :question_id, String
-  belongs_to :question
+  key :item_id, String
+  belongs_to :item
 
   key :discussion_id, String
   belongs_to :discussion
@@ -21,7 +21,7 @@ class Favorite
 
   protected
   def should_be_unique
-    favorite = Favorite.first({:question_id => self.question_id,
+    favorite = Favorite.first({:item_id => self.item_id,
                                :discussion_id => self.discussion_id,
                                :bookmark_id => self.bookmark_id,
                                :user_id     => self.user_id,

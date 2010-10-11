@@ -23,33 +23,33 @@ en:
       service_medal:
         name: Service medal
         description: 300 positive votes
-      famous_question:
-        name: Famous question
-        description: Asked a question with 10000 views
-      notable_question:
-        name: Notable question
-        description: Asked a question with 2500 views
-      popular_question:
-        name: Popular question
-        description: Asked a question with 1000 views
+      famous_item:
+        name: Famous item
+        description: Asked a item with 10000 views
+      notable_item:
+        name: Notable item
+        description: Asked a item with 2500 views
+      popular_item:
+        name: Popular item
+        description: Asked a item with 1000 views
       popular_person:
         name: Popular person
         description: Your profile is visited 10000 times
       guru:
         name: Guru
-        description: Gave a solution to a question with an average of more than 40 votes
-      favorite_question:
-        name: Favorite question
-        description: Question favorited by 25 users
+        description: Gave a solution to a item with an average of more than 40 votes
+      favorite_item:
+        name: Favorite item
+        description: Item favorited by 25 users
       tutor:
         name: Tutor
-        description: Gave a solution to a question with an average of more than 2 votes
+        description: Gave a solution to a item with an average of more than 2 votes
       addict:
         name: Addict
         description: Visited the site each day for 20 consecutive days
-      good_question:
-        name: Good question
-        description: Having a question that reaches an average of more than 25 votes
+      good_item:
+        name: Good item
+        description: Having a item that reaches an average of more than 25 votes
       good_answer:
         name: Good answer
         description: Having an answer that reaches an average of more than 25 votes
@@ -79,7 +79,7 @@ en:
         description: Got 100 positive votes
       student:
         name: Student
-        description: Asked first question with at least one up vote
+        description: Asked first item with at least one up vote
       shapado:
         description: Visited the site each day for 8 consecutive days
       editor:
@@ -99,19 +99,19 @@ en:
         description: Getting more than 100 followers
       necromancer:
         name: Necromancer
-        description: Answered a question more than 60 days later with at least 5 votes
-      stellar_question:
-        name: Stellar question
-        description: Question added to favorites by 100 users
-      nice_question:
-        name: Nice question
-        description: Question voted up 10 times
+        description: Answered a item more than 60 days later with at least 5 votes
+      stellar_item:
+        name: Stellar item
+        description: Item added to favorites by 100 users
+      nice_item:
+        name: Nice item
+        description: Item voted up 10 times
       nice_answer:
         name: Nice answer
         description: Answer voted up 10 times
-      great_question:
-        name: Great question
-        description: Question voted up 100 times
+      great_item:
+        name: Great item
+        description: Item voted up 100 times
       great_answer:
         name: Great answer
         description: Answer voted up 100 times
@@ -135,10 +135,10 @@ en:
         description: First flagged post
       self-learner:
         name: Self learner
-        description: Answered your own question with at least 3 up votes
+        description: Answered your own item with at least 3 up votes
       scholar:
         name: Scholar
-        description: First accepted answer on your own question
+        description: First accepted answer on your own item
       autobiographer:
         name: Autobiographer
         description: Completed all user profile fields

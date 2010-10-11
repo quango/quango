@@ -3,8 +3,8 @@ en:
     manage:
       content:
         title: Custom content
-        question_prompt: Question prompt
-        question_help: Question help
+        item_prompt: Item prompt
+        item_help: Item help
         head: header
         footer: Footer
         top_bar: Top bar
@@ -16,16 +16,16 @@ en:
           title: Share
           application_id: Application ID
           secret_key: Secret Key
-          question_asked_to: Question Asked To
-          question_must_include: Question must include the following tag to be tweeted
-          twitter_account: The Twitter account your users will ask questions to.
+          item_asked_to: Item Asked To
+          item_must_include: Item must include the following tag to be tweeted
+          twitter_account: The Twitter account your users will ask items to.
           facebook_app: Facebook app settings
-          asking_from_twitter: Asking questions from Twitter
+          asking_from_twitter: Asking items from Twitter
           tweet_starts_with: Prepend a tag to your tweets
           tweet_ends_with: Append a tag to your tweets
           starts_with_example: "e.g. #qa"
           ends_with_example: "e.g. #shapado"
-          question_must_include_example: "e.g. #iAsk"
+          item_must_include_example: "e.g. #iAsk"
           add_tags: Add tags to your tweets
           title_on_dlvr: Share on dlvr.it
         constrains:
@@ -47,5 +47,5 @@ en:
           instruction3: "Pick 'www' or anything else as the name of your CNAME."
           instruction4: "Then in the host or destination field, put your current Shapado domain: %{domain}."
           instruction5: "Once this is done, after an hour or so, your domain www.%{subdomain} should point to %{appdomain}."
-          instruction6: "When this is the case, come back here and put your domain name www.%{subdomain} in the field below and press the button 'update'. If you have questions, ask us in the %{chat_url} or on our support forum."
+          instruction6: "When this is the case, come back here and put your domain name www.%{subdomain} in the field below and press the button 'update'. If you have items, ask us in the %{chat_url} or on our support forum."
           warning: Are you sure you want to change your domain?

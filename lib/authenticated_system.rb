@@ -197,15 +197,15 @@ module AuthenticatedSystem
       session[:draft] = nil
       draft = Draft.find(draft_id)
       if !draft.nil?
-        if !draft.question.nil?
-          question = draft.question
-          question.user = current_user
-          session[:"user.return_to"] = new_question_path(:question => {:body => question.body, :language => question.language,
-                                        :title => question.title, :tags => question.tags})
+        if !draft.item.nil?
+          item = draft.item
+          item.user = current_user
+          session[:"user.return_to"] = new_item_path(:item => {:body => item.body, :language => item.language,
+                                        :title => item.title, :tags => item.tags})
         elsif !draft.answer.nil?
           answer = draft.answer
           answer.user = current_user
-          session[:"user.return_to"] = question_path(answer.question, :answer => {:body => answer.body},
+          session[:"user.return_to"] = item_path(answer.item, :answer => {:body => answer.body},
                                               :anchor => "to_answer")
         end
         draft.destroy

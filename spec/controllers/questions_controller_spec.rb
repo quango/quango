@@ -1,69 +1,69 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe QuestionsController do
+describe ItemsController do
 
-  def mock_question(stubs={})
-    @mock_question ||= mock_model(Question, stubs)
+  def mock_item(stubs={})
+    @mock_item ||= mock_model(Item, stubs)
   end
   
   describe "GET index" do
-    it "assigns all questions as @questions" do
-      Question.stub!(:find).with(:all).and_return([mock_question])
+    it "assigns all items as @items" do
+      Item.stub!(:find).with(:all).and_return([mock_item])
       get :index
-      assigns[:questions].should == [mock_question]
+      assigns[:items].should == [mock_item]
     end
   end
 
   describe "GET show" do
-    it "assigns the requested question as @question" do
-      Question.stub!(:find).with("37").and_return(mock_question)
+    it "assigns the requested item as @item" do
+      Item.stub!(:find).with("37").and_return(mock_item)
       get :show, :id => "37"
-      assigns[:question].should equal(mock_question)
+      assigns[:item].should equal(mock_item)
     end
   end
 
   describe "GET new" do
-    it "assigns a new question as @question" do
-      Question.stub!(:new).and_return(mock_question)
+    it "assigns a new item as @item" do
+      Item.stub!(:new).and_return(mock_item)
       get :new
-      assigns[:question].should equal(mock_question)
+      assigns[:item].should equal(mock_item)
     end
   end
 
   describe "GET edit" do
-    it "assigns the requested question as @question" do
-      Question.stub!(:find).with("37").and_return(mock_question)
+    it "assigns the requested item as @item" do
+      Item.stub!(:find).with("37").and_return(mock_item)
       get :edit, :id => "37"
-      assigns[:question].should equal(mock_question)
+      assigns[:item].should equal(mock_item)
     end
   end
 
   describe "POST create" do
     
     describe "with valid params" do
-      it "assigns a newly created question as @question" do
-        Question.stub!(:new).with({'these' => 'params'}).and_return(mock_question(:save => true))
-        post :create, :question => {:these => 'params'}
-        assigns[:question].should equal(mock_question)
+      it "assigns a newly created item as @item" do
+        Item.stub!(:new).with({'these' => 'params'}).and_return(mock_item(:save => true))
+        post :create, :item => {:these => 'params'}
+        assigns[:item].should equal(mock_item)
       end
 
-      it "redirects to the created question" do
-        Question.stub!(:new).and_return(mock_question(:save => true))
-        post :create, :question => {}
-        response.should redirect_to(question_url(mock_question))
+      it "redirects to the created item" do
+        Item.stub!(:new).and_return(mock_item(:save => true))
+        post :create, :item => {}
+        response.should redirect_to(item_url(mock_item))
       end
     end
     
     describe "with invalid params" do
-      it "assigns a newly created but unsaved question as @question" do
-        Question.stub!(:new).with({'these' => 'params'}).and_return(mock_question(:save => false))
-        post :create, :question => {:these => 'params'}
-        assigns[:question].should equal(mock_question)
+      it "assigns a newly created but unsaved item as @item" do
+        Item.stub!(:new).with({'these' => 'params'}).and_return(mock_item(:save => false))
+        post :create, :item => {:these => 'params'}
+        assigns[:item].should equal(mock_item)
       end
 
       it "re-renders the 'new' template" do
-        Question.stub!(:new).and_return(mock_question(:save => false))
-        post :create, :question => {}
+        Item.stub!(:new).and_return(mock_item(:save => false))
+        post :create, :item => {}
         response.should render_template('new')
       end
     end
@@ -73,40 +73,40 @@ describe QuestionsController do
   describe "PUT update" do
     
     describe "with valid params" do
-      it "updates the requested question" do
-        Question.should_receive(:find).with("37").and_return(mock_question)
-        mock_question.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => "37", :question => {:these => 'params'}
+      it "updates the requested item" do
+        Item.should_receive(:find).with("37").and_return(mock_item)
+        mock_item.should_receive(:update_attributes).with({'these' => 'params'})
+        put :update, :id => "37", :item => {:these => 'params'}
       end
 
-      it "assigns the requested question as @question" do
-        Question.stub!(:find).and_return(mock_question(:update_attributes => true))
+      it "assigns the requested item as @item" do
+        Item.stub!(:find).and_return(mock_item(:update_attributes => true))
         put :update, :id => "1"
-        assigns[:question].should equal(mock_question)
+        assigns[:item].should equal(mock_item)
       end
 
-      it "redirects to the question" do
-        Question.stub!(:find).and_return(mock_question(:update_attributes => true))
+      it "redirects to the item" do
+        Item.stub!(:find).and_return(mock_item(:update_attributes => true))
         put :update, :id => "1"
-        response.should redirect_to(question_url(mock_question))
+        response.should redirect_to(item_url(mock_item))
       end
     end
     
     describe "with invalid params" do
-      it "updates the requested question" do
-        Question.should_receive(:find).with("37").and_return(mock_question)
-        mock_question.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => "37", :question => {:these => 'params'}
+      it "updates the requested item" do
+        Item.should_receive(:find).with("37").and_return(mock_item)
+        mock_item.should_receive(:update_attributes).with({'these' => 'params'})
+        put :update, :id => "37", :item => {:these => 'params'}
       end
 
-      it "assigns the question as @question" do
-        Question.stub!(:find).and_return(mock_question(:update_attributes => false))
+      it "assigns the item as @item" do
+        Item.stub!(:find).and_return(mock_item(:update_attributes => false))
         put :update, :id => "1"
-        assigns[:question].should equal(mock_question)
+        assigns[:item].should equal(mock_item)
       end
 
       it "re-renders the 'edit' template" do
-        Question.stub!(:find).and_return(mock_question(:update_attributes => false))
+        Item.stub!(:find).and_return(mock_item(:update_attributes => false))
         put :update, :id => "1"
         response.should render_template('edit')
       end
@@ -115,16 +115,16 @@ describe QuestionsController do
   end
 
   describe "DELETE destroy" do
-    it "destroys the requested question" do
-      Question.should_receive(:find).with("37").and_return(mock_question)
-      mock_question.should_receive(:destroy)
+    it "destroys the requested item" do
+      Item.should_receive(:find).with("37").and_return(mock_item)
+      mock_item.should_receive(:destroy)
       delete :destroy, :id => "37"
     end
   
-    it "redirects to the questions list" do
-      Question.stub!(:find).and_return(mock_question(:destroy => true))
+    it "redirects to the items list" do
+      Item.stub!(:find).and_return(mock_item(:destroy => true))
       delete :destroy, :id => "1"
-      response.should redirect_to(questions_url)
+      response.should redirect_to(items_url)
     end
   end
 

@@ -11,11 +11,11 @@ class CommentsController < ApplicationController
     @comment.group = current_group
 
     if saved = @comment.save
-      current_user.on_activity(:comment_question, current_group)
+      current_user.on_activity(:comment_item, current_group)
       Magent.push("actors.judge", :on_comment, @comment.id)
 
-      if question_id = @comment.question_id
-        Question.update_last_target(question_id, @comment)
+      if item_id = @comment.item_id
+        Item.update_last_target(item_id, @comment)
       end
 
       if discussion_id = @comment.discussion_id
@@ -28,10 +28,10 @@ class CommentsController < ApplicationController
     end
 
     # TODO: use magent to do it
-    if (question = @comment.find_question) && (recipient = @comment.find_recipient)
+    if (item = @comment.find_item) && (recipient = @comment.find_recipient)
       email = recipient.email
       if !email.blank? && current_user.id != recipient.id && recipient.notification_opts.new_answer
-        Notifier.deliver_new_comment(current_group, @comment, recipient, question)
+        Notifier.deliver_new_comment(current_group, @comment, recipient, item)
       end
     end
 
@@ -72,8 +72,8 @@ class CommentsController < ApplicationController
       @comment = Comment.find(params[:id])
       @comment.body = params[:body]
       if @comment.valid? && @comment.save
-        if question_id = @comment.question_id
-          Question.update_last_target(question_id, @comment)
+        if item_id = @comment.item_id
+          Item.update_last_target(item_id, @comment)
         end
 
         flash[:notice] = t(:flash_notice, :scope => "comments.update")
@@ -115,7 +115,7 @@ class CommentsController < ApplicationController
       respond_to do |format|
         format.html do
           flash[:error] = t("global.permission_denied")
-          redirect_to params[:source] || questions_path
+          redirect_to params[:source] || items_path
         end
         format.js { render :json => {:success => false, :message => t("global.permission_denied") } }
         format.json { render :json => {:message => t("global.permission_denied")}, :status => :unprocessable_entity }
@@ -128,10 +128,10 @@ class CommentsController < ApplicationController
   end
 
   def find_scope
-    #if !@question
-      @question = Question.by_slug(params[:question_id])
-      if @question
-        @answer = @question.answers.find(params[:answer_id]) unless params[:answer_id].blank?
+    #if !@item
+      @item = Item.by_slug(params[:item_id])
+      if @item
+        @answer = @item.answers.find(params[:answer_id]) unless params[:answer_id].blank?
       end
 
       @discussion = Discussion.by_slug(params[:discussion_id])
@@ -144,16 +144,16 @@ class CommentsController < ApplicationController
     unless @answer.nil?
       @answer
     else
-      @question
-      @discussion
+      @item
+      #@discussion
     end
   end
 
   def full_scope
     unless @answer.nil?
-      [@question, @answer]
+      [@item, @answer]
     else
-      [@question]
+      [@item]
     end
   end
   helper_method :full_scope

@@ -13,7 +13,7 @@ en:
       have_voted_down: "Click to undo your down vote"
     model:
       messages:
-        closed_question: "You cannot vote on any posts belonging to a closed question"
+        closed_item: "You cannot vote on any posts belonging to a closed item"
         vote_down_comment: "Comments cannot be voted down"
   activerecord:
     models:

@@ -3,7 +3,7 @@ en:
     index:
       title: List of requests to re-open
     form:
-      request_opening_details: Request to re-open this question
+      request_opening_details: Request to re-open this item
     new:
       title: Request to re-open
     edit:

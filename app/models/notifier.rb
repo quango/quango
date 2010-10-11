@@ -1,7 +1,7 @@
 class Notifier < ActionMailer::Base
   helper :application
 
-  def give_advice(user, group, question, following = false)
+  def give_advice(user, group, item, following = false)
     template_for user do
 
       scope = "mailers.notifications.give_advice"
@@ -10,12 +10,12 @@ class Notifier < ActionMailer::Base
       recipients user.email
 
       if following
-        subject I18n.t("friend_subject", :scope => scope, :question_title => question.title)
+        subject I18n.t("friend_subject", :scope => scope, :item_title => item.title)
       else
-        subject I18n.t("subject", :scope => scope, :question_title => question.title)
+        subject I18n.t("subject", :scope => scope, :item_title => item.title)
       end
       sent_on Time.now
-      body   :user => user, :question => question,
+      body   :user => user, :item => item,
              :group => group, :domain => group.domain,
              :following => following
     end
@@ -26,17 +26,17 @@ class Notifier < ActionMailer::Base
     template_for user do
 
       scope = "mailers.notifications.new_answer"
-      if user == answer.question.user
+      if user == answer.item.user
         @subject = I18n.t("subject_owner", :scope => scope,
-                                           :title => answer.question.title,
+                                           :title => answer.item.title,
                                            :login => answer.user.login)
       elsif following
         @subject = I18n.t("subject_friend", :scope => scope,
-                                            :title => answer.question.title,
+                                            :title => answer.item.title,
                                             :login => answer.user.login)
       else
         @subject = I18n.t("subject_other", :scope => scope,
-                                           :title => answer.question.title,
+                                           :title => answer.item.title,
                                            :login => answer.user.login)
       end
 
@@ -45,14 +45,14 @@ class Notifier < ActionMailer::Base
       from "#{group ? group.name : AppConfig.application_name} <#{AppConfig.notification_email}>"
       subject @subject
       sent_on Time.now
-      body   :user => user, :answer => answer, :question => answer.question,
+      body   :user => user, :answer => answer, :item => answer.item,
              :group => group, :domain => domain
 
       content_type  "text/html"
     end
   end
 
-  def new_comment(group, comment, user, question)
+  def new_comment(group, comment, user, item)
     recipients user.email
     template_for user do
       from "Shapado <#{AppConfig.notification_email}>"
@@ -60,7 +60,7 @@ class Notifier < ActionMailer::Base
       sent_on Time.now
       content_type    "multipart/alternative"
 
-      body :user => user, :comment => comment, :question => question, :group => group
+      body :user => user, :comment => comment, :item => item, :group => group
     end
   end
 
@@ -95,14 +95,14 @@ class Notifier < ActionMailer::Base
     end
   end
 
-  def favorited(user, group, question)
-    recipients question.user.email
-    template_for question.user do
+  def favorited(user, group, item)
+    recipients item.user.email
+    template_for item.user do
 
       from "Shapado <#{AppConfig.notification_email}>"
       subject I18n.t("mailers.notifications.favorited.subject", :login => user.login)
       sent_on Time.now
-      body :user => user, :group => group, :question => question
+      body :user => user, :group => group, :item => item
       content_type    "multipart/alternative"
     end
   end

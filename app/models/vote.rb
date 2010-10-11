@@ -73,24 +73,24 @@ class Vote
     valid = true
     error_message = ""
     case self.voteable_type
-      when "Question"
+      when "Item"
         valid = !self.voteable.closed
-        error_message = I18n.t("votes.model.messages.closed_question")
+        error_message = I18n.t("votes.model.messages.closed_item")
       when "Answer"
-        valid = !self.voteable.question.closed
-        error_message = I18n.t("votes.model.messages.closed_question")
+        valid = !self.voteable.item.closed
+        error_message = I18n.t("votes.model.messages.closed_item")
       when "Comment"
         valid = self.value > 0
         unless valid
           error_message = I18n.t("votes.model.messages.vote_down_comment")
         else
           case self.voteable.commentable_type
-            when "Question"
+            when "Item"
               valid = !self.voteable.commentable.closed
-              error_message = I18n.t("votes.model.messages.closed_question")
+              error_message = I18n.t("votes.model.messages.closed_item")
             when "Answer"
-              valid = !self.voteable.commentable.question.closed
-              error_message = I18n.t("votes.model.messages.closed_question")
+              valid = !self.voteable.commentable.item.closed
+              error_message = I18n.t("votes.model.messages.closed_item")
           end
         end
     end

@@ -1,7 +1,7 @@
--link = url_for(:host => @group.domain, :controller => "questions", :action => "show", :id => @question.to_param)
+-link = url_for(:host => @group.domain, :controller => "items", :action => "show", :id => @item.to_param)
 -user_link= url_for(:host => @group.domain, :controller => "users", :action => "show", :id => @user.to_param)
 
-= t('notifier.global.hi', :user => @question.user.login)
+= t('notifier.global.hi', :user => @item.user.login)
 %br
 %br
 
@@ -11,6 +11,6 @@
 %br
 = t('.message2')
 %h2
-  = link_to h(@question.title), link
+  = link_to h(@item.title), link
 
 %br

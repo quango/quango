@@ -5,15 +5,15 @@
       %li.label      
         = "Show: "
       %li.news
-        =link_to t("layouts.application.news"), questions_path #{:tags => @active_tag}
+        =link_to t("layouts.application.news"), items_path #{:tags => @active_tag}
       %li.videos
-        =link_to t("layouts.application.videos"), questions_path
+        =link_to t("layouts.application.videos"), items_path
       %li.articles
-        =link_to t("layouts.application.articles"), questions_path
+        =link_to t("layouts.application.articles"), items_path
       %li.articles
-        =link_to t("layouts.application.articles"), questions_path
-      %li.questions
-        =link_to t("layouts.application.questions"), questions_path
+        =link_to t("layouts.application.articles"), items_path
+      %li.items
+        =link_to t("layouts.application.items"), items_path
       %li.discussions
         =link_to t("layouts.application.discussions"), discussions_path
       %li.bookmarks
@@ -32,15 +32,15 @@
       = "Show: "<< h(current_tags.to_s).capitalize
     %ul
       %li.news
-        =link_to t("layouts.application.news"), questions_path #{:tags => @active_tag}
+        =link_to t("layouts.application.news"), items_path #{:tags => @active_tag}
       %li.videos
-        =link_to t("layouts.application.videos"), questions_path
+        =link_to t("layouts.application.videos"), items_path
       %li.articles
-        =link_to t("layouts.application.articles"), questions_path
+        =link_to t("layouts.application.articles"), items_path
       %li.blogs
-        =link_to t("layouts.application.articles"), questions_path
-      %li.questions
-        =link_to t("layouts.application.questions"), questions_path
+        =link_to t("layouts.application.articles"), items_path
+      %li.items
+        =link_to t("layouts.application.items"), items_path
       %li.discussions
         =link_to t("layouts.application.discussions"), discussions_path
       %li.bookmarks

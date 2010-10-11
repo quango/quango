@@ -7,6 +7,6 @@ en:
         content: Content
         item_title: Title
         all: All
-        flagged: Flagged questions
-        banned: Banned questions
+        flagged: Flagged items
+        banned: Banned items
         need_tags: Retag

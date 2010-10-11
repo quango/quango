@@ -39,22 +39,22 @@ class Comment
 
   def can_be_deleted_by?(user)
     ok = (self.user_id == user.id && user.can_delete_own_comments_on?(self.group)) || user.mod_of?(self.group)
-    if !ok && user.can_delete_comments_on_own_questions_on?(self.group) && (q = self.find_question)
+    if !ok && user.can_delete_comments_on_own_items_on?(self.group) && (q = self.find_item)
       ok = (q.user_id == user.id)
     end
 
     ok
   end
 
-  def find_question
-    question = nil
-    if self.commentable.kind_of?(Question)
-      question = self.commentable
-    elsif self.commentable.respond_to?(:question)
-      question = self.commentable.question
+  def find_item
+    item = nil
+    if self.commentable.kind_of?(Item)
+      item = self.commentable
+    elsif self.commentable.respond_to?(:item)
+      item = self.commentable.item
     end
 
-    question
+    item
   end
 
   def find_discussion
@@ -68,18 +68,18 @@ class Comment
     discussion
   end
 
-  def question_id
-    question_id = nil
+  def item_id
+    item_id = nil
 
-    if self.commentable_type == "Question"
-      question_id = self.commentable_id
+    if self.commentable_type == "Item"
+      item_id = self.commentable_id
     elsif self.commentable_type == "Answer"
-      question_id = self.commentable.question_id
-    elsif self.commentable.respond_to?(:question)
-      question_id = self.commentable.question_id
+      item_id = self.commentable.item_id
+    elsif self.commentable.respond_to?(:item)
+      item_id = self.commentable.item_id
     end
 
-    question_id
+    item_id
   end
 
   def discussion_id

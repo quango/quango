@@ -56,7 +56,7 @@ class FlagsController < ApplicationController
         format.js { render :json => {:message => flash[:notice], :success => true }.to_json }
       else
         flash[:error] = @flag.errors.full_messages.join(", ")
-        format.html { redirect_to(question_path(@flag)) }
+        format.html { redirect_to(item_path(@flag)) }
         format.json { render :json => @flag.errors, :status => :unprocessable_entity}
         format.js { render :json => {:message => flash[:error], :success => false }.to_json }
       end
@@ -73,7 +73,7 @@ class FlagsController < ApplicationController
                                                    :locals => {:flag => @flag,
                                                                :source => @source,
                                                                :flaggeable => @resource,
-                                                               :form_id => "question_flag_form" })}.to_json
+                                                               :form_id => "item_flag_form" })}.to_json
       end
     end
   end
@@ -88,7 +88,7 @@ class FlagsController < ApplicationController
                                                    :locals => {:flag => @flag,
                                                                :source => @source,
                                                                :flaggeable => @resource,
-                                                               :form_id => "question_flag_form" })}.to_json
+                                                               :form_id => "item_flag_form" })}.to_json
       end
     end
   end
@@ -110,8 +110,8 @@ class FlagsController < ApplicationController
   def find_resource
     if params[:answer_id]
       @resource = current_group.answers.find(params[:answer_id])
-    elsif params[:question_id]
-      @resource = current_group.questions.find_by_slug_or_id(params[:question_id])
+    elsif params[:item_id]
+      @resource = current_group.items.find_by_slug_or_id(params[:item_id])
     elsif params[:discussion_id]
       @resource = current_group.discussions.find_by_slug_or_id(params[:discussion_id])
     end
@@ -119,9 +119,9 @@ class FlagsController < ApplicationController
 
   def resource_url
     if @resource.is_a?(Answer)
-      question_path(@resource.question)
-    elsif @resource.is_a?(Question)
-      question_path(@resource)
+      item_path(@resource.item)
+    elsif @resource.is_a?(Item)
+      item_path(@resource)
     elsif @resource.is_a?(Discussion)
       discussion_path(@resource)
     else

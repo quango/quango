@@ -1,7 +1,7 @@
 
--if @questions
-  .questions_count
-    = @questions.total_entries
+-if @items
+  .items_count
+    = @items.total_entries
   -if current_group.language.nil?
     %ul#lang_menu
       %li.menu
@@ -9,8 +9,8 @@
           -if current_tags.empty?
             - tagged = ""
           -else
-            - tagged = t "layouts.application.questions_tagged"
-          = "#{t 'layouts.application.questions_in'} #{link_to  language_desc(@languages), ''}▼ #{tagged}"
+            - tagged = t "layouts.application.items_tagged"
+          = "#{t 'layouts.application.items_in'} #{link_to  language_desc(@languages), ''}▼ #{tagged}"
         -else
           = link_to t("layouts.application.languages"), "/"
         %ul

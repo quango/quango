@@ -77,8 +77,8 @@ module JudgeActions
     end
 
     def on_rollback(payload)
-      question = Question.find(payload.first)
-      create_badge(question.updated_by, question.group, :token => "cleanup", :source => question, :unique => true)
+      item = Item.find(payload.first)
+      create_badge(item.updated_by, item.group, :token => "cleanup", :source => item, :unique => true)
     end
   end
 end

@@ -11,11 +11,11 @@
       %li.pending
         = link_to t(".pendings"), groups_path(:tab=>"pendings")
     %li.newest
-      = link_to t(".newest", :default => :"questions.index.newest"), groups_path(:tab=>"newest")
+      = link_to t(".newest", :default => :"items.index.newest"), groups_path(:tab=>"newest")
     %li.oldest
-      = link_to t(".oldest", :default => :"questions.index.oldest"), groups_path(:tab=>"oldest")
+      = link_to t(".oldest", :default => :"items.index.oldest"), groups_path(:tab=>"oldest")
     %li.name
-      = link_to t(".name", :default => :"questions.index.name"), groups_path(:tab=>"name")
+      = link_to t(".name", :default => :"items.index.name"), groups_path(:tab=>"name")
     %li.most_active
       = link_to t(".most_active"), groups_path(:tab=>"most_active")
 

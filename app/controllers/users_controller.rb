@@ -71,7 +71,7 @@ class UsersController < ApplicationController
     set_page_title(t("users.show.title", :user => @user.login))
 
     @q_sort, order = active_subtab(:q_sort)
-    @questions = @user.questions.paginate(:page=>params[:questions_page],
+    @items = @user.items.paginate(:page=>params[:items_page],
                                           :order => order,
                                           :per_page => 10,
                                           :group_id => current_group.id,
@@ -94,7 +94,7 @@ class UsersController < ApplicationController
                                           :order => order,
                                           :group_id => current_group.id)
 
-    @favorite_questions = Question.find(@favorites.map{|f| f.question_id })
+    @favorite_items = Item.find(@favorites.map{|f| f.item_id })
 
     add_feeds_url(url_for(:format => "atom"), t("feeds.user"))
 
@@ -157,7 +157,7 @@ class UsersController < ApplicationController
     end
 
     respond_to do |format|
-      format.html {redirect_to questions_path}
+      format.html {redirect_to items_path}
     end
   end
 

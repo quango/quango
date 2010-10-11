@@ -15,21 +15,21 @@ class SearchesController < ApplicationController
           Regexp.escape(k)
         end.join("|")
         @query_regexp = /(#{q})/i
-        @questions = Question.filter(@search_text, options)
+        @items = Item.filter(@search_text, options)
       else
-        @questions = Question.paginate(options)
+        @items = Item.paginate(options)
       end
     else
-      @questions = []
+      @items = []
     end
 
     respond_to do |format|
       format.html
       format.js do
-        render :json => {:html => render_to_string(:partial => "questions/question",
-                                                   :collection  => @questions)}.to_json
+        render :json => {:html => render_to_string(:partial => "items/item",
+                                                   :collection  => @items)}.to_json
       end
-      format.json { render :json => @questions.to_json(:except => %w[_keywords slugs watchers]) }
+      format.json { render :json => @items.to_json(:except => %w[_keywords slugs watchers]) }
     end
   end
 end

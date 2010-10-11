@@ -19,7 +19,7 @@ en:
     today: today
     ago: "%{time} ago"
   models:
-    question:   The question
+    item:   The item
   global:
     from: "from %{site}"
     permission_denied: Permission denied
@@ -33,12 +33,12 @@ en:
     share: Share
     active: Activate
   feeds:
-    question: Subscribe to this question
-    questions: Subscribe to all questions
+    item: Subscribe to this item
+    items: Subscribe to all items
     tag: Subscribe to tag
-    user: Subscribe to user questions
+    user: Subscribe to user items
     feed: Feed
-    post_new_questions: Post new questions to
+    post_new_items: Post new items to
     share_on_twitter: "twitter, facebook and more..."
   languages:
     any:     Any

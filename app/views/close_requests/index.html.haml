@@ -7,8 +7,8 @@
 
 -content_for :main do
   %h2.title
-    - if @question
-      =link_to h(@question.title), question_path(@question)
+    - if @item
+      =link_to h(@item.title), item_path(@item)
     - if @discussion
       =link_to h(@discussion.title), discussion_path(@discussion)
 
@@ -32,18 +32,18 @@
 
 
   - if logged_in? && current_user.mod_of?(current_group)
-    - if @question
-      - form_for @question, :url => close_question_url(@question), :method => :post, :html => {:class => "form"} do |form|
+    - if @item
+      - form_for @item, :url => close_item_url(@item), :method => :post, :html => {:class => "form"} do |form|
         = yield :close_requests_table
         .group.navform
-          = form.submit t("scaffold.update"), :id => "close_question_submit_#{@question.id}"
+          = form.submit t("scaffold.update"), :id => "close_item_submit_#{@item.id}"
           = t("global.or")
-          = link_to t("scaffold.cancel"), question_path(@question), :class => "button cancel"
+          = link_to t("scaffold.cancel"), item_path(@item), :class => "button cancel"
     - if @discussion
       - form_for @discussion, :url => close_discussion_url(@discussion), :method => :post, :html => {:class => "form"} do |form|
         = yield :close_requests_table
         .group.navform
-          = form.submit t("scaffold.update"), :id => "close_question_submit_#{@discussion.id}"
+          = form.submit t("scaffold.update"), :id => "close_item_submit_#{@discussion.id}"
           = t("global.or")
           = link_to t("scaffold.cancel"), discussion_path(@discussion), :class => "button cancel"
   - else

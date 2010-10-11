@@ -1,5 +1,5 @@
--if @question
-  -form_for [question, close_request], :html => {:class => "close_form form  #{local_assigns[:hide] ? "hide": ""}"} do |form|
+-if @item
+  -form_for [item, close_request], :html => {:class => "close_form form  #{local_assigns[:hide] ? "hide": ""}"} do |form|
     .group
       = form.label :reason, t(:reason, :scope=>"activerecord.attributes.flag"), :class => "label"
       -CloseRequest::REASONS.each do |reason|
@@ -18,11 +18,11 @@
 
     .group.navform
       -if @close_request.new?
-        = submit_tag t(".request_closing_details"), :class => "button", :id => "close_question_submit_#{@question.id}"
+        = submit_tag t(".request_closing_details"), :class => "button", :id => "close_item_submit_#{@item.id}"
       -else
-        = form.submit t("scaffold.update"), :id => "close_question_submit_#{@question.id}"
+        = form.submit t("scaffold.update"), :id => "close_item_submit_#{@item.id}"
       = t("global.or")
-      = link_to t("scaffold.cancel"), question_path(@question), :class => "button cancel"
+      = link_to t("scaffold.cancel"), item_path(@item), :class => "button cancel"
 
 -if @discussion
   -form_for [discussion, close_request], :html => {:class => "close_form form  #{local_assigns[:hide] ? "hide": ""}"} do |form|
@@ -44,9 +44,9 @@
 
     .group.navform
       -if @close_request.new?
-        = submit_tag t(".request_closing_details"), :class => "button", :id => "close_question_submit_#{@discussion.id}"
+        = submit_tag t(".request_closing_details"), :class => "button", :id => "close_item_submit_#{@discussion.id}"
       -else
-        = form.submit t("scaffold.update"), :id => "close_question_submit_#{@discussion.id}"
+        = form.submit t("scaffold.update"), :id => "close_item_submit_#{@discussion.id}"
       = t("global.or")
       = link_to t("scaffold.cancel"), discussion_path(@discussion), :class => "button cancel"
 

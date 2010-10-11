@@ -1,0 +1,41 @@
+-klass = ""
+-if logged_in? && item.tags.detect { |tag| current_user.preferred_tags_on(current_group).include?(tag) }
+  - klass = "highlight"
+
+.item{:class => klass}
+  -if logged_in? && current_user.can_modify?(item)
+    .right.buttons
+      = link_to t('scaffold.edit'), edit_item_path(item), :class => "button"
+      = link_to t('scaffold.destroy'), item_path(item), :confirm => t("scaffold.sure", :model => "item"), :method => :delete, :class => "button cancel"
+  %span
+    .item.count_votes
+      %span.counter
+        &= item.votes_average
+      %br
+      = truncate(t(:votes, :scope => "activerecord.attributes.item"), :length => 6, :omission => ".")
+    .item.count_answers
+      %span.counter
+        &= item.answers_count
+      %br
+      = truncate(t(:answers, :scope => "activerecord.attributes.item"), :length => 6,:omission => ".")
+    .item.count_views
+      %span.counter
+        &= item.views_count
+      %br
+      = truncate(t(:views, :scope => "activerecord.attributes.item"), :length => 6,:omission => ".")
+  %span
+    .item_header
+      .gravatar.item
+        = gravatar(item.user.email.to_s, :size => 48)
+      = link_to h(item.title), item_path(item), :title => truncate(item.body, :length => 200)
+
+    .tag-list.left
+      -item.first_tags.each do |tag|
+        %span.tag{:class => "tag_#{h(tag)}"}
+          = link_to h(tag), url_for(:controller => "items", :action => "index", :tags => tag), :rel => "tag"
+    .right
+      = t(:asked_by, :scope => "activerecord.attributes.item")
+      = link_to h(item.user.login), user_path(item.user)
+      %b
+        = t("time.ago", :time => time_ago_in_words(item.created_at))
+  .clear

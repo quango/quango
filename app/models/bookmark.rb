@@ -73,10 +73,10 @@ class Bookmark
   validates_presence_of :user_id
   validates_uniqueness_of :slug, :scope => :group_id, :allow_blank => true
 
-  validates_length_of       :title,    :within => 5..100, :message => lambda { I18n.t("questions.model.messages.title_too_long") }
+  validates_length_of       :title,    :within => 5..100, :message => lambda { I18n.t("items.model.messages.title_too_long") }
   validates_length_of       :body,     :minimum => 5, :allow_blank => true, :allow_nil => true, :if => lambda { |q| !q.disable_limits? }
   validates_true_for :tags, :logic => lambda { tags.size <= 9},
-                     :message => lambda { I18n.t("questions.model.messages.too_many_tags") if tags.size > 9 }
+                     :message => lambda { I18n.t("items.model.messages.too_many_tags") if tags.size > 9 }
 
   versionable_keys :title, :body, :tags
   filterable_keys :title, :body
@@ -149,22 +149,22 @@ class Bookmark
 
   def on_add_vote(v, voter)
     if v > 0
-      self.user.update_reputation(:question_receives_up_vote, self.group)
-      voter.on_activity(:vote_up_question, self.group)
+      self.user.update_reputation(:item_receives_up_vote, self.group)
+      voter.on_activity(:vote_up_item, self.group)
     else
-      self.user.update_reputation(:question_receives_down_vote, self.group)
-      voter.on_activity(:vote_down_question, self.group)
+      self.user.update_reputation(:item_receives_down_vote, self.group)
+      voter.on_activity(:vote_down_item, self.group)
     end
     on_activity(false)
   end
 
   def on_remove_vote(v, voter)
     if v > 0
-      self.user.update_reputation(:question_undo_up_vote, self.group)
-      voter.on_activity(:undo_vote_up_question, self.group)
+      self.user.update_reputation(:item_undo_up_vote, self.group)
+      voter.on_activity(:undo_vote_up_item, self.group)
     else
-      self.user.update_reputation(:question_undo_down_vote, self.group)
-      voter.on_activity(:undo_vote_down_question, self.group)
+      self.user.update_reputation(:item_undo_down_vote, self.group)
+      voter.on_activity(:undo_vote_down_item, self.group)
     end
     on_activity(false)
   end
@@ -250,24 +250,24 @@ class Bookmark
       end
 
       if !self.title.blank? && (self.title.split.count < 4)
-        self.errors.add(:title, I18n.t("questions.model.messages.too_short", :count => 4))
+        self.errors.add(:title, I18n.t("items.model.messages.too_short", :count => 4))
       end
 
       if !self.body.blank? && (self.body.split.count < 4)
-        self.errors.add(:body, I18n.t("questions.model.messages.too_short", :count => 3))
+        self.errors.add(:body, I18n.t("items.model.messages.too_short", :count => 3))
       end
     end
   end
 
   def disallow_spam
     if new? && !disable_limits?
-      last_question = Question.first( :user_id => self.user_id,
+      last_item = Item.first( :user_id => self.user_id,
                                       :group_id => self.group_id,
                                       :order => "created_at desc")
 
-      valid = (last_question.nil? || (Time.now - last_question.created_at) > 20)
+      valid = (last_item.nil? || (Time.now - last_item.created_at) > 20)
       if !valid
-        self.errors.add(:body, "Your question looks like spam. you need to wait 20 senconds before posting another question.")
+        self.errors.add(:body, "Your item looks like spam. you need to wait 20 senconds before posting another item.")
       end
     end
   end
@@ -276,27 +276,27 @@ class Bookmark
     self.answered_with_id.present?
   end
 
-  def self.update_last_target(question_id, target)
+  def self.update_last_target(item_id, target)
     # TODO: use mongo_mapper syntax
-    self.collection.update({:_id => question_id},
+    self.collection.update({:_id => item_id},
                            {:$set => {:last_target_id => target.id,
                                       :last_target_type => target.class.to_s,
                                       :last_target_date => target.updated_at.utc}})
   end
 
   def can_be_requested_to_close_by?(user)
-    ((self.user_id == user.id) && user.can_vote_to_close_own_question_on?(self.group)) ||
-    user.can_vote_to_close_any_question_on?(self.group)
+    ((self.user_id == user.id) && user.can_vote_to_close_own_item_on?(self.group)) ||
+    user.can_vote_to_close_any_item_on?(self.group)
   end
 
   def can_be_requested_to_open_by?(user)
     return false if !self.closed
-    ((self.user_id == user.id) && user.can_vote_to_open_own_question_on?(self.group)) ||
-    user.can_vote_to_open_any_question_on?(self.group)
+    ((self.user_id == user.id) && user.can_vote_to_open_own_item_on?(self.group)) ||
+    user.can_vote_to_open_any_item_on?(self.group)
   end
 
   def can_be_deleted_by?(user)
-    (self.user_id == user.id) || (self.closed && user.can_delete_closed_questions_on?(self.group))
+    (self.user_id == user.id) || (self.closed && user.can_delete_closed_items_on?(self.group))
   end
 
   def close_reason

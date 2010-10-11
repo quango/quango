@@ -1,0 +1,21 @@
+.author
+  .user_data
+    %span.asked_by
+      = t('activerecord.attributes.item.asked_by')
+    -if @item.anonymous
+      =t("global.anonymous")
+    -else
+      =render :partial => "users/user_mini", :locals => {:user => @item.user}
+    %span.time_ago.published{:title => @item.created_at, :class => "relativetime"}
+      = t("time.ago", :time => time_ago_in_words(@item.created_at))
+  .clear
+- if @item.updated_by.present?
+  .editor
+    .user_data
+      %span.asked_by
+        = t('activerecord.attributes.item.updated_by')
+      =render :partial => "users/user_mini", :locals => {:user => @item.updated_by}
+      %span.time_ago.published{:title => @item.updated_at, :class => "relativetime"}
+        = t("time.ago", :time => time_ago_in_words(@item.updated_at))
+    .clear
+.clear

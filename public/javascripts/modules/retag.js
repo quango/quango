@@ -34,7 +34,7 @@ $(document).ready(function() {
             success: function(data, textStatus) {
                 if(data.success) {
                     var tags = $.map(data.tags, function(n){
-                        return '<span class="tag"><a rel="tag" href="/questions/tags/'+n+'">'+n+'</a></span>'
+                        return '<span class="tag"><a rel="tag" href="/items/tags/'+n+'">'+n+'</a></span>'
                     })
                     form.parents('.tag-list').find('.tag').remove();
                     form.before(tags.join(''));

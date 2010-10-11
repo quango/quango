@@ -18,8 +18,8 @@ class Answer < Comment
   key :updated_by_id, String
   belongs_to :updated_by, :class_name => "User"
 
-  key :question_id, String
-  belongs_to :question
+  key :item_id, String
+  belongs_to :item
 
   key :discussion_id, String
   belongs_to :discussion
@@ -29,7 +29,7 @@ class Answer < Comment
   has_many :comments, :foreign_key => "commentable_id", :class_name => "Comment", :order => "created_at asc", :dependent => :destroy
 
   validates_presence_of :user_id
-  #validates_presence_of :question_id
+  #validates_presence_of :item_id
   #validates_presence_of :discussion_id
 
   versionable_keys :body
@@ -38,14 +38,14 @@ class Answer < Comment
   validate :disallow_spam
   validate :check_unique_answer, :if => lambda { |a| (!a.group.forum && !a.disable_limits?) }
 
-  before_destroy :unsolve_question
+  before_destroy :unsolve_item
 
   def check_unique_answer
-    check_answer = Answer.first(:question_id => self.question_id,
+    check_answer = Answer.first(:item_id => self.item_id,
                                :user_id => self.user_id)
 
     if !check_answer.nil? && check_answer.id != self.id
-      self.errors.add(:limitation, "Your can only post one answer by question.")
+      self.errors.add(:limitation, "Your can only post one answer by item.")
       return false
     end
   end
@@ -76,13 +76,13 @@ class Answer < Comment
 
 
   def ban
-    self.question.answer_removed!
-    unsolve_question
+    self.item.answer_removed!
+    unsolve_item
     self.set({:banned => true})
   end
 
   def self.ban(ids)
-    self.find_each(:_id.in => ids, :select => [:question_id]) do |answer|
+    self.find_each(:_id.in => ids, :select => [:item_id]) do |answer|
       answer.ban
     end
   end
@@ -98,12 +98,12 @@ class Answer < Comment
   def disallow_spam
     if new? && !disable_limits?
       eq_answer = Answer.first({:body => self.body,
-                                  :question_id => self.question_id,
+                                  :item_id => self.item_id,
                                   :group_id => self.group_id
                                 })
 
       last_answer  = Answer.first(:user_id => self.user_id,
-                                   :question_id => self.question_id,
+                                   :item_id => self.item_id,
                                    :group_id => self.group_id,
                                    :order => "created_at desc")
 
@@ -116,9 +116,9 @@ class Answer < Comment
   end
 
   protected
-  def unsolve_question
-    if !self.question.nil? && self.question.answer_id == self.id
-      self.question.set({:answer_id => nil, :accepted => false})
+  def unsolve_item
+    if !self.item.nil? && self.item.answer_id == self.id
+      self.item.set({:answer_id => nil, :accepted => false})
     end
   end
 end

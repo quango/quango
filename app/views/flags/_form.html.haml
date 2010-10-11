@@ -1,7 +1,7 @@
 -object_form = flag
 -if flaggeable.is_a?(Answer)
-  -object_form = [flaggeable.question, flaggeable, flag]
--elsif flaggeable.is_a?(Question)
+  -object_form = [flaggeable.item, flaggeable, flag]
+-elsif flaggeable.is_a?(Item)
   -object_form = [flaggeable, flag]
 -elsif flaggeable.is_a?(Discussion)
   -object_form = [flaggeable, flag]

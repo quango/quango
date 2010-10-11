@@ -1,5 +1,5 @@
 module Sweepers
-  def sweep_question_views
+  def sweep_item_views
     expire_fragment("tag_cloud_#{current_group.id}")
   end
 
@@ -18,9 +18,9 @@ module Sweepers
     expire_fragment("new_users_#{current_group.id}")
   end
 
-  def sweep_question(question)
-    expire_fragment("question_on_index_#{question.id}")
-    expire_fragment("mini_question_on_index_#{question.id}")
+  def sweep_item(item)
+    expire_fragment("item_on_index_#{item.id}")
+    expire_fragment("mini_item_on_index_#{item.id}")
   end
 
   def sweep_bookmark(bookmark)

@@ -1,5 +1,5 @@
 desc "Fix all"
-task :fixall => [:environment, "fixdb:badges", "fixdb:questions", "fixdb:update_widgets", "fixdb:tokens", "fixdb:es419", "fixdb:anonymous", "fixdb:flags"] do
+task :fixall => [:environment, "fixdb:badges", "fixdb:items", "fixdb:update_widgets", "fixdb:tokens", "fixdb:es419", "fixdb:anonymous", "fixdb:flags"] do
 end
 
 namespace :fixdb do
@@ -10,7 +10,7 @@ namespace :fixdb do
     puts "Updating User language from es-AR to es-419"
     User.set({:language => 'es-AR'},{:language => 'es-419'})
 
-    puts "Updating Questions language from es-AR to es-419"
+    puts "Updating Items language from es-AR to es-419"
     User.set({:language => 'es-AR'},{:language => 'es-419'})
 
     puts "Updating Comments language from es-AR to es-419"
@@ -49,19 +49,19 @@ namespace :fixdb do
     end
   end
 
-  task :questions => :environment do
+  task :items => :environment do
     Group.find_each do |group|
       tag_list = group.tag_list
 
-      Question.find_each(:group_id => group.id) do |question|
-        if question.last_target.present?
-          target = question.last_target
-          question.set({:last_target_date => (target.updated_at||target.created_at).utc})
-        elsif question.title.present?
-          question.set({:last_target_date => (question.activity_at || question.updated_at).utc})
+      Item.find_each(:group_id => group.id) do |item|
+        if item.last_target.present?
+          target = item.last_target
+          item.set({:last_target_date => (target.updated_at||target.created_at).utc})
+        elsif item.title.present?
+          item.set({:last_target_date => (item.activity_at || item.updated_at).utc})
         end
 
-        tag_list.add_tags(*question.tags)
+        tag_list.add_tags(*item.tags)
       end
     end
   end
@@ -90,10 +90,10 @@ namespace :fixdb do
 
   task :reputation_rewards => :environment do
     Group.find_each do |g|
-      [["vote_up_question", "undo_vote_up_question"],
-       ["vote_down_question", "undo_vote_down_question"],
-       ["question_receives_up_vote", "question_undo_up_vote"],
-       ["question_receives_down_vote", "question_undo_down_vote"],
+      [["vote_up_item", "undo_vote_up_item"],
+       ["vote_down_item", "undo_vote_down_item"],
+       ["item_receives_up_vote", "item_undo_up_vote"],
+       ["item_receives_down_vote", "item_undo_down_vote"],
        ["vote_up_answer", "undo_vote_up_answer"],
        ["vote_down_answer", "undo_vote_down_answer"],
        ["answer_receives_up_vote", "answer_undo_up_vote"],
@@ -107,8 +107,8 @@ namespace :fixdb do
     end
   end
 
-  task :unsolve_questions => :environment do
-    Question.find_each(:accepted => true) do |q|
+  task :unsolve_items => :environment do
+    Item.find_each(:accepted => true) do |q|
       if q.answer.nil?
         print "."
         q.set({:answer_id => nil, :accepted => false})
@@ -133,8 +133,8 @@ namespace :fixdb do
         flag["reason"] = flag.delete("type")
         if klass == "Answer"
           obj = Answer.find(id)
-        elsif klass == "Question"
-          obj = Question.find(id)
+        elsif klass == "Item"
+          obj = Item.find(id)
         end
         p klass
         p id

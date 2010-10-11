@@ -4,14 +4,14 @@ namespace :populator do
     require 'faker'
   end
 
-  desc "Creates 10 random questions"
-  task :questions => :populator_env do
+  desc "Creates 10 random items"
+  task :items => :populator_env do
     users = User.find(:all, :limit => 20)
     raise "There are no users!" if users.empty?
     default_group = Group.find_by_name(AppConfig.application_name)
 
     10.times do
-      q = Question.new(:title =>  Faker::Lorem.words(rand(6)+6).join(" "),
+      q = Item.new(:title =>  Faker::Lorem.words(rand(6)+6).join(" "),
                        :body => Faker::Lorem.paragraphs(rand(10)+6),
                        :language => (rand(100) % 2 == 0) ? 'en' : 'es',
                        :tags => Faker::Lorem.words(rand(6)+1),

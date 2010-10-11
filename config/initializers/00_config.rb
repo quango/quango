@@ -1,10 +1,10 @@
 REPUTATION_CONSTRAINS = {"vote_up" => 15, "flag" => 15, "post_images" => 15,
 "comment" => 50, "delete_own_comments" => 50, "vote_down" => 100,
 "create_new_tags" => 100, "post_whithout_limits" => 100, "edit_wiki_post" => 100,
-"remove_advertising" => 200, "vote_to_open_own_question" => 250, "vote_to_close_own_question" => 250,
-"retag_others_questions" => 500, "delete_comments_on_own_questions" => 750,
-"edit_others_posts" => 2000, "view_offensive_counts" => 2000, "vote_to_close_any_question" => 3000,
-"vote_to_open_any_question" => 3000, "delete_closed_questions" => 10000, "moderate" => 10000, "retag_others_tags" => 60,
+"remove_advertising" => 200, "vote_to_open_own_item" => 250, "vote_to_close_own_item" => 250,
+"retag_others_items" => 500, "delete_comments_on_own_items" => 750,
+"edit_others_posts" => 2000, "view_offensive_counts" => 2000, "vote_to_close_any_item" => 3000,
+"vote_to_open_any_item" => 3000, "delete_closed_items" => 10000, "moderate" => 10000, "retag_others_tags" => 60,
 "retag_others_discussions" => 0
 }
 

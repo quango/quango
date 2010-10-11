@@ -5,11 +5,11 @@ en:
     form:
       dupe: Duplicate
       ot: Off topic
-      no_question: Not a question
+      no_item: Not a item
       not_relevant: Not relevant
       spam: spam
-      request_closing_details: Request to close this question
-      close_with_reason: Closing this question using this reason
+      request_closing_details: Request to close this item
+      close_with_reason: Closing this item using this reason
     edit:
       title: Edit closing request
     create:
@@ -22,7 +22,7 @@ en:
       name: Closing request
       prural_name: Closing requests
       messages:
-        already_requested: "You have already requested to close this question"
+        already_requested: "You have already requested to close this item"
       attributes:
         user: User
         reason: Reason

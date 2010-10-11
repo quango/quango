@@ -6,10 +6,10 @@
     / Member Stats
     .stats
       .box.votes
-        .counter{:class => class_for_number(member.questions.count) }
-          =format_number(member.questions.count)
+        .counter{:class => class_for_number(member.items.count) }
+          =format_number(member.items.count)
         .text
-          = t(:questions, :scope => "activerecord.models")
+          = t(:items, :scope => "activerecord.models")
       .box.answers
         .counter
           =format_number(member.answers.count)

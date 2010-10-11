@@ -6,8 +6,8 @@
   =local_assigns[:mode]
 
 
-  -if !@question
-    - form_for(:answer, :url => question_answer_path(@question, @answer), :html => {:method => :put, :class => "form"}) do |f|
+  -if !@item
+    - form_for(:answer, :url => item_answer_path(@item, @answer), :html => {:method => :put, :class => "form"}) do |f|
       =render :partial => "form", :locals => {:f => f, :markdown => true}
       .group
         .group.navform
@@ -16,7 +16,7 @@
             = f.check_box :wiki, :class => "checkbox"
           = f.submit t("scaffold.update"), :class => "buttton"
           = t("global.or")
-          = link_to t('scaffold.cancel'), question_path(@question), :class => "button cancel"
+          = link_to t('scaffold.cancel'), item_path(@item), :class => "button cancel"
 
   -if @discussion
     - form_for(:answer, :url => discussion_answer_path(@discussion, @answer), :html => {:method => :put, :class => "form"}) do |f|

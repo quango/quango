@@ -55,21 +55,21 @@
           = link_to t("comments.shared.reply"), "#", :class => "addNestedAnswer reply", 'data-author' => comment.user.login
         -if logged_in? && (current_user.can_modify?(comment) || current_user.mod_of?(current_group))
           -case comment.commentable_type
-            -when mode == "Question"
-              =link_to t("scaffold.edit"), edit_question_comment_path(comment.commentable, comment, :source => source), :class => "edit_comment"
-            -when "Answer" || mode == "Question"
-              = link_to t("scaffold.edit"), edit_question_answer_comment_path(comment.commentable.question, comment.commentable, comment, :source => source), :class => "edit_comment"
+            -when mode == "Item"
+              =link_to t("scaffold.edit"), edit_item_comment_path(comment.commentable, comment, :source => source), :class => "edit_comment"
+            -when "Answer" || mode == "Item"
+              = link_to t("scaffold.edit"), edit_item_answer_comment_path(comment.commentable.item, comment.commentable, comment, :source => source), :class => "edit_comment"
             -when mode == "Discussion"
               = link_to t("scaffold.edit"), edit_discussion_comment_path(comment.commentable, comment, :source => source), :class => "edit_comment"
               -when "Answer"
                 = link_to t("scaffold.edit"), edit_discussion_answer_comment_path(comment.commentable.discussion, comment.commentable, comment, :source => source), :class => "edit_comment"
         -if logged_in? && comment.can_be_deleted_by?(current_user)
           -case comment.commentable_type
-            -when "Question"
-              = link_to t("scaffold.destroy"), question_comment_path(comment.commentable, comment, :source => source), :confirm => t("scaffold.sure", :model => "comment"), :method => :delete
+            -when "Item"
+              = link_to t("scaffold.destroy"), item_comment_path(comment.commentable, comment, :source => source), :confirm => t("scaffold.sure", :model => "comment"), :method => :delete
             -when "Discussion"
               = link_to t("scaffold.destroy"), discussion_comment_path(comment.commentable, comment, :source => source), :confirm => t("scaffold.sure", :model => "comment"), :method => :delete
             -when "Answer"
-              = link_to t("scaffold.destroy"), question_answer_comment_path(comment.commentable.question, comment.commentable, comment, :source => source), :confirm => t("scaffold.sure", :model => "comment"), :method => :delete
+              = link_to t("scaffold.destroy"), item_answer_comment_path(comment.commentable.item, comment.commentable, comment, :source => source), :confirm => t("scaffold.sure", :model => "comment"), :method => :delete
     .clear
 

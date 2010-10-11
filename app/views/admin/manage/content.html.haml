@@ -5,10 +5,10 @@
   %ul
     %li.head_tag
       = link_to h("<head>"), manage_content_path(:tab=>"head_tag")
-    %li.question_help
-      = link_to t(".question_help"), manage_content_path(:tab=>"question_help")
-    %li.question_prompt
-      = link_to t(".question_prompt"), manage_content_path(:tab=>"question_prompt")
+    %li.item_help
+      = link_to t(".item_help"), manage_content_path(:tab=>"item_help")
+    %li.item_prompt
+      = link_to t(".item_prompt"), manage_content_path(:tab=>"item_prompt")
     %li.head
       = link_to t(".head"), manage_content_path(:tab=>"head")
     %li.top_bar
@@ -20,16 +20,16 @@
   = form.error_messages
   =hidden_field_tag :source, domain_url(:custom => @group.domain, :controller => "admin/manage", :action => "content", :tab=>@active_subtab)
   -case @active_subtab.to_sym
-    -when :question_prompt
+    -when :item_prompt
       -AVAILABLE_LANGUAGES.sort.each do |lang|
         .group
-          =form.label "_question_prompt[#{lang}]", language_desc(lang), :class => "label"
-          =text_field_tag "group[custom_html][question_prompt[#{lang}]]", @group.custom_html.question_prompt[lang], :class => "text_field"
-    -when :question_help
+          =form.label "_item_prompt[#{lang}]", language_desc(lang), :class => "label"
+          =text_field_tag "group[custom_html][item_prompt[#{lang}]]", @group.custom_html.item_prompt[lang], :class => "text_field"
+    -when :item_help
       -AVAILABLE_LANGUAGES.sort.each do |lang|
         .group
           =form.label "group[custom_html][#{lang}]", language_desc(lang), :class => "label"
-          =text_area_tag "group[custom_html][question_help[#{lang}]]", @group.custom_html.question_help[lang], :class => "text_area"
+          =text_area_tag "group[custom_html][item_help[#{lang}]]", @group.custom_html.item_help[lang], :class => "text_area"
     -when :head
       -AVAILABLE_LANGUAGES.sort.each do |lang|
         .group

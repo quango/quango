@@ -70,23 +70,23 @@
       .navtitle
         %span.counter
           = number_with_delimiter(@favorites.total_entries)
-        =t(:questions, :scope => "activerecord.models")
+        =t(:items, :scope => "activerecord.models")
       %ul
         %li.newest
-          = link_to t("questions.index.newest"), user_path(@user, params.merge(:q_sort=>"newest")), :rel => "nofollow"
+          = link_to t("items.index.newest"), user_path(@user, params.merge(:q_sort=>"newest")), :rel => "nofollow"
         %li.oldest
-          = link_to t("questions.index.oldest"), user_path(@user, params.merge(:q_sort=>"oldest")), :rel => "nofollow"
+          = link_to t("items.index.oldest"), user_path(@user, params.merge(:q_sort=>"oldest")), :rel => "nofollow"
         %li.views
-          = link_to t("activerecord.attributes.question.views"), user_path(@user, params.merge(:q_sort=>"views")), :rel => "nofollow"
+          = link_to t("activerecord.attributes.item.views"), user_path(@user, params.merge(:q_sort=>"views")), :rel => "nofollow"
         %li.votes
-          = link_to t("questions.index.votes"), user_path(@user, params.merge(:q_sort=>"votes")), :rel => "nofollow"
+          = link_to t("items.index.votes"), user_path(@user, params.merge(:q_sort=>"votes")), :rel => "nofollow"
       .clear
     .block
-      %ul.items#questions
-        -@questions.each do |question|
-          = render :partial => "questions/question", :object => question
+      %ul.items#items
+        -@items.each do |item|
+          = render :partial => "items/item", :object => item
       .additional_info
-        = will_paginate @questions, :param_name => "questions_page"
+        = will_paginate @items, :param_name => "items_page"
         .clear
 
     /Favorites
@@ -97,19 +97,19 @@
         =t(:favorites, :scope => "activerecord.models")
       %ul
         %li.newest
-          = link_to t("questions.index.newest"), user_path(@user, params.merge(:f_sort=>"newest")), :rel => "nofollow"
+          = link_to t("items.index.newest"), user_path(@user, params.merge(:f_sort=>"newest")), :rel => "nofollow"
         %li.oldest
-          = link_to t("questions.index.oldest"), user_path(@user, params.merge(:f_sort=>"oldest")), :rel => "nofollow"
+          = link_to t("items.index.oldest"), user_path(@user, params.merge(:f_sort=>"oldest")), :rel => "nofollow"
         %li.views
-          = link_to t("activerecord.attributes.question.views"), user_path(@user, params.merge(:f_sort=>"views")), :rel => "nofollow"
+          = link_to t("activerecord.attributes.item.views"), user_path(@user, params.merge(:f_sort=>"views")), :rel => "nofollow"
         %li.votes
-          = link_to t("questions.index.votes"), user_path(@user, params.merge(:f_sort=>"votes")), :rel => "nofollow"
+          = link_to t("items.index.votes"), user_path(@user, params.merge(:f_sort=>"votes")), :rel => "nofollow"
       .clear
     .block
 
-    %ul.items#questions
-      -@favorite_questions.each do |question|
-        = render :partial => "questions/question", :object => question
+    %ul.items#items
+      -@favorite_items.each do |item|
+        = render :partial => "items/item", :object => item
     .additional_info
       = will_paginate @favorites, :param_name => "favorites_page"
       .clear
@@ -123,17 +123,17 @@
 
       %ul
         %li.newest
-          = link_to t("questions.index.newest"), user_path(@user, params.merge(:a_sort=>"newest")), :rel => "nofollow"
+          = link_to t("items.index.newest"), user_path(@user, params.merge(:a_sort=>"newest")), :rel => "nofollow"
         %li.oldest
-          = link_to t("questions.index.oldest"), user_path(@user, params.merge(:a_sort=>"oldest")), :rel => "nofollow"
+          = link_to t("items.index.oldest"), user_path(@user, params.merge(:a_sort=>"oldest")), :rel => "nofollow"
         %li.votes
-          = link_to t("questions.index.votes"), user_path(@user, params.merge(:a_sort=>"votes")), :rel => "nofollow"
+          = link_to t("items.index.votes"), user_path(@user, params.merge(:a_sort=>"votes")), :rel => "nofollow"
       .clear
     .block
 
     %ul.items#answers
       -@answers.each do |answer|
-        -next if answer.question.banned
+        -next if answer.item.banned
         = render :partial => "answers/answer", :object => answer
     .additional_info
       = will_paginate @answers, :param_name => "answers_page"

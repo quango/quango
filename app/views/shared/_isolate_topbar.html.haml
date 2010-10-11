@@ -8,12 +8,12 @@
 
   -unless current_group.default_tags.empty?
     %li
-      = link_to "tags", questions_url
+      = link_to "tags", items_url
       ▼
       %ul
         -current_group.default_tags.each do |tag|
           %li
-            = link_to(tag, url_for(:controller => "questions", :action => "index", :tags => tag), :rel => "tag")
+            = link_to(tag, url_for(:controller => "items", :action => "index", :tags => tag), :rel => "tag")
 
   -if !logged_in?
     %li

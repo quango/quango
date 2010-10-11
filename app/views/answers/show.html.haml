@@ -1,14 +1,14 @@
 -require_js 'jsMath/easy/load.js'
 
-#question
-  #question-title
+#item
+  #item-title
     %h2
-      = link_to h(@question.title), question_path(@question)
-  #question-body.markdown
-    = markdown(@question.body)
+      = link_to h(@item.title), item_path(@item)
+  #item-body.markdown
+    = markdown(@item.body)
 
 .subtitle
   = t('activerecord.models.answer')
 
 #answers
-  =render :partial=> "questions/answer", :locals=> {:question => @question, :answer => @answer, :comment => Answer.new}
+  =render :partial=> "items/answer", :locals=> {:item => @item, :answer => @answer, :comment => Answer.new}

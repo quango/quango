@@ -9,9 +9,9 @@
       %li.channels
         =link_to h("layouts.application.channels"), links_path #channels_path
       %li.newswires
-        =link_to t("layouts.application.wires"), questions_path #{:tags => @active_tag}
-      %li.questions
-        =link_to t("layouts.application.questions"), questions_path
+        =link_to t("layouts.application.wires"), items_path #{:tags => @active_tag}
+      %li.items
+        =link_to t("layouts.application.items"), items_path
       %li.users
         =link_to t("layouts.application.users"), users_path
       %li.links
@@ -30,9 +30,9 @@
       %li.channels
         =link_to h("layouts.application.channels"), links_path #channels_path
       %li.newswires
-        =link_to t("layouts.application.wires"), questions_path #{:tags => @active_tag}
-      %li.questions
-        =link_to t("layouts.application.questions"), questions_path
+        =link_to t("layouts.application.wires"), items_path #{:tags => @active_tag}
+      %li.items
+        =link_to t("layouts.application.items"), items_path
       %li.users
         =link_to t("layouts.application.users"), users_path
       %li.links

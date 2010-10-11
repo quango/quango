@@ -17,13 +17,13 @@
   .subtabs  
     %ul
       %li.newest
-        = link_to t("questions.index.newest"), channels_path(:sort=>"newest",:tags=>current_tags.to_s), :title => t("questions.index.newest_tooltip")
+        = link_to t("items.index.newest"), channels_path(:sort=>"newest",:tags=>current_tags.to_s), :title => t("items.index.newest_tooltip")
       %li.hot
-        = link_to t("questions.index.hot"), channels_path(:sort=>"hot",:tags=>current_tags.to_s), :title => t("questions.index.hot_tooltip"), :rel => "nofollow"
+        = link_to t("items.index.hot"), channels_path(:sort=>"hot",:tags=>current_tags.to_s), :title => t("items.index.hot_tooltip"), :rel => "nofollow"
       %li.votes
-        = link_to t("questions.index.votes"), channels_path(:sort=>"votes",:tags=>current_tags.to_s), :title =>  t("questions.index.votes_tooltip"), :rel => "nofollow"
+        = link_to t("items.index.votes"), channels_path(:sort=>"votes",:tags=>current_tags.to_s), :title =>  t("items.index.votes_tooltip"), :rel => "nofollow"
       %li.activity
-        = link_to t("questions.index.active"), channels_path(:sort=>"activity",:tags=>current_tags.to_s), :title => t("questions.index.active_tooltip"), :rel => "nofollow"
+        = link_to t("items.index.active"), channels_path(:sort=>"activity",:tags=>current_tags.to_s), :title => t("items.index.active_tooltip"), :rel => "nofollow"
 
 
 -content_for :sidebar do
@@ -40,19 +40,19 @@
 
 -#= render :partial => "searches/search_box"
 
-/Questions
-%ul.items#questions
-  -if @questions.empty?
+/Items
+%ul.items#items
+  -if @items.empty?
     %li.highlight
       = t(".empty")
-  -@questions.each do |question|
-    = render :partial => "question", :object => question
+  -@items.each do |item|
+    = render :partial => "item", :object => item
 
 #additional_info
-  =will_paginate @questions
+  =will_paginate @items
 
   #help_us
     = t(".help_to_answer")
-    =link_to t(".unanswered_questions"), unanswered_questions_path
+    =link_to t(".unanswered_items"), unanswered_items_path
 
   .clear

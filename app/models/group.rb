@@ -64,7 +64,7 @@ class Group
   has_many :widgets, :class_name => "Widget"
 
   has_many :badges, :dependent => :destroy
-  has_many :questions, :dependent => :destroy
+  has_many :items, :dependent => :destroy
   has_many :bookmarks, :dependent => :destroy
   has_many :discussions, :dependent => :destroy
   has_many :answers, :dependent => :destroy
@@ -112,7 +112,7 @@ class Group
 
   def disallow_javascript
     unless self.has_custom_js
-       %w[footer _head _question_help _question_prompt head_tag].each do |key|
+       %w[footer _head _item_help _item_prompt head_tag].each do |key|
          value = self.custom_html[key]
          if value.kind_of?(Hash)
            value.each do |k,v|
@@ -126,20 +126,20 @@ class Group
     end
   end
 
-  def question_prompt
-    self.custom_html.question_prompt[I18n.locale.to_s.split("-").first] || ""
+  def item_prompt
+    self.custom_html.item_prompt[I18n.locale.to_s.split("-").first] || ""
   end
 
-  def question_help
-    self.custom_html.question_help[I18n.locale.to_s.split("-").first] || ""
+  def item_help
+    self.custom_html.item_help[I18n.locale.to_s.split("-").first] || ""
   end
 
   def bookmark_prompt
-    self.custom_html.question_prompt[I18n.locale.to_s.split("-").first] || ""
+    self.custom_html.item_prompt[I18n.locale.to_s.split("-").first] || ""
   end
 
   def bookmark_help
-    self.custom_html.question_help[I18n.locale.to_s.split("-").first] || ""
+    self.custom_html.item_help[I18n.locale.to_s.split("-").first] || ""
   end
 
   def discussion_prompt
@@ -162,12 +162,12 @@ class Group
     self.custom_html.footer[I18n.locale.to_s.split("-").first] || ""
   end
 
-  def question_prompt=(value)
-    self.custom_html.question_prompt[I18n.locale.to_s.split("-").first] = value
+  def item_prompt=(value)
+    self.custom_html.item_prompt[I18n.locale.to_s.split("-").first] = value
   end
 
-  def question_help=(value)
-    self.custom_html.question_help[I18n.locale.to_s.split("-").first] = value
+  def item_help=(value)
+    self.custom_html.item_help[I18n.locale.to_s.split("-").first] = value
   end
 
   def head=(value)
@@ -220,9 +220,9 @@ class Group
   def on_activity(action)
     value = 0
     case action
-      when :ask_question
+      when :ask_item
         value = 0.1
-      when :answer_question
+      when :answer_item
         value = 0.3
     end
 
@@ -259,10 +259,10 @@ class Group
 
     if self.reputation_rewards_changed?
       valid = true
-      [["vote_up_question", "undo_vote_up_question"],
-       ["vote_down_question", "undo_vote_down_question"],
-       ["question_receives_up_vote", "question_undo_up_vote"],
-       ["question_receives_down_vote", "question_undo_down_vote"],
+      [["vote_up_item", "undo_vote_up_item"],
+       ["vote_down_item", "undo_vote_down_item"],
+       ["item_receives_up_vote", "item_undo_up_vote"],
+       ["item_receives_down_vote", "item_undo_down_vote"],
        ["vote_up_answer", "undo_vote_up_answer"],
        ["vote_down_answer", "undo_vote_down_answer"],
        ["answer_receives_up_vote", "answer_undo_up_vote"],

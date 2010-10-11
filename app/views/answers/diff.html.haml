@@ -7,6 +7,6 @@
 %br
 .form
   .group.navform
-    = link_to(t("wiki.actions.all_history"), history_question_answer_path(@question, @answer))
+    = link_to(t("wiki.actions.all_history"), history_item_answer_path(@item, @answer))
     = t("global.or")
-    = link_to(t("wiki.actions.back_to_question"), question_path(@question))
+    = link_to(t("wiki.actions.back_to_item"), item_path(@item))

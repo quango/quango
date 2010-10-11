@@ -28,12 +28,12 @@ Disallow: /settings/
 Disallow: /feedback
 Disallow: /feedback/
 
-Disallow: /questions/new
-Disallow: /questions/new/
-Disallow: /questions/unanswered
-Disallow: /questions/unanswered/
-Disallow: /questions/tags
-Disallow: /questions/tags/
+Disallow: /items/new
+Disallow: /items/new/
+Disallow: /items/unanswered
+Disallow: /items/unanswered/
+Disallow: /items/tags
+Disallow: /items/tags/
 Disallow: /badges
 Disallow: /badges/
 Disallow: /search

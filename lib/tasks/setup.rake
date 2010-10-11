@@ -35,8 +35,8 @@ namespace :setup do
                               :domain => AppConfig.domain,
                               :subdomain => subdomain,
                               :domain => AppConfig.domain,
-                              :description => "question-and-answer website",
-                              :legend => "question and answer website",
+                              :description => "item-and-answer website",
+                              :legend => "item and answer website",
                               :default_tags => default_tags,
                               :state => "active")
 
@@ -102,7 +102,7 @@ namespace :setup do
 
   desc "Reindex data"
   task :reindex => [:environment] do
-    class Question
+    class Item
       def update_timestamps
       end
     end
@@ -117,11 +117,11 @@ namespace :setup do
       end
     end
 
-    $stderr.puts "Reindexing #{Question.count} questions..."
-    Question.find_each do |question|
-      question._keywords = []
-      question.rolling_back = true
-      question.save(:validate => false)
+    $stderr.puts "Reindexing #{Item.count} items..."
+    Item.find_each do |item|
+      item._keywords = []
+      item.rolling_back = true
+      item.save(:validate => false)
     end
 
     $stderr.puts "Reindexing #{Answer.count} answers..."

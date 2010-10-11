@@ -1,7 +1,7 @@
 
 class OpenRequest
   include MongoMapper::EmbeddedDocument
-#   REASONS = %w{dupe ot no_question not_relevant spam}
+#   REASONS = %w{dupe ot no_item not_relevant spam}
 
   key :_id, String
 #   key :reason, String, :in => REASONS
@@ -29,19 +29,19 @@ class OpenRequest
   end
 
   def check_reputation
-    if ((self._root_document.user_id == self.user_id) && !self.user.can_vote_to_open_own_question_on?(self._root_document.group))
-      reputation = self._root_document.group.reputation_constrains["vote_to_open_own_question"]
+    if ((self._root_document.user_id == self.user_id) && !self.user.can_vote_to_open_own_item_on?(self._root_document.group))
+      reputation = self._root_document.group.reputation_constrains["vote_to_open_own_item"]
       self.errors.add(:reputation, I18n.t("users.messages.errors.reputation_needed",
                                           :min_reputation => reputation,
-                                          :action => I18n.t("users.actions.vote_to_open_own_question")))
+                                          :action => I18n.t("users.actions.vote_to_open_own_item")))
       return false
     end
 
-    unless self.user.can_vote_to_open_any_question_on?(self._root_document.group)
-      reputation = self._root_document.group.reputation_constrains["vote_to_open_any_question"]
+    unless self.user.can_vote_to_open_any_item_on?(self._root_document.group)
+      reputation = self._root_document.group.reputation_constrains["vote_to_open_any_item"]
             self.errors.add(:reputation, I18n.t("users.messages.errors.reputation_needed",
                                           :min_reputation => reputation,
-                                          :action => I18n.t("users.actions.vote_to_open_any_question")))
+                                          :action => I18n.t("users.actions.vote_to_open_any_item")))
       return false
     end
 

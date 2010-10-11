@@ -2,7 +2,7 @@ en:
   answers:
     form:
       comment_label: Comment on this answer
-      answer_label: Answer the question
+      answer_label: Answer the item
       comment_submit: Comment
       submit: Answer
     edit:
@@ -13,7 +13,7 @@ en:
   \n  Remember that:
   \n - Empty and repeated answers are not allowed
   \n - You need to wait 20 seconds before posting another answer.
-  \n - You can only post one answer per question."
+  \n - You can only post one answer per item."
     update:
       flash_notice: "Answer was successfully updated."
     revert:

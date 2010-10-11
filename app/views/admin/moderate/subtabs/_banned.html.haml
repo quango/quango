@@ -6,18 +6,18 @@
         %th
           =t(:flags, :scope => "activerecord.models")
         %th
-          =t(:title, :scope => "activerecord.attributes.question")
+          =t(:title, :scope => "activerecord.attributes.item")
         %th
-          =t(:body, :scope => "activerecord.attributes.question")
-      -@banned.each do |question|
+          =t(:body, :scope => "activerecord.attributes.item")
+      -@banned.each do |item|
         %tr
           %th
-            = check_box_tag "question_ids[]", question.id
+            = check_box_tag "item_ids[]", item.id
           %td
-            = render :partial => "flags/list", :locals=> {:flaggeable => question}
+            = render :partial => "flags/list", :locals=> {:flaggeable => item}
           %td
-            = link_to h(question.title), question_path(question)
+            = link_to h(item.title), item_path(item)
           %td
-            = truncate(h(question.body), :length => 100)
-    = will_paginate @banned, :param_name => "questions_page"
+            = truncate(h(item.body), :length => 100)
+    = will_paginate @banned, :param_name => "items_page"
     = submit_tag "unban"

@@ -15,22 +15,22 @@ javascripts:
   - components/search
   - application
   - modules/sessions
-  - modules/index_question
+  - modules/index_item
   - modules/retag
-  - modules/new_question
+  - modules/new_item
   - modules/index_welcome
   - modules/show_user
   - modules/index_group
   - modules/index_user
-  - modules/tags_question
+  - modules/tags_item
   - modules/members
   - modules/move_group
   - modules/editor
 
 - show:
-  - modules/single/question
+  - modules/single/item
   - jquery.autovideo
-  - modules/show_question
+  - modules/show_item
 
 - login:
   - openid/js/jquery.openid.min

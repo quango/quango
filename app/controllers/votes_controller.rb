@@ -23,10 +23,10 @@ class VotesController < ApplicationController
     vote_state = push_vote(vote)
 
     if vote_state == :created && !vote.new?
-      if vote.voteable_type == "Question"
-        sweep_question(vote.voteable)
+      if vote.voteable_type == "Item"
+        sweep_item(vote.voteable)
 
-        Magent.push("actors.judge", :on_vote_question, vote.id)
+        Magent.push("actors.judge", :on_vote_item, vote.id)
       elsif vote.voteable_type == "Answer"
         Magent.push("actors.judge", :on_vote_answer, vote.id)
       end
@@ -69,8 +69,8 @@ class VotesController < ApplicationController
     value = @vote.value
     if  @vote && current_user == @vote.user
       @vote.destroy
-      if voteable.kind_of?(Question)
-        sweep_question(voteable)
+      if voteable.kind_of?(Item)
+        sweep_item(voteable)
       end
       voteable.remove_vote!(value, current_user)
     end
@@ -136,13 +136,13 @@ class VotesController < ApplicationController
     end
 
     if vote.voteable_type == "Answer"
-      question = voteable.question
-      sweep_question(question)
+      item = voteable.item
+      sweep_item(item)
 
       if vote.value == 1
-        Question.set(question.id, {:answered_with_id => voteable.id}) if !question.answered
-      elsif question.answered_with_id == voteable.id && voteable.votes_average <= 1
-        Question.set(question.id, {:answered_with_id => nil})
+        Item.set(item.id, {:answered_with_id => voteable.id}) if !item.answered
+      elsif item.answered_with_id == voteable.id && voteable.votes_average <= 1
+        Item.set(item.id, {:answered_with_id => nil})
       end
     end
 

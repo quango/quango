@@ -1,7 +1,7 @@
 
 $(document).ready(function() {
-  $("#quick_question #tags, #quick_question .ask_question").hide();
-  $("#question_title").focus(function(event) {
-    $("#quick_question #tags, #quick_question .ask_question").show();
+  $("#quick_item #tags, #quick_item .ask_item").hide();
+  $("#item_title").focus(function(event) {
+    $("#quick_item #tags, #quick_item .ask_item").show();
   });
 });

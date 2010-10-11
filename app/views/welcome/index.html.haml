@@ -17,45 +17,45 @@
     %button.right
       = "&#9733;"
 
-    = t(".recent_questions", :default => "Recent Questions")
-    -if @questions
-      == (#{@questions.total_entries})
+    = t(".recent_items", :default => "Recent Items")
+    -if @items
+      == (#{@items.total_entries})
 
   %ul{:style => "display: inline"}
     %li.activity
-      = link_to t("questions.index.active"), root_path(:tab=>"activity"), :title => t("questions.index.active_tooltip"), :rel => "nofollow"
+      = link_to t("items.index.active"), root_path(:tab=>"activity"), :title => t("items.index.active_tooltip"), :rel => "nofollow"
     %li.hot
-      = link_to t("questions.index.hot"), root_path(:tab=>"hot"), :title => t("questions.index.hot_tooltip"), :rel => "nofollow"
+      = link_to t("items.index.hot"), root_path(:tab=>"hot"), :title => t("items.index.hot_tooltip"), :rel => "nofollow"
 
 %div
   -if logged_in?
-    #quick_question
-      =render :partial => "quick_question_box"
-    %ul.items#related_questions
+    #quick_item
+      =render :partial => "quick_item_box"
+    %ul.items#related_items
       %li
-%ul.items#questions
-  -if @questions.empty?
+%ul.items#items
+  -if @items.empty?
     .box.highlight
       %li
-        = t(".empty", :default => :"questions.index.empty")
-  -@questions.each do |question|
-    = render :partial => "questions/question", :object => question
+        = t(".empty", :default => :"items.index.empty")
+  -@items.each do |item|
+    = render :partial => "items/item", :object => item
 
 #additional_info
   #help_us
-    = t(".browse_all_or_by_tags", :full_list_of_questions => link_to(t('.full_list_of_questions'), questions_path), :browse_by_tags => link_to(t('.browse_by_tags'), tags_questions_path))
+    = t(".browse_all_or_by_tags", :full_list_of_items => link_to(t('.full_list_of_items'), items_path), :browse_by_tags => link_to(t('.browse_by_tags'), tags_items_path))
     %br
-    = t("questions.index.help_to_answer")
-    = link_to t("questions.index.unanswered_questions"), unanswered_questions_path
+    = t("items.index.help_to_answer")
+    = link_to t("items.index.unanswered_items"), unanswered_items_path
 
 
   .clear
   .subtabs
     %ul{:style => "float:right;display: inline"}
       %li.activity
-        = link_to t("questions.index.active"), root_path(:tab=>"activity"), :title => t("questions.index.active_tooltip"), :rel => "nofollow"
+        = link_to t("items.index.active"), root_path(:tab=>"activity"), :title => t("items.index.active_tooltip"), :rel => "nofollow"
       %li.hot
-        = link_to t("questions.index.hot"), root_path(:tab=>"hot"), :title => t("questions.index.hot_tooltip"), :rel => "nofollow"
+        = link_to t("items.index.hot"), root_path(:tab=>"hot"), :title => t("items.index.hot_tooltip"), :rel => "nofollow"
     %span.right 
       = "Show me:"
 
@@ -75,21 +75,21 @@
 
 
   
-    %ul.items#questions
-      -if @questions.empty?
+    %ul.items#items
+      -if @items.empty?
         .box.highlight
           %li
-            = t(".empty", :default => :"questions.index.empty")
-      -@questions.each do |question|
-        = render :partial => "questions/question", :object => question    
+            = t(".empty", :default => :"items.index.empty")
+      -@items.each do |item|
+        = render :partial => "items/item", :object => item    
     
 
   #additional_info
     #help_us
-      = t(".browse_all_or_by_tags", :full_list_of_questions => link_to(t('.full_list_of_questions'), questions_path), :browse_by_tags => link_to(t('.browse_by_tags'), tags_questions_path))
+      = t(".browse_all_or_by_tags", :full_list_of_items => link_to(t('.full_list_of_items'), items_path), :browse_by_tags => link_to(t('.browse_by_tags'), tags_items_path))
       %br
-      = t("questions.index.help_to_answer")
-      = link_to t("questions.index.unanswered_questions"), unanswered_questions_path
+      = t("items.index.help_to_answer")
+      = link_to t("items.index.unanswered_items"), unanswered_items_path
 
 
 

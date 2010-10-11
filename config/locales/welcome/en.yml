@@ -42,11 +42,11 @@ en:
     index:
       hot:     Hot
       active:  Active
-      recent_questions: Recent questions
-      quick_question: Ask a question, we will find someone to answer
+      recent_items: Recent items
+      quick_item: Ask a item, we will find someone to answer
       create_own_site: "Create your own Q&amp;A site in 8 seconds for free"
-      browse_all_or_by_tags: "See the %{full_list_of_questions} or %{browse_by_tags}"
-      full_list_of_questions: full list of questions
+      browse_all_or_by_tags: "See the %{full_list_of_items} or %{browse_by_tags}"
+      full_list_of_items: full list of items
       browse_by_tags: browse by tags
     confirm_age:
       warning: "WARNING: This page may contain explicit adult material."

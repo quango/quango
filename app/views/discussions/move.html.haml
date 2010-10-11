@@ -1,22 +1,22 @@
 
 -content_for :subtabs do
   .navtitle
-    = t(".title", :title => h(@question.title))
+    = t(".title", :title => h(@item.title))
 
-#move_question
+#move_item
   .markdown{:style => "width: 92%"}
-    = markdown(@question.body)
+    = markdown(@item.body)
 
   .tag-list
-    -@question.tags.each do |tag|
+    -@item.tags.each do |tag|
       %span.tag
-        = link_to h(tag), url_for(:controller => "questions", :action => "index", :tags => tag), :rel => "tag"
+        = link_to h(tag), url_for(:controller => "items", :action => "index", :tags => tag), :rel => "tag"
   %div
     %b
-      = t("questions.show.asked_on")
-      = link_to h(@question.group.name), domain_url(:custom => @question.group.domain)
+      = t("items.show.asked_on")
+      = link_to h(@item.group.name), domain_url(:custom => @item.group.domain)
 
-  -form_for @question, :url => move_to_question_path(@question.id), :html => {:class => "form"} do |f|
+  -form_for @item, :url => move_to_item_path(@item.id), :html => {:class => "form"} do |f|
     = f.label :group, t(".group_label"), :class => "label"
     = f.text_field :group, :value => "", :class => "text-field", :id => "groups_slug"
     = submit_tag t(".submit")

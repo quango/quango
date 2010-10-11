@@ -2,10 +2,10 @@ en:
   layouts:
     application:
       title: "Community Engine"
-      questions: Questions
-      questions_in: Questions in
-      questions_tagged: tagged with
-      ask_question: Ask question
+      items: Items
+      items_in: Items in
+      items_tagged: tagged with
+      ask_item: Ask item
       discussions: Discussions
       tags: Topics
       users: (Members)

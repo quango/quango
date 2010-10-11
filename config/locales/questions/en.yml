@@ -1,64 +1,64 @@
 en:
-  questions:
+  items:
     toolbox:
-      watch_tooltip: "Start watching this question"
-      unwatch_tooltip: "Stop watching this question"
-      favorite_tooltip: "Add this question to your favorites"
-      unfavorite_tooltip: "Remove this question from your favorites"
+      watch_tooltip: "Start watching this item"
+      unwatch_tooltip: "Stop watching this item"
+      favorite_tooltip: "Add this item to your favorites"
+      unfavorite_tooltip: "Remove this item from your favorites"
     controls:
       close: List Close Requests
       request_closing: Request Closure
-      request_closing_details: Request to close this question
-      requested_close_as: "You requested to close this question as"
-      close_reason: "The question has been closed for the following reason:"
+      request_closing_details: Request to close this item
+      requested_close_as: "You requested to close this item as"
+      close_reason: "The item has been closed for the following reason:"
       ban: Ban
       history: Check history
       retract_request: "Retract request"
       edit_request: "Edit request"
       open: Open
-      requested_reopening: "You requested reopening this question"
+      requested_reopening: "You requested reopening this item"
       request_opening: Request reopening
-      request_opening_details: Request to re-open this question
+      request_opening_details: Request to re-open this item
 
       ban: Ban
 
       flags: Reported as
-      flag: Report this question
+      flag: Report this item
       flagged_as: Flagged as
 
     index:
-      title: All questions
+      title: All items
       hot:     Hot
       active:  Active
       votes:   Votes
       newest:  Newest
       oldest:  Oldest
-      ask_question: Ask question
-      empty: "No one has asked any questions yet. Be the first!"
+      ask_item: Ask item
+      empty: "No one has asked any items yet. Be the first!"
       help_to_answer: Help us answer
-      unanswered_questions: Unanswered questions
-      hot_tooltip: Questions with the most activity over the last 5 days
-      active_tooltip: Questions that have been updated recently
-      votes_tooltip:  Questions with the most votes
-      newest_tooltip: The most recently asked questions
+      unanswered_items: Unanswered items
+      hot_tooltip: Items with the most activity over the last 5 days
+      active_tooltip: Items that have been updated recently
+      votes_tooltip:  Items with the most votes
+      newest_tooltip: The most recently asked items
     show:
       answers: Answers
       another_answers: Other answers
       solution: Solution
-      share: "Share this question on"
-      share_on: "Share this question on %{site}"
-      related_questions: Related questions
+      share: "Share this item on"
+      share_on: "Share this item on %{site}"
+      related_items: Related items
 
       viewed: viewed
-      to_answer_question: to answer this question
-      watch_tooltip: "Watch this question"
+      to_answer_item: to answer this item
+      watch_tooltip: "Watch this item"
       accepted_tooltip: "One of the answers was accepted as the correct answer."
 
 
       asked_on: "asked on"
       last_activity: Latest activity
       retag: Retag
-      unauthenticated_retag: You need an account to retag questions
+      unauthenticated_retag: You need an account to retag items
 
 
 
@@ -72,21 +72,21 @@ en:
       unset_answer: Unset solution?
       flag: Flag
       add_comment: Add comment...
-    question:
-      accepted_tooltip: This question has an answer that has been accepted
+    item:
+      accepted_tooltip: This item has an answer that has been accepted
     form:
-      body_tip: What is your question? Be descriptive.
-      language_tip: Select the language the question is asked in.
-      tags_tip:  Use tags to add more information about your question.
-      adult_content: This question contains adult material.
+      body_tip: What is your item? Be descriptive.
+      language_tip: Select the language the item is asked in.
+      tags_tip:  Use tags to add more information about your item.
+      adult_content: This item contains adult material.
     flag:
-      title:   Flag question
+      title:   Flag item
     edit:
-      title: Editing question
+      title: Editing item
     unanswered:
-      title: Unanswered questions
+      title: Unanswered items
       tags: Unanswered tags
-      empty: "This group does not have any unanswered questions."
+      empty: "This group does not have any unanswered items."
       my_tags: My tags
       expert: Experts
     tags:
@@ -94,28 +94,28 @@ en:
       tooltip: Show stuff tagged %{tag}
       filter: Search for topics
     new:
-      title: Ask question
+      title: Ask item
       how_to_ask: How to ask
     create:
-      flash_notice: "The question was successfully created."
+      flash_notice: "The item was successfully created."
     update:
-      flash_notice: "The question was successfully updated."
+      flash_notice: "The item was successfully updated."
     solve:
-      flash_notice: "The question was solved."
+      flash_notice: "The item was solved."
     unsolve:
-      flash_notice: "The question is not solved anymore."
+      flash_notice: "The item is not solved anymore."
     watch:
-      success:      "You will now receive notifications by email for every new answer to this question."
+      success:      "You will now receive notifications by email for every new answer to this item."
     unwatch:
-      success:      "You will not receive notifications by email for every new answer to this question anymore."
+      success:      "You will not receive notifications by email for every new answer to this item anymore."
     revert:
-      title: "Revert question"
+      title: "Revert item"
     move:
-      title:        "Move question: %{title}"
+      title:        "Move item: %{title}"
       group_label:  "Move to the group with slug:"
       submit:       "Move!"
     move_to:
-      success:      "Question moved to %{group}"
+      success:      "Item moved to %{group}"
       group_dont_exists: "The group %{group} does not exist"
     shared:
       flag: Flag
@@ -135,12 +135,12 @@ en:
 
   activerecord:
     models:
-      questions: Questions
-      question: Question
+      items: Items
+      item: Item
     attributes:
       bookmark:
         title: Bookmark
-      question:
+      item:
         title: Title
         body: Body
         tags: Tags

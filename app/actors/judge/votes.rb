@@ -1,27 +1,27 @@
 module JudgeActions
   module Votes
-    def on_vote_question(payload)
+    def on_vote_item(payload)
       vote = Vote.find(payload.first)
 
       user = vote.user
-      question = vote.voteable
+      item = vote.voteable
       group = vote.group
 
-      if vuser = question.user
+      if vuser = item.user
         if vote.value == 1
-          create_badge(vuser, group, :token => "student", :source => question, :unique => true)
+          create_badge(vuser, group, :token => "student", :source => item, :unique => true)
         end
 
-        if question.votes_average >= 10
-          create_badge(vuser, group, {:token => "nice_question", :source => question}, {:unique => true, :source_id => question.id})
+        if item.votes_average >= 10
+          create_badge(vuser, group, {:token => "nice_item", :source => item}, {:unique => true, :source_id => item.id})
         end
 
-        if question.votes_average >= 25
-          create_badge(vuser, group, {:token => "good_question", :source => question}, {:unique => true, :source_id => question.id})
+        if item.votes_average >= 25
+          create_badge(vuser, group, {:token => "good_item", :source => item}, {:unique => true, :source_id => item.id})
         end
 
-        if question.votes_average >= 100
-          create_badge(vuser, group, {:token => "great_question", :source => question}, {:unique => true, :source_id => question.id})
+        if item.votes_average >= 100
+          create_badge(vuser, group, {:token => "great_item", :source => item}, {:unique => true, :source_id => item.id})
         end
       end
 
@@ -48,17 +48,17 @@ module JudgeActions
           create_badge(vuser, group, {:token => "great_answer", :source => answer}, {:unique => true, :source_id => answer.id})
         end
 
-        if (answer.created_at - answer.question.created_at) >= 60.days && answer.votes_average >= 5
+        if (answer.created_at - answer.item.created_at) >= 60.days && answer.votes_average >= 5
           create_badge(vuser, group, {:token => "necromancer", :source => answer}, {:unique => true, :source_id => answer.id})
         end
 
-        if vuser.id == answer.question.user_id && answer.votes_average >= 3
+        if vuser.id == answer.item.user_id && answer.votes_average >= 3
           create_badge(vuser, group, {:token => "self-learner", :source => answer, :unique => true})
         end
 
         if vote.value == 1
           stats = vuser.stats(:tag_votes)
-          tags = answer.question.tags
+          tags = answer.item.tags
           tokens = Set.new(Badge.TOKENS)
           tags.delete_if { |t| tokens.include?(t) }
 

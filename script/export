@@ -44,7 +44,7 @@ if options[:method] == :zip
     zf.dir.mkdir(group.subdomain)
     zf.dir.chdir(group.subdomain)
 
-    exporter.to_zip(Question, zf)
+    exporter.to_zip(Item, zf)
     exporter.to_zip(Answer, zf)
     exporter.to_zip(Comment, zf)
     exporter.to_zip(Vote, zf, :except => [:_keywords, :user_ip])
@@ -62,7 +62,7 @@ else
 
   $stderr.puts "Created #{File.expand_path(Dir.getwd)}"
 
-  exporter.to_file(Question)
+  exporter.to_file(Item)
   exporter.to_file(Answer)
   exporter.to_file(Comment)
   exporter.to_file(Vote, :except => [:_keywords, :user_ip])

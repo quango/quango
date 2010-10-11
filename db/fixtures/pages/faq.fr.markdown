@@ -1,10 +1,10 @@
-#Foire Aux Questions#
+#Foire Aux Items#
 
 
-##Sur quel sujet devrait porter mes questions?##
+##Sur quel sujet devrait porter mes items?##
 
 
-Vos questions doivent porter sur le thème de %site_name%, évidement! Assurez vous que votre question est:
+Vos items doivent porter sur le thème de %site_name%, évidement! Assurez vous que votre item est:
 
 
 * spécifique, à fin que d'autres puissent y répondre avec précision
@@ -14,11 +14,11 @@ Vos questions doivent porter sur le thème de %site_name%, évidement! Assurez v
 * pertinente
 
 
-##Quelle type de question dois-je éviter?##
+##Quelle type de item dois-je éviter?##
 
-* Essayez d'éviter les questions provocantes posées de manière trop suggestive
+* Essayez d'éviter les items provocantes posées de manière trop suggestive
 
-* Posez des questions, pas des affirmations
+* Posez des items, pas des affirmations
 
 Par exemple: Sarkozy veux fliquer tout l'internet avec HADOPI, c'est n'importe quoi, qu'est-ce qu'on peut y faire?
 
@@ -35,7 +35,7 @@ Le but de la réputation est de créer un sens de confiance entre les utilisateu
 **Plus précisément, voilà comment ça marche:**
 
 
-Si votre question est apprécié par les autres utilisateurs, ils la voteront positivement et vous gagnerez 10 points de réputation par vote. S'ils n'apprécient pas votre question, ils la voteront négativement et vous perdrez 2 points. En gagnant des points, vous aurez la possibilité de gagner plus. Voici une liste non-exhaustive des actions et points dont vous aurez besoin pour les exécuter:
+Si votre item est apprécié par les autres utilisateurs, ils la voteront positivement et vous gagnerez 10 points de réputation par vote. S'ils n'apprécient pas votre item, ils la voteront négativement et vous perdrez 2 points. En gagnant des points, vous aurez la possibilité de gagner plus. Voici une liste non-exhaustive des actions et points dont vous aurez besoin pour les exécuter:
 
 * 5 points: Laisser un commentaire
 
@@ -45,14 +45,14 @@ Si votre question est apprécié par les autres utilisateurs, ils la voteront po
 
 * 100 points: Voter négativement (vous coûtera 1 point), éditer les postes communautaires wiki
 
-* 250 points: Voter pour la fermeture ou réouverture de vos questions
+* 250 points: Voter pour la fermeture ou réouverture de vos items
 
-* 500 points: Retagger des questions
+* 500 points: Retagger des items
 
 * 2000 points: Éditer les postes des autres
 
-* 3000 points: Voter pour la fermeture ou réouverture de toute question
+* 3000 points: Voter pour la fermeture ou réouverture de toute item
 
-* 10000 points: Effacer des questions fermées, gagner l'accès aux pages de modération.
+* 10000 points: Effacer des items fermées, gagner l'accès aux pages de modération.
 
 Les utilisateurs avec plus de 10000 points auront presque les mêmes droits que les administrateurs. %site_name% est une plate forme participative et suit l'exemple de Wikipedia où les utilisateurs font tourner le site. %site_name% vous appartient.

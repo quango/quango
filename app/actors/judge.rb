@@ -1,5 +1,5 @@
 require File.dirname(__FILE__)+"/env"
-require File.dirname(__FILE__)+"/judge/questions"
+require File.dirname(__FILE__)+"/judge/items"
 require File.dirname(__FILE__)+"/judge/discussions"
 require File.dirname(__FILE__)+"/judge/activities"
 require File.dirname(__FILE__)+"/judge/votes"
@@ -9,19 +9,19 @@ module Actors
   # /actors/judge
   class Judge
     include Magent::Actor
-    include JudgeActions::Questions
+    include JudgeActions::Items
     include JudgeActions::Discussions
     include JudgeActions::Activities
     include JudgeActions::Votes
     include JudgeActions::Users
 
-    expose :on_question_solved
-    expose :on_question_unsolved
-    expose :on_view_question
-    expose :on_ask_question
-    expose :on_destroy_question
-    expose :on_question_favorite
-    expose :on_retag_question
+    expose :on_item_solved
+    expose :on_item_unsolved
+    expose :on_view_item
+    expose :on_ask_item
+    expose :on_destroy_item
+    expose :on_item_favorite
+    expose :on_retag_item
 
     expose :on_discussion_solved
     expose :on_discussion_unsolved
@@ -40,7 +40,7 @@ module Actors
     expose :on_flag
     expose :on_rollback
 
-    expose :on_vote_question
+    expose :on_vote_item
     expose :on_vote_answer
 
     expose :on_destroy_answer

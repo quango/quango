@@ -7,7 +7,7 @@ class AnswersController < ApplicationController
 
   def history
     @answer = Answer.find(params[:id])
-    @question = @answer.question
+    @item = @answer.item
 
     respond_to do |format|
       format.html
@@ -17,7 +17,7 @@ class AnswersController < ApplicationController
 
   def diff
     @answer = Answer.find(params[:id])
-    @question = @answer.question
+    @item = @answer.item
     @prev = params[:prev]
     @curr = params[:curr]
     if @prev.blank? || @curr.blank? || @prev == @curr
@@ -35,7 +35,7 @@ class AnswersController < ApplicationController
   end
 
   def revert
-    @question = @answer.question
+    @item = @answer.item
     @answer.load_version(params[:version].to_i)
 
     respond_to do |format|
@@ -46,7 +46,7 @@ class AnswersController < ApplicationController
   def show
     @answer = Answer.find(params[:id])
     raise PageNotFound if @answer.nil?
-    @question = @answer.question
+    @item = @answer.item
     respond_to do |format|
       format.html
       format.json  { render :json => @answer.to_json }
@@ -60,11 +60,11 @@ class AnswersController < ApplicationController
     mode = params[:answer]
     moded = mode[:mode]
 
-    if moded == "question"
-     @question = Question.find_by_slug_or_id(params[:question_id])
-     @answer.question = @question
-     @answer.group_id = @question.group_id
-     puts "create question answer"
+    if moded == "item"
+     @item = Item.find_by_slug_or_id(params[:item_id])
+     @answer.item = @item
+     @answer.group_id = @item.group_id
+     puts "create item answer"
     end
 
     if moded == "discussion"
@@ -106,18 +106,18 @@ class AnswersController < ApplicationController
 
     respond_to do |format|
 
-      if moded == "question"
+      if moded == "item"
       if (logged_in? || (recaptcha_valid? && @answer.user.valid?)) && @answer.save
-        after_create_question_answer
+        after_create_item_answer
 
         flash[:notice] = t(:flash_notice, :scope => "answers.create")
-        format.html{redirect_to question_path(@question)}
+        format.html{redirect_to item_path(@item)}
         format.json { render :json => @answer.to_json(:except => %w[_keywords]) }
         format.js do
           render(:json => {:success => true, :message => flash[:notice],
-            :html => render_to_string(:partial => "questions/answer",
+            :html => render_to_string(:partial => "items/answer",
                                       :object => @answer,
-                                      :locals => {:question => @question})}.to_json)
+                                      :locals => {:item => @item})}.to_json)
         end
       else
         @answer.errors.add(:captcha, "is invalid") if !logged_in? && !recaptcha_valid?
@@ -127,11 +127,11 @@ class AnswersController < ApplicationController
         puts errors.full_messages
 
         flash.now[:error] = errors.full_messages
-        format.html{redirect_to question_path(@question)}
+        format.html{redirect_to item_path(@item)}
         format.json { render :json => errors, :status => :unprocessable_entity }
         format.js {render :json => {:success => false, :message => flash.now[:error] }.to_json }
       end
-      end #end question mode
+      end #end item mode
 
      if moded == "discussion"
       if (logged_in? || (recaptcha_valid? && @answer.user.valid?)) && @answer.save
@@ -165,24 +165,24 @@ class AnswersController < ApplicationController
   end #end create
 
   def edit
-    @question = @answer.question
+    @item = @answer.item
   end
 
   def update
     respond_to do |format|
-      @question = @answer.question
+      @item = @answer.item
       @answer.safe_update(%w[body wiki version_message anonymous], params[:answer])
       @answer.updated_by = current_user
 
       if @answer.valid? && @answer.save
-        sweep_question(@question)
+        sweep_item(@item)
 
-        Question.update_last_target(@question.id, @answer)
+        Item.update_last_target(@item.id, @answer)
 
         flash[:notice] = t(:flash_notice, :scope => "answers.update")
 
         Magent.push("actors.judge", :on_update_answer, @answer.id)
-        format.html { redirect_to(question_path(@answer.question)) }
+        format.html { redirect_to(item_path(@answer.item)) }
         format.json { head :ok }
       else
         format.html { render :action => "edit" }
@@ -192,18 +192,18 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    @question = @answer.question
+    @item = @answer.item
     if @answer.user_id == current_user.id
       @answer.user.update_reputation(:delete_answer, current_group)
     end
     @answer.destroy
-    @question.answer_removed!
-    sweep_question(@question)
+    @item.answer_removed!
+    sweep_item(@item)
 
     Magent.push("actors.judge", :on_destroy_answer, current_user.id, @answer.attributes)
 
     respond_to do |format|
-      format.html { redirect_to(question_path(@question)) }
+      format.html { redirect_to(item_path(@item)) }
       format.json { head :ok }
     end
   end
@@ -214,10 +214,10 @@ class AnswersController < ApplicationController
     if !@answer.nil?
       unless (current_user.can_modify?(@answer) || current_user.mod_of?(@answer.group))
         flash[:error] = t("global.permission_denied")
-        redirect_to question_path(@answer.question)
+        redirect_to item_path(@answer.item)
       end
     else
-      redirect_to questions_path
+      redirect_to items_path
     end
   end
 
@@ -230,7 +230,7 @@ class AnswersController < ApplicationController
         if @answer.wiki
           if !current_user.can_edit_wiki_post_on?(@answer.group)
             allow_update = false
-            reputation = @question.group.reputation_constrains["edit_wiki_post"]
+            reputation = @item.group.reputation_constrains["edit_wiki_post"]
             flash[:error] = I18n.t("users.messages.errors.reputation_needed",
                                         :min_reputation => reputation,
                                         :action => I18n.t("users.actions.edit_wiki_post"))
@@ -244,10 +244,10 @@ class AnswersController < ApplicationController
                                         :action => I18n.t("users.actions.edit_others_posts"))
           end
         end
-        return redirect_to question_path(@answer.question) if !allow_update
+        return redirect_to item_path(@answer.item) if !allow_update
       end
     else
-      return redirect_to questions_path
+      return redirect_to items_path
     end
   end
 
@@ -258,25 +258,25 @@ class AnswersController < ApplicationController
   end
 
   # TODO: use magent to do it
-  def after_create_question_answer
-    sweep_question(@question)
+  def after_create_item_answer
+    sweep_item(@item)
 
-    Question.update_last_target(@question.id, @answer)
+    Item.update_last_target(@item.id, @answer)
 
-    @question.answer_added!
-    current_group.on_activity(:answer_question)
+    @item.answer_added!
+    current_group.on_activity(:answer_item)
 
     unless @answer.anonymous
-      @answer.user.stats.add_answer_tags(*@question.tags)
-      @answer.user.on_activity(:answer_question, current_group)
+      @answer.user.stats.add_answer_tags(*@item.tags)
+      @answer.user.on_activity(:answer_item, current_group)
 
       search_opts = {"notification_opts.#{current_group.id}.new_answer" => {:$in => ["1", true]},
                       :_id => {:$ne => @answer.user.id},
                       :select => ["email"]}
 
-      users = User.all(search_opts.merge(:_id => @question.watchers))
-      users.push(@question.user) if !@question.user.nil? && @question.user != @answer.user
-      followers = @answer.user.followers(:languages => [@question.language], :group_id => current_group.id)
+      users = User.all(search_opts.merge(:_id => @item.watchers))
+      users.push(@item.user) if !@item.user.nil? && @item.user != @answer.user
+      followers = @answer.user.followers(:languages => [@item.language], :group_id => current_group.id)
 
       users ||= []
       followers ||= []

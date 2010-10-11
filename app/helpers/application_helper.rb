@@ -69,11 +69,11 @@ module ApplicationHelper
     end.join(', ')
   end
 
-  def language_select(f, question, opts = {})
-    selected = if question.new?
-      logged_in? ? current_user.main_language : question.language
+  def language_select(f, item, opts = {})
+    selected = if item.new?
+      logged_in? ? current_user.main_language : item.language
     else
-      question.language
+      item.language
     end
     languages = logged_in? ? current_user.preferred_languages : AVAILABLE_LANGUAGES
 
@@ -124,9 +124,9 @@ module ApplicationHelper
     cloud
   end
 
-  def question_topics(tags = [], options = {})
+  def item_topics(tags = [], options = {})
     if tags.empty?
-      tags = Question.tag_cloud({:group_id => current_group.id, :banned => false}.
+      tags = Item.tag_cloud({:group_id => current_group.id, :banned => false}.
                         merge(language_conditions.merge(language_conditions)))
     end
 
@@ -149,7 +149,7 @@ module ApplicationHelper
     cloud = ''
     tags.each do |tag|
       size = min_size + (tag["count"] - lowest_value["count"]) * ratio
-      url = url_for(:controller => :questions, :action => "index", :tags => tag["name"])
+      url = url_for(:controller => :items, :action => "index", :tags => tag["name"])
       cloud << "<span>#{link_to(tag["name"], url, :class => "#{tag_class} #{css[size.round]}")}(#{tag["count"]})</span> "
     end
     cloud += ""
@@ -191,7 +191,7 @@ module ApplicationHelper
 
   def trending_topics(tags = [], options = {})
     if tags.empty?
-      tags = Question.tag_cloud({:group_id => current_group.id, :banned => false}.
+      tags = Item.tag_cloud({:group_id => current_group.id, :banned => false}.
                         merge(language_conditions.merge(language_conditions)))
     end
 
@@ -214,7 +214,7 @@ module ApplicationHelper
     cloud = ''
     tags.each do |tag|
       size = min_size + (tag["count"] - lowest_value["count"]) * ratio
-      url = url_for(:controller => :questions, :action => "index", :tags => tag["name"])
+      url = url_for(:controller => :items, :action => "index", :tags => tag["name"])
       cloud << "<span>#{link_to(tag["name"], url, :class => "#{tag_class} #{css[size.round]}")}</span> "
     end
     cloud += ""
@@ -223,7 +223,7 @@ module ApplicationHelper
 
   def tag_cloud(tags = [], options = {})
     if tags.empty?
-      tags = Question.tag_cloud({:group_id => current_group.id, :banned => false}.
+      tags = Item.tag_cloud({:group_id => current_group.id, :banned => false}.
                         merge(language_conditions.merge(language_conditions)))
     end
 
@@ -246,7 +246,7 @@ module ApplicationHelper
     cloud = '<div class="tag_cloud">'
     tags.each do |tag|
       size = min_size + (tag["count"] - lowest_value["count"]) * ratio
-      url = url_for(:controller => "questions", :action => "index", :tags => tag["name"])
+      url = url_for(:controller => "items", :action => "index", :tags => tag["name"])
       cloud << "<span>#{link_to(tag["name"], url, :class => "#{tag_class} #{css[size.round]}")}</span> "
     end
     cloud += "</div>"
@@ -299,9 +299,9 @@ module ApplicationHelper
             "anonymous"
           end
         when 'hottest_today'
-          question = Question.first(:activity_at.gt => Time.zone.now.yesterday, :order => "hotness desc, views_count asc", :group_id => group.id, :select => [:slug, :title])
-          if question.present?
-            link_to(question.title, question_path(question))
+          item = Item.first(:activity_at.gt => Time.zone.now.yesterday, :order => "hotness desc, views_count asc", :group_id => group.id, :select => [:slug, :title])
+          if item.present?
+            link_to(item.title, item_path(item))
           end
         else
           m
@@ -347,25 +347,25 @@ module ApplicationHelper
   end
 
   def render_tag(tag)
-    %@<span class="tag"><a href="#{questions_path(:tags => tag)}">#{@badge.token}</a></span>@
+    %@<span class="tag"><a href="#{items_path(:tags => tag)}">#{@badge.token}</a></span>@
   end
 
-  def class_for_question(question)
+  def class_for_item(item)
     klass = ""
 
-    if question.accepted
+    if item.accepted
       klass << "accepted"
-    elsif !question.answered
+    elsif !item.answered
       klass << "unanswered"
     end
 
     if logged_in?
-      if current_user.is_preferred_tag?(current_group, *question.tags)
+      if current_user.is_preferred_tag?(current_group, *item.tags)
         klass << " highlight"
       end
 
-      if current_user == question.user
-        klass << " own_question"
+      if current_user == item.user
+        klass << " own_item"
       end
     end
 

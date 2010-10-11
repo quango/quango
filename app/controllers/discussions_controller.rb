@@ -692,7 +692,7 @@ class DiscussionsController < ApplicationController
 
   def check_retag_permissions
     @discussion = Discussion.find_by_slug_or_id(params[:id])
-    unless logged_in? && (current_user.can_retag_others_questions_on?(current_group) ||  current_user.can_modify?(@discussion)) #fix
+    unless logged_in? && (current_user.can_retag_others_items_on?(current_group) ||  current_user.can_modify?(@discussion)) #fix
       reputation = @discussion.group.reputation_constrains["retag_others_discussions"]
       if !logged_in?
         flash[:error] = t("discussions.show.unauthenticated_retag")

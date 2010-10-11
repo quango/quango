@@ -1,10 +1,10 @@
 .stats
   .box.votes
-    .counter{:class => class_for_number(question.votes_average) }
-      =format_number(question.votes_average)
-  .box.answers{:class => class_for_question(question), :title => question.accepted ? t(".accepted_tooltip") : "" }
+    .counter{:class => class_for_number(item.votes_average) }
+      =format_number(item.votes_average)
+  .box.answers{:class => class_for_item(item), :title => item.accepted ? t(".accepted_tooltip") : "" }
     .counter
-      =format_number(question.answers_count)
+      =format_number(item.answers_count)
   .box.views
-    .counter{:class => class_for_number(question.views_count) }
-      =format_number(question.views_count)
+    .counter{:class => class_for_number(item.views_count) }
+      =format_number(item.views_count)

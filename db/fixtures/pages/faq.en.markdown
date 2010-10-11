@@ -1,10 +1,10 @@
-#Frequently Asked Questions#
+#Frequently Asked Items#
 
 
-##What should my questions be about?##
+##What should my items be about?##
 
 
-Your questions should be about %site_name%, of course! Make sure your question is:
+Your items should be about %site_name%, of course! Make sure your item is:
 
 
 * to the point, so that others users can answer you the more precisely they can
@@ -14,11 +14,11 @@ Your questions should be about %site_name%, of course! Make sure your question i
 * relevant
 
 
-##What kind of questions should I avoid?##
+##What kind of items should I avoid?##
 
-* Try to avoid provocative questions asked in a subjective way
+* Try to avoid provocative items asked in a subjective way
 
-* Post questions, not arguments
+* Post items, not arguments
 
 
 For example: Obama is trying to drill oil all over our coasts which will be an ecological disaster, what can we do about it?
@@ -40,7 +40,7 @@ The goal of reputation is to create confidence among users, and reward our best 
 **More precisely, this is how it works:**
 
 
-If your question is appreciated by other users, they will vote it up and you will gain 10 reputation points. If they don't like your post, they will vote it down and you will lose 2 points. As you gain points, you will be able to do more. Here is a non-exhaustive list of action and points you need execute them:
+If your item is appreciated by other users, they will vote it up and you will gain 10 reputation points. If they don't like your post, they will vote it down and you will lose 2 points. As you gain points, you will be able to do more. Here is a non-exhaustive list of action and points you need execute them:
 
 * 5 points: Leave comments
 
@@ -50,15 +50,15 @@ If your question is appreciated by other users, they will vote it up and you wil
 
 * 100 points: Vote down (costs 1 rep), edit community wiki posts
 
-* 250 points: Vote to close or reopen your questions
+* 250 points: Vote to close or reopen your items
 
-* 500 points: Retag questions
+* 500 points: Retag items
 
 * 2000 points: Edit other people’s posts
 
-* 3000 points: Vote to close or reopen any questions
+* 3000 points: Vote to close or reopen any items
 
-* 10000 points: Delete closed questions, access to moderation pages.
+* 10000 points: Delete closed items, access to moderation pages.
 
 
 Users that reach 10000 points or more have almost the same rights as the site admins. This is because %site_name% is a participative platform and follows the Wikipedia example where users run the site. %site_name% belongs to you.

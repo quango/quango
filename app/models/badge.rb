@@ -2,14 +2,14 @@ class Badge
   include MongoMapper::Document
 
   TYPES = %w[gold silver bronze]
-  GOLD = %w[rockstar popstar fanatic service_medal famous_question celebrity
-            great_answer great_question stellar_question]
-  SILVER = %w[popular_person guru favorite_question addict good_question
-              good_answer notable_question civic_duty enlightened necromancer]
+  GOLD = %w[rockstar popstar fanatic service_medal famous_item celebrity
+            great_answer great_item stellar_item]
+  SILVER = %w[popular_person guru favorite_item addict good_item
+              good_answer notable_item civic_duty enlightened necromancer]
   BRONZE = %w[pioneer supporter critic inquirer troubleshooter commentator
-              merit_medal effort_medal student shapado editor popular_question
+              merit_medal effort_medal student shapado editor popular_item
               friendly interesting_person citizen_patrol cleanup disciplined
-              nice_answer nice_question peer_pressure self-learner scholar autobiographer
+              nice_answer nice_item peer_pressure self-learner scholar autobiographer
               organizer tutor]
 
   def self.TOKENS

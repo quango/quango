@@ -32,7 +32,7 @@ en:
       information: Information
       notifications: Notifications
       new_answer_notification: Get email notifications for new answers
-      give_advice_notification: Receive email notifications about questions in your field of expertise
+      give_advice_notification: Receive email notifications about items in your field of expertise
       activities_notification: Receive email notifications about system activities such as earned badges, new followers, etc.
       reports_notification: Receive a report with latest group activity (only for group admins)
       avatar_tip: "Change your profile image using Gravatar"
@@ -50,9 +50,9 @@ en:
       flag: Flag
       edit_others_posts: "Edit other's posts"
       edit_wiki_post: "Edit wiki posts"
-      retag_others_questions: "Retag others questions"
-      vote_to_close_own_question: "Request closing own question"
-      vote_to_close_any_question: "Request closing any question"
+      retag_others_items: "Retag others items"
+      vote_to_close_own_item: "Request closing own item"
+      vote_to_close_any_item: "Request closing any item"
     anonymous_form:
       never_shown: never shown
   activerecord:
@@ -76,7 +76,7 @@ en:
         asked_by: asked by
         timezone: Time zone
         preferred_tags: Preferred tags
-        preferred_languages: 'You want to read questions in the following languages:'
+        preferred_languages: 'You want to read items in the following languages:'
         last_logged_at: seen
         created_at: joined
         reputation: Reputation

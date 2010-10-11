@@ -19,7 +19,7 @@
     -owner = bookmark.user
 
   %li.entry.item{:class => class_for_bookmark(bookmark)}
-    / Question Stats
+    / Item Stats
     .stats
       .box.votes
         .counter{:class => class_for_number(bookmark.votes_average) }
@@ -30,7 +30,7 @@
       .box.views
         .counter{:class => class_for_number(bookmark.views_count) }
           =format_number(bookmark.views_count)
-    / Question Summary
+    / Item Summary
     .summary
       .left.vote-icon
         -unless bookmark.closed

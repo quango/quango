@@ -16,8 +16,8 @@ class Admin::ManageController < ApplicationController
                           [:constrains, "constrains"],
                           [:theme, "theme"],
                           [:domain, "domain"]]
-  subtabs :content => [[:question_prompt, "question_prompt"],
-                       [:question_help, "question_help"],
+  subtabs :content => [[:item_prompt, "item_prompt"],
+                       [:item_help, "item_help"],
                        [:head_tag, "head_tag"],
                        [:head, "head"], [:footer, "footer"],
                        [:top_bar, "top_bar"]]

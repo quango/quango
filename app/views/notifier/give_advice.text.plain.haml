@@ -1,15 +1,15 @@
 
 = t('notifier.global.hi', :user => h(@user.login))
 
-= t('.message1', :user => h(@question.user.login))
+= t('.message1', :user => h(@item.user.login))
 
-== "#{h(@question.title)}"
+== "#{h(@item.title)}"
 
 = t('.message2')
-= url_for(:host => @domain, :controller => "questions", :action => "show", :id => @question.slug)
+= url_for(:host => @domain, :controller => "items", :action => "show", :id => @item.slug)
 
 = t('.message3')
-=  url_for(:host => @domain, :controller => "questions", :action => "show", :id => @question.slug)
+=  url_for(:host => @domain, :controller => "items", :action => "show", :id => @item.slug)
 
 = t('.message4')
 

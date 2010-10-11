@@ -42,7 +42,7 @@ class TwitterBot
 
     share = group.share
     default_date = (Time.now - 5.days).utc
-    last_date = (group[:last_twitter_question_at] ||default_date) rescue default_date
+    last_date = (group[:last_twitter_item_at] ||default_date) rescue default_date
 
     since = last_date.strftime("%Y-%m-%d")
 
@@ -55,7 +55,7 @@ class TwitterBot
         next
       end
 
-      if Question.first(:twitter_source => status[:id], :select => [:_id]).present?
+      if Item.first(:twitter_source => status[:id], :select => [:_id]).present?
         next
       end
 
@@ -88,7 +88,7 @@ class TwitterBot
         user = group.owner.present? ? group.owner : User.first(:login => "admin")
       end
 
-      question = Question.create!(:title => title[0,100],
+      item = Item.create!(:title => title[0,100],
                                   :tags => tags,
                                   :body => body,
                                   :group => group,
@@ -97,8 +97,8 @@ class TwitterBot
                                   :twitter_source => status[:id])
     end
 
-    group.set({:last_twitter_question_at => last_date})
-    group.last_twitter_question_at = last_date
+    group.set({:last_twitter_item_at => last_date})
+    group.last_twitter_item_at = last_date
   end
 
   private
