@@ -1,30 +1,28 @@
--content_for :stuff do
-
-  = "Mode:<br/>"
-  = "<a href='/bookmarks/new'>New Link</a><br/>"
-  = "<a href='/discussions/new'>New Discussion</a>"
-
 
 -content_for :subtabs do
   .navtitle
     = t(".title")
 -content_for :sidebar do
-  -if !current_group.bookmark_help.empty?
+  -if !current_group.item_help.empty?
     .help
       %h4
         = t(".how_to_ask")
-      =current_group.bookmark_help
-
+      =current_group.item_help
 
 -content_for :main do
-  - form_for(@bookmark, :html=>{:class => "form", :id => "ask_bookmark"}) do |f|
-    =render :partial => "form", :locals => {:f => f}
+
+  - form_for(@item, :html=>{:class => "form", :id => "ask_item"}) do |f|
+    =render :partial => "items/form", :locals => {:f => f, :mode => @mode}
 
     .group.navform
-      .right
-        = f.label :wiki, "Wiki", :class => "radio"
-        = f.check_box :wiki, :class => "checkbox"
+      .controls.right{:style => "width: 50%"}
+        .left{:style => "width: 49.5%"}
+          = f.label :wiki, "Wiki", :class => "radio"
+          = f.check_box :wiki, :class => "checkbox"
+        .left{:style => "width: 49.5%"}
+          = f.label :anonymous, t("scaffold.post_as_anonymous"), :class => "radio"
+          = f.check_box :anonymous, :class => "checkbox"
 
       = f.submit t('scaffold.create')
       = t("global.or")
-      = link_to t('scaffold.cancel'), bookmarks_path, :class => "button cancel"
+      = link_to t('scaffold.cancel'), items_path, :class => "button cancel"

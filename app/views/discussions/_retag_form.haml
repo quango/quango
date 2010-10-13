@@ -1,5 +1,6 @@
-- form_for @discussion, :url => retag_to_discussion_path(@discussion.id), :html => {:class => "form retag-form"} do |f|
-  = f.label :tags, "#{t(:tags, :scope => "activerecord.attributes.discussion")}", :class => "label"
-  = f.text_field :tags, :value => @discussion.tags.join(", "), :class => "text_field autocomplete_for_tags"
+- form_for @item, :url => retag_to_item_path(@item.id), :html => {:class => "form retag-form"} do |f|
+  = f.label :tags, "#{t(:topics, :scope => "activerecord.attributes.item")}", :class => "label"
   = submit_tag t(".submit")
-  = link_to t('.cancel'), discussion_path(@discussion), :class => 'cancel-retag'
+  = link_to t('.cancel'), item_path(@item), :class => 'cancel-retag'
+  = f.text_field :tags, :value => @item.tags.join(", "), :class => "text_field autocomplete_for_tags" 
+

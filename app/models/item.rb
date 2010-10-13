@@ -9,8 +9,10 @@ class Item
   ensure_index :tags
   ensure_index :language
 
+  MODES = %w{news article video blog question discussion bookmark}
+
   key :_id, String
-  key :mode, String, :default => "discussion"
+  key :mode, String, :in => MODES
   key :bookmark, String
   key :title, String, :required => true
   key :body, String

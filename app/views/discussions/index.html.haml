@@ -1,27 +1,31 @@
 -feed_url = url_for(:format => "atom", :tags => params[:tags])
 
 -content_for :trends do
-  = render :partial => "discussion_trends", :object => @tag_cloud
+  = render :partial => "items/item_topics", :object => @tag_cloud
 
 -content_for :rss do
   %link{:rel=>"alternate", :type=>"application/atom+xml", :title => "atom", :href=> url_for(:format => "atom", :tags => params[:tags])}
   %link{:rel=>"alternate", :type=>"application/atom+xml", :title => "atom", :href=> url_for(:format => "atom")}
 
 -content_for :subtabs do
-  .navtitle
-    = "&#9733; " + t(".title")
-    -if @discussions
-      == (#{@discussions.total_entries})
+  .secondary-navigation{:class => @active_subtab.to_s}
+    .navlabel
+      = t("layouts.application.discussions")
+      -if current_user.owner_of?(current_group)
+        -if @items
+          == (#{@items.total_entries})
+    .navcontrols
+      .subtabs
+        %ul
+          %li.newest
+            = link_to t("items.index.newest"), discussions_path(:sort=>"newest"), :title => t("items.index.newest_tooltip"),:class=>"button"
+          %li.hot
+            = link_to t("items.index.hot"), discussions_path(:sort=>"hot"), :title => t("items.index.hot_tooltip"),:class=>"button", :rel => "nofollow"
+          %li.votes
+            = link_to t("items.index.votes"), discussions_path(:sort=>"votes"), :title =>  t("items.index.votes_tooltip"),:class=>"button", :rel => "nofollow"
+          %li.activity
+            = link_to t("items.index.active"), discussions_path(:sort=>"activity"), :title => t("items.index.active_tooltip"),:class=>"button", :rel => "nofollow"
 
-  %ul
-    %li.newest
-      = link_to t("discussions.index.newest"), discussions_path(:sort=>"newest"), :title => t("discussions.index.newest_tooltip")
-    %li.hot
-      = link_to t("discussions.index.hot"), discussions_path(:sort=>"hot"), :title => t("discussions.index.hot_tooltip"), :rel => "nofollow"
-    %li.votes
-      = link_to t("discussions.index.votes"), discussions_path(:sort=>"votes"), :title =>  t("discussions.index.votes_tooltip"), :rel => "nofollow"
-    %li.activity
-      = link_to t("discussions.index.active"), discussions_path(:sort=>"activity"), :title => t("discussions.index.active_tooltip"), :rel => "nofollow"
 
 
 -content_for :sidebar do
@@ -38,21 +42,26 @@
 
 = render :partial => "searches/search_box"
 
-/discussions
+/Items
 -content_for :main do
 
-  %ul.items#discussions
-    -if @discussions.empty?
+  = "mode:" << @mode.to_s
+  = yield :subtabs
+  .clear
+
+  %ul.items#items
+    -if @items.empty?
       %li.highlight
         = t(".empty")
-    -@discussions.each do |discussion|
-      = render :partial => "discussion", :object => discussion
+    -@items.each do |item|
+      -if item.mode.to_s == "discussion"
+        = render :partial => "item", :object => item
 
   #additional_info
-    =will_paginate @discussions
+    =will_paginate @items
 
     #help_us
       = t(".help_to_answer")
-      =link_to t(".unanswered_discussions"), unanswered_discussions_path
+      =link_to t(".unanswered_items"), unanswered_items_path
 
     .clear

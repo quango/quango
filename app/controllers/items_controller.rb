@@ -6,17 +6,20 @@ class ItemsController < ApplicationController
   before_filter :check_update_permissions, :only => [:edit, :update, :revert]
   before_filter :check_favorite_permissions, :only => [:favorite, :unfavorite] #TODO remove this
   before_filter :set_active_tag
+  before_filter :check_mode
   before_filter :check_age, :only => [:show]
   before_filter :check_retag_permissions, :only => [:retag, :retag_to]
 
-  tabs :default => :items, :tags => :tags,
+  tabs :default => @mode, :tags => :tags,
        :unanswered => :unanswered, :new => :ask_item
 
   subtabs :index => [[:newest, "created_at desc"], [:hot, "hotness desc, views_count desc"], [:votes, "votes_average desc"], [:activity, "activity_at desc"], [:expert, "created_at desc"]],
           :unanswered => [[:newest, "created_at desc"], [:votes, "votes_average desc"], [:mytags, "created_at desc"]],
           :show => [[:votes, "votes_average desc"], [:oldest, "created_at asc"], [:newest, "created_at desc"]]
+
   helper :votes
   helper :channels
+  helper :items
 
   # GET /items
   # GET /items.xml
@@ -253,7 +256,7 @@ class ItemsController < ApplicationController
   # POST /items.xml
   def create
     @item = Item.new
-    @item.safe_update(%w[title body language tags wiki anonymous], params[:item])
+    @item.safe_update(%w[mode title body language tags wiki anonymous], params[:item])
     @item.group = current_group
     @item.user = current_user
 
@@ -325,7 +328,7 @@ class ItemsController < ApplicationController
   # PUT /items/1.xml
   def update
     respond_to do |format|
-      @item.safe_update(%w[title body language tags wiki adult_content version_message  anonymous], params[:item])
+      @item.safe_update(%w[mode title body language tags wiki adult_content version_message  anonymous], params[:item])
       @item.updated_by = current_user
       @item.last_target = @item
 
@@ -634,6 +637,20 @@ class ItemsController < ApplicationController
   end
 
   protected
+
+  def check_mode
+
+    @item = Item.find_by_slug_or_id(params[:id])
+
+    if @item.nil?
+     @mode = "nil detected"
+    end
+
+     @mode = params[:mode]
+     @mode
+
+  end
+
   def check_permissions
     @item = Item.find_by_slug_or_id(params[:id])
 

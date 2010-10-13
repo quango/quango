@@ -1,5 +1,20 @@
+= "mode: " << @mode.to_s
 = f.error_messages
 = error_messages_for(:user)
+
+.group
+  = f.label :title, "#{t(:mode, :scope => "activerecord.attributes.item")}*", :class => "label"
+  -Item::MODES.each do |mode|
+    -if mode == @mode
+      = f.radio_button :mode, mode, :class => "radio_button", :checked => true
+      = "<b>" << t(mode, :scope => "activerecord.attributes.item") << "</b>"
+    -else
+      = f.radio_button :mode, mode, :class => "radio_button"
+      = t(mode, :scope => "activerecord.attributes.item")
+  .description
+    = t(".mode_prompt")
+
+
 .group
   = f.label :title, "#{t(:title, :scope => "activerecord.attributes.item")}*", :class => "label"
   = f.text_field :title, :class => "text_field"

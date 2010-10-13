@@ -1,0 +1,28 @@
+
+-content_for :subtabs do
+  .navtitle
+    = t(".title")
+-content_for :sidebar do
+  -if !current_group.item_help.empty?
+    .help
+      %h4
+        = t(".how_to_ask")
+      =current_group.item_help
+
+-content_for :main do
+
+  - form_for(@item, :html=>{:class => "form", :id => "ask_item"}) do |f|
+    =render :partial => "create/form", :locals => {:f => f, :mode => @mode}
+
+    .group.navform
+      .controls.right{:style => "width: 50%"}
+        .left{:style => "width: 49.5%"}
+          = f.label :wiki, "Wiki", :class => "radio"
+          = f.check_box :wiki, :class => "checkbox"
+        .left{:style => "width: 49.5%"}
+          = f.label :anonymous, t("scaffold.post_as_anonymous"), :class => "radio"
+          = f.check_box :anonymous, :class => "checkbox"
+
+      = f.submit t('scaffold.create')
+      = t("global.or")
+      = link_to t('scaffold.cancel'), items_path, :class => "button cancel"

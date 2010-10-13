@@ -1,19 +1,19 @@
 
 -content_for :subtabs do
   .navtitle
-    = t(".title", :title => h(@discussion.title))
+    = t(".title", :title => h(@item.title))
 
-#move_discussion
+#move_item
   .markdown{:style => "width: 92%"}
-    = markdown(@discussion.body)
+    = markdown(@item.body)
 
   .tag-list
-    -@discussion.tags.each do |tag|
+    -@item.tags.each do |tag|
       %span.tag
-        = link_to h(tag), url_for(:controller => "discussions", :action => "index", :tags => tag), :rel => "tag"
+        = link_to h(tag), url_for(:controller => "items", :action => "index", :tags => tag), :rel => "tag"
   %div
     %b
-      = t("discussions.show.asked_on")
-      = link_to h(@discussion.group.name), domain_url(:custom => @discussion.group.domain)
+      = t("items.show.asked_on")
+      = link_to h(@item.group.name), domain_url(:custom => @item.group.domain)
 
-  = render :partial => "discussions/retag_form"
+  = render :partial => "items/retag_form"

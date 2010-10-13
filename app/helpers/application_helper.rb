@@ -92,37 +92,7 @@ module ApplicationHelper
     end
   end
 
-  def bookmark_topics(tags = [], options = {})
-    if tags.empty?
-      tags = Bookmark.tag_cloud({:group_id => current_group.id, :banned => false}.
-                        merge(language_conditions.merge(language_conditions)))
-    end
 
-    return '' if tags.size <= 2
-
-    # Sizes: xxs xs s l xl xxl
-    css = {1 => "xxs", 2 => "xs", 3 => "s", 4 => "l", 5 => "xl" }
-    max_size = 5
-    min_size = 1
-
-    tag_class = options.delete(:tag_class) || "tag"
-
-    lowest_value = tags.min { |a, b| a["count"].to_i <=> b["count"].to_i }
-    highest_value = tags.max { |a, b| a["count"].to_i <=> b["count"].to_i }
-
-    spread = (highest_value["count"] - lowest_value["count"])
-    spread = 1 if spread == 0
-    ratio = (max_size - min_size) / spread
-
-    cloud = ''
-    tags.each do |tag|
-      size = min_size + (tag["count"] - lowest_value["count"]) * ratio
-      url = url_for(:controller => :bookmarks, :action => "index", :tags => tag["name"])
-      cloud << "<span>#{link_to(tag["name"], url, :class => "#{tag_class} #{css[size.round]}")}</span> "
-    end
-    cloud += ""
-    cloud
-  end
 
   def item_topics(tags = [], options = {})
     if tags.empty?
@@ -152,74 +122,11 @@ module ApplicationHelper
       url = url_for(:controller => :items, :action => "index", :tags => tag["name"])
       cloud << "<span>#{link_to(tag["name"], url, :class => "#{tag_class} #{css[size.round]}")}(#{tag["count"]})</span> "
     end
-    cloud += ""
-    cloud
-  end
-
-  def discussion_topics(tags = [], options = {})
-    if tags.empty?
-      tags = Discussion.tag_cloud({:group_id => current_group.id, :banned => false}.
-                        merge(language_conditions.merge(language_conditions)))
-    end
-
-    return '' if tags.size <= 2
-
-    # Sizes: xxs xs s l xl xxl
-    css = {1 => "xxs", 2 => "xs", 3 => "s", 4 => "l", 5 => "xl" }
-    max_size = 5
-    min_size = 1
-
-    tag_class = options.delete(:tag_class) || "tag"
-
-    lowest_value = tags.min { |a, b| a["count"].to_i <=> b["count"].to_i }
-    highest_value = tags.max { |a, b| a["count"].to_i <=> b["count"].to_i }
-
-    spread = (highest_value["count"] - lowest_value["count"])
-    spread = 1 if spread == 0
-    ratio = (max_size - min_size) / spread
-
-    cloud = ''
-    tags.each do |tag|
-      size = min_size + (tag["count"] - lowest_value["count"]) * ratio
-      url = url_for(:controller => :discussions, :action => "index", :tags => tag["name"])
-      cloud << "<span>#{link_to(tag["name"], url, :class => "#{tag_class} #{css[size.round]}")}</span> "
-    end
-    cloud += ""
+    cloud += ''
     cloud
   end
 
 
-  def trending_topics(tags = [], options = {})
-    if tags.empty?
-      tags = Item.tag_cloud({:group_id => current_group.id, :banned => false}.
-                        merge(language_conditions.merge(language_conditions)))
-    end
-
-    return '' if tags.size <= 2
-
-    # Sizes: xxs xs s l xl xxl
-    css = {1 => "xxs", 2 => "xs", 3 => "s", 4 => "l", 5 => "xl" }
-    max_size = 5
-    min_size = 1
-
-    tag_class = options.delete(:tag_class) || "tag"
-
-    lowest_value = tags.min { |a, b| a["count"].to_i <=> b["count"].to_i }
-    highest_value = tags.max { |a, b| a["count"].to_i <=> b["count"].to_i }
-
-    spread = (highest_value["count"] - lowest_value["count"])
-    spread = 1 if spread == 0
-    ratio = (max_size - min_size) / spread
-
-    cloud = ''
-    tags.each do |tag|
-      size = min_size + (tag["count"] - lowest_value["count"]) * ratio
-      url = url_for(:controller => :items, :action => "index", :tags => tag["name"])
-      cloud << "<span>#{link_to(tag["name"], url, :class => "#{tag_class} #{css[size.round]}")}</span> "
-    end
-    cloud += ""
-    cloud
-  end
 
   def tag_cloud(tags = [], options = {})
     if tags.empty?

@@ -1,0 +1,34 @@
+-cache("trending_topics_#{current_group.id}") do
+  %div{:style=>"width:962px;height:26px; margin:13px 0; line-height:26px;"}
+    %div{:style=>"float:right;width:234px;"}
+      %form{:action=>"#{new_video_path}"}
+        %button{:class=>"sidebar", :type=>"submit", :value=>"New " << @mode}
+          = "&#9733; Create a new " << @mode
+    %div.left
+      = @mode.capitalize.to_s << " trends"
+
+    %div{:style=>"float:left;width:580px;margin-right:26px;"}
+      %marquee{ :behavior => 'scroll',:scrollamount => '1',}
+        = self.item_topics
+
+
+
+  .clear
+
+%script
+  = "$(function() {"
+  = "//$('marquee').marquee();"
+  = "$('marquee').marquee('pointer').mouseover(function () {"
+  = "       $(this).trigger('stop');"
+  = "   }).mouseout(function () {"
+  = "       $(this).trigger('start');"
+  = "   }).mousemove(function (event) {"
+  = "       if ($(this).data('drag') == true) {"
+  = "           this.scrollLeft = $(this).data('scrollX') + ($(this).data('x') - event.clientX);"
+  = "       }"
+  = "   }).mousedown(function (event) {"
+  = "       $(this).data('drag', true).data('x', event.clientX).data('scrollX', this.scrollLeft);"
+  = "   }).mouseup(function () {"
+  = "       $(this).data('drag', false);"
+  = "   });"
+  = "});"

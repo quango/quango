@@ -1,5 +1,5 @@
 -content_for :trends do
-  = render :partial => "shared/trending_topics", :object => @tag_cloud
+  = "trends"
 
 -content_for :head do
   -if !current_group.default_tags.empty?
@@ -97,9 +97,9 @@
   #sidebar.left
     .block.notice
       = render :partial => "shared/layout/notice"
-      -current_group.widgets.each do |widget|
-        .widget.block{:id => widget.name}
-          = render :partial => widget.partial_name, :locals => {:widget => widget}
+    -current_group.widgets.each do |widget|
+      .widget.block{:id => widget.name}
+        = render :partial => widget.partial_name, :locals => {:widget => widget}
 
     -if logged_in?
       = render :partial => "shared/preferred_tags"

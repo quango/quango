@@ -1,70 +1,67 @@
--content_for :trends do
-  = render :partial => "bookmark_topics", :object => @tag_cloud
-
 -feed_url = url_for(:format => "atom", :tags => params[:tags])
+
+-content_for :trends do
+  = render :partial => "items/item_topics", :object => @tag_cloud
 
 -content_for :rss do
   %link{:rel=>"alternate", :type=>"application/atom+xml", :title => "atom", :href=> url_for(:format => "atom", :tags => params[:tags])}
   %link{:rel=>"alternate", :type=>"application/atom+xml", :title => "atom", :href=> url_for(:format => "atom")}
 
+-content_for :subtabs do
+  .secondary-navigation{:class => @active_subtab.to_s}
+    .navlabel
+      = t("layouts.application.bookmarks")
+      -if current_user.owner_of?(current_group)
+        -if @items
+          == (#{@items.total_entries})
+    .navcontrols
+      .subtabs
+        %ul
+          %li.newest
+            = link_to t("items.index.newest"), bookmarks_path(:sort=>"newest"), :title => t("items.index.newest_tooltip"),:class=>"button"
+          %li.hot
+            = link_to t("items.index.hot"), bookmarks_path(:sort=>"hot"), :title => t("items.index.hot_tooltip"),:class=>"button", :rel => "nofollow"
+          %li.votes
+            = link_to t("items.index.votes"), bookmarks_path(:sort=>"votes"), :title =>  t("items.index.votes_tooltip"),:class=>"button", :rel => "nofollow"
+          %li.activity
+            = link_to t("items.index.active"), bookmarks_path(:sort=>"activity"), :title => t("items.index.active_tooltip"),:class=>"button", :rel => "nofollow"
+
 
 
 -content_for :sidebar do
-  #sidebar
-    -if logged_in?
-      = render :partial => "shared/language_filter"
+  -if logged_in?
+    = render :partial => "shared/language_filter"
 
-    = render :partial => "shared/current_tags"
-    .block
-      %h3
-        = t('.tags', :default => [:"layout.application.tags", :"activerecord.attributes.user.tags", "tags"])
-      .content
-        = render :partial => "shared/tag_list", :object => @tag_cloud
-
--content_for :subtabs do
-  .navtitle
-    = t(".title")
-    %button.right
-      = "&#9733;"
-  .clear
-  .subtabs
-    %ul
-      %li.newest
-        = link_to t("bookmarks.index.newest"), bookmarks_path(:sort=>"newest"), :title => t("bookmarks.index.newest_tooltip")
-      %li.hot
-        = link_to t("bookmarks.index.hot"), bookmarks_path(:sort=>"hot"), :title => t("bookmarks.index.hot_tooltip"), :rel => "nofollow"
-      %li.votes
-        = link_to t("bookmarks.index.votes"), bookmarks_path(:sort=>"votes"), :title =>  t("bookmarks.index.votes_tooltip"), :rel => "nofollow"
-      %li.activity
-        = link_to t("bookmarks.index.active"), bookmarks_path(:sort=>"activity"), :title => t("bookmarks.index.active_tooltip"), :rel => "nofollow"
-
-
-
-/Bookmarks
--content_for :main do
-  #inner{:style=>'width:468px;'}
-    .secondary-navigation{:class => @active_subtab.to_s}
-      = yield :subtabs
-      .clear
+  = render :partial => "shared/current_tags"
+  .block
+    %h3
+      = t('.tags', :default => [:"layout.application.tags", :"activerecord.attributes.user.tags", "tags"])
     .content
-      %p.markdown
-        = show_flash_messages(:class => "flash", :markdown => true)
-        = render :partial => "shared/ads/content_ads"
-        .inner
-          = yield
-          .clear
-    %ul.items#bookmarks
-      -if @bookmarks.empty?
-        %li.highlight
-          = t(".empty")
-      -@bookmarks.each do |bookmark|
-        = render :partial => "bookmark", :object => bookmark
+      = render :partial => "shared/tag_list", :object => @tag_cloud
 
-    #additional_info
-      =will_paginate @bookmarks
+
+= render :partial => "searches/search_box"
+
+/Items
+-content_for :main do
+
+  = "mode:" << @mode.to_s
+  = yield :subtabs
+  .clear
+
+  %ul.items#items
+    -if @items.empty?
+      %li.highlight
+        = t(".empty")
+    -@items.each do |item|
+      -if item.mode == "bookmark"
+        = render :partial => "item", :object => item
+
+  #additional_info
+    =will_paginate @items
 
     #help_us
       = t(".help_to_answer")
-      =link_to t(".unanswered_bookmarks"), unanswered_bookmarks_path
+      =link_to t(".unanswered_items"), unanswered_items_path
 
     .clear

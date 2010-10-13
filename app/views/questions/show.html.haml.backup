@@ -1,0 +1,285 @@
+-content_for :trends do
+  = render :partial => "item_topics", :object => @tag_cloud
+
+= javascript_include_merged :show
+
+- @current_class = 'item hentry entry post'
+
+- show_close_request_form = !@item.closed && logged_in? && @item.can_be_requested_to_close_by?(current_user)
+- show_open_request_form = @item.closed && logged_in? && @item.can_be_requested_to_open_by?(current_user)
+
+- if logged_in?
+  - if current_user.mod_of?(current_group) && @item.closed
+    - show_close_request_form = (@item.close_reason.user_id == current_user.id)
+  - @flag = current_user.has_flagged?(@item) || Flag.new
+
+- @flag ||= Flag.new
+
+- if show_open_request_form
+  - @open_request = current_user.has_requested_to_open?(@item) || OpenRequest.new
+
+- if show_close_request_form
+  - @close_request = @item.close_requests.detect{ |rq| rq.user_id == current_user.id } || CloseRequest.new(:reason => "dupe")
+
+- item_body = find_and_preserve(shapado_auto_link(markdown(@item.body.present? ? @item.body : @item.title)))
+
+- content_for :head do
+  %meta{:name => "keywords", :content => clean_seo_keywords(@item.tags.dup, @item.title)}
+  %meta{:name => "description", :content => item_body.gsub(/<\/?[^>]*>/, "")[0, 255] }
+  %link{:rel => "canonical", :href => item_url(@item) }
+
+- content_for :subtabs do
+  %h1.navtitle.title.entry-title
+    &= @item.title
+    - if @item.closed
+      =" [#{t("closed", :scope => "activerecord.attributes.item").upcase}]"
+
+- source = item_path(@item)
+= error_messages_for 'answer'
+
+- content_for :main do
+  = show_flash_messages(:class => "flash", :markdown => true)
+
+  #item-body-col.commentable.markdown
+    %a{:name => @item.id}
+    =render :partial => "toolbox"
+    =render :partial => "controls", :object=>@item
+    #body
+      - if @item.closed && @item.close_reason
+        #close_reason
+          = t(".close_reason")
+          = t(@item.close_reason.reason, :scope=>"close_requests.form")
+          - if !@item.close_reason.comment.empty?
+            .comment
+              =find_and_preserve(shapado_auto_link(@item.close_reason.comment))
+      .entry-title
+        = @item.title
+
+      .entry-content
+        = item_body
+    .tag-list
+      - @item.tags.each do |tag|
+        %span.tag
+          = link_to h(tag), url_for(:controller => "items", :action => "index", :tags => tag), :rel => "tag"
+      - if logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group))
+        %span.retag
+          = link_to t('.retag'), retag_item_path(@item), :id => 'retag'
+    .post-info
+      .author.user_info.vcard
+        .gravatar.logo
+          -if !@item.anonymous
+            = gravatar(@item.user.email.to_s, :size => 32)
+        .user_data
+          %span.asked_by
+            = t('activerecord.attributes.item.asked_by')
+          -if @item.anonymous
+            =t("global.anonymous")
+          -else
+            =render :partial => "users/user_mini", :locals => {:user => @item.user}
+          %span.time_ago.published{:title => @item.created_at, :class => "relativetime"}
+            = t("time.ago", :time => time_ago_in_words(@item.created_at))
+            - if @item.wiki
+              .wiki_flag
+                wiki
+          %span.adr
+            - if !@item.user.hide_country
+              %span.country-name
+                = t("global.from", :site => @item.user.country_name)
+                = country_flag(@item.user.country_code, @item.user.country_name)
+        .clear
+      - if @item.updated_by.present?
+        .user_info
+          .gravatar.logo
+            = gravatar(@item.updated_by.email.to_s, :size => 32)
+          .user_data
+            %span.asked_by
+              = t('activerecord.attributes.item.updated_by')
+            =render :partial => "users/user_mini", :locals => {:user => @item.updated_by}
+            %span.time_ago.published{:title => @item.updated_at, :class => "relativetime"}
+              = t("time.ago", :time => time_ago_in_words(@item.updated_at))
+            %span.adr
+              - if !@item.updated_by.hide_country
+                %span.country-name
+                  = t("global.from", :site => @item.updated_by.country_name)
+                  = country_flag(@item.updated_by.country_code, @item.updated_by.country_name)
+          .clear
+
+    .controls
+      .actions
+        - if !@flag.new?
+          .flagged
+            = "#{t('.flagged_as')} #{t(@flag.reason, :scope=>'flags.form')}"
+            = link_to t("scaffold.edit"), edit_item_flag_path(@item,@flag), :class => "flag-link", :id => "edit_item_flag_link", :rel => 'nofollow'
+            = link_to t("scaffold.destroy"), item_flag_path(@item,@flag), :id => "destroy_item_flag_link", :rel => 'nofollow', :confirm => "are you sure?", :method => :delete
+        - elsif logged_in? && current_user != @item.user
+          = link_to t(".flag"), new_item_flag_path(@item), :class => "flag-link", :id => "item_flag_link", :rel => 'nofollow'
+
+        - if logged_in?
+          - if show_close_request_form
+            -if !@close_request.new?
+              .flagged
+                = "#{t('.requested_close_as')} #{t(@close_request.reason, :scope=>'close_requests.form')}"
+                = link_to t(".edit_request"), edit_item_close_request_path(@item,@close_request), :class => "flag-link", :id => "edit_item_close_request_link", :rel => 'nofollow'
+                = link_to t(".retract_request"), item_close_request_path(@item,@close_request), :id => "destroy_item_close_request_link", :rel => 'nofollow', :confirm => "are you sure?", :method => :delete
+            = link_to t(".request_closing"), @close_request.new? ? new_item_close_request_path(@item) : edit_item_close_request_path(@item, @close_request), :id => "request-close-link", :rel => 'nofollow', :title => t('.request_closing_details')
+
+          - if show_open_request_form
+            -if !@open_request.new?
+              .flagged
+                = "#{t('.requested_reopening')} #{@open_request.comment}"
+                = link_to t(".edit_request"), edit_item_open_request_path(@item, @open_request), :class => "flag-link", :id => "edit_item_open_request_link", :rel => 'nofollow'
+                = link_to t(".retract_request"), item_open_request_path(@item,@open_request), :id => "destroy_item_open_request_link", :rel => 'nofollow', :confirm => "are you sure?", :method => :delete
+
+            -if current_user.mod_of?(current_group)
+              = link_to t(".open"), open_item_path(@item), :rel => 'nofollow', :title => t('.request_opening_details'), :method => "put"
+            -else
+              = link_to t(".request_opening"), new_item_open_request_path(@item), :id => "request-open-link", :rel => 'nofollow', :title => t('.request_opening_details')
+
+          - if (@item.wiki && current_user.can_edit_wiki_post_on?(@item.group)) || current_user.can_edit_others_posts_on?(@item.group) || current_user.can_modify?(@item)
+            = link_to t('scaffold.edit'), edit_item_path(@item), :class => "button"
+          - if @item.versions.count > 0
+            = link_to t(".history", :default => "history"), history_item_path(@item)
+          - if (current_user.can_modify?(@item) || current_user.owner_of?(@item.group))
+            = link_to t("scaffold.destroy"), item_path(@item.id), :confirm => "are you sure?", :method => :delete
+          - if current_user.mod_of?(@item.group)
+            -if !@item.closed
+              = link_to t('.close'), item_close_requests_path(@item)
+            = link_to t(".ban"), ban_path(:item_ids => [@item.id]), :class => "button", :confirm => "are you sure?"
+      .forms
+        -# render :partial => "flags/form", :locals => {:flag => @flag, :flaggeable => @item, :source => source, :form_id => "item_flag_form" }
+
+        -# if !@item.closed && show_close_request_form
+          -#= render :partial => "close_requests/form", :locals => { :item => @item, :close_request => @close_request, :hide => true, :form_id => "request_close_item_form"}
+
+    - if logged_in?
+      = link_to t("comments.shared.add_comment"), new_item_comment_path(@item), :id => "add_comment_link", :rel => 'nofollow'
+
+    .comments
+      -@item.comments.each do |comment|
+        = render :partial => "comments/comment", :object => comment, :locals => {:source => source, :mini => true}
+    .clear
+    .forms
+      .comment-form-item
+        -form_tag item_comments_path(@item), :class => "form commentForm nestedAnswerForm", :id => "add_comment_form" do
+          -@comment = Comment.new
+          = render :partial => "comments/form", :locals => {:source => source, :commentable => @item}
+          .group.navform
+            = submit_tag t("comments.shared.comment_submit"), :class => "button"
+            = t("global.or")
+            = link_to t('scaffold.cancel'), '', :class => 'cancel_comment'
+  .clear
+  %a{:name=>"answers"}
+  #answers
+    .secondary-navigation{:class => @active_subtab.to_s}
+      .navtitle
+        = t(".answers_title", :count => @answers.total_entries + (@item.accepted ? 1 : 0))
+
+      %ul
+        %li.newest
+          = link_to t("items.index.newest"), item_path(@item, :sort=>"newest", :anchor => "answers"), :rel => "nofollow"
+        %li.votes
+          = link_to t("items.index.votes"), item_path(@item, :sort=>"votes", :anchor => "answers"), :rel => "nofollow"
+        %li.oldest
+          = link_to t("items.index.oldest"), item_path(@item, :sort=>"oldest", :anchor => "answers"), :rel => "nofollow"
+      .clear
+    .block
+      - if @item.accepted
+        -solution = @item.answer
+        =render :partial=> "answer", :locals=> {:item => @item, :answer => solution} unless solution.nil?
+      .hentry
+        -@answers.each do |answer|
+          =render :partial=> "answer", :locals=> {:item => @item, :answer => answer}
+      =will_paginate(@answers)
+
+  -unless @item.closed
+    %a{:name=>"to_answer"}
+    -form_for @answer, :url => item_answers_path(@item.id), :html => {:class => "form mainAnswerForm"} do |f|
+      = render :partial => "answers/form", :locals => {:f => f, :markdown => true}
+      .group.navform
+        .controls.right{:style => "width: 50%"}
+          .left{:style => "width: 49.5%"}
+            = f.label :wiki, "Wiki", :class => "radio"
+            = f.check_box :wiki, :class => "checkbox"
+          .left{:style => "width: 49.5%"}
+            = f.label :anonymous, t("scaffold.post_as_anonymous"), :class => "radio"
+            = f.check_box :anonymous, :class => "checkbox"
+        = submit_tag t('answers.form.submit'), :class => "button"
+      .clear
+
+-content_for :sidebar do
+  #sidebar
+    .block
+      %h3
+        = "Sidebar"
+      .content
+        = "Content"
+
+    - if logged_in? && (current_user.mod_of?(current_group) || current_user.can_view_offensive_counts_on?(current_group))
+      -unless @item.flags.count == 0
+        .block
+          %h3
+            = t(:flags, :scope => "activerecord.models")
+          .content
+            = render :partial => "flags/list", :locals => {:flaggeable => @item}
+
+      -unless @item.close_requests.size == 0
+        .block
+          %h3
+            = t(:prural_name, :scope => "close_requests.model")
+          .content
+            = render :partial => "close_requests/list", :locals => {:item => @item}
+
+      -unless @item.open_requests.size == 0
+        .block
+          %h3
+            = t(:prural_name, :scope => "open_requests.model")
+          .content
+            = render :partial => "open_requests/list", :locals => {:item => @item}
+
+    .block
+      %h3
+        = t('.tags', :default => [:"layouts.application.tags", :"activerecord.attributes.user.tags", "tags"])
+      = render :partial => "shared/tag_list", :object => @tag_cloud, :locals => { :extra_params => {:controller => "items", :action => "index"} }
+
+
+    - if @item.badges.size > 0
+      .block
+        %h3
+          = t('badges', :scope => "activerecord.models")
+        .content
+          %ul.list
+            -@item.badges.each do |badge|
+              %li
+                = render :partial => "badges/badge", :object => badge, :locals => {:hide_user => false}
+
+      .block.stats
+        - if @item.group_id != current_group.id
+          = t(".asked_on")
+          &= @item.group.name
+
+        .entry
+          .text.asked
+            = t('activerecord.attributes.item.created_at')
+            .data
+              = t("time.ago", :time => time_ago_in_words(@item.created_at))
+        .entry
+          .text.viewed
+            = t('.viewed')
+          .data
+            = t('number.x_time', :count => number_with_delimiter(@item.views_count))
+        .entry
+          .text.last_activity
+            = t(".last_activity")
+          .data.updated{:title => @item.activity_at, :class => "relativetime"}
+            = t("time.ago", :time => time_ago_in_words(@item.activity_at))
+
+      -related_items = Item.related_items(@item, :language => find_languages)
+      - if !related_items.empty?
+        .block
+          %h3
+            =t(".related_items")
+          .content
+            %ul.list
+              -related_items.each do |rq|
+                %li
+                  = link_to h(rq.title), item_path(rq), :title => truncate(strip_tags(rq.body), :length => 200)

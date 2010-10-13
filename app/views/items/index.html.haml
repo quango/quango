@@ -10,6 +10,7 @@
 -content_for :subtabs do
   .navtitle
     = t(".title")
+
     -if @items
       == (#{@items.total_entries})
 
@@ -41,12 +42,17 @@
 /Items
 -content_for :main do
 
+  = "mode:" << @mode.to_s
+  .secondary-navigation{:class => @active_subtab.to_s}
+    = yield :subtabs
+    .clear
   %ul.items#items
     -if @items.empty?
       %li.highlight
         = t(".empty")
     -@items.each do |item|
-      = render :partial => "item", :object => item
+      -if item.mode == @mode.to_s
+        = render :partial => "item", :object => item
 
   #additional_info
     =will_paginate @items

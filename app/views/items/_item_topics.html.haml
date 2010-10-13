@@ -1,15 +1,27 @@
 -cache("trending_topics_#{current_group.id}") do
   %div{:style=>"width:962px;height:26px; margin:13px 0; line-height:26px;"}
-    %div{:style=>"float:right;width:234px;"}
-      %form{:action=>"#{new_item_path}"}
-        %button{:class=>"sidebar", :type=>"submit", :value=>"&#9733; Ask a item"}
-          = "&#9733; Ask a item"
+
+
+
     %div.left
-      = "Item Trends:" 
+      -if @mode
+        = @mode.capitalize.to_s << " trends"
+      -else
+        = "Trends: "
 
     %div{:style=>"float:left;width:580px;margin-right:26px;"}
       %marquee{ :behavior => 'scroll',:scrollamount => '1',}
         = self.item_topics
+
+    %div{:style=>"float:right;width:234px;"}
+      -if @mode
+        -form_tag(new_create_path) do
+          =hidden_field_tag 'mode', @mode
+          =submit_tag '&#9733; New ' << @mode.capitalize.to_s, :class=>"sidebar-button"
+      -else
+        = "no mode"
+
+
 
 
 

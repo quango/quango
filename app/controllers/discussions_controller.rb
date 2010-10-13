@@ -1,16 +1,17 @@
 class DiscussionsController < ApplicationController
-  before_filter :login_required, :except => [:new, :create, :index, :show, :tags, :unanswered, :related_discussions, :tags_for_autocomplete, :retag, :retag_to]
+  before_filter :login_required, :except => [:new, :create, :index, :show, :tags, :unanswered, :related_items, :tags_for_autocomplete, :retag, :retag_to]
   before_filter :admin_required, :only => [:move, :move_to]
   before_filter :moderator_required, :only => [:close]
   before_filter :check_permissions, :only => [:solve, :unsolve, :destroy]
   before_filter :check_update_permissions, :only => [:edit, :update, :revert]
   before_filter :check_favorite_permissions, :only => [:favorite, :unfavorite] #TODO remove this
   before_filter :set_active_tag
+  before_filter :set_mode
   before_filter :check_age, :only => [:show]
   before_filter :check_retag_permissions, :only => [:retag, :retag_to]
 
-  tabs :default => :discussions, :tags => :tags,
-       :unanswered => :unanswered, :new => :contribute
+  tabs :default => @mode, :tags => :tags,
+       :unanswered => :unanswered, :new => :ask_item
 
   subtabs :index => [[:newest, "created_at desc"], [:hot, "hotness desc, views_count desc"], [:votes, "votes_average desc"], [:activity, "activity_at desc"], [:expert, "created_at desc"]],
           :unanswered => [[:newest, "created_at desc"], [:votes, "votes_average desc"], [:mytags, "created_at desc"]],
@@ -18,8 +19,13 @@ class DiscussionsController < ApplicationController
   helper :votes
   helper :channels
 
-  # GET /discussions
-  # GET /discussions.xml
+  def mode
+    @mode
+    return
+  end
+
+  # GET /items
+  # GET /items.xml
   def index
     if params[:language] || request.query_string =~ /tags=/
       params.delete(:language)
@@ -27,17 +33,18 @@ class DiscussionsController < ApplicationController
       return
     end
 
-    set_page_title(t("discussions.index.title"))
+    set_page_title(t("items.index.title"))
     conditions = scoped_conditions(:banned => false)
 
     if params[:sort] == "hot"
       conditions[:activity_at] = {"$gt" => 5.days.ago}
     end
 
-    @discussions = Discussion.paginate({:per_page => 25, :page => params[:page] || 1,
-                                   :order => current_order,
-                                   :fields => (Discussion.keys.keys - ["_keywords", "watchers"])}.
-                                               merge(conditions))
+    @items = Item.paginate({:per_page => 25, :page => params[:page] || 1,
+                       :order => current_order,
+                       :fields => {:_keywords => 0, :watchers => 0, :flags => 0,
+                                   :close_requests => 0, :open_requests => 0,
+                                   :versions => 0}}.merge(conditions))
 
     @langs_conds = scoped_conditions[:language][:$in]
 
@@ -47,32 +54,32 @@ class DiscussionsController < ApplicationController
       feed_params = {  :lang => I18n.locale,
                           :mylangs => current_languages }
     end
-    add_feeds_url(url_for({:format => "atom"}.merge(feed_params)), t("feeds.discussions"))
+    add_feeds_url(url_for({:format => "atom"}.merge(feed_params)), t("feeds.items"))
     if params[:tags]
       add_feeds_url(url_for({:format => "atom", :tags => params[:tags]}.merge(feed_params)),
                     "#{t("feeds.tag")} #{params[:tags].inspect}")
     end
-    @tag_cloud = Discussion.tag_cloud(scoped_conditions, 25)
+    @tag_cloud = Item.tag_cloud(scoped_conditions, 25)
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json  { render :json => @discussions.to_json(:except => %w[_keywords watchers slugs]) }
+      format.json  { render :json => @items.to_json(:except => %w[_keywords watchers slugs]) }
       format.atom
     end
   end
 
 
   def history
-    @discussion = current_group.discussions.find_by_slug_or_id(params[:id])
+    @item = current_group.items.find_by_slug_or_id(params[:id])
 
     respond_to do |format|
       format.html
-      format.json { render :json => @discussion.versions.to_json }
+      format.json { render :json => @item.versions.to_json }
     end
   end
 
   def diff
-    @discussion = current_group.discussions.find_by_slug_or_id(params[:id])
+    @item = current_group.items.find_by_slug_or_id(params[:id])
     @prev = params[:prev]
     @curr = params[:curr]
     if @prev.blank? || @curr.blank? || @prev == @curr
@@ -90,31 +97,34 @@ class DiscussionsController < ApplicationController
   end
 
   def revert
-    @discussion.load_version(params[:version].to_i)
+    @item.load_version(params[:version].to_i)
 
     respond_to do |format|
       format.html
     end
   end
 
-  def related_discussions
+  def related_items
     if params[:id]
-      @discussion = Discussion.find(params[:id])
-    elsif params[:discussion]
-      @discussion = Discussion.new(params[:discussion])
-      @discussion.group_id = current_group.id
+      @item = Item.find(params[:id])
+    elsif params[:item]
+      @item = Item.new(params[:item])
+      @item.group_id = current_group.id
     end
 
-    @discussion.tags += @discussion.title.downcase.split(",").join(" ").split(" ")
+    @item.tags += @item.title.downcase.split(",").join(" ").split(" ") if @item.title
 
-    @discussions = Discussion.related_discussions(@discussion, :page => params[:page],
+    @items = Item.related_items(@item, :page => params[:page],
                                                        :per_page => params[:per_page],
-                                                       :order => "answers_count desc")
+                                                       :order => "answers_count desc",
+                                                       :fields => {:_keywords => 0, :watchers => 0, :flags => 0,
+                                                                  :close_requests => 0, :open_requests => 0,
+                                                                  :versions => 0})
 
     respond_to do |format|
       format.js do
-        render :json => {:html => render_to_string(:partial => "discussions/discussion",
-                                                   :collection  => @discussions,
+        render :json => {:html => render_to_string(:partial => "items/item",
+                                                   :collection  => @items,
                                                    :locals => {:mini => true, :lite => true})}.to_json
       end
     end
@@ -127,7 +137,7 @@ class DiscussionsController < ApplicationController
       return
     end
 
-    set_page_title(t("discussions.unanswered.title"))
+    set_page_title(t("items.unanswered.title"))
     conditions = scoped_conditions({:answered_with_id => nil, :banned => false, :closed => false})
 
     if logged_in?
@@ -138,26 +148,28 @@ class DiscussionsController < ApplicationController
       end
     end
 
-    @tag_cloud = Discussion.tag_cloud(conditions, 25)
+    @tag_cloud = Item.tag_cloud(conditions, 25)
 
-    @discussions = Discussion.paginate({:order => current_order,
+    @items = Item.paginate({:order => current_order,
                                     :per_page => 25,
                                     :page => params[:page] || 1,
-                                    :fields => (Discussion.keys.keys - ["_keywords", "watchers"])
+                                    :fields => {:_keywords => 0, :watchers => 0, :flags => 0,
+                                                :close_requests => 0, :open_requests => 0,
+                                                :versions => 0}
                                    }.merge(conditions))
 
     respond_to do |format|
       format.html # unanswered.html.erb
-      format.json  { render :json => @discussions.to_json(:except => %w[_keywords slug watchers]) }
+      format.json  { render :json => @items.to_json(:except => %w[_keywords slug watchers]) }
     end
   end
 
   def tags
     conditions = scoped_conditions({:answered_with_id => nil, :banned => false})
     if params[:q].blank?
-      @tag_cloud = Discussion.tag_cloud(conditions)
+      @tag_cloud = Item.tag_cloud(conditions)
     else
-      @tag_cloud = Discussion.find_tags(/^#{Regexp.escape(params[:q])}/, conditions)
+      @tag_cloud = Item.find_tags(/^#{Regexp.escape(params[:q])}/, conditions)
     end
     respond_to do |format|
       format.html do
@@ -168,7 +180,6 @@ class DiscussionsController < ApplicationController
         render :json => {:html => html}
       end
       format.json  { render :json => @tag_cloud.to_json }
-      format.xml  { render :json => @tag_cloud.to_xml }
     end
   end
 
@@ -177,7 +188,7 @@ class DiscussionsController < ApplicationController
       format.js do
         result = []
         if q = params[:tag]
-          result = Discussion.find_tags(/^#{Regexp.escape(q.downcase)}/i,
+          result = Item.find_tags(/^#{Regexp.escape(q.downcase)}/i,
                                       :group_id => current_group.id,
                                       :banned => false)
         end
@@ -194,8 +205,8 @@ class DiscussionsController < ApplicationController
     end
   end
 
-  # GET /discussions/1
-  # GET /discussions/1.xml
+  # GET /items/1
+  # GET /items/1.xml
   def show
     if params[:language]
       params.delete(:language)
@@ -203,68 +214,71 @@ class DiscussionsController < ApplicationController
       return
     end
 
-    @tag_cloud = Discussion.tag_cloud(:_id => @discussion.id, :banned => false)
+    @tag_cloud = Item.tag_cloud(:_id => @item.id, :banned => false)
     options = {:per_page => 25, :page => params[:page] || 1,
                :order => current_order, :banned => false}
-    options[:_id] = {:$ne => @discussion.answer_id} if @discussion.answer_id
-    @answers = @discussion.answers.paginate(options)
+    options[:_id] = {:$ne => @item.answer_id} if @item.answer_id
+    options[:fields] = {:_keywords => 0}
+    @answers = @item.answers.paginate(options)
 
     @answer = Answer.new(params[:answer])
 
-    if @discussion.user != current_user && !is_bot?
-      @discussion.viewed!(request.remote_ip)
+    if @item.user != current_user && !is_bot?
+      @item.viewed!(request.remote_ip)
 
-      if (@discussion.views_count % 10) == 0
-        sweep_discussion(@discussion)
+      if (@item.views_count % 10) == 0
+        sweep_item(@item)
       end
     end
 
-    set_page_title(@discussion.title)
-    add_feeds_url(url_for(:format => "atom"), t("feeds.discussion"))
+    set_page_title(@item.title)
+    add_feeds_url(url_for(:format => "atom"), t("feeds.item"))
 
     respond_to do |format|
-      format.html { Magent.push("actors.judge", :on_view_discussion, @discussion.id) }
-      format.json  { render :json => @discussion.to_json(:except => %w[_keywords slug watchers]) }
+      format.html { Magent.push("actors.judge", :on_view_item, @item.id) }
+      format.json  { render :json => @item.to_json(:except => %w[_keywords slug watchers]) }
       format.atom
     end
   end
 
-  # GET /discussions/new
-  # GET /discussions/new.xml
+  # GET /items/new
+  # GET /items/new.xml
   def new
-    @discussion = Discussion.new(params[:discussion])
+    @item = Item.new(params[:item])
     respond_to do |format|
       format.html # new.html.erb
-      format.json  { render :json => @discussion.to_json }
+      format.json  { render :json => @item.to_json }
     end
   end
 
-  # GET /discussions/1/edit
+  # GET /items/1/edit
   def edit
   end
 
-  # POST /discussions
-  # POST /discussions.xml
+  # POST /items
+  # POST /items.xml
   def create
-    @discussion = Discussion.new
-    @discussion.safe_update(%w[title body language tags wiki], params[:discussion])
-    @discussion.group = current_group
-    @discussion.user = current_user
+    @item = Item.new
+    @item.safe_update(%w[mode title body language tags wiki anonymous], params[:item])
+    @item.group = current_group
+    @item.user = current_user
 
     if !logged_in?
       if recaptcha_valid? && params[:user]
-        @user = User.find(:email => params[:user][:email])
+        @user = User.first(:email => params[:user][:email])
         if @user.present?
           if !@user.anonymous
             flash[:notice] = "The user is already registered, please log in"
             return create_draft!
+          else
+            @item.user = @user
           end
         else
           @user = User.new(:anonymous => true, :login => "Anonymous")
           @user.safe_update(%w[name email website], params[:user])
           @user.login = @user.name if @user.name.present?
-          @user.save
-          @discussion.user = @user
+          @user.save!
+          @item.user = @user
         end
       elsif !AppConfig.recaptcha["activate"]
         return create_draft!
@@ -272,218 +286,218 @@ class DiscussionsController < ApplicationController
     end
 
     respond_to do |format|
-      if (recaptcha_valid? || logged_in?) && @discussion.user.valid? && @discussion.save
-        sweep_discussion_views
+      if (logged_in? ||  (@item.user.valid? && recaptcha_valid?)) && @item.save
+        sweep_item_views
 
-        @discussion.user.stats.add_discussion_tags(*@discussion.tags)
-        current_group.tag_list.add_tags(*@discussion.tags)
+        current_group.tag_list.add_tags(*@item.tags)
+        unless @item.anonymous
+          @item.user.stats.add_item_tags(*@item.tags)
+          @item.user.on_activity(:ask_item, current_group)
+          Magent.push("actors.judge", :on_ask_item, @item.id)
 
-        @discussion.user.on_activity(:ask_discussion, current_group)
-        current_group.on_activity(:ask_discussion)
+          # TODO: move to magent
+          users = User.find_experts(@item.tags, [@item.language],
+                                                    :except => [@item.user.id],
+                                                    :group_id => current_group.id)
+          followers = @item.user.followers(:group_id => current_group.id, :languages => [@item.language])
 
-        Magent.push("actors.judge", :on_ask_discussion, @discussion.id)
+          (users - followers).each do |u|
+            if !u.email.blank?
+              Notifier.deliver_give_advice(u, current_group, @item, false)
+            end
+          end
 
-        flash[:notice] = t(:flash_notice, :scope => "discussions.create")
-
-        # TODO: move to magent
-        users = User.find_experts(@discussion.tags, [@discussion.language],
-                                                  :except => [@discussion.user.id],
-                                                  :group_id => current_group.id)
-        followers = @discussion.user.followers(:group_id => current_group.id, :languages => [@discussion.language])
-
-        (users - followers).each do |u|
-          if !u.email.blank?
-            Notifier.deliver_give_advice(u, current_group, @discussion, false)
+          followers.each do |u|
+            if !u.email.blank?
+              Notifier.deliver_give_advice(u, current_group, @item, true)
+            end
           end
         end
 
-        followers.each do |u|
-          if !u.email.blank?
-            Notifier.deliver_give_advice(u, current_group, @discussion, true)
-          end
-        end
+        current_group.on_activity(:ask_item)
+        flash[:notice] = t(:flash_notice, :scope => "items.create")
 
-        format.html { redirect_to(discussion_path(@discussion)) }
-        format.json { render :json => @discussion.to_json(:except => %w[_keywords watchers]), :status => :created}
+        format.html { redirect_to(item_path(@item)) }
+        format.json { render :json => @item.to_json(:except => %w[_keywords watchers]), :status => :created}
       else
-        @discussion.errors.add(:captcha, "is invalid") unless recaptcha_valid?
+        @item.errors.add(:captcha, "is invalid") unless recaptcha_valid?
         format.html { render :action => "new" }
-        format.json { render :json => @discussion.errors+@discussion.user.errors, :status => :unprocessable_entity }
+        format.json { render :json => @item.errors+@item.user.errors, :status => :unprocessable_entity }
       end
     end
   end
 
-  # PUT /discussions/1
-  # PUT /discussions/1.xml
+  # PUT /items/1
+  # PUT /items/1.xml
   def update
     respond_to do |format|
-      @discussion.safe_update(%w[title body language tags wiki adult_content version_message], params[:discussion])
-      @discussion.updated_by = current_user
-      @discussion.last_target = @discussion
+      @item.safe_update(%w[title body language tags wiki adult_content version_message  anonymous], params[:item])
+      @item.updated_by = current_user
+      @item.last_target = @item
 
-      @discussion.slugs << @discussion.slug
-      @discussion.send(:generate_slug)
+      @item.slugs << @item.slug
+      @item.send(:generate_slug)
 
-      if @discussion.valid? && @discussion.save
-        sweep_discussion_views
-        sweep_discussion(@discussion)
+      if @item.valid? && @item.save
+        sweep_item_views
+        sweep_item(@item)
 
-        flash[:notice] = t(:flash_notice, :scope => "discussions.update")
-        format.html { redirect_to(discussion_path(@discussion)) }
+        flash[:notice] = t(:flash_notice, :scope => "items.update")
+        format.html { redirect_to(item_path(@item)) }
         format.json  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.json  { render :json => @discussion.errors, :status => :unprocessable_entity }
+        format.json  { render :json => @item.errors, :status => :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /discussions/1
-  # DELETE /discussions/1.xml
+  # DELETE /items/1
+  # DELETE /items/1.xml
   def destroy
-    if @discussion.user_id == current_user.id
-      @discussion.user.update_reputation(:delete_discussion, current_group)
+    if @item.user_id == current_user.id
+      @item.user.update_reputation(:delete_item, current_group)
     end
-    sweep_discussion(@discussion)
-    sweep_discussion_views
-    @discussion.destroy
+    sweep_item(@item)
+    sweep_item_views
+    @item.destroy
 
-    Magent.push("actors.judge", :on_destroy_discussion, current_user.id, @discussion.attributes)
+    Magent.push("actors.judge", :on_destroy_item, current_user.id, @item.attributes)
 
     respond_to do |format|
-      format.html { redirect_to(discussions_url) }
+      format.html { redirect_to(items_url) }
       format.json  { head :ok }
     end
   end
 
   def solve
-    @answer = @discussion.answers.find(params[:answer_id])
-    @discussion.answer = @answer
-    @discussion.accepted = true
-    @discussion.answered_with = @answer if @discussion.answered_with.nil?
+    @answer = @item.answers.find(params[:answer_id])
+    @item.answer = @answer
+    @item.accepted = true
+    @item.answered_with = @answer if @item.answered_with.nil?
 
     respond_to do |format|
-      if @discussion.save
-        sweep_discussion(@discussion)
+      if @item.save
+        sweep_item(@item)
 
-        current_user.on_activity(:close_discussion, current_group)
+        current_user.on_activity(:close_item, current_group)
         if current_user != @answer.user
           @answer.user.update_reputation(:answer_picked_as_solution, current_group)
         end
 
-        Magent.push("actors.judge", :on_discussion_solved, @discussion.id, @answer.id)
+        Magent.push("actors.judge", :on_item_solved, @item.id, @answer.id)
 
-        flash[:notice] = t(:flash_notice, :scope => "discussions.solve")
-        format.html { redirect_to discussion_path(@discussion) }
+        flash[:notice] = t(:flash_notice, :scope => "items.solve")
+        format.html { redirect_to item_path(@item) }
         format.json  { head :ok }
       else
-        @tag_cloud = Discussion.tag_cloud(:_id => @discussion.id, :banned => false)
+        @tag_cloud = Item.tag_cloud(:_id => @item.id, :banned => false)
         options = {:per_page => 25, :page => params[:page] || 1,
                    :order => current_order, :banned => false}
-        options[:_id] = {:$ne => @discussion.answer_id} if @discussion.answer_id
-        @answers = @discussion.answers.paginate(options)
+        options[:_id] = {:$ne => @item.answer_id} if @item.answer_id
+        @answers = @item.answers.paginate(options)
         @answer = Answer.new
 
         format.html { render :action => "show" }
-        format.json  { render :json => @discussion.errors, :status => :unprocessable_entity }
+        format.json  { render :json => @item.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   def unsolve
-    @answer_id = @discussion.answer.id
-    @answer_owner = @discussion.answer.user
+    @answer_id = @item.answer.id
+    @answer_owner = @item.answer.user
 
-    @discussion.answer = nil
-    @discussion.accepted = false
-    @discussion.answered_with = nil if @discussion.answered_with == @discussion.answer
+    @item.answer = nil
+    @item.accepted = false
+    @item.answered_with = nil if @item.answered_with == @item.answer
 
     respond_to do |format|
-      if @discussion.save
-        sweep_discussion(@discussion)
+      if @item.save
+        sweep_item(@item)
 
-        flash[:notice] = t(:flash_notice, :scope => "discussions.unsolve")
-        current_user.on_activity(:reopen_discussion, current_group)
+        flash[:notice] = t(:flash_notice, :scope => "items.unsolve")
+        current_user.on_activity(:reopen_item, current_group)
         if current_user != @answer_owner
           @answer_owner.update_reputation(:answer_unpicked_as_solution, current_group)
         end
 
-        Magent.push("actors.judge", :on_discussion_unsolved, @discussion.id, @answer_id)
+        Magent.push("actors.judge", :on_item_unsolved, @item.id, @answer_id)
 
-        format.html { redirect_to discussion_path(@discussion) }
+        format.html { redirect_to item_path(@item) }
         format.json  { head :ok }
       else
-        @tag_cloud = Discussion.tag_cloud(:_id => @discussion.id, :banned => false)
+        @tag_cloud = Item.tag_cloud(:_id => @item.id, :banned => false)
         options = {:per_page => 25, :page => params[:page] || 1,
                    :order => current_order, :banned => false}
-        options[:_id] = {:$ne => @discussion.answer_id} if @discussion.answer_id
-        @answers = @discussion.answers.paginate(options)
+        options[:_id] = {:$ne => @item.answer_id} if @item.answer_id
+        @answers = @item.answers.paginate(options)
         @answer = Answer.new
 
         format.html { render :action => "show" }
-        format.json  { render :json => @discussion.errors, :status => :unprocessable_entity }
+        format.json  { render :json => @item.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   def close
-    @discussion = Discussion.find_by_slug_or_id(params[:id])
+    @item = Item.find_by_slug_or_id(params[:id])
 
-    @discussion.closed = true
-    @discussion.closed_at = Time.zone.now
-    @discussion.close_reason_id = params[:close_request_id]
+    @item.closed = true
+    @item.closed_at = Time.zone.now
+    @item.close_reason_id = params[:close_request_id]
 
     respond_to do |format|
-      if @discussion.save
-        sweep_discussion(@discussion)
+      if @item.save
+        sweep_item(@item)
 
-        format.html { redirect_to discussion_path(@discussion) }
+        format.html { redirect_to item_path(@item) }
         format.json { head :ok }
       else
-        flash[:error] = @discussion.errors.full_messages.join(", ")
-        format.html { redirect_to discussion_path(@discussion) }
-        format.json { render :json => @discussion.errors, :status => :unprocessable_entity  }
+        flash[:error] = @item.errors.full_messages.join(", ")
+        format.html { redirect_to item_path(@item) }
+        format.json { render :json => @item.errors, :status => :unprocessable_entity  }
       end
     end
   end
 
   def open
-    @discussion = Discussion.find_by_slug_or_id(params[:id])
+    @item = Item.find_by_slug_or_id(params[:id])
 
-    @discussion.closed = false
-    @discussion.close_reason_id = nil
+    @item.closed = false
+    @item.close_reason_id = nil
 
     respond_to do |format|
-      if @discussion.save
-        sweep_discussion(@discussion)
+      if @item.save
+        sweep_item(@item)
 
-        format.html { redirect_to discussion_path(@discussion) }
+        format.html { redirect_to item_path(@item) }
         format.json { head :ok }
       else
-        flash[:error] = @discussion.errors.full_messages.join(", ")
-        format.html { redirect_to discussion_path(@discussion) }
-        format.json { render :json => @discussion.errors, :status => :unprocessable_entity  }
+        flash[:error] = @item.errors.full_messages.join(", ")
+        format.html { redirect_to item_path(@item) }
+        format.json { render :json => @item.errors, :status => :unprocessable_entity  }
       end
     end
   end
 
   def favorite
     @favorite = Favorite.new
-    @favorite.discussion = @discussion
+    @favorite.item = @item
     @favorite.user = current_user
-    @favorite.group = @discussion.group
+    @favorite.group = @item.group
 
-    @discussion.add_watcher(current_user)
+    @item.add_watcher(current_user)
 
-    if (@discussion.user_id != current_user.id) && current_user.notification_opts.activities
-      Notifier.deliver_favorited(current_user, @discussion.group, @discussion)
+    if (@item.user_id != current_user.id) && current_user.notification_opts.activities
+      Notifier.deliver_favorited(current_user, @item.group, @item)
     end
 
     respond_to do |format|
       if @favorite.save
-        @discussion.add_favorite!(@favorite, current_user)
+        @item.add_favorite!(@favorite, current_user)
         flash[:notice] = t("favorites.create.success")
-        format.html { redirect_to(discussion_path(@discussion)) }
+        format.html { redirect_to(item_path(@item)) }
         format.json { head :ok }
         format.js {
           render(:json => {:success => true,
@@ -491,7 +505,7 @@ class DiscussionsController < ApplicationController
         }
       else
         flash[:error] = @favorite.errors.full_messages.join("**")
-        format.html { redirect_to(discussion_path(@discussion)) }
+        format.html { redirect_to(item_path(@item)) }
         format.js {
           render(:json => {:success => false,
                    :message => flash[:error], :increment => 0 }.to_json)
@@ -502,17 +516,17 @@ class DiscussionsController < ApplicationController
   end
 
   def unfavorite
-    @favorite = current_user.favorite(@discussion)
+    @favorite = current_user.favorite(@item)
     if @favorite
       if current_user.can_modify?(@favorite)
-        @discussion.remove_favorite!(@favorite, current_user)
+        @item.remove_favorite!(@favorite, current_user)
         @favorite.destroy
-        @discussion.remove_watcher(current_user)
+        @item.remove_watcher(current_user)
       end
     end
     flash[:notice] = t("unfavorites.create.success")
     respond_to do |format|
-      format.html { redirect_to(discussion_path(@discussion)) }
+      format.html { redirect_to(item_path(@item)) }
       format.js {
         render(:json => {:success => true,
                  :message => flash[:notice], :increment => -1 }.to_json)
@@ -522,11 +536,11 @@ class DiscussionsController < ApplicationController
   end
 
   def watch
-    @discussion = Discussion.find_by_slug_or_id(params[:id])
-    @discussion.add_watcher(current_user)
-    flash[:notice] = t("discussions.watch.success")
+    @item = Item.find_by_slug_or_id(params[:id])
+    @item.add_watcher(current_user)
+    flash[:notice] = t("items.watch.success")
     respond_to do |format|
-      format.html {redirect_to discussion_path(@discussion)}
+      format.html {redirect_to item_path(@item)}
       format.js {
         render(:json => {:success => true,
                  :message => flash[:notice] }.to_json)
@@ -536,11 +550,11 @@ class DiscussionsController < ApplicationController
   end
 
   def unwatch
-    @discussion = Discussion.find_by_slug_or_id(params[:id])
-    @discussion.remove_watcher(current_user)
-    flash[:notice] = t("discussions.unwatch.success")
+    @item = Item.find_by_slug_or_id(params[:id])
+    @item.remove_watcher(current_user)
+    flash[:notice] = t("items.unwatch.success")
     respond_to do |format|
-      format.html {redirect_to discussion_path(@discussion)}
+      format.html {redirect_to item_path(@item)}
       format.js {
         render(:json => {:success => true,
                  :message => flash[:notice] }.to_json)
@@ -550,58 +564,58 @@ class DiscussionsController < ApplicationController
   end
 
   def move
-    @discussion = Discussion.find_by_slug_or_id(params[:id])
+    @item = Item.find_by_slug_or_id(params[:id])
     render
   end
 
   def move_to
-    @group = Group.find_by_slug_or_id(params[:discussion][:group])
-    @discussion = Discussion.find_by_slug_or_id(params[:id])
+    @group = Group.find_by_slug_or_id(params[:item][:group])
+    @item = Item.find_by_slug_or_id(params[:id])
 
     if @group
-      @discussion.group = @group
+      @item.group = @group
 
-      if @discussion.save
-        sweep_discussion(@discussion)
+      if @item.save
+        sweep_item(@item)
 
-        Answer.set({"discussion_id" => @discussion.id}, {"group_id" => @group.id})
+        Answer.set({"item_id" => @item.id}, {"group_id" => @group.id})
       end
-      flash[:notice] = t("discussions.move_to.success", :group => @group.name)
-      redirect_to discussion_path(@discussion)
+      flash[:notice] = t("items.move_to.success", :group => @group.name)
+      redirect_to item_path(@item)
     else
-      flash[:error] = t("discussions.move_to.group_dont_exists",
-                        :group => params[:discussion][:group])
+      flash[:error] = t("items.move_to.group_dont_exists",
+                        :group => params[:item][:group])
       render :move
     end
   end
 
   def retag_to
-    @discussion = Discussion.find_by_slug_or_id(params[:id])
+    @item = Item.find_by_slug_or_id(params[:id])
 
-    @discussion.tags = params[:discussion][:tags]
-    @discussion.updated_by = current_user
-    @discussion.last_target = @discussion
+    @item.tags = params[:item][:tags]
+    @item.updated_by = current_user
+    @item.last_target = @item
 
-    if @discussion.save
-      sweep_discussion(@discussion)
+    if @item.save
+      sweep_item(@item)
 
-      if (Time.now - @discussion.created_at) < 8.days
-        @discussion.on_activity(true)
+      if (Time.now - @item.created_at) < 8.days
+        @item.on_activity(true)
       end
 
-      Magent.push("actors.judge", :on_retag_discussion, @discussion.id, current_user.id)
+      Magent.push("actors.judge", :on_retag_item, @item.id, current_user.id)
 
-      flash[:notice] = t("discussions.retag_to.success", :group => @discussion.group.name)
+      flash[:notice] = t("items.retag_to.success", :group => @item.group.name)
       respond_to do |format|
-        format.html {redirect_to discussion_path(@discussion)}
+        format.html {redirect_to item_path(@item)}
         format.js {
           render(:json => {:success => true,
-                   :message => flash[:notice], :tags => @discussion.tags }.to_json)
+                   :message => flash[:notice], :tags => @item.tags }.to_json)
         }
       end
     else
-      flash[:error] = t("discussions.retag_to.failure",
-                        :group => params[:discussion][:group])
+      flash[:error] = t("items.retag_to.failure",
+                        :group => params[:item][:group])
 
       respond_to do |format|
         format.html {render :retag}
@@ -615,67 +629,81 @@ class DiscussionsController < ApplicationController
 
 
   def retag
-    @discussion = Discussion.find_by_slug_or_id(params[:id])
+    @item = Item.find_by_slug_or_id(params[:id])
     respond_to do |format|
       format.html {render}
       format.js {
-        render(:json => {:success => true, :html => render_to_string(:partial => "discussions/retag_form",
-                                                   :member  => @discussion)}.to_json)
+        render(:json => {:success => true, :html => render_to_string(:partial => "items/retag_form",
+                                                   :member  => @item)}.to_json)
       }
     end
   end
 
   protected
-  def check_permissions
-    @discussion = Discussion.find_by_slug_or_id(params[:id])
 
-    if @discussion.nil?
-      redirect_to discussions_path
-    elsif !(current_user.can_modify?(@discussion) ||
-           (params[:action] != 'destroy' && @discussion.can_be_deleted_by?(current_user)) ||
-           current_user.owner_of?(@discussion.group)) # FIXME: refactor
+  def check_mode
+
+    @item = Item.find_by_slug_or_id(params[:id])
+
+    if @item.nil?
+     @mode = "everything"
+    end
+
+     @mode = params[:mode]
+     @mode
+
+  end
+
+  def check_permissions
+    @item = Item.find_by_slug_or_id(params[:id])
+
+    if @item.nil?
+      redirect_to items_path
+    elsif !(current_user.can_modify?(@item) ||
+           (params[:action] != 'destroy' && @item.can_be_deleted_by?(current_user)) ||
+           current_user.owner_of?(@item.group)) # FIXME: refactor
       flash[:error] = t("global.permission_denied")
-      redirect_to discussion_path(@discussion)
+      redirect_to item_path(@item)
     end
   end
 
   def check_update_permissions
-    @discussion = current_group.discussions.find_by_slug_or_id(params[:id])
+    @item = current_group.items.find_by_slug_or_id(params[:id])
     allow_update = true
-    unless @discussion.nil?
-      if !current_user.can_modify?(@discussion)
-        if @discussion.wiki
-          if !current_user.can_edit_wiki_post_on?(@discussion.group)
+    unless @item.nil?
+      if !current_user.can_modify?(@item)
+        if @item.wiki
+          if !current_user.can_edit_wiki_post_on?(@item.group)
             allow_update = false
-            reputation = @discussion.group.reputation_constrains["edit_wiki_post"]
+            reputation = @item.group.reputation_constrains["edit_wiki_post"]
             flash[:error] = I18n.t("users.messages.errors.reputation_needed",
                                         :min_reputation => reputation,
                                         :action => I18n.t("users.actions.edit_wiki_post"))
           end
         else
-          if !current_user.can_edit_others_posts_on?(@discussion.group)
+          if !current_user.can_edit_others_posts_on?(@item.group)
             allow_update = false
-            reputation = @discussion.group.reputation_constrains["edit_others_posts"]
+            reputation = @item.group.reputation_constrains["edit_others_posts"]
             flash[:error] = I18n.t("users.messages.errors.reputation_needed",
                                         :min_reputation => reputation,
                                         :action => I18n.t("users.actions.edit_others_posts"))
           end
         end
-        return redirect_to discussion_path(@discussion) if !allow_update
+        return redirect_to item_path(@item) if !allow_update
       end
     else
-      return redirect_to discussions_path
+      return redirect_to items_path
     end
   end
 
   def check_favorite_permissions
-    @discussion = current_group.discussions.find_by_slug_or_id(params[:id])
+    @item = current_group.items.find_by_slug_or_id(params[:id])
     unless logged_in?
       flash[:error] = t(:unauthenticated, :scope => "favorites.create")
       respond_to do |format|
         format.html do
           flash[:error] += ", [#{t("global.please_login")}](#{new_user_session_path})"
-          redirect_to discussion_path(@discussion)
+          redirect_to item_path(@item)
         end
         format.js do
           flash[:error] += ", <a href='#{new_user_session_path}'> #{t("global.please_login")} </a>"
@@ -691,18 +719,18 @@ class DiscussionsController < ApplicationController
 
 
   def check_retag_permissions
-    @discussion = Discussion.find_by_slug_or_id(params[:id])
-    unless logged_in? && (current_user.can_retag_others_items_on?(current_group) ||  current_user.can_modify?(@discussion)) #fix
-      reputation = @discussion.group.reputation_constrains["retag_others_discussions"]
+    @item = Item.find_by_slug_or_id(params[:id])
+    unless logged_in? && (current_user.can_retag_others_items_on?(current_group) ||  current_user.can_modify?(@item))
+      reputation = @item.group.reputation_constrains["retag_others_items"]
       if !logged_in?
-        flash[:error] = t("discussions.show.unauthenticated_retag")
+        flash[:error] = t("items.show.unauthenticated_retag")
       else
         flash[:error] = I18n.t("users.messages.errors.reputation_needed",
                                :min_reputation => reputation,
-                               :action => I18n.t("users.actions.retag_others_discussions"))
+                               :action => I18n.t("users.actions.retag_others_items"))
       end
       respond_to do |format|
-        format.html {redirect_to @discussion}
+        format.html {redirect_to @item}
         format.js {
           render(:json => {:success => false,
                    :message => flash[:error] }.to_json)
@@ -716,22 +744,27 @@ class DiscussionsController < ApplicationController
     @active_tag
   end
 
-  def check_age
-    @discussion = current_group.discussions.find_by_slug_or_id(params[:id])
+  def set_mode
+    @mode = "discussion"
+    @mode
+  end
 
-    if @discussion.nil?
-      @discussion = current_group.discussions.first(:slugs => params[:id], :select => [:_id, :slug])
-      if @discussion.present?
-        head :moved_permanently, :location => discussion_url(@discussion)
+  def check_age
+    @item = current_group.items.find_by_slug_or_id(params[:id])
+
+    if @item.nil?
+      @item = current_group.items.first(:slugs => params[:id], :select => [:_id, :slug])
+      if @item.present?
+        head :moved_permanently, :location => item_url(@item)
         return
-      elsif params[:id] =~ /^(\d+)/ && (@discussion = current_group.discussions.first(:se_id => $1, :select => [:_id, :slug]))
-        head :moved_permanently, :location => discussion_url(@discussion)
+      elsif params[:id] =~ /^(\d+)/ && (@item = current_group.items.first(:se_id => $1, :select => [:_id, :slug]))
+        head :moved_permanently, :location => item_url(@item)
       else
         raise PageNotFound
       end
     end
 
-    return if session[:age_confirmed] || is_bot? || !@discussion.adult_content
+    return if session[:age_confirmed] || is_bot? || !@item.adult_content
 
     if !logged_in? || (Date.today.year.to_i - (current_user.birthday || Date.today).year.to_i) < 18
       render :template => "welcome/confirm_age"
@@ -739,7 +772,7 @@ class DiscussionsController < ApplicationController
   end
 
   def create_draft!
-    draft = Draft.create!(:discussion => @discussion)
+    draft = Draft.create!(:item => @item)
     session[:draft] = draft.id
     login_required
   end
