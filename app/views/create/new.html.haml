@@ -12,7 +12,7 @@
 -content_for :main do
   = "1. mode: " << @mode.to_s
   - form_for(@item, :html=>{:class => "form", :id => "ask_item"}, :mode => @mode) do |f|
-    =render :partial => "form", :locals => {:f => f}
+    =render :partial => "form", :locals => {:f => f, :mode => @mode}
 
     .group.navform
       .controls.right{:style => "width: 50%"}

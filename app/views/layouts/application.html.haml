@@ -11,17 +11,20 @@
 
   %body
     = render :partial => "shared/analytics"
+    = @current_class
+    #header-container
+      #header-container-inner
+        #leaderboard-container
+          = render :partial => "shared/ads/header_ads"
+        #toolbar-container
+          = render :partial => "shared/toolbar"
+        #header
+          = render :partial => "shared/header"
+        #navigation-container
+          = render :partial => "shared/channel_navigation", :object => @active_tag
+    .clear
+
     #container{:class => @current_class}
-      = @current_class
-      #leaderboard-container
-        = render :partial => "shared/ads/header_ads"
-      #toolbar-container
-        = render :partial => "shared/toolbar"
-      #header
-        = render :partial => "shared/header"
-      #navigation-container
-        = render :partial => "shared/channel_navigation", :object => @active_tag
-      .clear
       #contextual-navigation-container
         = render :partial => "shared/contextual_navigation"
       .clear

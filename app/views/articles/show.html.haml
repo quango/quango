@@ -1,8 +1,3 @@
--content_for :trends do
-  = render :partial => "items/item_topics", :object => @tag_cloud
-
-- @current_class = 'item hentry entry post'
-
 - show_close_request_form = !@item.closed && logged_in? && @item.can_be_requested_to_close_by?(current_user)
 - show_open_request_form = @item.closed && logged_in? && @item.can_be_requested_to_open_by?(current_user)
 
@@ -31,7 +26,7 @@
 
 - content_for :main do
   = javascript_include_merged :show
-  =render :partial => "toolbox", :object=>@item
+  =render :partial => "items/toolbox", :object=>@item
   =render :partial => "items/controls", :object=>@item
   #item-body-col.commentable.markdown
     %a{:name => @item.id}
@@ -52,7 +47,7 @@
             =" [#{t("closed", :scope => "activerecord.attributes.item").upcase}]"
 
         .entry-authors
-          = render :partial => "entry_authors"
+          = render :partial => "items/entry_authors"
 
         .entry-tags.tag-list
           - @item.tags.each do |tag|
@@ -60,7 +55,7 @@
               = link_to h(tag), url_for(:controller => "item", :action => "index", :tags => tag), :rel => "tag"
           - if logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group)) #tofix
             %span.retag
-              = link_to t('.retag'), retag_item_path(@item), :id => 'retag'
+              = link_to t('items.show.retag'), retag_item_path(@item), :id => 'retag'
 
       .entry-content
         = item_body
@@ -71,16 +66,16 @@
   #answers
     .secondary-navigation{:class => @active_subtab.to_s}
       .navlabel
-        = t(".answers_title", :count => @answers.total_entries + (@item.accepted ? 1 : 0))
+        = t("items.show.comments_title", :count => @answers.total_entries + (@item.accepted ? 1 : 0))
       .navcontrols
         .subtabs
           %ul
             %li.newest
-              = link_to t("items.index.newest"), item_path(@item, :sort=>"newest", :anchor => "answers"),:class=>"button", :rel => "nofollow"
+              = link_to t("items.index.newest"), article_path(@item, :sort=>"newest", :anchor => "answers"),:class=>"button", :rel => "nofollow"
             %li.votes
-              = link_to t("items.index.votes"), item_path(@item, :sort=>"votes", :anchor => "answers"),:class=>"button", :rel => "nofollow"
+              = link_to t("items.index.votes"), article_path(@item, :sort=>"votes", :anchor => "answers"),:class=>"button", :rel => "nofollow"
             %li.oldest
-              = link_to t("items.index.oldest"), item_path(@item, :sort=>"oldest", :anchor => "answers"),:class=>"button", :rel => "nofollow"
+              = link_to t("items.index.oldest"), article_path(@item, :sort=>"oldest", :anchor => "answers"),:class=>"button", :rel => "nofollow"
             %li.spin
               = link_to "&#9733;", "#",:class=>"spin button"
     .clear
@@ -88,10 +83,10 @@
     .block
       - if @item.accepted
         -solution = @item.answer
-        =render :partial=> "answer", :locals=> {:item => @item, :answer => solution} unless solution.nil?
+        =render :partial=> "items/answer", :locals=> {:item => @item, :answer => solution} unless solution.nil?
       .hentry
         -@answers.each do |answer|
-          =render :partial=> "answer", :locals=> {:item => @item, :answer => answer}
+          =render :partial=> "items/answer", :locals=> {:item => @item, :answer => answer}
       =will_paginate(@answers)
 
   -unless @item.closed
@@ -112,10 +107,15 @@
 -content_for :sidebar do
   #sidebar
     .block
+      .content
+        =render :partial => "items/create_button"
+      .clear
+
+    .block
       %h3
         = "Asked by"
       .content
-        =render :partial => "member_panel"
+        =render :partial => "items/member_panel"
     .block
       %h3
         = "Participants"

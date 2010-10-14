@@ -11,9 +11,6 @@
   .navtitle
     = t(".title")
 
-    -if @items
-      == (#{@items.total_entries})
-
   %ul
     %li.newest
       = link_to t("items.index.newest"), items_path(:sort=>"newest"), :title => t("items.index.newest_tooltip")

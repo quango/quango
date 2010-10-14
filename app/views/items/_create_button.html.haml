@@ -1,0 +1,6 @@
+-if @mode
+  -form_tag(new_create_path) do
+    =hidden_field_tag 'mode', @mode
+    =submit_tag '&#9733; Add a new ' << @mode.to_s << ' item', :class=>"create-button", :style => "background-color: "+current_group.context_nav_selected+";"
+-else
+  = "no mode"

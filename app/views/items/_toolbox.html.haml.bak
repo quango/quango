@@ -1,0 +1,23 @@
+=@item.mode
+
+#toolbox
+  #vote-col
+    - if current_user && @item.watch_for?(current_user)
+      = link_to image_tag("layer-visible-on.png", 'data-src' => "/images/layer-visible-off.png", :width => 18, :height => 18), unwatch_item_path(@item), :class => 'item-action button', "data-undo" =>  watch_item_path(@item), "data-title" => t(".watch_tooltip"), :title => t(".unwatch_tooltip"), :id => "watch-item"
+
+    - else
+      = link_to image_tag("layer-visible-off.png", 'data-src' => "/images/layer-visible-on.png", :width => 18, :height => 18), watch_item_path(@item), :class => 'item-action button', "data-undo" =>  unwatch_item_path(@item), "data-title" => t(".unwatch_tooltip"), :title => t(".watch_tooltip"), :id => "watch-item"
+
+    - if logged_in? && favorite = current_user.favorite(@item)
+      = link_to image_tag("favorites.png", 'data-src' => "/images/unfavorites.png", :width => 18, :height => 18), unfavorite_item_path(@item), :id => "unfavorite-link", :title => t(".unfavorite_tooltip"), :class => 'item-action button watch', "data-undo" =>  favorite_item_path(@item), "data-title" => t(".favorite_tooltip"), 'data-counter' => '.favorites_count'
+
+    - else
+      = link_to image_tag("unfavorites.png", 'data-src' => "/images/favorites.png", :width => 18, :height => 18), favorite_item_path(@item), :id => "favorite-link", :title => t(".favorite_tooltip"), :class => 'item-action button unwatch', "data-undo" =>  unfavorite_item_path(@item), "data-title" => t(".unfavorite_tooltip"), 'data-counter' => '.favorites_count'
+
+    %button.share
+      = #render :partial => "share"
+
+    =vote_box(@item, item_path(@item), @item.closed)
+
+.clear
+

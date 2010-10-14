@@ -3,17 +3,19 @@
   .navtitle
     = t(".title", :title => h(@item.title))
 
-#move_item
-  .markdown{:style => "width: 92%"}
-    = markdown(@item.body)
+-content_for :main do
 
-  .tag-list
-    -@item.tags.each do |tag|
-      %span.tag
-        = link_to h(tag), url_for(:controller => "items", :action => "index", :tags => tag), :rel => "tag"
-  %div
-    %b
-      = t("items.show.asked_on")
-      = link_to h(@item.group.name), domain_url(:custom => @item.group.domain)
+  #move_item
+    .markdown{:style => "width: 92%"}
+      = markdown(@item.body)
 
-  = render :partial => "items/retag_form"
+    .tag-list
+      -@item.tags.each do |tag|
+        %span.tag
+          = link_to h(tag), url_for(:controller => "items", :action => "index", :tags => tag), :rel => "tag"
+    %div
+      %b
+        = t("items.show.asked_on")
+        = link_to h(@item.group.name), domain_url(:custom => @item.group.domain)
+
+    = render :partial => "items/retag_form"

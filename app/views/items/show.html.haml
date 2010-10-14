@@ -30,6 +30,7 @@
 = error_messages_for 'answer'
 
 - content_for :main do
+  = "mode: " << @item.mode
   = javascript_include_merged :show
   =render :partial => "toolbox"
   =render :partial => "controls", :object=>@item

@@ -1,4 +1,4 @@
-class NewsfeedsController < ApplicationController
+class CreateController < ApplicationController
   before_filter :login_required, :except => [:new, :create, :index, :show, :tags, :unanswered, :related_items, :tags_for_autocomplete, :retag, :retag_to]
   before_filter :admin_required, :only => [:move, :move_to]
   before_filter :moderator_required, :only => [:close]
@@ -6,11 +6,11 @@ class NewsfeedsController < ApplicationController
   before_filter :check_update_permissions, :only => [:edit, :update, :revert]
   before_filter :check_favorite_permissions, :only => [:favorite, :unfavorite] #TODO remove this
   before_filter :set_active_tag
-  before_filter :set_mode
+  before_filter :get_mode
   before_filter :check_age, :only => [:show]
   before_filter :check_retag_permissions, :only => [:retag, :retag_to]
 
-  tabs :default => :news, :tags => :tags,
+  tabs :default => @mode, :tags => :tags,
        :unanswered => :unanswered, :new => :ask_item
 
   subtabs :index => [[:newest, "created_at desc"], [:hot, "hotness desc, views_count desc"], [:votes, "votes_average desc"], [:activity, "activity_at desc"], [:expert, "created_at desc"]],
@@ -24,49 +24,7 @@ class NewsfeedsController < ApplicationController
     return
   end
 
-  # GET /items
-  # GET /items.xml
-  def index
-    if params[:language] || request.query_string =~ /tags=/
-      params.delete(:language)
-      head :moved_permanently, :location => url_for(params)
-      return
-    end
-
-    set_page_title(t("items.index.title"))
-    conditions = scoped_conditions(:banned => false)
-
-    if params[:sort] == "hot"
-      conditions[:activity_at] = {"$gt" => 5.days.ago}
-    end
-
-    @items = Item.paginate({:per_page => 25, :page => params[:page] || 1,
-                       :order => current_order,
-                       :fields => {:_keywords => 0, :watchers => 0, :flags => 0,
-                                   :close_requests => 0, :open_requests => 0,
-                                   :versions => 0}}.merge(conditions))
-
-    @langs_conds = scoped_conditions[:language][:$in]
-
-    if logged_in?
-      feed_params = { :feed_token => current_user.feed_token }
-    else
-      feed_params = {  :lang => I18n.locale,
-                          :mylangs => current_languages }
-    end
-    add_feeds_url(url_for({:format => "atom"}.merge(feed_params)), t("feeds.items"))
-    if params[:tags]
-      add_feeds_url(url_for({:format => "atom", :tags => params[:tags]}.merge(feed_params)),
-                    "#{t("feeds.tag")} #{params[:tags].inspect}")
-    end
-    @tag_cloud = Item.tag_cloud(scoped_conditions, 25)
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json  { render :json => @items.to_json(:except => %w[_keywords watchers slugs]) }
-      format.atom
-    end
-  end
+ 
 
 
   def history
@@ -78,7 +36,23 @@ class NewsfeedsController < ApplicationController
     end
   end
 
+  def diff
+    @item = current_group.items.find_by_slug_or_id(params[:id])
+    @prev = params[:prev]
+    @curr = params[:curr]
+    if @prev.blank? || @curr.blank? || @prev == @curr
+      flash[:error] = "please, select two versions"
+      render :history
+    else
+      if @prev
+        @prev = (@prev == "current" ? :current : @prev.to_i)
+      end
 
+      if @curr
+        @curr = (@curr == "current" ? :current : @curr.to_i)
+      end
+    end
+  end
 
   def revert
     @item.load_version(params[:version].to_i)
@@ -242,10 +216,12 @@ class NewsfeedsController < ApplicationController
   # POST /items
   # POST /items.xml
   def create
+
     @item = Item.new
     @item.safe_update(%w[mode title body language tags wiki anonymous], params[:item])
     @item.group = current_group
     @item.user = current_user
+    @item.mode = @mode.to_s
 
     if !logged_in?
       if recaptcha_valid? && params[:user]
@@ -272,6 +248,7 @@ class NewsfeedsController < ApplicationController
     respond_to do |format|
       if (logged_in? ||  (@item.user.valid? && recaptcha_valid?)) && @item.save
         sweep_item_views
+        put "The mode is " << @mode
 
         current_group.tag_list.add_tags(*@item.tags)
         unless @item.anonymous
@@ -287,13 +264,13 @@ class NewsfeedsController < ApplicationController
 
           (users - followers).each do |u|
             if !u.email.blank?
-              Notifier.deliver_give_advice(u, current_group, @item, false)
+              #Notifier.deliver_give_advice(u, current_group, @item, false)
             end
           end
 
           followers.each do |u|
             if !u.email.blank?
-              Notifier.deliver_give_advice(u, current_group, @item, true)
+              #Notifier.deliver_give_advice(u, current_group, @item, true)
             end
           end
         end
@@ -301,7 +278,14 @@ class NewsfeedsController < ApplicationController
         current_group.on_activity(:ask_item)
         flash[:notice] = t(:flash_notice, :scope => "items.create")
 
-        format.html { redirect_to(item_path(@item)) }
+        if @item.mode == "news"
+          format.html { redirect_to(newsfeed_path(@item)) }        
+        elsif @item.mode == "article"
+          format.html { redirect_to(article_path(@item)) }        
+        else
+          format.html { redirect_to(item_path(@item)) }
+        end
+
         format.json { render :json => @item.to_json(:except => %w[_keywords watchers]), :status => :created}
       else
         @item.errors.add(:captcha, "is invalid") unless recaptcha_valid?
@@ -724,12 +708,12 @@ class NewsfeedsController < ApplicationController
   end
 
   def set_active_tag
-    @active_tag = "tag_#{params[:tags]}" if params[:tags]
+    @active_tag = ""
     @active_tag
   end
 
-  def set_mode
-    @mode = "news"
+  def get_mode
+    @mode = params[:mode]
     @mode
   end
 

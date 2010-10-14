@@ -10,7 +10,7 @@ class ArticlesController < ApplicationController
   before_filter :check_age, :only => [:show]
   before_filter :check_retag_permissions, :only => [:retag, :retag_to]
 
-  tabs :default => @mode, :tags => :tags,
+  tabs :default => :articles, :tags => :tags,
        :unanswered => :unanswered, :new => :ask_item
 
   subtabs :index => [[:newest, "created_at desc"], [:hot, "hotness desc, views_count desc"], [:votes, "votes_average desc"], [:activity, "activity_at desc"], [:expert, "created_at desc"]],
@@ -246,7 +246,8 @@ class ArticlesController < ApplicationController
   def new
     @item = Item.new(params[:item])
     respond_to do |format|
-      format.html # new.html.erb
+      #format.html # new.html.erb
+      format.html { redirect_to(new_create_path(:mode => @mode)) }
       format.json  { render :json => @item.to_json }
     end
   end
@@ -255,77 +256,7 @@ class ArticlesController < ApplicationController
   def edit
   end
 
-  # POST /items
-  # POST /items.xml
-  def create
-    @item = Item.new
-    @item.safe_update(%w[mode title body language tags wiki anonymous], params[:item])
-    @item.group = current_group
-    @item.user = current_user
 
-    if !logged_in?
-      if recaptcha_valid? && params[:user]
-        @user = User.first(:email => params[:user][:email])
-        if @user.present?
-          if !@user.anonymous
-            flash[:notice] = "The user is already registered, please log in"
-            return create_draft!
-          else
-            @item.user = @user
-          end
-        else
-          @user = User.new(:anonymous => true, :login => "Anonymous")
-          @user.safe_update(%w[name email website], params[:user])
-          @user.login = @user.name if @user.name.present?
-          @user.save!
-          @item.user = @user
-        end
-      elsif !AppConfig.recaptcha["activate"]
-        return create_draft!
-      end
-    end
-
-    respond_to do |format|
-      if (logged_in? ||  (@item.user.valid? && recaptcha_valid?)) && @item.save
-        sweep_item_views
-
-        current_group.tag_list.add_tags(*@item.tags)
-        unless @item.anonymous
-          @item.user.stats.add_item_tags(*@item.tags)
-          @item.user.on_activity(:ask_item, current_group)
-          Magent.push("actors.judge", :on_ask_item, @item.id)
-
-          # TODO: move to magent
-          users = User.find_experts(@item.tags, [@item.language],
-                                                    :except => [@item.user.id],
-                                                    :group_id => current_group.id)
-          followers = @item.user.followers(:group_id => current_group.id, :languages => [@item.language])
-
-          (users - followers).each do |u|
-            if !u.email.blank?
-              Notifier.deliver_give_advice(u, current_group, @item, false)
-            end
-          end
-
-          followers.each do |u|
-            if !u.email.blank?
-              Notifier.deliver_give_advice(u, current_group, @item, true)
-            end
-          end
-        end
-
-        current_group.on_activity(:ask_item)
-        flash[:notice] = t(:flash_notice, :scope => "items.create")
-
-        format.html { redirect_to(item_path(@item)) }
-        format.json { render :json => @item.to_json(:except => %w[_keywords watchers]), :status => :created}
-      else
-        @item.errors.add(:captcha, "is invalid") unless recaptcha_valid?
-        format.html { render :action => "new" }
-        format.json { render :json => @item.errors+@item.user.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
 
   # PUT /items/1
   # PUT /items/1.xml

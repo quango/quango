@@ -27,11 +27,11 @@ class CommentsController < ApplicationController
       flash[:error] = @comment.errors.full_messages.join(", ")
     end
 
-    # TODO: use magent to do it
+    # TODO: use magent to do it, temporarily disabled
     if (item = @comment.find_item) && (recipient = @comment.find_recipient)
       email = recipient.email
       if !email.blank? && current_user.id != recipient.id && recipient.notification_opts.new_answer
-        Notifier.deliver_new_comment(current_group, @comment, recipient, item)
+        #Notifier.deliver_new_comment(current_group, @comment, recipient, item)
       end
     end
 

@@ -10,12 +10,13 @@ class DiscussionsController < ApplicationController
   before_filter :check_age, :only => [:show]
   before_filter :check_retag_permissions, :only => [:retag, :retag_to]
 
-  tabs :default => @mode, :tags => :tags,
+  tabs :default => :discussions, :tags => :tags,
        :unanswered => :unanswered, :new => :ask_item
 
   subtabs :index => [[:newest, "created_at desc"], [:hot, "hotness desc, views_count desc"], [:votes, "votes_average desc"], [:activity, "activity_at desc"], [:expert, "created_at desc"]],
           :unanswered => [[:newest, "created_at desc"], [:votes, "votes_average desc"], [:mytags, "created_at desc"]],
           :show => [[:votes, "votes_average desc"], [:oldest, "created_at asc"], [:newest, "created_at desc"]]
+
   helper :votes
   helper :channels
 
@@ -246,7 +247,8 @@ class DiscussionsController < ApplicationController
   def new
     @item = Item.new(params[:item])
     respond_to do |format|
-      format.html # new.html.erb
+      #format.html # new.html.erb
+      format.html { redirect_to(new_create_path(:mode => @mode)) }
       format.json  { render :json => @item.to_json }
     end
   end

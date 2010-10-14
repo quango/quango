@@ -12,8 +12,7 @@
     .navlabel
       = t("layouts.application.videos")
       -if current_user.owner_of?(current_group)
-        -if @items
-          == (#{@items.total_entries})
+
     .navcontrols
       .subtabs
         %ul

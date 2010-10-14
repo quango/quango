@@ -15,9 +15,7 @@
 
     %div{:style=>"float:right;width:234px;"}
       -if @mode
-        -form_tag(new_create_path) do
-          =hidden_field_tag 'mode', @mode
-          =submit_tag '&#9733; New ' << @mode.capitalize.to_s, :class=>"sidebar-button"
+        = render :partial => "items/create_button"
       -else
         = "no mode"
 

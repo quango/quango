@@ -16,7 +16,7 @@
 
   %li.entry.item{:class => class_for_item(item)}
     / Item Stats
-    =render :partial => "stats", :locals => {:item => item}
+    =render :partial => "/items/stats", :locals => {:item => item}
     / Item Summary
     .summary
       .left.vote-icon

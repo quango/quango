@@ -2,36 +2,7 @@
 
   #contextual-navigation{:class => @active_tab}
     %ul
-      %li.label      
-        = "Show: "
       %li.news
-        =link_to t("layouts.application.news"), newsfeeds_path
-      %li.video
-        =link_to t("layouts.application.videos"), videos_path
-      %li.articles
-        =link_to t("layouts.application.articles"), articles_path
-      %li.blogs
-        =link_to t("layouts.application.blogs"), blogs_path
-      %li.questions
-        =link_to t("layouts.application.questions"), questions_path
-      %li.discussions
-        =link_to t("layouts.application.discussions"), discussions_path
-      %li.bookmarks
-        =link_to t("layouts.application.bookmarks"), bookmarks_path, :mode=>"bookmark"
-      %li.users
-        =link_to t("layouts.application.users"), users_path
-      %li
-        %small
-          = "(current_tags: " << h(current_tags.to_s).capitalize << ")"
-  .clear
-
--else
-
-  #contextual-navigation{:class => @active_tab}
-    %ul
-      %li.label      
-        = "Show: "
-      %li.newsfeed
         =link_to t("layouts.application.news"), newsfeeds_path
       %li.video
         =link_to t("layouts.application.videos"), videos_path
@@ -52,8 +23,33 @@
           = "(current_tags: " << h(current_tags.to_s).capitalize << ")"
   .clear
 
-  %script
-    = "$(function() {"
-    = "$('li."+ @mode.to_s+"').css({'background-color':'#990000'});"
-    = "$('li."+ @mode.to_s+" a').css({'color':'#fff'});"
-    = "});"
+-else
+
+  #contextual-navigation{:class => @active_tab}
+    %ul
+      %li.news
+        =link_to t("layouts.application.news"), newsfeeds_path
+      %li.video
+        =link_to t("layouts.application.videos"), videos_path
+      %li.article
+        =link_to t("layouts.application.articles"), articles_path
+      %li.blog
+        =link_to t("layouts.application.blogs"), blogs_path
+      %li.question
+        =link_to t("layouts.application.questions"), questions_path
+      %li.discussion
+        =link_to t("layouts.application.discussions"), discussions_path
+      %li.bookmark
+        =link_to t("layouts.application.bookmarks"), bookmarks_path, :mode=>"bookmark"
+      %li.users
+        =link_to t("layouts.application.users"), users_path
+      %li
+        %small
+          = "(current_tags: " << h(current_tags.to_s).capitalize << ")"
+  .clear
+
+%script
+  = "$(function() {"
+  = "$('li."+ @mode.to_s+"').css({'background-color':'"+current_group.context_nav_selected+"'});"
+  = "$('li."+ @mode.to_s+" a').css({'color':'#fff'});"
+  = "});"

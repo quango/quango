@@ -10,7 +10,7 @@ class VideosController < ApplicationController
   before_filter :check_age, :only => [:show]
   before_filter :check_retag_permissions, :only => [:retag, :retag_to]
 
-  tabs :default => @mode, :tags => :tags,
+  tabs :default => :video, :tags => :tags,
        :unanswered => :unanswered, :new => :ask_item
 
   subtabs :index => [[:newest, "created_at desc"], [:hot, "hotness desc, views_count desc"], [:votes, "votes_average desc"], [:activity, "activity_at desc"], [:expert, "created_at desc"]],
