@@ -20,37 +20,29 @@
           = render :partial => "shared/toolbar"
         #header
           = render :partial => "shared/header"
-        #navigation-container
+        #channel-container
           = render :partial => "shared/channel_navigation", :object => @active_tag
-    .clear
+    #navigation-container
+      #navigation-container-inner
+        = render :partial => "shared/contextual_navigation"
+        .clear
+        #trends
+          = yield :trends
+        .clear
 
     #container{:class => @current_class}
-      #contextual-navigation-container
-        = render :partial => "shared/contextual_navigation"
-      .clear
-      #trends
-        = yield :trends
-      .clear
+
       #announcement
         = render :partial => "shared/announcements"
 
-
       #wrapper
-
         #main
-
           #block-text.block
-
-
             .content
-
-
               .inner
                 = yield :main
                 .clear
-        #sidebar
-          = yield :sidebar
-    .clear  
+
     #footer
       .block.content
         = render :partial => "layouts/footer"

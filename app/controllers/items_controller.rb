@@ -252,13 +252,23 @@ class ItemsController < ApplicationController
   def edit
   end
 
+  def images
+    return 
+
+
+  end
+
   # POST /items
   # POST /items.xml
   def create
     @item = Item.new
-    @item.safe_update(%w[mode title body language tags wiki anonymous], params[:item])
+    @item.safe_update(%w[mode title bookmark main_image main_thumbnail images body language tags wiki anonymous], params[:item])
     @item.group = current_group
     @item.user = current_user
+    
+    if @item.mode == "video"
+      @item.main_thumbnail = ""
+    end
 
     if !logged_in?
       if recaptcha_valid? && params[:user]
@@ -345,7 +355,7 @@ class ItemsController < ApplicationController
   # PUT /items/1.xml
   def update
     respond_to do |format|
-      @item.safe_update(%w[mode title body language tags wiki adult_content version_message  anonymous], params[:item])
+      @item.safe_update(%w[mode title bookmark main_thumbnail images body language tags wiki adult_content version_message  anonymous], params[:item])
       @item.updated_by = current_user
       @item.last_target = @item
 
@@ -357,7 +367,27 @@ class ItemsController < ApplicationController
         sweep_item(@item)
 
         flash[:notice] = t(:flash_notice, :scope => "items.update")
-        format.html { redirect_to(item_path(@item)) }
+
+        if @item.mode == "news"
+          format.html { redirect_to(newsfeed_path(@item)) }        
+        elsif @item.mode == "video"
+          format.html { redirect_to(video_path(@item)) }        
+        elsif @item.mode == "article"
+          format.html { redirect_to(article_path(@item)) }  
+        elsif @item.mode == "blog"
+          format.html { redirect_to(blog_path(@item)) }  
+        elsif @item.mode == "question"
+          format.html { redirect_to(question_path(@item)) }  
+        elsif @item.mode == "discussion"
+          format.html { redirect_to(discussion_path(@item)) }  
+        elsif @item.mode == "bookmark"
+          format.html { redirect_to(bookmark_path(@item)) }  
+        else
+          format.html { redirect_to(item_path(@item)) }
+        end
+
+
+        #format.html { redirect_to(item_path(@item)) }
         format.json  { head :ok }
       else
         format.html { render :action => "edit" }

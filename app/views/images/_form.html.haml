@@ -1,0 +1,10 @@
+.group
+  = hidden_field_tag "source", source, :id => "source_#{id}"
+  -#= "Title"
+  -#= text_field_tag "title", @image.title
+  -#= "Source"
+  -#= text_field_tag "dependent of", source
+  = "Description"
+  = text_field_tag "body", @image.body, :class => "comment_text_area markdown_editor", :id => "comment_#{id}"
+
+  %br.clear

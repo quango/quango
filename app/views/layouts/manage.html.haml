@@ -9,12 +9,23 @@
     = render :partial => "shared/layout/javascript"
 
   %body
+  %body
     = render :partial => "shared/analytics"
+
+    #header-container
+      #header-container-inner
+        #leaderboard-container
+          = render :partial => "shared/ads/header_ads"
+        #toolbar-container
+          = render :partial => "shared/toolbar"
+        #header
+          = render :partial => "shared/header_manage"
+        #channel-container
+          = render :partial => "shared/channel_navigation", :object => @active_tag
+
+
     #container
-      #toolbar-container
-        = render :partial => "shared/toolbar"
-      #header
-        = render :partial => "shared/header_admin"
+
 
       #main-bar{:class => @active_tab}
         = @active_tab
@@ -24,8 +35,9 @@
         #main{:style=>"width: 100%"}
           #block-text.block
             .secondary-navigation{:class => @active_subtab.to_s}
-              = yield :subtabs
-              .clear
+              .navcontrols
+                = yield :subtabs
+                .clear
             .content
               %p.markdown
                 = show_flash_messages(:class => "flash", :markdown => true)

@@ -61,12 +61,26 @@ input.checkbox
 #main.sidebar
   background: pink
   width: 234px
-  float: right
+  float: left
 
 #main
   background: #fff
-  width: 702px
-  float: left
+
+  .left
+    width: 468px
+    float: left
+  .right
+    width: 468px
+    float: right
+
+  .show-left
+    width: 702px
+    float: left
+  .show-right
+    width: 234px
+    float: right
+
+
 
   .block
     padding: 0
@@ -77,7 +91,7 @@ input.checkbox
     .content
       background: #fff
       .inner
-        padding: 0px 3px 0px 0px
+        padding: 0
 
     h2.title
       margin: 10px 0 5px 0
@@ -95,7 +109,14 @@ input.checkbox
   margin: 0
 
 #sidebar
-  width: 234px
+  &.left
+    width: 208px
+    float: left
+
+  &.right
+    width: 234px
+    float: right
+
   .notice
     background-color: #D9E3ED
     padding: 0 10px

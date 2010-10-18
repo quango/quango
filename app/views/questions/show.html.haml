@@ -24,7 +24,7 @@
 - source = item_path(@item)
 = error_messages_for 'answer'
 
-- content_for :main do
+- content_for :show_item do
   = javascript_include_merged :show
   =render :partial => "items/toolbox", :object=>@item
   =render :partial => "items/controls", :object=>@item
@@ -195,3 +195,14 @@
               -related_items.each do |rq|
                 %li
                   = link_to h(rq.title), item_path(rq), :title => truncate(strip_tags(rq.body), :length => 200)
+
+- content_for :main do
+
+  .show-left
+    = yield :show_item
+
+  .show-right
+    = yield :sidebar
+
+
+

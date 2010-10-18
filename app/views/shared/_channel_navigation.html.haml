@@ -6,7 +6,7 @@
         = "Channels: "
       -if !current_group.has_custom_channels
         -cache("autochannel_#{current_group.id}") do
-          = self.autochannel
+          = #self.autochannel #todo: this broke groups for some reason
       %li.welcome
         = link_to ("..."), domain_url(:custom => current_group.domain)
     .clear

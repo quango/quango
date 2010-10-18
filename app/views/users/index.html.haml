@@ -1,11 +1,5 @@
--content_for :navigation do
-  = render :partial => "shared/channel_navigation"
-
--content_for :contextual_navigation do
-  = render :partial => "shared/contextual_navigation"
-
 -content_for :trends do
-  = render :partial => "shared/trending_topics", :object => @tag_cloud
+  = render :partial => "items/item_topics", :object => @tag_cloud
 
 -content_for :subtabs do
   .navtitle
@@ -28,11 +22,53 @@
   = text_field_tag "q", params[:q], :class => "text_field filter_field"
   = submit_tag("filter")
 
-/Users
-%ul.items#users
-  -@users.each do |user|
-    = render :partial => "user", :object => user
+-content_for :sidebar_right do
+  .block
+    %h3
+      = h("Something")
+    .content
+      = h("Something else")
+  .block
+    %h3
+      = h("Video")
+    .content
+      = render :partial => "videos/video_player_small"
 
-#additional_info
-  =will_paginate @users
+-content_for :sidebar_left do
+  .block
+    %h3
+      = h("Something")
+    .content
+      = h("Something else")
+
+-content_for :list do
+
+  %ul.items#users
+    -@users.each do |user|
+      = render :partial => "user", :object => user
+
+  #additional_info
+    =will_paginate @users
+    .clear
+
+
+/Layout
+-content_for :main do
+
+
+
+  #main.right
+
+    #sidebar.left
+      = yield :sidebar_left
+
+    #sidebar.right
+      = yield :sidebar_right
+    .clear
+
+  #main.left
+    = yield :subtabs
+    .clear
+    = yield :list
   .clear
+

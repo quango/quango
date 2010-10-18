@@ -1,10 +1,14 @@
 
-class Comment
+class Image
   include MongoMapper::Document
   include Support::Voteable
 
   key :_id, String
   key :_type, String
+
+  key :title, String
+  key :source, String
+
   key :body, String, :required => true
   key :language, String, :default => "en"
   key :banned, Boolean, :default => false
@@ -26,14 +30,12 @@ class Comment
   validate :disallow_spam
 
   def ban
-    self.collection.update({:_id => self.id}, {:$set => {:banned => true}},
-                                               :upsert => true)
+    self.collection.update({:_id => self.id}, {:$set => {:banned => true}})
   end
 
   def self.ban(ids)
     ids.each do |id|
-      self.collection.update({:_id => id}, {:$set => {:banned => true}},
-                                                       :upsert => true)
+      self.collection.update({:_id => id}, {:$set => {:banned => true}})
     end
   end
 
@@ -59,7 +61,7 @@ class Comment
 
   def find_discussion
     discussion = nil
-    if self.commentable.kind_of?(discussion)
+    if self.commentable.kind_of?(Discussion)
       discussion = self.commentable
     elsif self.commentable.respond_to?(:discussion)
       discussion = self.commentable.discussion
@@ -85,7 +87,7 @@ class Comment
   def discussion_id
     discussion_id = nil
 
-    if self.commentable_type == "discussion"
+    if self.commentable_type == "Discussion"
       discussion_id = self.commentable_id
     elsif self.commentable_type == "Answer"
       discussion_id = self.commentable.discussion_id

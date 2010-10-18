@@ -1,0 +1,14 @@
+-content_for :topic_map_navigation do
+  .secondary-navigation{:class => @active_subtab.to_s}
+    .navlabel
+      = t("layouts.application.topic_map") << " ("+@mode+")"
+      -if current_user.owner_of?(current_group)
+
+    .navcontrols
+      .subtabs
+        %ul
+          %li.open
+            = link_to "+", videos_path(:sort=>"newest"), :title => t("items.index.newest_tooltip"),:class=>"button"
+#topic-map
+  = yield :topic_map_navigation
+  =# "mode: " << @mode

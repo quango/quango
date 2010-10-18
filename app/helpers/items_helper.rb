@@ -1,4 +1,13 @@
 module ItemsHelper
+
+  def has_images(item)
+    if item.images
+      return true
+    else
+      return false
+    end
+  end
+
   def microblogging_message(item)
     message = "#{h(item.title)}"
     message += " "
@@ -8,6 +17,10 @@ module ItemsHelper
 
   def linkedin_url(item)
     linkedin_share = item_path(item, :only_path =>false)
+  end
+
+  def video_thumbnail(item)
+    video_thumbnail = "thumbnail.gif"
   end
 
   def share_url(item, service)

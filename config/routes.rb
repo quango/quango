@@ -51,6 +51,8 @@ ActionController::Routing::Routes.draw do |map|
               #:as => "channels"
 
   map.resources :create
+  #map.resources :images
+
   map.resources :questions
 
 
@@ -77,13 +79,16 @@ ActionController::Routing::Routes.draw do |map|
                                             :retag_to => :put,
                                             :close => :put,
                                             :open => :put} do |items|
+        items.resources :images
         items.resources :comments
+
         items.resources :answers, :member => {:history => :get,
                                                   :diff => :get,
                                                   :revert => :get} do |answers|
           answers.resources :comments
           answers.resources :flags
         end
+
         items.resources :flags
         items.resources :close_requests
         items.resources :open_requests
@@ -95,7 +100,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'items/unanswered/tags/:tags', :controller => :items, :action => :unanswered
 
   build_items_routes(map)
-  build_items_routes(map, :path_prefix => '/:language', :name_prefix => "with_language_") #deprecated route
+  #build_items_routes(map, :path_prefix => '/:language', :name_prefix => "with_language_") #deprecated route
 
 
 

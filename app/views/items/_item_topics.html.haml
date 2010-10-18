@@ -1,27 +1,21 @@
 -cache("trending_topics_#{current_group.id}") do
-  %div{:style=>"width:962px;height:26px; margin:13px 0; line-height:26px;"}
+  %div{:style=>"width:962px;height:26px;line-height:26px"}
 
-
-
-    %div.left
-      -if @mode
-        = @mode.capitalize.to_s << " trends"
-      -else
-        = "Trends: "
-
-    %div{:style=>"float:left;width:580px;margin-right:26px;"}
-      %marquee{ :behavior => 'scroll',:scrollamount => '1',}
-        = self.item_topics
+    %div{:style=>"float:left; width:702px; margin-bottom:7px;"}
+      %span{:style=>"float:left; width:20%; color:white"}
+        -if @mode
+          = @mode.capitalize.to_s << " trends"
+        -else
+          = "Trends: "
+      %span{:style=>"float:right; width:80%"}
+        %marquee{ :behavior => 'scroll',:scrollamount => '1',}
+          = self.item_topics
 
     %div{:style=>"float:right;width:234px;"}
       -if @mode
         = render :partial => "items/create_button"
       -else
         = "no mode"
-
-
-
-
 
   .clear
 

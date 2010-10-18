@@ -10,10 +10,12 @@ class Item
   ensure_index :language
 
   MODES = %w{news article video blog question discussion bookmark}
+  VIDEO_MODES = %w{youtube vimeo another}
 
   key :_id, String
   key :mode, String, :in => MODES
   key :bookmark, String
+  #key :link, String
   key :title, String, :required => true
   key :body, String
   key :persons, String
@@ -22,8 +24,16 @@ class Item
   slug_key :title, :unique => true, :min_length => 8
   key :slugs, Array, :index => true
 
+  key :video_mode, String, :in => VIDEO_MODES, :default => "youtube"
+
+  key :thumbnail, :max_length => 1.megabytes
+
+  key :main_image, String, :default => "main-image.gif"
+  key :main_thumbnail, String, :default => "main-thumbnail.gif"
+
   key :answers_count, Integer, :default => 0, :required => true
   key :views_count, Integer, :default => 0
+  key :image_count, Integer, :default => 0
   key :hotness, Integer, :default => 0
   key :flags_count, Integer, :default => 0
   key :favorites_count, Integer, :default => 0
@@ -70,6 +80,7 @@ class Item
   has_many :badges, :as => "source"
   has_many :comments, :as => "commentable", :order => "created_at asc", :dependent => :destroy
 
+  has_many :images
   has_many :flags
   has_many :close_requests
   has_many :open_requests
@@ -145,6 +156,15 @@ class Item
 
   def answer_removed!
     self.decrement(:answers_count => 1)
+  end
+
+  def image_added!
+    self.increment(:image_count => 1)
+    on_activity
+  end
+
+  def image_removed!
+    self.decrement(:image_count => 1)
   end
 
   def flagged!

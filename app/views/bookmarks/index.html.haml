@@ -24,9 +24,7 @@
           %li.activity
             = link_to t("items.index.active"), bookmarks_path(:sort=>"activity"), :title => t("items.index.active_tooltip"),:class=>"button", :rel => "nofollow"
 
-
-
--content_for :sidebar do
+-content_for :sidebar_right do
   -if logged_in?
     = render :partial => "shared/language_filter"
 
@@ -37,15 +35,19 @@
     .content
       = render :partial => "shared/tag_list", :object => @tag_cloud
 
+-content_for :sidebar_left do
+  .block
+    %h3
+      = h("Video")
+    .content
+      = render :partial => "videos/video_player_small"
+  .block
+    %h3
+      = h("Something")
+    .content
+      = h("Something else")
 
-= render :partial => "searches/search_box"
-
-/Items
--content_for :main do
-
-  = "mode:" << @mode.to_s
-  = yield :subtabs
-  .clear
+-content_for :list do
 
   %ul.items#items
     -if @items.empty?
@@ -63,3 +65,26 @@
       =link_to t(".unanswered_items"), unanswered_items_path
 
     .clear
+
+/Layout
+-content_for :main do
+
+
+
+  #main.right
+    #topics
+      = render :partial => "items/topic_map", :mode => @mode
+    .clear
+    #sidebar.left
+      = yield :sidebar_left
+
+    #sidebar.right
+      = yield :sidebar_right
+    .clear
+
+  #main.left
+    = yield :subtabs
+    .clear
+    = yield :list
+  .clear
+

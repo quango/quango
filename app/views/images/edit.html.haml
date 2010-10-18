@@ -1,0 +1,6 @@
+-content_for :main do
+  -content_for :subtabs do
+    .navtitle
+      =t(".title")
+
+  = render :partial => "comments/edit_form", :locals => {:source => params[:source], :commentable => @comment.commentable}
