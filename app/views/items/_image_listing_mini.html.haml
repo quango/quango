@@ -1,0 +1,36 @@
+.entry-images
+-if logged_in?
+  = "Images:"
+
+  / Images
+  .children.images
+    %ul
+    -@item.images.each do |image|
+      %li 
+        = image.body.to_s
+      -#= render :partial => "images/image", :object => image, :locals => {:source => source, :mini => true}
+
+  .clear
+  -#= h(item_images_path(@item))
+  .forms.image-form
+    -form_tag item_images_path(@item), :class => "form addImage", :method => "post" do
+      -@image = Image.new
+      = render :partial => "images/form", :locals => {:source => @item.id,:mode => @item.mode,:parent => @item, :image => @image}
+      .group.navform
+        = submit_tag "submit", :class => "button"
+        = t("global.or")
+        = link_to t('scaffold.cancel'), '', :class => 'cancel_comment'
+
+
+      -if @item.image_count > 0
+        = "This item has images, why net edit the thumbnails or something"
+
+
+.block
+  .hentry
+    -@item.images.each do |image|
+      = h(image.title.to_s)
+      -#=render :partial=> "items/answer", :locals=> {:item => @item, :answer => answer}
+
+
+.clear

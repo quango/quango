@@ -6,7 +6,10 @@ class Image
   key :_id, String
   key :_type, String
 
-  key :title, String
+  key :mode, String
+  key :parent, String
+
+  key :title, String, :required => true
   key :source, String
 
   key :body, String, :required => true
@@ -14,6 +17,9 @@ class Image
   key :banned, Boolean, :default => false
 
   timestamps!
+
+  key :item_id, String, :index => true
+  belongs_to :item
 
   key :user_id, String, :index => true
   belongs_to :user

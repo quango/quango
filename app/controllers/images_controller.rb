@@ -6,6 +6,9 @@ class ImagesController < ApplicationController
   def create
     @image = Image.new
     @image.body = params[:body]
+    @image.mode = params[:mode]
+    @image.item_id = params[:source]
+    @image.parent = params[:source]
     #@image.Commentable = scope
     @image.user = current_user
     @image.group = current_group
@@ -37,6 +40,26 @@ class ImagesController < ApplicationController
 
     respond_to do |format|
       if saved
+
+        if @image.mode == "news"
+          format.html { redirect_to(newsfeed_path(@item)) }        
+        elsif @image.mode == "video"
+          format.html { redirect_to(video_path(@item)) }        
+        elsif @image.mode == "article"
+          format.html { redirect_to(article_path(@item)) }  
+        elsif @image.mode == "blog"
+          format.html { redirect_to(blog_path(@item)) }  
+        elsif @image.mode == "question"
+          format.html { redirect_to(question_path(@item)) }  
+        elsif @image.mode == "discussion"
+          format.html { redirect_to(discussion_path(@item)) }  
+        elsif @image.mode == "bookmark"
+          format.html { redirect_to(bookmark_path(@item)) }  
+        else
+          format.html { redirect_to(item_path(@item)) }
+        end
+
+
         format.html {redirect_to params[:source]}
         format.json {render :json => @image.to_json, :status => :created}
         format.js do
@@ -71,6 +94,7 @@ class ImagesController < ApplicationController
     respond_to do |format|
       @image = Image.find(params[:id])
       @image.body = params[:body]
+      @image.title = params[:title]
       if @image.valid? && @image.save
         if item_id = @image.item_id
           Item.update_last_target(item_id, @image)
@@ -96,7 +120,7 @@ class ImagesController < ApplicationController
     @image.destroy
 
     respond_to do |format|
-      format.html { redirect_to(params[:source]) }
+      format.html { redirect_to(params[:source] << "dastrey") }
       format.json { head :ok }
     end
   end

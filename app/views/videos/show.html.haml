@@ -63,33 +63,7 @@
       .entry-content
         = item_body
 
-      .entry-images
-        -if @item.image_count == 0
-          = "This item has no images, why not add one?"
 
-    -if logged_in?
-      = "Images:"
-
-      / Images
-      .children.images
-        -@item.images.each do |image|
-          = "found:" << image
-          = render :partial => "images/image", :object => image, :locals => {:source => source, :mini => true}
-
-      .clear
-      = h(item_images_path(@item))
-      .forms.image-form
-        -form_tag item_images_path(@item), :class => "form addImage", :method => "post" do
-          -@image = Image.new
-          = render :partial => "images/form", :locals => {:source => source, :image => @image}
-          .group.navform
-            = submit_tag "submit", :class => "button"
-            = t("global.or")
-            = link_to t('scaffold.cancel'), '', :class => 'cancel_comment'
-
-
-          -if @item.image_count > 0
-            = "This item has images, why net edit the thumbnails or something"
 
   .clear
   %a{:name=>"answers"}
@@ -153,9 +127,9 @@
         = "Content"
     .block
       %h3
-        = "Sidebar"
+        = "Associated Images"
       .content
-        = "Content"
+        =render :partial => "items/image_listing_mini", :locals => {:item => @item, :mode => @mode}
 
     - if logged_in? && (current_user.mod_of?(current_group) || current_user.can_view_offensive_counts_on?(current_group))
       -unless @item.flags.count == 0
