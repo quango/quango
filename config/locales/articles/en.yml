@@ -1,0 +1,155 @@
+en:
+  articles:
+    toolbox:
+      watch_tooltip: "Start watching this article"
+      unwatch_tooltip: "Stop watching this article"
+      favorite_tooltip: "Add this article to your favorites"
+      unfavorite_tooltip: "Remove this article from your favorites"
+    controls:
+      close: List Close Requests
+      request_closing: Request Closure
+      request_closing_details: Request to close this article
+      requested_close_as: "You requested to close this article as"
+      close_reason: "The article has been closed for the following reason:"
+      ban: Ban
+      history: Check history
+      retract_request: "Retract request"
+      edit_request: "Edit request"
+      open: Open
+      requested_reopening: "You requested reopening this article"
+      request_opening: Request reopening
+      request_opening_details: Request to re-open this article
+
+      ban: Ban
+
+      flags: Reported as
+      flag: Report this article
+      flagged_as: Flagged as
+
+    index:
+      title: All articles
+      hot:     Hot
+      active:  Active
+      votes:   Votes
+      newest:  Newest
+      oldest:  Oldest
+      ask_article: Ask article
+      empty: "No one has asked any articles yet. Be the first!"
+      help_to_answer: Help us answer
+      unanswered_items: Unanswered articles
+      hot_tooltip: Most activity over the last 5 days
+      active_tooltip: Updated recently
+      votes_tooltip:  Highest votes
+      newest_tooltip: The most recently added
+    show:
+      answers: Answers
+      another_answers: Other answers
+      solution: Solution
+      share: "Share this article on"
+      share_on: "Share this article on %{site}"
+      related_articles: Related articles
+
+      viewed: viewed
+      to_answer_article: to answer this article
+      watch_tooltip: "Watch this article"
+      accepted_tooltip: "One of the answers was accepted as the correct answer."
+
+
+      asked_on: "asked on"
+      last_activity: Latest activity
+      retag: Retag
+      unauthenticated_retag: You need an account to retag articles
+
+
+
+      answers_title:
+        one: "%{count} answer"
+        other: "%{count} answers"
+    retag:
+      title: Retag
+    answer:
+      pick_answer: Pick as solution
+      unset_answer: Unset solution?
+      flag: Flag
+      add_comment: Add comment...
+    article:
+      accepted_tooltip: This article has an answer that has been accepted
+    form:
+      body_tip: What is your article? Be descriptive.
+      language_tip: Select the language the article is asked in.
+      tags_tip:  Use tags to add more information about your article.
+      adult_content: This article contains adult material.
+    flag:
+      title:   Flag article
+    edit:
+      title: Editing article
+    unanswered:
+      title: Unanswered articles
+      tags: Unanswered tags
+      empty: "This group does not have any unanswered articles."
+      my_tags: My tags
+      expert: Experts
+    tags:
+      title: Topics
+      tooltip: Show stuff tagged %{tag}
+      filter: Search for topics
+    new:
+      title: Ask article
+      how_to_ask: How to ask
+    create:
+      flash_notice: "The article was successfully created."
+    update:
+      flash_notice: "The article was successfully updated."
+    solve:
+      flash_notice: "The article was solved."
+    unsolve:
+      flash_notice: "The article is not solved anymore."
+    watch:
+      success:      "You will now receive notifications by email for every new answer to this article."
+    unwatch:
+      success:      "You will not receive notifications by email for every new answer to this article anymore."
+    revert:
+      title: "Revert article"
+    move:
+      title:        "Move article: %{title}"
+      group_label:  "Move to the group with slug:"
+      submit:       "Move!"
+    move_to:
+      success:      "article moved to %{group}"
+      group_dont_exists: "The group %{group} does not exist"
+    shared:
+      flag: Flag
+    retag_form:
+      title:  "Update tags"
+      submit: "Update tags!"
+      cancel: "Cancel"
+    retag_to:
+      success: "The tags have been updated successfully."
+      failure: "Sorry, the tags could not be updated."
+    model:
+      messages:
+        too_short: "Seems too short. Please use more words than %{count} to be more specific."
+        too_many_tags: Sorry, you can only enter 9 tags maximum.
+        empty_tags: Sorry, you need to use at least one tag.
+        title_too_long: "The title is too long. It should not contain more than 100 characters."
+
+  activerecord:
+    models:
+      articles: articles
+      article: article
+    attributes:
+      bookmark:
+        title: Bookmark
+      article:
+        title: Title
+        body: Body
+        tags: Tags
+        asked_by: Asked by
+        answers: Answers
+        views: Views
+        votes: Votes
+        language: Language
+        created_at: Asked
+        updated_at: updated
+        updated_by: updated by
+        closed: Closed
