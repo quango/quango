@@ -1,6 +1,6 @@
 config/locales/
-app/stylesheets/navigation/
-app/stylesheets/themes/
+
+
 *~
 .DS_Store
 *.orig
@@ -9,6 +9,7 @@ coverage
 *.sqlite3
 public/stylesheets/compiled/
 config/shapado.yml
+config/environments/development.rb
 data/*.dat
 config/database.yml
 base_packaged.*

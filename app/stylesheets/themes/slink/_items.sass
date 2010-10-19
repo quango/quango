@@ -1,0 +1,176 @@
+#items
+  .thumbnail
+    height: 59px
+    width: 104px
+    border: 1px solid silver
+    float: left
+    margin-right: 13px
+
+#video-box
+  margin: 0
+  background-color: black
+  background-color: black
+  +rounded(4px,4px,4px,4px)
+
+#video-player
+  border: 0
+  margin: 0 48px
+  padding: 13px
+
+
+#topic-map
+  margin-bottom: 13px
+
+.secondary-navigation 
+  width: 468px
+  height: 30px
+  padding: 3px 0
+  border-top: 3px solid #cbcbcb //#C47878
+  background-color: #dcdcdc
+  //border-bottom: 3px solid #E1C7C7
+ 
+  .navlabel
+    color: #333
+    font-weight: bold
+    line-height: 26px
+    padding-left: 4px
+    text-shadow: #eee 1px 0px 1px
+
+    float: left
+  .navcontrols
+    float: right
+    ul
+      border: 0
+      padding: 0
+      li
+        border: 0
+        padding: 0
+        margin: 0
+        a
+          line-height: 26px
+          font-weight: normal
+          font-size: 0.75em
+          //border: 1px solid #ababab
+          text-shadow: white 0px 1px 1px
+          padding: 0 13px 0 13px
+
+        a.spin
+          line-height: 26px
+          font-weight: normal
+          font-size: 1em
+          //border: 1px solid #ababab
+          text-shadow: white 0px 1px 1px
+          padding: 0 13px 0 13px
+
+
+ul.items
+  list-style-type: none
+  width: 468px
+
+  li.item
+    border-bottom: 1px dotted #ddd
+    padding-bottom: 10px
+    padding-top: 10px
+
+    h3
+      margin-top: 0
+      font-size: 16px
+      font-weight: bold
+
+    .logo
+      float: left
+      padding: 0px 10px
+      margin-right: 4px
+
+    .box
+      float: left
+      padding: 0
+      margin-right: 2px
+      text-align: center
+      vertical-align: baseline
+      //width: 38px
+      //height: 38px
+      display: block
+      font-size: 10px
+      font-family: Helvetica Neue, Arial, sans-serif
+      color: #666
+
+
+      .counter
+        padding: 2px
+        font-size: 1em
+        font-weight: bold
+        &.medium_number
+          font-size: 20px
+          color: orange
+        &.big_number
+          padding: 1px
+          font-size: 19px
+          color: red
+        &.negative_number
+          font-size: 19px
+          color: #EE3746
+
+    .votes
+      color: #898989
+    .answers
+      color: #2A61B3
+      &.accepted
+        color: #337816
+      &.unanswered
+        color: #B82312
+    .views
+      color: #898989
+
+    .stats
+      //width: 21%
+      float: left
+
+    .summary
+      width: 100%
+      float: left
+
+
+      a:link, a:active, a:visited
+        color: #990000
+        font-weight: normal
+      a:hover
+        color: #F67620
+
+      .tag-list
+        float: left
+        margin-top: 0px
+
+      .owner-data
+        background: #efefef
+        float: right
+        padding: 2px
+        border: 1px solid gainsboro
+        +rounded(4px,4px,4px,4px)
+        .time_ago
+          a
+            color: #ababab
+        .reputation
+          color: #666
+
+    .actions
+      padding: 5px
+      margin: 6px
+      background: #eee
+      a
+        margin: 2px 5px
+        font-size: 15px
+        font-weight: bold
+
+    .vote-up-form
+      display: inline
+      vertical-align: middle
+
+    &.lite
+      .box
+        width: 20px
+        height: 20px
+        padding: 2px
+        .counter
+          font-size: 18px
+          padding: 1px
