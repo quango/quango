@@ -12,8 +12,9 @@
     - else
       = link_to image_tag("unfavorites.png", 'data-src' => "/images/favorites.png", :width => 18, :height => 18), favorite_item_path(@item), :id => "favorite-link", :title => t(".favorite_tooltip"), :class => 'item-action button unwatch', "data-undo" =>  unfavorite_item_path(@item), "data-title" => t(".unfavorite_tooltip"), 'data-counter' => '.favorites_count'
 
-    %button.share
-      = #render :partial => "share"
+    -#%button.share
+      
+    = render :partial => "items/share"
 
     =vote_box(@item, item_path(@item), @item.closed)
 

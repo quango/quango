@@ -1,4 +1,4 @@
-#toolbar{:style => "float:left;width:160px; border-right:1px inset white;"}
+#toolbar{:style => "float:left;width:160px; border-right:1px solid #{current_group.context_nav_selected};"}
   -if logged_in?
     -if !current_group.isolate && AppConfig.enable_groups
       .edition

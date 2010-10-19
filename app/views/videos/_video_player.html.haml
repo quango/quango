@@ -6,14 +6,17 @@
 
   %script{:type=>"text/javascript"}
     = "jwplayer('video-player').setup({"
+    = "skin: '/javascripts/mediaplayer/glow.zip',"
+    = "stretching: 'fill',"
     = "flashplayer: '/javascripts/mediaplayer/player.swf',"
-    = "flashvars: 'file=playlist.xml&skin=path/to/modieus.zip',"
+    = "flashvars: 'file=playlist.xml',"
     = "file: '"+@item.bookmark+"',"
-    = "height: 263,"
+    = "height: 234,"
     = "width: 468"
     = "});"
 
 -else
   = "No video detected"
+
 
 

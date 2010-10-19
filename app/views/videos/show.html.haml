@@ -30,7 +30,6 @@
 - content_for :show_item do
   = javascript_include_merged :show
   =render :partial => "items/toolbox", :object=>@item
-  =render :partial => "items/controls", :object=>@item
   #video-box
     = render :partial => "video_player", :object=>@item
   #item-body-col.commentable.markdown
@@ -43,7 +42,11 @@
           - if !@item.close_reason.comment.empty?
             .comment
               =find_and_preserve(shapado_auto_link(@item.close_reason.comment))
+      .entry-controls
+        =render :partial => "items/controls", :object=>@item
+      .clear
       .entry-details
+
         .entry-title
           = @item.title << @item.mode
           - if @item.closed

@@ -1,4 +1,10 @@
-= link_to(image_tag('/images/share/twitter_32.png', :class => 'microblogging', :style=>'height:16px;width:16px;'),share_url(@item, :twitter), :rel=>"external nofollow", :title => t("items.show.share_on", :site => "twitter"))
-= link_to(image_tag('/images/share/linkedin_32.png', :class => 'microblogging', :style=>'height:16px;width:16px;'),share_url(@item, :linkedin), :rel=>"external nofollow", :title => t("items.show.share_on", :site => "linked in"))
-= link_to(image_tag('/images/share/think_32.png', :class => 'microblogging', :style=>'height:16px;width:16px;'),share_url(@item, :think), :rel=>"external nofollow", :title => t("items.show.share_on", :site => "think.it"))
-= h("share")
+%div.share{:class => "button"}
+  %ul{:style=>"display:block; padding: 0;list-style-type:none"}
+    %li
+      = link_to(image_tag('/images/share/twitter_32.png', :style=>'float:left;height:18px;width:18px;margin:0 0 0 2px;'),item_url(@item, :twitter), :rel=>"external nofollow", :title => t("items.show.share_on", :site => "twitter"))
+    %li
+      = link_to(image_tag('/images/share/linkedin_32.png', :style=>'float:left;height:18px;width:18px;;margin:0 0 0 2px'),item_url(@item, :linkedin), :rel=>"external nofollow", :title => t("items.show.share_on", :site => "linked in"))
+    %li
+      = link_to(image_tag('/images/share/think_32.png', :style=>'float:left;height:18px;width:18px;margin:0 0 0 2px'),item_url(@item, :think), :rel=>"external nofollow", :title => t("items.show.share_on", :site => "think.it"))
+    %li
+      = h("Share")
