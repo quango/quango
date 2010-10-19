@@ -19,4 +19,9 @@
     =vote_box(@item, item_path(@item), @item.closed)
 
 .clear
-
+%script
+  = "$(#toolbox).hover(function() {"
+  = "$(this).animate({"
+  = "backgroundColor: '#ffffff'"
+  = "}, 'slow');"
+  = "});"
