@@ -50,6 +50,6 @@
 
 %script
   = "$(function() {"
-  = "$('li."+ @mode.to_s+"').css({'background-color':'"+current_group.context_nav_selected+"'});"
+  = "$('li."+ @mode.to_s+"').css({'background-color':'"+current_group.primary_selected+"'});"
   = "$('li."+ @mode.to_s+" a').css({'color':'#fff'});"
   = "});"

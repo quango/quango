@@ -11,9 +11,9 @@
       -#= render :partial => "images/image", :object => image, :locals => {:source => source, :mini => true}
 
   .clear
-  -#= h(item_images_path(@item))
+  = h(new_image_path(@item))
   .forms.image-form
-    -form_tag item_images_path(@item), :class => "form addImage", :method => "post" do
+    -form_tag new_image_path(@image), :class => "form addImage", :method => "put" do
       -@image = Image.new
       = render :partial => "images/form", :locals => {:source => @item.id,:mode => @item.mode,:parent => @item, :image => @image}
       .group.navform

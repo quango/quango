@@ -64,7 +64,7 @@
   .clear
   %a{:name=>"answers"}
   #answers
-    .secondary-navigation{:class => @active_subtab.to_s, :style => "background-color:#{current_group.context_nav_selected}"}
+    .secondary-navigation{:class => @active_subtab.to_s, :style => "background-color:#{current_group.primary_selected}"}
       .navlabel
         = t("items.show.answers_title", :count => @answers.total_entries + (@item.accepted ? 1 : 0))
       .navcontrols

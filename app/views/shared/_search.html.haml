@@ -1,7 +1,7 @@
 .search-box
   - form_tag search_path, :method => :get, :style => "display: inline" do
     = text_field_tag :q, params[:q], :id => "search-field", :style=>"float:left"
-    %button.search-submit{:style => "background-color: #{current_group.context_nav_selected}" }
+    %button.search-submit{:style => "background-color: #{current_group.primary_selected}" }
       = "Search"
     %br
       = radio_button_tag(:mode, "here", true)

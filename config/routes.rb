@@ -51,7 +51,7 @@ ActionController::Routing::Routes.draw do |map|
               #:as => "channels"
 
   map.resources :create
-  #map.resources :images
+  map.resources :images
 
   map.resources :questions
 

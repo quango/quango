@@ -1,12 +1,11 @@
 -#=source
 
 .group
-  = hidden_field_tag "source", source, :id => "source_#{id}"
-  = hidden_field_tag "mode", @item.mode, :id => "source_#{id}"
-  = hidden_field_tag "body", @image.body, :id => "source_#{id}"
+  = hidden_field_tag "source", params[:source], :id => "source_#{id}"
+  = hidden_field_tag "mode", params[:mode], :id => "source_#{id}"
   = "Title"
-  = text_field_tag "title", @image.title
-
+  = text_field_tag "title", params[:title],:value => "#{params[:title]}"
+  = file_field "file", params[:file]
 
 
   %br.clear

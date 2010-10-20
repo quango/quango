@@ -1,16 +1,19 @@
 
 class Image
   include MongoMapper::Document
-  include Support::Voteable
+  include MongoMapperExt::Slugizer
+  include MongoMapperExt::Storage
+  include MongoMapperExt::Filter
+
 
   key :_id, String
   key :_type, String
 
   key :mode, String
-  key :parent, String
-
-  key :title, String, :required => true
+  key :title, String
   key :source, String
+
+  file_key :file, :max_length => 1.megabytes
 
   key :body, String, :required => true
   key :language, String, :default => "en"

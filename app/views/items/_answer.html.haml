@@ -45,6 +45,27 @@
   .body-col
     .markdown.entry-content
       =find_and_preserve(shapado_auto_link(markdown(answer.body), :link_users => true))
+
+      .author.user_data.vcard
+        .updated{:title => answer.updated_at}
+          .time_ago
+            = t('activerecord.attributes.answer.created_at')
+            %strong.published{:title => answer.created_at, :class => "relativetime"}
+              = t("time.ago", :time => time_ago_in_words(answer.created_at))
+
+        .avatar.logo
+          = gravatar(answer.user.email.to_s, :size => 32) unless answer.anonymous
+        .user
+          -unless answer.anonymous
+            = render :partial => "users/user_mini", :locals => {:user => answer.user}
+            -unless answer.user.hide_country
+              .adr
+                .country-name
+                  = t("global.from", :site => answer.user.country_name)
+                = country_flag(answer.user.country_code, answer.user.country_name)
+          -else
+            %b=t("global.anonymous")
+
     -if logged_in? && (current_user.mod_of?(current_group) || current_user.can_view_offensive_counts_on?(current_group)) && answer.flags.count > 0
       %h3
         = t(:flags, :scope => "activerecord.models")
@@ -65,25 +86,7 @@
                 = t("global.from", :site => answer.updated_by.country_name)
               = country_flag(answer.updated_by.country_code, answer.updated_by.country_name)
 
-    .author.user_data.vcard
-      .updated{:title => answer.updated_at}
-        .time_ago
-          = t('activerecord.attributes.answer.created_at')
-          %strong.published{:title => answer.created_at, :class => "relativetime"}
-            = t("time.ago", :time => time_ago_in_words(answer.created_at))
 
-      .avatar.logo
-        = gravatar(answer.user.email.to_s, :size => 32) unless answer.anonymous
-      .user
-        -unless answer.anonymous
-          = render :partial => "users/user_mini", :locals => {:user => answer.user}
-          -unless answer.user.hide_country
-            .adr
-              .country-name
-                = t("global.from", :site => answer.user.country_name)
-              = country_flag(answer.user.country_code, answer.user.country_name)
-        -else
-          %b=t("global.anonymous")
 
 
     -if logged_in?

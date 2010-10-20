@@ -1,7 +1,11 @@
+= image_tag(item_image_path(@image))
 
--form_for full_scope+[@comment], :html => {:class => "form"} do
-  = render :partial => "comments/form", :locals => local_assigns
-  .group.navform
-    = submit_tag t("scaffold.update")
-    = t("global.or")
-    = link_to t("scaffold.cancel"), params[:source], :class => "cancel cancel_edit_comment"
+.group
+  = hidden_field_tag "source", params[:source], :id => "source_#{id}"
+  = hidden_field_tag "mode", params[:mode], :id => "source_#{id}"
+  = "Title"
+  = text_field_tag "title", params[:title],:value => "#{params[:title]}"
+  = file_field "file", params[:file]
+
+
+  %br.clear

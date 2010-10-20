@@ -3,12 +3,24 @@ class ImagesController < ApplicationController
   before_filter :find_scope
   #before_filter :check_permissions, :except => [:create]
 
+  def new
+    puts "I was called"
+    @image = Image.new(params[:item])
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json  { render :json => @item.to_json }
+    end
+  end
+
+
   def create
     @image = Image.new
-    @image.body = params[:body]
-    @image.mode = params[:mode]
-    @image.item_id = params[:source]
-    @image.parent = params[:source]
+    #@image.safe_update(%w[mode title file source], params[:item])
+    @image.title = params[:title]
+    #@image.body = params[:body]
+    @image.file = params[:file]
+    #@image.item_id = params[:source]
+    #@image.parent = params[:source]
     #@image.Commentable = scope
     @image.user = current_user
     @image.group = current_group
@@ -69,6 +81,7 @@ class ImagesController < ApplicationController
                                       :locals => {:source => params[:source], :mini => true})}.to_json)
         end
       else
+
         format.html {redirect_to params[:source]}
         format.json {render :json => @image.errors.to_json, :status => :unprocessable_entity }
         format.js {render :json => {:success => false, :message => flash[:error] }.to_json }
@@ -93,8 +106,8 @@ class ImagesController < ApplicationController
   def update
     respond_to do |format|
       @image = Image.find(params[:id])
-      @image.body = params[:body]
-      @image.title = params[:title]
+      #@image.body = params[:body]
+      #@image.title = params[:title]
       if @image.valid? && @image.save
         if item_id = @image.item_id
           Item.update_last_target(item_id, @image)
