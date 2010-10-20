@@ -15,10 +15,11 @@ class ImagesController < ApplicationController
 
   def create
     @image = Image.new
-    #@image.safe_update(%w[mode title file source], params[:item])
+    #@image.safe_update(%w[mode title source], params[:object])
+    @image.mode = params[:mode]
     @image.title = params[:title]
-    #@image.body = params[:body]
-    @image.file = params[:file]
+    @image.source = params[:source]
+    #@image.file = params[:file]
     #@image.item_id = params[:source]
     #@image.parent = params[:source]
     #@image.Commentable = scope
@@ -53,24 +54,7 @@ class ImagesController < ApplicationController
     respond_to do |format|
       if saved
 
-        if @image.mode == "news"
-          format.html { redirect_to(newsfeed_path(@item)) }        
-        elsif @image.mode == "video"
-          format.html { redirect_to(video_path(@item)) }        
-        elsif @image.mode == "article"
-          format.html { redirect_to(article_path(@item)) }  
-        elsif @image.mode == "blog"
-          format.html { redirect_to(blog_path(@item)) }  
-        elsif @image.mode == "question"
-          format.html { redirect_to(question_path(@item)) }  
-        elsif @image.mode == "discussion"
-          format.html { redirect_to(discussion_path(@item)) }  
-        elsif @image.mode == "bookmark"
-          format.html { redirect_to(bookmark_path(@item)) }  
-        else
-          format.html { redirect_to(item_path(@item)) }
-        end
-
+        format.html { redirect_to(item_path(@item)) }
 
         format.html {redirect_to params[:source]}
         format.json {render :json => @image.to_json, :status => :created}

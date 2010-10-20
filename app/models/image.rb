@@ -9,6 +9,11 @@ class Image
   key :_id, String
   key :_type, String
 
+
+  key :image_file_name, String
+  key :image_content_type, String
+  key :image_file_size, Integer
+
   key :mode, String
   key :title, String
   key :source, String

@@ -1,11 +1,10 @@
-= image_tag(item_image_path(@image))
 
 .group
   = hidden_field_tag "source", params[:source], :id => "source_#{id}"
   = hidden_field_tag "mode", params[:mode], :id => "source_#{id}"
   = "Title"
   = text_field_tag "title", params[:title],:value => "#{params[:title]}"
-  = file_field "file", params[:file]
-
+  = image_tag params[:file].to_s
+  = h(params[:file])
 
   %br.clear
