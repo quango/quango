@@ -6,8 +6,7 @@
           %li
             =image_tag(favicon_group_path(current_group), :style => "")
             =link_to h(current_group.name), domain_url(:custom => current_group.domain)
-            -if current_group.name_highlight?
-              =link_to h(current_group.name_highlight), domain_url(:custom => current_group.domain)
+
             %ul
               -current_user.groups(:select => [:name, :domain]).each do |group|
                 %li
