@@ -36,7 +36,7 @@
 
       -cache("item_on_index_#{item.id}_#{I18n.locale}") do
         ="mode:" << item.mode
-        %h3= link_to title, item_path(item), :title => truncate(strip_tags(item.body), :length => 200)
+        %h3= link_to title, "#{item.mode}s/#{item.slug}", :title => truncate(strip_tags(item.body), :length => 200)
         .tag-list
           -if item.tags.empty? && logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group))
             %span.retag

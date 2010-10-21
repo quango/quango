@@ -144,8 +144,10 @@ en:
       items: Items
       item: Item
     attributes:
-      bookmark:
-        title: Bookmark
+      bookmark: Bookmark
+      bookmark_url: Bookmark Url
+      video_link: Video Link
+      video_link_description: Please paste the Youtube link here
       item:
         mode: Mode
         title: Title
