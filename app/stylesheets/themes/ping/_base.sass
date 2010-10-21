@@ -1,3 +1,14 @@
+.user-field
+  color: gainsboro
+  font-size: 1em
+
+
+.user-field-value
+  font-size: 1em
+  font-weight: bold
+
+
+
 a
   color: #990000
   //border-bottom: 1px solid
@@ -8,6 +19,12 @@ a
 
 h1, h2, h3
   color: #444
+
+.primary-title
+  background-color: gainsboro
+  height: 26px
+  &h1
+    color: pink
 
 body
   color: #444
@@ -84,8 +101,7 @@ input.checkbox
 
   .block
     padding: 0
-    margin-bottom: 20px
-    padding-bottom: 20px
+    margin: 0
     background: transparent
 
     .content
@@ -109,6 +125,21 @@ input.checkbox
   margin: 0
 
 #sidebar
+  &.edit-button
+    a
+      height: 26px
+      width: 96px
+      line-height: 32x
+      margin-right: 4px
+      cursor: pointer  
+      overflow: visible
+      //text-shadow: white 0px 1px 1px
+      float: left
+      +rounded(4px,4px,4px,4px)
+
+      font-size: 0.75em
+      font-weight: normal
+      padding: 4px 13px 0 13px 
   &.left
     width: 208px
     float: left
@@ -137,19 +168,21 @@ input.checkbox
     background-color: #FFEFC6
 
   .block
-    padding-bottom: 0
+    padding-bottom: 13px
 
     .content
       margin: 0
       padding: 0 0 0 0
 
   h3
+    height: 32px
+    line-height: 32px
     padding: 3px
-    margin: 4px 4px 4px 0
+    //margin: 4px 4px 4px 0
     background-color: gainsboro
     font-weight: normal
     font-size: 1em
-    +rounded(4px,4px,4px,4px)
+
   ul
     &.navigation li
       &.last a
@@ -292,26 +325,23 @@ input.checkbox
 
 
 .form
+  background-color: gainsboro
   input.text, textarea.textarea
     border: 1px solid #ddd
     padding: 5px
-    width: 99%
+    width: 80%
 
   input.text_field, textarea.text_area
     border-right: 1px solid #ddd
     border-bottom: 1px solid #ddd
     border-top: 2px solid #ccc
     border-left: 2px solid #ccc
-    width: 99%
+    width: 80%
 
   .navform
     padding: 10px
-    background-color: #eee
     font-size: 14px
-    border-bottom: 1px solid #ddd
-    border-right: 1px solid #ddd
-    border-top: 1px solid #eee
-    border-left: 1px solid #eee
+    +rounded(4px,4px,4px,4px)
 
     input
       font-size: 14px

@@ -6,29 +6,50 @@
   %h1
     IMPORTANT: You must be logged in to see this site
 
-%h2
-  = t(".with_openid")
 
-= render :partial => "sessions/openid"
-
--unless current_group.openid_only
+-content_for :open_login do
   %h2
-    = t(".sign_in")
+    = t(".with_openid")
 
-  -form_for :user, resource, :url => session_path(resource_name), :html => {:class => "form"} do |f|
-    .group
-      =f.label :email, t("email", :scope => "activerecord.attributes.user"), :class => "label"
-      =f.text_field :email, :class => "text_field"
-    .group
-      =f.label :password, t("password", :scope => "activerecord.attributes.user"), :class => "label"
-      =f.password_field :password, :class => "password text_field"
+  = render :partial => "sessions/openid"
 
-    -if devise_mapping.rememberable?
+-content_for :standard_login do
+  -unless current_group.openid_only
+    %h2
+      = t(".sign_in")
+
+    -form_for :user, resource, :url => session_path(resource_name), :html => {:class => "form"} do |f|
       .group
-        =f.label :remember_me, t(".remember_me")
-        =f.check_box :remember_me
+        =f.label :email, t("email", :scope => "activerecord.attributes.user"), :class => "label"
+        =f.text_field :email, :class => "text_field"
+      .group
+        =f.label :password, t("password", :scope => "activerecord.attributes.user"), :class => "label"
+        =f.password_field :password, :class => "password text_field"
 
-    .group.navform
-      =f.submit "Sign in"
+      -if devise_mapping.rememberable?
+        .group
+          =f.label :remember_me, t(".remember_me")
+          =f.check_box :remember_me
 
-  = render :partial => "shared/devise_links"
+      .group.navform
+        =f.submit "Sign in"
+
+    = render :partial => "shared/devise_links"
+
+
+
+
+
+
+/Layout
+-content_for :main do
+  #main.right
+    = yield :open_login
+
+  #main.left
+    = yield :standard_login
+.clear
+
+
+
+

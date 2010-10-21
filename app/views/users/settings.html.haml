@@ -1,0 +1,8 @@
+-form_for(@user, :html => {:class => "form", :multipart => true}) do |f|
+  = f.error_messages
+  =text_field :source, domain_url(:custom => @user, :controller => "settings", :action => "settings", :tab => @active_subtab)
+  =render :partial => "settings/subtabs"
+  =render :partial => "settings/#{@active_subtab||'general'}", :locals => {:f => f}
+
+
+= yield :after_form

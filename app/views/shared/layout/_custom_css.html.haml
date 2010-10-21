@@ -1,0 +1,19 @@
+%style{:type => 'text/css'}
+  a {color: #{current_group.primary};}
+  a:hover {color: #{current_group.secondary};}
+  \#header-container { 
+  -if current_group.header_bg?
+    background-color: #{current_group.primary};
+  -if current_group.header_bg_image?
+    background-image:url(#{current_group.header_bg_image});
+    background-repeat:repeat-x;
+  -if !current_group.header_bg? && !current_group.header_bg_image?
+    background-color: #{current_group.primary};
+  }
+
+  \.tag-list .tag a:link, .tag-list .tag a:active, .tag-list .tag a:visited { background-color: #{current_group.secondary};}
+  \.tag-list .tag a:hover{ background-color: #{current_group.secondary};}
+  \.label-highlight{ color: #{current_group.secondary};}
+  \.secondary-navigation{ background-color: #{current_group.secondary};}
+
+<!--//-->

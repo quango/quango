@@ -50,8 +50,13 @@ class Group
   key :fb_button, Boolean, :default => true
 
   key :header_bg, String, :default => "gainsboro"
-  key :primary_hover, String, :default => "pink"
+  key :header_bg_image, String, :default => "/images/default_header.png"
+  key :primary, String, :default => "red" #tabs, 
+  key :primary_hover, String, :default => "pink" #header_bg and edit buttons
   key :primary_selected, String, :default => "#990000"
+  key :secondary, String, :default => "orange" #tabs, 
+  key :secondary_selected, String, :default => "orange"
+  key :secondary_active, String, :default => "#990000"
 
   key :logo_info, Hash, :default => {"width" => 215, "height" => 60}
   key :share, Share, :default => Share.new

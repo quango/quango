@@ -23,12 +23,14 @@
   = f.select :theme, AVAILABLE_THEMES, {}, :class => "choose_theme"
 
 .group
-  = f.label :primary_hover, t('primary_hover', :scope => "activerecord.attributes.group"), :class => "label"
-  = f.text_field :primary_hover, :class => "text_field"
+  = f.label :primary, "Primary colour", :class => "label"
+  = f.text_field :primary, :class => "text_field"
+  .swatch{:style => "background: #{current_group.primary}"}
 
 .group
-  = f.label :primary_selected, t('primary_selected', :scope => "activerecord.attributes.group"), :class => "label"
-  = f.text_field :primary_selected, :class => "text_field"
+  = f.label :secondary, "Secondary colour", :class => "label"
+  = f.text_field :secondary, :class => "text_field"
+  .swatch{:style => "background: #{current_group.secondary}"}
 
 .group
   = f.label :custom_css, "Custom css", :class => "label"

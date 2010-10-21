@@ -1,12 +1,14 @@
 !!! Strict
-%html{ "xml:lang" => I18n.locale, :lang => I18n.locale, :xmlns => "http://www.w3.org/1999/xhtml" }
+%html{"xml:lang" => I18n.locale, :lang => I18n.locale, :xmlns => "http://www.w3.org/1999/xhtml" }
   %head
     %title
       &= page_title
-    = current_group.head_tag
     = render :partial => "shared/layout/meta"
-    = render :partial => "shared/layout/javascript"
+    <!--[if lt IE 8]><link type="text/css" rel="stylesheet" media="screen" href="/stylesheets/ie7.css"><![endif]-->
     = render :partial => "shared/layout/css"
+    = render :partial => "shared/layout/custom_css"
+    = render :partial => "shared/layout/javascript"
+    = current_group.head_tag
 
   %body
     = render :partial => "shared/analytics"

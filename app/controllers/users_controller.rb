@@ -116,7 +116,7 @@ class UsersController < ApplicationController
 
   def update
     if params[:id] == 'login' && params[:user].nil? # HACK for facebook-connectable
-      redirect_to root_path
+      redirect_to current_user
       return
     end
 
@@ -140,7 +140,7 @@ class UsersController < ApplicationController
     preferred_tags = params[:user][:preferred_tags]
     if @user.valid? && @user.save
       @user.add_preferred_tags(preferred_tags, current_group) if preferred_tags
-      redirect_to root_path
+      redirect_to user_path(@user)
     else
       render :action => "edit"
     end

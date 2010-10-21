@@ -1,11 +1,6 @@
 .inner
   = t("layouts.application.openid.explaination")
   %br
-  %br
-  -form_tag session_path(:user), :id => 'openid' do
-    #nojsopenid
-      = text_field_tag "openid_identifier", "", :id => "openid_username"
-      = submit_tag t("sessions.new.log_in")
 
   -unless local_assigns[:only_openid]
     #twitter-and-facebook

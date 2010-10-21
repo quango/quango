@@ -1,5 +1,22 @@
 en:
   users:
+    settings:
+      messaging:
+        notifications: Choose your message settngs
+        new_answer_notification: New answers to your posts
+        give_advice_notification: Give advice
+        activities_notification: Activities
+        reports_notification: Reports
+
+    manage:
+      edit: Edit
+      title: My Settings
+      account: Account Settings
+      details: Personal Details
+      image: Profile Image
+      messaging: Messaging
+      messaging:
+        title: Messaging
     index:
       title: All users
       empty: "This group does not have any members. Participate by joining this group."

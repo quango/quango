@@ -2,7 +2,6 @@
   .secondary-navigation{:class => @active_subtab.to_s}
     .navlabel
       = t("layouts.application.topic_map") << " ("+@mode+")"
-      -if current_user.owner_of?(current_group)
 
     .navcontrols
       .subtabs

@@ -1,7 +1,3 @@
--content_for :subtabs do
-  .navtitle
-    =t(".title")
-
 -content_for :sidebar do
   -if AppConfig.twitter["activate"] || with_facebook?
     .block.notice{:style => "padding-bottom: 10px"}
@@ -26,13 +22,39 @@
   .block{:style => "font-weight: bold"}
     =render :partial => "shared/dlvr_link", :locals => {:url => user_url(@user, :format => :atom)}
 
+-content_for :form do
+
+  -form_for(@user, :html => {:class => "form", :multipart => true}) do |f|
+    = f.error_messages
+    =hidden_field_tag :source, domain_url(:custom => @user, :controller => "settings", :action => "settings", :tab => @active_subtab)
+    =render :partial => "users/settings/subtabs"
+    =render :partial => "users/settings/#{@active_subtab||'details'}", :locals => {:f => f}
+
+
+  = yield :after_form
+
+
+
+
+
+
+
+
+/Layout
 -content_for :main do
 
-  - @user.password = @user.password_confirmation = nil
-  = error_messages_for :user
-  - form_for @user, :html => {:class => "form"} do |f|
-    %h2.title
-      = t("users.form.information")
-    =render :partial => "form", :locals => {:f => f}
-    .group.navform
-      = submit_tag t('.submit')
+
+
+  #main.right
+
+
+  #main.left
+    = yield :subtabs
+    = yield :form
+  .clear
+
+
+
+
+
+

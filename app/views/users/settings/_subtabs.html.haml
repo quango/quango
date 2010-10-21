@@ -1,0 +1,18 @@
+-content_for :subtabs do
+  %h1
+    =t("users.manage.#{@active_subtab}.title")
+  .secondary-navigation{:class => @active_subtab.to_s}
+    .navcontrols
+      .subtabs
+        %ul
+          %li.account
+            = link_to t("users.manage.account"), settings_path(:tab => "account"), :class => "button"
+          %li.details
+            = link_to t("users.manage.details"), settings_path(:tab => "details"), :class => "button"
+          %li.image
+            = link_to t("users.manage.image"), settings_path(:tab => "image"), :class => "button"
+          %li.image
+            = link_to t("users.manage.messaging"), settings_path(:tab => "messaging"), :class => "button"
+
+
+
