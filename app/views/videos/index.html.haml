@@ -8,6 +8,7 @@
   %link{:rel=>"alternate", :type=>"application/atom+xml", :title => "atom", :href=> url_for(:format => "atom")}
 
 -content_for :subtabs do
+
   .secondary-navigation{:class => @active_subtab.to_s}
     .navlabel
       = t("layouts.application.videos")

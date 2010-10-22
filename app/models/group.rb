@@ -50,7 +50,9 @@ class Group
   key :fb_button, Boolean, :default => true
 
   key :header_bg, String, :default => "gainsboro"
-  key :header_bg_image, String, :default => "/images/default_header.png"
+  key :header_bg_image, String
+  key :toolbar_bg, String
+  key :toolbar_bg_image, String, :default => "/images/white_25_bg.png"
   key :primary, String, :default => "red" #tabs, 
   key :primary_hover, String, :default => "pink" #header_bg and edit buttons
   key :primary_selected, String, :default => "#990000"

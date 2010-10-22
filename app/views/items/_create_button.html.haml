@@ -1,6 +1,6 @@
 -if @mode
   -form_tag(new_create_path) do
     =hidden_field_tag 'mode', @mode
-    =submit_tag '&#9733; Suggest a ' << @mode.to_s << '...', :class=>"create-button", :style => "background-color: "+current_group.primary+";"
+    =submit_tag '&#9733; Create ' << @mode.to_s << '...', :class=>"create-button", :style => "background-color: "+current_group.primary+";"
 -else
   = "no mode"

@@ -23,6 +23,27 @@
   = f.select :theme, AVAILABLE_THEMES, {}, :class => "choose_theme"
 
 .group
+  = f.label :toolbar_bg, "Toolbar BG Colour", :class => "label"
+  = f.text_field :toolbar_bg, :class => "text_field"
+  .swatch{:style => "background: #{current_group.toolbar_bg}"}
+  .description
+    = "Leave blank if you want the image"
+
+.group
+  = f.label :toolbar_bg_image, "Toolbar BG Image", :class => "label"
+  = f.text_field :toolbar_bg_image, :class => "text_field"
+  .swatch{:style => "background-image: url(#{current_group.toolbar_bg_image})"}
+  .description
+    = "the url to where it is uploaded"
+
+.group
+  = f.label :header_bg_image, "Header BG Image", :class => "label"
+  = f.text_field :header_bg_image, :class => "text_field"
+  .swatch{:style => "background: #{current_group.header_bg_image}"}
+  .description
+    = "the url to where it is uploaded"
+
+.group
   = f.label :primary, "Primary colour", :class => "label"
   = f.text_field :primary, :class => "text_field"
   .swatch{:style => "background: #{current_group.primary}"}

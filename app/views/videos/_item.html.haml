@@ -35,7 +35,7 @@
                 = image_submit_tag("dialog-ok.png", :name=>"vote_up", :value=>"1", :title => t("votes.control.to_vote_up"), :class => "quick-vote-button")
 
       -cache("item_on_index_#{item.id}_#{I18n.locale}") do
-        ="mode:" << item.mode
+        =":" << item.mode
         %div.thumbnail
           = link_to image_tag(item.main_thumbnail, :style => "width:104px"), video_path(item)
         %h3= link_to title, video_path(item), :title => truncate(strip_tags(item.body), :length => 200)

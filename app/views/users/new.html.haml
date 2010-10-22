@@ -1,11 +1,32 @@
+
 -content_for :subtabs do
-  .navtitle
-    = t(".title")
+  .primary-title
+    %h1
+      &= @user.login
 
-- @user.password = @user.password_confirmation = nil
-= error_messages_for :user
-- form_for @user, :url => users_path, :html => {:class => "form"} do |f|
-  =render :partial => "form", :locals => {:f => f}
-  .group.navform
-    = submit_tag t('.submit')
 
+
+-content_for :form do
+  - @user.password = @user.password_confirmation = nil
+  = error_messages_for :user
+  - form_for @user, :url => users_path, :html => {:class => "form"} do |f|
+    =render :partial => "form", :locals => {:f => f}
+    .group.navform
+      = submit_tag t('.submit')
+
+- content_for :main do
+
+ 
+  #main.right
+    #sidebar.left
+      = yield :sidebar_left
+
+    #sidebar.right
+      = yield :sidebar_right
+    .clear
+
+  #main.left
+    = yield :subtabs
+    .clear
+    = yield :form
+  .clear

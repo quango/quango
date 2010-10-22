@@ -6,6 +6,8 @@
 -content_for :subtabs do
   .primary-title
     %h1
+      .icon
+        = gravatar(@user.email.to_s, :size => 32)
       &= @user.login
 
 -content_for :show_user do

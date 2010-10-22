@@ -25,6 +25,11 @@
 = error_messages_for 'answer'
 
 - content_for :show_item do
+
+  .primary-title
+    %h1
+      &= @item.title
+
   = javascript_include_merged :show
   =render :partial => "items/toolbox", :object=>@item
 

@@ -26,6 +26,13 @@
 
 - content_for :show_item do
   = javascript_include_merged :show
+  .primary-title
+    %h1
+      .icon
+        = @item.mode
+      &= @item.title
+
+
   =render :partial => "items/toolbox", :object=>@item
   =render :partial => "items/controls", :object=>@item
   #item-body-col.commentable.markdown
