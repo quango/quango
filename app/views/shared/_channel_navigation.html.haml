@@ -14,8 +14,10 @@
         = link_to ("topics"), domain_url(:custom => current_group.domain)
       %li.welcome
         = link_to ("..."), domain_url(:custom => current_group.domain)
-    .clear
 
+    .date{:style => "float:right;width:234px; border-left:1px solid"}
+      =Date.today.strftime("%a, %d %B")
+    .clear
 
   -if current_group.has_custom_channels
     %div.channels
@@ -26,7 +28,7 @@
 -else
 
   #navigation
-    %ul
+    %ul.left
       -#if !current_group.has_custom_channels
         -#cache("autochannel_#{current_group.id}") do
           =# self.autochannel
@@ -37,6 +39,11 @@
         = link_to ("channels"), domain_url(:custom => current_group.domain)
       %li.topics
         = link_to ("topics"), domain_url(:custom => current_group.domain)
+
+    -#.date{:style => "float:right;width:234px; border-left:1px solid"}
+    -#  =Date.today.strftime("%a, %d %B")
+    .clear
+
   .clear
 
 

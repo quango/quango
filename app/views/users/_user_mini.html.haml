@@ -4,20 +4,22 @@
   -unless user.nil?
     =link_to h(user.login), user_path(user), :class => "user-link"
     -if user.owner_of?(current_group)
-      %span.ownerflair{:title => "admin"}
-        &#x2747;
+      %span.ownerflair{:title => "admin", :style=>"background-color:gold"}
+        Admin
     -elsif user.mod_of?(current_group)
-      %span.modflair{:title => "moderator"}
-        &#x273F;
+      %span.modflair{:title => "moderator", :style=>"background-color:bronze"}
+        Associate
     -elsif user.editor_of?(current_group)
-      %span.editorflair{:title => "editor"}
-        &#x270E;
+      %span.editorflair{:title => "editor", :style=>"background-color:silver"}
+        Editor
   -else
     = t('users.deleted')
+.clear
 
 %span.reputation{:title => t("activerecord.attributes.user.reputation")}
   -unless user.nil?
-    =user.reputation_on(current_group)
+    %span.label
+      =user.reputation_on(current_group)
 
 -if local_assigns[:with_badges] != false
   -if gold.to_i > 0
@@ -37,3 +39,4 @@
       %span.bronze.badgeicon
       %span.badgecount
         =bronze
+.clear

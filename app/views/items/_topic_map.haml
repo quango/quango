@@ -1,7 +1,7 @@
 -content_for :topic_map_navigation do
   .secondary-navigation{:class => @active_subtab.to_s}
     .navlabel
-      = t("layouts.application.topic_map") << " ("+@mode+")"
+      = t("layouts.application.topic_map") << " ("+@mode.to_s+")"
 
     .navcontrols
       .subtabs

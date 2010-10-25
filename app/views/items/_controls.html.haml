@@ -32,8 +32,6 @@
         -else
           = link_to t(".request_opening"), new_item_open_request_path(@item), :id => "request-open-link", :rel => 'nofollow', :title => t('.request_opening_details')
 
-      - if (@item.wiki && current_user.can_edit_wiki_post_on?(@item.group)) || current_user.can_edit_others_posts_on?(@item.group) || current_user.can_modify?(@item)
-        = link_to t('scaffold.edit'), edit_item_path(@item), :class => "edit-button"
       - if @item.versions.count > 0
         = link_to t(".history", :default => "history"), history_item_path(@item)
       - if (current_user.can_modify?(@item) || current_user.owner_of?(@item.group))

@@ -15,10 +15,9 @@
     -owner = item.user unless item.anonymous
 
   %li.entry.item{:class => class_for_item(item)}
-    / Item Stats
-    =render :partial => "/items/stats", :locals => {:item => item}
-    / Item Summary
+
     .summary
+      =render :partial => "/items/stats", :locals => {:item => item}
       .left.vote-icon
         -unless item.closed
           -if logged_in? && (vote = current_user.vote_on(item))

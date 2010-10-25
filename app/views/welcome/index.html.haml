@@ -1,6 +1,3 @@
--content_for :trends do
-  = "trends"
-
 -content_for :head do
   -if !current_group.default_tags.empty?
     %meta{:name => "keywords", :content => current_group.default_tags.join(", ")}
@@ -12,27 +9,19 @@
 
 
 -content_for :subtabs do
-  .navtitle
-    = t(".title")
-    %button.right
-      = "&#9733;"
+  .secondary-navigation{:class => @active_subtab.to_s,:style => "background-color:#{current_group.secondary}"}
+    .navlabel
+      = t(".recent_items", :default => "Recent Items")
+      -if @items
+        == (#{@items.total_entries})
+    .navcontrols
+      %ul{:style => "display: inline"}
+        %li.activity
+          = link_to t("items.index.active"), root_path(:tab=>"activity"), :title => t("items.index.active_tooltip"), :rel => "nofollow", :class=>"button"
+        %li.hot
+          = link_to t("items.index.hot"), root_path(:tab=>"hot"), :title => t("items.index.hot_tooltip"), :rel => "nofollow", :class=>"button"
 
-    = t(".recent_items", :default => "Recent Items")
-    -if @items
-      == (#{@items.total_entries})
 
-  %ul{:style => "display: inline"}
-    %li.activity
-      = link_to t("items.index.active"), root_path(:tab=>"activity"), :title => t("items.index.active_tooltip"), :rel => "nofollow"
-    %li.hot
-      = link_to t("items.index.hot"), root_path(:tab=>"hot"), :title => t("items.index.hot_tooltip"), :rel => "nofollow"
-
-%div
-  -if logged_in?
-    #quick_item
-      =render :partial => "quick_item_box"
-    %ul.items#related_items
-      %li
 %ul.items#items
   -if @items.empty?
     .box.highlight
@@ -50,17 +39,18 @@
 
 
   .clear
+-content_for :subtags do
   .subtabs
     %ul{:style => "float:right;display: inline"}
       %li.activity
-        = link_to t("items.index.active"), root_path(:tab=>"activity"), :title => t("items.index.active_tooltip"), :rel => "nofollow"
+        = link_to t("items.index.active"), root_path(:tab=>"activity"), :title => t("items.index.active_tooltip"), :rel => "nofollow",:class=>"button"
       %li.hot
-        = link_to t("items.index.hot"), root_path(:tab=>"hot"), :title => t("items.index.hot_tooltip"), :rel => "nofollow"
+        = link_to t("items.index.hot"), root_path(:tab=>"hot"), :title => t("items.index.hot_tooltip"), :rel => "nofollow",:class=>"button"
     %span.right 
       = "Show me:"
 
 
--content_for :main do
+-content_for :list do
   #inner{:style=>'width:468px;'}
     .secondary-navigation{:class => @active_subtab.to_s}
       = yield :subtabs
@@ -93,10 +83,9 @@
 
 
 
--content_for :sidebar do
+-content_for :sidebar_left do
   #sidebar.left
-    .block.notice
-      = render :partial => "shared/layout/notice"
+
     -current_group.widgets.each do |widget|
       .widget.block{:id => widget.name}
         = render :partial => widget.partial_name, :locals => {:widget => widget}
@@ -109,3 +98,32 @@
       .block{:style => "background: transparent"} 
         .content
           = link_to t(".create_own_site"), new_group_path, :id => "create_own_site"
+
+
+-content_for :sidebar_right do
+  .block
+    %h3
+      = h("Something")
+    .content
+      = h("Something else")
+
+
+/Layout
+-content_for :main do
+  #main.right
+    #sidebar.left
+      .sponsor{:style => "background-color:#{current_group.secondary}"}
+        = "sponsor"
+      = yield :sidebar_left
+
+    #sidebar.right
+      .notice{:style => "background-color:#{current_group.secondary}"}
+        = render :partial => "shared/layout/notice"
+      = yield :sidebar_right
+    .clear
+
+  #main.left
+    = yield :list
+  .clear
+
+

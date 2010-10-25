@@ -19,10 +19,16 @@
     background-color: #{current_group.secondary};
   }
 
+  \#header #logo { background-color: #{current_group.secondary} ;}
+
   \.tag-list .tag a:link, .tag-list .tag a:active, .tag-list .tag a:visited { background-color: #{current_group.secondary};}
   \.tag-list .tag a:hover{ background-color: #{current_group.secondary};}
-  \.label-highlight{ color: #{current_group.secondary};}
+  \.label-highlight a{ color: #{current_group.secondary};}
   \.secondary-navigation{ background-color: #{current_group.secondary};}
   \.trends{ background-color: #{current_group.secondary};}
+  \.edit-button{ background-color: #{current_group.tertiary};}
+  \.edit-button{ background-image: url(#{current_group.edit_button_bg_image};)}
+  \.button{background-color: #cdcdcd; background-image: url(#{current_group.edit_button_bg_image};)}
+  h1 .item{ background-color: #{current_group.tertiary};}
 
 <!--//-->

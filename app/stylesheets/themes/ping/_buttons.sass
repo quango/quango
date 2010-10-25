@@ -1,26 +1,27 @@
 a.edit-button
+  float: right
   height: 26px
   line-height: 26px
   text-align: middle
-  font-weight: normal
+  font-weight: bold
   font-size: 0.75em
-  border: 1px solid #ababab
-  text-shadow: white 0px 1px 1px
-  padding: 0 13px
-  background-color: silver
-  background-image: url(/images/buttons/bg.gif)
+  border: 1px solid #555
   color: #333
+  text-shadow: white 0px 1px 1px
+  margin-left: 4px
+  padding: 0 26px
   +rounded(4px,4px,4px,4px)
 
 
 
 .share
   &.button
-    height: 22px
+    height: 20px
     width: 96px
     line-height: 32x
     margin-right: 4px
-    background-image: url(/images/buttons/bg.gif)
+    background-color: gainsboro
+    background-image: url(/images/default_button_bg.png)
     border: 1px solid #ababab
     cursor: pointer  
     overflow: visible
@@ -30,8 +31,13 @@ a.edit-button
 
     font-size: 0.75em
     font-weight: normal
-    padding: 4px 13px 0 13px
-
+    padding: 3px
+  img
+    border-top: 1px solid #ababab
+    border-left: 1px solid #ababab
+    border-bottom: 1px solid white
+    border-right: 1px solid white
+    //+rounded(2px,2px,2px,2px)
 
 a.button
   height: 26px
@@ -45,9 +51,11 @@ a.button
   float: left
   +rounded(4px,4px,4px,4px)
   img
-    margin: 4px
-    line-height: 66px
-    vertical-align: middle
+    margin: 2px
+    border-top: black 1px 0px 1px
+    text-shadow: white 0px 1px 1px
+    //line-height: 66px
+
   .watch
     float: left
     border: green

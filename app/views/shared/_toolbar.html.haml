@@ -1,11 +1,10 @@
-#toolbar{:style => "float:left;width:160px; border-right:1px solid #{current_group.primary};"}
+#toolbar{:style => "float:left;width:160px;"}
   -if logged_in?
     -if !current_group.isolate && AppConfig.enable_groups
       .edition
         %ul.topbar.combobox.left
           %li
-            =image_tag(favicon_group_path(current_group), :style => "")
-            =link_to h(current_group.name), domain_url(:custom => current_group.domain)
+            =link_to h(current_group.name), domain_url(:custom => current_group.domain), :style=>"margin-left:7px;"
 
             %ul
               -current_user.groups(:select => [:name, :domain]).each do |group|
@@ -20,8 +19,7 @@
     .edition
       =link_to h(current_group.name), domain_url(:custom => current_group.domain)
 
-#toolbar.date{:style => "float:left;width:auto;"}
-  =Date.today.strftime("%a, %d %B")
+
 
 
 #toolbar{:style => "float:right;width:auto;"}

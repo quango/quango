@@ -9,9 +9,8 @@
 
   #label
     .label-highlight
-      = h(current_group.name_highlight)
+      = link_to h(current_group.name_highlight), domain_url(:custom => current_group.domain)
     %span.label-special
-      = ":"
       = h(@active_tab)
 
 

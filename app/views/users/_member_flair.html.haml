@@ -1,0 +1,14 @@
+%div.flair
+  -unless user.nil?
+    -if user.owner_of?(current_group)
+      %span.ownerflair{:title => "admin", :style=>"background-color:gold"}
+        Admin
+    -elsif user.mod_of?(current_group)
+      %span.modflair{:title => "moderator", :style=>"background-color:bronze"}
+        Associate
+    -elsif user.editor_of?(current_group)
+      %span.editorflair{:title => "editor", :style=>"background-color:silver"}
+        Editor
+  -else
+    = t('users.deleted')
+.clear

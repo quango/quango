@@ -49,16 +49,19 @@ class Group
   key :has_custom_js, Boolean, :default => true
   key :fb_button, Boolean, :default => true
 
-  key :header_bg, String, :default => "gainsboro"
+  key :header_bg, String, :default => "#2b5782"
   key :header_bg_image, String
   key :toolbar_bg, String
   key :toolbar_bg_image, String, :default => "/images/white_25_bg.png"
-  key :primary, String, :default => "red" #tabs, 
+  key :primary, String, :default => "#2b5782" #tabs, 
   key :primary_hover, String, :default => "pink" #header_bg and edit buttons
   key :primary_selected, String, :default => "#990000"
-  key :secondary, String, :default => "orange" #tabs, 
+  key :secondary, String, :default => "#5f80a1" #tabs, 
   key :secondary_selected, String, :default => "orange"
   key :secondary_active, String, :default => "#990000"
+  key :tertiary, String, :default => "orange" #tabs, 
+  key :edit_button_bg, String, :default => "#990000" #tabs, 
+  key :edit_button_bg_image, String, :default => "/images/default_button_bg.png"
 
   key :logo_info, Hash, :default => {"width" => 215, "height" => 60}
   key :share, Share, :default => Share.new

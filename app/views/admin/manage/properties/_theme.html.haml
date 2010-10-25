@@ -54,6 +54,11 @@
   .swatch{:style => "background: #{current_group.secondary}"}
 
 .group
+  = f.label :tertiary, "Tertiary colour", :class => "label"
+  = f.text_field :tertiary, :class => "text_field"
+  .swatch{:style => "background: #{current_group.tertiary}"}
+
+.group
   = f.label :custom_css, "Custom css", :class => "label"
   -custom_css = ""
   -@group.has_custom_css? ? custom_css = @group.custom_css.read : custom_css = ""

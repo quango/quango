@@ -1,0 +1,28 @@
+-bronze, silver, gold = user.badges_count_on(current_group)
+
+%span.reputation{:title => t("activerecord.attributes.user.reputation")}
+  -unless user.nil?
+    = "Reputation: "
+    = user.reputation_on(current_group)
+
+%span.reputation{:title => t("activerecord.attributes.user.badges")}
+  = "Achievements: "
+  -if local_assigns[:with_badges] != false
+    -if gold.to_i > 0
+      %span{:title => "#{gold} gold badges"}
+        %span.gold.badgeicon
+        %span.badgecount
+          =gold
+
+    -if silver.to_i > 0
+      %span{:title => "#{silver} silver badges"}
+        %span.silver.badgeicon
+        %span.badgecount
+          =silver
+
+    -if bronze.to_i > 0
+      %span{:title => "#{bronze} bronze badges"}
+        %span.bronze.badgeicon
+        %span.badgecount
+          =bronze
+

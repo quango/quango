@@ -15,7 +15,7 @@
 
   = f.text_area :body, opts
 
-  -if local_assigns[:markdown] && !current_group.wysiwyg_editor
+  -if !local_assigns[:markdown] && !current_group.wysiwyg_editor
     %label.label
       = t("global.preview")
     #markdown_preview.markdown
