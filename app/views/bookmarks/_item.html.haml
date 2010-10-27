@@ -35,7 +35,14 @@
                 = image_submit_tag("dialog-ok.png", :name=>"vote_up", :value=>"1", :title => t("votes.control.to_vote_up"), :class => "quick-vote-button")
 
       -cache("item_on_index_#{item.id}_#{I18n.locale}") do
-        ="mode:" << item.mode
+        =":" << item.mode
+        -if item.wiki
+          %span{:class=>"button"}
+            %a
+              = t('items.edit_button.label')
+        %small.time_ago
+          = link_to t("time.ago", :time => time_ago_in_words(last_target.updated_at)), item_path(item)+"##{last_target.id}"
+
         %h3= link_to title, bookmark_path(item), :title => truncate(strip_tags(item.body), :length => 200)
         .tag-list
           -if item.tags.empty? && logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group))
@@ -50,11 +57,8 @@
           =render :partial => "users/user_mini", :locals => {:user => owner}
         -else
           =t("global.anonymous")
-        %small.time_ago
-          = link_to t("time.ago", :time => time_ago_in_words(last_target.updated_at)), item_path(item)+"##{last_target.id}"
-        -if item.wiki
-          %span.wiki_flag
-            wiki
+
+
     .clear
 -else
   -cache("mini_item_on_index_#{item.id}_#{I18n.locale}") do

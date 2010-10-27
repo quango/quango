@@ -10,8 +10,8 @@ class CreateController < ApplicationController
   before_filter :check_age, :only => [:show]
   before_filter :check_retag_permissions, :only => [:retag, :retag_to]
 
-  tabs :default => @mode, :tags => :tags,
-       :unanswered => :unanswered, :new => :ask_item
+  tabs :default => @active_tab, :tags => :tags,
+       :unanswered => :unanswered, :new => :create
 
   subtabs :index => [[:newest, "created_at desc"], [:hot, "hotness desc, views_count desc"], [:votes, "votes_average desc"], [:activity, "activity_at desc"], [:expert, "created_at desc"]],
           :unanswered => [[:newest, "created_at desc"], [:votes, "votes_average desc"], [:mytags, "created_at desc"]],
@@ -627,7 +627,7 @@ class CreateController < ApplicationController
   end
 
   def set_active_tag
-    @active_tag = ""
+    @active_tag = "Create"
     @active_tag
   end
 

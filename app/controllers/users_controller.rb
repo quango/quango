@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   before_filter :login_required, :only => [:edit, :update, :follow]
-  tabs :default => :members
+  before_filter :set_active_tag
+
+  tabs :default => @active_tag
 
   subtabs :index => [[:reputation, "reputation"],
                      [:newest, "created_at desc"],
@@ -223,6 +225,13 @@ class UsersController < ApplicationController
   end
 
   protected
+
+  def set_active_tag
+    @active_tag = "Login"
+    @active_tag
+  end
+
+
   def active_subtab(param)
     key = params.fetch(param, "votes")
     order = "votes_average desc, created_at desc"

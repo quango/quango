@@ -1,20 +1,33 @@
 
--content_for :subtabs do
+-content_for :subtabss do
   .navtitle
     -if @group.isolate
       = t(".title_isolate", :name => h(@group.name))
     -else
       = t(".title", :name => h(@group.name))
 
--if logged_in? && current_user.owner_of?(@group)
-  #manage_members
-    -form_tag(members_path, :class => "form", :method => :post) do
-      =render :partial => "form"
-      .group.navform
-        = submit_tag t('scaffold.add', :model => "member")
+- content_for :list_members do
+  -if logged_in? && current_user.owner_of?(@group)
+    #manage_members
+      -form_tag(members_path, :class => "form", :method => :post) do
+        =render :partial => "form"
+        .group.navform
+          = submit_tag t('scaffold.add', :model => "member")
 
-%ul.items#members
-  -@members.each do |member|
-    = render :partial => "member", :object => member
+  %ul.items#members
+    -@members.each do |member|
+      = render :partial => "member", :object => member
 
-=will_paginate @members
+  =will_paginate @members
+
+
+
+-# content_for :main do
+
+.show-left
+
+  = yield :list_members
+
+.show-right
+  = yield :sidebar
+

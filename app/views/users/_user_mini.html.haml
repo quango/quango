@@ -1,42 +1,54 @@
 -bronze, silver, gold = user.badges_count_on(current_group)
 
-%span.fn.nickname
-  -unless user.nil?
-    =link_to h(user.login), user_path(user), :class => "user-link"
-    -if user.owner_of?(current_group)
-      %span.ownerflair{:title => "admin", :style=>"background-color:gold"}
-        Admin
-    -elsif user.mod_of?(current_group)
-      %span.modflair{:title => "moderator", :style=>"background-color:bronze"}
-        Associate
-    -elsif user.editor_of?(current_group)
-      %span.editorflair{:title => "editor", :style=>"background-color:silver"}
-        Editor
-  -else
-    = t('users.deleted')
-.clear
+.user_mini{:style=>"width:128px; overflow:hidden"}
 
-%span.reputation{:title => t("activerecord.attributes.user.reputation")}
-  -unless user.nil?
-    %span.label
-      =user.reputation_on(current_group)
+  %div.gravatar{:style=>"width:32px;float:left; margin-right:4px;"}
+    = link_to gravatar(user.email.to_s, :size => 32), user_path(user)
 
--if local_assigns[:with_badges] != false
-  -if gold.to_i > 0
-    %span{:title => "#{gold} gold badges"}
-      %span.gold.badgeicon
-      %span.badgecount
-        =gold
+  %div.details{:style=>"width:92px;float:right; overflow:hidden"}
 
-  -if silver.to_i > 0
-    %span{:title => "#{silver} silver badges"}
-      %span.silver.badgeicon
-      %span.badgecount
-        =silver
+    %span.fn.nickname
+      -unless user.nil?
+        =link_to h(user.login), user_path(user), :class => "user-link"
+    .clear
 
-  -if bronze.to_i > 0
-    %span{:title => "#{bronze} bronze badges"}
-      %span.bronze.badgeicon
-      %span.badgecount
-        =bronze
+
+    %span.reputation{:title => t("activerecord.attributes.user.reputation")}
+      -unless user.nil?
+        -if user.owner_of?(current_group)
+          %span.ownerflair{:title => "This user is an admin", :style=>"background-color:gold", :class=>"button"}
+            ☠
+        -elsif user.mod_of?(current_group)
+          %span.modflair{:title => "moderator", :style=>"background-color:bronze"}
+            Associate
+        -elsif user.editor_of?(current_group)
+          %span.editorflair{:title => "editor", :style=>"background-color:silver"}
+            Editor
+        -elsif user.editor_of?(current_group)
+          %span.editorflair{:title => "editor", :style=>"background-color:#{current_group.tertiary}"}
+            Beta
+      -else
+        = t('users.deleted')
+      -unless user.nil?
+        %span.label
+          =user.reputation_on(current_group)
+
+    -if local_assigns[:with_badges] != false
+      -if gold.to_i > 0
+        %span{:title => "#{gold} gold badges"}
+          %span.gold.badgeicon
+          %span.badgecount
+            =gold
+
+      -if silver.to_i > 0
+        %span{:title => "#{silver} silver badges"}
+          %span.silver.badgeicon
+          %span.badgecount
+            =silver
+
+      -if bronze.to_i > 0
+        %span{:title => "#{bronze} bronze badges"}
+          %span.bronze.badgeicon
+          %span.badgecount
+            =bronze
 .clear

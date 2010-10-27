@@ -1,14 +1,11 @@
--content_for :main do
-  -content_for :subtabs do
-    .navtitle
-      = t(".title")
+-content_for :form do
 
   =local_assigns[:mode]
 
-
-  -if !@item
+  -if @item
     - form_for(:answer, :url => item_answer_path(@item, @answer), :html => {:method => :put, :class => "form"}) do |f|
-      =render :partial => "form", :locals => {:f => f, :markdown => true}
+      = h(@item.mode.to_s)
+      =render :partial => "form", :locals => {:f => f, :markdown => true, }
       .group
         .group.navform
           .right
@@ -29,3 +26,18 @@
           = f.submit t("scaffold.update"), :class => "buttton"
           = t("global.or")
           = link_to t('scaffold.cancel'), discussion_path(@discussion), :class => "button cancel"
+
+
+
+/Layout
+-content_for :main do
+
+  #main.right
+    #sidebar.right
+      = "Sidebar"
+    .clear
+
+  #main.left
+    = yield :form
+  .clear
+

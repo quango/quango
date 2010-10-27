@@ -1,0 +1,9 @@
+- url = "http://developers.thinkingdaily.com/create/new?item[mode]=discussion"
+- url << "&item[title]='Bug: '"
+- url << "&item[tags]=bug,#{AppConfig.version},#{current_group.name}"
+- url << "&item[body]=This is what happened..."
+
+%div.contribute.bug-button
+  ="&#9733;"
+  =link_to "bug ", url, :rel => 'nofollow'
+

@@ -1,5 +1,7 @@
 en:
   items:
+    edit_button:
+      label: Open Edit
     toolbox:
       watch_tooltip: "Start watching this item"
       unwatch_tooltip: "Stop watching this item"

@@ -11,9 +11,7 @@
   .secondary-navigation{:class => @active_subtab.to_s}
     .navlabel
       = t("layouts.application.blogs")
-      -if current_user.owner_of?(current_group)
-        -if @items
-          == (#{@items.total_entries})
+
     .navcontrols
       .subtabs
         %ul
@@ -62,11 +60,6 @@
   #additional_info
     =will_paginate @items
 
-    #help_us
-      = t(".help_to_answer")
-      =link_to t(".unanswered_items"), unanswered_items_path
-
-    .clear
 
 /Layout
 -content_for :main do

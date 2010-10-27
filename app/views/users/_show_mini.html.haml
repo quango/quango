@@ -1,17 +1,12 @@
 -bronze, silver, gold = user.badges_count_on(current_group)
 
-.member_details{:style=>"width:234px; overflow:hidden"}
+.user_mini
 
-  %div.gravatar{:style=>"width:64px;float:left; margin-right:13px;"}
-    = link_to gravatar(user.email.to_s, :size => 64), user_path(user)
-
-  %div.details{:style=>"width:96px;float:left; overflow:hidden"}
+  %div.details
 
     %span.fn.nickname
       -unless user.nil?
         =link_to h(user.login), user_path(user), :class => "user-link"
-    .clear
-
 
     %span.reputation{:title => t("activerecord.attributes.user.reputation")}
       -unless user.nil?
@@ -52,16 +47,3 @@
           %span.badgecount
             =bronze
 
-      .clear
-      %span.time_ago.published{:title => @item.created_at, :class => "relativetime"}
-        = t("time.ago", :time => time_ago_in_words(@item.created_at))
-        - if @item.wiki
-          .wiki_flag
-            wiki
-      %span.adr
-        - if !@item.user.hide_country
-          %span.country-name
-            = t("global.from", :site => @item.user.country_name)
-            = country_flag(@item.user.country_code, @item.user.country_name)
-
-.clear

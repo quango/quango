@@ -1,25 +1,10 @@
 .member
   .author
-    .gravatar.logo{:style=>"float:left; margin-right:13px;"}
-      -if !@item.anonymous
-        = gravatar(@item.user.email.to_s, :size => 64)
-        = render :partial => "users/member_flair", :locals => {:user => @item.user}
-      -else
-        = t('users.deleted')
     .user_data
       -if @item.anonymous
         = t("global.anonymous")
       -else
         = render :partial => "users/member_details", :locals => {:user => @item.user}
-        = "Time ago"
-        = t("time.ago", :time => time_ago_in_words(@item.created_at))
-        - if @item.wiki
-          .wiki_flag
-            wiki
-    .user_location
-      - if !@item.user.hide_country
-        %span.country-name
-          = t("global.from", :site => @item.user.country_name)
-          = country_flag(@item.user.country_code, @item.user.country_name)
+
   .clear
 .clear

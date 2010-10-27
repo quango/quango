@@ -15,8 +15,11 @@
     -#%button.share
       
     = render :partial => "items/share"
-    - if (@item.wiki && current_user.can_edit_wiki_post_on?(@item.group)) || current_user.can_edit_others_posts_on?(@item.group) || current_user.can_modify?(@item)
-      = link_to t('scaffold.edit'), edit_item_path(@item), :class => "edit-button"
+
+    - if current_user
+
+      - if (@item.wiki && current_user.can_edit_wiki_post_on?(@item.group)) || current_user.can_edit_others_posts_on?(@item.group) || current_user.can_modify?(@item)
+        = link_to t('scaffold.edit'), edit_item_path(@item), :class => "edit-button"
 
     =vote_box(@item, item_path(@item), @item.closed)
     

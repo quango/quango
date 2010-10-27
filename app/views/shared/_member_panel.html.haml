@@ -10,15 +10,6 @@
         =t("global.anonymous")
       -else
         =render :partial => "users/user_mini", :locals => {:user => @item.user}
-      %span.time_ago.published{:title => @item.created_at, :class => "relativetime"}
-        = t("time.ago", :time => time_ago_in_words(@item.created_at))
-        - if @item.wiki
-          .wiki_flag
-            wiki
-      %span.adr
-        - if !@item.user.hide_country
-          %span.country-name
-            = t("global.from", :site => @item.user.country_name)
-            = country_flag(@item.user.country_code, @item.user.country_name)
+
     .clear
 .clear

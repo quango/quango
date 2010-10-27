@@ -1,5 +1,17 @@
 en:
   layouts:
+    create:
+      news: Add a newsfeed 
+      video: Suggest a video
+      article: Write an article
+      blog: Write a blog
+      question: Ask a question
+      discussion: Start a discussion
+      bookmark: Share a bookmark
+    forms:
+      wiki: Open Edit
+      anon: Post Anonymously
+
     application:
       title: "Community Engine"
       items: Items
@@ -25,7 +37,7 @@ en:
       logged: Logged in as %{login}
       search: Search
       forgot: Forgot?
-      log_in: Sign in
+      log_in: Login
       signup: Sign up
       settings: Settings
       languages: Languages

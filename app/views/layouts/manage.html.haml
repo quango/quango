@@ -12,6 +12,8 @@
 
   %body
     = render :partial => "shared/analytics"
+    #flash
+      = show_flash_messages(:class => "flash", :markdown => true)
 
     #header-container
       #header-container-inner
@@ -26,21 +28,14 @@
 
 
     #container
-
-
       #main-bar{:class => @active_tab}
         = render :partial => "shared/manage_navigation"
         .clear
       #wrapper
         #main{:style=>"width: 100%"}
           #block-text.block
-            .secondary-navigation{:class => @active_subtab.to_s}
-              .navcontrols
-                = yield :subtabs
-                .clear
             .content
-              %p.markdown
-                = show_flash_messages(:class => "flash", :markdown => true)
+              = yield :subtabs
               .inner
                 = yield
                 .clear

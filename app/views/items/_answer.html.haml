@@ -8,23 +8,22 @@
   %a{:name=>answer.id}
   #toolbox.answer
     =vote_box(answer, item_path(item), item.closed)
-    .clear
     .controls
       .actions
-        = link_to t('activerecord.attributes.answer.link'), item_answer_path(@item.id, answer.id), :class => "bookmark"
+        = link_to t('activerecord.attributes.answer.link'), item_answer_path(@item.id, answer.id), :class => "button"
         - if logged_in? && @aflag.new? && current_user != answer.user
-          = link_to t(".flag"), new_item_answer_flag_path(@item,answer), :class => "flag-link", :rel => 'nofollow'
+          = link_to t(".flag"), new_item_answer_flag_path(@item,answer), :class => "flag-link button", :rel => 'nofollow'
 
         -if logged_in?
           -if (current_user.mod_of?(@item.group) || current_user.can_modify?(@item))
             -unless @item.accepted
-              = link_to t(".pick_answer"), solve_item_path(@item, :answer_id => answer)
+              = link_to t(".pick_answer"), solve_item_path(@item, :answer_id => answer), :class=>"button"
             -if solution
-              = link_to t(".unset_answer"),  unsolve_item_path(@item)
+              = link_to t(".unset_answer"),  unsolve_item_path(@item), :class=>"button"
           -if answer.wiki || current_user.can_edit_others_posts_on?(answer.group) || current_user.can_modify?(answer)
-            = link_to t("scaffold.edit"), edit_item_answer_path(@item, answer)
+            = link_to t("scaffold.edit"), edit_item_answer_path(@item, answer), :class=>"button"
           -if current_user.can_modify?(answer)
-            = link_to t("scaffold.destroy"), item_answer_path(@item, answer), :confirm => t("scaffold.sure", :model => "answer"), :method => :delete, :class =>"cancel"
+            = link_to t("scaffold.destroy"), item_answer_path(@item, answer), :confirm => t("scaffold.sure", :model => "answer"), :method => :delete, :class =>"button"
           -if !@aflag.new?
             .flagged
               = "#{t('items.show.flagged_as')} #{t(@aflag.reason, :scope=>'flags.form')}"
@@ -32,12 +31,12 @@
               =link_to t("scaffold.destroy"), item_answer_flag_path(@item,answer,@aflag), :id => "destroy_answer_flag_link", :rel => 'nofollow', :confirm => "are you sure?", :method => :delete
 
         -if answer.versions.count > 0
-          = link_to t(".history", :default => "history"), history_item_answer_path(@item, answer)
+          = link_to t(".history", :default => "history"), history_item_answer_path(@item, answer), :class=>"button"
         -if logged_in?
           -if(current_user.can_modify?(@item) || current_user.mod_of?(@item.group))
-            = link_to t("scaffold.destroy"), item_answer_path(@item.id, answer.id), :confirm => "are you sure?", :method => :delete
+            = link_to t("scaffold.destroy"), item_answer_path(@item.id, answer.id), :confirm => "are you sure?", :method => :delete, :class=>"button"
           -if current_user.mod_of?(@item.group)
-            = link_to "ban", ban_path(:answer_ids => [answer.id]), :confirm => "are you sure?"
+            = link_to "ban", ban_path(:answer_ids => [answer.id]), :confirm => "are you sure?", :class=>"button"
       .clear
       .forms
     .clear
@@ -53,16 +52,14 @@
             %strong.published{:title => answer.created_at, :class => "relativetime"}
               = t("time.ago", :time => time_ago_in_words(answer.created_at))
 
-        .avatar.logo
-          = gravatar(answer.user.email.to_s, :size => 32) unless answer.anonymous
         .user
           -unless answer.anonymous
             = render :partial => "users/user_mini", :locals => {:user => answer.user}
-            -unless answer.user.hide_country
-              .adr
-                .country-name
-                  = t("global.from", :site => answer.user.country_name)
-                = country_flag(answer.user.country_code, answer.user.country_name)
+          -unless answer.updated_by.hide_country
+            .adr
+              .country-name
+                = t("global.from", :site => answer.updated_by.country_name)
+              = country_flag(answer.updated_by.country_code, answer.updated_by.country_name)
           -else
             %b=t("global.anonymous")
 
@@ -76,8 +73,7 @@
           = t('activerecord.attributes.answer.updated_at', :default => "updated")
           %strong.updated{:title => answer.updated_at, :class => "relativetime"}
             = t("time.ago", :time => time_ago_in_words(answer.updated_at))
-        .avatar.logo
-          = gravatar(answer.updated_by.email.to_s, :size => 32)
+
         .user
           = render :partial => "users/user_mini", :locals => {:user => answer.updated_by}
           -unless answer.updated_by.hide_country

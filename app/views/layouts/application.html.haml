@@ -27,9 +27,7 @@
       #navigation-container-inner
         = render :partial => "shared/contextual_navigation"
         .clear
-        #trends
-          = yield :trends
-        .clear
+        = yield :trends
 
     #container{:class => @current_class}
 

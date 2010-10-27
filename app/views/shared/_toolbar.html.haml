@@ -65,13 +65,15 @@
     -top_bar_links.each do |link|
       .entry
         =link
-        |
 
     .entry
-      =link_to t("layouts.application.log_in"), new_user_session_path
+      = render :partial => "shared/login"
 
-  .entry
-    = render :partial => "shared/contribute"
+  -if logged_in?
+    .entry
+      = render :partial => "shared/contribute"
+    .entry
+      = render :partial => "shared/bug"
 
 .clear
 

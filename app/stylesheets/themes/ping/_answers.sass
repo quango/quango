@@ -1,5 +1,6 @@
-#answers, #discussions
+#answers
   margin-top: 20px
+  border-bottom: 1px solid gainsboro
 
   .answer
     .controls
@@ -13,12 +14,15 @@
     font-size: 130%
 
 
-  .answer, .discussion
-    //border-bottom: 1px solid #222
+  .answer
+
     //border: 0
     margin-bottom: 13px
     margin-top: 13px
     padding-bottom: 13px
+    &:hover
+      background: #efefef
+
 
     h2.version_title
       padding: 20px
@@ -44,6 +48,7 @@
           font-weight: bold
 
       .user_data
+        background: white
         border: 1px solid gainsboro
         margin: 13px 0 13px 0
         width: 196px
@@ -60,8 +65,8 @@
   padding: 3px 3px 3px 3px
   //background-image: url("/images/buttons/bar_bg_pink.gif")
   background-repeat: repeat-x
-
-  background-color: gainsboro
+  &:hover
+    background-color: gainsboro
 
 #answers 
   .secondary-navigation 

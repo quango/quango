@@ -11,12 +11,12 @@
   }
 
   \#toolbar-container { 
-  -if current_group.header_bg?
+  -if current_group.toolbar_bg?
     background-color: #{current_group.toolbar_bg};
-  -if current_group.header_bg_image?
+  -if current_group.toolbar_bg_image?
     background-image:url(#{current_group.toolbar_bg_image});
-  -if !current_group.header_bg? && !current_group.header_bg_image?
-    background-color: #{current_group.secondary};
+  -if !current_group.toolbar_bg? && !current_group.toolbar_bg_image?
+    background-color: black;
   }
 
   \#header #logo { background-color: #{current_group.secondary} ;}
@@ -30,5 +30,8 @@
   \.edit-button{ background-image: url(#{current_group.edit_button_bg_image};)}
   \.button{background-color: #cdcdcd; background-image: url(#{current_group.edit_button_bg_image};)}
   h1 .item{ background-color: #{current_group.tertiary};}
+  \.toolbar-button{ background-color: black;}
+  \.secondary_box{ background-color: #{current_group.secondary};}
+  \.tertiary_box{ background-color: #{current_group.tertiary};}
 
 <!--//-->

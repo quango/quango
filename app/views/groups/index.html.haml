@@ -1,8 +1,5 @@
--content_for :subtabs do
-  .navtitle
-    = t(".title")
-    -if @groups
-      == (#{format_number(@groups.total_entries)})
+-content_for :list do
+
 
   %ul
     -if logged_in? && current_user.admin?
@@ -33,3 +30,22 @@
 
 = link_to t(".request_group"), new_group_path, :class => "request_group"
 .clear
+
+/Layout
+-content_for :main do
+  #main.right
+    #sidebar.left
+      .sponsor{:style => "background-color:#{current_group.secondary}; background-image: url(/images/white_50_bg.png);"}
+        = "sponsor"
+      = yield :sidebar_left
+
+    #sidebar.right
+      .notice{:style => "background-color:#{current_group.secondary}"}
+        = render :partial => "shared/layout/notice"
+      = yield :sidebar_right
+    .clear
+
+  #main.left
+    = yield :list
+  .clear
+

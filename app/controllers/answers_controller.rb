@@ -182,7 +182,26 @@ class AnswersController < ApplicationController
         flash[:notice] = t(:flash_notice, :scope => "answers.update")
 
         Magent.push("actors.judge", :on_update_answer, @answer.id)
-        format.html { redirect_to(item_path(@answer.item)) }
+
+        if @item.mode == "news"
+          format.html { redirect_to(newsfeed_path(@item)) }        
+        elsif @item.mode == "video"
+          format.html { redirect_to(video_path(@item)) }        
+        elsif @item.mode == "article"
+          format.html { redirect_to(article_path(@item)) }  
+        elsif @item.mode == "blog"
+          format.html { redirect_to(blog_path(@item)) }  
+        elsif @item.mode == "question"
+          format.html { redirect_to(question_path(@item)) }  
+        elsif @item.mode == "discussion"
+          format.html { redirect_to(discussion_path(@item)) }  
+        elsif @item.mode == "bookmark"
+          format.html { redirect_to(bookmark_path(@item)) }  
+        else
+          format.html { redirect_to(item_path(@answer.item)) }
+        end
+
+
         format.json { head :ok }
       else
         format.html { render :action => "edit" }
