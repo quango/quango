@@ -13,6 +13,8 @@ javascripts:
   - jquery.notifyBar
   - jquery.marquee
   - jquery.scroll
+  - jquery.ui.sortable
+  - jquery.cookie
   - showdown
   - highlight/prettify
   - components/search
@@ -29,6 +31,7 @@ javascripts:
   - modules/members
   - modules/move_group
   - modules/editor
+
 
 - show:
   - modules/single/item

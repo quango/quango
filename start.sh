@@ -10,15 +10,15 @@ SCREEN_BIN="/usr/bin/screen"
 # Start new instances and bind them to screen so we can get to a console session
 
 echo "Starting Mongo..."
-$SCREEN_BIN -S MONGO -m $MONGOD_BIN
+$SCREEN_BIN -S MONGO -R -m $MONGOD_BIN
 echo "Mongo started on MONGO screen"
 
 echo "Starting server"
-$SCREEN_BIN -S SERVER script/server -p 3033
+$SCREEN_BIN -S SERVER -R  script/server -p 3033
 echo "Server started on SERVER screen"
 
 echo "Starting Judge"
-$SCREEN_BIN -S JUDGE ruby app/actors/judge.rb
+$SCREEN_BIN -S JUDGE -R ruby app/actors/judge.rb
 echo "Judge started on JUDGE screen"
 
 $SCREEN_BIN -ls

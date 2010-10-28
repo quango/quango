@@ -1,7 +1,7 @@
 -if @active_tag
 
   #contextual-navigation{:class => @active_tab}
-    %ul
+    %ul#sortable
       %li.news
         =link_to t("layouts.application.news"), newsfeeds_path
       %li.video
@@ -26,22 +26,22 @@
 -else
 
   #contextual-navigation{:class => @active_tab}
-    %ul
-      %li.news
+    %ul#sortable
+      %li.ui-sortable.news
         =link_to t("layouts.application.news"), newsfeeds_path
-      %li.video
+      %li.ui-sortable.video
         =link_to t("layouts.application.videos"), videos_path
-      %li.article
+      %li.ui-sortable.article
         =link_to t("layouts.application.articles"), articles_path
-      %li.blog
+      %li.ui-sortable.blog
         =link_to t("layouts.application.blogs"), blogs_path
-      %li.question
+      %li.ui-sortable.question
         =link_to t("layouts.application.questions"), questions_path
-      %li.discussion
+      %li.ui-sortable.discussion
         =link_to t("layouts.application.discussions"), discussions_path
-      %li.bookmark
+      %li.ui-sortable.bookmark
         =link_to t("layouts.application.bookmarks"), bookmarks_path, :mode=>"bookmark"
-      %li.users
+      %li.ui-sortable.users
         =link_to t("layouts.application.users"), users_path
       %li
         %small
@@ -53,3 +53,7 @@
   = "$('li."+ @mode.to_s+"').css({'background-color':'"+current_group.secondary+"'});"
   = "$('li."+ @mode.to_s+" a').css({'color':'#fff'});"
   = "});"
+
+
+
+
