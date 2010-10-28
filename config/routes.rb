@@ -54,7 +54,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :images
 
   map.resources :questions
-
+  #map.connect 'questions/topic/:tags', :controller => :bookmarks, :action => :index,:requirements => {:tags => /\S+/}
 
   def build_items_routes(router, options ={})
     router.with_options(options) do |route|

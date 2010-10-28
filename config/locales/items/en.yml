@@ -85,7 +85,7 @@ en:
       mode_prompt: What type of item are you adding?
       body_tip: What is your item? Be descriptive.
       language_tip: Select the language the item is asked in.
-      tags_tip:  Use tags to add more information about your item.
+      tags_tip:  Use topics to add more information about your item.
       adult_content: This item contains adult material.
     flag:
       title:   Flag item
@@ -93,13 +93,13 @@ en:
       title: Editing item
     unanswered:
       title: Unanswered items
-      tags: Unanswered tags
+      tags: Unanswered topics
       empty: "This group does not have any unanswered items."
-      my_tags: My tags
+      my_tags: My topics
       expert: Experts
     tags:
       title: Topics
-      tooltip: Show stuff tagged %{tag}
+      tooltip: Show topics   %{tag}
       filter: Search for topics
     new:
       title: Ask item
@@ -137,7 +137,7 @@ en:
     model:
       messages:
         too_short: "Seems too short. Please use more words than %{count} to be more specific."
-        too_many_tags: Sorry, you can only enter 9 tags maximum.
+        too_many_tags: Sorry, you can only enter 9 topics maximum.
         empty_tags: Sorry, you need to use at least one tag.
         title_too_long: "The title is too long. It should not contain more than 100 characters."
 

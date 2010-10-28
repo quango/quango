@@ -35,7 +35,7 @@ en:
   feeds:
     item: Subscribe to this item
     items: Subscribe to all items
-    tag: Subscribe to tag
+    tag: Subscribe to topic
     user: Subscribe to user items
     feed: Feed
     post_new_items: Post new items to

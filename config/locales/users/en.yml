@@ -92,7 +92,7 @@ en:
         language: Language
         asked_by: asked by
         timezone: Time zone
-        preferred_tags: Preferred tags
+        preferred_tags: Preferred topics
         preferred_languages: 'You want to read items in the following languages:'
         last_logged_at: seen
         created_at: joined

@@ -2,7 +2,7 @@ en:
   searches:
     index:
       empty: "Your search did not match any items."
-      tags: within these tags
+      tags: within these topics
       search_text: Items containing
     form:
       clear: Clear

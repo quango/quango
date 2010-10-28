@@ -77,7 +77,7 @@ en:
     form:
       body_tip: What is your article? Be descriptive.
       language_tip: Select the language the article is asked in.
-      tags_tip:  Use tags to add more information about your article.
+      tags_tip:  Use topics to add more information about your article.
       adult_content: This article contains adult material.
     flag:
       title:   Flag article
@@ -85,9 +85,9 @@ en:
       title: Editing article
     unanswered:
       title: Unanswered articles
-      tags: Unanswered tags
+      tags: Unanswered topics
       empty: "This group does not have any unanswered articles."
-      my_tags: My tags
+      my_tags: My topics
       expert: Experts
     tags:
       title: Topics
@@ -124,12 +124,12 @@ en:
       submit: "Update tags!"
       cancel: "Cancel"
     retag_to:
-      success: "The tags have been updated successfully."
-      failure: "Sorry, the tags could not be updated."
+      success: "The topics have been updated successfully."
+      failure: "Sorry, the topics could not be updated."
     model:
       messages:
         too_short: "Seems too short. Please use more words than %{count} to be more specific."
-        too_many_tags: Sorry, you can only enter 9 tags maximum.
+        too_many_tags: Sorry, you can only enter 9 topics maximum.
         empty_tags: Sorry, you need to use at least one tag.
         title_too_long: "The title is too long. It should not contain more than 100 characters."
 

@@ -154,7 +154,7 @@ module ApplicationHelper
     tags.each do |tag|
       size = min_size + (tag["count"] - lowest_value["count"]) * ratio
       url = url_for(:controller => "items", :action => "index", :tags => tag["name"])
-      cloud << "<span>#{link_to(tag["name"], url, :class => "#{tag_class} #{css[size.round]}")}</span> "
+      cloud << "X<span>#{link_to(tag["name"], url, :class => "#{tag_class} #{css[size.round]}")}</span> "
     end
     cloud += "</div>"
     cloud

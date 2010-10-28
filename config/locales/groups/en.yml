@@ -30,7 +30,7 @@ en:
     form:
       description_legend: You have 400 characters to describe the group.
       legend_legend: "It will be used in the header. You have 40 characters."
-      default_tags_legend: "Separate tags by commas. Only 10 default tags allowed."
+      default_tags_legend: "Separate topics by commas. Only 10 default topics allowed."
       logo_legend: "You can upload the group logo. The maximum file size is 2MB."
       any_language: Any
       access: Access Settings

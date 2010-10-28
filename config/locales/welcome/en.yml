@@ -47,7 +47,7 @@ en:
       create_own_site: "Form a Quango"
       browse_all_or_by_tags: "See the %{full_list_of_items} or %{browse_by_tags}"
       full_list_of_items: full list of items
-      browse_by_tags: browse by tags
+      browse_by_tags: browse by topics
     confirm_age:
       warning: "WARNING: This page may contain explicit adult material."
       notice: You may only enter this page if you are at least 18 years of age, or at least the age of majority in the jurisdiction where you reside or from which you access this page.

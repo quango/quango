@@ -1,12 +1,22 @@
 -extra_params = local_assigns[:extra_params] || {}
-.tag-list
-  %ul.list
-    -(tag_list).each do |tag|
-      -unless current_tags.include? tag["name"]
-        %li
-          %span.tag{:class => "tag_#{h(tag["name"])}"}
-            =link_to h(tag["name"]), url_for(extra_params.merge(:tags => (current_tags + [tag["name"]]).join("+"))), :rel => "tag",:title => t("items.tags.tooltip", :tag => tag["name"])
-          .tag-multiplier
-            x
-            = tag["count"].to_i
-          .clear
+.block
+  %h3
+    = t('.Topics', :default => [:"layout.application.topics", :"activerecord.attributes.user.topics", "Related #{@mode} Topics"])
+  .content
+    .tag-list
+      %ul.list
+        -tag_array = Array.new
+        -(tag_list).each do |tag|
+          -tag_array << [tag["count"],tag["name"]]
+
+        -sorted_array = tag_array.sort_by{|a|a}.reverse
+
+        -sorted_array.each do |tag|
+          -if tag[0] > 1
+            %li
+              %span.tag{:class => "tag_#{h(tag[1].to_s)}"}
+                =link_to h(tag[1].to_s), url_for(extra_params.merge(:tags => (current_tags + [tag[1].to_s]).join("+"))), :rel => "tag",:title => t("items.tags.tooltip", :tag => tag[1].to_s)
+              .tag-multiplier
+                x
+                = tag[0]
+              .clear

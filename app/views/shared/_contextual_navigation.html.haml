@@ -27,21 +27,21 @@
 
   #contextual-navigation{:class => @active_tab}
     %ul#sortable
-      %li.ui-sortable.news
+      %li.news
         =link_to t("layouts.application.news"), newsfeeds_path
-      %li.ui-sortable.video
+      %li.video
         =link_to t("layouts.application.videos"), videos_path
-      %li.ui-sortable.article
+      %li.article
         =link_to t("layouts.application.articles"), articles_path
-      %li.ui-sortable.blog
+      %li.blog
         =link_to t("layouts.application.blogs"), blogs_path
-      %li.ui-sortable.question
+      %li.question
         =link_to t("layouts.application.questions"), questions_path
-      %li.ui-sortable.discussion
+      %li.discussion
         =link_to t("layouts.application.discussions"), discussions_path
-      %li.ui-sortable.bookmark
+      %li.bookmark
         =link_to t("layouts.application.bookmarks"), bookmarks_path, :mode=>"bookmark"
-      %li.ui-sortable.users
+      %li.users
         =link_to t("layouts.application.users"), users_path
       %li
         %small

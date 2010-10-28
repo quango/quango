@@ -26,21 +26,8 @@
             = link_to t("items.index.active"), videos_path(:sort=>"activity"), :title => t("items.index.active_tooltip"),:class=>"button", :rel => "nofollow"
 
 -content_for :sidebar_right do
-  .block
-    %h3
-      = h("Video")
-    .content
-      = render :partial => "videos/video_player_small"
-
-  -if logged_in?
-    = render :partial => "shared/language_filter"
-
   = render :partial => "shared/current_tags"
-  .block
-    %h3
-      = t('.tags', :default => [:"layout.application.tags", :"activerecord.attributes.user.tags", "tags"])
-    .content
-      = render :partial => "shared/tag_list", :object => @tag_cloud
+  = render :partial => "shared/tag_list", :object => @tag_cloud
 
 -content_for :sidebar_left do
   .block

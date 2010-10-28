@@ -54,7 +54,7 @@
         .entry-tags.tag-list
           - @item.tags.each do |tag|
             %span.tag
-              = link_to h(tag), url_for(:controller => "item", :action => "index", :tags => tag), :rel => "tag"
+              = link_to h(tag), url_for(:controller => "article", :action => "index", :tags => tag), :rel => "tag"
           - if logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group)) #tofix
             %span.retag
               = link_to t('items.show.retag'), retag_item_path(@item), :id => 'retag'

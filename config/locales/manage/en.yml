@@ -17,16 +17,16 @@ en:
           application_id: Application ID
           secret_key: Secret Key
           item_asked_to: Item Asked To
-          item_must_include: Item must include the following tag to be tweeted
+          item_must_include: Item must include the following topic to be tweeted
           twitter_account: The Twitter account your users will ask items to.
           facebook_app: Facebook app settings
           asking_from_twitter: Asking items from Twitter
-          tweet_starts_with: Prepend a tag to your tweets
-          tweet_ends_with: Append a tag to your tweets
+          tweet_starts_with: Prepend a topic to your tweets
+          tweet_ends_with: Append a topic to your tweets
           starts_with_example: "e.g. #qa"
           ends_with_example: "e.g. #shapado"
           item_must_include_example: "e.g. #iAsk"
-          add_tags: Add tags to your tweets
+          add_tags: Add topics to your tweets
           title_on_dlvr: Share on dlvr.it
         constrains:
           title: Requirements

@@ -55,7 +55,7 @@
               = link_to t('items.show.retag'), retag_item_path(item), :id => 'retag', :class => "important"
           -item.first_tags.each do |tag|
             %span.tag{:class => "tag_#{h(tag)}"}
-              = link_to h(tag), url_for(:controller => "items", :action => "index", :tags => tag), :rel => "tag", :title => t("items.tags.tooltip", :tag => tag)
+              = link_to h(tag), url_for(:controller => "videos", :action => "index", :tags => tag), :rel => "tag", :title => t("items.tags.tooltip", :tag => tag)
 
       .owner-data
         -if owner
