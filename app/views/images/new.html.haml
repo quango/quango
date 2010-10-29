@@ -11,17 +11,17 @@
 
 -content_for :main do
 
-  = "get the params:</br>"
-  = h(params[:source])
-  = h(params[:file])
-  = t(params[:file])
-
-
-  - form_for(@image, :html=>{:class => "form", :id => "ask_item"}) do |f|
-    =render :partial => "edit_form", :locals => {:f => f}
+  - form_for(@item, :html=>{:class => "form", :id => "ask_item"}) do |f|
+    =render :partial => "items/form", :locals => {:f => f}
 
     .group.navform
-      .controls.left{:style => "width: 50%"}
+      .controls.right{:style => "width: 50%"}
+        .left{:style => "width: 49.5%"}
+          = f.label :wiki, "Wiki", :class => "radio"
+          = f.check_box :wiki, :class => "checkbox"
+        .left{:style => "width: 49.5%"}
+          = f.label :anonymous, t("scaffold.post_as_anonymous"), :class => "radio"
+          = f.check_box :anonymous, :class => "checkbox"
 
       = f.submit t('scaffold.create')
       = t("global.or")

@@ -22,11 +22,8 @@
           %span.modflair{:title => "moderator", :style=>"background-color:bronze"}
             Associate
         -elsif user.editor_of?(current_group)
-          %span.editorflair{:title => "editor", :style=>"background-color:silver"}
-            Editor
-        -elsif user.editor_of?(current_group)
-          %span.editorflair{:title => "editor", :style=>"background-color:#{current_group.tertiary}"}
-            Beta
+          %span.editorflair{:title => "editor", :style=>"background-color:#E1A970"}
+            = link_to "Editor", "http://editors.thinkingdaily.com"
       -else
         = t('users.deleted')
       -unless user.nil?

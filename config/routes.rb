@@ -50,10 +50,18 @@ ActionController::Routing::Routes.draw do |map|
   #map.connect 'channels/explore/:tags', :controller => :channels, :action => :index,:requirements => {:tags => /\S+/}
               #:as => "channels"
 
-  map.resources :create
+  #map.create 'create/:mode', :controller => :create, :action => :new,:requirements => {:mode => /\S+/}
+  map.resources :create, :action => :new, :as => "add"
+  #map.connect 'add', :controller => :create, :action => :new
+
   map.resources :images
+  map.resources :news_articles, :as => "news"
+  #map.news_articles 'news_articles', :controller => :news_articles, :as => "news"
 
   map.resources :questions
+  map.resources :bugs
+  map.resources :features
+
   #map.connect 'questions/topic/:tags', :controller => :bookmarks, :action => :index,:requirements => {:tags => /\S+/}
 
   def build_items_routes(router, options ={})

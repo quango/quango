@@ -25,12 +25,12 @@
           = render :partial => "shared/header_manage"
         #channel-container
           = render :partial => "shared/channel_navigation", :object => @active_tag
-
-
-    #container
-      #main-bar{:class => @active_tab}
+    #navigation-container
+      #navigation-container-inner
         = render :partial => "shared/manage_navigation"
         .clear
+
+    #container{:class => @active_tab}
       #wrapper
         #main{:style=>"width: 100%"}
           #block-text.block

@@ -10,7 +10,7 @@ class NewsfeedsController < ApplicationController
   before_filter :check_age, :only => [:show]
   before_filter :check_retag_permissions, :only => [:retag, :retag_to]
 
-  tabs :default => :news, :tags => :tags,
+  tabs :default => :newsfeeds, :tags => :tags,
        :unanswered => :unanswered, :new => :ask_item
 
   subtabs :index => [[:newest, "created_at desc"], [:hot, "hotness desc, views_count desc"], [:votes, "votes_average desc"], [:activity, "activity_at desc"], [:expert, "created_at desc"]],
@@ -729,7 +729,7 @@ class NewsfeedsController < ApplicationController
   end
 
   def set_mode
-    @mode = "news"
+    @mode = "newsfeed"
     @mode
   end
 

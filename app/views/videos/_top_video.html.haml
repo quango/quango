@@ -1,0 +1,18 @@
+%script{:type=>"text/javascript", :src=>"/javascripts/mediaplayer/jwplayer.js"}
+
+.block
+  %h3
+    = h("Top video")
+  .content
+    #video_box
+    %script{:type=>"text/javascript"}
+      = "jwplayer('video_box').setup({"
+      = "flashplayer: '/javascripts/mediaplayer/player.swf',"
+      = "flashvars: 'file=playlist.xml&skin=path/to/modieus.zip',"
+      = "file: 'http://www.youtube.com/v/ppI1UhucL-U',"
+      = "height: 128,"
+      = "width: 208"
+      = "});"
+
+
+

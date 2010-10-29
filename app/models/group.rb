@@ -13,6 +13,8 @@ class Group
                  "assets1", "assets2", "assets3", "assets4", "staging"]
 
   key :_id, String
+  key :parent_id, String #this will be used for groups hierarchies
+
   key :name, String, :required => true
   key :name_highlight, String
   key :subdomain, String
@@ -28,9 +30,13 @@ class Group
   key :private, Boolean, :default => false
   key :theme, String, :default => "ping"
   key :owner_id, String
+
+  #analytics
+  key :robots, Boolean, :default => true
   key :analytics_id, String
   key :analytics_vendor, String
   key :has_custom_analytics, Boolean, :default => true
+
   key :language, String
   key :activity_rate, Float, :default => 0.0
   key :openid_only, Boolean, :default => false
@@ -54,17 +60,33 @@ class Group
   key :toolbar_bg, String
   key :toolbar_bg_image, String, :default => "/images/white_25_bg.png"
   key :primary, String, :default => "#2b5782" #tabs, 
-  key :primary_hover, String, :default => "pink" #header_bg and edit buttons
+  key :primary_hover, String, :default => "#E1A970" #header_bg and edit buttons
   key :primary_selected, String, :default => "#990000"
   key :secondary, String, :default => "#5f80a1" #tabs, 
-  key :secondary_selected, String, :default => "orange"
+  key :secondary_selected, String, :default => "#E1A970"
   key :secondary_active, String, :default => "#990000"
-  key :tertiary, String, :default => "orange" #tabs, 
+  key :tertiary, String, :default => "#E1A970" #tabs, 
   key :edit_button_bg, String, :default => "#990000" #tabs, 
   key :edit_button_bg_image, String, :default => "/images/default_button_bg.png"
 
   key :logo_info, Hash, :default => {"width" => 215, "height" => 60}
   key :share, Share, :default => Share.new
+
+  #temp sections to be refactored with dynamic sections controller
+  key :show_modes, Array #Hash, :default => Item::MODES
+  key :show_news_articles, Boolean, :default => true
+  key :show_newsfeeds, Boolean, :default => false
+  key :show_video, Boolean, :default => true
+  key :show_images, Boolean, :default => false
+  key :show_articles, Boolean, :default => true
+  key :show_blogs, Boolean, :default => true
+  key :show_bookmarks, Boolean, :default => true
+  key :show_questions, Boolean, :default => true
+  key :show_discussions, Boolean, :default => true
+  key :show_bugs, Boolean, :default => false
+  key :show_features, Boolean, :default => false
+
+
 
   file_key :logo, :max_length => 2.megabytes
   file_key :custom_css, :max_length => 256.kilobytes
@@ -75,7 +97,7 @@ class Group
 
   has_many :ads, :dependent => :destroy
   has_many :widgets, :class_name => "Widget"
-  has_many :images, :dependent => :destroy
+  #has_many :images, :dependent => :destroy
   has_many :badges, :dependent => :destroy
   has_many :items, :dependent => :destroy
   has_many :bookmarks, :dependent => :destroy

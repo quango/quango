@@ -1,0 +1,6 @@
+-content_for :subtabs do
+  .navtitle
+    = t(".title")
+
+-content_for :main do
+  = render :partial => "flags/form", :locals => {:flag => @flag, :source => item_path(@item)}

@@ -6,18 +6,18 @@ var setCookieName = "listOrder";
 var setCookieExpiry = 7;
 
 
-$(document).ready(function() {
+//$(document).ready(function() {
 
-	$(setSelector).sortable({
-		axis: "x",
-		cursor: "move",
-  	placeholder: 'ui-state-highlight',
-		update: function() { getOrder(); }
-	});
-  $(setSelector).disableSelection(); 
-	// here, we reload the saved order
-	restoreOrder();
-});
+//	$(setSelector).sortable({
+//		axis: "x",
+//		cursor: "move",
+//  	placeholder: 'ui-state-highlight',
+//		update: function() { getOrder(); }
+//	});
+//  $(setSelector).disableSelection(); 
+//	// here, we reload the saved order
+//	restoreOrder();
+//});
 
 
 

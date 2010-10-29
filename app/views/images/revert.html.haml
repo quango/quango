@@ -1,0 +1,11 @@
+-content_for :main do
+  -content_for :subtabs do
+    .navtitle
+      = t(".title")
+
+  -form_for(@item, :url => item_path(@item), :html => {:class => "form"}) do |f|
+    =render :partial => "form", :locals => {:f => f}
+    .group.navform
+      = f.submit t('scaffold.update')
+      = t("global.or")
+      = link_to t("scaffold.cancel"), history_item_path(@item), :class => "button cancel"

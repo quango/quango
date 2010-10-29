@@ -1,49 +1,45 @@
 -bronze, silver, gold = user.badges_count_on(current_group)
 
-.user_mini
+%span{:style=>"float:left; margin-right:7px;"}
+  -unless user.nil?
+    =link_to h(user.login), user_path(user), :class => "user-link"
 
-  %div.details
+%span.reputation{:title => t("activerecord.attributes.user.reputation")}
+  -unless user.nil?
+    -if user.owner_of?(current_group)
+      %span.ownerflair{:title => "This user is an admin", :style=>"background-color:gold", :class=>"button"}
+        ☠
+    -elsif user.mod_of?(current_group)
+      %span.modflair{:title => "moderator", :style=>"background-color:bronze"}
+        Associate
+    -elsif user.editor_of?(current_group)
+      %span.editorflair{:title => "editor", :style=>"background-color:silver"}
+        Editor
+    -elsif user.editor_of?(current_group)
+      %span.editorflair{:title => "editor", :style=>"background-color:#{current_group.tertiary}"}
+        Beta
+  -else
+    = t('users.deleted')
+  -unless user.nil?
+    %span.label
+      =user.reputation_on(current_group)
 
-    %span.fn.nickname
-      -unless user.nil?
-        =link_to h(user.login), user_path(user), :class => "user-link"
+-if local_assigns[:with_badges] != false
+  -if gold.to_i > 0
+    %span{:title => "#{gold} gold badges"}
+      %span.gold.badgeicon
+      %span.badgecount
+        =gold
 
-    %span.reputation{:title => t("activerecord.attributes.user.reputation")}
-      -unless user.nil?
-        -if user.owner_of?(current_group)
-          %span.ownerflair{:title => "This user is an admin", :style=>"background-color:gold", :class=>"button"}
-            ☠
-        -elsif user.mod_of?(current_group)
-          %span.modflair{:title => "moderator", :style=>"background-color:bronze"}
-            Associate
-        -elsif user.editor_of?(current_group)
-          %span.editorflair{:title => "editor", :style=>"background-color:silver"}
-            Editor
-        -elsif user.editor_of?(current_group)
-          %span.editorflair{:title => "editor", :style=>"background-color:#{current_group.tertiary}"}
-            Beta
-      -else
-        = t('users.deleted')
-      -unless user.nil?
-        %span.label
-          =user.reputation_on(current_group)
+  -if silver.to_i > 0
+    %span{:title => "#{silver} silver badges"}
+      %span.silver.badgeicon
+      %span.badgecount
+        =silver
 
-    -if local_assigns[:with_badges] != false
-      -if gold.to_i > 0
-        %span{:title => "#{gold} gold badges"}
-          %span.gold.badgeicon
-          %span.badgecount
-            =gold
-
-      -if silver.to_i > 0
-        %span{:title => "#{silver} silver badges"}
-          %span.silver.badgeicon
-          %span.badgecount
-            =silver
-
-      -if bronze.to_i > 0
-        %span{:title => "#{bronze} bronze badges"}
-          %span.bronze.badgeicon
-          %span.badgecount
-            =bronze
+  -if bronze.to_i > 0
+    %span{:title => "#{bronze} bronze badges"}
+      %span.bronze.badgeicon
+      %span.badgecount
+        =bronze
 

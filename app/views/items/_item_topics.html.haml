@@ -2,7 +2,7 @@
   #trends
     %div{:style=>"width:468px;height:34px;line-height:34px; float:right"}
       %div{:style=>"width:208px;height:34px; float:left", :class=>"tertiary_box"}
-        = "Something"
+        = render :partial => "shared/sponsor_box"
       %div{:style=>"float:right;width:234px;"}
         -if @mode
           = render :partial => "items/create_button", :object=>@item

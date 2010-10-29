@@ -4,8 +4,9 @@
   %ul.list
     -widget.recent_groups.each do |group|
       %li
+        = image_tag(favicon_group_path(group), :style => "height:16px; width:16px; background-color:#{group.secondary};")
         = link_to h(group.name), domain_url(:custom => group.domain)
-        &= truncate(strip_tags(group.description), :length => 35)
+
   .more
     =link_to t("scaffold.more"), groups_path
   .clear

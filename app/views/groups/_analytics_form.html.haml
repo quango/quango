@@ -1,0 +1,19 @@
+.group
+  = f.check_box :robots, :class => "checkbox"
+  = f.label :robots, t('Index this site?', :scope => "activerecord.attributes.group"), :class => "radio"
+
+.group
+  = f.check_box :has_custom_analytics, :class => "checkbox"
+  = f.label :private, t(".custom_analytics"), :class => "radio"
+  .description
+    = t(".analytics_legend")
+
+-if !@group.new?
+  - if @group.has_custom_analytics
+    .group
+      = f.label :analytics_engine, t(".analytics_engine"), :class => "label"
+      =  select("group", "analytics_vendor", [['Google Analytics', 'googlean']])
+
+    .group
+      = f.label :analytics_id, t(".website_analytics_id"), :class => "label"
+      = f.text_field :analytics_id, :class=> "text_field"

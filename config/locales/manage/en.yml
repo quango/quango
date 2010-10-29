@@ -10,6 +10,10 @@ en:
         top_bar: Top bar
         top_bar_tip: Enter one link per line
       properties:
+        sections:
+          title: Group Sections
+        analytics:
+          title: Group Analytics
         general:
           title: Group properties
         share:

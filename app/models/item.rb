@@ -9,7 +9,7 @@ class Item
   ensure_index :tags
   ensure_index :language
 
-  MODES = %w{news article video blog question discussion bookmark}
+  MODES = %w{news_article newsfeed video image article blog question discussion bug feature bookmark}
   VIDEO_MODES = %w{youtube vimeo another}
 
   key :_id, String
@@ -80,7 +80,7 @@ class Item
   has_many :badges, :as => "source"
   has_many :comments, :as => "commentable", :order => "created_at asc", :dependent => :destroy
 
-  has_many :images
+  #has_many :images
   has_many :flags
   has_many :close_requests
   has_many :open_requests

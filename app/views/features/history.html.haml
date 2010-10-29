@@ -1,0 +1,42 @@
+-content_for :main do
+
+  -content_for :subtabs do
+    .navtitle
+      =t("wiki.history.title", :count => @item.versions.count)
+
+  -counter = @item.versions.count
+
+  -form_tag diff_item_path(@item), :method => "GET", :class => "form" do
+    #items
+      .item
+        %h2
+          =link_to h(@item.title), item_path(@item)
+        %h2.version_title
+          = radio_button_tag("prev", :current, :checked => @prev == "current")
+          = radio_button_tag("curr", :current, :checked => @curr == "current")
+          =t("wiki.history.current_version")
+          .diff_actions
+            -if @item.versions.count > 0
+              =link_to t("global.previous"), diff_item_path(@item, :curr => :current, :prev => @item.versions.count-1 ), :class => "diff_prev"
+        -if !@item.version_message.blank?
+          %h2
+            = t('wiki.history.version_summary')
+          %h3.version_message
+            = @item.version_message
+        %h2=t(:title, :scope => "activerecord.attributes.item")
+        =h(@item.title)
+        -if !@item.body.blank?
+          %h2=t(:body, :scope => "activerecord.attributes.item")
+          .markdown
+            = shapado_auto_link(markdown(@item.body))
+        %h2=t(:tags, :scope => "activerecord.attributes.item")
+        =@item.tags.join(", ")
+
+      -@item.versions.reverse_each do |version|
+        -counter -= 1
+        -if !version.data.empty?
+          = render :partial => "wiki/version", :object => version, :locals => {:post => @item, :number => counter, :prev => @prev, :curr => @curr, :scope => "activerecord.attributes.item"}
+    .group.navform
+      = submit_tag t("wiki.actions.show_diff"), :value => "diff", :name => "show"
+      = t("global.or")
+      = link_to(t("scaffold.back"), item_path(@item))

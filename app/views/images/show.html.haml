@@ -1,14 +1,39 @@
+- show_close_request_form = !@item.closed && logged_in? && @item.can_be_requested_to_close_by?(current_user)
+- show_open_request_form = @item.closed && logged_in? && @item.can_be_requested_to_open_by?(current_user)
+
+- if logged_in?
+  - if current_user.mod_of?(current_group) && @item.closed
+    - show_close_request_form = (@item.close_reason.user_id == current_user.id)
+  - @flag = current_user.has_flagged?(@item) || Flag.new
+
+- @flag ||= Flag.new
+
+- if show_open_request_form
+  - @open_request = current_user.has_requested_to_open?(@item) || OpenRequest.new
+
+- if show_close_request_form
+  - @close_request = @item.close_requests.detect{ |rq| rq.user_id == current_user.id } || CloseRequest.new(:reason => "dupe")
+
+- item_body = find_and_preserve(shapado_auto_link(markdown(@item.body.present? ? @item.body : @item.title)))
+
+-#content_for :trends do
+  -#= render :partial => "items/item_topics", :object => @tag_cloud
+
 - content_for :head do
-  %meta{:name => "keywords", :content => clean_seo_keywords(@image.title)}
-  %meta{:name => "description", :content => image_title.gsub(/<\/?[^>]*>/, "")[0, 255] }
-  %link{:rel => "canonical", :href => image_url(@image) }
+  %meta{:name => "keywords", :content => clean_seo_keywords(@item.tags.dup, @item.title)}
+  %meta{:name => "description", :content => item_body.gsub(/<\/?[^>]*>/, "")[0, 255] }
+  %link{:rel => "canonical", :href => item_url(@item) }
 
 - source = item_path(@item)
 = error_messages_for 'answer'
 
 - content_for :show_item do
+
   = javascript_include_merged :show
+
   =render :partial => "items/toolbox", :object=>@item
+  =render :partial => "items/controls", :object=>@item
+
   #video-box
     = render :partial => "video_player", :object=>@item
   #item-body-col.commentable.markdown
@@ -21,14 +46,13 @@
           - if !@item.close_reason.comment.empty?
             .comment
               =find_and_preserve(shapado_auto_link(@item.close_reason.comment))
-      .entry-controls
-        =render :partial => "items/controls", :object=>@item
+
 
       .clear
       .entry-details
 
         .entry-title
-          = @item.title << @item.mode
+          = @item.title
           - if @item.closed
             =" [#{t("closed", :scope => "activerecord.attributes.item").upcase}]"
 
@@ -51,7 +75,7 @@
   .clear
   %a{:name=>"answers"}
   #answers
-    .secondary-navigation{:class => @active_subtab.to_s,:style => "background-color:"+current_group.primary_selected+""}
+    .secondary-navigation{:class => @active_subtab.to_s,:style => "background-color:#{current_group.secondary}"}
       .navlabel
         = t("items.show.comments_title", :count => @answers.total_entries + (@item.accepted ? 1 : 0))
       .navcontrols
@@ -83,10 +107,10 @@
       .group.navform
         .controls.right{:style => "width: 50%"}
           .left{:style => "width: 49.5%"}
-            = f.label :wiki, "Wiki", :class => "radio"
+            = f.label :wiki, t("layouts.forms.wiki"), :class => "radio"
             = f.check_box :wiki, :class => "checkbox"
           .left{:style => "width: 49.5%"}
-            = f.label :anonymous, t("scaffold.post_as_anonymous"), :class => "radio"
+            = f.label :anonymous, t("layouts.forms.anon"), :class => "radio"
             = f.check_box :anonymous, :class => "checkbox"
         = submit_tag t('answers.form.submit'), :class => "button"
       .clear
@@ -95,7 +119,7 @@
   #sidebar.right
     .block
       .content
-        =render :partial => "items/create_button"
+        =render :partial => "items/create_button", :locals => {:item => @item, :mode => @mode}
       .clear
 
     .block
@@ -109,7 +133,7 @@
       .content
         = "Content"
     .block
-      =render :partial => "images/widget", :locals => {:item => @item, :mode => @mode}
+      -#=render :partial => "images/widget", :locals => {:item => @item, :mode => @mode}
 
     - if logged_in? && (current_user.mod_of?(current_group) || current_user.can_view_offensive_counts_on?(current_group))
       -unless @item.flags.count == 0

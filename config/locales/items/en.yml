@@ -164,10 +164,14 @@ en:
         updated_at: updated
         updated_by: updated by
         closed: Closed
-        news: News
+        news_article: News
+        newsfeed: Newsfeed
         video: Video
+        image: Image
         article: Article
         blog: Blog
         question: Question
         discussion: Discussion
+        bug: Bug
+        feature: Feature
         bookmark: Bookmark

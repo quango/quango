@@ -26,7 +26,7 @@
 
 -content_for :sidebar_right do
   = render :partial => "shared/current_tags"
-  = render :partial => "shared/tag_list", :object => @tag_cloudd
+  = render :partial => "shared/tag_list", :object => @tag_cloud
 
 -content_for :sidebar_left do
   .block
@@ -48,7 +48,7 @@
         = t(".empty")
     -@items.each do |item|
       -if item.mode == "blog"
-        = render :partial => "item", :object => item
+        = render :partial => "items/list_item", :locals => {:item => item, :list_mode => "thumbnail"}
 
   #additional_info
     =will_paginate @items

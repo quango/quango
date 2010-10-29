@@ -133,7 +133,7 @@
       .content
         = "Content"
     .block
-      =render :partial => "images/widget", :locals => {:item => @item, :mode => @mode}
+      -#=render :partial => "images/widget", :locals => {:item => @item, :mode => @mode}
 
     - if logged_in? && (current_user.mod_of?(current_group) || current_user.can_view_offensive_counts_on?(current_group))
       -unless @item.flags.count == 0

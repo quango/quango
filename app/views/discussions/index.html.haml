@@ -48,7 +48,7 @@
         = t(".empty")
     -@items.each do |item|
       -if item.mode == "discussion"
-        = render :partial => "item", :object => item
+        = render :partial => "items/list_item", :locals => {:item => item, :list_mode => "standard"}
 
   #additional_info
     =will_paginate @items

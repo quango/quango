@@ -1,7 +1,10 @@
 -if @mode
-  -form_tag(new_create_path) do
-    -create_mode = "layouts.create." << @mode
-    =hidden_field_tag 'mode', @mode
-    =submit_tag '&#9733;'<< t(create_mode), :class=>"create-button", :style => "background-color: "+current_group.primary+";"
+  - create_mode = "layouts.create." << @mode
+  -# url = domain_url(:custom => current_group.domain) << "/add/new?item[mode]=" << @mode
+  - url = domain_url(:custom => current_group.domain) << "/add/new?mode=" << @mode
+
+  %div
+    = link_to '&#9733;'<< t(create_mode), url, :rel => 'nofollow', :mode => @mode , :class=>"create-button", :style => "background-color: "+current_group.primary+";"
+
 -else
   = "no mode"

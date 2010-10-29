@@ -1,6 +1,6 @@
 .author
   .user_data
-    %span.asked_by
+    %span.asked_by{:style=>"float:left; margin-right:7px;"}
       = t('activerecord.attributes.item.asked_by')
     -if @item.anonymous
       =t("global.anonymous")

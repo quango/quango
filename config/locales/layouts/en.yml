@@ -1,8 +1,12 @@
 en:
   layouts:
     create:
+      bug: Report a bug
+      feature: Discuss a feature
       news: Add a newsfeed 
+      news_article: Add some news
       video: Suggest a video
+      image: Share an image
       article: Write an article
       blog: Write a blog
       question: Ask a question
@@ -20,15 +24,20 @@ en:
       ask_item: Ask item
       discussions: Discussions
       tags: Topics
-      users: (Members)
+      users: members
       questions: Questions
-      news: Newsfeeds
+      news: News
+      news_articles: Latest News
+      newsfeeds: Newsfeeds
       videos: Video
+      images: Images
       audio: Audio
       articles: Articles
       blogs: Blogs
       badges: Badges
+      bugs: Bugs
       channels: Channels
+      features: Features
       topic_map: Topic Map
       bookmarks: Bookmarks
       unanswered: Nada
@@ -50,6 +59,8 @@ en:
       openid:
         explaination: "If you would like to register or just log in, please select your OpenID provider:"
     manage:
+      analytics: Analytics
+      sections: Sections
       dashboard: Dashboard
       properties: Properties
       widgets: Widgets

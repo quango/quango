@@ -47,8 +47,8 @@
       %li.highlight
         = t(".empty")
     -@items.each do |item|
-      -if item.mode == "news"
-        = render :partial => "item", :object => item
+      -if item.mode == "newsfeed"
+        = render :partial => "items/list_item", :locals => {:item => item, :list_mode => "standard"}
 
   #additional_info
     =will_paginate @items

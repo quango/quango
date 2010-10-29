@@ -1,64 +1,28 @@
--if @active_tag
+#navigation
+  %ul.left
+    -#if !current_group.has_custom_channels
+      -#cache("autochannel_#{current_group.id}") do
+        =# self.autochannel
+    %li.welcome
+      = link_to ("..."), domain_url(:custom => current_group.domain)
 
-  #navigation{:class => @active_tag.gsub(/tag_/,'')}
-    %ul
-      %li
-        = "Channels: "
-      -if !current_group.has_custom_channels
-        -cache("autochannel_#{current_group.id}") do
-          = #self.autochannel #todo: this broke groups for some reason
+    %li.channels
+      = link_to ("channels"), domain_url(:custom => current_group.domain)
+    %li.topics
+      = link_to ("topics"), domain_url(:custom => current_group.domain)
+    %li.users
+      =link_to t("layouts.application.users"), users_path
 
-      %li.channels
-        = link_to ("channels"), domain_url(:custom => current_group.domain)
-      %li.topics
-        = link_to ("topics"), domain_url(:custom => current_group.domain)
-      %li.welcome
-        = link_to ("..."), domain_url(:custom => current_group.domain)
-
-    .date{:style => "float:right;width:234px; border-left:1px solid"}
-      =Date.today.strftime("%a, %d %B")
-    .clear
-
-  -if current_group.has_custom_channels
-    %div.channels
-      = h(current_group.custom_channels)
-
-  .clear
-
--else
-
-  #navigation
-    %ul.left
-      -#if !current_group.has_custom_channels
-        -#cache("autochannel_#{current_group.id}") do
-          =# self.autochannel
-      %li.welcome
-        = link_to ("..."), domain_url(:custom => current_group.domain)
-
-      %li.channels
-        = link_to ("channels"), domain_url(:custom => current_group.domain)
-      %li.topics
-        = link_to ("topics"), domain_url(:custom => current_group.domain)
-
-    -#.date{:style => "float:right;width:234px; border-left:1px solid"}
-    -#  =Date.today.strftime("%a, %d %B")
-    .clear
-
-  .clear
+.clear
 
 
-  -if current_group.has_custom_channels
-    %div.channels
-      = h(current_group.custom_channels)
+-if current_group.has_custom_channels
+  %div.channels
+    = h(current_group.custom_channels)
 
-  .clear
+.clear
 
--if @active_tag
-  %script
-    = "$(function() {"
-    = "$('li."+ @active_tag.gsub(/tag_/,'')+"').css({'background-color':'white'});"
-    = "$('li."+ @active_tag.gsub(/tag_/,'')+" a').css({'color':'#990000'});"
-    = "});"
+
 
 
 

@@ -1,0 +1,15 @@
+%script{:type=>"text/javascript", :src=>"/javascripts/mediaplayer/jwplayer.js"}
+
+#sausage
+
+%script{:type=>"text/javascript"}
+  = "jwplayer('sausage').setup({"
+  = "flashplayer: '/javascripts/mediaplayer/player.swf',"
+  = "flashvars: 'file=playlist.xml&skin=path/to/modieus.zip',"
+  = "file: 'http://www.youtube.com/v/ppI1UhucL-U',"
+  = "height: 128,"
+  = "width: 208"
+  = "});"
+
+
+

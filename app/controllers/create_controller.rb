@@ -11,7 +11,7 @@ class CreateController < ApplicationController
   before_filter :check_retag_permissions, :only => [:retag, :retag_to]
 
   tabs :default => @active_tab, :tags => :tags,
-       :unanswered => :unanswered, :new => :create
+       :unanswered => :unanswered, :new => ":add" << @mode.to_s
 
   subtabs :index => [[:newest, "created_at desc"], [:hot, "hotness desc, views_count desc"], [:votes, "votes_average desc"], [:activity, "activity_at desc"], [:expert, "created_at desc"]],
           :unanswered => [[:newest, "created_at desc"], [:votes, "votes_average desc"], [:mytags, "created_at desc"]],

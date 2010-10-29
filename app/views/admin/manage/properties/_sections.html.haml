@@ -1,0 +1,11 @@
+
+%h2.title
+  =t(".sections_subtitle")
+
+.description
+  =t(".sections_description")
+
+= render :partial => "groups/sections_form", :locals => {:f => f}
+
+.group.navform
+  = f.submit t('scaffold.update')
