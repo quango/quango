@@ -1,0 +1,81 @@
+.section-head{:class => @active_subtab.to_s}
+  .secondary-navigation
+    .navlabel
+      = link_to t("layouts.application.#{mode}"), domain_url(:custom => current_group.domain) << "/" << mode << "s"
+    .navcontrols
+      %ul
+        %li.move_up
+          = link_to "up", "#",:class=>"section_button", :rel => "nofollow"
+        %li.move_down
+          = link_to "down", "#",:class=>"section_button", :rel => "nofollow"
+        %li.contract
+          = link_to "-", "#", :title => t("items.index.active_tooltip"),:class=>"section_button", :rel => "nofollow"
+        %li.expand
+          = link_to "+", "#", :title => t("items.index.active_tooltip"),:class=>"section_button", :rel => "nofollow"
+    .navlinks
+      -if mode
+        - create_mode = "layouts.create." << mode
+        - url = domain_url(:custom => current_group.domain) << "/add/new?mode=" << mode
+        = link_to t(create_mode), url,:class =>"link", :rel => 'nofollow', :mode => mode
+        = "|"
+      -else
+        = "no mode"
+
+  .section-listing
+
+    .listings-left
+      .title
+        = t("layouts.section-listing.latest.#{mode}")
+      .content
+        %ul.listing
+          -if @items.empty?
+            %li.highlight
+              = t(".empty")
+          -else
+            -item_array = Array.new
+            -@items.each do |item|
+              -if item.mode == mode
+                -item_array << item
+            -item_array[1].each do |item|
+              = render :partial => "items/section_list_item", :locals => {:item => item,:sort=>"hot", :list_mode => "latest"}
+
+        -#sorted_array = tag_array.sort_by{|a|a}.reverse
+        .clear
+     
+
+    .listings-centre
+      .title
+        = t("layouts.section-listing.headlines.#{mode}")
+      .content
+
+        %ul.listing
+          -if @items.empty?
+            %li.highlight
+              = t(".empty")
+          -else
+            -@items.each do |item|
+              -if item.mode == mode
+                = render :partial => "items/section_list_item", :locals => {:item => item, :list_mode => "headline"}
+        .clear
+
+    .listings-right
+      .title
+        = t("layouts.section-listing.features.#{mode}")
+      .content
+        %ul.features
+          -if @items.empty?
+            %li.highlight
+              = t(".empty")
+          -else
+            -features_array = Array.new
+            -@items.each do |item|
+              -if item.mode == mode
+                -features_array << item
+            -features_array[0..2].each do |item|
+              = render :partial => "items/section_list_item", :locals => {:item => item,:sort=>"hot", :list_mode => "thumbnail"}
+        .clear
+
+.clear
+
+
+

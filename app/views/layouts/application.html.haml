@@ -22,10 +22,10 @@
         #header
           = render :partial => "shared/header"
         #channel-container
-          = render :partial => "shared/channel_navigation", :object => @active_tag
+          = render :partial => "shared/contextual_navigation"
     #navigation-container
       #navigation-container-inner
-        = render :partial => "shared/contextual_navigation"
+
         .clear
         = yield :trends
 
@@ -40,7 +40,12 @@
             .inner
               = yield :main
               .clear
+        #sidebar
+          .sidebar
+            .inner
+              = yield :sidebar
 
+  .clear
     #footer
       .block.content
         = render :partial => "layouts/footer"

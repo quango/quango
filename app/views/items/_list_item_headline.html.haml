@@ -1,0 +1,17 @@
+-title = h(item.title)
+
+%li.headline{:class => class_for_item(item)}
+  - if item.updated_by.present?
+    %span.updated
+      = "updated"
+
+  - if !item.updated_by.present?
+    %span.new
+      = "new"
+
+  = link_to title, item_path(item), :title => truncate(strip_tags(item.body), :length => 200)
+
+
+
+
+

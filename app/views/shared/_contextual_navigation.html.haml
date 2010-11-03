@@ -35,6 +35,11 @@
       -if current_group.show_bookmarks
         %li.bookmark
           =link_to t("layouts.application.bookmarks"), bookmarks_path, :mode=>"bookmark"
+      %li.topics
+        = link_to ("topics"), domain_url(:custom => current_group.domain)
+      %li.users
+        =link_to t("layouts.application.users"), users_path
+
 
   .clear
 
@@ -75,14 +80,19 @@
       -if current_group.show_bookmarks
         %li.bookmark
           =link_to t("layouts.application.bookmarks"), bookmarks_path, :mode=>"bookmark"
-
+      %li.topics
+        -#="&#9733;"
+        = link_to ("topics"), domain_url(:custom => current_group.domain)
+      %li.users
+        -#="&#9733;"
+        =link_to t("layouts.application.users"), users_path
 
   .clear
 
 %script
   = "$(document).ready(function() {"
-  = "$('li."+ @mode.to_s+"').css({'background-color':'"+current_group.secondary+"'});"
-  = "$('li."+ @mode.to_s+" a').css({'color':'#fff'});"
+  = "$('li."+ @mode.to_s+"').css({'background-color':'"+current_group.primary+"'});"
+  = "$('li."+ @mode.to_s+" a').css({'color':'#000'});"
   = "});"
 
 

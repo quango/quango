@@ -51,56 +51,37 @@
 
 
 -content_for :list do
-  #inner{:style=>'width:468px;'}
-    .secondary-navigation{:class => @active_subtab.to_s}
-      = yield :subtabs
-      .clear
-    .content
-      %p.markdown
-        = show_flash_messages(:class => "flash", :markdown => true)
-        = render :partial => "shared/ads/content_ads"
-        .inner
-          = yield
-          .clear
+
+  #section-listing{:class => @active_tab}
+    %ul
+      -if current_group.show_news_articles
+        %li.news_article
+          = render :partial => "items/section_head", :locals => {:mode => "news_article", :list_mode => "standard"}
+      
+      -if current_group.show_video
+        %li.video
+          = render :partial => "items/section_head", :locals => {:mode => "video"}
+
+      -if current_group.show_discussions
+        %li.discussion
+          = render :partial => "items/section_head", :locals => {:mode => "discussion"}
+
+      -if current_group.show_articles
+        %li.article
+          = render :partial => "items/section_head", :locals => {:mode => "article"}
 
 
-  
-    %ul.items#items
-      -if @items.empty?
-        .box.highlight
-          %li
-            = t(".empty", :default => :"items.index.empty")
-      -@items.each do |item|
-        = render :partial => "items/item", :object => item    
-    
-
-  #additional_info
-    #help_us
-      = t(".browse_all_or_by_tags", :full_list_of_items => link_to(t('.full_list_of_items'), items_path), :browse_by_tags => link_to(t('.browse_by_tags'), tags_items_path))
-      %br
-      = t("items.index.help_to_answer")
-      = link_to t("items.index.unanswered_items"), unanswered_items_path
+-content_for :sidebar do
+  -#= render :partial => "shared/current_tags"
+  -#= self.tag_cloud
+  -#= render :partial => "shared/sidebar_topics", :object => @tag_cloud
+  -#= render :partial => "shared/tag_list", :object => @tag_cloud
 
 
+  -current_group.widgets.each do |widget|
+    .widget.block{:id => widget.name}
+      = render :partial => widget.partial_name, :locals => {:widget => widget}
 
--content_for :sidebar_left do
-  #sidebar.left
-
-    -current_group.widgets.each do |widget|
-      .widget.block{:id => widget.name}
-        = render :partial => widget.partial_name, :locals => {:widget => widget}
-
-    -if logged_in?
-      = render :partial => "shared/preferred_tags"
-    -if AppConfig.enable_i18n
-      = render :partial => "shared/language_filter"
-    -if !current_group.isolate && AppConfig.enable_groups
-      .block{:style => "background: transparent"} 
-        .content
-          = link_to t(".create_own_site"), new_group_path, :id => "create_own_site"
-
-
--content_for :sidebar_right do
   .block
     %h3
       = h("Something")
@@ -110,20 +91,7 @@
 
 /Layout
 -content_for :main do
-  #main.right
-    #sidebar.left
-      .sponsor{:style => "background-color:#{current_group.secondary}; background-image: url(/images/white_50_bg.png);"}
-        = "sponsor"
-      = yield :sidebar_left
-
-    #sidebar.right
-      .notice{:style => "background-color:#{current_group.secondary}"}
-        = render :partial => "shared/layout/notice"
-      = yield :sidebar_right
-    .clear
-
-  #main.left
-    = yield :list
+  = yield :list
   .clear
 
 

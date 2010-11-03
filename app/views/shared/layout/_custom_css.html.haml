@@ -1,7 +1,8 @@
 %style{:type => 'text/css'}
   a {color: #{current_group.primary};}
   a:hover {color: #{current_group.secondary};}
-  \#header-container { 
+  \#header-container {background-color: #{current_group.primary};}
+  \#header-container-inner { 
   -if current_group.header_bg?
     background-color: #{current_group.primary};
   -if current_group.header_bg_image?
@@ -30,8 +31,9 @@
   \.edit-button{ background-image: url(#{current_group.edit_button_bg_image};)}
   \.button{background-color: #cdcdcd; background-image: url(#{current_group.edit_button_bg_image};)}
   h1 .item{ background-color: #{current_group.tertiary};}
-  \.toolbar-button{ background-color: black;}
+  \.toolbar-button{ background-color: #{current_group.secondary};}
   \.secondary_box{ background-color: #{current_group.secondary};}
   \.tertiary_box{ background-color: #{current_group.tertiary};}
+  \#sidebar h3{background-color: #{current_group.tertiary};}
 
 <!--//-->

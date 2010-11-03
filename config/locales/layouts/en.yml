@@ -1,5 +1,28 @@
 en:
   layouts:
+    section-listing:
+      latest:
+        news_article: Latest
+        newsfeed: Latest
+        discussion: Latest
+        video: Latest
+        article: Latest
+
+
+      headlines:
+        news_article: News headlines
+        newsfeed: Newsfeeds
+        discussion: Active Discussions
+        video: Active Discussions
+        article: Article Headlines
+
+      features:
+        news_article: News Features
+        newsfeed: Latest
+        discussion: Latest
+        video: Latest
+        article: Article features
+  
     create:
       bug: Report a bug
       feature: Discuss a feature
@@ -23,16 +46,20 @@ en:
       items_tagged: tagged with
       ask_item: Ask item
       discussions: Discussions
+      discussion: Discussion
       tags: Topics
       users: members
       questions: Questions
       news: News
       news_articles: Latest News
+      news_article: Latest News
       newsfeeds: Newsfeeds
       videos: Video
+      video: Video
       images: Images
       audio: Audio
       articles: Articles
+      article: Article
       blogs: Blogs
       badges: Badges
       bugs: Bugs

@@ -1,0 +1,12 @@
+-title = h(item.title)
+
+%li.latest{:class => class_for_item(item)}
+  .latest_link
+    = link_to truncate(strip_tags(item.title), :length => 96), item_path(item), :title => truncate(strip_tags(item.title), :length => 96)
+  .clear
+  .extract
+    = truncate(strip_tags(item.body), :length => 96)
+
+
+
+

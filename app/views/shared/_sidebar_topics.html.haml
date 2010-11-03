@@ -1,0 +1,23 @@
+-cache("tag_cloud_#{current_group.id}") do
+
+  .block
+    %h3
+      = t('.Topics', :default => [:"layout.application.topics", :"activerecord.attributes.user.topics", "Group Topics"])
+    .content
+      .tag-list
+        %ul.list
+          -tag_array = Array.new
+          -(self.tag_cloud).each do |tag|
+            -tag_array << [tag["count"],tag["name"]]
+
+          -sorted_array = tag_array.sort_by{|a|a}.reverse
+
+          -sorted_array.each do |tag|
+            -if tag[0] > 1
+              %li
+                %span.tag{:class => "tag_#{h(tag[1].to_s)}"}
+                  =link_to h(tag[1].to_s), url_for(extra_params.merge(:tags => (current_tags + [tag[1].to_s]).join("+"))), :rel => "tag",:title => t("items.tags.tooltip", :tag => tag[1].to_s)
+                .tag-multiplier
+                  x
+                  = tag[0]
+                .clear

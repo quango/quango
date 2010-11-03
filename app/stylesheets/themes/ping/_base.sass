@@ -1,3 +1,9 @@
+.section_head
+
+  .secondary-navigation
+
+
+
 .secondary_box
   background-image: url(/images/white_50_bg.png)
   +rounded(4px,4px,4px,4px)
@@ -9,7 +15,7 @@
 #trends
   width: 962px
   height: 34px
-  margin: 13px 0 0 0
+  margin: 13px 0 13px 0
   
 
 .user-field
@@ -43,7 +49,7 @@ body
   color: #444
   background: #fff
   font-family: Arial
-  font-size: 1em
+  font-size: 12px
 
 
 hr
@@ -94,8 +100,10 @@ input.checkbox
   float: left
 
 #main
+  width: 820px
   background: #fff
-
+  float: left
+  border-right: 1px solid white
 
   .left
     width: 468px
@@ -123,6 +131,14 @@ input.checkbox
       .inner
         padding: 0
 
+#sidebar
+  width: 140px  
+  float: right
+  .sidebar
+    .inner
+
+
+
     h2.title
       margin: 10px 0 5px 0
       background-color: none
@@ -139,7 +155,7 @@ input.checkbox
   margin: 0
 
 #sidebar
-  width: 234px
+  width: 140px
   &.edit-button
     a
       height: 26px
@@ -186,17 +202,18 @@ input.checkbox
     padding-bottom: 13px
 
     .content
+      border-top: 16px solid #ddd
       margin: 0
       padding: 0 0 0 0
 
   h3
-    height: 32px
-    line-height: 32px
+    height: 20px
+    line-height: 20px
     padding: 3px
-    margin: 0px 0 13px 0
-    background-color: gainsboro
+    margin: 0
     font-weight: normal
-    font-size: 1em
+    font-size: 1em  
+    border-bottom: 1px solid white
 
   ul
     &.navigation li

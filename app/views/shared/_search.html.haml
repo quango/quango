@@ -3,11 +3,11 @@
     = text_field_tag :q, params[:q], :id => "search-field", :style=>"float:left"
     %button.search-submit{:style => "background-color: #{current_group.secondary}" }
       = "Search"
-    %br
-      = radio_button_tag(:mode, "here", true)
-      = label_tag "Here"
-      = radio_button_tag(:mode, "there")
-      = label_tag "There"
-      = radio_button_tag(:mode, "everywhere")
-      = label_tag "Everywhere"
+    -#%br
+    -#= radio_button_tag(:mode, "here", true)
+    -#= label_tag "Here"
+    -#= radio_button_tag(:mode, "there")
+    -#= label_tag "There"
+    -#= radio_button_tag(:mode, "everywhere")
+    -#= label_tag "Everywhere"
 
