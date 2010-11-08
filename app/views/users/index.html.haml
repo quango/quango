@@ -1,6 +1,3 @@
--content_for :trends do
-  = render :partial => "items/item_topics", :object => @tag_cloud
-
 -content_for :subtabs do
   .navtitle
     = t("users.index.title")
@@ -54,17 +51,6 @@
 
 /Layout
 -content_for :main do
-
-
-
-  #main.right
-
-    #sidebar.left
-      = yield :sidebar_left
-
-    #sidebar.right
-      = yield :sidebar_right
-    .clear
 
   #main.left
     = yield :subtabs

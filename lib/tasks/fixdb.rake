@@ -1,27 +1,19 @@
 desc "Fix all"
-task :fixall => [:environment, "fixdb:badges", "fixdb:items", "fixdb:update_widgets", "fixdb:tokens", "fixdb:es419", "fixdb:anonymous", "fixdb:flags"] do
+task :fixall => [:environment, "fixdb:badges", "fixdb:items", "fixdb:modes2nodes", "fixdb:update_widgets", "fixdb:tokens", "fixdb:anonymous", "fixdb:flags"] do
 end
 
 namespace :fixdb do
-  task :es419 => :environment do
-    puts "Updating Group language from es-AR to es-419"
-    User.set({:language => 'es-AR'},{:language => 'es-419'})
 
-    puts "Updating User language from es-AR to es-419"
-    User.set({:language => 'es-AR'},{:language => 'es-419'})
+  task :modes2nodes => :environment do
+    Group.find_each do |group|
+      Item.find_each(:group_id => group.id) do |item|
+        item.set({:node => item.mode})
+      end
+      puts "Updating #{group["name"]} items"
+    end
 
-    puts "Updating Items language from es-AR to es-419"
-    User.set({:language => 'es-AR'},{:language => 'es-419'})
-
-    puts "Updating Comments language from es-AR to es-419"
-    User.set({:language => 'es-AR'},{:language => 'es-419'})
-
-    puts "Updating Pages language from es-AR to es-419"
-    User.set({:language => 'es-AR'},{:language => 'es-419'})
-
-    puts "Updating Answer language from es-AR to es-419"
-    User.set({:language => 'es-AR'},{:language => 'es-419'})
   end
+
   task :badges => :environment do
     puts "Updating #{User.count} users..."
 

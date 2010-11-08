@@ -1,0 +1,3 @@
+class ImageSection < Section
+
+end

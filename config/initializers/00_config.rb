@@ -10,6 +10,7 @@ REPUTATION_CONSTRAINS = {"vote_up" => 15, "flag" => 15, "post_images" => 15,
 
 REPUTATION_REWARDS = YAML.load_file(RAILS_ROOT+"/config/default_reputation.yml")
 
+DEFAULT_SECTIONS = YAML.load_file(RAILS_ROOT+"/config/default_sections.yml")
 
 REST_AUTH_SITE_KEY         = AppConfig.rest_auth_key
 REST_AUTH_DIGEST_STRETCHES = AppConfig.rest_auth_digest_stretches

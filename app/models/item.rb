@@ -9,11 +9,12 @@ class Item
   ensure_index :tags
   ensure_index :language
 
-  MODES = %w{news_article newsfeed video image article blog question discussion bug feature bookmark}
   VIDEO_MODES = %w{youtube vimeo another}
 
   key :_id, String
-  key :mode, String, :in => MODES
+  key :section, String
+  key :mode, String
+  key :node, String
   key :bookmark, String
   #key :link, String
   key :title, String, :required => true

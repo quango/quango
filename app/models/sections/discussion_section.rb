@@ -1,0 +1,3 @@
+class DiscussionSection < Section
+
+end

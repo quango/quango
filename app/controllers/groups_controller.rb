@@ -89,9 +89,17 @@ class GroupsController < ApplicationController
     @group.owner = current_user
     @group.state = "active"
 
-    @group.widgets << TagCloudWidget.new
     @group.widgets << TopUsersWidget.new
     @group.widgets << BadgesWidget.new
+
+    @group.sections << NewsSection.new
+    @group.sections << NewsfeedSection.new
+    @group.sections << VideoSection.new
+    @group.sections << ImageSection.new
+    @group.sections << ArticleSection.new
+    @group.sections << DiscussionSection.new
+    @group.sections << BookmarkSection.new
+
 
     respond_to do |format|
       if @group.save
@@ -112,7 +120,8 @@ class GroupsController < ApplicationController
     @group.safe_update(%w[name name_highlight legend description has_custom_channels custom_channels default_tags subdomain logo logo_info forum
                           custom_favicon language theme reputation_rewards reputation_constrains
                           has_adult_content registered_only openid_only custom_css wysiwyg_editor fb_button share 
-                          primary secondary tertiary header_bg_image toolbar_bg toolbar_bg_image 
+                          primary secondary tertiary header_bg_image toolbar_bg toolbar_bg_image
+                          show_modes 
                           show_news_articles show_newsfeeds show_video show_images show_articles show_blogs show_questions show_discussions show_bookmarks show_bugs show_features 
                           robots
                          ], params[:group])

@@ -1,31 +1,34 @@
 .section-head{:class => @active_subtab.to_s}
-  .secondary-navigation
+  .secondary-navigation-sections
     .navlabel
-      = link_to t("layouts.application.#{mode}"), domain_url(:custom => current_group.domain) << "/" << mode << "s"
+      = link_to "#{section.node.upcase}", domain_url(:custom => current_group.domain) << "/" << section.node << "s"
     .navcontrols
       %ul
-        %li.move_up
-          = link_to "up", "#",:class=>"section_button", :rel => "nofollow"
-        %li.move_down
-          = link_to "down", "#",:class=>"section_button", :rel => "nofollow"
+        -if sortable == "true"
+          %li.move_up
+            = link_to "up", "#",:class=>"section_button", :rel => "nofollow"
+          %li.move_down
+            = link_to "down", "#",:class=>"section_button", :rel => "nofollow"
         %li.contract
-          = link_to "-", "#", :title => t("items.index.active_tooltip"),:class=>"section_button", :rel => "nofollow"
+          = link_to "-", "#", :title => t("items.index.active_tooltip"),:class=>"contract section_button", :rel => "nofollow"
         %li.expand
-          = link_to "+", "#", :title => t("items.index.active_tooltip"),:class=>"section_button", :rel => "nofollow"
+          = link_to "+", "#", :title => t("items.index.active_tooltip"),:class=>"expand section_button", :rel => "nofollow"
     .navlinks
-      -if mode
-        - create_mode = "layouts.create." << mode
-        - url = domain_url(:custom => current_group.domain) << "/add/new?mode=" << mode
-        = link_to t(create_mode), url,:class =>"link", :rel => 'nofollow', :mode => mode
+      -if section.mode
+        - create_item = section.create_label
+        - url = domain_url(:custom => current_group.domain) << "/add/new?node=" << section.node.downcase
+        = link_to h(create_item), url,:class =>"link", :rel => 'nofollow', :node => section.node
         = "|"
       -else
         = "no mode"
 
-  .section-listing
+
+
+  .section-listing{:class => section.node}
 
     .listings-left
       .title
-        = t("layouts.section-listing.latest.#{mode}")
+        = t("layouts.section-listing.latest.#{section.node}")
       .content
         %ul.listing
           -if @items.empty?
@@ -34,18 +37,18 @@
           -else
             -item_array = Array.new
             -@items.each do |item|
-              -if item.mode == mode
+              -if item.mode == section.mode
                 -item_array << item
-            -item_array[1].each do |item|
+            -item_array[0..0].each do |item|
               = render :partial => "items/section_list_item", :locals => {:item => item,:sort=>"hot", :list_mode => "latest"}
 
         -#sorted_array = tag_array.sort_by{|a|a}.reverse
         .clear
-     
+ 
 
     .listings-centre
       .title
-        = t("layouts.section-listing.headlines.#{mode}")
+        = t("layouts.section-listing.headlines.#{section.node}")
       .content
 
         %ul.listing
@@ -54,13 +57,13 @@
               = t(".empty")
           -else
             -@items.each do |item|
-              -if item.mode == mode
+              -if item.node == section.node
                 = render :partial => "items/section_list_item", :locals => {:item => item, :list_mode => "headline"}
         .clear
 
     .listings-right
       .title
-        = t("layouts.section-listing.features.#{mode}")
+        = t("layouts.section-listing.features.#{section.node}")
       .content
         %ul.features
           -if @items.empty?
@@ -69,13 +72,23 @@
           -else
             -features_array = Array.new
             -@items.each do |item|
-              -if item.mode == mode
+              -if item.mode == section.mode
                 -features_array << item
-            -features_array[0..2].each do |item|
+            -features_array[0..1].each do |item|
               = render :partial => "items/section_list_item", :locals => {:item => item,:sort=>"hot", :list_mode => "thumbnail"}
         .clear
 
 .clear
 
+-if @items.empty?
+  %script
+    = "$('.#{section.node}.section-listing').hide();});"
 
+
+%script
+  = "$('.contract').click(function(){"
+  = "$('.#{section.node}.section-listing').hide();});"
+  = "$('.expand').click(function(){"
+  = "$('.#{section.node}.section-listing').show();"
+  = "});" 
 

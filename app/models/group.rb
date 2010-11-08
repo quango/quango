@@ -58,7 +58,7 @@ class Group
   key :header_bg, String, :default => "#2b5782"
   key :header_bg_image, String
   key :toolbar_bg, String
-  key :toolbar_bg_image, String, :default => "/images/white_25_bg.png"
+  key :toolbar_bg_image, String, :default => "/images/black_25_bg.png"
   key :primary, String, :default => "#2b5782" #tabs, 
   key :primary_hover, String, :default => "#E1A970" #header_bg and edit buttons
   key :primary_selected, String, :default => "#990000"
@@ -69,23 +69,13 @@ class Group
   key :edit_button_bg, String, :default => "#990000" #tabs, 
   key :edit_button_bg_image, String, :default => "/images/default_button_bg.png"
 
-  key :logo_info, Hash, :default => {"width" => 215, "height" => 60}
+  key :logo_info, Hash, :default => {"width" => 32, "height" => 32}
   key :share, Share, :default => Share.new
 
   #temp sections to be refactored with dynamic sections controller
-  key :show_modes, Array #Hash, :default => Item::MODES
-  key :show_news_articles, Boolean, :default => true
-  key :show_newsfeeds, Boolean, :default => false
-  key :show_video, Boolean, :default => true
-  key :show_images, Boolean, :default => false
-  key :show_articles, Boolean, :default => true
-  key :show_blogs, Boolean, :default => true
-  key :show_bookmarks, Boolean, :default => true
-  key :show_questions, Boolean, :default => true
-  key :show_discussions, Boolean, :default => true
-  key :show_bugs, Boolean, :default => false
-  key :show_features, Boolean, :default => false
 
+  key :show_modes, Array #Hash, :default => Item::MODES
+  key :show_modes_order, Hash
 
 
   file_key :logo, :max_length => 2.megabytes
@@ -96,6 +86,7 @@ class Group
   filterable_keys :name
 
   has_many :ads, :dependent => :destroy
+  has_many :sections, :class_name => "Section"
   has_many :widgets, :class_name => "Widget"
   #has_many :images, :dependent => :destroy
   has_many :badges, :dependent => :destroy

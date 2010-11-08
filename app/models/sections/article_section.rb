@@ -1,0 +1,3 @@
+class ArticleSection < Section
+
+end

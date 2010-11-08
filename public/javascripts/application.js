@@ -1,23 +1,23 @@
 // here, we allow the user to sort the items
-var setSelector = "#sortable";
+var setSelector = "#section-listing ul";
 // set the cookie name
 var setCookieName = "listOrder";
 // set the cookie expiry time (days):
 var setCookieExpiry = 7;
 
 
-//$(document).ready(function() {
+$(document).ready(function() {
 
-//	$(setSelector).sortable({
-//		axis: "x",
-//		cursor: "move",
-//  	placeholder: 'ui-state-highlight',
-//		update: function() { getOrder(); }
-//	});
-//  $(setSelector).disableSelection(); 
-//	// here, we reload the saved order
-//	restoreOrder();
-//});
+	$(setSelector).sortable({
+		axis: "y",
+		cursor: "move",
+  	placeholder: 'ui-state-highlight',
+		update: function() { getOrder(); }
+	});
+  $(setSelector).disableSelection(); 
+	// here, we reload the saved order
+	restoreOrder();
+});
 
 
 

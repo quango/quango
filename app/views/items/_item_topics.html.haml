@@ -1,16 +1,16 @@
 -cache("trending_topics_#{current_group.id}") do
   #trends
-    %div{:style=>"width:468px;height:34px;line-height:34px; float:right"}
-      %div{:style=>"width:208px;height:34px; float:left", :class=>"tertiary_box"}
+    %div{:style=>"width:820px;height:34px;line-height:34px; float:left"}
+      %div{:style=>"width:468px;height:34px; float:left", :class=>"tertiary_box"}
         = render :partial => "shared/sponsor_box"
-      %div{:style=>"float:right;width:234px;"}
+      %div{:style=>"float:left;width:141px;"}
         -if @mode
           = render :partial => "items/create_button", :object=>@item
         -else
           = "no mode"
 
-    %div{:style=>"width:468px;height:34px;line-height:34px; float:left"}
-      %div{:style=>"width:468px;height:26px;float:left"}
+    %div{:style=>"width:256px;height:34px;line-height:34px; float:left"}
+      %div{:style=>"width:420px;height:26px;float:left"}
         %div{:style=>"float:left; float:left"}
           -#%span{:style=>"position:absolute; float:left; z-index:99; width:468px"}
             -#= image_tag("/images/item_trends_bg.png")

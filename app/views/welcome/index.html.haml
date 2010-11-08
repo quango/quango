@@ -54,21 +54,14 @@
 
   #section-listing{:class => @active_tab}
     %ul
-      -if current_group.show_news_articles
-        %li.news_article
-          = render :partial => "items/section_head", :locals => {:mode => "news_article", :list_mode => "standard"}
-      
-      -if current_group.show_video
-        %li.video
-          = render :partial => "items/section_head", :locals => {:mode => "video"}
+      -current_group.sections.each do |section|
+        -if !section.hidden?
+          %li{:class => section.name }
+          = render :partial => "items/section_head", :locals => {:section => section, :sortable => "true", :list_mode => "standard"}
 
-      -if current_group.show_discussions
-        %li.discussion
-          = render :partial => "items/section_head", :locals => {:mode => "discussion"}
 
-      -if current_group.show_articles
-        %li.article
-          = render :partial => "items/section_head", :locals => {:mode => "article"}
+
+
 
 
 -content_for :sidebar do

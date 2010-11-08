@@ -3,8 +3,7 @@
   -# url = domain_url(:custom => current_group.domain) << "/add/new?item[mode]=" << @mode
   - url = domain_url(:custom => current_group.domain) << "/add/new?mode=" << @mode
 
-  %div
-    = link_to '&#9733;'<< t(create_mode), url, :rel => 'nofollow', :mode => @mode , :class=>"create-button", :style => "background-color: "+current_group.primary+";"
+  = link_to '&#9733;'<< t(create_mode), url, :rel => 'nofollow', :mode => @mode , :class=>"create-button", :style => "background-color: "+current_group.primary+";"
 
 -else
   = "no mode"

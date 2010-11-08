@@ -22,13 +22,9 @@
         #toolbar-container
           = render :partial => "shared/toolbar"
         #header
-          = render :partial => "shared/header_manage"
+          = render :partial => "shared/header"
         #channel-container
-          = render :partial => "shared/channel_navigation", :object => @active_tag
-    #navigation-container
-      #navigation-container-inner
-        = render :partial => "shared/manage_navigation"
-        .clear
+          = render :partial => "shared/manage_navigation"
 
     #container{:class => @active_tab}
       #wrapper

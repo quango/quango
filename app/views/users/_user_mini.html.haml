@@ -16,14 +16,15 @@
     %span.reputation{:title => t("activerecord.attributes.user.reputation")}
       -unless user.nil?
         -if user.owner_of?(current_group)
-          %span.ownerflair{:title => "This user is an admin", :style=>"background-color:gold", :class=>"button"}
-            ☠
+          %span.ownerflair{:title => "Group Administrator", :style => "background-color:#{current_group.secondary};border: 1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px"}
+            Admin
         -elsif user.mod_of?(current_group)
-          %span.modflair{:title => "moderator", :style=>"background-color:bronze"}
+          %span.modflair{:title => "moderator"}
             Associate
         -elsif user.editor_of?(current_group)
-          %span.editorflair{:title => "editor", :style=>"background-color:#E1A970"}
-            = link_to "Editor", "http://editors.thinkingdaily.com"
+          %span.editorflair{:title => "Group Editor", :style => "background-color:#{current_group.secondary};border: 1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px"}
+            Editor
+
       -else
         = t('users.deleted')
       -unless user.nil?

@@ -1,20 +1,25 @@
-= "mode: " << @item.mode.to_s
-= "mode: " << params[:mode].to_s
+= "node to create: " << params[:node].downcase
 = f.error_messages
 = error_messages_for(:user)
 
 .group
   = f.label :title, "#{t(:mode, :scope => "activerecord.attributes.item")}*", :class => "label"
-  -Item::MODES.each do |mode|
-    -if mode == @mode
-      = "<span style='background-color:pink'>"
-      = f.radio_button :mode, mode, :class => "radio_button", :checked => true
-      = t(mode, :scope => "activerecord.attributes.item") << "</span>"
-    -else
-      = f.radio_button :mode, mode, :class => "radio_button"
-      = t(mode, :scope => "activerecord.attributes.item")
-  .description
-    = t(".mode_prompt")
+  -current_group.sections.each do |section|
+    = f.hidden_field :section, :value => section.node
+    -if !section.hidden?
+      -if section.node == params[:node].downcase
+        = "<span style='background-color:pink'>"
+        = f.radio_button :mode, section.node, :class => "radio_button", :checked => true
+        = "#{section.node}" << "</span>"
+        - @mode = section.mode
+      -else
+        = f.radio_button :mode, section.node, :class => "radio_button"
+        = "#{section.node}"
+
+.group
+  = "To be hidden"
+  = f.text_field :mode, :value => @mode
+
 
 
 .group

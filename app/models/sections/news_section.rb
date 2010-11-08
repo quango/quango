@@ -1,0 +1,3 @@
+class NewsSection < Section
+
+end

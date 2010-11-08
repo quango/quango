@@ -3,6 +3,8 @@
   %ul
     %li.properties
       =link_to t("layouts.manage.properties"), manage_properties_path
+    %li.sections
+      =link_to t("layouts.manage.sections"), sections_path
     %li.widgets
       =link_to t("layouts.manage.widgets"), widgets_path
     -if current_group.has_custom_html
@@ -13,7 +15,7 @@
 
     -if current_group.has_custom_ads
       %li.ads
-        =link_to t("layouts.application.manage_ads"), ads_path
+        =link_to t("layouts.manage.advertising"), ads_path
     %li.members
       = link_to t("layouts.manage.members"), members_path
 

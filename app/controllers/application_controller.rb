@@ -89,6 +89,12 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_group
 
+  def current_section
+    @current_section
+  end
+  #helper_method :current_group
+
+
   def current_tags
     @current_tags ||=  if params[:tags].kind_of?(String)
       params[:tags].split("+")

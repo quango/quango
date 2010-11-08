@@ -1,4 +1,6 @@
 en:
+  scaffold:
+    post_as_anonymous: DEPRECATED
   layouts:
     section-listing:
       latest:
@@ -7,7 +9,8 @@ en:
         discussion: Latest
         video: Latest
         article: Latest
-
+        blog: Blogs
+        bookmark: Just in
 
       headlines:
         news_article: News headlines
@@ -15,6 +18,8 @@ en:
         discussion: Active Discussions
         video: Active Discussions
         article: Article Headlines
+        blog: Recent blogs
+        bookmark: Recent Bookmarks
 
       features:
         news_article: News Features
@@ -22,6 +27,8 @@ en:
         discussion: Latest
         video: Latest
         article: Article features
+        blog: Hot blogs
+        bookmark: Wicked bookmarks
   
     create:
       bug: Report a bug
@@ -52,7 +59,7 @@ en:
       questions: Questions
       news: News
       news_articles: Latest News
-      news_article: Latest News
+      news_article: News
       newsfeeds: Newsfeeds
       videos: Video
       video: Video
@@ -86,10 +93,11 @@ en:
       openid:
         explaination: "If you would like to register or just log in, please select your OpenID provider:"
     manage:
+      advertising: Advertising
       analytics: Analytics
       sections: Sections
       dashboard: Dashboard
-      properties: Properties
+      properties: Group Properties
       widgets: Widgets
       actions: Actions
       stats: Stats

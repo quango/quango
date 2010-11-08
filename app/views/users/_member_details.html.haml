@@ -1,9 +1,9 @@
 -bronze, silver, gold = user.badges_count_on(current_group)
 
-.member_details{:style=>"width:234px; overflow:hidden"}
+.member_details{:style=>"width:140px; overflow:hidden"}
 
-  %div.gravatar{:style=>"width:64px;float:left; margin-right:13px;"}
-    = link_to gravatar(user.email.to_s, :size => 64), user_path(user)
+  %div.gravatar{:style=>"width:32px;float:left; margin-right:13px;"}
+    = link_to gravatar(user.email.to_s, :size => 32), user_path(user)
 
   %div.details{:style=>"width:96px;float:left; overflow:hidden"}
 
@@ -16,17 +16,15 @@
     %span.reputation{:title => t("activerecord.attributes.user.reputation")}
       -unless user.nil?
         -if user.owner_of?(current_group)
-          %span.ownerflair{:title => "This user is an admin", :style=>"background-color:gold", :class=>"button"}
-            ☠
+          %span.ownerflair{:title => "Group Administrator", :style => "background-color:#{current_group.secondary};border: 1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px"}
+            Admin
         -elsif user.mod_of?(current_group)
-          %span.modflair{:title => "moderator", :style=>"background-color:bronze"}
+          %span.modflair{:title => "moderator"}
             Associate
         -elsif user.editor_of?(current_group)
-          %span.editorflair{:title => "editor", :style=>"background-color:silver"}
+          %span.editorflair{:title => "Group Editor", :style => "background-color:#{current_group.secondary};border: 1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px"}
             Editor
-        -elsif user.editor_of?(current_group)
-          %span.editorflair{:title => "editor", :style=>"background-color:#{current_group.tertiary}"}
-            Beta
+
       -else
         = t('users.deleted')
       -unless user.nil?

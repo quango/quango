@@ -59,10 +59,14 @@ ActionController::Routing::Routes.draw do |map|
   #map.news_articles 'news_articles', :controller => :news_articles, :as => "news"
 
   map.resources :questions
+  map.resources :newsfeeds
   map.resources :bugs
   map.resources :features
-
-  #map.connect 'questions/topic/:tags', :controller => :bookmarks, :action => :index,:requirements => {:tags => /\S+/}
+  map.resources :videos
+  map.resources :articles
+  map.resources :blogs
+  map.resources :discussions
+  map.resources :bookmarks
 
   def build_items_routes(router, options ={})
     router.with_options(options) do |route|
@@ -108,277 +112,11 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'items/unanswered/tags/:tags', :controller => :items, :action => :unanswered
 
   build_items_routes(map)
+
+  #map.connect "items/:section", :controller => :items, :action => :index, :requirements => {:section => /\S+/}
+
+
   #build_items_routes(map, :path_prefix => '/:language', :name_prefix => "with_language_") #deprecated route
-
-
-
-  def build_discussions_routes(router, options ={:mode => "discussions"})
-    router.with_options(options) do |route|
-      route.se_url "/discussion/:id/:slug", :controller => "discussions", :action => "show", :id => /\d+/,
- :conditions => { :method => :get }, :mode => "discussions"
-      route.resources :discussions, :collection => {:tags => :get,
-                                                  :tags_for_autocomplete => :get,
-                                                  :unanswered => :get,
-                                                  :related_items => :get,
-                                                  :mode => :get},
-                                :member => {:solve => :get,
-                                            :unsolve => :get,
-                                            :favorite => :any,
-                                            :unfavorite => :any,
-                                            :watch => :any,
-                                            :unwatch => :any,
-                                            :history => :get,
-                                            :revert => :get,
-                                            :diff => :get,
-                                            :move => :get,
-                                            :move_to => :put,
-                                            :retag => :get,
-                                            :retag_to => :put,
-                                            :close => :put,
-                                            :open => :put} do |discussions|
-        discussions.resources :comments
-        discussions.resources :answers, :member => {:history => :get,
-                                                  :diff => :get,
-                                                  :revert => :get} do |answers|
-          answers.resources :comments
-          answers.resources :flags
-        end
-        discussions.resources :flags
-        discussions.resources :close_requests
-        discussions.resources :open_requests
-      end
-    end
-  end
-
-  map.connect 'discussions/topic/:tags', :controller => :discussions, :action => :index,:requirements => {:tags => /\S+/}
-  map.connect 'discussions/unanswered/tags/:tags', :controller => :discussions, :action => :unanswered
-
-  build_discussions_routes(map, :mode=>"discussions")
-  build_discussions_routes(map, :path_prefix => '/:language', :name_prefix => "with_language_") #deprecated route
-
-
-
-  def build_newsfeeds_routes(router, options ={})
-    router.with_options(options) do |route|
-      route.se_url "/newsfeeds/:id/:slug", :controller => "news", :action => "show", :id => /\d+/,
- :conditions => { :method => :get }
-      route.resources :newsfeeds, :collection => {:tags => :get,
-                                                  :tags_for_autocomplete => :get,
-                                                  :unanswered => :get,
-                                                  :related_items => :get,
-                                                  :mode => :get},
-                                :member => {:solve => :get,
-                                            :unsolve => :get,
-                                            :favorite => :any,
-                                            :unfavorite => :any,
-                                            :watch => :any,
-                                            :unwatch => :any,
-                                            :history => :get,
-                                            :revert => :get,
-                                            :diff => :get,
-                                            :move => :get,
-                                            :move_to => :put,
-                                            :retag => :get,
-                                            :retag_to => :put,
-                                            :close => :put,
-                                            :open => :put} do |newsfeeds|
-        newsfeeds.resources :comments
-        newsfeeds.resources :answers, :member => {:history => :get,
-                                                  :diff => :get,
-                                                  :revert => :get} do |answers|
-          answers.resources :comments
-          answers.resources :flags
-        end
-        newsfeeds.resources :flags
-        newsfeeds.resources :close_requests
-        newsfeeds.resources :open_requests
-      end
-    end
-  end
-
-  map.connect 'newsfeeds/topic/:tags', :controller => :news, :action => :index,:requirements => {:tags => /\S+/}
-  map.connect 'newsfeeds/unanswered/tags/:tags', :controller => :news, :action => :unanswered
-
-  build_newsfeeds_routes(map)
-  build_newsfeeds_routes(map, :path_prefix => '/:language', :name_prefix => "with_language_") #deprecated route
-
-
-  def build_articles_routes(router, options ={})
-    router.with_options(options) do |route|
-      route.se_url "/articles/:id/:slug", :controller => "articles", :action => "show", :id => /\d+/,
- :conditions => { :method => :get }
-      route.resources :articles, :collection => {:tags => :get,
-                                                  :tags_for_autocomplete => :get,
-                                                  :unanswered => :get,
-                                                  :related_items => :get,
-                                                  :mode => :get},
-                                :member => {:solve => :get,
-                                            :unsolve => :get,
-                                            :favorite => :any,
-                                            :unfavorite => :any,
-                                            :watch => :any,
-                                            :unwatch => :any,
-                                            :history => :get,
-                                            :revert => :get,
-                                            :diff => :get,
-                                            :move => :get,
-                                            :move_to => :put,
-                                            :retag => :get,
-                                            :retag_to => :put,
-                                            :close => :put,
-                                            :open => :put} do |articles|
-        articles.resources :comments
-        articles.resources :answers, :member => {:history => :get,
-                                                  :diff => :get,
-                                                  :revert => :get} do |answers|
-          answers.resources :comments
-          answers.resources :flags
-        end
-        articles.resources :flags
-        articles.resources :close_requests
-        articles.resources :open_requests
-      end
-    end
-  end
-
-  map.connect 'articles/topic/:tags', :controller => :articles, :action => :index,:requirements => {:tags => /\S+/}
-  map.connect 'articles/unanswered/tags/:tags', :controller => :articles, :action => :unanswered
-
-  build_articles_routes(map)
-  build_articles_routes(map, :path_prefix => '/:language', :name_prefix => "with_language_") #deprecated route
-
-  def build_blogs_routes(router, options ={})
-    router.with_options(options) do |route|
-      route.se_url "/blogs/:id/:slug", :controller => "blogs", :action => "show", :id => /\d+/,
- :conditions => { :method => :get }
-      route.resources :blogs, :collection => {:tags => :get,
-                                                  :tags_for_autocomplete => :get,
-                                                  :unanswered => :get,
-                                                  :related_items => :get,
-                                                  :mode => :get},
-                                :member => {:solve => :get,
-                                            :unsolve => :get,
-                                            :favorite => :any,
-                                            :unfavorite => :any,
-                                            :watch => :any,
-                                            :unwatch => :any,
-                                            :history => :get,
-                                            :revert => :get,
-                                            :diff => :get,
-                                            :move => :get,
-                                            :move_to => :put,
-                                            :retag => :get,
-                                            :retag_to => :put,
-                                            :close => :put,
-                                            :open => :put} do |blogs|
-        blogs.resources :comments
-        blogs.resources :answers, :member => {:history => :get,
-                                                  :diff => :get,
-                                                  :revert => :get} do |answers|
-          answers.resources :comments
-          answers.resources :flags
-        end
-        blogs.resources :flags
-        blogs.resources :close_requests
-        blogs.resources :open_requests
-      end
-    end
-  end
-
-  map.connect 'blogs/topic/:tags', :controller => :blogs, :action => :index,:requirements => {:tags => /\S+/}
-  map.connect 'blogs/unanswered/tags/:tags', :controller => :blogs, :action => :unanswered
-
-  build_blogs_routes(map)
-  build_blogs_routes(map, :path_prefix => '/:language', :name_prefix => "with_language_") #deprecated route
-
-  def build_videos_routes(router, options ={})
-    router.with_options(options) do |route|
-      route.se_url "/videos/:id/:slug", :controller => "videos", :action => "show", :id => /\d+/,
- :conditions => { :method => :get }
-      route.resources :videos, :collection => {:tags => :get,
-                                                  :tags_for_autocomplete => :get,
-                                                  :unanswered => :get,
-                                                  :related_items => :get,
-                                                  :mode => :get},
-                                :member => {:solve => :get,
-                                            :unsolve => :get,
-                                            :favorite => :any,
-                                            :unfavorite => :any,
-                                            :watch => :any,
-                                            :unwatch => :any,
-                                            :history => :get,
-                                            :revert => :get,
-                                            :diff => :get,
-                                            :move => :get,
-                                            :move_to => :put,
-                                            :retag => :get,
-                                            :retag_to => :put,
-                                            :close => :put,
-                                            :open => :put} do |videos|
-        videos.resources :comments
-        videos.resources :answers, :member => {:history => :get,
-                                                  :diff => :get,
-                                                  :revert => :get} do |answers|
-          answers.resources :comments
-          answers.resources :flags
-        end
-        videos.resources :flags
-        videos.resources :close_requests
-        videos.resources :open_requests
-      end
-    end
-  end
-
-  map.connect 'videos/topic/:tags', :controller => :videos, :action => :index,:requirements => {:tags => /\S+/}
-  map.connect 'videos/unanswered/tags/:tags', :controller => :videos, :action => :unanswered
-  #map.connect 'videos/new', :controller => :videos, :action => :new, :as => "new"
-
-  build_videos_routes(map)
-  build_videos_routes(map, :path_prefix => '/:language', :name_prefix => "with_language_") #deprecated route
-
-  def build_bookmarks_routes(router, options ={})
-    router.with_options(options) do |route|
-      route.se_url "/videos/:id/:slug", :controller => "bookmarks", :action => "show", :id => /\d+/,
- :conditions => { :method => :get }
-      route.resources :bookmarks, :collection => {:tags => :get,
-                                                  :tags_for_autocomplete => :get,
-                                                  :unanswered => :get,
-                                                  :related_items => :get,
-                                                  },
-                                :member => {:solve => :get,
-                                            :unsolve => :get,
-                                            :favorite => :any,
-                                            :unfavorite => :any,
-                                            :watch => :any,
-                                            :unwatch => :any,
-                                            :history => :get,
-                                            :revert => :get,
-                                            :diff => :get,
-                                            :move => :get,
-                                            :move_to => :put,
-                                            :retag => :get,
-                                            :retag_to => :put,
-                                            :close => :put,
-                                            :open => :put} do |bookmarks|
-        bookmarks.resources :comments
-        bookmarks.resources :answers, :member => {:history => :get,
-                                                  :diff => :get,
-                                                  :revert => :get} do |answers|
-          answers.resources :comments
-          answers.resources :flags
-        end
-        bookmarks.resources :flags
-        bookmarks.resources :close_requests
-        bookmarks.resources :open_requests
-      end
-    end
-  end
-
-  map.connect 'bookmarks/topic/:tags', :controller => :bookmarks, :action => :index,:requirements => {:tags => /\S+/}
-  map.connect 'bookmarks/unanswered/tags/:tags', :controller => :bookmarks, :action => :unanswered
-
-  build_bookmarks_routes(map)
-  build_bookmarks_routes(map, :path_prefix => '/:language', :name_prefix => "with_language_") #deprecated route
 
 
   #map.questions 'questions/:action/:id', :controller => 'items', :mode => 'question'
@@ -398,6 +136,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :votes
 
+  map.resources :sections, :member => {:move => :post}, :path_prefix => "/manage"
   map.resources :widgets, :member => {:move => :post}, :path_prefix => "/manage"
   map.resources :members, :path_prefix => "/manage"
 
@@ -406,11 +145,14 @@ ActionController::Routing::Routes.draw do |map|
     manage.properties '/properties', :action => 'properties'
     manage.content '/content', :action => 'content'
     manage.theme '/theme', :action => 'theme'
+    #manage.sections '/sections', :action => 'sections', :member => {:move => :post}
     manage.actions '/actions', :action => 'actions'
     manage.stats '/stats', :action => 'stats'
     manage.reputation '/reputation', :action => 'reputation'
     manage.domain '/domain', :action => 'domain'
   end
+
+  map.resources :isections , :controller => :items, :action => :index, :as => ":section"
 
   map.search '/search.:format', :controller => "searches", :action => "index"
   map.about '/about', :controller => "groups", :action => "show"

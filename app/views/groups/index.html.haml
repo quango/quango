@@ -16,13 +16,13 @@
     %li.most_active
       = link_to t(".most_active"), groups_path(:tab=>"most_active")
 
--form_tag groups_path, :class => "form", :id => "filter_groups", :method => "get" do
-  = label_tag :q, t(".filter"), :class => "label"
-  = text_field_tag "q", params[:q], :class => "text_field filter_field"
-  = submit_tag("filter")
+  -form_tag groups_path, :class => "form", :id => "filter_groups", :method => "get" do
+    = label_tag :q, t(".filter"), :class => "label"
+    = text_field_tag "q", params[:q], :class => "text_field filter_field"
+    = submit_tag("filter")
 
-%ul.items#groups
-  = render :partial => "group", :collection => @groups
+  %ul.items#groups
+    = render :partial => "group", :collection => @groups
 
 #additional_info
   =will_paginate @groups
@@ -33,19 +33,8 @@
 
 /Layout
 -content_for :main do
-  #main.right
-    #sidebar.left
-      .sponsor{:style => "background-color:#{current_group.secondary}; background-image: url(/images/white_50_bg.png);"}
-        = "sponsor"
-      = yield :sidebar_left
+  = yield :list
 
-    #sidebar.right
-      .notice{:style => "background-color:#{current_group.secondary}"}
-        = render :partial => "shared/layout/notice"
-      = yield :sidebar_right
-    .clear
 
-  #main.left
-    = yield :list
   .clear
 

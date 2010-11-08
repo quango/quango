@@ -128,6 +128,13 @@
         = "Sidebar"
       .content
         = "Content"
+    .block
+      = "current"
+      = render :partial => "shared/current_tags"
+    .block
+      = render :partial => "shared/tag_list", :object => @tag_cloud
+
+
 
     - if logged_in? && (current_user.mod_of?(current_group) || current_user.can_view_offensive_counts_on?(current_group))
       -unless @item.flags.count == 0
@@ -151,10 +158,7 @@
           .content
             = render :partial => "open_requests/list", :locals => {:item => @item}
 
-    .block
-      %h3
-        = t('.tags', :default => [:"layouts.application.tags", :"activerecord.attributes.user.tags", "tags"])
-      = render :partial => "shared/tag_list", :object => @tag_cloud, :locals => { :extra_params => {:controller => "items", :action => "index"} }
+
 
 
     - if @item.badges.size > 0
@@ -200,10 +204,7 @@
                   = link_to h(rq.title), item_path(rq), :title => truncate(strip_tags(rq.body), :length => 200)
 
 
+
 - content_for :main do
 
-  .show-left
-    = yield :show_item
-
-  .show-right
-    = yield :sidebar
+  = yield :show_item

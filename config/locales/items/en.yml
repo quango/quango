@@ -1,5 +1,7 @@
 en:
   items:
+    section_head:
+      empty: Nada
     edit_button:
       label: Open Edit
     toolbox:

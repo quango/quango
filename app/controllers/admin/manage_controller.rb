@@ -8,7 +8,8 @@ class Admin::ManageController < ApplicationController
        :theme => :theme,
        :actions => :actions,
        :stats => :stats,
-       :widgets => :widgets
+       :widgets => :widgets,
+       :sections => :sections
 
   subtabs :properties => [[:general, "general"],
                           [:share, "share"],
@@ -36,6 +37,15 @@ class Admin::ManageController < ApplicationController
   end
 
   def domain
+  end
+
+  def sections
+  end
+
+  def move
+    section = @group.sections.find(params[:id])
+    section.move_to(params[:move_to])
+    redirect_to manage_sections_path
   end
 
   def content

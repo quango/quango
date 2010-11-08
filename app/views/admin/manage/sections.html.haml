@@ -1,0 +1,68 @@
+-content_for :subtabs do
+  .navtitle
+    =t(".title")
+
+%h2.title
+  =t(".description")
+
+#manage_sections
+  %table{:width => "468px"}
+    %th
+      =""
+    %th
+      ="Name"
+    %th
+      ="Hidden?"
+    %th
+      ="Mode"
+    %th
+      ="Order"
+    %th
+      ="Actions"
+
+    -list_order = 0
+    -@group.sections.each do |section|
+
+      -list_order = list_order + 1
+
+      %tr{:style => "background-color: gainsboro;"}
+        %td
+          = list_order
+        %td.name
+          = h(section.name)   #, :locals => {:section => section}
+        %td.hidden
+          -if section.hidden?
+            %strong
+              = "hidden"
+        %td.hidden
+          = h(section.mode)   #, :locals => {:section => section}
+        %td.order
+          -form_tag move_manage_sections_path(section) do
+            = submit_tag("up", :name=>"move_to", :value => "up") 
+            = submit_tag("down", :name=>"move_to", :value => "down")
+        %td.actions
+          = link_to t("scaffold.destroy"), manage_sections_path(section), :method => :delete, :confirm => t("scaffold.sure", :model => "section")
+          = " | "
+          = link_to t("scaffold.edit"), manage_sections_path(section), :method => :edit
+
+
+%h2.title
+  =t(".new_section", :default => "Add new section")
+
+-#form_tag sections_path, :class => "form" do |f|
+
+- form_for(@section, :html=>{:class => "form", :id => "new_announcement"}) do |f|
+  =render :partial => "form", :locals => {:f => f}
+
+
+  .group.navform
+    =submit_tag t("scaffold.add"), :class => "button"
+
+
+
+
+
+
+
+
+

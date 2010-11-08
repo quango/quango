@@ -1,91 +1,13 @@
--if @active_tag
-
-  #contextual-navigation{:class => @active_tab}
-    %ul#sortable
-      -if current_group.show_news_articles
-        %li.news_article
-          =link_to t("layouts.application.news"), news_articles_path
-      -if current_group.show_newsfeeds
-        %li.newsfeed
-          =link_to t("layouts.application.newsfeeds"), newsfeeds_path
-      -if current_group.show_video
-        %li.video
-          =link_to t("layouts.application.videos"), videos_path
-      -if current_group.show_images
-        %li.image
-          =link_to t("layouts.application.images"), images_path
-      -if current_group.show_articles
-        %li.article
-          =link_to t("layouts.application.articles"), articles_path
-      -if current_group.show_blogs
-        %li.blog
-          =link_to t("layouts.application.blogs"), blogs_path
-      -if current_group.show_questions
-        %li.question
-          =link_to t("layouts.application.questions"), questions_path
-      -if current_group.show_discussions
-        %li.discussion
-          =link_to t("layouts.application.discussions"), discussions_path
-      -if current_group.show_bugs
-        %li.bug
-          =link_to t("layouts.application.bugs"), bugs_path
-      -if current_group.show_features
-        %li.feature
-          =link_to t("layouts.application.features"), features_path
-      -if current_group.show_bookmarks
-        %li.bookmark
-          =link_to t("layouts.application.bookmarks"), bookmarks_path, :mode=>"bookmark"
-      %li.topics
-        = link_to ("topics"), domain_url(:custom => current_group.domain)
-      %li.users
-        =link_to t("layouts.application.users"), users_path
-
-
-  .clear
-
--else
-
-  #contextual-navigation{:class => @active_tab}
-    %ul#sortable
-      -if current_group.show_news_articles
-        %li.news_article
-          =link_to t("layouts.application.news"), news_articles_path
-      -if current_group.show_newsfeeds
-        %li.newsfeed
-          =link_to t("layouts.application.newsfeeds"), newsfeeds_path
-      -if current_group.show_video
-        %li.video
-          =link_to t("layouts.application.videos"), videos_path
-      -if current_group.show_images
-        %li.image
-          =link_to t("layouts.application.images"), images_path
-      -if current_group.show_articles
-        %li.article
-          =link_to t("layouts.application.articles"), articles_path
-      -if current_group.show_blogs
-        %li.blog
-          =link_to t("layouts.application.blogs"), blogs_path
-      -if current_group.show_questions
-        %li.question
-          =link_to t("layouts.application.questions"), questions_path
-      -if current_group.show_discussions
-        %li.discussion
-          =link_to t("layouts.application.discussions"), discussions_path
-      -if current_group.show_bugs
-        %li.bug
-          =link_to t("layouts.application.bugs"), bugs_path
-      -if current_group.show_features
-        %li.feature
-          =link_to t("layouts.application.features"), features_path
-      -if current_group.show_bookmarks
-        %li.bookmark
-          =link_to t("layouts.application.bookmarks"), bookmarks_path, :mode=>"bookmark"
-      %li.topics
-        -#="&#9733;"
-        = link_to ("topics"), domain_url(:custom => current_group.domain)
-      %li.users
-        -#="&#9733;"
-        =link_to t("layouts.application.users"), users_path
+#contextual-navigation{:class => @mode}
+  %ul
+    -current_group.sections.each do |section|
+      -if !section.hidden?
+        %li{:class => section.mode }
+          = link_to section.node, "#" #isections_path(section.node, :mode => section.mode)
+    %li{:style => "border-left:1px solid white"}
+      = link_to "Groups", groups_path
+    %li
+      = link_to "Members", users_path
 
   .clear
 
@@ -94,7 +16,5 @@
   = "$('li."+ @mode.to_s+"').css({'background-color':'"+current_group.primary+"'});"
   = "$('li."+ @mode.to_s+" a').css({'color':'#000'});"
   = "});"
-
-
 
 

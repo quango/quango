@@ -53,24 +53,10 @@
 /Layout
 -content_for :main do
 
-
-
-  #main.right
-    #topics
-      = render :partial => "items/topic_map", :mode => @mode
-    .clear
-    #sidebar.left
-      = yield :sidebar_left
-
-    #sidebar.right
-      = yield :sidebar_right
-    .clear
-
-  #main.left
-    = yield :subtabs
-    .clear
-    = yield :list
+  = yield :subtabs
   .clear
+  = yield :list
+.clear
 
 
 

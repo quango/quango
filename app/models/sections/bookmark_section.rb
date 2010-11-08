@@ -1,0 +1,3 @@
+class BookmarkSection < Section
+
+end

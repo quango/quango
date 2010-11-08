@@ -3,7 +3,7 @@
 - url << "&item[tags]=bug,#{AppConfig.version},#{current_group.name}"
 - url << "&item[body]=This is what happened..."
 
-%div.contribute.bug-button
+%div.contribute.bug-button{:style => "background-color:#990000;border: 1px solid #990000;text-shadow: #990000 0px -1px 1px"}
   ="&#9733;"
   =link_to "report bug ", url, :rel => 'nofollow'
 

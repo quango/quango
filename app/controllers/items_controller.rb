@@ -290,7 +290,7 @@ class ItemsController < ApplicationController
   # POST /items.xml
   def create
     @item = Item.new
-    @item.safe_update(%w[mode title bookmark main_image main_thumbnail images body language tags wiki anonymous], params[:item])
+    @item.safe_update(%w[node mode title bookmark main_image main_thumbnail images body language tags wiki anonymous], params[:item])
     @item.group = current_group
     @item.user = current_user
     

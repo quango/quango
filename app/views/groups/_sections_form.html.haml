@@ -1,15 +1,14 @@
+
 .group
   = f.label :title, "#{t(:mode, :scope => "activerecord.attributes.item")}*", :class => "label"
-  -Item::MODES.each do |mode|
-    = f.check_box :show_modes, :class => "checkbox"
-    = t(mode, :scope => "activerecord.attributes.item")
-  .description
-    = "[NON FUNCTIONAL]"
+ 
+
+
 
 
 .group
-  = f.check_box :show_news_articles, :class => "checkbox"
-  = f.label :show_news_articles, t('show_news_articles', :scope => "activerecord.attributes.group"), :class => "radio"
+  -#= f.check_box :show_news_articles, :class => "checkbox"
+  -#= f.label :show_news_articles, t('show_news_articles', :scope => "activerecord.attributes.group"), :class => "radio"
 
 .group
   = f.check_box :show_newsfeeds, :class => "checkbox"

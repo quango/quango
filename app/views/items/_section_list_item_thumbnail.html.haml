@@ -16,26 +16,28 @@
 
   %li.thumbnail{:class => class_for_item(item)}
     -cache("item_on_index_#{item.id}_#{I18n.locale}") do
-      -if item.wiki
-        %span{:class=>"button"}
-          %a
-            = t('items.edit_button.label')
+
 
       .thumbnail
         = link_to image_tag(item.main_thumbnail, :style => "width:75px"), item_path(item)
-      .content
-        %span
-          = image_tag("/images/icons/"+item.mode+"_icon_16.png", :width => 16, :height => 16)
+      .inner-content
+        .inner-mode
+          = h("#{item.mode}")
+          -if item.wiki
+            %span.open-edit-open
+              = "open"
+            %span.edit-edit-edit
+              = "edit"
+        .inner-link
           = link_to title, item_path(item), :title => truncate(strip_tags(item.body), :length => 200)
 
-
-        .tag-list
-          -if item.tags.empty? && logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group))
-            %span.retag
-              = link_to t('items.show.retag'), retag_item_path(item), :id => 'retag', :class => "important"
-          -item.first_tags.each do |tag|
-            %span.tag{:class => "tag_#{h(tag)}"}
-              = link_to h(tag), url_for(:controller => "videos", :action => "index", :tags => tag), :rel => "tag", :title => t("items.tags.tooltip", :tag => tag)
+        .inner-topics
+          -topics_array = Array.new
+          -item.first_tags.each do |topic|
+            -topics_array << topic
+          -topics_array[0..1].each do |topic|
+            %span.section-topic{:class => "tag_#{h(topic)}"}
+              = link_to h(topic), url_for(:controller => "items", :action => "index", :topics => topic), :rel => "tag", :title => t("items.tags.tooltip", :tag => topic)
 
     .clear
 

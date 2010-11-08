@@ -1,4 +1,13 @@
 #section-listing
+  .section-topic
+    font-weight: bold
+    a:hover
+      color: #6D6D6D    
+
+  small
+    a
+      color: #6D6D6D
+
 
   ul
     list-style-type: none
@@ -6,11 +15,20 @@
       //margin-bottom: 12px
 
   ul.features
-    .thumbnail
-      float: left
-      width: 75px
-    .content
-      float: right
+    list-style-type: none
+    li
+      margin: 0 0 4px 0
+      padding: 4px 0 4px 0
+      border-bottom: 1px dotted #dcdcdc 
+
+      .thumbnail
+        float: left
+        width: 75px
+      .content
+        float: right
+        width: 160px
+      &:hover
+        //background-color: #dcdcdc 
 
 
   ul.listing
@@ -20,54 +38,100 @@
       line-height: 20px
       margin: 0
       border-bottom: 1px dotted #dcdcdc
-      .latest_link
-        a
-          font-size: 14px
-      .updated
-        font-weight: normal
-        font-size: 8px
-        text-transform: uppercase
-        color: white
-        text-shadow: #ccc 0px -1px 1px
-        text-shadow: #990000 0px 1px 1px
-        padding: 1px 3px
-        background-color: #990000
-        border: 1px solid #990000
-        background-image: url(/images/buttons/section_bg.png)
-        background-repeat: repeat-x
-        background-position: -1px
-        height: 14px
-        line-height: 14px
-        margin: 2px 4px
-        +rounded(2px,2px,2px,2px)        
-      .new
-        font-weight: normal
-        font-size: 8px
-        text-transform: uppercase
-        color: white
-        text-shadow: #ccc 0px -1px 1px
-        text-shadow: green 0px 1px 1px
-        padding: 1px 3px
-        background-color: green
-        border: 1px solid green
-        background-image: url(/images/buttons/section_bg.png)
-        background-repeat: repeat-x
-        background-position: -1px
-        height: 14px
-        line-height: 14px
-        margin: 2px 4px
-        +rounded(2px,2px,2px,2px) 
-
-
     li:hover
       background-color: #ddd
       //background-image: url(/images/black_25_bg.png)
+
+    li.latest:hover
+      background-color: transparent
+      //background-image: url(/images/black_25_bg.png)
+
+
+    .latest-link
+      a
+        font-size: 14px
+        background-color: transparent
+
+
+
+    .open-edit-open
+      font-weight: normal
+      font-size: 8px
+      text-transform: uppercase
+      color: white
+      text-shadow: #ccc 0px -1px 1px
+      text-shadow: #990000 0px 1px 1px
+      padding: 1px 3px
+      background-color: #990000
+      border: 1px solid #990000
+      background-image: url(/images/buttons/section_bg.png)
+      background-repeat: repeat-x
+      background-position: -1px
+      height: 14px
+      line-height: 14px
+      margin: 2px 4px
+      +rounded(2px,2px,2px,2px) 
+    .open-edit-edit
+      font-weight: normal
+      font-size: 8px
+      text-transform: uppercase
+      color: white
+      text-shadow: #ccc 0px -1px 1px
+      text-shadow: #990000 0px 1px 1px
+      padding: 1px 3px
+      background-color: #990000
+      border: 1px solid #990000
+      background-image: url(/images/buttons/section_bg.png)
+      background-repeat: repeat-x
+      background-position: -1px
+      height: 14px
+      line-height: 14px
+      margin: 2px 4px
+      +rounded(2px,2px,2px,2px) 
+
+
+    .updated
+      font-weight: normal
+      font-size: 8px
+      text-transform: uppercase
+      color: white
+      text-shadow: #ccc 0px -1px 1px
+      text-shadow: #990000 0px 1px 1px
+      padding: 1px 3px
+      background-color: #990000
+      border: 1px solid #990000
+      background-image: url(/images/buttons/section_bg.png)
+      background-repeat: repeat-x
+      background-position: -1px
+      height: 14px
+      line-height: 14px
+      margin: 2px 4px
+      +rounded(2px,2px,2px,2px)        
+    .new
+      font-weight: normal
+      font-size: 8px
+      text-transform: uppercase
+      color: white
+      text-shadow: #ccc 0px -1px 1px
+      text-shadow: green 0px 1px 1px
+      padding: 1px 3px
+      background-color: green
+      border: 1px solid green
+      background-image: url(/images/buttons/section_bg.png)
+      background-repeat: repeat-x
+      background-position: -1px
+      height: 14px
+      line-height: 14px
+      margin: 2px 4px
+      +rounded(2px,2px,2px,2px) 
+
+
+
     
 
 
 .section-listing
   width: 100%
-  border-top: 1px solid white
   border-bottom: 1px solid white
   background-image: url(/images/backgrounds/section_listings_bg.png)
   background-repeat: repeat-x
@@ -77,21 +141,32 @@
   .listings-left
     float: left
     border-right: 1px solid #6d6d6d
-    height: 142px
-    width: 140px
+    height: 160px
+    width: 141px
 
   .listings-centre
     float: left
     border-left: 1px solid white
     border-right: 1px solid #6d6d6d
-    height: 142px
+    height: 160px
     width: 420px
 
   .listings-right
     float: left
     border-left: 1px solid white
-    height: 142px
-    width: 234px
+    height: 160px
+    width: 256px
+    .inner-content
+      padding: 0
+      margin: 0
+      width: 168px
+      float: right
+      .inner-mode
+        font-family: verdana
+        font-size: 10px
+        font-weight: bold
+        color: #6d6d6d      
+
 
   .title
     height: 16px
@@ -107,11 +182,11 @@
     padding: 0 4px
     margin: 4px 0
 
-
-.secondary-navigation 
+.secondary-navigation-sections
   height: 26px
   line-height: 26px
- 
+  border-bottom: 1px solid white
+
   .navlabel
     color: #111
     font-weight: bold
@@ -136,7 +211,7 @@
       color: black
 
   .navcontrols
-
+    width: 180px
     float: right
     ul
       border: 0
@@ -154,7 +229,7 @@
           background-repeat: repeat-x
           height: 16px
           line-height: 16px
-          margin: 2px 4px
+          margin: 4px 4px 4px 0
           color: #6d6d6d
           cursor: pointer
           overflow: visible
@@ -172,3 +247,15 @@
           //border: 1px solid #ababab
           text-shadow: white 0px 1px 1px
           padding: 0 13px 0 13px
+
+
+.ui-state-highlight
+  border: 1px dotted orange
+  height: 26px
+  width: 100%x
+  margin: 12px 0
+
+
+
+
+

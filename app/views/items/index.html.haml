@@ -1,8 +1,5 @@
 -feed_url = url_for(:format => "atom", :tags => params[:tags])
 
--content_for :trends do
-  = render :partial => "item_topics", :object => @tag_cloud
-
 -content_for :rss do
   %link{:rel=>"alternate", :type=>"application/atom+xml", :title => "atom", :href=> url_for(:format => "atom", :tags => params[:tags])}
   %link{:rel=>"alternate", :type=>"application/atom+xml", :title => "atom", :href=> url_for(:format => "atom")}
@@ -23,8 +20,6 @@
 
 
 -content_for :sidebar do
-  -if logged_in?
-    = render :partial => "shared/language_filter"
 
   = render :partial => "shared/current_tags"
   .block
@@ -39,7 +34,16 @@
 /Items
 -content_for :main do
 
-  = "mode:" << @mode.to_s
+  #section-listing{:class => @active_tab}
+    %ul
+      %li
+        = render :partial => "items/section_head", :locals => {:node => "blah",:mode => @mode, :sortable => "false", :list_mode => "standard"}
+ 
+
+  = render :partial => "item_topics", :object => @tag_cloud
+
+
+
   .secondary-navigation{:class => @active_subtab.to_s}
     = yield :subtabs
     .clear

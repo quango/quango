@@ -1,0 +1,15 @@
+.group
+  .label 
+    = "Nodename"
+  .field
+    = f.text_field :node
+
+.group
+  = select :section, "_type", Section.types.map {|w| [w.sub("Section", "").titleize, w] }
+
+.group
+
+
+.group
+  = f.check_box :hidden, :class => "checkbox"
+  .label :hidden, "Hide in navigation", :class => "radio"

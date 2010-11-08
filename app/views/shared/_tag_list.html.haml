@@ -16,7 +16,6 @@
             %li
               %span.tag{:class => "tag_#{h(tag[1].to_s)}"}
                 =link_to h(tag[1].to_s), url_for(extra_params.merge(:tags => (current_tags + [tag[1].to_s]).join("+"))), :rel => "tag",:title => t("items.tags.tooltip", :tag => tag[1].to_s)
-              .tag-multiplier
-                x
-                = tag[0]
+              %small
+                = tag[0].to_i
               .clear

@@ -24,21 +24,15 @@
           %li.activity
             = link_to t("items.index.active"), blogs_path(:sort=>"activity"), :title => t("items.index.active_tooltip"),:class=>"button", :rel => "nofollow"
 
--content_for :sidebar_right do
+-content_for :sidebar do
   = render :partial => "shared/current_tags"
   = render :partial => "shared/tag_list", :object => @tag_cloud
-
--content_for :sidebar_left do
   .block
     %h3
       = h("Something")
     .content
       = h("Something else")
-  .block
-    %h3
-      = h("Video")
-    .content
-      = render :partial => "videos/video_player_small"
+
 
 -content_for :list do
 
@@ -57,22 +51,8 @@
 /Layout
 -content_for :main do
 
-
-
-  #main.right
-    #topics
-      = render :partial => "items/topic_map", :mode => @mode
-    .clear
-    #sidebar.left
-      = yield :sidebar_left
-
-    #sidebar.right
-      = yield :sidebar_right
-    .clear
-
-  #main.left
-    = yield :subtabs
-    .clear
-    = yield :list
+  = yield :subtabs
   .clear
+  = yield :list
+.clear
 

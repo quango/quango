@@ -2,6 +2,7 @@ desc "Setup application"
 task :bootstrap => [:environment, "setup:reset",
                     "setup:create_admin",
                     "setup:default_group",
+                    "setup:create_sections",
                     "setup:create_widgets",
                     "setup:create_pages"] do
 end
@@ -48,6 +49,9 @@ namespace :setup do
     default_group.logo = File.open(RAILS_ROOT+"/public/images/logo.png")
     default_group.logo.extension = "png"
     default_group.logo.content_type = "image/png"
+
+
+
     default_group.save
   end
 
@@ -62,6 +66,21 @@ namespace :setup do
     default_group.widgets << BadgesWidget.new
     default_group.save!
   end
+
+  desc "Create default sections"
+  task :create_sections => :environment do
+    default_group = Group.find_by_domain(AppConfig.domain)
+
+    default_group.sections << NewsSection.new(:node => "News", :mode => "news", :create_label => "Share some news")
+    default_group.sections << NewsfeedSection.new(:node => "Newsfeeds", :mode => "newsfeed", :create_label => "Add a newsfeed")
+    default_group.sections << VideoSection.new(:node => "Video", :mode => "video",  :create_label => "Share a video")
+    default_group.sections << ImageSection.new(:node => "Images", :mode => "image", :hidden => "true",  :create_label => "Add an image")
+    default_group.sections << ArticleSection.new(:node => "Articles", :mode => "article", :create_label => "Write an article")
+    default_group.sections << DiscussionSection.new(:node => "Discussion", :mode => "discussion", :create_label => "Discuss something")
+    default_group.sections << BookmarkSection.new(:node => "Bookmarks", :mode => "bookmark",  :create_label => "Share a link")
+    default_group.save!
+  end
+
 
   desc "Create admin user"
   task :create_admin => [:environment] do

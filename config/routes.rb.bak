@@ -50,8 +50,23 @@ ActionController::Routing::Routes.draw do |map|
   #map.connect 'channels/explore/:tags', :controller => :channels, :action => :index,:requirements => {:tags => /\S+/}
               #:as => "channels"
 
-  map.resources :create
+  #map.create 'create/:mode', :controller => :create, :action => :new,:requirements => {:mode => /\S+/}
+  map.resources :create, :action => :new, :as => "add"
+  #map.connect 'add', :controller => :create, :action => :new
+
+  map.resources :images
+  map.resources :news_articles, :as => "news"
+  #map.news_articles 'news_articles', :controller => :news_articles, :as => "news"
+
   map.resources :questions
+  map.resources :bugs
+  map.resources :features
+
+  #map.connect 'questions/topic/:tags', :controller => :bookmarks, :action => :index,:requirements => {:tags => /\S+/}
+
+  map.resources :sections do |section|
+    section.resources :items
+  end
 
 
   def build_items_routes(router, options ={})
@@ -77,13 +92,16 @@ ActionController::Routing::Routes.draw do |map|
                                             :retag_to => :put,
                                             :close => :put,
                                             :open => :put} do |items|
+        items.resources :images
         items.resources :comments
+
         items.resources :answers, :member => {:history => :get,
                                                   :diff => :get,
                                                   :revert => :get} do |answers|
           answers.resources :comments
           answers.resources :flags
         end
+
         items.resources :flags
         items.resources :close_requests
         items.resources :open_requests
@@ -95,52 +113,9 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'items/unanswered/tags/:tags', :controller => :items, :action => :unanswered
 
   build_items_routes(map)
-  build_items_routes(map, :path_prefix => '/:language', :name_prefix => "with_language_") #deprecated route
+  #build_items_routes(map, :path_prefix => '/:language', :name_prefix => "with_language_") #deprecated route
 
 
-  def build_questions_routes(router, options ={})
-    router.with_options(options) do |route|
-      route.se_url "/question/:id/:slug", :controller => "questions", :action => "show", :id => /\d+/,
- :conditions => { :method => :get }
-      route.resources :questions, :collection => {:tags => :get,
-                                                  :tags_for_autocomplete => :get,
-                                                  :unanswered => :get,
-                                                  :related_items => :get},
-                                :member => {:solve => :get,
-                                            :unsolve => :get,
-                                            :favorite => :any,
-                                            :unfavorite => :any,
-                                            :watch => :any,
-                                            :unwatch => :any,
-                                            :history => :get,
-                                            :revert => :get,
-                                            :diff => :get,
-                                            :move => :get,
-                                            :move_to => :put,
-                                            :retag => :get,
-                                            :retag_to => :put,
-                                            :close => :put,
-                                            :open => :put} do |questions|
-        questions.resources :comments
-        questions.resources :answers, :member => {:history => :get,
-                                                  :diff => :get,
-                                                  :revert => :get} do |answers|
-          answers.resources :comments
-          answers.resources :flags
-        end
-        questions.resources :flags
-        questions.resources :close_requests
-        questions.resources :open_requests
-      end
-    end
-  end
-
-  map.connect 'questions/topic/:tags', :controller => :questions, :action => :index,:requirements => {:tags => /\S+/}
-  map.connect 'questions/unanswered/tags/:tags', :controller => :questions, :action => :unanswered
-
-  build_questions_routes(map)
-  build_questions_routes(map, :path_prefix => '/:language', :name_prefix => "with_language_") #deprecated route
- 
 
   def build_discussions_routes(router, options ={:mode => "discussions"})
     router.with_options(options) do |route|
@@ -428,7 +403,11 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :votes
 
+
+  map.resources :sections, :member => {:move => :post}, :path_prefix => "/manage"
   map.resources :widgets, :member => {:move => :post}, :path_prefix => "/manage"
+
+
   map.resources :members, :path_prefix => "/manage"
 
   map.with_options :controller => 'admin/manage', :name_prefix => "manage_",
