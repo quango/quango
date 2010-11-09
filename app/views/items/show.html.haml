@@ -1,7 +1,7 @@
--content_for :trends do
-  = render :partial => "item_topics", :object => @tag_cloud
+-#content_for :trends do
+  -#= render :partial => "item_topics", :object => @tag_cloud
 
-- @current_class = 'item hentry entry post'
+-# @current_class = 'item hentry entry post'
 
 - show_close_request_form = !@item.closed && logged_in? && @item.can_be_requested_to_close_by?(current_user)
 - show_open_request_form = @item.closed && logged_in? && @item.can_be_requested_to_open_by?(current_user)
@@ -30,7 +30,7 @@
 = error_messages_for 'answer'
 
 - content_for :main do
-  = "mode: " << @item.mode
+  = "section: " << @item.section
   = javascript_include_merged :show
   =render :partial => "toolbox"
   =render :partial => "controls", :object=>@item
@@ -110,88 +110,85 @@
 
 -content_for :sidebar do
   #sidebar
-    .block
-      %h3
-        = "Asked by"
-      .content
-        =render :partial => "member_panel"
-    .block
-      %h3
-        = "Participants"
-      .content
-        = "Content"
-    .block
-      %h3
-        = "Sidebar"
-      .content
-        = "Content"
-
-    - if logged_in? && (current_user.mod_of?(current_group) || current_user.can_view_offensive_counts_on?(current_group))
-      -unless @item.flags.count == 0
+    .sidebar
+      .inner
         .block
           %h3
-            = t(:flags, :scope => "activerecord.models")
+            = "Asked by"
           .content
-            = render :partial => "flags/list", :locals => {:flaggeable => @item}
-
-      -unless @item.close_requests.size == 0
+            =render :partial => "member_panel"
         .block
           %h3
-            = t(:prural_name, :scope => "close_requests.model")
+            = "Participants"
           .content
-            = render :partial => "close_requests/list", :locals => {:item => @item}
+            = "Content"
 
-      -unless @item.open_requests.size == 0
+        - if logged_in? && (current_user.mod_of?(current_group) || current_user.can_view_offensive_counts_on?(current_group))
+          -unless @item.flags.count == 0
+            .block
+              %h3
+                = t(:flags, :scope => "activerecord.models")
+              .content
+                = render :partial => "flags/list", :locals => {:flaggeable => @item}
+
+          -unless @item.close_requests.size == 0
+            .block
+              %h3
+                = t(:prural_name, :scope => "close_requests.model")
+              .content
+                = render :partial => "close_requests/list", :locals => {:item => @item}
+
+          -unless @item.open_requests.size == 0
+            .block
+              %h3
+                = t(:prural_name, :scope => "open_requests.model")
+              .content
+                = render :partial => "open_requests/list", :locals => {:item => @item}
+
         .block
           %h3
-            = t(:prural_name, :scope => "open_requests.model")
-          .content
-            = render :partial => "open_requests/list", :locals => {:item => @item}
-
-    .block
-      %h3
-        = t('.tags', :default => [:"layouts.application.tags", :"activerecord.attributes.user.tags", "tags"])
-      = render :partial => "shared/tag_list", :object => @tag_cloud, :locals => { :extra_params => {:controller => "items", :action => "index"} }
+            = t('.tags', :default => [:"layouts.application.tags", :"activerecord.attributes.user.tags", "tags"])
+          = render :partial => "shared/tag_list", :object => @tag_cloud, :locals => { :extra_params => {:controller => "items", :action => "index"} }
 
 
-    - if @item.badges.size > 0
-      .block
-        %h3
-          = t('badges', :scope => "activerecord.models")
-        .content
-          %ul.list
-            -@item.badges.each do |badge|
-              %li
-                = render :partial => "badges/badge", :object => badge, :locals => {:hide_user => false}
+        - if @item.badges.size > 0
+          .block
+            %h3
+              = t('badges', :scope => "activerecord.models")
+            .content
+              %ul.list
+                -@item.badges.each do |badge|
+                  %li
+                    = render :partial => "badges/badge", :object => badge, :locals => {:hide_user => false}
 
-      .block.stats
-        - if @item.group_id != current_group.id
-          = t(".asked_on")
-          &= @item.group.name
+          .block.stats
+            - if @item.group_id != current_group.id
+              = t(".asked_on")
+              &= @item.group.name
 
-        .entry
-          .text.asked
-            = t('activerecord.attributes.item.created_at')
-            .data
-              = t("time.ago", :time => time_ago_in_words(@item.created_at))
-        .entry
-          .text.viewed
-            = t('.viewed')
-          .data
-            = t('number.x_time', :count => number_with_delimiter(@item.views_count))
-        .entry
-          .text.last_activity
-            = t(".last_activity")
-          .data.updated{:title => @item.activity_at, :class => "relativetime"}
-            = t("time.ago", :time => time_ago_in_words(@item.activity_at))
+            .entry
+              .text.asked
+                = t('activerecord.attributes.item.created_at')
+                .data
+                  = t("time.ago", :time => time_ago_in_words(@item.created_at))
+            .entry
+              .text.viewed
+                = t('.viewed')
+              .data
+                = t('number.x_time', :count => number_with_delimiter(@item.views_count))
+            .entry
+              .text.last_activity
+                = t(".last_activity")
+              .data.updated{:title => @item.activity_at, :class => "relativetime"}
+                = t("time.ago", :time => time_ago_in_words(@item.activity_at))
 
-      -related_items = Item.related_items(@item, :language => find_languages)
-      - if !related_items.empty?
-        .block
-          %h3
-            =t(".related_items")
-          .content
-            %ul.list
-              -related_items.each do |rq|
-                %li
-                  = link_to h(rq.title), item_path(rq), :title => truncate(strip_tags(rq.body), :length => 200)
+          -related_items = Item.related_items(@item, :language => find_languages)
+          - if !related_items.empty?
+            .block
+              %h3
+                =t(".related_items")
+              .content
+                %ul.list
+                  -related_items.each do |rq|
+                    %li
+                      = link_to h(rq.title), item_path(rq), :title => truncate(strip_tags(rq.body), :length => 200)

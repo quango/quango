@@ -1,10 +1,11 @@
-
 -unless self.current_tags.empty?
   .block
     %h3
-      =t(".title")
+      =h("Selected Topics")
     .content.tag-list
+      -if !self.current_tags
       -self.current_tags.each do |tag|
+
         %span.tag{:class => "tag_#{h(tag)}"}
           = link_to h(tag), url_for(:tags => tag), :rel => "tag", :title => t("items.tags.tooltip", :tag => tag)
           -tags = (self.current_tags - [tag])
@@ -13,3 +14,7 @@
           -else
             = link_to "-", url_for(:tags => tags.join("+")), :class => "remove_tag"
     .clear
+-else
+  .block
+    %h3
+      = "Choose from bleow"

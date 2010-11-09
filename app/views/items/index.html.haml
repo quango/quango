@@ -19,47 +19,58 @@
       = link_to t("items.index.active"), items_path(:sort=>"activity"), :title => t("items.index.active_tooltip"), :rel => "nofollow"
 
 
--content_for :sidebar do
 
-  = render :partial => "shared/current_tags"
-  .block
-    %h3
-      = t('.tags', :default => [:"layout.application.tags", :"activerecord.attributes.user.tags", "tags"])
+
+/Items
+-content_for :main do
+  #main-index
     .content
-      = render :partial => "shared/tag_list", :object => @tag_cloud
+      .inner
+        #section-listing{:class => @active_tab}
+          %ul
+            %li
+              -#= render :partial => "items/section_head", :locals => {:section => @section, :sortable => "false", :list_mode => "standard"}
+       
+        .secondary-navigation{:class => @active_subtab.to_s}
+          = yield :subtabs
+          .clear
+        %ul.items#items
+          -if @items.empty?
+            %li.highlight
+              = t(".empty")
+          -@items.each do |item|
+            -if item.section == @active_section
+              = render :partial => "item", :object => item
+
+        #additional_info
+          =will_paginate @items
+
+          .clear
+
+-content_for :sidebar do
+  #sidebar
+    .sidebar
+      .inner
+        = render :partial => "shared/current_tags"
+        .block
+          %h3
+            = t('.tags', :default => [:"layout.application.tags", :"activerecord.attributes.user.tags", "tags"])
+          .content
+            = render :partial => "shared/tag_list", :object => @tag_cloud
 
 
 = render :partial => "searches/search_box"
 
-/Items
--content_for :main do
+-content_for :sidebar_inner do
 
-  #section-listing{:class => @active_tab}
-    %ul
-      %li
-        = render :partial => "items/section_head", :locals => {:node => "blah",:mode => @mode, :sortable => "false", :list_mode => "standard"}
- 
+  #sidebar-inner
+    .sidebar
+      .inner
+        .block
+          = render :partial => "item_topics", :object => @tag_cloud
+        .block
+          %h3
+            = "Something"
+          .content
+            = "Something else"
 
-  = render :partial => "item_topics", :object => @tag_cloud
-
-
-
-  .secondary-navigation{:class => @active_subtab.to_s}
-    = yield :subtabs
-    .clear
-  %ul.items#items
-    -if @items.empty?
-      %li.highlight
-        = t(".empty")
-    -@items.each do |item|
-      -if item.mode == @mode.to_s
-        = render :partial => "item", :object => item
-
-  #additional_info
-    =will_paginate @items
-
-    #help_us
-      = t(".help_to_answer")
-      =link_to t(".unanswered_items"), unanswered_items_path
-
-    .clear

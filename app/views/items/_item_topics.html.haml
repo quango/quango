@@ -1,39 +1,35 @@
+.block
+  -if @active_section
+    = render :partial => "items/create_button", :object=>@section
+  -else
+    = "no node selected"
+%br
+
+.block{:class=>"tertiary_box"}
+  = render :partial => "shared/sponsor_box"
+
+%br
+
 -cache("trending_topics_#{current_group.id}") do
-  #trends
-    %div{:style=>"width:820px;height:34px;line-height:34px; float:left"}
-      %div{:style=>"width:468px;height:34px; float:left", :class=>"tertiary_box"}
-        = render :partial => "shared/sponsor_box"
-      %div{:style=>"float:left;width:141px;"}
-        -if @mode
-          = render :partial => "items/create_button", :object=>@item
-        -else
-          = "no mode"
+  .block
+    %marquee{ :behavior => 'scroll',:scrollamount => '1',}
+      = self.item_topics
 
-    %div{:style=>"width:256px;height:34px;line-height:34px; float:left"}
-      %div{:style=>"width:420px;height:26px;float:left"}
-        %div{:style=>"float:left; float:left"}
-          -#%span{:style=>"position:absolute; float:left; z-index:99; width:468px"}
-            -#= image_tag("/images/item_trends_bg.png")
-
-          %span{:style=>"float:left; width:468px"}
-            %marquee{ :behavior => 'scroll',:scrollamount => '1',}
-              = self.item_topics
-
-  %script
-    = "$(function() {"
-    = "//$('marquee').marquee();"
-    = "$('marquee').marquee('pointer').mouseover(function () {"
-    = "       $(this).trigger('stop');"
-    = "   }).mouseout(function () {"
-    = "       $(this).trigger('start');"
-    = "   }).mousemove(function (event) {"
-    = "       if ($(this).data('drag') == true) {"
-    = "           this.scrollLeft = $(this).data('scrollX') + ($(this).data('x') - event.clientX);"
-    = "       }"
-    = "   }).mousedown(function (event) {"
-    = "       $(this).data('drag', true).data('x', event.clientX).data('scrollX', this.scrollLeft);"
-    = "   }).mouseup(function () {"
-    = "       $(this).data('drag', false);"
-    = "   });"
-    = "});"
-.clear
+      %script
+        = "$(function() {"
+        = "//$('marquee').marquee();"
+        = "$('marquee').marquee('pointer').mouseover(function () {"
+        = "       $(this).trigger('stop');"
+        = "   }).mouseout(function () {"
+        = "       $(this).trigger('start');"
+        = "   }).mousemove(function (event) {"
+        = "       if ($(this).data('drag') == true) {"
+        = "           this.scrollLeft = $(this).data('scrollX') + ($(this).data('x') - event.clientX);"
+        = "       }"
+        = "   }).mousedown(function (event) {"
+        = "       $(this).data('drag', true).data('x', event.clientX).data('scrollX', this.scrollLeft);"
+        = "   }).mouseup(function () {"
+        = "       $(this).data('drag', false);"
+        = "   });"
+        = "});"
+  .clear

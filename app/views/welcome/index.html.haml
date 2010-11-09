@@ -3,9 +3,6 @@
     %meta{:name => "keywords", :content => current_group.default_tags.join(", ")}
   %meta{:name => "description", :content => markdown(current_group.description).gsub(/<\/?[^>]*>/, "")[0, 255] }
 
--content_for :stuff do
-  %h3
-    = "Bookmarks"
 
 
 -content_for :subtabs do
@@ -57,7 +54,7 @@
       -current_group.sections.each do |section|
         -if !section.hidden?
           %li{:class => section.name }
-          = render :partial => "items/section_head", :locals => {:section => section, :sortable => "true", :list_mode => "standard"}
+          = render :partial => "items/welcome_section_head", :locals => {:section => section, :sortable => "true", :list_mode => "standard"}
 
 
 
@@ -65,26 +62,26 @@
 
 
 -content_for :sidebar do
-  -#= render :partial => "shared/current_tags"
-  -#= self.tag_cloud
-  -#= render :partial => "shared/sidebar_topics", :object => @tag_cloud
-  -#= render :partial => "shared/tag_list", :object => @tag_cloud
+  #sidebar
+    .sidebar
+      .inner
+        -current_group.widgets.each do |widget|
+          .widget.block{:id => widget.name}
+            = render :partial => widget.partial_name, :locals => {:widget => widget}
 
-
-  -current_group.widgets.each do |widget|
-    .widget.block{:id => widget.name}
-      = render :partial => widget.partial_name, :locals => {:widget => widget}
-
-  .block
-    %h3
-      = h("Something")
-    .content
-      = h("Something else")
+        .block
+          %h3
+            = h("Something")
+          .content
+            = h("Something else")
 
 
 /Layout
 -content_for :main do
-  = yield :list
-  .clear
+  #main
+    .content
+      .inner
+        = yield :list
+        .clear
 
 

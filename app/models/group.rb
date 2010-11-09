@@ -88,11 +88,8 @@ class Group
   has_many :ads, :dependent => :destroy
   has_many :sections, :class_name => "Section"
   has_many :widgets, :class_name => "Widget"
-  #has_many :images, :dependent => :destroy
   has_many :badges, :dependent => :destroy
   has_many :items, :dependent => :destroy
-  has_many :bookmarks, :dependent => :destroy
-  has_many :discussions, :dependent => :destroy
   has_many :answers, :dependent => :destroy
   has_many :votes, :dependent => :destroy
   has_many :pages, :dependent => :destroy

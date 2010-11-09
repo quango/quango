@@ -1,7 +1,12 @@
+-# Ok so we need to get current section
+
 .section-head{:class => @active_subtab.to_s}
   .secondary-navigation-sections
     .navlabel
-      = link_to "#{section.node.upcase}", domain_url(:custom => current_group.domain) << "/" << section.node << "s"
+      -#= link_to "#{section.name.upcase}", domain_url(:custom => current_group.domain) << "/" << section.node.downcase, :locals => section
+      - section_link = section.name.downcase
+      = link_to section, "#{section.name}" #nodes_path(section_link, :section => section)
+
     .navcontrols
       %ul
         -if sortable == "true"
@@ -14,21 +19,20 @@
         %li.expand
           = link_to "+", "#", :title => t("items.index.active_tooltip"),:class=>"expand section_button", :rel => "nofollow"
     .navlinks
-      -if section.mode
+      -if section.name
         - create_item = section.create_label
-        - url = domain_url(:custom => current_group.domain) << "/add/new?node=" << section.node.downcase
-        = link_to h(create_item), url,:class =>"link", :rel => 'nofollow', :node => section.node
+        - url = domain_url(:custom => current_group.domain) << "/add/new?section=" << section.name.downcase
+        = link_to h(create_item), url,:class =>"link", :rel => 'nofollow', :node => section.name
         = "|"
       -else
         = "no mode"
+ 
 
-
-
-  .section-listing{:class => section.node}
+  .section-listing{:class => section.name}
 
     .listings-left
       .title
-        = t("layouts.section-listing.latest.#{section.node}")
+        = h("mode.#{section.mode}")
       .content
         %ul.listing
           -if @items.empty?
@@ -37,7 +41,7 @@
           -else
             -item_array = Array.new
             -@items.each do |item|
-              -if item.mode == section.mode
+              -if item.mode == section
                 -item_array << item
             -item_array[0..0].each do |item|
               = render :partial => "items/section_list_item", :locals => {:item => item,:sort=>"hot", :list_mode => "latest"}
@@ -48,7 +52,7 @@
 
     .listings-centre
       .title
-        = t("layouts.section-listing.headlines.#{section.node}")
+        = h("mode.#{section.type}")
       .content
 
         %ul.listing
@@ -57,13 +61,13 @@
               = t(".empty")
           -else
             -@items.each do |item|
-              -if item.node == section.node
+              -if item.section == section.name
                 = render :partial => "items/section_list_item", :locals => {:item => item, :list_mode => "headline"}
         .clear
 
     .listings-right
       .title
-        = t("layouts.section-listing.features.#{section.node}")
+        = h("mode.#{section.mode}")
       .content
         %ul.features
           -if @items.empty?
@@ -72,23 +76,16 @@
           -else
             -features_array = Array.new
             -@items.each do |item|
-              -if item.mode == section.mode
+              -if item.section == section.name
                 -features_array << item
             -features_array[0..1].each do |item|
               = render :partial => "items/section_list_item", :locals => {:item => item,:sort=>"hot", :list_mode => "thumbnail"}
-        .clear
+
+
+
+    .clear
 
 .clear
 
--if @items.empty?
-  %script
-    = "$('.#{section.node}.section-listing').hide();});"
 
-
-%script
-  = "$('.contract').click(function(){"
-  = "$('.#{section.node}.section-listing').hide();});"
-  = "$('.expand').click(function(){"
-  = "$('.#{section.node}.section-listing').show();"
-  = "});" 
 

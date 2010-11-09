@@ -10,7 +10,7 @@
     %th
       =""
     %th
-      ="Node"
+      ="Name"
     %th
       ="Mode"
     %th
@@ -31,7 +31,7 @@
         %td
           = list_order
         %td.node
-          = h(section.node)   #, :locals => {:section => section}
+          = h(section.name)   #, :locals => {:section => section}
         %td.mode
           = h(section.mode)   #, :locals => {:section => section}
         %td.hidden

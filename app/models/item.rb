@@ -14,7 +14,8 @@ class Item
   key :_id, String
   key :section, String
   key :mode, String
-  key :node, String
+  key :type, String
+  #key :node, String
   key :bookmark, String
   #key :link, String
   key :title, String, :required => true
@@ -63,6 +64,9 @@ class Item
 
   key :group_id, String, :index => true
   belongs_to :group
+
+  #key :section_id, String, :index => true
+  #belongs_to :section
 
   key :watchers, Array
 

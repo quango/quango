@@ -1,20 +1,21 @@
-#contextual-navigation{:class => @mode}
+#contextual-navigation{:class => @active_section}
   %ul
     -current_group.sections.each do |section|
       -if !section.hidden?
-        %li{:class => section.mode }
-          = link_to section.node, "#" #isections_path(section.node, :mode => section.mode)
+        -if section.name == @active_section
+          %li{:class => section.name }
+            - section_link = section.name.capitalize
+            = link_to section_link, nodes_path(section.name), :style => "color: black"
+        -else
+          %li{:class => section.name }
+            - section_link = section.name.capitalize
+            -#= link_to section_link, nodes_path(section.name)
+            = link_to section_link, nodes_path(section.name), :object => section
+
+
     %li{:style => "border-left:1px solid white"}
       = link_to "Groups", groups_path
     %li
       = link_to "Members", users_path
 
-  .clear
-
-%script
-  = "$(document).ready(function() {"
-  = "$('li."+ @mode.to_s+"').css({'background-color':'"+current_group.primary+"'});"
-  = "$('li."+ @mode.to_s+" a').css({'color':'#000'});"
-  = "});"
-
-
+.clear

@@ -8,8 +8,10 @@
   - if !item.updated_by.present?
     %span.new
       = "new"
+  -# TODO
+  = link_to title, "#{item.section}/#{item.slug}", :title => truncate(strip_tags(item.title), :length => 200)
+  -#= link_to title, show_path(item), :title => truncate(strip_tags(item.title), :length => 200)
 
-  = link_to title, item_path(item), :title => truncate(strip_tags(item.body), :length => 200)
   %small
     = link_to t("time.ago", :time => time_ago_in_words(item.updated_at)), item_path(item)+"##{item.id}"
 

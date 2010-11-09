@@ -1,0 +1,97 @@
+.section-head{:class => @active_subtab.to_s}
+  .secondary-navigation-sections
+    .navlabel
+      -#= link_to "#{section.name.upcase}", domain_url(:custom => current_group.domain) << "/" << section.node.downcase, :locals => section
+      - section_link = section.name.downcase
+      = link_to section.name, "#{section.name}"  #nodes_path(section_link, :locals => {:object => section})
+
+    .navcontrols
+      %ul
+        -if sortable == "true"
+          %li.move_up
+            = link_to "up", "#",:class=>"section_button", :rel => "nofollow"
+          %li.move_down
+            = link_to "down", "#",:class=>"section_button", :rel => "nofollow"
+        %li.contract
+          = link_to "-", "#", :title => t("items.index.active_tooltip"),:class=>"contract section_button", :rel => "nofollow"
+        %li.expand
+          = link_to "+", "#", :title => t("items.index.active_tooltip"),:class=>"expand section_button", :rel => "nofollow"
+    .navlinks
+      -if section.mode
+        - create_item = section.create_label
+        - url = domain_url(:custom => current_group.domain) << "/add/new?section=" << section.name.downcase
+        = link_to h(create_item), url,:class =>"link", :rel => 'nofollow', :node => section.name
+        = "|"
+      -else
+        = "no mode"
+
+
+
+  .section-listing{:class => section.name}
+
+    .listings-left
+      .title
+        = h("mode.#{section.mode}")
+      .content
+        %ul.listing
+          -if @items.empty?
+            %li.highlight
+              = t(".empty")
+          -else
+            -item_array = Array.new
+            -@items.each do |item|
+              -if item.section == section.name
+                -item_array << item
+            -item_array[0..0].each do |item|
+              = render :partial => "items/section_list_item", :locals => {:item => item,:sort=>"hot", :list_mode => "latest"}
+
+        -#sorted_array = tag_array.sort_by{|a|a}.reverse
+        .clear
+ 
+
+    .listings-centre
+      .title
+        = h("mode.#{section.type}")
+      .content
+
+        %ul.listing
+          -if @items.empty?
+            %li.highlight
+              = t(".empty")
+          -else
+            -@items.each do |item|
+              -if item.section == section.name
+                = render :partial => "items/section_list_item", :locals => {:item => item, :list_mode => "headline"}
+        .clear
+
+    .listings-right
+      .title
+        = h("mode.#{section.mode}")
+      .content
+        %ul.features
+          -if @items.empty?
+            %li.highlight
+              = t(".empty")
+          -else
+            -features_array = Array.new
+            -@items.each do |item|
+              -if item.section == section.name
+                -features_array << item
+            -features_array[0..1].each do |item|
+              = render :partial => "items/section_list_item", :locals => {:item => item,:sort=>"hot", :list_mode => "thumbnail"}
+        .clear
+
+.clear
+
+-if @items.empty?
+  %script
+    = "$('.#{section.node}.section-listing').hide();});"
+
+
+%script
+  = "$('.contract').click(function(){"
+  = "$('.#{section.name}.section-listing').hide();});"
+  = "$('.expand').click(function(){"
+  = "$('.#{section.name}.section-listing').show();"
+  = "});" 
+

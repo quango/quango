@@ -13,6 +13,7 @@
   %body
     = render :partial => "shared/analytics"
     = @current_class
+
     #header-container
       #header-container-inner
         #leaderboard-container
@@ -21,13 +22,8 @@
           = render :partial => "shared/toolbar"
         #header
           = render :partial => "shared/header"
-        #channel-container
+        #navigation-container
           = render :partial => "shared/contextual_navigation"
-    #navigation-container
-      #navigation-container-inner
-
-        .clear
-        = yield :trends
 
     #container{:class => @current_class}
 
@@ -35,17 +31,11 @@
         = render :partial => "shared/announcements"
 
       #wrapper
-        #main
-          .content
-            .inner
-              = yield :main
-              .clear
-        #sidebar
-          .sidebar
-            .inner
-              = yield :sidebar
+        = yield :main
+        = yield :sidebar
+        = yield :sidebar_inner
 
-  .clear
+    .clear
     #footer
       .block.content
         = render :partial => "layouts/footer"

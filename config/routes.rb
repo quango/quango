@@ -36,13 +36,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :announcements, :collection => {:hide => :any }
   map.resources :imports, :collection => {:send_confirmation => :post}
 
-  #map.resources :links
-  #map.resources :links, :controller => :links, :as => "bookmarks"
-  #map.bookmarks 'bookmarks/signup', :controller => :bookmarks, :action => :signup #:requirements => {:tags => /\S+/}
-  #map.bookmarks 'bookmarks/new', :controller => :bookmarks, :action => :new #:requirements => {:tags => /\S+/}
-  #map.bookmarks 'bookmarks/:tags', :controller => :bookmarks, :action => :index,:requirements => {:tags => /\S+/}
-  #map.bookmarks 'bookmarks', :controller => :bookmarks
-
   #map.channels :channels
   map.channels 'channels/:tags', :controller => :channels, :action => :index,:requirements => {:tags => /\S+/}
 
@@ -52,25 +45,10 @@ ActionController::Routing::Routes.draw do |map|
 
   #map.create 'create/:mode', :controller => :create, :action => :new,:requirements => {:mode => /\S+/}
   map.resources :create, :action => :new, :as => "add"
-  #map.connect 'add', :controller => :create, :action => :new
-
-  map.resources :images
-  map.resources :news_articles, :as => "news"
-  #map.news_articles 'news_articles', :controller => :news_articles, :as => "news"
-
-  map.resources :questions
-  map.resources :newsfeeds
-  map.resources :bugs
-  map.resources :features
-  map.resources :videos
-  map.resources :articles
-  map.resources :blogs
-  map.resources :discussions
-  map.resources :bookmarks
 
   def build_items_routes(router, options ={})
     router.with_options(options) do |route|
-      route.se_url "/item/:id/:slug", :controller => "items", :action => "show", :id => /\d+/,
+      route.se_url "/item/:id/:slug", :controller => "items", :action => "show", :section => /\d+/, :id => /\d+/,
  :conditions => { :method => :get }
       route.resources :items, :collection => {:tags => :get,
                                                   :tags_for_autocomplete => :get,
@@ -91,9 +69,8 @@ ActionController::Routing::Routes.draw do |map|
                                             :retag_to => :put,
                                             :close => :put,
                                             :open => :put} do |items|
-        items.resources :images
-        items.resources :comments
 
+        items.resources :comments
         items.resources :answers, :member => {:history => :get,
                                                   :diff => :get,
                                                   :revert => :get} do |answers|
@@ -113,17 +90,7 @@ ActionController::Routing::Routes.draw do |map|
 
   build_items_routes(map)
 
-  #map.connect "items/:section", :controller => :items, :action => :index, :requirements => {:section => /\S+/}
-
-
-  #build_items_routes(map, :path_prefix => '/:language', :name_prefix => "with_language_") #deprecated route
-
-
-  #map.questions 'questions/:action/:id', :controller => 'items', :mode => 'question'
-  #map.questions 'questions/topics/:tags', :controller => 'items', :action => :index,:requirements => {:tags => /\S+/}
-
-  #map.discussions 'discussions/:action/:id', :controller => 'items', :mode => 'discussion'
-
+  #map.resources :show_item, :action => :show
 
   map.resources :groups, :member => {:accept => :get,
                                      :close => :get,
@@ -152,7 +119,7 @@ ActionController::Routing::Routes.draw do |map|
     manage.domain '/domain', :action => 'domain'
   end
 
-  map.resources :isections , :controller => :items, :action => :index, :as => ":section"
+  map.resources :nodes , :controller => :items, :action => :index, :member => {:section => :any}, :as => ":section"
 
   map.search '/search.:format', :controller => "searches", :action => "index"
   map.about '/about', :controller => "groups", :action => "show"

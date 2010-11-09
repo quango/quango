@@ -36,6 +36,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :find_group
+  before_filter :find_section
   before_filter :check_group_access
   before_filter :set_locale
   before_filter :find_languages
@@ -89,11 +90,14 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_group
 
-  def current_section
-    @current_section
+  def find_section
+    @section
   end
   #helper_method :current_group
 
+  def current_section
+    @section
+  end
 
   def current_tags
     @current_tags ||=  if params[:tags].kind_of?(String)

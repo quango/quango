@@ -19,17 +19,17 @@
 
 
       .thumbnail
-        = link_to image_tag(item.main_thumbnail, :style => "width:75px"), item_path(item)
+        = link_to image_tag(item.main_thumbnail, :style => "width:75px"), "#{item.section}/#{item.slug}"
       .inner-content
         .inner-mode
-          = h("#{item.mode}")
+          = h("#{item.section}")
           -if item.wiki
             %span.open-edit-open
               = "open"
             %span.edit-edit-edit
               = "edit"
         .inner-link
-          = link_to title, item_path(item), :title => truncate(strip_tags(item.body), :length => 200)
+          = link_to title, "#{item.section}/#{item.slug}", :title => truncate(strip_tags(item.body), :length => 200)
 
         .inner-topics
           -topics_array = Array.new

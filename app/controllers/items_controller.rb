@@ -6,6 +6,7 @@ class ItemsController < ApplicationController
   before_filter :check_update_permissions, :only => [:edit, :update, :revert]
   before_filter :check_favorite_permissions, :only => [:favorite, :unfavorite] #TODO remove this
   before_filter :set_active_tag
+  before_filter :set_active_section
   before_filter :check_mode
   before_filter :check_age, :only => [:show]
   before_filter :check_retag_permissions, :only => [:retag, :retag_to]
@@ -234,30 +235,10 @@ class ItemsController < ApplicationController
     respond_to do |format|
       #format.html { Magent.push("actors.judge", :on_view_item, @item.id) }
 
-        if @item.mode == "news_article"
+        if @item.mode == "something"
           format.html { redirect_to(news_article_path(@item)) }        
-        elsif @item.mode == "newsfeed"
-          format.html { redirect_to(newsfeed_path(@item)) }  
-        elsif @item.mode == "video"
-          format.html { redirect_to(video_path(@item)) }   
-        elsif @item.mode == "image"
-          format.html { redirect_to(image_path(@item)) }        
-        elsif @item.mode == "article"
-          format.html { redirect_to(article_path(@item)) }  
-        elsif @item.mode == "blog"
-          format.html { redirect_to(blog_path(@item)) }  
-        elsif @item.mode == "question"
-          format.html { redirect_to(question_path(@item)) }  
-        elsif @item.mode == "discussion"
-          format.html { redirect_to(discussion_path(@item)) }  
-        elsif @item.mode == "feature"
-          format.html { redirect_to(feature_path(@item)) }  
-        elsif @item.mode == "bug"
-          format.html { redirect_to(bug_path(@item)) }  
-        elsif @item.mode == "bookmark"
-          format.html { redirect_to(bookmark_path(@item)) }  
         else
-          format.html { redirect_to(item_path(@item)) }
+          format.html #{ redirect_to( show_item_path(@item) ) }
         end
 
 
@@ -290,13 +271,11 @@ class ItemsController < ApplicationController
   # POST /items.xml
   def create
     @item = Item.new
-    @item.safe_update(%w[node mode title bookmark main_image main_thumbnail images body language tags wiki anonymous], params[:item])
+    @item.safe_update(%w[section node mode title bookmark main_image main_thumbnail images body language tags wiki anonymous], params[:item])
     @item.group = current_group
     @item.user = current_user
+    #@item.section = current_section
     
-    if @item.mode == "video"
-      @item.main_thumbnail = ""
-    end
 
     if !logged_in?
       if recaptcha_valid? && params[:user]
@@ -354,28 +333,8 @@ class ItemsController < ApplicationController
 
         if @item.mode == "news_article"
           format.html { redirect_to(news_article_path(@item)) }        
-        elsif @item.mode == "newsfeed"
-          format.html { redirect_to(newsfeed_path(@item)) }  
-        elsif @item.mode == "video"
-          format.html { redirect_to(video_path(@item)) }   
-        elsif @item.mode == "image"
-          format.html { redirect_to(image_path(@item)) }        
-        elsif @item.mode == "article"
-          format.html { redirect_to(article_path(@item)) }  
-        elsif @item.mode == "blog"
-          format.html { redirect_to(blog_path(@item)) }  
-        elsif @item.mode == "question"
-          format.html { redirect_to(question_path(@item)) }  
-        elsif @item.mode == "discussion"
-          format.html { redirect_to(discussion_path(@item)) }  
-        elsif @item.mode == "feature"
-          format.html { redirect_to(feature_path(@item)) }  
-        elsif @item.mode == "bug"
-          format.html { redirect_to(bug_path(@item)) }  
-        elsif @item.mode == "bookmark"
-          format.html { redirect_to(bookmark_path(@item)) }  
         else
-          format.html { redirect_to(item_path(@item)) }
+          format.html { redirect_to(node_path(@item)) }
         end
 
         format.json { render :json => @item.to_json(:except => %w[_keywords watchers]), :status => :created}
@@ -391,7 +350,7 @@ class ItemsController < ApplicationController
   # PUT /items/1.xml
   def update
     respond_to do |format|
-      @item.safe_update(%w[mode title bookmark main_thumbnail images body language tags wiki adult_content version_message  anonymous], params[:item])
+      @item.safe_update(%w[node mode title bookmark main_thumbnail images body language tags wiki adult_content version_message  anonymous], params[:item])
       @item.updated_by = current_user
       @item.last_target = @item
 
@@ -830,6 +789,12 @@ class ItemsController < ApplicationController
   def set_active_tag
     @active_tag = "tag_#{params[:tags]}" if params[:tags]
     @active_tag
+  end
+
+  def set_active_section
+
+     @active_section = params[:section]
+     @active_section
   end
 
   def check_age

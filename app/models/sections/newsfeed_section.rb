@@ -1,13 +1,14 @@
 class NewsfeedSection < Section
   before_validation_on_create :set_mode
-  before_validation_on_create :set_node
+  before_validation_on_create :set_defaults
   before_validation_on_update :set_mode
 
   protected
   def set_mode
     self[:mode] ||= "newsfeed"
   end
-  def set_node
-    self[:node] ||= "Newsfeeds"
+  def set_defaults
+    self[:name] ||= "newsfeeds"
+    self[:create_label] ||= "Suggest a newsfeed"
   end
 end

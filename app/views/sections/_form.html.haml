@@ -1,8 +1,8 @@
 .group
   .label 
-    = "Nodename"
+    = "Section name"
   .field
-    = f.text_field :node
+    = f.text_field :name
 
 .group
   = select :section, "_type", Section.types.map {|w| [w.sub("Section", "").titleize, w] }

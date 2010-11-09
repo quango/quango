@@ -71,13 +71,13 @@ namespace :setup do
   task :create_sections => :environment do
     default_group = Group.find_by_domain(AppConfig.domain)
 
-    default_group.sections << NewsSection.new(:node => "News", :mode => "news", :create_label => "Share some news")
-    default_group.sections << NewsfeedSection.new(:node => "Newsfeeds", :mode => "newsfeed", :create_label => "Add a newsfeed")
-    default_group.sections << VideoSection.new(:node => "Video", :mode => "video",  :create_label => "Share a video")
-    default_group.sections << ImageSection.new(:node => "Images", :mode => "image", :hidden => "true",  :create_label => "Add an image")
-    default_group.sections << ArticleSection.new(:node => "Articles", :mode => "article", :create_label => "Write an article")
-    default_group.sections << DiscussionSection.new(:node => "Discussion", :mode => "discussion", :create_label => "Discuss something")
-    default_group.sections << BookmarkSection.new(:node => "Bookmarks", :mode => "bookmark",  :create_label => "Share a link")
+    default_group.sections << NewsSection.new(:name => "news", :mode => "news", :create_label => "Share some news")
+    default_group.sections << NewsfeedSection.new(:name => "newsfeeds", :mode => "newsfeed", :create_label => "Add a newsfeed")
+    default_group.sections << VideoSection.new(:name => "video", :mode => "video",  :create_label => "Share a video")
+    default_group.sections << ImageSection.new(:name => "images", :mode => "image", :hidden => "true",  :create_label => "Add an image")
+    default_group.sections << ArticleSection.new(:name => "articles", :mode => "article", :create_label => "Write an article")
+    default_group.sections << DiscussionSection.new(:name => "discussion", :mode => "discussion", :create_label => "Discuss something")
+    default_group.sections << BookmarkSection.new(:name => "bookmarks", :mode => "bookmark",  :create_label => "Share a link")
     default_group.save!
   end
 

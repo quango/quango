@@ -1,9 +1,9 @@
 %li.item
   .logo
     -if group.has_logo?
-      = link_to image_tag(logo_group_path(group), :style => "height: 64px; width: 128px; vertical-align: top"), domain_url(:custom => group.domain)
+      = link_to image_tag(logo_group_path(group), :style => "height: 32px; width: 32px; vertical-align: top"), domain_url(:custom => group.domain)
     -else
-      = image_tag("default_logo.png", :style => "height: 64px; width: 128px; vertical-align: top", :class => "group_logo")
+      = image_tag("default_logo.png", :style => "height: 32px; width: 32px; vertical-align: top", :class => "group_logo")
   .summary
     %h3
       = link_to h(group.name), domain_url(:custom => group.domain)

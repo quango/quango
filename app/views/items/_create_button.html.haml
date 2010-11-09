@@ -1,9 +1,17 @@
--if @mode
-  - create_mode = "layouts.create." << @mode
-  -# url = domain_url(:custom => current_group.domain) << "/add/new?item[mode]=" << @mode
-  - url = domain_url(:custom => current_group.domain) << "/add/new?mode=" << @mode
+= "sausage"
+= current_group.sections.to_s
+%br
+
+-if @active_section
+  -#= current_section.create_label
+  - section = @section
+  - create_mode = "layouts.create." << @active_section #.create_label
+  - url = domain_url(:custom => current_group.domain) << "/add/new?section=" << @active_section
 
   = link_to '&#9733;'<< t(create_mode), url, :rel => 'nofollow', :mode => @mode , :class=>"create-button", :style => "background-color: "+current_group.primary+";"
 
 -else
   = "no mode"
+
+
+

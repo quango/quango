@@ -10,7 +10,7 @@
       =current_group.item_help
 
 -content_for :main do
-  = "1. mode: " << @mode.to_s
+  = "Create a " << @active_section.to_s
   - form_for(@item, :html=>{:class => "form", :id => "ask_item"}, :mode => @mode) do |f|
     =render :partial => "form", :locals => {:f => f, :mode => @mode}
 

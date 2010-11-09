@@ -34,8 +34,8 @@
                 = image_submit_tag("dialog-ok.png", :name=>"vote_up", :value=>"1", :title => t("votes.control.to_vote_up"), :class => "quick-vote-button")
 
       -cache("item_on_index_#{item.id}_#{I18n.locale}") do
-        =":" << item.mode
-        %h3= link_to title, "#{item.mode}s/#{item.slug}", :title => truncate(strip_tags(item.body), :length => 200)
+        =":" << item.id
+        %h3= link_to title, "#{item.section}/#{item.slug}", :title => truncate(strip_tags(item.body), :length => 200)
         .tag-list
           -if item.tags.empty? && logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group))
             %span.retag
