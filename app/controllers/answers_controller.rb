@@ -185,26 +185,6 @@ class AnswersController < ApplicationController
 
         if @item.mode == "news_article"
           format.html { redirect_to(news_article_path(@item)) }        
-        elsif @item.mode == "newsfeed"
-          format.html { redirect_to(newsfeed_path(@item)) }  
-        elsif @item.mode == "video"
-          format.html { redirect_to(video_path(@item)) }   
-        elsif @item.mode == "image"
-          format.html { redirect_to(image_path(@item)) }        
-        elsif @item.mode == "article"
-          format.html { redirect_to(article_path(@item)) }  
-        elsif @item.mode == "blog"
-          format.html { redirect_to(blog_path(@item)) }  
-        elsif @item.mode == "question"
-          format.html { redirect_to(question_path(@item)) }  
-        elsif @item.mode == "discussion"
-          format.html { redirect_to(discussion_path(@item)) }  
-        elsif @item.mode == "feature"
-          format.html { redirect_to(feature_path(@item)) }  
-        elsif @item.mode == "bug"
-          format.html { redirect_to(bug_path(@item)) }  
-        elsif @item.mode == "bookmark"
-          format.html { redirect_to(bookmark_path(@item)) }  
         else
           format.html { redirect_to(item_path(@item)) }
         end

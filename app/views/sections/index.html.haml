@@ -47,7 +47,7 @@
         %td.actions
           = link_to t("scaffold.destroy"), section_path(section), :method => :delete, :confirm => t("scaffold.sure", :model => "section")
           = " | "
-          = link_to t("scaffold.edit"), section_path(section), :method => :edit
+          = link_to t("scaffold.edit"), edit_section_path(section), :method => :get
 
 
 %h2.title
@@ -55,7 +55,7 @@
 
 -#form_tag sections_path, :class => "form" do |f|
 
-- form_for(@section, :html=>{:class => "form", :id => "new_announcement"}) do |f|
+- form_for(@section, :html=>{:class => "form", :id => "section"}) do |f|
   =render :partial => "form", :locals => {:f => f}
 
 

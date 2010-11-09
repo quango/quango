@@ -2,27 +2,41 @@
 -content_for :subtabs do
   .navtitle
     = t(".title")
--content_for :sidebar do
+
+-content_for :sidebar_inner do
   -if !current_group.item_help.empty?
     .help
       %h4
         = t(".how_to_ask")
       =current_group.item_help
+  .block
+    %h3
+      = "Related"
+    .content
+      %label.label#rqlabel
+        =t(".related_items", :default => :"items.show.related_items" )
+      %ul.items#related_items
+
+
+
 
 -content_for :main do
-  = "Create a " << @active_section.to_s
-  - form_for(@item, :html=>{:class => "form", :id => "ask_item"}, :mode => @mode) do |f|
-    =render :partial => "form", :locals => {:f => f, :mode => @mode}
+  #main-index
+    .content
+      .inner
+        = "Create a " << @active_section.to_s
+        - form_for(@item, :html=>{:class => "form", :id => "ask_item"}, :mode => @mode) do |f|
+          =render :partial => "form", :locals => {:f => f, :mode => @mode}
 
-    .group.navform
-      .controls.right{:style => "width: 50%"}
-        .left{:style => "width: 49.5%"}
-          = f.label :wiki, "Wiki", :class => "radio"
-          = f.check_box :wiki, :class => "checkbox"
-        .left{:style => "width: 49.5%"}
-          = f.label :anonymous, t("scaffold.post_as_anonymous"), :class => "radio"
-          = f.check_box :anonymous, :class => "checkbox"
+          .group.navform
+            .controls.right{:style => "width: 50%"}
+              .left{:style => "width: 49.5%"}
+                = f.label :wiki, "Wiki", :class => "radio"
+                = f.check_box :wiki, :class => "checkbox"
+              .left{:style => "width: 49.5%"}
+                = f.label :anonymous, t("scaffold.post_as_anonymous"), :class => "radio"
+                = f.check_box :anonymous, :class => "checkbox"
 
-      = f.submit t('scaffold.create')
-      = t("global.or")
-      = link_to t('scaffold.cancel'), items_path, :class => "button cancel"
+            = f.submit t('scaffold.create')
+            = t("global.or")
+            = link_to t('scaffold.cancel'), items_path, :class => "button cancel"

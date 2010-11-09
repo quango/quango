@@ -51,15 +51,13 @@
   #sidebar
     .sidebar
       .inner
-        = render :partial => "shared/current_tags"
         .block
-          %h3
-            = t('.tags', :default => [:"layout.application.tags", :"activerecord.attributes.user.tags", "tags"])
-          .content
-            = render :partial => "shared/tag_list", :object => @tag_cloud
+          = render :partial => "shared/current_tags"
+        .block
+          = render :partial => "shared/tag_list", :object => @tag_cloud
 
 
-= render :partial => "searches/search_box"
+
 
 -content_for :sidebar_inner do
 

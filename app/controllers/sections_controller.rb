@@ -40,8 +40,26 @@ class SectionsController < ApplicationController
   end
 
   def edit
-
+    @section = @group.sections.find(params[:id])
   end
+
+  def update
+    @section = @group.sections.find(params[:id])
+    respond_to do |format|
+
+      @section.safe_update(%w[name mode hidden create_label], params[:section])
+
+      if @section.valid? && @section.save
+        flash[:notice] = 'Section was successfully edited.'
+        format.html { redirect_to sections_path }
+        format.json  { render :json => @section.to_json, :status => :created, :location => section_path(:id => @section.id) }
+      else
+        format.html { render :action => "index" }
+        format.json  { render :json => @section.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
 
   # DELETE /ads/1
   # DELETE /ads/1.json

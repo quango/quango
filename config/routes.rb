@@ -104,6 +104,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :votes
 
   map.resources :sections, :member => {:move => :post}, :path_prefix => "/manage"
+  map.resources :sections, :path_prefix => "/manage"
+
   map.resources :widgets, :member => {:move => :post}, :path_prefix => "/manage"
   map.resources :members, :path_prefix => "/manage"
 

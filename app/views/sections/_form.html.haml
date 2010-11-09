@@ -1,3 +1,5 @@
+-#local_assigns[:section]
+
 .group
   .label 
     = "Section name"
@@ -8,6 +10,10 @@
   = select :section, "_type", Section.types.map {|w| [w.sub("Section", "").titleize, w] }
 
 .group
+  .label 
+    = "Create label"
+  .field
+    = f.text_field :create_label
 
 
 .group

@@ -9,16 +9,15 @@
       -if section.name == @active_section
         = "<span style='background-color:pink'>"
         = f.radio_button :section, section.name, :class => "radio_button", :checked => true
-        = "#{section.mode}" << "</span>"
-        
+        = "#{section.name}" << "</span>"
+        = f.hidden_field :mode, :value => section.mode        
         - @mode = section.name
       -else
-        = f.radio_button :section, section.name, :class => "radio_button"
-        = "#{section.mode}"
+        = f.radio_button :section, section.name, :class => "radio_button", :onchange => "document.location.href='/add/new?section=#{section.name}'"
+        = "#{section.name}"
 
 .group
-  = "To be hidden"
-  = f.text_field :section, :value => @active_section
+
 
 
 
