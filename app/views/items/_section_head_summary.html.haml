@@ -1,0 +1,126 @@
+-active_section = local_assigns[:section]
+-expanded = local_assigns[:expanded]
+= expanded
+- current_group.sections.each do |section|
+  -if active_section == section.name.to_s
+    .section-head
+      .secondary-navigation-sections
+        .navlabel
+          -#= link_to "#{section.name.upcase}", domain_url(:custom => current_group.domain) << "/" << section.node.downcase, :locals => section
+          - section_link = section.name.downcase
+          = h(section.name.capitalize << " Summary")
+
+        .navcontrols
+          %a.show_summary{:class => "section_button showhide"}
+            = "show summary"
+          %a.hide_summary{:class => "section_button showhide"}
+            = "hide summary"
+        .navlinks
+          -if section.name
+            - create_item = section.create_label
+            - url = domain_url(:custom => current_group.domain) << "/add/new?section=" << section.name.downcase
+            = link_to h(create_item), url,:class =>"link", :rel => 'nofollow', :node => section.name
+            = "|"
+          -else
+            = "no mode"
+     
+
+      .section-listing{:class => section.name}
+
+        .listings-left
+          .title
+            = h("mode.#{section.mode}")
+          .content
+            %ul.listing
+              -if @items.empty?
+                %li.highlight
+                  = t(".empty")
+              -else
+                -item_array = Array.new
+                -@items.each do |item|
+                  -if item.mode == section
+                    -item_array << item
+                -item_array[0..0].each do |item|
+                  = render :partial => "items/section_list_item", :locals => {:item => item,:sort=>"hot", :list_mode => "latest"}
+
+            -#sorted_array = tag_array.sort_by{|a|a}.reverse
+            .clear
+     
+
+        .listings-centre
+          .title
+            = h("mode.#{section.type}")
+          .content
+
+            %ul.listing
+              -if @items.empty?
+                %li.highlight
+                  = t(".empty")
+              -else
+                -@items.each do |item|
+                  -if item.section == section.name
+                    = render :partial => "items/section_list_item", :locals => {:item => item, :list_mode => "headline"}
+            .clear
+
+        .listings-right
+          .title
+            = h("mode.#{section.mode}")
+          .content
+            %ul.features
+              -if @items.empty?
+                %li.highlight
+                  = t(".empty")
+              -else
+                -features_array = Array.new
+                -@items.each do |item|
+                  -if item.section == section.name
+                    -features_array << item
+                -features_array[0..1].each do |item|
+                  = render :partial => "items/section_list_item", :locals => {:item => item,:sort=>"hot", :list_mode => "thumbnail"}
+
+        %script{:type => "text/javascript"}
+          = "// collapse:"
+          = "$('.hide_summary').click(function() {"
+          = "$('.hide_summary').css('display','none');"
+          = "$('.show_summary').css('display','block');"
+          = "$('.#{section.name}.section-listing').hide('slow');"
+          = "$.cookie('#{section.name}.summary', 'collapsed', { expires: 2 });"
+          = "});"
+          = "// expand:"
+          = "$('.show_summary').click(function() {"
+          = "$('.show_summary').css('display','none');"
+          = "$('.hide_summary').css('display','block');"
+          = "$('.#{section.name}.section-listing').show('slow');"
+          = "$.cookie('#{section.name}.summary', 'expanded', { expires: 2 });"
+          = "});"
+          = "// ok so far"
+          = "// COOKIES"
+          = "var #{section.name} = $.cookie('#{section.name}.summary');"
+          = "	// Set the user's selection for the left column"
+          = "if (#{section.name} == 'collapsed') {"
+          = "$('.hide_summary').css('display','none');"
+          = "$('.show_summary').css('display','block');"
+          = "$('.#{section.name}.section-listing').hide();"
+          = "};"
+          = "if (#{section.name} == 'expanded') {"
+          = "$('.hide_summary').css('display','block');"
+          = "$('.show_summary').css('display','none');"
+          = "$('.#{section.name}.section-listing').show();"
+          = "};"
+          = "if (#{section.name} == null) {"
+          = "$('.hide_summary').css('display','block');"
+          = "$('.show_summary').css('display','none');"
+          = "$('.#{section.name}.section-listing').show();"
+          = "};"
+
+
+        .clear
+    .clear
+
+
+
+
+
+
+
+

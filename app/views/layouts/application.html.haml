@@ -31,8 +31,9 @@
         = render :partial => "shared/announcements"
 
       #wrapper
-        = yield :main
         = yield :sidebar
+        = yield :section_head
+        = yield :main
         = yield :sidebar_inner
 
     .clear

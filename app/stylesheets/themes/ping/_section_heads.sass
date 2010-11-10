@@ -211,7 +211,6 @@
       color: black
 
   .navcontrols
-    width: 180px
     float: right
     ul
       border: 0
@@ -221,24 +220,6 @@
         border: 0
         padding: 0
         margin: 0
-
-        .section_button 
-          border: 1px solid #6d6d6d
-          background: gainsboro
-          background-image: url(/images/buttons/section_bg.png)
-          background-repeat: repeat-x
-          height: 16px
-          line-height: 16px
-          margin: 4px 4px 4px 0
-          color: #6d6d6d
-          cursor: pointer
-          overflow: visible
-          float: left
-          font-weight: normal
-          font-size: 10px
-          text-shadow: white 0px 1px 1px
-          padding: 0 13px 0 13px
-          +rounded(2px,2px,2px,2px)
 
         a.spin
           line-height: 26px
@@ -255,7 +236,26 @@
   width: 100%x
   margin: 12px 0
 
-
+.section_button 
+  border: 1px solid #6d6d6d
+  background: gainsboro
+  background-image: url(/images/buttons/section_bg.png)
+  background-repeat: repeat-x
+  height: 16px
+  line-height: 16px
+  margin: 4px 4px 4px 0
+  color: #6d6d6d
+  cursor: pointer
+  overflow: visible
+  float: left
+  font-weight: normal
+  font-size: 10px
+  text-align: center
+  text-shadow: white 0px 1px 1px
+  padding: 0 13px 0 13px
+  +rounded(2px,2px,2px,2px)
+  &.showhide
+    width: 72px
 
 
 

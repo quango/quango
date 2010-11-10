@@ -7,7 +7,9 @@
     = f.text_field :name
 
 .group
-  = select :section, "_type", Section.types.map {|w| [w.sub("Section", "").titleize, w] }
+  .label 
+    = "Section mode"
+  = select :section, "_type", Section.types.map {|w| [w.sub("Section", " Mode").titleize, w] }
 
 .group
   .label 

@@ -19,7 +19,7 @@ class SectionsController < ApplicationController
       @section = params[:section][:_type].constantize.new
     end
 
-    @section.name = params[:section][:name]
+    @section.name = params[:section][:name].downcase
     @section.node = params[:section][:node]
     @section.mode = params[:section][:mode]
     @section.hidden = params[:section][:hidden]
