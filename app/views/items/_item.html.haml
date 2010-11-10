@@ -34,7 +34,6 @@
                 = image_submit_tag("dialog-ok.png", :name=>"vote_up", :value=>"1", :title => t("votes.control.to_vote_up"), :class => "quick-vote-button")
 
       -cache("item_on_index_#{item.id}_#{I18n.locale}") do
-        =":" << item.id
         %h3
           = image_tag("/images/icons/"+item.mode.to_s+"_icon_16.png", :width => 16, :height => 16)
           = link_to title, "/#{item.section}/#{item.slug}", :title => truncate(strip_tags(item.body), :length => 200)

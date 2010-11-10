@@ -71,7 +71,7 @@ namespace :setup do
   task :create_sections => :environment do
     default_group = Group.find_by_domain(AppConfig.domain)
 
-    default_group.sections << NewsSection.new(:name => "news", :mode => "news", :create_label => "Share some news")
+    default_group.sections << NewsSection.new(:name => "news", :mode => "news", :create_label => "Add some news")
     default_group.sections << NewsfeedSection.new(:name => "newsfeeds", :mode => "newsfeed", :create_label => "Add a newsfeed")
     default_group.sections << VideoSection.new(:name => "video", :mode => "video",  :create_label => "Share a video")
     default_group.sections << ImageSection.new(:name => "images", :mode => "image", :hidden => "true",  :create_label => "Add an image")

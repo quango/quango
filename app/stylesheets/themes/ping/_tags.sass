@@ -9,22 +9,24 @@
   .tag
     margin-right: 3px
     display: inline
-    overflow: hidden
+    overflow: visible
     float: left
+    //width: 100px
+    //height: 16px
     a
       &:link, &:active, &:visited
         color: #fff
-        background-color: #B2653F
-        border: 0
+        border: 1px solid black
+        width: 100px
         cursor: pointer
         font-size: 100%
         font-weight: normal
-        margin-bottom: 5px
+        margin-bottom: 4px
         padding: 3px 8px
-        text-align: center
+        text-align: left
         text-decoration: none
         text-transform: lowercase
-        white-space: nowrap
+        //white-space: nowrap
         line-height: 20px
         +rounded(4px,4px,4px,4px)
       &:hover

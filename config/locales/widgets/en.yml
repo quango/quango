@@ -13,10 +13,10 @@ en:
       title: Top 5 groups
       description: "This widget displays the top five groups"
     top_users:
-      title: Top 5 users
+      title: Champions
       description: "This widget displays the top five users"
     users:
-      title: Recent users
+      title: Freshies
       description: "This widget displays newly registered members"
     tag_cloud:
       title: Topic cloud

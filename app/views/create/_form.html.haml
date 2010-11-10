@@ -1,4 +1,5 @@
 = "create: " << @sectional.to_s
+= local_assigns[f]
 = f.error_messages
 = error_messages_for(:user)
 
@@ -15,7 +16,8 @@
       -else
         = f.radio_button :section, section.name, :class => "radio_button", :onchange => "document.location.href='/add/new?section=#{section.name}'"
         = "#{section.name}"
-
+  .description
+    = "Caution! Do not switch modes cos they aint persistent yet"
 .group
 
 
