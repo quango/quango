@@ -1,3 +1,6 @@
+.gitignore
+m-*.sh
+backup/
 *~
 .DS_Store
 *.orig
