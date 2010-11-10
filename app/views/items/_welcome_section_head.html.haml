@@ -3,13 +3,13 @@
     .navlabel
       -#= link_to "#{section.name.upcase}", domain_url(:custom => current_group.domain) << "/" << section.node.downcase, :locals => section
       - section_link = section.name.downcase
-      = link_to section.name, "#{section.name}"  #nodes_path(section_link, :locals => {:object => section})
+      = link_to (section.name.capitalize << " Headlines"), "#{section.name}"  #nodes_path(section_link, :locals => {:object => section})
 
     .navcontrols
       %a.show_summary{:class => "#{section.name} section_button showhide"}
-        = "show summary"
+        = "show headlines"
       %a.hide_summary{:class => "#{section.name} section_button showhide"}
-        = "hide summary"
+        = "hide headlines"
     .navlinks
       -if section.mode
         - create_item = section.create_label

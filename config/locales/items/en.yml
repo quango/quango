@@ -32,8 +32,10 @@ en:
 
     index:
       title: All items
-      hot:     Hot
-      active:  Active
+      fresh:  Freshest
+      hot:     Hottest
+      busy:  Most Busiest
+      active:  Busy
       votes:   Votes
       newest:  Newest
       oldest:  Oldest

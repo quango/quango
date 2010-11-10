@@ -9,7 +9,7 @@
     %span.new
       = "new"
   -# TODO
-  = link_to title, "#{item.section}/#{item.slug}", :title => truncate(strip_tags(item.title), :length => 200)
+  = link_to title, "#{item.section}/#{item.slug}", :locals => {:section => @active_section}, :title => truncate(strip_tags(item.title), :length => 200)
   -#= link_to title, show_path(item), :title => truncate(strip_tags(item.title), :length => 200)
 
   %small

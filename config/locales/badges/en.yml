@@ -63,7 +63,7 @@ en:
         name: Critic
         description: Voted negatively for the first time
       inquirer:
-        name: Inquirer
+        name: Noobie
         description: Asked for the first time
       troubleshooter:
         name: Troubleshooter
@@ -78,7 +78,7 @@ en:
         name: Effort medal
         description: Got 100 positive votes
       student:
-        name: Student
+        name: Freshman
         description: Asked first item with at least one up vote
       shapado:
         description: Visited the site each day for 8 consecutive days
@@ -143,7 +143,7 @@ en:
         name: Autobiographer
         description: Completed all user profile fields
       organizer:
-        name: Organizer
+        name: Sophomore
         description: First retag
   activerecord:
     models:

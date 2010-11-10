@@ -1,4 +1,4 @@
-# remember rake:asset-packager:buildall 
+# remember "rake asset:packager:build_all"
 
 ---
 javascripts:
@@ -15,6 +15,8 @@ javascripts:
   - jquery.scroll
   - jquery.ui.sortable
   - jquery.cookie
+  - jquery.effects.core
+  - jquery.effects.bounce
   - showdown
   - highlight/prettify
   - components/search

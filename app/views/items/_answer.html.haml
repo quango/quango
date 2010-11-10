@@ -45,17 +45,12 @@
     .markdown.entry-content
       =find_and_preserve(shapado_auto_link(markdown(answer.body), :link_users => true))
 
-      .owner-data{:style=>"width:128px;float:right;"}
+      .owner-data
         .updated{:title => answer.updated_at}
 
         .author
           -unless answer.anonymous
             = render :partial => "users/user_mini", :locals => {:user => answer.user}
-          -unless answer.updated_by.hide_country
-            .adr
-              %small.country-name
-                = t("global.from", :site => answer.updated_by.country_name)
-                = country_flag(answer.updated_by.country_code, answer.updated_by.country_name)
           -else
             %b=t("global.anonymous")
           %small.time_ago

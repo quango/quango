@@ -1,3 +1,23 @@
+.standard_button 
+  border: 1px solid #6d6d6d
+  background: gainsboro
+  background-image: url(/images/buttons/section_bg.png)
+  background-repeat: repeat-x
+  height: 16px
+  line-height: 16px
+  margin: 4px 4px 4px 0
+  color: #6d6d6d
+  cursor: pointer
+  overflow: visible
+  float: left
+  font-weight: normal
+  font-size: 10px
+  text-align: center
+  text-shadow: white 0px 1px 1px
+  padding: 0 13px 0 13px
+  +rounded(2px,2px,2px,2px)
+
+
 .toolbar-button
   font-weight: normal
   font-size: 10px
@@ -32,6 +52,10 @@
   &a
     color: black
 
+
+
+
+
 .ownerflair
   font-weight: normal
   font-size: 8px
@@ -64,21 +88,26 @@
   a
     color: white
 
-a.edit-button
+.edit-button
   float: right
+  background-color: #990000
+  background-image: url(http://pegasus.one:3000/images/buttons/section_bg.png)
+  background-repeat: repeat-x
+  background-position: 3px
+  border: 1px solid #990000
+  color: white
+  font-size: 10px
+  font-weight: normal
   height: 26px
   line-height: 26px
-  text-align: middle
-  font-weight: bold
-  font-size: 0.75em
-  border: 1px solid #555
-  color: #333
-  text-shadow: white 0px 1px 1px
-  margin-left: 4px
-  padding: 0 26px
+  margin: 0 3px 0 3px
+  padding: 0 8px
+  text-transform: uppercase
+  text-shadow: #990000 0px -1px 1px
   +rounded(4px,4px,4px,4px)
-
-
+  &a:hover
+    color: white
+    text-decoration: underline
 
 .share
   &.button

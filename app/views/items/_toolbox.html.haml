@@ -19,7 +19,9 @@
     - if current_user
 
       - if (@item.wiki && current_user.can_edit_wiki_post_on?(@item.group)) || current_user.can_edit_others_posts_on?(@item.group) || current_user.can_modify?(@item)
-        = link_to t('scaffold.edit'), "/#{@item.section}/#{@item.slug}/edit", :class => "edit-button"
+        %span{:class => "edit-button"}
+          = "&#9733;"
+          = link_to  " Edit", "/#{@item.section}/#{@item.slug}/edit"
 
     =vote_box(@item, item_path(@item), @item.closed)
     
