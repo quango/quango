@@ -87,163 +87,135 @@
       .clear
 
 
--content_for :sidebar_left do
-  .block
-    .content
+-content_for :sidebar do
+  #sidebar
+    .sidebar
+      .inner
+        .block
+          %h3
+            = "info"
+          .content
+            %table
+              %tr
+                %td.user-field
+                  =t(:name, :scope => "activerecord.attributes.user")
+                %td.user-field-value
+                  =h(@user.name)
+              %tr
+                %td.user-field
+                  =t(:website, :scope => "activerecord.attributes.user")
+                %td.user-field-value
+                  -if @user.website
+                    =link_to h(@user.website), h(@user.website), :rel => "nofollow"
+        .block
+          %h3
+            = "Achievements"
+          .content
+            %h2.title
+              .counter
+                = number_with_delimiter(@badges.total_entries)
+              = t(:badges, :scope => "activerecord.models", :default => "Badges")
+
+            %ul.list#badges
+              -@badges.each do |badge|
+                %li
+                  = render :partial => "badges/badge", :object => badge, :locals => {:hide_user => true}
+            .additional_info
+              = will_paginate @badges, :param_name => "badges_page"
+              .clear
+        .block
+          %h3
+            = "Stats"
+          .content
+            .text
+              = "Reputation"
+            .data
+              =format_number(@user.reputation_on(current_group))
+            .text
+              = "Profile Views"
+            .data
+              =format_number(@user.config_for(current_group).views_count.to_i)
+              = t(".views")
+            .text
+              = t(:created_at, :scope => "activerecord.attributes.user")
+            .data
+              = t("time.ago", :time => time_ago_in_words(@user.created_at))
+            .text
+              = t(:last_logged_at, :scope => "activerecord.attributes.user")
+            .data
+              -if @user.last_logged_at
+                = t("time.ago", :time => time_ago_in_words(@user.last_logged_at))
+
+-content_for :sidebar_inner do
+  #sidebar-inner
+    .block
       .follow-info.button
         -if current_user != @user
           -if logged_in? && current_user.following?(@user)
             =link_to "- #{t(".unfollow")}", unfollow_user_path(@user), :class => "unfollow_link", 'data-class' => "follow_link", 'data-title' => t(".follow"), 'data-undo' => follow_user_path(@user)
           -else
             =link_to "+ #{t(".follow")}", follow_user_path(@user), :class => "follow_link", 'data-class' => "unfollow_link", 'data-title' => t(".unfollow"), 'data-undo' => unfollow_user_path(@user)
-          .clear  
+      .clear
+  
+    .block
+      %h3
+        = "Profile image"
+        -if current_user == @user
+          .navcontrols
+            =link_to t("users.manage.edit"), settings_path(:tab => "image"), :class => "button", :style => "float:right"
+      .content
+        = gravatar @user.email.to_s, :size => 234
 
+    - if !@user.hide_country
+      .block
+        %h3
+          = "location"
+        .content
+          %span.adr
+            %span.country-name
+              = t("global.from", :site => @user.country_name)
+              = country_flag(@user.country_code, @user.country_name)
+    .block
+      %h3
+        = "info"
+      .content
+        = markdown(@user.bio)
+
+    .block
+      %h3
+        = "Followers"
+      .content
+        -if @user.followers.count > 0
+          .counter
+            = number_with_delimiter(@user.followers.count)
+            Followers
+          .friend_list
+            -@user.followers.each do |follower|
+              %span
+                =link_to gravatar(follower.email.to_s, :size => 24), user_path(follower)
+
+    .block
+      %h3
+        = "Following"
+      .content
         -if current_user = @user
           -if @user.following.count > 0
-            %h2.title
-              .counter
-                = number_with_delimiter(@user.following.count)
+            .counter
+              = number_with_delimiter(@user.following.count)
               Following
             .friend_list
               -@user.following.each do |follower|
                 %span
                   = link_to gravatar(follower.email.to_s, :size => 24), user_path(follower)
-          -if @user.followers.count > 0
-            %h2.title
-              .counter
-                = number_with_delimiter(@user.followers.count)
-              Followers
-            .friend_list
-              -@user.followers.each do |follower|
-                %span
-                  =link_to gravatar(follower.email.to_s, :size => 24), user_path(follower)
-
-
-
-
-
-  .block
-    %h3
-      = "Stats"
-    .content
-      .text
-        = "Reputation"
-      .data
-        =format_number(@user.reputation_on(current_group))
-      .text
-        = "Profile Views"
-      .data
-        =format_number(@user.config_for(current_group).views_count.to_i)
-        = t(".views")
-      .text
-        = t(:created_at, :scope => "activerecord.attributes.user")
-      .data
-        = t("time.ago", :time => time_ago_in_words(@user.created_at))
-      .text
-        = t(:last_logged_at, :scope => "activerecord.attributes.user")
-      .data
-        -if @user.last_logged_at
-          = t("time.ago", :time => time_ago_in_words(@user.last_logged_at))
-
-  .block
-    %h3
-      = "info"
-    .content
-      %table
-        %tr
-          %td.user-field
-            =t(:name, :scope => "activerecord.attributes.user")
-          %td.user-field-value
-            =h(@user.name)
-        %tr
-          %td.user-field
-            =t(:website, :scope => "activerecord.attributes.user")
-          %td.user-field-value
-            -if @user.website
-              =link_to h(@user.website), h(@user.website), :rel => "nofollow"
-
-  .block
-    %h3
-      = "info"
-    .content
-      %table
-        %tr
-          %td.user-field
-            =t(:name, :scope => "activerecord.attributes.user")
-          %td.user-field-value
-            =h(@user.name)
-        %tr
-          %td.user-field
-            =t(:website, :scope => "activerecord.attributes.user")
-          %td.user-field-value
-            -if @user.website
-              =link_to h(@user.website), h(@user.website), :rel => "nofollow"
-
-  .block
-    %h3
-      = "info"
-    .content
-      = markdown(@user.bio)
-
-
-
-
--content_for :sidebar_right do
-  .block
-    %h3
-      = "Profile image"
-      -if current_user == @user
-        .navcontrols
-          =link_to t("users.manage.edit"), settings_path(:tab => "image"), :class => "button", :style => "float:right"
-
-    .content
-      = gravatar @user.email.to_s, :size => 234
-
-
-  - if !@user.hide_country
-    .block
-      %h3
-        = "location"
-      .content
-        %span.adr
-          %span.country-name
-            = t("global.from", :site => @user.country_name)
-            = country_flag(@user.country_code, @user.country_name)
-
-  .block
-    %h3
-      = "Achievements"
-    .content
-      %h2.title
-        .counter
-          = number_with_delimiter(@badges.total_entries)
-        = t(:badges, :scope => "activerecord.models", :default => "Badges")
-
-      %ul.list#badges
-        -@badges.each do |badge|
-          %li
-            = render :partial => "badges/badge", :object => badge, :locals => {:hide_user => true}
-      .additional_info
-        = will_paginate @badges, :param_name => "badges_page"
-        .clear
 
 
 
 - content_for :main do
+  #main-index
+    .content
+      .inner
+        = yield :subtabs
+        = yield :show_user
 
- 
-  #main.right
-    #sidebar.left
-      = yield :sidebar_left
-
-    #sidebar.right
-      = yield :sidebar_right
-    .clear
-
-  #main.left
-    = yield :subtabs
-    .clear
-    = yield :show_user
-  .clear
 
 

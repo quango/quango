@@ -6,24 +6,24 @@
 
 .answer.commentable{:class => "post-#{answer.id} #{solution ? "solution" : ""}" }
   %a{:name=>answer.id}
-  #toolbox.answer
+  .toolbox
     =vote_box(answer, item_path(item), item.closed)
     .controls
       .actions
-        = link_to t('activerecord.attributes.answer.link'), item_answer_path(@item.id, answer.id), :class => "button"
+        = link_to t('activerecord.attributes.answer.link'), item_answer_path(@item.id, answer.id), :class => "standard-button"
         - if logged_in? && @aflag.new? && current_user != answer.user
           = link_to t(".flag"), new_item_answer_flag_path(@item,answer), :class => "flag-link button", :rel => 'nofollow'
 
         -if logged_in?
           -if (current_user.mod_of?(@item.group) || current_user.can_modify?(@item))
             -unless @item.accepted
-              = link_to t(".pick_answer"), solve_item_path(@item, :answer_id => answer), :class=>"button"
+              = link_to t(".pick_answer"), solve_item_path(@item, :answer_id => answer), :class=>"standard-button"
             -if solution
-              = link_to t(".unset_answer"),  unsolve_item_path(@item), :class=>"button"
+              = link_to t(".unset_answer"),  unsolve_item_path(@item), :class=>"standard-button"
           -if answer.wiki || current_user.can_edit_others_posts_on?(answer.group) || current_user.can_modify?(answer)
-            = link_to t("scaffold.edit"), edit_item_answer_path(@item, answer), :class=>"button"
+            = link_to t("scaffold.edit"), edit_item_answer_path(@item, answer), :class=>"standard-button"
           -if current_user.can_modify?(answer)
-            = link_to t("scaffold.destroy"), item_answer_path(@item, answer), :confirm => t("scaffold.sure", :model => "answer"), :method => :delete, :class =>"button"
+            = link_to t("scaffold.destroy"), item_answer_path(@item, answer), :confirm => t("scaffold.sure", :model => "answer"), :method => :delete, :class =>"standard-button"
           -if !@aflag.new?
             .flagged
               = "#{t('items.show.flagged_as')} #{t(@aflag.reason, :scope=>'flags.form')}"
@@ -31,12 +31,12 @@
               =link_to t("scaffold.destroy"), item_answer_flag_path(@item,answer,@aflag), :id => "destroy_answer_flag_link", :rel => 'nofollow', :confirm => "are you sure?", :method => :delete
 
         -if answer.versions.count > 0
-          = link_to t(".history", :default => "history"), history_item_answer_path(@item, answer), :class=>"button"
+          = link_to t(".history", :default => "history"), history_item_answer_path(@item, answer), :class=>"standard-button"
         -if logged_in?
           -if(current_user.can_modify?(@item) || current_user.mod_of?(@item.group))
-            = link_to t("scaffold.destroy"), item_answer_path(@item.id, answer.id), :confirm => "are you sure?", :method => :delete, :class=>"button"
+            = link_to t("scaffold.destroy"), item_answer_path(@item.id, answer.id), :confirm => "are you sure?", :method => :delete, :class=>"standard-button"
           -if current_user.mod_of?(@item.group)
-            = link_to "ban", ban_path(:answer_ids => [answer.id]), :confirm => "are you sure?", :class=>"button"
+            = link_to "ban", ban_path(:answer_ids => [answer.id]), :confirm => "are you sure?", :class=>"standard-button"
       .clear
       .forms
     .clear
@@ -77,7 +77,7 @@
             = t('activerecord.attributes.answer.updated_at', :default => "updated")
             = t("time.ago", :time => time_ago_in_words(answer.updated_at))
 
-
+    .clear
     -if logged_in?
       = link_to t(".add_comment"), new_item_comment_path(@item, answer), :class => "addNestedAnswer add_answer_comment_link"
 
@@ -95,3 +95,7 @@
         = submit_tag t("comments.shared.comment_submit"), :class => "button"
         = t("global.or")
         = link_to t('scaffold.cancel'), '', :class => 'cancel_comment'
+
+
+
+.clear

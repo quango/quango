@@ -54,7 +54,7 @@
       -current_group.sections.each do |section|
         -if !section.hidden?
           %li{:class => section.name }
-          = render :partial => "items/welcome_section_head", :locals => {:section => section, :sortable => "true", :list_mode => "standard"}
+          = render :partial => "items/section_head_welcome", :locals => {:section => section, :sortable => "true", :list_mode => "standard"}
 
 
 

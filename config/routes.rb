@@ -36,14 +36,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :announcements, :collection => {:hide => :any }
   map.resources :imports, :collection => {:send_confirmation => :post}
 
-  #map.channels :channels
   map.channels 'channels/:tags', :controller => :channels, :action => :index,:requirements => {:tags => /\S+/}
 
-  #map.resources :channels, :collection => {:tags => :get}
-  #map.connect 'channels/explore/:tags', :controller => :channels, :action => :index,:requirements => {:tags => /\S+/}
-              #:as => "channels"
-
-  #map.create 'create/:mode', :controller => :create, :action => :new,:requirements => {:mode => /\S+/}
   map.resources :create, :action => :new, :as => "add"
 
   def build_items_routes(router, options ={})
@@ -98,6 +92,7 @@ ActionController::Routing::Routes.draw do |map|
                                      :disallow_custom_ads => :get,
                                      :logo => :get,
                                      :favicon => :get,
+                                     :background => :get,
                                      :css => :get},
                           :collection => { :autocomplete_for_group_slug => :get}
 

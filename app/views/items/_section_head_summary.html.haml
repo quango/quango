@@ -11,9 +11,9 @@
           = h(section.name.capitalize << " Headlines")
 
         .navcontrols
-          %a.show_summary{:class => "#{section.name} section_button showhide"}
+          %a.show_summary{:class => "#{section.name} section-button showhide"}
             = "show headlines"
-          %a.hide_summary{:class => "#{section.name} section_button showhide"}
+          %a.hide_summary{:class => "#{section.name} section-button showhide"}
             = "hide headlines"
         .navlinks
           -if section.name

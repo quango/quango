@@ -120,7 +120,7 @@ class GroupsController < ApplicationController
     @group.safe_update(%w[name name_highlight legend description has_custom_channels custom_channels default_tags subdomain logo logo_info forum
                           custom_favicon language theme reputation_rewards reputation_constrains
                           has_adult_content registered_only openid_only custom_css wysiwyg_editor fb_button share 
-                          primary secondary tertiary header_bg_image toolbar_bg toolbar_bg_image
+                          primary secondary tertiary header_bg_image background toolbar_bg toolbar_bg_image
                           show_modes 
                           show_news_articles show_newsfeeds show_video show_images show_articles show_blogs show_questions show_discussions show_bookmarks show_bugs show_features 
                           robots
@@ -174,6 +174,15 @@ class GroupsController < ApplicationController
       send_data(@group.logo.try(:read), :filename => "logo.#{@group.logo.extension}", :type => @group.logo.content_type,  :disposition => 'inline')
     else
       render :text => ""
+    end
+  end
+
+  def background
+    @group = Group.find_by_slug_or_id(params[:id], :select => [:file_list])
+    if @group && @group.has_background?
+      send_data(@group.background.try(:read), :filename => "background.#{@group.background.extension}", :type => @group.background.content_type,  :disposition => 'inline')
+    else
+      render :text => "nada"
     end
   end
 

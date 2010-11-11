@@ -13,7 +13,7 @@
 .group
   = f.label :custom_favicon, "Favicon", :class => "label"
   -if @group.has_custom_favicon?
-    = image_tag(favicon_group_path(@group))
+    = image_tag(favicon_group_path(@group), :height=>"16px", :width =>"16px")
   -else
     = image_tag("/favicon.ico")
   = f.file_field :custom_favicon
@@ -42,6 +42,16 @@
   .swatch{:style => "background: #{current_group.header_bg_image}"}
   .description
     = "the url to where it is uploaded"
+
+.group
+  = f.label :background, "Header Background Image", :class => "label"
+  -if @group.has_background?
+    = image_tag(background_group_path(@group), :width => "468px")
+  -else
+    = "None set"
+  .clear
+  = f.file_field :background
+
 
 .group
   = f.label :primary, "Primary colour", :class => "label"

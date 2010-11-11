@@ -5,8 +5,8 @@
   \#header-container-inner { 
   -if current_group.header_bg?
     background-color: #{current_group.primary};
-  -if current_group.header_bg_image?
-    background-image:url(#{current_group.header_bg_image});
+  -if current_group.has_background?
+    background-image:url(#{background_group_path(current_group)});
   -if !current_group.header_bg? && !current_group.header_bg_image?
     background-color: #{current_group.primary};
   }
