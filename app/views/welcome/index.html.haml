@@ -63,17 +63,17 @@
 
 -content_for :sidebar do
   #sidebar
-    .sidebar
-      .inner
-        -current_group.widgets.each do |widget|
-          .widget.block{:id => widget.name}
-            = render :partial => widget.partial_name, :locals => {:widget => widget}
+    -#.sidebar
+      -#.inner
+    -current_group.widgets.each do |widget|
+      .widget.block{:id => widget.name}
+        = render :partial => widget.partial_name, :locals => {:widget => widget}
 
-        .block
-          %h3
-            = h("Something")
-          .content
-            = h("Something else")
+    .block
+      %h3
+        = h("Something")
+      .content
+        = h("Something else")
 
 
 /Layout

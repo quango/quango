@@ -1,37 +1,54 @@
 -content_for :subtabs do
-  .navtitle
-    = t("users.index.title")
-    -if @users
-      == (#{format_number(@users.total_entries)})
+  .secondary-navigation{:class => @active_subtab.to_s}
+    .navlabel.left
+      = t("users.index.title")
+      -if @users
+        == (#{format_number(@users.total_entries)})
+    .navcontrols.right
+      %ul
+        %li.reputation
+          = link_to t(".reputation"), users_path(:sort=>"reputation"), :title => t(".reputation_tooltip"), :class => "standard-button"
+        %li.newest
+          = link_to t(".newest"), users_path(:sort=>"newest"), :title => t(".newest_tooltip"), :class => "standard-button"
+        %li.oldest
+          = link_to t(".oldest"), users_path(:sort=>"oldest"), :title => t(".oldest_tooltip"), :class => "standard-button"
+        %li.name
+          = link_to t(".name"), users_path(:sort=>"name"), :title => t(".name_tooltip"), :class => "standard-button"
 
-  %ul
-    %li.reputation
-      = link_to t(".reputation"), users_path(:sort=>"reputation"), :title => t(".reputation_tooltip")
-    %li.newest
-      = link_to t(".newest"), users_path(:sort=>"newest"), :title => t(".newest_tooltip")
-    %li.oldest
-      = link_to t(".oldest"), users_path(:sort=>"oldest"), :title => t(".oldest_tooltip")
-    %li.name
-      = link_to t(".name"), users_path(:sort=>"name"), :title => t(".name_tooltip")
+  
 
--form_tag "/users", :class => "form", :id => "filter_users", :method => "get" do
-  = label_tag :q, t(".filter"), :class => "label"
-  = text_field_tag "q", params[:q], :class => "text_field filter_field"
-  = submit_tag("filter")
+-content_for :sidebar_inner do
+  #sidebar-inner
+    .block
+      %h3
+        = h("Search for a member")
+      .content{:style => "background-color: gainsboro"}
+        -form_tag "/users", :class => "form", :id => "filter_users", :method => "get" do
+          = "Find"
+          = submit_tag("Search",:class => "right")
+          = text_field_tag "q", params[:q], :class => "text_field filter_field right" 
+          .clear
 
--content_for :sidebar_right do
-  .block
-    %h3
-      = h("Something")
-    .content
-      = h("Something else")
 
--content_for :sidebar_left do
-  .block
-    %h3
-      = h("Something")
-    .content
-      = h("Something else")
+
+    = render :partial => "recent_members"
+    .block
+      %h3
+        = h("Something")
+      .content
+        = h("Something else")
+
+-content_for :sidebar do
+  #sidebar
+    -current_group.widgets.each do |widget|
+      .widget.block{:id => widget.name}
+        = render :partial => widget.partial_name, :locals => {:widget => widget}
+
+    .block
+      %h3
+        = h("Something")
+      .content
+        = h("Something else")
 
 -content_for :list do
 
@@ -47,9 +64,10 @@
 /Layout
 -content_for :main do
 
-  #main.left
+  #main-index
+
     = yield :subtabs
     .clear
     = yield :list
-  .clear
+
 

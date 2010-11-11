@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_filter :login_required, :only => [:edit, :update, :follow]
   before_filter :set_active_tag
+  before_filter :set_active_user
 
   tabs :default => @active_tag
 
@@ -231,6 +232,15 @@ class UsersController < ApplicationController
     @active_tag
   end
 
+  def set_active_user
+    @user = User.find_by_login_or_id(params[:id])
+    if !@user
+      @active_user = "Members"
+    else
+      @active_user = @user.login
+    end
+    @active_user
+  end
 
   def active_subtab(param)
     key = params.fetch(param, "votes")

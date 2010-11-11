@@ -4,7 +4,8 @@
     #announcement_message
       -announcements.each do |announcement|
         =markdown(announcement.message)
-    =link_to "Close", hide_announcements_path, :id => "hide_announcement"
+        %span.right
+          =link_to "Close", hide_announcements_path, :id => "hide_announcement"
     .clear
 -if !logged_in?
   -if AppConfig.twitter["activate"] && request.referrer =~ %r{^https?://(www\.){0,1}twitter\.com}

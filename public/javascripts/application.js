@@ -83,7 +83,7 @@ $(document).ready(function() {
   });
 
   $("a#hide_announcement").click(function() {
-    $("#announcement").fadeOut();
+    $("#announcement_message").fadeOut();
     $.post($(this).attr("href"), "format=js");
     return false;
   });

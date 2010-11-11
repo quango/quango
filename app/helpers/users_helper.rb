@@ -90,4 +90,10 @@ module UsersHelper
     end
   end
 
+  def recent_users(group)
+    group.users(:order => "created_at desc",
+                :per_page => 5,
+                :page => 1)
+  end
+
 end
