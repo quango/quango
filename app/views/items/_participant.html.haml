@@ -1,32 +1,11 @@
 -solution = item.accepted && item.answer_id == answer.id
 -source = item_path(@item)
 
-- @aflag = current_user.has_flagged?(answer) if logged_in?
-- @aflag ||= Flag.new
-.particiant
-  .body-col
-    .author
-      -unless answer.anonymous
-        = render :partial => "users/participant", :locals => {:answer => answer, :user => answer.user}
+
+.participant
+  .author
+    = render :partial => "users/participant", :locals => {:answer => answer, :user => answer.user}
 
 
-    -if logged_in? && (current_user.mod_of?(current_group) || current_user.can_view_offensive_counts_on?(current_group)) && answer.flags.count > 0
-      %h3
-        = t(:flags, :scope => "activerecord.models")
-      = render :partial => "flags/list", :locals => {:flaggeable => answer}
-    -if !answer.updated_by.nil?
-      .owner-data{:style=>"width:128px;float:right;"}
 
-
-        .author
-          = render :partial => "users/user_mini", :locals => {:user => answer.updated_by}
-          -unless answer.updated_by.hide_country
-            .adr
-              %small.country-name
-                = t("global.from", :site => answer.updated_by.country_name)
-                = country_flag(answer.updated_by.country_code, answer.updated_by.country_name)
-
-          %small.time_ago
-            = t('activerecord.attributes.answer.updated_at', :default => "updated")
-            = t("time.ago", :time => time_ago_in_words(answer.updated_at))
 

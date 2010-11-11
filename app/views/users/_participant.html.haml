@@ -2,15 +2,14 @@
 
 .participant
 
-  %div.gravatar{:style=>"width:20px;float:left; margin-right:4px;"}
-    = link_to gravatar(user.email.to_s, :size => 20), user_path(user)
+  %div.gravatar{:style=>"width:32px;float:left; margin-right:4px;"}
+    = link_to gravatar(user.email.to_s, :size => 32), user_path(user)
 
   %div.details
 
     %span.fn.nickname
       -unless user.nil?
         =link_to h(user.login), user_path(user), :class => "user-link"
-    .clear
 
     -unless answer.updated_by.hide_country
       %span.country-name
@@ -34,29 +33,9 @@
         %span.label
           =user.reputation_on(current_group)
 
-    -if local_assigns[:with_badges] != false
-      -if gold.to_i > 0
-        %span{:title => "#{gold} gold badges"}
-          %span.gold.badgeicon
-          %span.badgecount
-            =gold
-
-      -if silver.to_i > 0
-        %span{:title => "#{silver} silver badges"}
-          %span.silver.badgeicon
-          %span.badgecount
-            =silver
-
-      -if bronze.to_i > 0
-        %span{:title => "#{bronze} bronze badges"}
-          %span.bronze.badgeicon
-          %span.badgecount
-            =bronze
-
-
-    %small.time_ago
-      = t('activerecord.attributes.answer.created_at')
-      = t("time.ago", :time => time_ago_in_words(answer.created_at))
-
-
+    %div.time_ago
+      %small
+        = t('activerecord.attributes.answer.created_at')
+        = t("time.ago", :time => time_ago_in_words(answer.created_at))
+    .clear
 .clear

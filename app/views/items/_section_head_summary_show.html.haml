@@ -57,9 +57,12 @@
                 %li.highlight
                   = t(".empty")
               -else
+                -headlines_array = Array.new
                 -current_group.items.each do |item|
                   -if item.section == section.name
-                    = render :partial => "items/section_list_item", :locals => {:item => item, :list_mode => "headline"}
+                    -headlines_array << item
+                -headlines_array[0..5].each do |item|
+                  = render :partial => "items/section_list_item", :locals => {:item => item, :list_mode => "headline"}
             .clear
 
         .listings-right

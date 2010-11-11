@@ -4,7 +4,7 @@
       -if @item.anonymous
         = t("global.anonymous")
       -else
-        = render :partial => "users/member_details", :locals => {:user => @item.user}
+        = render :partial => "users/member_details_show", :locals => {:user => @item.user}
 
   .clear
 .clear

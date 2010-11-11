@@ -1,11 +1,11 @@
 -bronze, silver, gold = user.badges_count_on(current_group)
 
-.user_mini{:style=>"width:128px; overflow:hidden"}
+.member_details{:style=>"width:256px; overflow:hidden"}
 
-  %div.gravatar{:style=>"width:32px;float:left; margin-right:4px;"}
-    = link_to gravatar(user.email.to_s, :size => 32), user_path(user)
+  %div.gravatar{:style=>"width:64px;float:left; margin-right:13px;"}
+    = link_to gravatar(user.email.to_s, :size => 64), user_path(user)
 
-  %div.details{:style=>"width:92px;float:right; overflow:hidden"}
+  %div.details{:style=>"width:96px;float:left; overflow:hidden"}
 
     %span.fn.nickname
       -unless user.nil?
@@ -34,19 +34,35 @@
     -if local_assigns[:with_badges] != false
       -if gold.to_i > 0
         %span{:title => "#{gold} gold badges"}
-          %span.gold.badgeicon-small
+          %span.badgeicon
+            = image_tag("/images/icons/badge_gold.png")
           %span.badgecount
             =gold
 
       -if silver.to_i > 0
         %span{:title => "#{silver} silver badges"}
-          %span.silver.badgeicon-small
+          %span.badgeicon
+            = image_tag("/images/icons/badge_silver.png")
           %span.badgecount
             =silver
 
       -if bronze.to_i > 0
         %span{:title => "#{bronze} bronze badges"}
-          %span.bronze.badgeicon-small
+          %span.badgeicon
+            = image_tag("/images/icons/badge_bronze.png")
           %span.badgecount
             =bronze
+
+      .clear
+      %span.time_ago.published{:title => @item.created_at, :class => "relativetime"}
+        = t("time.ago", :time => time_ago_in_words(@item.created_at))
+        - if @item.wiki
+          .wiki_flag
+            wiki
+      %span.adr
+        - if !@item.user.hide_country
+          %span.country-name
+            = t("global.from", :site => @item.user.country_name)
+            = country_flag(@item.user.country_code, @item.user.country_name)
+
 .clear

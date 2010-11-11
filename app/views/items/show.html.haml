@@ -124,15 +124,11 @@
         = "<<<< VOTE & SHARE"
     .block
       %h3
-        = "Asked by"
+        = "Started by"
       .content
         =render :partial => "member_panel"
     .block
-      %h3
-        = "Participants"
-      .content
-        -@answers.each do |answer|
-          =render :partial=> "participant", :locals=> {:item => @item, :answer => answer}
+      =render :partial=> "participants", :locals=> {:item => @item}
 
     -related_items = Item.related_items(@item, :language => find_languages)
     - if !related_items.empty?

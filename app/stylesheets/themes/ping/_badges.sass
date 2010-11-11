@@ -73,13 +73,12 @@
 
 
 .badgeicon
-  +rounded(8px, 8px, 8px, 8px)
-  margin: 2px
+  margin: 0 2px
   border-bottom: 1px solid white
-  width: 8px
-  height: 8px
+  width: 16px
+  height: 16px
   display: inline-block
-  background-image: url(/images/black_25_bg.png)
+
 
   &.silver
     background-color: #C0C0C0
@@ -90,9 +89,27 @@
   &.gold
     background-color: #FFCC00
     border-top: 1px solid #FFCC00
+
+.badgeicon-small
+  margin: 0 2px
+  width: 8px
+  height: 8px
+  display: inline-block
+
+
+  &.silver
+    background-color: #C0C0C0
+    border-top: 1px solid #C0C0C0
+  &.bronze
+    background-color: #E1A970
+    border-top: 1px solid #E1A970
+  &.gold
+    background-color: #FFCC00
+    border-top: 1px solid #FFCC00
+
 .badgecount
   margin-left: -3px
-  font-size: 0.8em
+  //font-size: 0.8em
 
 .badge, a.badge
   font-weight: normal
