@@ -32,7 +32,7 @@ class WelcomeController < ApplicationController
 
     #rstrict
 
-    @items = Item.all(:order => order)
+    @items = Item.all({:order => order}.merge(conditions))
 
     #@items = Item.paginate({:per_page => 15,
     #                               :page => params[:page] || 1,

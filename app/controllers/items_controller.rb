@@ -38,7 +38,7 @@ class ItemsController < ApplicationController
       conditions[:activity_at] = {"$gt" => 21.days.ago}
     end
 
-    @items = Item.all(:order => current_order)
+    @items = Item.all({:order => current_order}.merge(conditions))
     #@items = Item.paginate({:per_page => 12, #:page => params[:page] || 1,
      #                  #:order => current_order,
       #                 :order => [:activity, "activity_at desc"],
