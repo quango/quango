@@ -1,0 +1,21 @@
+%h3
+  = "Statists"
+.content
+  .text
+    = "Reputation"
+  .data
+    =format_number(@user.reputation_on(current_group))
+  .text
+    = "Profile Views"
+  .data
+    =format_number(@user.config_for(current_group).views_count.to_i)
+    = t(".views")
+  .text
+    = t(:created_at, :scope => "activerecord.attributes.user")
+  .data
+    = t("time.ago", :time => time_ago_in_words(@user.created_at))
+  .text
+    = t(:last_logged_at, :scope => "activerecord.attributes.user")
+  .data
+    -if @user.last_logged_at
+      = t("time.ago", :time => time_ago_in_words(@user.last_logged_at))

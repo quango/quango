@@ -1,33 +1,8 @@
--content_for :sidebar do
-  -if AppConfig.twitter["activate"] || with_facebook?
-    .block.notice{:style => "padding-bottom: 10px"}
-      %h4
-        =t(".enable_twitter")
-
-      -if with_facebook?
-        =link_to t("sessions.new.with_facebook"), oauth_authorize_path(:merge => true), :title => "Facebook", :id => "facebook_auth"
-
-        %br
-        %br
-
-      -if AppConfig.twitter["activate"]
-        =link_to t("sessions.new.with_twitter"), twitter_authorize_path(:merge => true), :title => "Twitter", :id => "twitter_auth"
-  .block
-    .inner{:style => "padding-top: 10px"}
-      %ul.navigation
-        %li{:style => "text-align: center"}
-          = gravatar @user.email.to_s, :size => 128
-          =link_to t("users.form.avatar_tip"), "http://gravatar.com", :target => "_blank"
-
-  .block{:style => "font-weight: bold"}
-    =render :partial => "shared/dlvr_link", :locals => {:url => user_url(@user, :format => :atom)}
-
 -content_for :form do
-
+  =render :partial => "users/settings/subtabs"
   -form_for(@user, :html => {:class => "form", :multipart => true}) do |f|
     = f.error_messages
     =hidden_field_tag :source, domain_url(:custom => @user, :controller => "settings", :action => "settings", :tab => @active_subtab)
-    =render :partial => "users/settings/subtabs"
     =render :partial => "users/settings/#{@active_subtab||'details'}", :locals => {:f => f}
 
 
@@ -35,24 +10,27 @@
 
 
 
+-content_for :sidebar do
+  #sidebar
+    = render :partial => "profile_statistics", :object => @user
+    = render :partial => "profile_achievements", :object => @user
 
-
-
-
+-content_for :sidebar_inner do
+  #sidebar-inner
+    = render :partial => "profile_image", :object => @user
+    = render :partial => "profile_details", :object => @user
+    = render :partial => "profile_biography", :object => @user
 
 /Layout
--content_for :main do
-
-
-
-  #main.right
-
-
-  #main.left
-    = yield :subtabs
-    = yield :form
-  .clear
-
+- content_for :main do
+  #main-index
+    .content
+      .inner
+        .title
+          = "#{@user.login.capitalize}'s " << t("users.manage.#{@active_subtab}")
+        .clear
+        = yield :secondary_navigation
+        = yield :form
 
 
 

@@ -4,7 +4,8 @@
   %ul.list
     -@answers.each do |answer|
       %li{:onclick => "document.location.href='#{user_path(answer.user)}'"}
-        = render :partial => "users/participant", :locals => {:answer => answer, :user => answer.user}
+        -if answer.user.login != "admin"
+          = render :partial => "users/participant", :locals => {:answer => answer, :user => answer.user}
 
 
 

@@ -44,7 +44,7 @@
               = render :partial => "item", :object => item
 
         #additional_info
-          =will_paginate @items
+          -#=will_paginate @items
 
           .clear
 
@@ -53,7 +53,7 @@
     .sidebar
       .inner
         = render :partial => "shared/current_tags"
-        = render :partial => "shared/tag_list", :object => @tag_cloud
+        = render :partial => "shared/tag_list", :object => @tag_cloud, :section => @active_section
         -current_group.widgets.each do |widget|
           .widget.block{:id => widget.name}
             = render :partial => widget.partial_name, :locals => {:widget => widget}

@@ -23,10 +23,17 @@ ActionController::Routing::Routes.draw do |map|
   map.tos '/tos', :controller => 'doc', :action => 'tos'
   map.privacy '/privacy', :controller => 'doc', :action => 'privacy'
 
+
+
   map.resources :users, :member => { :change_preferred_tags => :any,
+
                                      :follow => :any, :unfollow => :any},
                         :collection => {:autocomplete_for_user_login => :get},
                         :as => "members"
+
+  map.resources :profile_images
+
+
   map.resources :session
   map.resources :ads
   map.resources :adsenses

@@ -1,13 +1,13 @@
 -bronze, silver, gold = user.badges_count_on(current_group)
 
-.participant
+.member-details
 
-  %div.gravatar{:style=>"width:40px;float:left; margin-right:4px;"}
-    = link_to gravatar(user.email.to_s, :size => 40), user_path(user)
+  %div.thumbnail.left{:style=>"width:42px;margin-right:4px;padding:1px"}
+    = gravatar(user.email.to_s, :size => 42)
 
-  %div.details
+  %div.info.left{:style=>"padding:0"}
 
-    %span.fn.nickname
+    %span.nickname
       -unless user.nil?
         =link_to h(user.login), user_path(user), :class => "user-link"
 
@@ -31,31 +31,31 @@
         -elsif user.editor_of?(current_group)
           %span.editorflair{:title => "Group Editor", :style => "background-color:#{current_group.secondary};border: 1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px"}
             Editor
-
       -else
         = t('users.deleted')
+
       -unless user.nil?
         %span.label
           =user.reputation_on(current_group)
 
-    -if local_assigns[:with_badges] != false
-      -if gold.to_i > 0
-        %span{:title => "#{gold} gold badges"}
-          %span.gold.badgeicon-small
-          %span.badgecount
-            =gold
+          -if local_assigns[:with_badges] != false
+            -if gold.to_i > 0
+              %span{:title => "#{gold} gold badges"}
+                %span.gold.badgeicon-small
+                %span.badgecount
+                  =gold
 
-      -if silver.to_i > 0
-        %span{:title => "#{silver} silver badges"}
-          %span.silver.badgeicon-small
-          %span.badgecount
-            =silver
+            -if silver.to_i > 0
+              %span{:title => "#{silver} silver badges"}
+                %span.silver.badgeicon-small
+                %span.badgecount
+                  =silver
 
-      -if bronze.to_i > 0
-        %span{:title => "#{bronze} bronze badges"}
-          %span.bronze.badgeicon-small
-          %span.badgecount
-            =bronze
+            -if bronze.to_i > 0
+              %span{:title => "#{bronze} bronze badges"}
+                %span.bronze.badgeicon-small
+                %span.badgecount
+                  =bronze
 
 
 

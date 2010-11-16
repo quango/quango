@@ -9,6 +9,6 @@ class ArticleSection < Section
   end
   def set_defaults
     self[:name] ||= "articles"
-    self[:create_label] ||= "Write an article"
+    self[:create_label] ||= "Share a link"
   end
 end

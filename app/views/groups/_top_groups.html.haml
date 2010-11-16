@@ -1,0 +1,17 @@
+=current_group
+
+%h3
+  =t(".title")
+
+.content
+  %ul.list
+    - @groups.each do |group|
+      - if group != current_group
+        %li
+          = image_tag(favicon_group_path(group), :style => "background-color:#{group.secondary}; height: 32px; width 32px")
+          = link_to h(group.name), domain_url(:custom => group.domain)
+
+  .more
+    =link_to t("scaffold.more"), groups_path
+  .clear
+.clear

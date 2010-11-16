@@ -1,0 +1,6 @@
+-#content_for :main do
+
+- form_for(:profile_image, :url => edit_profile_image_path(@profile_image), :html => {:method => :put, :class => "form"}) do |f|
+  =render :partial => "profile_image_form" , :locals => {:f => f, :profile_image => @profile_image}
+  .group.navform
+    =submit_tag t("scaffold.update"), :class => "button"

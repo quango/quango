@@ -10,9 +10,10 @@ en:
 
     manage:
       edit: Edit
-      title: My Settings
+      welcome: My Settings
       account: Account Settings
       details: Personal Details
+      social: Social Networking
       image: Profile Image
       messaging: Messaging
       messaging:

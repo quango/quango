@@ -1,12 +1,11 @@
 -cache("new_users_#{current_group.id}") do
+
   %h3
     ="Recent members"
   .content
-    %ul.list
+    %ul.members-list
       -recent_users(current_group).each do |user|
-        %li
-          = render :partial => "member_details_inner", :locals => {:user => user}
-    .more
-      =link_to t("scaffold.more"), users_path
-      .clear
+        -if user.login != "admin"
+          %li{:onclick => "document.location.href='#{user_path(user)}'"}
+            = render :partial => "member_details_inner", :locals => {:user => user}
   .clear

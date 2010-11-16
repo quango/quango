@@ -1,8 +1,17 @@
 desc "Fix all"
-task :fixall => [:environment, "fixdb:badges", "fixdb:items", "fixdb:modes2nodes", "fixdb:update_widgets", "fixdb:tokens", "fixdb:anonymous", "fixdb:flags"] do
+task :fixall => [:environment, "fixdb:fixusers"] do
 end
 
 namespace :fixdb do
+
+  task :fixusers => :environment do
+    count = 0
+    User.find_each do |user|
+      count = count + 1
+     	#user.set({:profile_images => "foo"})
+    end
+    puts "Updating #{count} users"
+  end
 
   task :modes2nodes => :environment do
     count = 0

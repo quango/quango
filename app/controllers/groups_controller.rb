@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  skip_before_filter :check_group_access, :only => [:logo, :css, :favicon]
+  skip_before_filter :check_group_access, :only => [:logo, :css, :favicon, :background]
   before_filter :login_required, :except => [:index, :show, :logo, :css, :favicon]
   before_filter :check_permissions, :only => [:edit, :update, :close]
   before_filter :moderator_required , :only => [:accept, :destroy]
@@ -121,8 +121,6 @@ class GroupsController < ApplicationController
                           custom_favicon language theme reputation_rewards reputation_constrains
                           has_adult_content registered_only openid_only custom_css wysiwyg_editor fb_button share 
                           primary secondary tertiary header_bg_image background toolbar_bg toolbar_bg_image
-                          show_modes 
-                          show_news_articles show_newsfeeds show_video show_images show_articles show_blogs show_questions show_discussions show_bookmarks show_bugs show_features 
                           robots
                          ], params[:group])
 

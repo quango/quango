@@ -47,13 +47,8 @@
       =link_to h("My Community"), user_path(current_user)
       |
     .entry
-      =link_to t("layouts.application.settings"), settings_path
+      =link_to h("My Settings"), settings_path(:tab => "welcome")
       |
-
-    -top_bar_links.each do |link|
-      .entry
-        =link
-        |
     .entry
       =link_to t("layouts.application.logout"), destroy_user_session_path
 
@@ -65,7 +60,10 @@
     -top_bar_links.each do |link|
       .entry
         =link
-
+    -top_bar_links.each do |link|
+      .entry
+        =link
+        |
     .entry
       = render :partial => "shared/login"
 

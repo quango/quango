@@ -15,7 +15,7 @@
           -if tag[0] > 1
             %li
               %span.tag{:class => "tag_#{h(tag[1].to_s)}"}
-                =link_to h(tag[1].to_s), url_for(extra_params.merge(:tags => (current_tags + [tag[1].to_s]).join("+"))), :rel => "tag",:title => t("items.tags.tooltip", :tag => tag[1].to_s)
+                =link_to h(tag[1].to_s), url_for(extra_params.merge(:section => @active_section,:tags => (current_tags + [tag[1].to_s]).join("+"))), :rel => "tag",:title => t("items.tags.tooltip", :tag => tag[1].to_s)
               %small
                 = tag[0].to_i
               .clear

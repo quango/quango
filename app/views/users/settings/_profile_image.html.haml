@@ -1,0 +1,49 @@
+= "Use this page to set your profile image"
+
+.group
+  = h("Choose an image to use as your large profile image")
+
+.group
+  #manage_images
+    %table{:border => "1", :width => "468px"}
+      %th
+        =""
+      %th
+        ="Name"
+      %th
+        ="Actions"
+
+      -list_order = 0
+      -@user.profile_images.each do |profile_image|
+
+        -list_order = list_order + 1
+
+        %tr{:style => "background-color: pink;"}
+          %td
+            = list_order
+          %td.name
+            = h(profile_image.name)   #, :locals => {:section => section}
+
+          %td.actions
+            = link_to t("scaffold.destroy"), profile_images_path(profile_image), :method => :delete, :confirm => t("scaffold.sure", :model => "section")
+            = " | "
+            = link_to t("scaffold.edit"), edit_profile_image_path(profile_image), :method => :edit
+
+%h2.title
+  =t(".new_section", :default => "Add new section")
+
+- form_for(@profile_image, :html=>{:class => "form", :id => "profile_image"}) do |f|
+  =render :partial => "profile_images/form", :locals => {:f => f}
+
+
+  .group.navform
+    =submit_tag t("scaffold.add"), :class => "button"
+
+
+
+
+
+
+
+-#= link_to "create", new_profile_image_path, :object => @user.profile_images
+

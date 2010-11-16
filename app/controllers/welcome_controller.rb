@@ -10,13 +10,15 @@ class WelcomeController < ApplicationController
     conditions = scoped_conditions({:banned => false})
 
     order = "activity_at desc"
-    case @active_subtab
-      when "activity"
-        order = "activity_at desc"
-      when "hot"
-        order = "hotness desc"
-        conditions[:updated_at] = {:$gt => 5.days.ago}
-    end
+    #order = "hotness asc"
+
+    #case @active_subtab
+      #when "activity"
+        #order = "activity_at desc"
+     # when "hot"
+        #order = "hotness desc"
+        #conditions[:updated_at] = {:$gt => 5.days.ago}
+    #end
 
     @langs_conds = conditions[:language][:$in]
     if logged_in?
@@ -27,10 +29,15 @@ class WelcomeController < ApplicationController
     end
     add_feeds_url(url_for({:controller => 'items', :action => 'index',
                             :format => "atom"}.merge(feed_params)), t("feeds.items"))
-    @items = Item.paginate({:per_page => 15,
-                                   :page => params[:page] || 1,
-                                   :fields => (Item.keys.keys - ["_keywords", "watchers"]),
-                                   :order => order}.merge(conditions))
+
+    #rstrict
+
+    @items = Item.all(:order => order)
+
+    #@items = Item.paginate({:per_page => 15,
+    #                               :page => params[:page] || 1,
+     #                              :fields => (Item.keys.keys - ["_keywords", "watchers"]),
+      #                             :order => order}.merge(conditions))
   end
 
   def feedback

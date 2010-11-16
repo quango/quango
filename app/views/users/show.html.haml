@@ -3,12 +3,13 @@
   %meta{:name => "description", :content => @user.bio }
   %link{:rel => "canonical", :href => user_path(@user) }
 
--content_for :subtabs do
-  .primary-title
-    %h1
-      .icon
-        = gravatar(@user.email.to_s, :size => 32)
-      &= @user.login
+-content_for :mast do
+  .profile-title
+    .icon.left
+      = gravatar(@user.email.to_s, :size => 36)
+    = @user.login.capitalize
+    = render :partial => "follow_button", :object => @user
+  .clear
 
 -content_for :show_user do
 
@@ -89,74 +90,12 @@
 
 -content_for :sidebar do
   #sidebar
-    .sidebar
-      .inner
-        .block
-          %h3
-            = "info"
-          .content
-            %table
-              %tr
-                %td.user-field
-                  =t(:name, :scope => "activerecord.attributes.user")
-                %td.user-field-value
-                  =h(@user.name)
-              %tr
-                %td.user-field
-                  =t(:website, :scope => "activerecord.attributes.user")
-                %td.user-field-value
-                  -if @user.website
-                    =link_to h(@user.website), h(@user.website), :rel => "nofollow"
-        .block
-          %h3
-            = "Achievements"
-          .content
-            %h2.title
-              .counter
-                = number_with_delimiter(@badges.total_entries)
-              = t(:badges, :scope => "activerecord.models", :default => "Badges")
-
-            %ul.list#badges
-              -@badges.each do |badge|
-                %li
-                  = render :partial => "badges/badge", :object => badge, :locals => {:hide_user => true}
-            .additional_info
-              = will_paginate @badges, :param_name => "badges_page"
-              .clear
-        .block
-          %h3
-            = "Stats"
-          .content
-            .text
-              = "Reputation"
-            .data
-              =format_number(@user.reputation_on(current_group))
-            .text
-              = "Profile Views"
-            .data
-              =format_number(@user.config_for(current_group).views_count.to_i)
-              = t(".views")
-            .text
-              = t(:created_at, :scope => "activerecord.attributes.user")
-            .data
-              = t("time.ago", :time => time_ago_in_words(@user.created_at))
-            .text
-              = t(:last_logged_at, :scope => "activerecord.attributes.user")
-            .data
-              -if @user.last_logged_at
-                = t("time.ago", :time => time_ago_in_words(@user.last_logged_at))
+    = render :partial => "profile_achievements", :object => @user
+    = render :partial => "profile_statistics", :object => @user
 
 -content_for :sidebar_inner do
   #sidebar-inner
-    .block
-      .follow-info.button
-        -if current_user != @user
-          -if logged_in? && current_user.following?(@user)
-            =link_to "- #{t(".unfollow")}", unfollow_user_path(@user), :class => "unfollow_link", 'data-class' => "follow_link", 'data-title' => t(".follow"), 'data-undo' => follow_user_path(@user)
-          -else
-            =link_to "+ #{t(".follow")}", follow_user_path(@user), :class => "follow_link", 'data-class' => "unfollow_link", 'data-title' => t(".unfollow"), 'data-undo' => unfollow_user_path(@user)
-      .clear
-  
+ 
     .block
       %h3
         = "Profile image"
@@ -214,7 +153,7 @@
   #main-index
     .content
       .inner
-        = yield :subtabs
+        = yield :mast
         = yield :show_user
 
 

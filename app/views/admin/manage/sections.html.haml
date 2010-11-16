@@ -49,8 +49,6 @@
 %h2.title
   =t(".new_section", :default => "Add new section")
 
--#form_tag sections_path, :class => "form" do |f|
-
 - form_for(@section, :html=>{:class => "form", :id => "new_announcement"}) do |f|
   =render :partial => "form", :locals => {:f => f}
 

@@ -18,6 +18,8 @@ class User
   key :location,                  String, :limit => 200
   key :birthday,                  Time
 
+  #key :profile_image, String
+
   key :identity_url,              String
   key :role,                      String, :default => "user"
   key :last_logged_at,            Time
@@ -59,6 +61,8 @@ class User
   has_many :comments, :dependent => :destroy
   has_many :votes, :dependent => :destroy
   has_many :badges, :dependent => :destroy
+
+  has_many :profile_images, :class_name => "ProfileImage"
 
   has_many :favorites, :class_name => "Favorite", :foreign_key => "user_id"
 

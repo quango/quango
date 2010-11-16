@@ -48,6 +48,10 @@ class UsersController < ApplicationController
     @user = User.new
     @user.safe_update(%w[login email name password_confirmation password preferred_languages website
                          language timezone identity_url bio hide_country], params[:user])
+
+    @user.profile_images << ProfileImage.new
+    @user.profile_images << ProfileImage.new
+
     if params[:user]["birthday(1i)"]
       @user.birthday = build_date(params[:user], "birthday")
     end

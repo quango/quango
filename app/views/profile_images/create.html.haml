@@ -1,0 +1,8 @@
+
+%h2.title
+  =h("Add new profile image")
+
+  - form_for(profile_image, :html=>{:class => "form", :id => "new_profile_image"}) do |f|
+    =render :partial => "/profile_images/profile_image_form", :locals => {:f => f}
+    .group.navform
+      =submit_tag t("scaffold.add"), :class => "button"

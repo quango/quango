@@ -97,6 +97,7 @@ class Group
   has_many :announcements, :dependent => :destroy
 
   belongs_to :owner, :class_name => "User"
+
   has_many :comments, :as => "commentable", :order => "created_at asc", :dependent => :destroy
 
   validates_length_of       :name,           :within => 3..40

@@ -9,6 +9,8 @@ class Section
   key :mode, String
   key :node, String
   key :create_label, String
+  key :hotness, Integer, :default => 0
+  key :activity_at, Time
 
   alias :group :_root_document
 

@@ -1,0 +1,9 @@
+.block
+  %h3
+    = "Achievements"
+  .content{:style => "height:240px; overflow: hidden;"}
+    %ul.list#badges
+      -@user.badges.each do |badge|
+        %li
+          = render :partial => "badges/badge", :object => badge, :locals => {:hide_user => true}
+      .clear

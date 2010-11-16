@@ -1,0 +1,17 @@
+= "This is the generic settings landing page useful for notices"
+%br
+  = "Complete all the fields in your prfile to gain the autobiographer bonus :)"
+
+-if AppConfig.twitter["activate"] || with_facebook?
+  .block.notice{:style => "padding-bottom: 10px"}
+    %h4
+      ="Connect your existing accounts:"
+    -if with_facebook?
+      =link_to t("sessions.new.with_facebook"), oauth_authorize_path(:merge => true), :title => "Facebook", :id => "facebook_auth"
+      .description
+        = "Will post your stuff to facebook"
+    -if AppConfig.twitter["activate"]
+      =link_to t("sessions.new.with_twitter"), twitter_authorize_path(:merge => true), :title => "Twitter", :id => "twitter_auth"
+
+
+

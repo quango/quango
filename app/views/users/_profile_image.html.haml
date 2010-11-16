@@ -1,0 +1,8 @@
+.block
+  %h3
+    = "Profile image"
+    -if current_user == @user
+      .navcontrols
+        =link_to t("users.manage.edit"), settings_path(:tab => "image"), :class => "standard-button right"
+  .content
+    = gravatar @user.email.to_s, :size => 255

@@ -35,14 +35,16 @@ class ItemsController < ApplicationController
     conditions = scoped_conditions(:banned => false)
 
     if params[:sort] == "hot"
-      conditions[:activity_at] = {"$gt" => 5.days.ago}
+      conditions[:activity_at] = {"$gt" => 21.days.ago}
     end
 
-    @items = Item.paginate({:per_page => 25, :page => params[:page] || 1,
-                       :order => current_order,
-                       :fields => {:_keywords => 0, :watchers => 0, :flags => 0,
-                                   :close_requests => 0, :open_requests => 0,
-                                   :versions => 0}}.merge(conditions))
+    @items = Item.all(:order => current_order)
+    #@items = Item.paginate({:per_page => 12, #:page => params[:page] || 1,
+     #                  #:order => current_order,
+      #                 :order => [:activity, "activity_at desc"],
+       #                :fields => {:_keywords => 0, :watchers => 0, :flags => 0,
+        #                           :close_requests => 0, :open_requests => 0,
+         #                          :versions => 0}}.merge(conditions))
 
     @langs_conds = scoped_conditions[:language][:$in]
 
@@ -233,15 +235,8 @@ class ItemsController < ApplicationController
     add_feeds_url(url_for(:format => "atom"), t("feeds.item"))
 
     respond_to do |format|
-      #format.html { Magent.push("actors.judge", :on_view_item, @item.id) }
 
-        if @item.mode == "something"
-          format.html { redirect_to(news_article_path(@item)) }        
-        else
-          format.html #{ redirect_to( show_item_path(@item) ) }
-        end
-
-
+      format.html { Magent.push("actors.judge", :on_view_item, @item.id) }
       format.json  { render :json => @item.to_json(:except => %w[_keywords slug watchers]) }
       format.atom
     end
@@ -275,7 +270,9 @@ class ItemsController < ApplicationController
     @item.group = current_group
     @item.user = current_user
     #@item.section = current_section
-    
+
+    #We also need to set the section updated for welcome page section list order
+
 
     if !logged_in?
       if recaptcha_valid? && params[:user]
@@ -331,12 +328,7 @@ class ItemsController < ApplicationController
         current_group.on_activity(:ask_item)
         flash[:notice] = t(:flash_notice, :scope => "items.create")
 
-        if @item.mode == "news_article"
-          format.html { redirect_to(news_article_path(@item)) }        
-        else
-          format.html { redirect_to(item_path(@item)) }
-        end
-
+        format.html { redirect_to item_path(@item)}
         format.json { render :json => @item.to_json(:except => %w[_keywords watchers]), :status => :created}
       else
         @item.errors.add(:captcha, "is invalid") unless recaptcha_valid?

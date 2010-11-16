@@ -1,14 +1,13 @@
 .section-head{:class => @active_subtab.to_s}
   .secondary-navigation-sections
     .navlabel
-      -#= link_to "#{section.name.upcase}", domain_url(:custom => current_group.domain) << "/" << section.node.downcase, :locals => section
       - section_link = section.name.downcase
       = link_to (section.name.capitalize << " Headlines"), "#{section.name}"  #nodes_path(section_link, :locals => {:object => section})
 
     .navcontrols
-      %a.show_summary{:class => "#{section.name} section-button showhide"}
+      %a.show_summary{:class => "#{section.name} section-button show"}
         = "show headlines"
-      %a.hide_summary{:class => "#{section.name} section-button showhide"}
+      %a.hide_summary{:class => "#{section.name} section-button hide"}
         = "hide headlines"
     .navlinks
       -if section.mode
@@ -18,8 +17,6 @@
         = "|"
       -else
         = "no mode"
-
-
 
   .section-listing{:class => section.name}
 
@@ -37,7 +34,7 @@
               -if item.section == section.name
                 -item_array << item
             -item_array[0..0].each do |item|
-              = render :partial => "items/section_list_item", :locals => {:item => item,:sort=>"hot", :list_mode => "latest"}
+              = render :partial => "items/section_list_item", :locals => {:item => item,:tab=>"hot", :list_mode => "latest"}
 
         -#sorted_array = tag_array.sort_by{|a|a}.reverse
         .clear
