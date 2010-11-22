@@ -332,7 +332,9 @@ class ItemsController < ApplicationController
         current_group.on_activity(:ask_item)
         flash[:notice] = t(:flash_notice, :scope => "items.create")
 
-        format.html { redirect_to item_path(@item)}
+        #format.html { redirect_to item_path(@item)}
+        format.html { redirect_to("/#{@item.section}/#{@item.slug}") }
+
         format.json { render :json => @item.to_json(:except => %w[_keywords watchers]), :status => :created}
       else
         @item.errors.add(:captcha, "is invalid") unless recaptcha_valid?
@@ -362,7 +364,8 @@ class ItemsController < ApplicationController
         if @item.mode == "news_article"
           format.html { redirect_to(news_article_path(@item)) }        
         else
-          format.html { redirect_to(item_path(@item)) }
+          #format.html { redirect_to(item_path(@item)) }
+          format.html { redirect_to("/#{@item.section}/#{@item.slug}") }
         end
 
 

@@ -1,5 +1,5 @@
 .group
-  = hidden_field_tag "source", source, :id => "source_#{commentable.id}"
+  = hidden_field_tag "source", "/#{@item.section}/#{@item.slug}", :id => "source_#{commentable.id}"
 
   -if current_group.wysiwyg_editor
     = text_area_tag "body", @comment.body, :class => "comment_text_area wysiwyg_editor", :id => "comment_#{commentable.id}", :rows => 'auto', :cols => 'auto', :value => markdown(@comment.body)

@@ -39,7 +39,7 @@
         - default_avatar = cropped_avatar.process(:thumb,"18x18").url
         = image_tag default_avatar, :style => "margin-bottom:-4px"
       - else
-        = image_tag "/images/anonymous_avatar.png"
+        = image_tag "/images/anonymous_avatar.png", :height => "18px", :width => "18px"
 
 
 
@@ -79,8 +79,7 @@
   -if logged_in?
     .entry
       = render :partial => "shared/contribute"
-    .entry
-      = render :partial => "shared/bug"
+
 
 .clear
 
