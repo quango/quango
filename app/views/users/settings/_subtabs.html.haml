@@ -10,11 +10,9 @@
           %li.social
             = link_to h("Social Networks"), settings_path(:tab => "social"), :class => "standard-button"
           %li.details
-            = link_to h("Details"), settings_path(:tab => "details"), :class => "standard-button"
-          %li.profile_image
-            = link_to h("Profile Image"), settings_path(:tab => "profile_image"), :class => "standard-button"
+            = link_to h("My Details"), settings_path(:tab => "details"), :class => "standard-button"
           %li.avatar
-            = link_to h("Avatar"), settings_path(:tab => "avatar"), :class => "standard-button"
+            = link_to h("My Images"), avatars_path, :class => "standard-button"
           %li.messaging
             = link_to h("Messaging"), settings_path(:tab => "messaging"), :class => "standard-button"
   .clear

@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  #skip_before_filter :check_group_access, :only => [:logo, :css, :favicon, :background]
   before_filter :login_required, :only => [:edit, :update, :follow]
   before_filter :set_active_tag
   before_filter :set_active_user
@@ -22,6 +23,14 @@ class UsersController < ApplicationController
     end
 
     @users = current_group.users(options)
+
+    
+
+    @user = User.find_by_login_or_id(params[:id])
+    @first_thought = @user
+
+    @item = Item.find_by_slug_or_id(params[:id])
+
 
     respond_to do |format|
       format.html
@@ -52,6 +61,8 @@ class UsersController < ApplicationController
     @user.profile_images << ProfileImage.new
     @user.profile_images << ProfileImage.new
 
+    @user.avatars << Avatar.new
+
     if params[:user]["birthday(1i)"]
       @user.birthday = build_date(params[:user], "birthday")
     end
@@ -77,14 +88,14 @@ class UsersController < ApplicationController
 
     set_page_title(t("users.show.title", :user => @user.login))
 
-    @q_sort, order = active_subtab(:q_sort)
+    @q_sort, order = active_subtab(:sort)
     @items = @user.items.paginate(:page=>params[:items_page],
                                           :order => order,
                                           :per_page => 10,
                                           :group_id => current_group.id,
                                           :banned => false)
 
-    @a_sort, order = active_subtab(:a_sort)
+    @a_sort, order = active_subtab(:sort)
     @answers = @user.answers.paginate(:page=>params[:answers_page],
                                       :order => order,
                                       :group_id => current_group.id,
@@ -95,7 +106,7 @@ class UsersController < ApplicationController
                                     :group_id => current_group.id,
                                     :per_page => 25)
 
-    @f_sort, order = active_subtab(:f_sort)
+    @f_sort, order = active_subtab(:sort)
     @favorites = @user.favorites.paginate(:page => params[:favorites_page],
                                           :per_page => 25,
                                           :order => order,
@@ -118,7 +129,19 @@ class UsersController < ApplicationController
 
   def edit
     @user = current_user
+
     @user.timezone = AppConfig.default_timezone if @user.timezone.blank?
+  end
+
+  def set_default_avatar
+    @user = current_user
+    @avatar = Avatar.find(params[:id])
+
+    #@user.safe_update(%w[default_avatar], @avatar.id)
+    @user.default_avatar = @avatar
+
+    redirect_to avatars_path 
+
   end
 
   def update
@@ -135,7 +158,7 @@ class UsersController < ApplicationController
       @user.password_confirmation = params[:user][:password_confirmation]
     end
 
-    @user.safe_update(%w[login email name language timezone preferred_languages
+    @user.safe_update(%w[login email name default_avatar language timezone preferred_languages
                          notification_opts bio hide_country website], params[:user])
 
     if params[:user]["birthday(1i)"]

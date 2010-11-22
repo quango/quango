@@ -1,33 +1,62 @@
 %li{:onclick => "document.location.href='#{user_path(user)}'"}
-  / User Stats
-  .stats
-    .box.votes
-      -count = user.items.count(:group_id => current_group.id)
-      .counter{:class => class_for_number(count) }
-        =format_number(count)
-      .text
-        = t(:items, :scope => "activerecord.models")
-    .box.answers
-      -count = user.answers.count(:group_id => current_group.id)
-      .counter{:class => class_for_number(count) }
-        =format_number(count)
-      .text
-        = t(:answers, :scope => "activerecord.models")
-    .box.views
-      .counter{:class => class_for_number(user.reputation_on(current_group)) }
-        =format_number(user.reputation_on(current_group))
-      .text
-        = t(:reputation, :scope => "activerecord.attributes.user")
-  / User Summary
-  .summary
-    %h3
-      = link_to h(user.login), user_path(user)
-    =find_and_preserve(auto_link(user.bio))
-    .badges
-      -user.badges_on(current_group, :limit => 3).each do |badge|
-        =render :partial => "badges/badge", :object => badge, :locals => {:mini => true}
-    .owner-data
-      %strong
-        = t(:created_at, :scope => "activerecord.attributes.user")
-        = t("time.ago", :time => time_ago_in_words(user.created_at))
+  .member-profile-list
+    .profile-image
+      - @avatar = Avatar.find(user.profile_image)
+      - if @avatar.present?
+        - cropped_avatar = @avatar.avatar.process(:thumb,@avatar.avatar_cropping)
+        - profile_image = cropped_avatar.process(:thumb,"128x128").url
+        = image_tag profile_image 
+      - else
+        = image_tag "/images/anonymous_avatar.png"
+
+    .summary.left
+      %h3{:style => "margin: 0px"}
+        - if user.name.present?
+          = link_to h(user.name), user_path(user)
+          = " aka "
+          = link_to h(user.login), user_path(user)
+        - else
+          = link_to h(user.login), user_path(user)
+
+      .badges
+        -user.badges_on(current_group, :limit => 3).each do |badge|
+          =render :partial => "badges/badge", :object => badge, :locals => {:mini => true}
+
+      -# TODO: Scope this, need to get the last updated posts and comments
+      .latest-thought
+
+        = "Latest Post:"
+        -# item = user.items.last_updated
+        - user.items[0..0].each do |item|
+          = link_to "#{item.title}", "/#{item.section}/" << item.slug
+          = " in " << "#{item.section}"
+
+      .latest-comment
+        = "Latest Comment:"
+        - user.answers[0..0].each do |answer|
+          = link_to "#{answer.item.title}", "/#{answer.item.section}/" << answer.item.slug
+          = " in " << "#{answer.item.section}"
+
+
+
+    .profile_box.right
+      = render :partial => "member_details_inner", :locals => {:user => user}
+
+      .stats.left
+        .box.votes
+          -count = user.items.count(:group_id => current_group.id)
+          .counter{:class => class_for_number(count) }
+            =format_number(count)
+          .text
+            = "Posts"
+        .box.answers
+          -count = user.answers.count(:group_id => current_group.id)
+          .counter{:class => class_for_number(count) }
+            =format_number(count)
+          .text
+            = "Comments"
+
+
+
+
   .clear

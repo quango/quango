@@ -24,14 +24,17 @@ ActionController::Routing::Routes.draw do |map|
   map.privacy '/privacy', :controller => 'doc', :action => 'privacy'
 
 
+  map.resources :avatars, :member => { :crop => :get, :pull => :get, :set_default => :get,  :set_profile => :get }, :as => "profile-images"
+
 
   map.resources :users, :member => { :change_preferred_tags => :any,
-
+                                     #:set_default_avatar => :any,
+                                     #:set_profile_avatar => :any,
                                      :follow => :any, :unfollow => :any},
                         :collection => {:autocomplete_for_user_login => :get},
                         :as => "members"
 
-  map.resources :profile_images
+  #map.resources :profile_images
 
 
   map.resources :session

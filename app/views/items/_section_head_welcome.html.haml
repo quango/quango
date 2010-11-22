@@ -2,7 +2,7 @@
   .secondary-navigation-sections
     .navlabel
       - section_link = section.name.downcase
-      = link_to (section.name.capitalize << " Headlines"), "#{section.name}"  #nodes_path(section_link, :locals => {:object => section})
+      = link_to (section.name.capitalize), "#{section.name}"
 
     .navcontrols
       %a.show_summary{:class => "#{section.name} section-button show"}

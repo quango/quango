@@ -214,6 +214,10 @@ class ItemsController < ApplicationController
       return
     end
 
+    current_order = "updated_at desc"
+    conditions = scoped_conditions(:banned => false)
+    @items = Item.all({:order => current_order}.merge(conditions))
+
     @tag_cloud = Item.tag_cloud(:_id => @item.id, :banned => false)
     options = {:per_page => 25, :page => params[:page] || 1,
                :order => current_order, :banned => false}

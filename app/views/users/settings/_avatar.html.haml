@@ -1,59 +1,40 @@
-= "Images form"
+%h1
+  =@user.login << "'s Avatars"
 
-= "so here we put the various profile options"
+%table
+  %tr
+    %th 
+      ="Avatar"
+    %th 
+      ="Name"
+    %th 
+      ="Avatars ID"
+    %th 
+      ="Actions"
 
-.group
-  -#= f.label :profile_image, t(:profile_image, :scope => "activerecord.attributes.user"), :class => "label"
-  -#= f.text_field :profile_image, :class => "text_field"
-  .description
-    = "Use a gravatar associated with your login email"
-.group
-  = h("Choose an image to use as your avatar")
+  -@user_avatars.each do |avatar|
 
-.group
-  = h("Choose an image to use as your large profile image")
-
-.group
-  #manage_images
-    %table{:width => "468px"}
-      %th
-        =""
-      %th
-        ="Thumbnail"
-      %th
-        ="Use as avatar"
-      %th
-        ="Profile"
-      %th
-        ="Actions"
-
-    -list_order = 0
-    -@user.profile_images.each do |profile_image|
-
-      -list_order = list_order + 1
-
-      %tr{:style => "background-color: gainsboro;"}
+    -if @user.id == avatar.user_id
+      %tr
         %td
-          = list_order
-        %td.name
-          = h(profile_image.name)   #, :locals => {:section => section}
-        %td.avatar
-          = f.radio :default_avatar
-        %td.profile
-          = f.radio :default_profile
-        %td.actions
-          = link_to t("scaffold.destroy"), user_profile_image_path(profile_image), :method => :delete, :confirm => t("scaffold.sure", :model => "section")
-          = " | "
-          = link_to t("scaffold.edit"), user_profile_image(profile_image), :method => :edit
+          - if @user.default_avatar == avatar.id
+            = "default"
+          - else
+            = link_to "#{avatar.name}", set_default_avatar_path(avatar)
+
+        %td
+          - cropped_avatar = avatar.avatar.process(:thumb,avatar.avatar_cropping)
+          = image_tag cropped_avatar.process(:thumb,"48x48").url, :alt => avatar.name
+        %td
+          =h(avatar.avatar_cropping)
+        %td
+          =h(avatar.name)
+        %td
+          = link_to 'Show', avatar
+          = link_to 'Edit', edit_avatar_path(avatar)
+          = link_to 'Delete', avatar, :confirm => 'Are you sure?', :method => :delete
+          = link_to 'Crop', crop_avatar_path(avatar)
 
 
-.group
-  = h("Upload another image")
-  = link_to "Open image uploader", "#"
-
-.block
-  .inner{:style => "padding-top: 10px"}
-    %ul.navigation
-      %li{:style => "text-align: center"}
-        = gravatar @user.email.to_s, :size => 128
-        =link_to t("users.form.avatar_tip"), "http://gravatar.com", :target => "_blank"
+%p
+  = link_to 'New avatar', new_avatar_path

@@ -37,6 +37,11 @@ class User
   key :country_name,              String, :default => "unknown"
   key :hide_country,              Boolean, :default => false
 
+  key :default_avatar,            String, :default => "unknown"
+  key :default_avatar_link,       String, :default => "/images/anonymous_avatar.png"
+  key :profile_image,             String, :default => "unknown"
+  key :profile_image_link,        String, :default => "/images/anonymous_avatar.png"
+
   key :default_subtab,            Hash
 
   key :followers_count,           Integer, :default => 0
@@ -55,6 +60,10 @@ class User
   key :feed_token,                String
 
   key :anonymous,                 Boolean, :default => false
+
+  #has_many :avatars, :dependent => :destroy
+
+  has_many :avatars, :class_name => "Avatar"
 
   has_many :items, :dependent => :destroy
   has_many :answers, :dependent => :destroy

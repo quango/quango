@@ -33,7 +33,16 @@
         =link_to t("layouts.application.moderate"), moderate_path, :class => "moderate_link"
         |
     .entry
-      = gravatar(current_user.email.to_s, :size => 18)
+      - @avatar = Avatar.find(current_user.default_avatar)
+      - if @avatar.present?
+        - cropped_avatar = @avatar.avatar.process(:thumb,@avatar.avatar_cropping)
+        - default_avatar = cropped_avatar.process(:thumb,"18x18").url
+        = image_tag default_avatar, :style => "margin-bottom:-4px"
+      - else
+        = image_tag "/images/anonymous_avatar.png"
+
+
+
       %strong= link_to(h(current_user.login), user_path(current_user))
       %span.reputation{:title => t("activerecord.attributes.user.reputation"), :style => "background-color:"+current_group.primary+""}=format_number(current_user.reputation_on(current_group))
       |

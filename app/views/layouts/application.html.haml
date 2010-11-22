@@ -8,6 +8,7 @@
     = render :partial => "shared/layout/css"
     = render :partial => "shared/layout/custom_css"
     = render :partial => "shared/layout/javascript"
+    = yield :custom_javascript
     = current_group.head_tag
 
   %body
@@ -26,6 +27,9 @@
           = render :partial => "shared/contextual_navigation"
 
     #container{:class => @current_class}
+
+      #flash
+        = show_flash_messages(:class => "flash", :markdown => true)
 
       #announcement
         = render :partial => "shared/announcements"

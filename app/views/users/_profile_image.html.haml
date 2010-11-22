@@ -1,8 +1,14 @@
 .block
   %h3
-    = "Profile image"
+    = "Profile images"
     -if current_user == @user
       .navcontrols
         =link_to t("users.manage.edit"), settings_path(:tab => "image"), :class => "standard-button right"
   .content
-    = gravatar @user.email.to_s, :size => 255
+    - @avatar = Avatar.find(@user.profile_image)
+    - if @avatar.present?
+      - cropped_avatar = @avatar.avatar.process(:thumb,@avatar.avatar_cropping)
+      - profile_image = cropped_avatar.process(:thumb,"256x256").url
+      = image_tag profile_image 
+    - else
+      = image_tag "/images/anonymous_avatar.png"

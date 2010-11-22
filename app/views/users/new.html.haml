@@ -17,15 +17,10 @@
 - content_for :main do
 
  
-  #main.right
-    #sidebar.left
-      = yield :sidebar_left
 
-    #sidebar.right
-      = yield :sidebar_right
-    .clear
+  
 
-  #main.left
+  #main-index
     = yield :subtabs
     .clear
     = yield :form

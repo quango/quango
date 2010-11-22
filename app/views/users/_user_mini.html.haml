@@ -3,7 +3,14 @@
 .user_mini{:style=>"width:128px; overflow:hidden"}
 
   %div.gravatar{:style=>"width:32px;float:left; margin-right:4px;"}
-    = link_to gravatar(user.email.to_s, :size => 32), user_path(user)
+
+    - @avatar = Avatar.find(user.default_avatar)
+    - if @avatar.present?
+      - cropped_avatar = @avatar.avatar.process(:thumb,@avatar.avatar_cropping)
+      - default_avatar = cropped_avatar.process(:thumb,"32x32").url
+      = image_tag default_avatar #, user_path(user) 
+    - else
+      = image_tag "/images/anonymous_avatar.png", :height => "32px", :width => "32px" #, user_path(user)
 
   %div.details{:style=>"width:92px;float:right; overflow:hidden"}
 

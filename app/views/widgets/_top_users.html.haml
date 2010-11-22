@@ -1,10 +1,11 @@
 %h3
   =t(".title")
 .content
-  %ul.list
+  %ul.members-list
     -widget.top_users(current_group).each do |user|
       -if user.login != "admin"
-        = render :partial => "users/user_mini", :locals => {:user => user}
+        %li{:onclick => "document.location.href='#{user_path(user)}'"}
+          = render :partial => "users/user_mini", :locals => {:user => user}
   .more
     =link_to t("scaffold.more"), users_path
   .clear

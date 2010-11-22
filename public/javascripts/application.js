@@ -1,3 +1,12 @@
+// perform JavaScript after the document is scriptable.
+
+$(function() {	// setup ul.tabs to work as tabs for each div directly under div.panes	
+  $("#member-tabs ul.member-tabs").tabs("div.panes > div.pane", { history: true });
+});
+
+
+
+
 // here, we allow the user to sort the items
 var setSelector = "#section-listing ul";
 // set the cookie name

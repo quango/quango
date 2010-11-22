@@ -13,79 +13,58 @@
 
 -content_for :show_user do
 
-  .secondary-navigation{:class => @q_sort||"votes", :style => "background-color:"+current_group.secondary+";"}
-    .navtitle
-      %span.counter
-        = number_with_delimiter(@favorites.total_entries)
-      =t(:items, :scope => "activerecord.models")
-    .navcontrols
+  .secondary-navigation
+    .navlabel.left
+      = "Filter by: "
+    .navcontrols.right
       %ul
         %li.newest
-          = link_to t("items.index.newest"), user_path(@user, params.merge(:q_sort=>"newest")), :rel => "nofollow", :class => "button"
+          = link_to "newest", user_path(@user, params.merge(:sort=>"newest")), :rel => "nofollow", :class => "standard-button"
         %li.oldest
-          = link_to t("items.index.oldest"), user_path(@user, params.merge(:q_sort=>"oldest")), :rel => "nofollow", :class => "button"
+          = link_to "oldest", user_path(@user, params.merge(:sort=>"oldest")), :rel => "nofollow", :class => "standard-button"
         %li.views
-          = link_to t("activerecord.attributes.item.views"), user_path(@user, params.merge(:q_sort=>"views")), :rel => "nofollow", :class => "button"
+          = link_to "views ", user_path(@user, params.merge(:sort=>"views")), :rel => "nofollow", :class => "standard-button"
         %li.votes
-          = link_to t("items.index.votes"), user_path(@user, params.merge(:q_sort=>"votes")), :rel => "nofollow", :class => "button"
-    .clear
-  .block
-    %ul.items#items
-      -@items.each do |item|
-        = render :partial => "items/item", :object => item
-    .additional_info
-      = will_paginate @items, :param_name => "items_page"
-      .clear
-
-  /Favorites
-  .secondary-navigation{:class => @f_sort||"votes"}
-    .navtitle
-      %span.counter
-        = number_with_delimiter(@favorites.total_entries)
-      =t(:favorites, :scope => "activerecord.models")
-    %ul
-      %li.newest
-        = link_to t("items.index.newest"), user_path(@user, params.merge(:f_sort=>"newest")), :rel => "nofollow"
-      %li.oldest
-        = link_to t("items.index.oldest"), user_path(@user, params.merge(:f_sort=>"oldest")), :rel => "nofollow"
-      %li.views
-        = link_to t("activerecord.attributes.item.views"), user_path(@user, params.merge(:f_sort=>"views")), :rel => "nofollow"
-      %li.votes
-        = link_to t("items.index.votes"), user_path(@user, params.merge(:f_sort=>"votes")), :rel => "nofollow"
-    .clear
-  .block
-
-  %ul.items#items
-    -@favorite_items.each do |item|
-      = render :partial => "items/item", :object => item
-  .additional_info
-    = will_paginate @favorites, :param_name => "favorites_page"
+          = link_to "votes ", user_path(@user, params.merge(:sort=>"votes")), :rel => "nofollow", :class => "standard-button"
     .clear
 
-  / Answers
-  .secondary-navigation{:class => @a_sort||"votes"}
-    .navtitle
-      %span.counter
-        = number_with_delimiter(@answers.total_entries)
-      =t(:answers, :scope => "activerecord.models")
+  #member-tabs
+    %ul.member-tabs
+      %li
+        = link_to "Posts", "#"
+      %li
+        = link_to "Comments", "#"
+      %li
+        = link_to "Favourites",  "#"
 
-    %ul
-      %li.newest
-        = link_to t("items.index.newest"), user_path(@user, params.merge(:a_sort=>"newest")), :rel => "nofollow"
-      %li.oldest
-        = link_to t("items.index.oldest"), user_path(@user, params.merge(:a_sort=>"oldest")), :rel => "nofollow"
-      %li.votes
-        = link_to t("items.index.votes"), user_path(@user, params.merge(:a_sort=>"votes")), :rel => "nofollow"
-    .clear
-  .block
 
-    %ul.items#answers
-      -@answers.each do |answer|
-        -next if answer.item.banned
-        = render :partial => "answers/answer", :object => answer
-    .additional_info
-      = will_paginate @answers, :param_name => "answers_page"
-      .clear
+
+
+    .panes
+      %div.pane
+        %ul.items#posts
+          -@items.each do |item|
+            = render :partial => "items/item", :object => item
+        .additional_info
+          = will_paginate @items, :param_name => "items_page"
+          .clear
+
+      %div.pane
+        %ul.items#answers
+          -@answers.each do |answer|
+            -next if answer.item.banned
+            = render :partial => "answers/answer", :object => answer
+        .additional_info
+          = will_paginate @answers, :param_name => "answers_page"
+          .clear
+
+      %div.pane
+        %ul.items#favourites
+          -@favorite_items.each do |item|
+            = render :partial => "items/item", :object => item
+        .additional_info
+          = will_paginate @favorites, :param_name => "favorites_page"
+          .clear
 
 
 -content_for :sidebar do
@@ -95,15 +74,7 @@
 
 -content_for :sidebar_inner do
   #sidebar-inner
- 
-    .block
-      %h3
-        = "Profile image"
-        -if current_user == @user
-          .navcontrols
-            =link_to t("users.manage.edit"), settings_path(:tab => "image"), :class => "button", :style => "float:right"
-      .content
-        = gravatar @user.email.to_s, :size => 234
+    = render :partial => "/users/profile_image", :object => @user
 
     - if !@user.hide_country
       .block

@@ -54,7 +54,7 @@
 
 -content_for :list do
 
-  %ul.members-list#users
+  %ul.members-list-index#users
     -@users.each do |user|
       -if user.login != "admin"
         = render :partial => "user", :object => user

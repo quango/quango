@@ -15,7 +15,7 @@ class Section
   alias :group :_root_document
 
   def self.types
-    types = %w[NewsSection NewsfeedSection VideoSection ImageSection ArticleSection DiscussionSection BookmarkSection]
+    types = %w[NewsSection NewsfeedSection ThoughtSection VideoSection ImageSection ArticleSection DiscussionSection BookmarkSection]
     types
   end
 

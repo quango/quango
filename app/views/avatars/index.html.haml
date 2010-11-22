@@ -1,0 +1,114 @@
+- content_for :secondary_navigation do
+  =render :partial => "/users/settings/subtabs", :object => @user
+
+- content_for :main do
+
+  #main-index
+    .title
+      =@user.login.capitalize << "'s Profile images"
+    
+    = yield :secondary_navigation
+
+
+    .help
+      = "Members use two types of image, avatars and profile images:"
+      %ul
+        %li
+          = "<b>Avatars</b> are used as your 'icon' it will be shown in listings and when you write comments"
+        %li
+          = "<b>Profile Images</b> are used for your profile and when you <a href='/create/new'>add something</a>"
+
+
+    %small
+      ="Default avatar: "
+      =@user.default_avatar.to_s
+      = "(#{@user.default_avatar_link})"
+    .clear
+    %small
+      ="Default avatar: "
+      =@user.profile_image.to_s
+      = "(#{@user.profile_image_link})"
+
+
+    %hr
+    %table{:class => "image-table"}
+      %tr
+        %th 
+          ="Set"
+        %th 
+          ="Avatar"
+        %th 
+          ="Standard"
+        %th 
+          ="Small"
+        %th 
+          ="Actions"
+
+      -# TODO: Change to a scoped condition
+
+      -@user_avatars.each do |avatar|
+
+        -if @user.id == avatar.user_id
+          - cropped_avatar = avatar.avatar.process(:thumb,avatar.avatar_cropping)
+          - avatar32 = cropped_avatar.process(:thumb,"32x32").url
+
+
+          %tr
+            %td
+              -if @user.default_avatar == avatar.id
+                = "default"
+              -else
+                = link_to "set", set_default_avatar_path(avatar)
+            %td
+              -if @user.profile_image == avatar.id
+                = "default"
+              -else
+                = link_to "set", set_profile_avatar_path(avatar), :locals => avatar32
+
+            %td
+
+              = image_tag cropped_avatar.process(:thumb,"48x48").url, :alt => avatar.name
+            %td
+              = image_tag avatar32, :alt => avatar.name
+            %td
+              = image_tag cropped_avatar.process(:thumb,"16x16").url, :alt => avatar.name
+            %td
+              = link_to 'Change image', edit_avatar_path(avatar), :class => "standard-button"
+              = link_to 'Crop image', crop_avatar_path(avatar), :class => "standard-button"
+              = link_to 'Delete', avatar, :confirm => 'Are you sure?', :method => :delete, :class => "delete-button"
+
+
+    %p
+      = link_to 'New image', new_avatar_path, :class => "standard-button"
+
+
+ 
+
+
+
+
+-content_for :sidebar_inner do
+  #sidebar-inner
+    = render :partial => "/users/profile_image", :object => @user
+    .block
+      %h3
+        = h("Tips")
+      .content
+        = h("This is an example of a good profile image")
+      .content
+        = h("This is an example of a bad profile image")
+
+-content_for :sidebar do
+  #sidebar
+    -current_group.widgets.each do |widget|
+      .widget.block{:id => widget.name}
+        = render :partial => widget.partial_name, :locals => {:widget => widget}
+
+    .block
+      %h3
+        = h("Something")
+      .content
+        = h("Something else")
+
+
+

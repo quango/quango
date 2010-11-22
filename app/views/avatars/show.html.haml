@@ -1,0 +1,22 @@
+- content_for :main do
+
+  %h1
+    ="Show avatar"
+
+  %p
+    =h(@avatar)
+  %p
+    =h(@avatar.name)
+  %p
+    - dragonfly_link = "/system/dragonfly/development/" << avatar_path(@avatar_cropping)
+    = dragonfly_link
+
+  %p
+    -#= image_tag @avatar.avatar.url(@avatar.avatar_cropping)
+    = image_tag(dragonfly_link << @avatar.avatar_cropping)
+    -#= image_tag(@avatar.avatar.url('400x'))
+
+  %p
+    = link_to 'Edit', edit_avatar_path(@avatar)
+    = " | "
+    = link_to 'Back', avatars_path

@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
   skip_before_filter :check_group_access, :only => [:logo, :css, :favicon, :background]
-  before_filter :login_required, :except => [:index, :show, :logo, :css, :favicon]
+  before_filter :login_required, :except => [:index, :show, :logo, :css, :favicon, :background]
   before_filter :check_permissions, :only => [:edit, :update, :close]
   before_filter :moderator_required , :only => [:accept, :destroy]
   subtabs :index => [ [:most_active, "activity_rate desc"], [:newest, "created_at desc"],
@@ -90,14 +90,16 @@ class GroupsController < ApplicationController
     @group.state = "active"
 
     @group.widgets << TopUsersWidget.new
+    @group.widgets << GroupsWidget.new
     @group.widgets << BadgesWidget.new
 
     @group.sections << NewsSection.new
     @group.sections << NewsfeedSection.new
+    @group.sections << ThoughtSection.new
+    @group.sections << DiscussionSection.new
     @group.sections << VideoSection.new
     @group.sections << ImageSection.new
     @group.sections << ArticleSection.new
-    @group.sections << DiscussionSection.new
     @group.sections << BookmarkSection.new
 
 
