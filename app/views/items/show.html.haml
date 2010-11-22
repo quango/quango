@@ -26,7 +26,7 @@
 
 -content_for :section_head do
   #section-listing{:class => @active_section}
-    = render :partial => "items/section_head_summary_show", :locals => {:section => @active_section, :list_mode => "standard"}
+    = render :partial => "items/section_head_summary", :locals => {:section => @active_section, :default_state => "hidden"}
 
 - content_for :main do
   #main-index
@@ -121,14 +121,23 @@
   #sidebar-inner
     .block
       %h3
-        = "<<<< VOTE & SHARE"
-    .block
-      %h3
-        = "Started by"
+        = "Posted by"
       .content
         =render :partial => "member_panel"
     .block
+      %h3
+        = "Related Images"
+      .content
+        = "Will go here"
+    .block
+      .data.updated{:title => @item.activity_at, :class => "relativetime"}
+        = t("time.ago", :time => time_ago_in_words(@item.activity_at))
       =render :partial=> "participants", :locals=> {:item => @item}
+    .block
+      %h3
+        = "Latest thoughts"
+      .content
+        = "Will go here"
 
     -related_items = Item.related_items(@item, :language => find_languages)
     - if !related_items.empty?
@@ -182,25 +191,8 @@
                 %li
                   = render :partial => "badges/badge", :object => badge, :locals => {:hide_user => false}
 
-        .block.stats
-          - if @item.group_id != current_group.id
-            = t(".asked_on")
-            &= @item.group.name
 
-          .entry
-            .text.asked
-              = t('activerecord.attributes.item.created_at')
-              .data
-                = t("time.ago", :time => time_ago_in_words(@item.created_at))
-          .entry
-            .text.viewed
-              = t('.viewed')
-            .data
-              = t('number.x_time', :count => number_with_delimiter(@item.views_count))
-          .entry
-            .text.last_activity
-              = t(".last_activity")
-            .data.updated{:title => @item.activity_at, :class => "relativetime"}
-              = t("time.ago", :time => time_ago_in_words(@item.activity_at))
+
+
 
 

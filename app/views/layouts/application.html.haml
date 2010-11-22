@@ -15,6 +15,9 @@
     = render :partial => "shared/analytics"
     = @current_class
 
+    #flash
+      = show_flash_messages(:class => "flash", :markdown => true)
+
     #header-container
       #header-container-inner
         #leaderboard-container
@@ -27,10 +30,6 @@
           = render :partial => "shared/contextual_navigation"
 
     #container{:class => @current_class}
-
-      #flash
-        = show_flash_messages(:class => "flash", :markdown => true)
-
       #announcement
         = render :partial => "shared/announcements"
 

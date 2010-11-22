@@ -66,6 +66,8 @@ class Group
   key :secondary_selected, String, :default => "#E1A970"
   key :secondary_active, String, :default => "#990000"
   key :tertiary, String, :default => "#E1A970" #tabs, 
+  key :secondary_navigation_bg, String, :default => "gainsboro"
+  key :secondary_navigation_text, String, :default => "white"
   key :edit_button_bg, String, :default => "#990000" #tabs, 
   key :edit_button_bg_image, String, :default => "/images/default_button_bg.png"
 

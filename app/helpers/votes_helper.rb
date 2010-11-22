@@ -14,6 +14,7 @@ module VotesHelper
           #{hidden_field_tag "source", source, :id => "source_#{class_name}_#{voteable.id}"}
           <button type="submit" name="vote_up" value="1" class="button-like">
             #{if vote && vote.value > 0
+                "relevant"
                 image_tag("spacer.gif", :width => 18, :height => 18, :title => I18n.t("votes.control.have_voted_up"), :class=>'voted')
               else
                 image_tag("spacer.gif", :width => 18, :height => 18, :title => I18n.t("votes.control.to_vote_up"), :class=>'novoted')

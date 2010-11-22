@@ -62,7 +62,7 @@
                   -if item.section == section.name
                     -headlines_array << item
                 -headlines_array[0..5].each do |item|
-                  = render :partial => "items/section_list_item", :locals => {:item => item, :list_mode => "headline"}
+                  = render :partial => "items/section_list_item", :locals => {:item => item, :expanded => "false"}
             .clear
 
         .listings-right
