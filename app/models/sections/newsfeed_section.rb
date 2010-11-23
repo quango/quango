@@ -11,5 +11,6 @@ class NewsfeedSection < Section
     self[:name] ||= "newsfeeds"
     self[:hidden] ||= true
     self[:create_label] ||= "Suggest a newsfeed"
+    self[:custom_icon] ||= "newsfeed"
   end
 end

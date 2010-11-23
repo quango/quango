@@ -10,5 +10,6 @@ class ThoughtSection < Section
   def set_defaults
     self[:name] ||= "thoughts"
     self[:create_label] ||= "Share a thought"
+    self[:custom_icon] ||= "thought"
   end
 end

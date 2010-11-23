@@ -100,9 +100,13 @@
 
 -content_for :sidebar do
   #sidebar
-    -current_group.widgets.each do |widget|
-      .widget.block{:id => widget.name}
-        = render :partial => widget.partial_name, :locals => {:widget => widget}
+    .block
+      %h3
+        = h("Profile mini")
+      .controls
+        = "<!---->"
+      .content
+        = render :partial => "/users/profile_mini", :object => @user
 
     .block
       %h3

@@ -9,6 +9,8 @@ class VideoSection < Section
   end
   def set_defaults
     self[:name] ||= "video"
+    self[:has_images] ||= true
     self[:create_label] ||= "Suggest a video"
+    self[:custom_icon] ||= "video"
   end
 end

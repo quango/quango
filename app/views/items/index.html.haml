@@ -4,44 +4,43 @@
   %link{:rel=>"alternate", :type=>"application/atom+xml", :title => "atom", :href=> url_for(:format => "atom", :tags => params[:tags])}
   %link{:rel=>"alternate", :type=>"application/atom+xml", :title => "atom", :href=> url_for(:format => "atom")}
 
--content_for :subtabs do
+-content_for :secondary_navigation do
   .secondary-navigation{:class => @active_subtab.to_s}
-    .navlabel
+    %h3
       = h(@active_section.capitalize << " Listing")
 
     .navcontrols
       %ul
-        %li.fresh
-          = link_to t("items.index.fresh"), "?sort=newest", :title => t("items.index.newest_tooltip"),:class=>"standard-button"
+        %li.label
+          = "Sort by:&nbsp;"
+        %li.freshness
+          = link_to t("items.index.fresh"), "?sort=fresh", :title => t("items.index.newest_tooltip"),:class=>"standard-button"
         %li.hot
           = link_to t("items.index.hot"), "?sort=hot", :title => t("items.index.hot_tooltip"),:class=>"standard-button", :rel => "nofollow"
-        %li.busy
-          = link_to t("items.index.busy"), "?sort=activity", :title => t("items.index.active_tooltip"),:class=>"standard-button", :rel => "nofollow"
-
+        %li.activity
+          = link_to t("items.index.activity"), "?sort=activity", :title => t("items.index.active_tooltip"),:class=>"standard-button", :rel => "nofollow"
+        %li.relevance
+          = link_to t("items.index.relevance"), "?sort=relevance", :title => t("items.index.active_tooltip"),:class=>"standard-button", :rel => "nofollow"
+  .clear
 
 
 /Items
 -content_for :section_head do
   #section-listing{:class => @active_tab}
     = render :partial => "items/section_head_summary", :locals => {:section => @active_section,  :list_mode => "standard"}
- 
-
 
 -content_for :main do
   #main-index
+    = yield :secondary_navigation
     .content
       .inner
-
-        .secondary-navigation{:class => @active_subtab.to_s}
-          = yield :subtabs
-          .clear
         %ul.items#items
           -if @items.empty?
             %li.highlight
               = t(".empty")
           -@items.each do |item|
             -if item.section == @active_section
-              = render :partial => "item", :object => item
+              = render :partial => "item", :object => item #, :section => @active_section
 
         #additional_info
           -#=will_paginate @items

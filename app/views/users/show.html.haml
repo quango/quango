@@ -3,21 +3,21 @@
   %meta{:name => "description", :content => @user.bio }
   %link{:rel => "canonical", :href => user_path(@user) }
 
--content_for :mast do
-  .profile-title
-    .icon.left
-      = gravatar(@user.email.to_s, :size => 36)
-    = @user.login.capitalize
-    = render :partial => "follow_button", :object => @user
-  .clear
-
 -content_for :show_user do
 
   .secondary-navigation
-    .navlabel.left
-      = "Filter by: "
-    .navcontrols.right
+    %h3
+      .icon.left
+        = gravatar(@user.email.to_s, :size => 20)
+      = @user.login.capitalize
+      = render :partial => "follow_button", :object => @user
+
+    .navcontrols
+
+
       %ul
+        %li.label
+          = "Filter by:&nbsp;"
         %li.newest
           = link_to "newest", user_path(@user, params.merge(:sort=>"newest")), :rel => "nofollow", :class => "standard-button"
         %li.oldest
@@ -26,21 +26,21 @@
           = link_to "views ", user_path(@user, params.merge(:sort=>"views")), :rel => "nofollow", :class => "standard-button"
         %li.votes
           = link_to "votes ", user_path(@user, params.merge(:sort=>"votes")), :rel => "nofollow", :class => "standard-button"
-    .clear
+  .clear
 
   #member-tabs
     %ul.member-tabs
       %li
-        = link_to "Posts", "#"
+        = link_to "Posts", "#posts"
       %li
-        = link_to "Comments", "#"
+        = link_to "Comments", "#answers"
       %li
-        = link_to "Favourites",  "#"
+        = link_to "Favourites",  "#favourites"
 
 
 
 
-    .panes
+    %div.panes
       %div.pane
         %ul.items#posts
           -@items.each do |item|
@@ -75,20 +75,11 @@
 -content_for :sidebar_inner do
   #sidebar-inner
     = render :partial => "/users/profile_image", :object => @user
-
-    - if !@user.hide_country
-      .block
-        %h3
-          = "location"
-        .content
-          %span.adr
-            %span.country-name
-              = t("global.from", :site => @user.country_name)
-              = country_flag(@user.country_code, @user.country_name)
     .block
       %h3
         = "info"
       .content
+        = render :partial => "/users/profile_mini", :object => @user
         = markdown(@user.bio)
 
     .block
@@ -124,7 +115,6 @@
   #main-index
     .content
       .inner
-        = yield :mast
         = yield :show_user
 
 

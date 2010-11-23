@@ -16,13 +16,9 @@
     = "$('#avatar_cropping').val(crop_str);"
     = "var rx = #{Avatar::THUMB_W}/ coords.w;"
     = "var ry = #{Avatar::THUMB_H}/ coords.h;"
+    = "var sx = 140/ coords.w;"
+    = "var sy = 140/ coords.h;"
     = "$('#preview').css({"
-    = "width: Math.round(rx * #{Avatar::CROP_W}) + 'px',"
-    = "height: Math.round(ry * #{Avatar::CROP_W} * #{@avatar.avatar_height} / #{@avatar.avatar_width}) + 'px',"
-    = "marginLeft: '-' + Math.round(rx * coords.x) + 'px',"
-    = "marginTop: '-' + Math.round(ry * coords.y) + 'px'"
-    = "});"
-    = "$('#preview2').css({"
     = "width: Math.round(rx * #{Avatar::CROP_W}) + 'px',"
     = "height: Math.round(ry * #{Avatar::CROP_W} * #{@avatar.avatar_height} / #{@avatar.avatar_width}) + 'px',"
     = "marginLeft: '-' + Math.round(rx * coords.x) + 'px',"
@@ -42,40 +38,56 @@
 
 
   - dragonfly_link = "/system/dragonfly/development/" << @avatar.avatar_uid.to_s
-  - cropped_avatar = @avatar.avatar.process!(:resize, '525x>')
-
-  #bar
-    = image_tag cropped_avatar.url
-
+  - cropped_avatar = @avatar.avatar.process!(:resize, '565x')
 
   #main-index
-    %p
-      ="<b>Name:</b>"
-      =h(@avatar.name)
+    .secondary-navigation  
+      %h3
+        = "Profile Image Cropping"
+      .navcontrols  
+ 
 
-    %p
-      = link_to 'Edit', edit_avatar_path(@avatar)
-      = link_to 'Back', avatars_path
+        = link_to 'Change file & data', edit_avatar_path(@avatar), :class => "standard-button right"
+        = link_to 'Back', avatars_path, :class => "standard-button right"
+    .clear
 
+    %div.left{:style => "width:100%"}
+      ="<b>Instructions:</b></br>"
+      ="Click and drag box and the press the big red Crop! button"
+      %div.right
+        - form_for @avatar do |f|
+          = f.hidden_field :avatar_cropping, :id => 'avatar_cropping'
+          = f.submit "Crop!", :class => "edit-button"   
+    .clear
     %p
-      ="<b>Link:</b>"
-      =h(dragonfly_link)
-
-    %p
-      ="<b>Avatar:</b>"
       = image_tag cropped_avatar.url, :width => "#{Avatar::CROP_W}px", :id => 'cropbox'
 
-    %div{:style => "width:#{Avatar::THUMB_W}px;height:#{Avatar::THUMB_H}px;overflow:hidden"}
-      = image_tag (dragonfly_link, :width => "#{Avatar::CROP_W}px", :id => 'preview2')
+    -#%div{:style => "width:#{Avatar::THUMB_W}px;height:#{Avatar::THUMB_H}px;overflow:hidden"}
+      -#= image_tag (dragonfly_link, :width => "#{Avatar::CROP_W}px", :id => 'preview2')
 
-    - form_for @avatar do |f|
-      = f.text_field :avatar_cropping, :id => 'avatar_cropping'
-      = f.submit "Crop!"
+    -# form_for @avatar do |f|
+      -#= f.text_field :avatar_cropping, :id => 'avatar_cropping'
+      -#= f.submit "Crop!"
+
+  #sidebar
+
+    .block
+      %h3
+        = "Metadata"
+      .controls
+        = "edit"
+      .content
+        ="<b>Name:</b>"
+        =h(@avatar.name)
 
 
   #sidebar-inner
     -#= render :partial => "/users/profile_image", :object => @user
     .block
+      %h3
+        = "Profile image preview"
+ 
+
       %div{:style => "width:#{Avatar::THUMB_W}px;height:#{Avatar::THUMB_H}px;overflow:hidden"}
         = image_tag (dragonfly_link, :width => "256px", :id => 'preview')
     .block
@@ -86,17 +98,6 @@
       .content
         = h("This is an example of a bad profile image")
 
--content_for :sidebar do
-  #sidebar
-    -current_group.widgets.each do |widget|
-      .widget.block{:id => widget.name}
-        = render :partial => widget.partial_name, :locals => {:widget => widget}
-
-    .block
-      %h3
-        = h("Something")
-      .content
-        = h("Something else")
 
 
 

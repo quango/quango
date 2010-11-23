@@ -1,13 +1,13 @@
 -content_for :subtabs do
-  .title
-    = t("users.index.title")
-    -if @users
-      == (#{format_number(@users.total_entries)})
   .secondary-navigation{:class => @active_subtab.to_s}
-    .navlabel.left
-      = "Sort"
-    .navcontrols.right
+    %h3
+      = t("users.index.title")
+      -if @users
+        == (#{format_number(@users.total_entries)})
+    .navcontrols
       %ul
+        %li.label
+          = "Sort by:&nbsp;"
         %li.reputation
           = link_to t(".reputation"), users_path(:sort=>"reputation"), :title => t(".reputation_tooltip"), :class => "standard-button"
         %li.newest

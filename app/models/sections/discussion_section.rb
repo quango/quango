@@ -9,6 +9,7 @@ class DiscussionSection < Section
   end
   def set_defaults
     self[:name] ||= "discussions"
-    self[:create_label] ||= "Discuss something"
+    self[:create_label] ||= "Start a discussion"
+    self[:custom_icon] ||= "discussion"
   end
 end

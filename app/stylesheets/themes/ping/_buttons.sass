@@ -1,29 +1,32 @@
 .section-button 
-  border: 1px solid #6d6d6d
-  background: gainsboro
+
   background-image: url(/images/buttons/section_bg.png)
   background-repeat: repeat-x
   height: 16px
-  line-height: 16px
+  line-height: 14px
   margin: 4px 4px 4px 0
-  color: #6d6d6d
+  color: white
   cursor: pointer
   overflow: visible
   float: left
-  font-weight: normal
+  font-weight: bold
   font-size: 10px
   text-align: center
-  text-shadow: white 0px 1px 1px
+  text-spacing: -1px
   padding: 0 13px 0 13px
   +rounded(2px,2px,2px,2px)
+  a:hover
+    color: orange
+
   &.showhide
-    width: 72px
+    width: 80px
   &.show
-    width: 72px
+    width: 80px
     cursor: s-resize
   &.hide
-    width: 72px
+    width: 80px
     cursor: n-resize
+
 
 .standard-button 
   border: 1px solid #6d6d6d

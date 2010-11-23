@@ -1,20 +1,22 @@
 
 -content_for :subtabs do
-  .navtitle
-    = t(".title")
-  %ul
-    %li.head_tag
-      = link_to h("<head>"), manage_content_path(:tab=>"head_tag")
-    %li.item_help
-      = link_to t(".item_help"), manage_content_path(:tab=>"item_help")
-    %li.item_prompt
-      = link_to t(".item_prompt"), manage_content_path(:tab=>"item_prompt")
-    %li.head
-      = link_to t(".head"), manage_content_path(:tab=>"head")
-    %li.top_bar
-      = link_to t(".top_bar"), manage_content_path(:tab=>"top_bar")
-    %li.footer
-      = link_to t(".footer"), manage_content_path(:tab=>"footer")
+  .secondary-navigation
+    %h3
+      = t(".title")
+    .navcontrols
+      %ul
+        %li.head_tag
+          = link_to h("<head>"), manage_content_path(:tab=>"head_tag"),:class=>"standard-button"
+        %li.item_help
+          = link_to t(".item_help"), manage_content_path(:tab=>"item_help"),:class=>"standard-button"
+        %li.item_prompt
+          = link_to t(".item_prompt"), manage_content_path(:tab=>"item_prompt"),:class=>"standard-button"
+        %li.head
+          = link_to t(".head"), manage_content_path(:tab=>"head"),:class=>"standard-button"
+        %li.top_bar
+          = link_to t(".top_bar"), manage_content_path(:tab=>"top_bar"),:class=>"standard-button"
+        %li.footer
+          = link_to t(".footer"), manage_content_path(:tab=>"footer"),:class=>"standard-button"
 
 -form_for @group, :html => {:class => "form"} do |form|
   = form.error_messages

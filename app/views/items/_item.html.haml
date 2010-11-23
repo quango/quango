@@ -15,6 +15,11 @@
     -owner = item.user unless item.anonymous
 
   %li.entry.item{:class => class_for_item(item)}
+    - if item.mode == "discussion"
+      = "discusison mode"
+
+    %small
+      =@active_section #.has_images
 
     .summary
       =render :partial => "/items/stats", :locals => {:item => item}

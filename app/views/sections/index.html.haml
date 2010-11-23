@@ -1,12 +1,13 @@
 -content_for :subtabs do
-  .navtitle
-    =t(".title")
+  .secondary-navigation
+    %h3
+      =t(".title")
 
 %h2.title
   =t(".description")
 
 #manage_sections
-  %table{:width => "468px"}
+  %table{:width => "80%px"}
     %th
       =""
     %th
@@ -14,9 +15,13 @@
     %th
       ="Mode"
     %th
+      ="Has images?"
+    %th
       ="Hidden?"
     %th
       ="Create Label"
+    %th
+      ="Custom Icon"
     %th
       ="Re-order"
     %th
@@ -34,12 +39,18 @@
           = h(section.name)   #, :locals => {:section => section}
         %td.mode
           = h(section.mode)   #, :locals => {:section => section}
+        %td.has_images
+          -if section.has_images?
+            %strong
+              = "true"
         %td.hidden
           -if section.hidden?
             %strong
               = "hidden"
         %td.mode
           = h(section.create_label)   #, :locals => {:section => section}
+        %td.icon
+          = h(section.custom_icon)   #, :locals => {:section => section}
         %td.order
           -form_tag move_section_path(section) do
             = submit_tag("up", :name=>"move_to", :value => "up") 

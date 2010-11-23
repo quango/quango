@@ -1,25 +1,24 @@
 -content_for :subtabs do
 
   .secondary-navigation{:class => @active_subtab.to_s,:style => "background-color:#{current_group.secondary}"}
-    .navlabel
+    %h3
       = t("admin.manage.properties.#{@active_subtab}.title")
     .navcontrols
-      .subtabs
-        %ul
-          %li.general
-            = link_to t("layouts.manage.general"), manage_properties_path(:tab => "general"), :class=>"button"
-          %li.analytics
-            = link_to t("layouts.manage.analytics"), manage_properties_path(:tab => "analytics"), :class=>"button"
+      %ul
+        %li.general
+          = link_to t("layouts.manage.general"), manage_properties_path(:tab => "general"), :class=>"standard-button"
+        %li.analytics
+          = link_to t("layouts.manage.analytics"), manage_properties_path(:tab => "analytics"), :class=>"standard-button"
 
-          %li.share
-            = link_to t("global.share"), manage_properties_path(:tab => "share"), :class=>"button"
-          %li.theme
-            = link_to t("layouts.manage.theme"), manage_properties_path(:tab => "theme"), :class=>"button"
+        %li.share
+          = link_to t("global.share"), manage_properties_path(:tab => "share"), :class=>"standard-button"
+        %li.theme
+          = link_to t("layouts.manage.theme"), manage_properties_path(:tab => "theme"), :class=>"standard-button"
 
-          %li.constrains
-            = link_to t("layouts.manage.constrains"), manage_properties_path(:tab => "constrains"), :class=>"button"
-          %li.rewards
-            = link_to t("layouts.manage.rewards"), manage_properties_path(:tab => "rewards"), :class=>"button"
-          %li.domain
-            = link_to t("layouts.manage.domain"), manage_properties_path(:tab => "domain"), :class=>"button"
+        %li.constrains
+          = link_to t("layouts.manage.constrains"), manage_properties_path(:tab => "constrains"), :class=>"standard-button"
+        %li.rewards
+          = link_to t("layouts.manage.rewards"), manage_properties_path(:tab => "rewards"), :class=>"standard-button"
+        %li.domain
+          = link_to t("layouts.manage.domain"), manage_properties_path(:tab => "domain"), :class=>"standard-button"
   .clear

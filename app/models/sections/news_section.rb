@@ -9,6 +9,8 @@ class NewsSection < Section
   end
   def set_defaults
     self[:name] ||= "news"
-    self[:create_label] ||= "Share some news"
+    self[:has_images] ||= true
+    self[:create_label] ||= "Tell us your news"
+    self[:custom_icon] ||= "news"
   end
 end

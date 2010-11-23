@@ -14,7 +14,7 @@ class ItemsController < ApplicationController
   tabs :default => @mode, :tags => :tags,
        :unanswered => :unanswered, :new => :ask_item
 
-  subtabs :index => [[:newest, "created_at desc"], [:hot, "hotness desc, views_count desc"], [:votes, "votes_average desc"], [:activity, "activity_at desc"], [:expert, "created_at desc"]],
+  subtabs :index => [[:fresh, "created_at desc"], [:heat, "hotness desc, views_count desc"], [:relevance, "votes_average desc"], [:activity, "activity_at desc"], [:expert, "created_at desc"]],
           :unanswered => [[:newest, "created_at desc"], [:votes, "votes_average desc"], [:mytags, "created_at desc"]],
           :show => [[:votes, "votes_average desc"], [:oldest, "created_at asc"], [:newest, "created_at desc"]]
 
@@ -39,12 +39,6 @@ class ItemsController < ApplicationController
     end
 
     @items = Item.all({:order => current_order}.merge(conditions))
-    #@items = Item.paginate({:per_page => 12, #:page => params[:page] || 1,
-     #                  #:order => current_order,
-      #                 :order => [:activity, "activity_at desc"],
-       #                :fields => {:_keywords => 0, :watchers => 0, :flags => 0,
-        #                           :close_requests => 0, :open_requests => 0,
-         #                          :versions => 0}}.merge(conditions))
 
     @langs_conds = scoped_conditions[:language][:$in]
 
@@ -771,8 +765,8 @@ class ItemsController < ApplicationController
   end
 
   def set_active_section
-
      @active_section = params[:section]
+     #@section = Section.find
      @active_section
   end
 

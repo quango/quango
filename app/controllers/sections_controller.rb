@@ -47,7 +47,7 @@ class SectionsController < ApplicationController
     @section = @group.sections.find(params[:id])
     respond_to do |format|
 
-      @section.safe_update(%w[name mode hidden create_label], params[:section])
+      @section.safe_update(%w[name mode has_images hidden create_label custom_icon], params[:section])
 
       if @section.valid? && @section.save
         flash[:notice] = 'Section was successfully edited.'

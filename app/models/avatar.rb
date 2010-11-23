@@ -19,7 +19,7 @@ class Avatar #< ActiveRecord::Base
 
   THUMB_W = 256
   THUMB_H = 256
-  CROP_W = 512
+  CROP_W = 565
 
   validates_format_of :name, :with => /\A[a-z0-9]+\z/i
 

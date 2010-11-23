@@ -9,6 +9,7 @@ class BookmarkSection < Section
   end
   def set_defaults
     self[:name] ||= "bookmarks"
-    self[:create_label] ||= "Share a link"
+    self[:create_label] ||= "Share a bookmark"
+    self[:custom_icon] ||= "bookmark"
   end
 end

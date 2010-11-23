@@ -1,20 +1,19 @@
 -content_for :secondary_navigation do
-  .secondary-navigation{:class => @active_subtab.to_s, :style => "background-color:#555;"}
-    .navcontrols.right
-      .subtabs
-        %ul
-          %li
-            = "Show: "
-          %li.account
-            = link_to h("Settings"), settings_path(:tab => "account"), :class => "standard-button"
-          %li.social
-            = link_to h("Social Networks"), settings_path(:tab => "social"), :class => "standard-button"
-          %li.details
-            = link_to h("My Details"), settings_path(:tab => "details"), :class => "standard-button"
-          %li.avatar
-            = link_to h("My Images"), avatars_path, :class => "standard-button"
-          %li.messaging
-            = link_to h("Messaging"), settings_path(:tab => "messaging"), :class => "standard-button"
+  .secondary-navigation
+    .navcontrols
+      %ul
+        %li
+          = "Show:&nbsp;"
+        %li.account
+          = link_to h("Settings"), settings_path(:tab => "account"), :class => "standard-button"
+        %li.social
+          = link_to h("Social Networks"), settings_path(:tab => "social"), :class => "standard-button"
+        %li.details
+          = link_to h("My Details"), settings_path(:tab => "details"), :class => "standard-button"
+        %li.avatar
+          = link_to h("My Images"), avatars_path, :class => "standard-button"
+        %li.messaging
+          = link_to h("Messaging"), settings_path(:tab => "messaging"), :class => "standard-button"
   .clear
 
 

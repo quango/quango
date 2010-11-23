@@ -11,6 +11,8 @@ class Section
   key :create_label, String
   key :hotness, Integer, :default => 0
   key :activity_at, Time
+  key :custom_icon, String
+  key :has_images, Boolean, :default => false
 
   alias :group :_root_document
 

@@ -12,10 +12,20 @@
   = select :section, "_type", Section.types.map {|w| [w.sub("Section", " Mode").titleize, w] }
 
 .group
+  = f.check_box :has_images, :class => "checkbox"
+  .label :has_images, "Has images?", :class => "radio"
+
+.group
   .label 
     = "Create label"
   .field
     = f.text_field :create_label
+
+.group
+  .label 
+    = "Custom Icon"
+  .field
+    = f.text_field :custom_icon
 
 
 .group

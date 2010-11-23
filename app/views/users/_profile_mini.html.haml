@@ -1,0 +1,59 @@
+-bronze, silver, gold = @user.badges_count_on(current_group)
+
+.user_mini{:style=>"width:128px; overflow:hidden"}
+
+  %div.gravatar{:style=>"width:32px;float:left; margin-right:4px;"}
+
+    - @avatar = Avatar.find(@user.default_avatar)
+    - if @avatar.present?
+      - cropped_avatar = @avatar.avatar.process(:thumb,@avatar.avatar_cropping)
+      - default_avatar = cropped_avatar.process(:thumb,"32x32").url
+      = image_tag default_avatar #, user_path(user) 
+    - else
+      = image_tag "/images/anonymous_avatar.png", :height => "32px", :width => "32px" #, user_path(user)
+
+  %div.details{:style=>"width:92px;float:right; overflow:hidden"}
+
+    %span.fn.nickname
+      -unless @user.nil?
+        =link_to h(@user.login), user_path(@user), :class => "user-link"
+    .clear
+
+
+    %span.reputation{:title => t("activerecord.attributes.user.reputation")}
+      -unless @user.nil?
+        -if @user.owner_of?(current_group)
+          %span.ownerflair{:title => "Group Administrator", :style => "background-color:#{current_group.secondary};border: 1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px"}
+            Admin
+        -elsif @user.mod_of?(current_group)
+          %span.modflair{:title => "moderator"}
+            Associate
+        -elsif @user.editor_of?(current_group)
+          %span.editorflair{:title => "Group Editor", :style => "background-color:#{current_group.secondary};border: 1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px"}
+            Editor
+
+      -else
+        = t('users.deleted')
+      -unless @user.nil?
+        %span.label
+          =@user.reputation_on(current_group)
+
+    -if local_assigns[:with_badges] != false
+      -if gold.to_i > 0
+        %span{:title => "#{gold} gold badges"}
+          %span.gold.badgeicon-small
+          %span.badgecount
+            =gold
+
+      -if silver.to_i > 0
+        %span{:title => "#{silver} silver badges"}
+          %span.silver.badgeicon-small
+          %span.badgecount
+            =silver
+
+      -if bronze.to_i > 0
+        %span{:title => "#{bronze} bronze badges"}
+          %span.bronze.badgeicon-small
+          %span.badgecount
+            =bronze
+.clear

@@ -1,9 +1,11 @@
 .block
   %h3
-    = "Profile images"
+    = "#{@user.name}"
+
+  .controls
     -if current_user == @user
-      .navcontrols
-        =link_to t("users.manage.edit"), settings_path(:tab => "image"), :class => "standard-button right"
+      .navcontrols.right
+        =link_to h("Edit Image"), avatars_path, :class => "standard-button"
   .content
     - @avatar = Avatar.find(@user.profile_image)
     - if @avatar.present?
