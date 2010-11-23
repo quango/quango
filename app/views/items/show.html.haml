@@ -77,20 +77,20 @@
         .clear
         %a{:name=>"answers"}
         #answers
-          .secondary-navigation{:class => @active_subtab.to_s}
-            .navlabel
-              = t(".answers_title", :count => @answers.total_entries + (@item.accepted ? 1 : 0))
+          .tertiary-navigation{:class => @active_subtab.to_s}
+            %h3
+              = h("What do you think?")
+              = t(@answers.total_entries + (@item.accepted ? 1 : 0))
             .navcontrols
-              .subtabs
-                %ul
-                  %li.newest
-                    = link_to t("items.index.newest"), item_path(@item, :sort=>"newest", :anchor => "answers"),:class=>"button", :rel => "nofollow"
-                  %li.votes
-                    = link_to t("items.index.votes"), item_path(@item, :sort=>"votes", :anchor => "answers"),:class=>"button", :rel => "nofollow"
-                  %li.oldest
-                    = link_to t("items.index.oldest"), item_path(@item, :sort=>"oldest", :anchor => "answers"),:class=>"button", :rel => "nofollow"
-                  %li.spin
-                    = link_to "&#9733;", "#",:class=>"spin button"
+              %ul
+                %li.newest
+                  = link_to t("items.index.newest"), item_path(@item, :sort=>"newest", :anchor => "answers"),:class=>"standard-button", :rel => "nofollow"
+                %li.votes
+                  = link_to t("items.index.votes"), item_path(@item, :sort=>"votes", :anchor => "answers"),:class=>"standard-button", :rel => "nofollow"
+                %li.oldest
+                  = link_to t("items.index.oldest"), item_path(@item, :sort=>"oldest", :anchor => "answers"),:class=>"standard-button", :rel => "nofollow"
+                %li.spin
+                  = link_to "&#9733;", "#",:class=>"standard-button"
           .clear
 
           .block

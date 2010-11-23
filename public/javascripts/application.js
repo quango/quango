@@ -1,10 +1,28 @@
 // perform JavaScript after the document is scriptable.
 
+$(window).keypress(function(event) {
+    if (!(event.which == 115 && event.ctrlKey)) return true;
+    alert("Ctrl-S pressed");
+    event.preventDefault();
+    return false;
+});
+
+
 $(function() {	// setup ul.tabs to work as tabs for each div directly under div.panes	
   $("#member-tabs ul.member-tabs").tabs("div.panes > div.pane", { history: true, effect: 'fade', fadeOutSpeed: 400 });
 });
 
+$(document).ready(function() {
+$(".answer").hover(
+      function() { $(this).find('.toolbox-container').children('.toolbox').fadeIn('slow'); },
+      function() { $(this).find('.toolbox-container').children('.toolbox').fadeOut('slow'); }
+  );
+$(".answer").hover(
+      function() { $(this).find('.actionbox-container').children('.actionbox').fadeIn('fast'); },
+      function() { $(this).find('.actionbox-container').children('.actionbox').fadeOut('slow'); }
+ );
 
+});
 
 
 // here, we allow the user to sort the items

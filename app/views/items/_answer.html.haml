@@ -6,40 +6,41 @@
 
 .answer.commentable{:class => "post-#{answer.id} #{solution ? "solution" : ""}" }
   %a{:name=>answer.id}
-  .toolbox
-    =vote_box(answer, item_path(item), item.closed)
-    .controls
-      .actions
-        = link_to t('activerecord.attributes.answer.link'), item_answer_path(@item.id, answer.id), :class => "standard-button"
-        - if logged_in? && @aflag.new? && current_user != answer.user
-          = link_to t(".flag"), new_item_answer_flag_path(@item,answer), :class => "flag-link button", :rel => 'nofollow'
+  .toolbox-container
+    .toolbox{:style => "display:none"}
+      =vote_box_inline(answer, item_path(item), item.closed)
+      .controls
+        .actions
+          = link_to t('activerecord.attributes.answer.link'), item_answer_path(@item.id, answer.id), :class => "standard-button"
+          - if logged_in? && @aflag.new? && current_user != answer.user
+            = link_to t(".flag"), new_item_answer_flag_path(@item,answer), :class => "flag-link button", :rel => 'nofollow'
 
-        -if logged_in?
-          -if (current_user.mod_of?(@item.group) || current_user.can_modify?(@item))
-            -unless @item.accepted
-              = link_to t(".pick_answer"), solve_item_path(@item, :answer_id => answer), :class=>"standard-button"
-            -if solution
-              = link_to t(".unset_answer"),  unsolve_item_path(@item), :class=>"standard-button"
-          -if answer.wiki || current_user.can_edit_others_posts_on?(answer.group) || current_user.can_modify?(answer)
-            = link_to t("scaffold.edit"), edit_item_answer_path(@item, answer), :class=>"standard-button"
-          -if current_user.can_modify?(answer)
-            = link_to t("scaffold.destroy"), item_answer_path(@item, answer), :confirm => t("scaffold.sure", :model => "answer"), :method => :delete, :class =>"standard-button"
-          -if !@aflag.new?
-            .flagged
-              = "#{t('items.show.flagged_as')} #{t(@aflag.reason, :scope=>'flags.form')}"
-              =link_to t("scaffold.edit"), edit_item_answer_flag_path(@item,answer,@aflag), :class => "flag-link", :id => "edit_answer_flag_link", :rel => 'nofollow'
-              =link_to t("scaffold.destroy"), item_answer_flag_path(@item,answer,@aflag), :id => "destroy_answer_flag_link", :rel => 'nofollow', :confirm => "are you sure?", :method => :delete
+          -if logged_in?
+            -if (current_user.mod_of?(@item.group) || current_user.can_modify?(@item))
+              -unless @item.accepted
+                = link_to t(".pick_answer"), solve_item_path(@item, :answer_id => answer), :class=>"standard-button"
+              -if solution
+                = link_to t(".unset_answer"),  unsolve_item_path(@item), :class=>"standard-button"
+            -if answer.wiki || current_user.can_edit_others_posts_on?(answer.group) || current_user.can_modify?(answer)
+              = link_to t("scaffold.edit"), edit_item_answer_path(@item, answer), :class=>"standard-button"
+            -if current_user.can_modify?(answer)
+              = link_to t("scaffold.destroy"), item_answer_path(@item, answer), :confirm => t("scaffold.sure", :model => "answer"), :method => :delete, :class =>"standard-button"
+            -if !@aflag.new?
+              .flagged
+                = "#{t('items.show.flagged_as')} #{t(@aflag.reason, :scope=>'flags.form')}"
+                =link_to t("scaffold.edit"), edit_item_answer_flag_path(@item,answer,@aflag), :class => "flag-link", :id => "edit_answer_flag_link", :rel => 'nofollow'
+                =link_to t("scaffold.destroy"), item_answer_flag_path(@item,answer,@aflag), :id => "destroy_answer_flag_link", :rel => 'nofollow', :confirm => "are you sure?", :method => :delete
 
-        -if answer.versions.count > 0
-          = link_to t(".history", :default => "history"), history_item_answer_path(@item, answer), :class=>"standard-button"
-        -if logged_in?
-          -if(current_user.can_modify?(@item) || current_user.mod_of?(@item.group))
-            = link_to t("scaffold.destroy"), item_answer_path(@item.id, answer.id), :confirm => "are you sure?", :method => :delete, :class=>"standard-button"
-          -if current_user.mod_of?(@item.group)
-            = link_to "ban", ban_path(:answer_ids => [answer.id]), :confirm => "are you sure?", :class=>"standard-button"
+          -if answer.versions.count > 0
+            = link_to t(".history", :default => "history"), history_item_answer_path(@item, answer), :class=>"standard-button"
+          -if logged_in?
+            -if(current_user.can_modify?(@item) || current_user.mod_of?(@item.group))
+              = link_to t("scaffold.destroy"), item_answer_path(@item.id, answer.id), :confirm => "are you sure?", :method => :delete, :class=>"standard-button"
+            -if current_user.mod_of?(@item.group)
+              = link_to "ban", ban_path(:answer_ids => [answer.id]), :confirm => "are you sure?", :class=>"standard-button"
+        .clear
+        .forms
       .clear
-      .forms
-    .clear
 
   .body-col
     .markdown.entry-content
@@ -78,16 +79,21 @@
             = t("time.ago", :time => time_ago_in_words(answer.updated_at))
 
     .clear
-    -if logged_in?
-      = link_to t(".add_comment"), new_item_comment_path(@item, answer), :class => "addNestedAnswer add_answer_comment_link"
-
     / Nested Answers
-    .children.comments
+    .children.comments{:style => "border-top: 4px solid gainsboro; background-color:#eee; width:70%"}
       -answer.comments.each do |comment|
-        = render :partial => "comments/comment", :object => comment, :locals => {:source => source, :mini => true}
+        .inline-comment{:style => "border-bottom: 1px dotted gainsboro"}
+          = render :partial => "comments/comment", :object => comment, :locals => {:source => source, :mini => true}
+
+    .clear
+    -if logged_in?
+      .actionbox-container{:style => "height:26px; width:70%"}
+        .actionbox{:style => "display:none"}
+          = link_to h("Reply to this comment"), new_item_comment_path(@item, answer), :class => "addNestedAnswer add_answer_comment_link standard-button"
+
 
   .clear
-  .forms.comment-form
+  .forms.comment-form{:style => "background-color:#eee; width:70%"}
     -form_tag item_answer_comments_path(@item, answer), :class => "form commentForm nestedAnswerForm" do
       -@comment = Comment.new
       = render :partial => "comments/form", :locals => {:source => source, :commentable => answer}
