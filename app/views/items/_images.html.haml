@@ -1,0 +1,34 @@
+- item = local_assigns[:item]
+
+.block
+  %h3
+    = "Images"
+  .controls
+    - if (@item.wiki && current_user.can_edit_wiki_post_on?(@item.group)) || current_user.can_edit_others_posts_on?(@item.group) || current_user.can_modify?(@item)
+      %span
+        = link_to "Edit", item_images_path(@item), :class => "button right"        
+  .content
+    %ul
+      -@item.images.each do |image|
+        %li
+          = link_to image.name.to_s, "#"
+
+
+.block
+  %h3
+    = "Public Images"
+  .controls
+    - if (@item.wiki && current_user.can_edit_wiki_post_on?(@item.group)) || current_user.can_edit_others_posts_on?(@item.group) || current_user.can_modify?(@item)
+      %span
+        = link_to "Edit", public_images_path(:item => @item), :class => "button right"        
+  .content
+    %ul
+      -#@public_images.each do |image|
+        -#%li
+          -#= link_to image.name.to_s, "#"
+
+
+
+
+
+

@@ -1,4 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :dummies
+  map.resources :images
+
   map.oauth_authorize '/oauth/start', :controller => 'oauth', :action => 'start'
   map.oauth_callback '/oauth/callback', :controller => 'oauth', :action => 'callback'
 
@@ -28,13 +31,9 @@ ActionController::Routing::Routes.draw do |map|
 
 
   map.resources :users, :member => { :change_preferred_tags => :any,
-                                     #:set_default_avatar => :any,
-                                     #:set_profile_avatar => :any,
                                      :follow => :any, :unfollow => :any},
                         :collection => {:autocomplete_for_user_login => :get},
                         :as => "members"
-
-  #map.resources :profile_images
 
 
   map.resources :session
@@ -85,6 +84,7 @@ ActionController::Routing::Routes.draw do |map|
         items.resources :flags
         items.resources :close_requests
         items.resources :open_requests
+
       end
     end
   end
@@ -94,7 +94,7 @@ ActionController::Routing::Routes.draw do |map|
 
   build_items_routes(map)
 
-  #map.resources :show_item, :action => :show
+
 
   map.resources :groups, :member => {:accept => :get,
                                      :close => :get,
@@ -119,7 +119,6 @@ ActionController::Routing::Routes.draw do |map|
     manage.properties '/properties', :action => 'properties'
     manage.content '/content', :action => 'content'
     manage.theme '/theme', :action => 'theme'
-    #manage.sections '/sections', :action => 'sections', :member => {:move => :post}
     manage.actions '/actions', :action => 'actions'
     manage.stats '/stats', :action => 'stats'
     manage.reputation '/reputation', :action => 'reputation'

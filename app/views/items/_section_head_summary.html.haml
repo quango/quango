@@ -11,15 +11,15 @@
           = h(section.name.capitalize)
 
         .navcontrols
-          %a.show_summary{:class => "#{section.name} section-button showhide"}
+          %a.show_summary{:class => "#{section.name} navlinks showhide"}
             = "show headlines"
-          %a.hide_summary{:class => "#{section.name} section-button showhide"}
+          %a.hide_summary{:class => "#{section.name} navlinks showhide"}
             = "hide headlines"
-        .navlinks
+        .navlinks.right
           -if section.name
             - create_item = section.create_label
             - url = domain_url(:custom => current_group.domain) << "/add/new?section=" << section.name.downcase
-            = link_to h(create_item), url,:class =>"link", :rel => 'nofollow', :node => section.name
+            = link_to h(create_item), url,:class =>"link", :rel => 'nofollow', :node => section.name, :class => "create-item-button"
             = "|"
           -else
             = "no mode"

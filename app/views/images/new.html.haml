@@ -1,0 +1,17 @@
+-content_for :main do
+
+  #main-index
+
+    %h1
+      = "New image"
+
+    %p
+      - form_for(@image) do |f|
+        = f.error_messages
+        %p
+          = f.text_field :name, :value => @image.name
+        %p
+          = f.submit 'Create'
+
+    %p
+      = link_to 'Back', images_path

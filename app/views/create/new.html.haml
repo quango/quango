@@ -3,19 +3,7 @@
   .navtitle
     = t(".title")
 
--content_for :sidebar_inner do
-  -if !current_group.item_help.empty?
-    .help
-      %h4
-        = t(".how_to_ask")
-      =current_group.item_help
-  .block
-    %h3
-      = "Related"
-    .content
-      %label.label#rqlabel
-        =t(".related_items", :default => :"items.show.related_items" )
-      %ul.items#related_items
+
 
 
 

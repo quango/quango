@@ -1,0 +1,16 @@
+-content_for :main do
+
+  %h1
+    = "Editing dummy"
+
+  %p
+    - form_for(@dummy) do |f|
+      = f.error_messages
+      %p
+        = f.text_field :name, :value => @dummy.name
+      %p
+        = f.submit 'Update'
+
+  %p
+    = link_to 'Show', @dummy |
+    = link_to 'Back', dummies_path

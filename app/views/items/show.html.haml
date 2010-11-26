@@ -54,6 +54,9 @@
                   .comment
                     =find_and_preserve(shapado_auto_link(@item.close_reason.comment))
             .entry-details
+              .small
+                %small
+                  = @item.id              
               .entry-title
                 = @item.title
                 - if @item.closed
@@ -119,25 +122,9 @@
 
 -content_for :sidebar_inner do
   #sidebar-inner
-    .block
-      %h3
-        = "Posted by"
-      .content
-        =render :partial => "member_panel"
-    .block
-      %h3
-        = "Related Images"
-      .content
-        = "Will go here"
-    .block
-      .data.updated{:title => @item.activity_at, :class => "relativetime"}
-        = t("time.ago", :time => time_ago_in_words(@item.activity_at))
-      =render :partial=> "participants", :locals=> {:item => @item}
-    .block
-      %h3
-        = "Latest thoughts"
-      .content
-        = "Will go here"
+    = render :partial => "author"
+    = render :partial => "images", :locals => {:item => @item}
+    = render :partial => "participants", :locals=> {:item => @item}
 
     -related_items = Item.related_items(@item, :language => find_languages)
     - if !related_items.empty?
@@ -148,48 +135,45 @@
           %ul.list
             -related_items.each do |rq|
               %li
-
                 = link_to h(rq.title), item_path(rq), :title => truncate(strip_tags(rq.body), :length => 200)
 
 
 -content_for :sidebar do
   #sidebar
-    .sidebar
-      .inner
-        = render :partial => "shared/current_tags"
-        = render :partial => "shared/tag_list", :object => @tag_cloud
+    = render :partial => "shared/current_tags"
+    = render :partial => "shared/tag_list", :object => @tag_cloud
 
-      - if logged_in? && (current_user.mod_of?(current_group) || current_user.can_view_offensive_counts_on?(current_group))
-        -unless @item.flags.count == 0
-          .block
-            %h3
-              = t(:flags, :scope => "activerecord.models")
-            .content
-              = render :partial => "flags/list", :locals => {:flaggeable => @item}
-
-        -unless @item.close_requests.size == 0
-          .block
-            %h3
-              = t(:prural_name, :scope => "close_requests.model")
-            .content
-              = render :partial => "close_requests/list", :locals => {:item => @item}
-
-        -unless @item.open_requests.size == 0
-          .block
-            %h3
-              = t(:prural_name, :scope => "open_requests.model")
-            .content
-              = render :partial => "open_requests/list", :locals => {:item => @item}
-
-      - if @item.badges.size > 0
+    - if logged_in? && (current_user.mod_of?(current_group) || current_user.can_view_offensive_counts_on?(current_group))
+      -unless @item.flags.count == 0
         .block
           %h3
-            = t('badges', :scope => "activerecord.models")
+            = t(:flags, :scope => "activerecord.models")
           .content
-            %ul.list
-              -@item.badges.each do |badge|
-                %li
-                  = render :partial => "badges/badge", :object => badge, :locals => {:hide_user => false}
+            = render :partial => "flags/list", :locals => {:flaggeable => @item}
+
+      -unless @item.close_requests.size == 0
+        .block
+          %h3
+            = t(:prural_name, :scope => "close_requests.model")
+          .content
+            = render :partial => "close_requests/list", :locals => {:item => @item}
+
+      -unless @item.open_requests.size == 0
+        .block
+          %h3
+            = t(:prural_name, :scope => "open_requests.model")
+          .content
+            = render :partial => "open_requests/list", :locals => {:item => @item}
+
+    - if @item.badges.size > 0
+      .block
+        %h3
+          = t('badges', :scope => "activerecord.models")
+        .content
+          %ul.list
+            -@item.badges.each do |badge|
+              %li
+                = render :partial => "badges/badge", :object => badge, :locals => {:hide_user => false}
 
 
 

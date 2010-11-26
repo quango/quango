@@ -6,33 +6,15 @@ class AvatarsController < ApplicationController
   # GET /avatars
   def index
     @user = User.find_by_login_or_id(current_user.id)
-    #@user = current_user.id
-
-    #@avatars = @user.avatars
-
     @avatars = Avatar.all
-
     @user_avatars = Avatar.all
-
-
-
-    #@avatars = Avatar.find(params[:user_id])
-
-    #@user_avatars = @user.avatars
-     # if avatar.user_id == @user
-     #     @avatars << avatar
-    #  end
-    #end
 
   end
 
   # GET /avatars/1
   def show
     @user = User.find_by_login_or_id(params[:id])
-
     @avatar = Avatar.find(params[:id])
-
-
   end
 
   # GET /avatars/new

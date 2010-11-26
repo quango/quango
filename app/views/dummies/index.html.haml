@@ -1,0 +1,30 @@
+-content_for :main do
+
+  #main-index
+
+    %h1
+      = "Listing dummies"
+
+    %p
+      = link_to 'New dummy', new_dummy_path
+
+    %p
+      %table
+        %tr
+          %th
+            = "name"
+          %th
+            = "actions"
+        - @dummies.each do |dummy|
+          %tr
+            %td
+              = dummy.name
+            %td
+              = link_to 'Show', dummy
+              = link_to 'Edit', edit_dummy_path(dummy)
+              = link_to 'Destroy', dummy, :confirm => 'Are you sure?', :method => :delete
+
+
+
+
+

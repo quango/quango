@@ -244,6 +244,7 @@ class ItemsController < ApplicationController
   # GET /items/new.xml
   def new
     @item = Item.new(params[:item])
+    @item.tags = current_group.default_tags.first
     respond_to do |format|
       format.html # new.html.erb
       format.json  { render :json => @item.to_json }
@@ -267,7 +268,11 @@ class ItemsController < ApplicationController
     @item.safe_update(%w[section node mode title bookmark main_image main_thumbnail images body language tags wiki anonymous], params[:item])
     @item.group = current_group
     @item.user = current_user
-    #@item.section = current_section
+
+ 
+
+ 
+   #@item.section = current_section
 
     #We also need to set the section updated for welcome page section list order
 

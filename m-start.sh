@@ -1,7 +1,6 @@
 #!/bin/sh
 #
-# Script to backup database
+# Script to start Mongo
 #
 
-echo "Mongo started"
 sudo ~/mongodb/bin/mongod

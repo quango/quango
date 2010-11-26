@@ -12,12 +12,10 @@ class Item
   VIDEO_MODES = %w{youtube vimeo another}
 
   key :_id, String
-  key :section, String
+  key :section, String #TODO: replace with object
   key :mode, String
   key :type, String
-  #key :node, String
   key :bookmark, String
-  #key :link, String
   key :title, String, :required => true
   key :body, String
   key :persons, String
@@ -28,7 +26,7 @@ class Item
 
   key :video_mode, String, :in => VIDEO_MODES, :default => "youtube"
 
-  key :thumbnail, :max_length => 1.megabytes
+  key :default_thumbnail, String
 
   key :main_image, String, :default => "main-image.gif"
   key :main_thumbnail, String, :default => "main-thumbnail.gif"
@@ -85,10 +83,11 @@ class Item
   has_many :badges, :as => "source"
   has_many :comments, :as => "commentable", :order => "created_at asc", :dependent => :destroy
 
-  #has_many :images
+
   has_many :flags
   has_many :close_requests
   has_many :open_requests
+
 
   validates_presence_of :user_id
   validates_uniqueness_of :slug, :scope => :group_id, :allow_blank => true

@@ -5,7 +5,7 @@
 
   #main-index
     .title
-      =@user.login.capitalize << "'s Profile images"
+      =@user.login.capitalize << "'s Profile Images"
     
     = yield :secondary_navigation
 
@@ -19,28 +19,20 @@
           = "<b>Profile Images</b> are used for your profile and when you <a href='/create/new'>add something</a>"
 
 
-    %small
-      ="Default avatar: "
-      =@user.default_avatar.to_s
-      = "(#{@user.default_avatar_link})"
-    .clear
-    %small
-      ="Default avatar: "
-      =@user.profile_image.to_s
-      = "(#{@user.profile_image_link})"
+
+    .instruction-box
+      = link_to 'New image', new_avatar_path, :class => "action-button"
 
 
     %hr
     %table{:class => "image-table"}
       %tr
         %th 
-          ="Set"
+          ="Use for icons"
         %th 
-          ="Avatar"
+          ="Use for profile"
         %th 
-          ="Standard"
-        %th 
-          ="Small"
+          ="Thumbnail"
         %th 
           ="Actions"
 
@@ -56,9 +48,11 @@
           %tr
             %td
               -if @user.default_avatar == avatar.id
-                = "default"
+                = image_tag("/images/buttons/radio_button_on.png" , :title => "selected")
+                %input{:type => "radio", :name => "default_avatar", :style => "height:20px; width:20px", :checked => true}
               -else
                 = link_to "set", set_default_avatar_path(avatar)
+                %input{:type => "radio", :name => "default_avatar"}
             %td
               -if @user.profile_image == avatar.id
                 = "default"
@@ -68,19 +62,20 @@
             %td
 
               = image_tag cropped_avatar.process(:thumb,"48x48").url, :alt => avatar.name
+
             %td
-              = image_tag avatar32, :alt => avatar.name
-            %td
-              = image_tag cropped_avatar.process(:thumb,"16x16").url, :alt => avatar.name
-            %td
-              = link_to 'Change image', edit_avatar_path(avatar), :class => "standard-button"
-              = link_to 'Crop image', crop_avatar_path(avatar), :class => "standard-button"
-              = link_to 'Delete', avatar, :confirm => 'Are you sure?', :method => :delete, :class => "delete-button"
+              = link_to 'Change image', edit_avatar_path(avatar), :class => "action-link"
+              = link_to 'Cropping', crop_avatar_path(avatar), :class => "action-link"
+              = link_to 'Delete', avatar, :confirm => 'Are you sure?', :method => :delete, :class => "delete-link"
 
 
-    %p
-      = link_to 'New image', new_avatar_path, :class => "standard-button"
-
+      %tr
+        %td{:colspan => 2}
+          = "Click on the radio buttons to choose your images"
+        %td
+          = "&nbsp;"
+        %td
+          = "Editing"
 
  
 

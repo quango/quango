@@ -5,13 +5,13 @@
   -if item.activity_at > Time.zone.now.yesterday
     %span.new
       = "new"
-  -if item.updated_at > Time.zone.now.yesterday
+  -elsif item.activity_at > Time.zone.now.yesterday && !last_target.present
     %span.updated
-      = "updated"
+      = "edited"
 
   -if item.activity_at > Time.zone.now.yesterday && last_target.present?
-    %span
-      = image_tag("/images/icons/hot.png", :width => 12, :height => 12)
+    %span.icon
+      = image_tag("/images/icons/new_comments.png")
 
   -#-if last_target.present?
   -#  %span.active

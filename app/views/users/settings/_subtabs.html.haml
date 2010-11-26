@@ -3,17 +3,17 @@
     .navcontrols
       %ul
         %li
-          = "Show:&nbsp;"
+          = "Edit my:&nbsp;"
         %li.account
-          = link_to h("Settings"), settings_path(:tab => "account"), :class => "standard-button"
+          = link_to h("Account Settings"), settings_path(:tab => "account"), :class => "standard-button"
         %li.social
           = link_to h("Social Networks"), settings_path(:tab => "social"), :class => "standard-button"
         %li.details
-          = link_to h("My Details"), settings_path(:tab => "details"), :class => "standard-button"
+          = link_to h("Profile Info"), settings_path(:tab => "details"), :class => "standard-button"
         %li.avatar
-          = link_to h("My Images"), avatars_path, :class => "standard-button"
+          = link_to h("Profile Images"), avatars_path, :class => "standard-button"
         %li.messaging
-          = link_to h("Messaging"), settings_path(:tab => "messaging"), :class => "standard-button"
+          = link_to h("Message Settings"), settings_path(:tab => "messaging"), :class => "standard-button"
   .clear
 
 

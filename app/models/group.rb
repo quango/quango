@@ -62,7 +62,8 @@ class Group
   key :primary, String, :default => "#2b5782" #tabs, 
   key :primary_hover, String, :default => "#E1A970" #header_bg and edit buttons
   key :primary_selected, String, :default => "#990000"
-  key :secondary, String, :default => "#5f80a1" #tabs, 
+  key :secondary, String, :default => "#5f80a1" #tabs,
+  key :secondary_hover, String, :default => "orange"
   key :secondary_selected, String, :default => "#E1A970"
   key :secondary_active, String, :default => "#990000"
   key :tertiary, String, :default => "#E1A970" #tabs, 

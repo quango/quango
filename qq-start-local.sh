@@ -20,7 +20,6 @@ $SCREEN_BIN -S JUDGE -d -m ruby app/actors/judge.rb
 
 $SCREEN_BIN -ls
 
-echo "screen -ls" lists attached screens
 echo "screen -r JUDGE" re-attach to screen session at [JUDGE]
 echo "When in screen 'ctrl+a+d' to detach"
-echo "screen -wipe" kills dead screens
+

@@ -1,3 +1,48 @@
+.navlinks
+  cursor: pointer
+
+.tertiary-button
+
+  background-image: url(/images/buttons/section_bg.png)
+  background-repeat: repeat-x
+  height: 16px
+  line-height: 14px
+  margin: 4px 4px 4px 0
+  color: white
+  cursor: pointer
+  overflow: visible
+  float: left
+  font-weight: bold
+  font-size: 10px
+  text-align: center
+  text-spacing: -1px
+  padding: 0 13px 0 13px
+  +rounded(2px,2px,2px,2px)
+  &:hover
+    color: gainsboro
+
+.create-item-button 
+
+  background-image: url(/images/buttons/section_bg.png)
+  background-repeat: repeat-x
+  height: 16px
+  width: 140px
+  line-height: 16px
+  margin: 4px 4px 4px 0
+  color: #eee
+  cursor: pointer
+  overflow: visible
+  float: left
+  font-weight: bold
+  font-size: 10px
+  text-spacing: -1px
+  text-transform: uppercase
+  padding: 0 8px 0 4px
+  +rounded(4px,4px,4px,4px)
+  &:hover
+    color: #666
+
+
 .section-button 
 
   background-image: url(/images/buttons/section_bg.png)
@@ -136,6 +181,27 @@
   &a:hover
     color: white
     text-decoration: underline
+
+.action-button
+  float: right
+  background-color: green //#990000
+  background-image: url(/images/buttons/section_bg_32.png)
+  background-repeat: repeat-x
+  background-position: 3px
+  border: 1px solid green //#990000
+  color: white
+  font-size: 12px
+  font-weight: bold
+  height: 26px
+  line-height: 26px
+  margin: 0 3px 0 3px
+  padding: 0 16px
+  text-transform: uppercase
+  text-shadow: green 0px -1px 1px
+  +rounded(4px,4px,4px,4px)
+  a:hover
+    color: white
+
 
 .share
   &.button

@@ -1,0 +1,7 @@
+.block
+  %h3
+    = "Posted by" #maybe 
+  .content
+    = render :partial => "users/member_details_show", :locals => {:user => @item.user}
+
+

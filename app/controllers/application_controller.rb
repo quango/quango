@@ -90,14 +90,21 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_group
 
+  def current_item
+    @item
+  end
+  helper_method :current_item
+
   def find_section
     @section
   end
-  #helper_method :current_group
+
 
   def current_section
     @section
   end
+  helper_method :current_section
+
 
   def current_tags
     @current_tags ||=  if params[:tags].kind_of?(String)

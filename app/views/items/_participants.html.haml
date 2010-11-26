@@ -1,11 +1,16 @@
-%h3
-  = "Participants"
-.content
-  %ul.list
-    -@answers.each do |answer|
-      %li{:onclick => "document.location.href='#{user_path(answer.user)}'"}
-        -if answer.user.login != "admin"
-          = render :partial => "users/participant", :locals => {:answer => answer, :user => answer.user}
+.block
+  %h3
+    = "Participants"
+  .control
+    .data.updated{:title => @item.activity_at, :class => "relativetime"}
+      = t("time.ago", :time => time_ago_in_words(@item.activity_at))
+
+  .content
+    %ul.list
+      -@answers.each do |answer|
+        %li{:onclick => "document.location.href='#{user_path(answer.user)}'"}
+          -if answer.user.login != "admin"
+            = render :partial => "users/participant", :locals => {:answer => answer, :user => answer.user}
 
 
 

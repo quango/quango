@@ -1,0 +1,18 @@
+-content_for :main do
+
+  #main-index
+
+    %h1
+      = "Editing dummy"
+
+    %p
+      - form_for(@image) do |f|
+        = f.error_messages
+        %p
+          = f.text_field :name, :value => @image.name
+        %p
+          = f.submit 'Update'
+
+    %p
+      = link_to 'Show', @image |
+      = link_to 'Back', images_path

@@ -1,21 +1,23 @@
 .section-head{:class => @active_subtab.to_s}
   .secondary-navigation-sections
-    .navlabel
+    .navlinks.left
+      -if section.mode
+        - create_item = section.create_label
+        - url = domain_url(:custom => current_group.domain) << "/add/new?section=" << section.name.downcase
+        = link_to "&#9733; #{create_item}", url,:class =>"link", :rel => 'nofollow', :node => section.name, :class => "create-item-button"
+      -else
+        = "no mode"
+
+    .navlabel.left
       - section_link = section.name.downcase
       = link_to (section.name.capitalize), "#{section.name}"
 
     .navcontrols
-      %a.show_summary{:class => "#{section.name} section-button show"}
+      %a.show_summary{:class => "#{section.name} navlinks show"}
         = "show headlines"
-      %a.hide_summary{:class => "#{section.name} section-button hide"}
+      %a.hide_summary{:class => "#{section.name} navlinks hide"}
         = "hide headlines"
-    .navlinks
-      -if section.mode
-        - create_item = section.create_label
-        - url = domain_url(:custom => current_group.domain) << "/add/new?section=" << section.name.downcase
-        = link_to h(create_item), url,:class =>"link", :rel => 'nofollow', :node => section.name
-      -else
-        = "no mode"
+
 
   .section-listing{:class => section.name}
 
