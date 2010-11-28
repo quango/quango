@@ -6,12 +6,14 @@
       = "New image"
 
     %p
-      - form_for(@image) do |f|
+      - form_for @image, :url => item_images_path(@item), :html => {:multipart => true} do |f|
         = f.error_messages
         %p
           = f.text_field :name, :value => @image.name
         %p
+          = f.file_field :image, :value => @image.image
+        %p
           = f.submit 'Create'
 
     %p
-      = link_to 'Back', images_path
+      = link_to 'Back', item_images_path(@item)

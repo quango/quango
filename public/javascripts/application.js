@@ -1,12 +1,11 @@
 // perform JavaScript after the document is scriptable.
 
-$(window).keypress(function(event) {
-    if (!(event.which == 115 && event.ctrlKey)) return true;
-    alert("Ctrl-S pressed");
-    event.preventDefault();
-    return false;
+$(document).ready(function(){
+$(".fade-thumbnails").hover(
+    function() {$(this).children('.a').stop().animate({"opacity": "0"}, "slow");},
+    function() {$(this).children('.a').stop().animate({"opacity": "1"}, "fast");}
+);
 });
-
 
 $(function() {	// setup ul.tabs to work as tabs for each div directly under div.panes	
   $("#member-tabs ul.member-tabs").tabs("div.panes > div.pane", { history: true, effect: 'fade', fadeOutSpeed: 400 });
@@ -21,7 +20,6 @@ $(".answer").hover(
       function() { $(this).find('.actionbox-container').children('.actionbox').fadeIn('fast'); },
       function() { $(this).find('.actionbox-container').children('.actionbox').fadeOut('slow'); }
  );
-
 });
 
 

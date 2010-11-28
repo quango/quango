@@ -1,0 +1,115 @@
+- content_for :custom_javascript do
+
+  = javascript_include_tag 'jquery.jcrop.min'
+  = stylesheet_link_tag 'jquery-jcrop'
+
+- content_for :main do
+
+  %script{:language => "Javascript"}
+    = "function showPreview(coords)"
+    = "{"
+    = "var aspect_ratio = #{@image.image_width} / #{@image.image_height};"
+    = "var multplier =(1.0 * #{@image.image_width} / #{Image::CROP_W});"
+    = "var crop_str = Math.round(coords.w * multplier) + 'x' + Math.round(coords.h * multplier) + '+' +"
+    = "               Math.round(coords.x * multplier) + '+' + Math.round(coords.y * multplier)"
+    -#= "               '=>#{Image::THUMB_W }x#{Image::THUMB_H}'"
+    = "$('#image_cropping').val(crop_str);"
+    = "var rx = #{Image::THUMB_W}/ coords.w;"
+    = "var ry = #{Image::THUMB_H}/ coords.h;"
+    = "var sx = 140/ coords.w;"
+    = "var sy = 140/ coords.h;"
+    = "$('#preview').css({"
+    = "width: Math.round(rx * #{Image::CROP_W}) + 'px',"
+    = "height: Math.round(ry * #{Image::CROP_W} * #{@image.image_height} / #{@image.image_width}) + 'px',"
+    = "marginLeft: '-' + Math.round(rx * coords.x) + 'px',"
+    = "marginTop: '-' + Math.round(ry * coords.y) + 'px'"
+    = "});"
+    = "}"
+
+    = "$(function() {"
+    = "$('#cropbox').Jcrop({"
+    = "onSelect: showPreview,"
+    = "onChange: showPreview,"
+    = "setSelect:   [ 0, 0, 240, 240 ],"
+    = "aspectRatio: #{Image::THUMB_W}/#{Image::THUMB_H}"
+    = "});"
+    = "});"
+
+
+
+  - dragonfly_link = "/system/dragonfly/development/" << @image.image_uid.to_s
+  - cropped_image = @image.image.process!(:resize, '565x')
+
+  #main-index
+    .secondary-navigation  
+      %h3
+        = "Profile Image Cropping"
+      .navcontrols  
+        = link_to 'Back', item_images_path, :class => "standard-button right"
+
+    .clear
+
+    %div.left{:style => "width:100%"}
+      ="<b>Instructions:</b></br>"
+      ="Click and drag box and the press the big red Crop! button"
+      %div.right
+        - form_for @image, :url => item_image_path(@item,@image), :html => {:multipart => true} do |f|
+          = f.hidden_field :image_cropping, :id => 'image_cropping'
+          = f.submit "Crop!", :class => "edit-button"   
+      %div.right
+        = link_to "Flip", flip_item_image_path(@item,@image), :class => "standard-button"
+        = link_to "Flop", flop_item_image_path(@item,@image), :class => "standard-button"
+        = link_to "-5", rotate_left_item_image_path(@item,@image), :class => "standard-button"
+        = link_to "+5", rotate_right_item_image_path(@item,@image), :class => "standard-button"
+        = link_to "180", rotate_180_item_image_path(@item,@image), :class => "standard-button"
+
+    .clear
+    %p
+      = image_tag cropped_image.url, :width => "#{Image::CROP_W}px", :id => 'cropbox'
+
+    -#%div{:style => "width:#{Image::THUMB_W}px;height:#{Image::THUMB_H}px;overflow:hidden"}
+      -#= image_tag (dragonfly_link, :width => "#{Image::CROP_W}px", :id => 'preview2')
+
+    -# form_for @image do |f|
+      -#= f.text_field :image_cropping, :id => 'image_cropping'
+      -#= f.submit "Crop!"
+
+  #sidebar
+
+    .block
+      %h3
+        = "Metadata"
+      .controls
+        = "edit"
+      .content
+        ="<b>Name:</b>"
+        =h(@image.name)
+
+
+  #sidebar-inner
+    -#= render :partial => "/users/profile_image", :object => @user
+    .block
+      %h3
+        = "Image preview"
+      %div{:style => "width:#{Image::THUMB_W}px;height:#{Image::THUMB_H}px;overflow:hidden"}
+        = image_tag (dragonfly_link, :width => "256px", :id => 'preview')
+    .block
+      %h3
+        = h("Tips")
+      .content
+        = h("This is an example of a good profile image")
+      .content
+        = h("This is an example of a bad profile image")
+
+    .block
+      %h3
+        = h("Tips")
+      .content
+        = h("This is an example of a good profile image")
+      .content
+        = h("This is an example of a bad profile image")
+
+
+
+
+

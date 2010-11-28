@@ -27,13 +27,13 @@ class Item
   key :video_mode, String, :in => VIDEO_MODES, :default => "youtube"
 
   key :default_thumbnail, String
-
   key :main_image, String, :default => "main-image.gif"
   key :main_thumbnail, String, :default => "main-thumbnail.gif"
 
   key :answers_count, Integer, :default => 0, :required => true
   key :views_count, Integer, :default => 0
-  key :image_count, Integer, :default => 0
+  key :images_count, Integer, :default => 0
+
   key :hotness, Integer, :default => 0
   key :flags_count, Integer, :default => 0
   key :favorites_count, Integer, :default => 0
@@ -60,6 +60,12 @@ class Item
   key :answer_id, String
   belongs_to :answer
 
+  key :image_id, String
+  belongs_to :image
+
+  key :bunny_id, String
+  belongs_to :bunny
+
   key :group_id, String, :index => true
   belongs_to :group
 
@@ -79,6 +85,8 @@ class Item
 
   belongs_to :last_target, :polymorphic => true
 
+  has_many :bunnies, :dependent => :destroy
+  has_many :images, :dependent => :destroy
   has_many :answers, :dependent => :destroy
   has_many :badges, :as => "source"
   has_many :comments, :as => "commentable", :order => "created_at asc", :dependent => :destroy
@@ -163,12 +171,12 @@ class Item
   end
 
   def image_added!
-    self.increment(:image_count => 1)
+    self.increment(:images_count => 1)
     on_activity
   end
 
   def image_removed!
-    self.decrement(:image_count => 1)
+    self.decrement(:images_count => 1)
   end
 
   def flagged!

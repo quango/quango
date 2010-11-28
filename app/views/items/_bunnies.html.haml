@@ -1,0 +1,18 @@
+- item = local_assigns[:item]
+
+.block
+  %h3
+    = "Bunnies"
+  .controls
+    - if current_user
+      - if (@item.wiki && current_user.can_edit_wiki_post_on?(@item.group)) || current_user.can_edit_others_posts_on?(@item.group) || current_user.can_modify?(@item)
+        %span
+          = link_to "Edit", item_bunnies_path(@item), :class => "button right"        
+  .content
+    %ul
+      -@item.bunnies.each do |bunny|
+        %li
+          = link_to bunny.name.to_s, item_bunny_path(@item, bunny)
+
+
+

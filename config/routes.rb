@@ -1,6 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :dummies
-  map.resources :images
+  #map.resources :images
 
   map.oauth_authorize '/oauth/start', :controller => 'oauth', :action => 'start'
   map.oauth_callback '/oauth/callback', :controller => 'oauth', :action => 'callback'
@@ -74,6 +74,12 @@ ActionController::Routing::Routes.draw do |map|
                                             :open => :put} do |items|
 
         items.resources :comments
+        items.resources :images, :member => { :crop => :get, 
+                                              :pull => :get, 
+                                              :set_default => :get, 
+                                              :flip => :get, :flop => :get,
+                                              :rotate_left => :get, :rotate_right => :get, :rotate_180 => :get  
+                                              }
         items.resources :answers, :member => {:history => :get,
                                                   :diff => :get,
                                                   :revert => :get} do |answers|
@@ -84,6 +90,7 @@ ActionController::Routing::Routes.draw do |map|
         items.resources :flags
         items.resources :close_requests
         items.resources :open_requests
+        items.resources :bunnies #this item has_many bunnies
 
       end
     end

@@ -3,26 +3,36 @@
   #main-index
 
     %h1
-      = "Listing images"
+      = "Listing images for"
+      = @item.id
+    %small
+      = link_to @item.title, item_path(@item)
 
     %p
-      = link_to 'New image', new_image_path
+      = link_to 'New image', new_item_image_path(@item)
 
     %p
-      %table
+      %table{:class => "image-table"}
         %tr
           %th
             = "name"
           %th
+            = "thumbnail"
+          %th
             = "actions"
-        - @images.each do |image|
-          %tr
-            %td
-              = image.name
-            %td
-              = link_to 'Show', image
-              = link_to 'Edit', edit_image_path(image)
-              = link_to 'Destroy', image, :confirm => 'Are you sure?', :method => :delete
+          -#unless @item.images.empty?
+          - @item.images.each do |image|
+            %tr
+              %td
+                = image.name.to_s
+              %td
+                - cropped_image = image.image.process(:thumb,image.image_cropping)
+                = image_tag cropped_image.process(:thumb,"128x").url, :alt => image.name, :title => image.name
+              %td
+                = link_to 'Show', item_image_path(@item, image)
+                = link_to 'Edit', edit_item_image_path(@item, image)
+                = link_to 'Cropping', crop_item_image_path(@item, image), :class => "action-link"
+                = link_to 'Destroy', item_image_path(@item, image), :confirm => 'Are you sure?', :method => :delete
 
 
 

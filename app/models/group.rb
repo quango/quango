@@ -30,6 +30,7 @@ class Group
   key :private, Boolean, :default => false
   key :theme, String, :default => "ping"
   key :owner_id, String
+  key :has_bunnies, Boolean, :default => true
 
   #analytics
   key :robots, Boolean, :default => true

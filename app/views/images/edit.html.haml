@@ -3,16 +3,18 @@
   #main-index
 
     %h1
-      = "Editing dummy"
+      = "Editing image"
 
     %p
-      - form_for(@image) do |f|
+      - form_for @image, :url => item_image_path(@item), :html => {:multipart => true} do |f|
         = f.error_messages
         %p
           = f.text_field :name, :value => @image.name
         %p
+          = f.file_field :image, :value => @image.image
+        %p
           = f.submit 'Update'
 
     %p
-      = link_to 'Show', @image |
-      = link_to 'Back', images_path
+      = link_to 'Show', item_image_path
+      = link_to 'Back', item_images_path

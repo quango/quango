@@ -1,48 +1,55 @@
-Because I don't like typing lots of things into shell I use a number of simple scripts to automate tasks, this one starts MongoDB it is about as simple as it gets. Note that I usually run my processes in screen sessions so I can re-attach them easily, mainly useful when developing, but then hey, thats what I do :)
-
-The script:
-
-    #!/bin/sh
-    #
-    # Script to start MongoDB
-    # 
-    SCREEN_BIN="/usr/bin/screen" #your path to screen 
-    MONGOD_BIN="~/mongodb/bin/mongod"
-    $SCREEN_BIN -S MONGO -d -m MONGOD_BIN
-    echo "MongoDB started on MONGO screen"
-    echo "screen -r MONGO to re-attach"
-    echo "When in screen 'ctrl+a+d' to detach again"
+%script
+  ="$(document).ready(function(){"
+  ="$('img.a').hover("
+  ="function() {"
+  ="$(this).stop().animate({'opacity': '0'}, 'slow');"
+  ="},"
+  ="function() {"
+  ="$(this).stop().animate({'opacity': '1'}, 'slow');"
+  ="});"
+  ="});"
 
 
-Notes:
-
-Save your script as "db-start.sh" or something then you just type "./db-start.sh" to kick it off. Once you have the hang of *starting* the database, you may also be interested in the backup and restore scripts. You may need to  "chmod 700 db-start.sh" to make it executable
-
-
+                       item_images GET    /items/:item_id/images(.:format)                               {:action=>"index", :controller=>"images"}
+                                   POST   /items/:item_id/images(.:format)                               {:action=>"create", :controller=>"images"}
+                    new_item_image GET    /items/:item_id/images/new(.:format)                           {:action=>"new", :controller=>"images"}
+                   edit_item_image GET    /items/:item_id/images/:id/edit(.:format)                      {:action=>"edit", :controller=>"images"}
+                        item_image GET    /items/:item_id/images/:id(.:format)                           {:action=>"show", :controller=>"images"}
+                                   PUT    /items/:item_id/images/:id(.:format)                           {:action=>"update", :controller=>"images"}
+                                   DELETE /items/:item_id/images/:id(.:format)                           {:action=>"destroy", :controller=>"images"}
 
 
 
+Although the thinking daily system can support any custom domain names, our domain portfolio also contains some highly targetted and effective names that can be used by adopters of the self publishing model. As follows:
+
+Top level
+
+<table cellspacing="3" cellspacing="2" style="border:1px solid white">
+<th align="left" width="30%">Top Level Domains</th>
+<th align="left" width="40%">Example subdomains</th>
+<th align="left" width="30%">Notes</th>
+<tr>
+<td style="border:1px solid white">
+thinkingdaily.com<br/>
+thinkingdaily.co.uk<br/>
+thinkingdaily.com.au<br/>
+</td>
+<td style="border:1px solid white">
+<i>person</i>.thinkingdaily.com<br/>
+<i>country</i>.thinkingdaily.com<br/>
+<i>organisation</i>.thinkingdaily.com
+
+</td style="border:1px solid white">
+<td style="border:1px solid white">We consider these as our primary domains, naturally if you want to add a group simply contact us</td>
+</tr>
+
+
+</table>
 
 
 
 
-#!/bin/sh
-#
-# Script to start MongoDB
-# 
 
-SCREEN="/usr/bin/screen" #your path to screen
-MONGOD="~/mongodb/bin/mongod" #your path to mongod ( may be different )
 
-$SCREEN -S MONGO -d -m echo "Sausage"
-#$SCREEN -r MONGO echo "sausage"
 
-#sudo ~/mongodb/bin/mongod
 
-#$SCREEN -d MONGO
-
-$SCREEN -ls
-
-echo "MongoDB started on MONGO screen"
-echo "screen -r MONGO to re-attach"
-echo "When in screen 'ctrl+a+d' to detach again"

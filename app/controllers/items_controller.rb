@@ -208,6 +208,8 @@ class ItemsController < ApplicationController
       return
     end
 
+    @images = Image.all
+
     current_order = "updated_at desc"
     conditions = scoped_conditions(:banned => false)
     @items = Item.all({:order => current_order}.merge(conditions))

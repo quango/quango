@@ -102,6 +102,11 @@
   .description
     = t('.default_tags_legend')
 
+.group
+  = form.check_box :has_bunnies, :class => "checkbox"
+  = form.label :has_bunnies, t('has_bunnies', :scope => "activerecord.attributes.group"), :class => "radio"
+
+
 -if AppConfig.enable_i18n
   .group
     = form.label :language, t(:language, :scope => "activerecord.attributes.group"), :class => "label"

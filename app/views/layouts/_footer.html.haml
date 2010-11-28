@@ -1,5 +1,15 @@
-.entry.left
-  #{AppConfig.version}
+.footer-links
+  .entry.left
+    #{AppConfig.version}
 
-.entry.right{:style => "width:128px"}
-  = render :partial => "shared/bug"
+  .entry.right{:style => "width:128px"}
+    = render :partial => "shared/bug"
+
+.clear
+
+.footer-information
+  .entry.left
+    = "copyright, advertising credits and legals"
+
+  .entry.right
+    = render :partial => "shared/hosting_partner"
