@@ -16,6 +16,10 @@ class Section
 
   alias :group :_root_document
 
+
+  has_many :items, :dependent => :destroy
+
+
   def self.types
     types = %w[NewsSection NewsfeedSection ThoughtSection VideoSection ImageSection ArticleSection DiscussionSection BookmarkSection]
     types

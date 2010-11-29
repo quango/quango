@@ -56,7 +56,17 @@
             .entry-details
               .small
                 %small
-                  = @item.id              
+                  = "<br/>Item id:"
+                  = @item.id 
+                  = "<br/>Item section:"
+                  = @item.section
+                  = "<br/>Active suction:"
+                  = @active_suction.id
+                  = "<br/>Item section id:"
+                  = @item.section_id
+
+
+
               .entry-title
                 = @item.title
                 - if @item.closed
@@ -80,7 +90,7 @@
         .clear
         %a{:name=>"answers"}
         #answers
-          .tertiary-navigation{:class => @active_subtab.to_s}
+          .secondary-navigation{:class => @active_subtab.to_s}
             %h3
               = h("What do you think?")
               = t(@answers.total_entries + (@item.accepted ? 1 : 0))

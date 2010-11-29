@@ -8,7 +8,7 @@
   - create_mode = "layouts.create." << @active_section #.create_label
   - url = domain_url(:custom => current_group.domain) << "/add/new?section=" << @active_section
 
-  = link_to '&#9733;'<< t(create_mode), url, :rel => 'nofollow', :mode => @mode , :class=>"section-button"
+  = link_to '&#9733;'<< t(create_mode), url, :rel => 'nofollow', :mode => @mode , :class=>"create-button"
 
 -else
   = "no mode"

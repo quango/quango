@@ -1,5 +1,5 @@
 desc "Fix all"
-task :fixall => [:environment, "fixdb:fixusers"] do
+task :fixall => [:environment, "fixdb:modes2nodes"] do
 end
 
 namespace :fixdb do
@@ -16,35 +16,17 @@ namespace :fixdb do
   task :modes2nodes => :environment do
     count = 0
     Group.find_each do |group|
-
-      Item.find_each(:group_id => group.id) do |item|
-        count = count + 1
-	      if item.mode == "bookmark"
-              	item.set({:section => "bookmarks"})
-	      end
-	      if item.mode == "feature"
-              	item.set({:section => "features"})
-              	item.set({:mode => "discussion"})
-	      end
-	      if item.mode == "video"
-              	item.set({:section => "video"})
-	      end
-	      if item.mode == "bug"
-              	item.set({:section => "bugs"})
-              	item.set({:mode => "discussion"})
-	      end
-	      if item.mode == "news_article"
-              	item.set({:section => "news"})
-              	item.set({:mode => "news"})
-	      end
-	      if item.mode == "discussion"
-              	item.set({:section => "discussions"})
-	      end
-	      #item.set({})
+      group.sections.each do |section|    
+        Item.find_each(:group_id => group.id) do |item|
+          count = count + 1
+       
+           if item.section == section.name
+              	item.set({:section_id => section.id})
+           end
       end
       puts "Updating #{count}  #{group["name"]}  items"
     end
-
+    end
   end
 
   task :badges => :environment do

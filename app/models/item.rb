@@ -54,6 +54,9 @@ class Item
 
   key :activity_at, Time
 
+  #key :section_id, String
+  #belongs_to :section, :class_name => "Section"
+
   key :user_id, String, :index => true
   belongs_to :user
 

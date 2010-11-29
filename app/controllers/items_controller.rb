@@ -202,11 +202,20 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.xml
   def show
+
+    #@item.section
+
     if params[:language]
       params.delete(:language)
       head :moved_permanently, :location => url_for(params)
       return
     end
+
+
+    @section = @item.section.id
+
+    #@section_id = @section.find
+
 
     @images = Image.all
 
@@ -352,7 +361,7 @@ class ItemsController < ApplicationController
       @item.safe_update(%w[node mode title bookmark main_thumbnail images body language tags wiki adult_content version_message  anonymous], params[:item])
       @item.updated_by = current_user
       @item.last_target = @item
-
+      #@item.section = @active_section
       @item.slugs << @item.slug
       @item.send(:generate_slug)
 
@@ -773,7 +782,20 @@ class ItemsController < ApplicationController
 
   def set_active_section
      @active_section = params[:section]
+
+     @suctions = current_group.sections
+     
+     @suctions.each do |suction|
+      
+     if suction.name == @active_section
+        @active_suction = suction
+     end
+
+     end
+
      #@section = Section.find
+
+
      @active_section
   end
 

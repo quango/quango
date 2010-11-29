@@ -14,11 +14,11 @@
     %ul
       -@item.images.each do |image|
         %li.fade-thumbnails
-          - thumbnail_hover = image.image.process(:thumb,image.image_cropping)
-          - thumbnail_static = thumbnail_hover.process(:greyscale, :depth => 24)
+          -# thumbnail_hover = image.process(:thumb,image.image_cropping)
+          -# thumbnail_static = thumbnail_hover.process(:greyscale, :depth => 24)
           -# thumbnail_watermarked = thumbnail_static.process(:add_watermark, :path => "#{Rails.root}/public/images/watermark.png")
-          = image_tag thumbnail_static.process(:thumb,"128x").url, :alt => image.name, :title => image.name, :class => "a"
-          = image_tag thumbnail_hover.process(:thumb,"128x").url, :alt => image.name, :title => image.name, :class => "b"
+          =# image_tag thumbnail_static.process(:thumb,"128x").url, :alt => image.name, :title => image.name, :class => "a"
+          =# image_tag thumbnail_hover.process(:thumb,"128x").url, :alt => image.name, :title => image.name, :class => "b"
         %li
           -#= image_tag thumbnail_watermarked.url, :alt => image.name, :title => image.name, :class => "no"
           -#= link_to image.name.to_s, item_image_path(@item, image)

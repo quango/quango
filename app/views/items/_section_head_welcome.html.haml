@@ -25,6 +25,7 @@
       .title
         = h("mode.#{section.mode}")
       .content
+
         %ul.listing
           -if @items.empty?
             %li.highlight
@@ -46,7 +47,14 @@
         = h("mode.#{section.name}")
       .content
 
+        = "section from sections" 
+        - @active_suction.items.each do |item|
+          = "#{@section.name} + #{item.slug}"
+
+
+
         %ul.listing
+
           -if @items.empty?
             %li.highlight
               = t(".empty")
