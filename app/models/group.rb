@@ -6,7 +6,7 @@ class Group
 
   timestamps!
 
-  BLACKLIST_GROUP_NAME = ["www", "net", "org", "admin", "ftp", "mail", "test", "blog",
+  BLACKLIST_GROUP_NAME = ["demo", "nigger", "wank", "cunt", "fuck", "www", "net", "org", "admin", "ftp", "mail", "test", "blog",
                  "bug", "bugs", "dev", "ftp", "forum", "community", "mail", "email",
                  "webmail", "pop", "pop3", "imap", "smtp", "stage", "stats", "status",
                  "support", "survey", "download", "downloads", "faqs", "wiki",
@@ -56,6 +56,11 @@ class Group
   key :has_custom_js, Boolean, :default => true
   key :fb_button, Boolean, :default => true
 
+  key :logo_path, String, :default => "/images/logos/star_32.png"
+  key :favicon_path, String, :default => "/images/logos/star.ico"
+
+  key :image_of_the_day, String
+
   key :header_bg, String, :default => "#2b5782"
   key :header_bg_image, String
   key :toolbar_bg, String
@@ -63,11 +68,11 @@ class Group
   key :primary, String, :default => "#2b5782" #tabs, 
   key :primary_hover, String, :default => "#E1A970" #header_bg and edit buttons
   key :primary_selected, String, :default => "#990000"
-  key :secondary, String, :default => "#5f80a1" #tabs,
+  key :secondary, String, :default => "#728FAC" #tabs,
   key :secondary_hover, String, :default => "orange"
   key :secondary_selected, String, :default => "#E1A970"
   key :secondary_active, String, :default => "#990000"
-  key :tertiary, String, :default => "#E1A970" #tabs, 
+  key :tertiary, String, :default => "#B8C7D5" #tabs, 
   key :secondary_navigation_bg, String, :default => "gainsboro"
   key :secondary_navigation_text, String, :default => "white"
   key :edit_button_bg, String, :default => "#990000" #tabs, 
@@ -82,10 +87,10 @@ class Group
   key :show_modes_order, Hash
 
 
-  file_key :logo, :max_length => 2.megabytes
-  file_key :background, :max_length => 256.kilobytes
+  #file_key :logo, :max_length => 2.megabytes
+  #file_key :background, :max_length => 256.kilobytes
   file_key :custom_css, :max_length => 256.kilobytes
-  file_key :custom_favicon, :max_length => 256.kilobytes
+  #file_key :custom_favicon, :max_length => 256.kilobytes
 
   slug_key :name, :unique => true
   filterable_keys :name

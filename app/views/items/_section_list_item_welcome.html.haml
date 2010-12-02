@@ -1,0 +1,12 @@
+-if list_mode == "latest"
+  = render :partial => "/items/section_list_item_latest", :locals => {:item => item} #, :section => section}
+
+-if list_mode == "headline"
+  = render :partial => "/items/section_list_item_headline_welcome", :locals => {:item => item} #, :section => section}
+
+-if list_mode == "standard"
+  = render :partial => "/items/section_list_item_standard", :locals => {:item => item} #, :section => section}
+
+-if list_mode == "thumbnail"
+  = render :partial => "/items/section_list_item_thumbnail", :locals => {:item => item} #, :section => section}
+

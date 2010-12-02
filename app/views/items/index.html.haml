@@ -38,7 +38,7 @@
           -if @items.empty?
             %li.highlight
               = t(".empty")
-          -@items.each do |item|
+          -current_group.items.each do |item|
             -if item.section == @active_section
               = render :partial => "item", :object => item #, :section => @active_section
 

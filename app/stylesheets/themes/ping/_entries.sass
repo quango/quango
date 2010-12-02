@@ -21,21 +21,51 @@
   font-weight: bold
   background: gainsboro
 
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#dcdcdc',endColorstr='#bbb')
-  background: -webkit-gradient(linear,left top,left bottom,from(#dcdcdc),to(#bbb))
-  background: -moz-linear-gradient(top,#dcdcdc,#bbb)
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#dcdcdc',endColorstr='#bbbbbb')
+  background: -webkit-gradient(linear,left top,left bottom,from(#dcdcdc),to(#bbbbbb))
+  background: -moz-linear-gradient(top,#dcdcdc,#bbbbbb)
 
-  //filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#bbb',endColorstr='#dcdcdc')
+  //filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#bbbbbb',endColorstr='#dcdcdc')
   //background: -webkit-gradient(linear,left top,left bottom,from(#bbb),to(#dcdcdc))
   //background: -moz-linear-gradient(top,#bbb,#dcdcdc)
 
-  border-bottom: 1px solid #bbb
+  border-bottom: 1px solid #bbbbbb
   //border-right: 1px solid #bbb
   //border-top: 1px solid #fff
   //+rounded(0px,0px,0px,8px)
   //-webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.2)
   //-moz-box-shadow: 0 1px 4px rgba(0,0,0,0.2)
   //box-shadow: 0 1px 4px rgba(0,0,0,0.2)
+  -webkit-font-smoothing:antialiased
+  small
+    font-weight: normal
+
+.toolbox-inner
+
+  height: 26px
+  line-height: 32px
+  width: 239px
+  margin: 0
+  padding: 2px 0 0 2px  
+  &:hover
+    background-color: #eee
+  display: inline-block
+
+  padding: 2px 8px 6px 8px
+  margin:  0
+  color: #fff
+  text-shadow: -1px -1px 0 rgba(0,0,0,0.25)
+  font-size: 14px
+  font-weight: bold
+  letter-spacing: -1px
+  background: gainsboro
+
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#dcdcdc',endColorstr='#bbbbbb')
+  background: -webkit-gradient(linear,left top,left bottom,from(#dcdcdc),to(#bbbbbb))
+  background: -moz-linear-gradient(top,#dcdcdc,#bbbbbb)
+
+  border-bottom: 1px solid #bbb
+
   -webkit-font-smoothing:antialiased
   small
     font-weight: normal

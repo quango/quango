@@ -9,10 +9,10 @@
             %ul
               -current_user.groups(:select => [:name, :domain]).each do |group|
                 %li
-                  -if group.has_custom_favicon?
-                    = image_tag(favicon_group_path(group), :style => "background-color:#{group.secondary};")
+                  -if group.favicon_path?
+                    = image_tag( "#{current_group.favicon_path}", :style => "background-color:#{group.secondary};")
                   -else
-                    = image_tag("/favicon.ico",  :style => "background-color:#{group.secondary};")
+                    = image_tag("#{current_group.favicon_path}",  :style => "background-color:#{group.secondary};")
                   =link_to h(group.name), domain_url(:custom => group.domain)
 
   -else
@@ -33,13 +33,13 @@
         =link_to t("layouts.application.moderate"), moderate_path, :class => "moderate_link"
         |
     .entry
-      - @avatar = Avatar.find(current_user.default_avatar)
-      - if @avatar.present?
-        - cropped_avatar = @avatar.avatar.process(:thumb,@avatar.avatar_cropping)
-        - default_avatar = cropped_avatar.process(:thumb,"18x18").url
-        = image_tag default_avatar, :style => "margin-bottom:-4px"
-      - else
-        = image_tag "/images/anonymous_avatar.png", :height => "18px", :width => "18px"
+      -# @avatar = Avatar.find(current_user.default_avatar)
+      -# if @avatar.present?
+      -#  - cropped_avatar = @avatar.avatar.process(:thumb,@avatar.avatar_cropping)
+      -#  - default_avatar = cropped_avatar.process(:thumb,"18x18").url
+      -#  = image_tag default_avatar, :style => "margin-bottom:-4px"
+      -# else
+      -#  = image_tag "/images/anonymous_avatar.png", :height => "18px", :width => "18px"
 
 
 
@@ -58,25 +58,16 @@
     .entry
       =link_to h("My Settings"), settings_path(:tab => "welcome")
       |
-    .entry
-      =link_to t("layouts.application.logout"), destroy_user_session_path
 
-  -else
-    -if AppConfig.is_shapadocom && !current_group.isolate
-      .entry
-        =link_to t("doc.plans.plans"), domain_url(:custom => AppConfig.domain, :controller=>"doc",:action=>"plans")
-        |
-    -top_bar_links.each do |link|
-      .entry
-        =link
-    -top_bar_links.each do |link|
-      .entry
-        =link
-        |
+  -if !logged_in?
+
     .entry
       = render :partial => "shared/login"
 
   -if logged_in?
+    .entry
+      =link_to t("layouts.application.logout"), destroy_user_session_path
+      |
     .entry
       = render :partial => "shared/contribute"
 

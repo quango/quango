@@ -4,9 +4,7 @@
   \#header-container {background-color: #{current_group.primary};}
   \#header-container-inner { 
   -if current_group.header_bg?
-    background-color: #{current_group.primary};
-  -if current_group.has_background?
-    background-image:url(#{background_group_path(current_group)});
+    background-image: url(#{current_group.header_bg_image};)
   -if !current_group.header_bg? && !current_group.header_bg_image?
     background-color: #{current_group.primary};
   }
@@ -21,7 +19,7 @@
   }
 
   \#header #logo { background-color: #{current_group.secondary} ;}
-  \#main-index .title { background-color: #{current_group.primary} ;}
+  /*\#main-index .title { background-color: #{current_group.primary} ;}*/
 
   \.tag-list .tag a:link, .tag-list .tag a:active, .tag-list .tag a:visited { background-color: #{current_group.secondary};}
   \.tag-list .tag a:hover{ background-color: #{current_group.secondary};}
@@ -41,10 +39,10 @@
   \.section-button {background-color: #{current_group.primary}; border:1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px}
   \.secondary-button {background-color: #{current_group.primary}; border:1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px}
   \.tertiary-button {background-color: #{current_group.tertiary}; border:1px solid #{current_group.tertiary};text-shadow: #{current_group.tertiary} 0px -1px 1px}
-  \.create-item-button {background-color: #{current_group.secondary}; border:1px solid #{current_group.tertiary};text-shadow: #{current_group.secondary} -1px -1px 1px;}
+  \.create-item-button {background:#{current_group.secondary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.secondary}',endColorstr='#{current_group.primary}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#{current_group.primary}));background:-moz-linear-gradient(top,#{current_group.primary},#{current_group.secondary});border:1px solid #{current_group.secondary};}
   \.create-item-button:hover {background-color: #{current_group.secondary_hover}; border:1px solid #{current_group.tertiary};text-shadow: #{current_group.secondary_hover} -1px -1px 1px;}
-  \.signup-button{background:#{current_group.primary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.tertiary}',endColorstr='#{current_group.primary}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.tertiary}),to(#{current_group.primary}));background:-moz-linear-gradient(top,#{current_group.primary},#{current_group.secondary});border:1px solid white;}
-
+  \.signup-button{background:#{current_group.primary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.secondary}',endColorstr='#{current_group.tertiary}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#{current_group.tertiary}));background:-moz-linear-gradient(top,#{current_group.tertiary},#{current_group.secondary});border:1px solid #{current_group.secondary};}
+  \.group-button{background:#{current_group.primary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.secondary}',endColorstr='#{current_group.tertiary}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#{current_group.tertiary}));background:-moz-linear-gradient(top,#{current_group.tertiary},#{current_group.secondary});border:1px solid #{current_group.secondary};}
 
 <!--//-->
 

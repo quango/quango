@@ -2,14 +2,14 @@
 
 .member_details{:style=>"width:256px; overflow:hidden"}
 
-  %div.gravatar{:style=>"width:128px;float:left; "}
+  %div.gravatar{:style=>"width:80px;float:left; "}
     - @avatar = Avatar.find(user.profile_image)
     - if @avatar.present?
       - cropped_avatar = @avatar.avatar.process(:thumb,@avatar.avatar_cropping)
-      - profile_image = cropped_avatar.process(:thumb,"128x128").url
-      = image_tag profile_image, :height => "128px",:width => "128px"
+      - profile_image = cropped_avatar.process(:thumb,"80x80").url
+      = image_tag profile_image, :height => "80px",:width => "80px"
     - else
-      = image_tag "/images/anonymous_avatar.png", :height => "128px",:width => "128px"
+      = image_tag "/images/anonymous_avatar.png", :height => "80px",:width => "80px"
 
   %div.details{:style=>"padding-left:13px;width:114px;float:left; overflow:hidden"}
 

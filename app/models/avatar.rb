@@ -1,6 +1,5 @@
-class Avatar #< ActiveRecord::Base
+class Avatar
   include MongoMapper::Document
-  #include MongoMapperExt::Storage
 
   key :_id, String
   key :name, String

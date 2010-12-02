@@ -1,27 +1,23 @@
 - item = local_assigns[:item]
 
--#if @item.images.count > 10
+-if @default_thumbnail
 
-.block
-  %h3
-    = "Images"
-  .controls
-    - if current_user
-      - if (@item.wiki && current_user.can_edit_wiki_post_on?(@item.group)) || current_user.can_edit_others_posts_on?(@item.group) || current_user.can_modify?(@item)
-        %span
-          = link_to "Edit", item_images_path(@item), :class => "standard-button right"        
-  .content
-    %ul
-      -@item.images.each do |image|
-        %li.fade-thumbnails
-          -# thumbnail_hover = image.process(:thumb,image.image_cropping)
-          -# thumbnail_static = thumbnail_hover.process(:greyscale, :depth => 24)
-          -# thumbnail_watermarked = thumbnail_static.process(:add_watermark, :path => "#{Rails.root}/public/images/watermark.png")
-          =# image_tag thumbnail_static.process(:thumb,"128x").url, :alt => image.name, :title => image.name, :class => "a"
-          =# image_tag thumbnail_hover.process(:thumb,"128x").url, :alt => image.name, :title => image.name, :class => "b"
-        %li
-          -#= image_tag thumbnail_watermarked.url, :alt => image.name, :title => image.name, :class => "no"
-          -#= link_to image.name.to_s, item_image_path(@item, image)
-
-
+  .block
+    %h3
+      = "Images"
+    .controls
+      - if current_user
+        - if (@item.wiki && current_user.can_edit_wiki_post_on?(@item.group)) || current_user.can_edit_others_posts_on?(@item.group) || current_user.can_modify?(@item)
+          %span
+            = link_to "Edit", item_images_path(@item), :class => "standard-button right"        
+    .content
+      %ul
+        - @item.images.each do |image|
+          %li
+            %div.fade-thumbnails
+              - base_image = image.image.process(:thumb,image.image_cropping)
+              - base_thumbnail = base_image.process(:thumb,"128x")
+              - base_thumbnail_grey = base_thumbnail.process(:greyscale, "20")
+              = image_tag base_thumbnail.url, :class => 'b', :alt => image.name, :title => image.name
+              = image_tag base_thumbnail_grey.url, :class => 'a', :alt => image.name, :title => image.name    
 

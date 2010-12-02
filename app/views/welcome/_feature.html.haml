@@ -1,0 +1,29 @@
+- item = local_assigns[:item]
+
+
+- if item.present?
+
+
+  .block
+    .toolbox-inner
+      %span.right
+        - if current_user
+          - if (item.wiki && current_user.can_edit_wiki_post_on?(item.group)) || current_user.can_edit_others_posts_on?(item.group) || current_user.can_modify?(item.group)
+            = link_to "Change", item_images_path(item), :class => "button left"        
+      %span.left
+        = "Featured..."
+    .description
+      = item.title.to_s
+      = "(" 
+      = item.section.to_s
+      = ")"
+    .content
+      -# @image = Image.find(hot_item.default_thumbnail)
+      = item.default_thumbnail.to_s
+      -# base_image = @image.image.process(:thumb,image.image_cropping)
+      -# base_thumbnail = base_image.process(:thumb,"256x")
+      -#= image_tag base_thumbnail.url, :class => 'none', :alt => image.name, :title => image.name
+
+
+  .clear
+

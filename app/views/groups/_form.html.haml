@@ -1,8 +1,9 @@
 -require_js "modules/themes"
 
+
 .group
   = form.label :name, t('name', :scope => "activerecord.attributes.group"), :class => "label"
-  = form.text_field :name, :class => "text_field"
+  = form.text_field :name, :class => "text_field", :value => params[:name]
 
 .group
   = form.label :name_highlight, t('name_highlight', :scope => "activerecord.attributes.group"), :class => "label"

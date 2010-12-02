@@ -41,7 +41,10 @@
               = t('items.edit_button.label')
 
         %div.thumbnail
-          = link_to image_tag(item.main_thumbnail, :style => "width:104px"), item_path(item)
+          - if item.default_thumbnail?
+            = item.default_thumbnail
+          - else
+            = link_to image_tag(item.main_thumbnail, :style => "width:104px"), item_path(item)
         %h3
           = image_tag("/images/icons/"+item.mode+"_icon_16.png", :width => 16, :height => 16)
           = link_to title, item_path(item), :title => truncate(strip_tags(item.body), :length => 200)

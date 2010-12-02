@@ -1,0 +1,82 @@
+
+
+    .section-listing{:class => section.name}
+      .listings-left
+        .title
+          = h("mode.#{section.mode}")
+        .content
+          %ul.listing
+            -if item_array.empty?
+              %li.highlight
+                = t(".empty")
+            -else
+              -item_array[0..0].each do |item|
+                = render :partial => "items/section_list_item", :locals => {:item => item,:tab=>"hot", :list_mode => "latest"}
+
+        .clear
+
+
+
+    .listings-centre
+      .title
+        = h("mode.#{section.name}")
+      .content
+        %ul.listing
+
+          -if item_array.empty?
+            %li.highlight
+              = t(".empty")
+          -else
+            -item_array[0..5].each do |item|
+              = render :partial => "items/section_list_item", :locals => {:item => item, :list_mode => "headline"}
+        .clear
+
+    .listings-right
+      .title
+        = h("mode.#{section.mode}")
+      .content
+        %ul.features
+          -if item_array.empty?
+            %li.highlight
+              = t(".empty")
+          -else
+            -item_array[0..1].each do |item|
+              = render :partial => "items/section_list_item", :locals => {:item => item,:sort=>"hot", :list_mode => "thumbnail"}
+
+        %script{:type => "text/javascript"}
+          = "// collapse:"
+          = "$('.hide_summary.#{section.name}').click(function() {"
+          = "$('.hide_summary.#{section.name}').css('display','none');"
+          = "$('.show_summary.#{section.name}').css('display','block');"
+          = "$('.#{section.name}.section-listing').hide('slow');"
+          = "$.cookie('#{section.name}.welcome.summary', 'collapsed', { expires: 2 });"
+          = "});"
+          = "// expand:"
+          = "$('.show_summary.#{section.name}').click(function() {"
+          = "$('.show_summary.#{section.name}').css('display','none');"
+          = "$('.hide_summary.#{section.name}').css('display','block');"
+          = "$('.#{section.name}.section-listing').show('slow');"
+          = "$.cookie('#{section.name}.welcome.summary', 'expanded', { expires: 2 });"
+          = "});"
+          = "// ok so far"
+          = "// COOKIES"
+          = "var #{section.name} = $.cookie('#{section.name}.welcome.summary');"
+          = "	// Set the user's selection for the left column"
+          = "if (#{section.name} == 'collapsed') {"
+          = "$('.hide_summary.#{section.name}').css('display','none');"
+          = "$('.show_summary.#{section.name}').css('display','block');"
+          = "$('.#{section.name}.section-listing').hide();"
+          = "};"
+          = "if (#{section.name} == 'expanded') {"
+          = "$('.hide_summary.#{section.name}').css('display','block');"
+          = "$('.show_summary.#{section.name}').css('display','none');"
+          = "$('#{section.name}.#{section.name}.section-listing').show();"
+          = "};"
+          = "if (#{section.name} == null) {"
+          = "$('.hide_summary.#{section.name}').css('display','block');"
+          = "$('.show_summary.#{section.name}').css('display','none');"
+          = "$('.#{section.name}.section-listing').show();"
+          = "};"
+
+    .clear
+  .clear

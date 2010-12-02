@@ -73,6 +73,16 @@ class GroupsController < ApplicationController
     end
   end
 
+  def check_available
+    @group = Group.new
+
+    respond_to do |format|
+      format.html 
+      format.json  { render :json => @group }
+    end
+  end
+
+
   # GET /groups/1/edit
   def edit
   end
@@ -196,12 +206,6 @@ class GroupsController < ApplicationController
   end
 
   def favicon
-    @group = Group.find_by_slug_or_id(params[:id], :select => [:file_list])
-    if @group && @group.has_custom_favicon?
-      send_data(@group.custom_favicon.read, :filename => "favicon.ico", :type => @group.custom_favicon.content_type)
-    else
-      render :text => ""
-    end
   end
 
   def autocomplete_for_group_slug

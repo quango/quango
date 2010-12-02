@@ -76,9 +76,10 @@ ActionController::Routing::Routes.draw do |map|
         items.resources :comments
         items.resources :images, :member => { :crop => :get, 
                                               :pull => :get, 
-                                              :set_default => :get, 
+                                              :set_default_thumbnail => :get, 
                                               :flip => :get, :flop => :get,
-                                              :rotate_left => :get, :rotate_right => :get, :rotate_180 => :get  
+                                              :rotate_left => :get, :rotate_right => :get, :rotate_180 => :get,
+                                              :move => :post
                                               }
         items.resources :answers, :member => {:history => :get,
                                                   :diff => :get,
@@ -103,10 +104,12 @@ ActionController::Routing::Routes.draw do |map|
 
 
 
-  map.resources :groups, :member => {:accept => :get,
+  map.resources :groups, :member => {:check_available => :get,
+                                     :accept => :get,
                                      :close => :get,
                                      :allow_custom_ads => :get,
                                      :disallow_custom_ads => :get,
+                                     :image_of_the_day => :get,
                                      :logo => :get,
                                      :favicon => :get,
                                      :background => :get,

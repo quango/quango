@@ -4,17 +4,23 @@
 
 = render :partial => "form"
 
-%ul.items#items
-  -if @items.empty?
-    %li.box.highlight
-      = t(".empty")
-  -else
-    -@items.each do |item|
-      = render :partial => "items/item", :object => item, :locals => {:query_regexp => @query_regexp}
+-content_for :main do
+  #main-index
 
-= will_paginate @items unless @items.empty?
+    %ul.items#items
+      -if @items.empty?
+        %li.box.highlight
+          = t(".empty")
+      -else
+        -@items.each do |item|
+          = render :partial => "items/item", :object => item, :locals => {:query_regexp => @query_regexp}
 
--content_for :sidebar do
+    = will_paginate @items unless @items.empty?
+
+-content_for :sidebar_inner do
+
+  #sidebar-inner  
+
   -if @search_text
     .block
       %h3
@@ -31,3 +37,7 @@
             %li
               %span.tag{:class => "tag_#{h(tag)}"}
                 =link_to h(tag), url_for(:controller => "items", :action => "index", :tags => tag), :rel => "tag"
+
+
+
+

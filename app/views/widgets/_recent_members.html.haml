@@ -1,0 +1,9 @@
+.block
+  %h3
+    = "Recent Members"
+  .content
+    %ul.list
+      -current_group.users.each do |user|
+        %li{:onclick => "document.location.href='#{user_path(user)}'"}
+          -if user.login != "admin"
+            = render :partial => "widgets/member", :locals => {:user => user}

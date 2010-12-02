@@ -16,14 +16,16 @@
       
     = render :partial => "items/share"
 
-    - if current_user
+    - if logged_in?
       - if (@item.wiki && current_user.can_edit_wiki_post_on?(@item.group)) || current_user.can_edit_others_posts_on?(@item.group) || current_user.can_modify?(@item)
         = link_to "Edit text", "/#{@item.section}/#{@item.slug}/edit", :class => "button right"
         = link_to "Edit images", item_images_path(@item), :class => "button right" 
         = link_to "Bump", item_images_path(@item), :class => "button right" 
 
-
-    =vote_box(@item, item_path(@item), @item.closed)
+    -# if current_user.can_modify?(@item.group)
+      -#= link_to "Refer", "#", :class => "button right" 
+    - else
+      =vote_box(@item, item_path(@item), @item.closed)
     
 
 .clear

@@ -4,6 +4,8 @@
   %meta{:name => "description", :content => markdown(current_group.description).gsub(/<\/?[^>]*>/, "")[0, 255] }
 
 
+-content_for :section_head do
+  -#Placeholder
 
 -content_for :subtabs do
   .secondary-navigation{:class => @active_subtab.to_s,:style => "background-color:#{current_group.secondary}"}
@@ -20,12 +22,12 @@
 
 
 %ul.items#items
-  -if @items.empty?
-    .box.highlight
-      %li
-        = t(".empty", :default => :"items.index.empty")
-  -@items.each do |item|
-    = render :partial => "items/item", :object => item
+  -#if @items.empty?
+    -#.box.highlight
+      -#%li
+        -#= t(".empty", :default => :"items.index.empty")
+  -#@items.each do |item|
+    -#= render :partial => "items/item", :object => item
 
 #additional_info
   #help_us
@@ -48,40 +50,47 @@
 
 
 -content_for :list do
-
-  #section-listing{:class => @active_tab}
+ 
+  #section-listing-welcome{:class => @active_tab}
     %ul
       -current_group.sections.each do |section|
         -if !section.hidden?
           %li{:class => section.name }
-          = render :partial => "items/section_head_welcome", :locals => {:section => section,:tab=>"activity", :sortable => "true", :list_mode => "standard"}
+          = render :partial => "items/section_head_welcome", :locals => {:section => section,:tab=>"activity", :list_mode => "standard"}
 
 
-
-
-
-
--content_for :sidebar do
-  #sidebar
-    -#.sidebar
-      -#.inner
-    -current_group.widgets.each do |widget|
-      .widget.block{:id => widget.name}
-        = render :partial => widget.partial_name, :locals => {:widget => widget}
-
-    .block
-      %h3
-        = h("Something")
-      .content
-        = h("Something else")
 
 
 /Layout
 -content_for :main do
-  #main
+
+  #main-index-right
+    = render :partial => "are_you_thinking" #, :locals => {:item => item}
+
+    #sidebar
+      - current_group.widgets.each do |widget|
+        .widget.block{:id => widget.name}
+          = render :partial => widget.partial_name, :locals => {:widget => widget}
+
+      .block
+        %h3
+          = h("Something")
+        .content
+          = h("Something else")
+
+    #sidebar-inner
+      = render :partial => "widgets/recent_members", :locals=> {:group => current_group}
+
+
+  #main-index
+    -#= render :partial => "feature", :locals => {:item => current_group.items.last}
+
     .content
       .inner
         = yield :list
         .clear
+
+
+
 
 

@@ -8,17 +8,16 @@ module VotesHelper
         <div>
           #{token_tag}
         </div>
-        <div class='vote_box'>
+
           #{hidden_field_tag "voteable_type", class_name, :id => "voteable_type_#{class_name}_#{voteable.id}"}
           #{hidden_field_tag "voteable_id", voteable.id, :id => "voteable_id_#{class_name}_#{voteable.id}"}
           #{hidden_field_tag "source", source, :id => "source_#{class_name}_#{voteable.id}"}
-          <button type="submit" name="vote_up" value="1" class="right", style ="width:1px">
+          <button type="submit" name="vote_up" value="1" class="right", style ="width:96px">
              Insightful
             #{if vote && vote.value > 0
-                image_tag("/images/icons/lightbulb_on.png", :width => 18, :height => 18,:class => "float:left; margin-left: -2px", :title => I18n.t("votes.control.have_voted_up"))
+                image_tag("/images/icons/lightbulb_on.png", :width => 18, :height => 18, :class => "float:left; margin-left: 2px", :title => "Set as insightful")
               else
-                "Insightfully" &&  image_tag("/images/icons/lightbulb_off.png", :class => "float:left; margin-left: -2px", :width => 18, :height => 18, :title => I18n.t("votes.control.to_vote_up"))
-
+                image_tag("/images/icons/lightbulb_off.png", :width => 18, :height => 18, :class => "float:left; margin-left: 2px", :title => "Unset as insightful")
               end
              }
           </button>
@@ -27,23 +26,22 @@ module VotesHelper
             #{if vote && vote.value < 0
                 "+"
               else
-                "-"
+                " - "
               end}
           </button>
-        </div>
       </form>
       @
     else
       %@
-        <div class='vote_box'>
+
           <button type="submit" name="vote_up" value="1" class="button" style="width:96px;">
             #{image_tag("/images/icons/lightbulb_on.png", :width => 18, :height => 18, :class=>'voted')}
-            Insightful
+            Insightfully
           </button>
-          <!--button type="submit" name="vote_down" value="1" class="button">
+          <button type="submit" name="vote_down" value="1" class="button">
             #{image_tag("/images/icons/lightbulb_off.png", :width => 18, :height => 18, :class=>'novoted')}
-          </button-->
-        </div>
+          </button>
+
       @
     end
   end
@@ -61,7 +59,7 @@ module VotesHelper
           #{hidden_field_tag "voteable_type", class_name, :id => "voteable_type_#{class_name}_#{voteable.id}"}
           #{hidden_field_tag "voteable_id", voteable.id, :id => "voteable_id_#{class_name}_#{voteable.id}"}
           #{hidden_field_tag "source", source, :id => "source_#{class_name}_#{voteable.id}"}
-          <button type="submit" name="vote_up" value="1" class="button">
+          <button type="submit" name="vote_up" value="1" class="button right">
             if vote && vote.value > 0 do
                 image_tag("x/images/icons/lightbulb_off.png", :width => 16, :height => 16, :title => I18n.t("votes.control.have_voted_up"))
               else
@@ -69,7 +67,7 @@ module VotesHelper
               end
           </button>
 
-          <button type="submit" name="vote_down" value="-1" class="button">
+          <button type="submit" name="vote_down" value="-1" class="button right">
             #{if vote && vote.value < 0
                 image_tag("x/images/icons/lightbulb_off.png", :width => 16, :height => 16, :title => I18n.t("votes.control.have_voted_down"))
               else

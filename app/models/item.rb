@@ -27,6 +27,8 @@ class Item
   key :video_mode, String, :in => VIDEO_MODES, :default => "youtube"
 
   key :default_thumbnail, String
+
+
   key :main_image, String, :default => "main-image.gif"
   key :main_thumbnail, String, :default => "main-thumbnail.gif"
 

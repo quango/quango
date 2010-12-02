@@ -8,10 +8,41 @@
     %p
       - form_for @image, :url => item_images_path(@item), :html => {:multipart => true} do |f|
         = f.error_messages
-        %p
-          = f.text_field :name, :value => @image.name
-        %p
+
+        .group
+          = f.label :image 
           = f.file_field :image, :value => @image.image
+
+        .group
+          = f.label :name
+          = f.text_field :name, :value => @image.name
+          .small
+            = "A single name, used by the system for identifying an image"
+
+        .group
+          = f.label :caption
+          = f.text_field :caption, :value => @image.caption
+          .description
+            = "A single name, used by the system for identifying an image"
+
+        .group
+          = f.label :copyright
+          = f.text_field :copyright, :value => @image.copyright
+          .small
+            = "The system will default to your name unless otherwise specified, this measn that the image will be licensed under the same license that written works are on Thinking Daily"
+
+        .group
+          = f.label :copyright_url
+          = f.text_field :copyright_url, :value => "#{domain_url(:custom => current_group.domain)}#{user_path(current_user)}"
+          .small
+            = "Unless otherwise specified the system defaults your member profile. "
+
+        .notice
+          %h3
+            = "If you have gotten your image from another site please ensure you fill in the copyright and copyright_url correctly - coorect attribution is your responsibility, Thinking Daily will not be liable for copyright infringements - YOU WILL BE"
+
+
+
         %p
           = f.submit 'Create'
 

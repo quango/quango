@@ -32,9 +32,6 @@
   #main-index
     .content
       .inner
-        -#= "@item.section: " << @item.section.to_s
-        -#= "@item.mode: " << @item.mode.to_s
-        -#= "@tag_cloud: " << @tag_cloud.to_s
         = javascript_include_merged :show
         =render :partial => "toolbox"
         =render :partial => "controls", :object=>@item
@@ -56,14 +53,14 @@
             .entry-details
               .small
                 %small
-                  = "<br/>Item id:"
+                  -#= "<br/>Item id:"
                   = @item.id 
-                  = "<br/>Item section:"
-                  = @item.section
-                  = "<br/>Active suction:"
-                  = @active_suction.id
-                  = "<br/>Item section id:"
-                  = @item.section_id
+                  -#= "<br/>Item section:"
+                  -#= @item.section
+                  -#= "<br/>Active suction:"
+                  -#= @active_suction.id
+                  -#= "<br/>Item section id:"
+                  -#= @item.section_id
 
 
 
@@ -88,11 +85,35 @@
 
 
         .clear
+
+  
+
+
         %a{:name=>"answers"}
         #answers
           .secondary-navigation{:class => @active_subtab.to_s}
             %h3
               = h("What do you think?")
+          .clear
+
+          -unless @item.closed
+            %a{:name=>"to_answer"}
+            -form_for @answer, :url => item_answers_path(@item.id), :html => {:class => "form mainAnswerForm"} do |f|
+              = render :partial => "answers/form", :locals => {:f => f, :markdown => true, :mode => "item"}
+              .group.navform
+                .controls.right{:style => "width: 50%"}
+                  .left{:style => "width: 49.5%"}
+                    = f.label :wiki, "OpenEdit", :class => "radio"
+                    = f.check_box :wiki, :class => "checkbox"
+                  .left{:style => "width: 49.5%"}
+                    = f.label :anonymous, t("scaffold.post_as_anonymous"), :class => "radio"
+                    = f.check_box :anonymous, :class => "checkbox"
+                = submit_tag t('answers.form.submit'), :class => "button"
+              .clear
+
+          .secondary-navigation{:class => @active_subtab.to_s}
+            %h3
+              = h("What others think")
               = t(@answers.total_entries + (@item.accepted ? 1 : 0))
             .navcontrols
               %ul
@@ -115,26 +136,14 @@
                 =render :partial=> "answer", :locals=> {:item => @item, :answer => answer}
             =will_paginate(@answers)
 
-        -unless @item.closed
-          %a{:name=>"to_answer"}
-          -form_for @answer, :url => item_answers_path(@item.id), :html => {:class => "form mainAnswerForm"} do |f|
-            = render :partial => "answers/form", :locals => {:f => f, :markdown => true, :mode => "item"}
-            .group.navform
-              .controls.right{:style => "width: 50%"}
-                .left{:style => "width: 49.5%"}
-                  = f.label :wiki, "OpenEdit", :class => "radio"
-                  = f.check_box :wiki, :class => "checkbox"
-                .left{:style => "width: 49.5%"}
-                  = f.label :anonymous, t("scaffold.post_as_anonymous"), :class => "radio"
-                  = f.check_box :anonymous, :class => "checkbox"
-              = submit_tag t('answers.form.submit'), :class => "button"
-            .clear
+
 
 -content_for :sidebar_inner do
   #sidebar-inner
+    = render :partial => "default_image", :locals => {:item => @item}
     = render :partial => "author"
     = render :partial => "images", :locals => {:item => @item}
-    = render :partial => "participants", :locals=> {:item => @item}
+
     -if logged_in? && current_group.has_bunnies?
       -if current_user.owner_of?(current_group)
         = render :partial => "bunnies", :locals => {:item => @item}
@@ -153,6 +162,7 @@
 
 -content_for :sidebar do
   #sidebar
+    = render :partial => "participants", :locals=> {:item => @item}
     = render :partial => "shared/current_tags"
     = render :partial => "shared/tag_list", :object => @tag_cloud
 

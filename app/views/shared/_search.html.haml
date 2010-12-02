@@ -1,18 +1,13 @@
--if logged_in?
-  .search-box
-    - form_tag search_path, :method => :get, :style => "display: inline" do
-      = text_field_tag :q, params[:q], :id => "search-field", :style=>"float:left"
-      %button.search-submit{:style => "background-color: #{current_group.secondary}" }
-        = "Search"
-      -#%br
-      -#= radio_button_tag(:mode, "here", true)
-      -#= label_tag "Here"
-      -#= radio_button_tag(:mode, "there")
-      -#= label_tag "There"
-      -#= radio_button_tag(:mode, "everywhere")
-      -#= label_tag "Everywhere"
--else
-  .signup-button
-    = "SIGNUP NOW for a free account<br/>"
-    %small
-      = "And get heard in our fast growing global community"
+.search-box
+  - form_tag search_path, :method => :get, :style => "display: inline" do
+    = text_field_tag :q, params[:q], :id => "search-field", :style=>"float:left"
+    %button.search-submit{:class => 'action-button'}
+      = "Search"
+    %div.hidden
+      = radio_button_tag(:mode, "here", true)
+      = label_tag "Here"
+      = radio_button_tag(:mode, "there")
+      = label_tag "There"
+      = radio_button_tag(:mode, "everywhere")
+      = label_tag "Everywhere"
+

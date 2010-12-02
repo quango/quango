@@ -5,7 +5,10 @@ class ImagesController < ApplicationController
   def index
     @item = Item.find_by_slug_or_id(params[:item_id])
     @image = Image.find(params[:id])
-    #@image.items = @item
+
+    @default_thumbnail = Image.find(@item.default_thumbnail)
+
+    #@image.item = @item
 
     respond_to do |format|
       format.html # index.html.erb
@@ -55,12 +58,17 @@ class ImagesController < ApplicationController
 
     @image.image = @image.image.process!(:resize, '962>')
 
+    if !@item.default_thumbnail?
+        @item.default_thumbnail = params[:id]
+    end    
+
     respond_to do |format|
       if @image.save
         if params[:image][:image].present?
-          render :action => 'crop'
+          format.html { redirect_to(crop_item_image_path(@item, @image))}
+          #render :action => 'crop'
         else
-          format.html { render :action => "new" }
+          #format.html { render :action => "new" }
           format.xml  { render :xml => @image.errors, :status => :unprocessable_entity }
         end
       end
@@ -100,12 +108,16 @@ class ImagesController < ApplicationController
     end
   end
 
+  def move
+    image = @item.image.find(params[:id])
+    image.move_to(params[:move_to])
+    redirect_to item_images_path
+  end
+
+
   def crop
     @item = Item.find_by_slug_or_id(params[:item_id])
     @image = Image.find(params[:id])
-
-
-
   end
 
   def flip
@@ -161,6 +173,29 @@ class ImagesController < ApplicationController
     end
   end
 
+  def set_default_thumbnail
+    @item = Item.find_by_slug_or_id(params[:item_id])
+
+    @item.default_thumbnail = params[:id]
+
+
+    if @item.save
+      redirect_to item_images_path 
+    end
+
+
+  end
+
+  def set_image_of_the_day
+#    @item = Item.find_by_slug_or_id(params[:item_id])
+#    @item.default_thumbnail = params[:id]
+
+#    if @item.save
+#      redirect_to item_images_path 
+#    end
+
+
+  end
 
 end
 

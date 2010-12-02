@@ -32,7 +32,7 @@ Rails::Initializer.run do |config|
   config.gem "ruby-stemmer", :version => ">=0.8.2", :lib => "lingua/stemmer"
   config.gem "mongomapper_ext", :version => "0.4.0", :source => "http://gemcutter.org"
   config.gem "geoip"
-  config.gem "whatlanguage", :version => "1.0.0"
+  #config.gem "whatlanguage", :version => "1.0.0"
   config.gem "uuidtools", :version => "2.1.1"
   config.gem "magent", :version => "0.4.2"
   config.gem "differ", :version => "0.1.1"

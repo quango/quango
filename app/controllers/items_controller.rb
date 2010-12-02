@@ -7,6 +7,7 @@ class ItemsController < ApplicationController
   before_filter :check_favorite_permissions, :only => [:favorite, :unfavorite] #TODO remove this
   before_filter :set_active_tag
   before_filter :set_active_section
+  before_filter :set_default_thumbnail
   before_filter :check_mode
   before_filter :check_age, :only => [:show]
   before_filter :check_retag_permissions, :only => [:retag, :retag_to]
@@ -21,6 +22,10 @@ class ItemsController < ApplicationController
   helper :votes
   helper :channels
   helper :items
+
+
+
+
 
   # GET /items
   # GET /items.xml
@@ -38,15 +43,15 @@ class ItemsController < ApplicationController
       conditions[:activity_at] = {"$gt" => 21.days.ago}
     end
 
-    @items = Item.all({:order => current_order}.merge(conditions))
 
-    @langs_conds = scoped_conditions[:language][:$in]
+    #@items = current_group.items({:order => current_order}.merge(conditions))
+    @items = current_group.items.sort_by(&:activity_at).reverse
+    #@langs_conds = scoped_conditions[:language][:$in]
 
     if logged_in?
       feed_params = { :feed_token => current_user.feed_token }
     else
-      feed_params = {  :lang => I18n.locale,
-                          :mylangs => current_languages }
+      feed_params = {}
     end
     add_feeds_url(url_for({:format => "atom"}.merge(feed_params)), t("feeds.items"))
     if params[:tags]
@@ -205,6 +210,9 @@ class ItemsController < ApplicationController
 
     #@item.section
 
+
+    @item = Item.find_by_slug_or_id(params[:id])
+
     if params[:language]
       params.delete(:language)
       head :moved_permanently, :location => url_for(params)
@@ -212,16 +220,18 @@ class ItemsController < ApplicationController
     end
 
 
-    @section = @item.section.id
-
-    #@section_id = @section.find
-
+    #@section = Section.find(@item.section.id)
 
     @images = Image.all
+    
+    @default_thumbnail = Image.find(@item.default_thumbnail)
 
     current_order = "updated_at desc"
     conditions = scoped_conditions(:banned => false)
-    @items = Item.all({:order => current_order}.merge(conditions))
+
+    @items = current_group.items.sort_by(&:activity_at).reverse
+
+    #@items = Item.all({:order => current_order}.merge(conditions))
 
     @tag_cloud = Item.tag_cloud(:_id => @item.id, :banned => false)
     options = {:per_page => 25, :page => params[:page] || 1,
@@ -773,6 +783,12 @@ class ItemsController < ApplicationController
         }
       end
     end
+  end
+
+  def set_default_thumbnail
+#    @item = Item.find_by_slug_or_id(params[:id])
+#    @default_thumbnail = @item.default_thumbnail
+#    @default_thumbnail
   end
 
   def set_active_tag

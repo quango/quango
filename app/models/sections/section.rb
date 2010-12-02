@@ -13,6 +13,7 @@ class Section
   key :activity_at, Time
   key :custom_icon, String
   key :has_images, Boolean, :default => false
+  key :headline_state, Boolean, :default => "closed"
 
   alias :group :_root_document
 

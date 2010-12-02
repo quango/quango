@@ -5,7 +5,7 @@
 
   = f.hidden_field :mode, :value=> local_assigns[:mode]
 
-  -opts = {:class => "text_area", :rows => 'auto', :cols => 'auto'}
+  -opts = {:class => "text_area", :rows => '3', :cols => 'auto', :style => "height:64px"}
   -if local_assigns[:markdown]
     -if current_group.wysiwyg_editor
       -opts[:id] = "wysiwyg_editor"

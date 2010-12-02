@@ -1,15 +1,32 @@
 class WelcomeController < ApplicationController
   helper :items
   helper :channels
+  before_filter :set_default_thumbnail
 
   tabs :default => :welcome
+
+  subtabs :index => [[:fresh, "created_at desc"], [:heat, "hotness desc, views_count desc"], [:relevance, "votes_average desc"], [:activity, "activity_at desc"], [:expert, "created_at desc"]]
+
 
   def index
     @active_subtab = params.fetch(:tab, "activity")
 
     conditions = scoped_conditions({:banned => false})
 
-    order = "activity_at desc"
+    @group = Group.new
+    current_order = ":heat"
+
+    if params[:sort] == "hot"
+      conditions[:activity_at] = {"$gt" => 7.days.ago}
+    end
+
+
+    @items = current_group.items.sort_by(&:activity_at).reverse
+    #@items = current_group.items.sort_by{|a,b| b.activity_at <=> a.activity_at} #({:order => "created_at"}.merge(conditions))
+    #@items = current_group.items({:order => "created_at desc"}.merge(conditions))
+
+    #@items = current_group.items.all({:order => current_order}.merge(conditions))
+
     #order = "hotness asc"
 
     #case @active_subtab
@@ -32,12 +49,18 @@ class WelcomeController < ApplicationController
 
     #rstrict
 
-    @items = Item.all({:order => order}.merge(conditions))
+      #options[:tags] = {:$all => @search_tags} unless @search_tags.empty?
+      #options[:group_id] = current_group.id
+      #options[:order] = params[:sort_by] if params[:sort_by]
+      #options[:banned] = false
+
+
+    #@items = Item.all #(options[:tags] = {:$all => current_group.default_tags} unless @search_tags.empty?)
 
     #@items = Item.paginate({:per_page => 15,
-    #                               :page => params[:page] || 1,
-     #                              :fields => (Item.keys.keys - ["_keywords", "watchers"]),
-      #                             :order => order}.merge(conditions))
+                                   #:page => params[:page] || 1,
+                                   #:fields => (Item.keys.keys - ["_keywords", "watchers"]),
+                                   #:order => order}.merge(conditions))
   end
 
   def feedback
@@ -97,5 +120,19 @@ class WelcomeController < ApplicationController
 
     redirect_to params[:source].to_s[0,1]=="/" ? params[:source] : root_path
   end
+
+
+  protected
+
+  def set_default_thumbnail
+    #@item = Item.find_by_slug_or_id(params[:id])
+    #@images = Image.all
+ #   @default_thumbnail = Image.find(@item.default_thumbnail)
+
+    #@default_thumbnail = Image.find(@item.default_thumbnail)
+
+  end
+
+
 end
 
