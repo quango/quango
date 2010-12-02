@@ -15,6 +15,7 @@
     -#%button.share
       
     = render :partial => "items/share"
+    = vote_box(@item, item_path(@item), @item.closed)
 
     - if logged_in?
       - if (@item.wiki && current_user.can_edit_wiki_post_on?(@item.group)) || current_user.can_edit_others_posts_on?(@item.group) || current_user.can_modify?(@item)
@@ -24,8 +25,8 @@
 
     -# if current_user.can_modify?(@item.group)
       -#= link_to "Refer", "#", :class => "button right" 
-    - else
-      =vote_box(@item, item_path(@item), @item.closed)
+    -# else
+
     
 
 .clear
