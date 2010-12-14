@@ -29,7 +29,6 @@
 
     .listings-centre
       .title
-        = h("mode.#{section.type}")
       .content
 
         %ul.listing
@@ -38,7 +37,7 @@
               = t(".empty")
           -else
 
-            -@items.each do |item| #scoping
+            - section.items.each do |item| #scoping to section ( consider @ )
               -#-- if item.section == section.name
               = render :partial => "items/section_list_item_welcome", :locals => {:section => section, :item => item, :list_mode => "headline"}
 
@@ -77,7 +76,7 @@
       = "$('.show_summary.#{section.name}').css('display','none');"
       = "$('#{section.name}.#{section.name}.section-listing-welcome').show();"
       = "};"
-      - if expanded = "false"
+      - if expanded == "false"
         = "if (#{section.name} == null) {"
         = "$('.show_summary.#{section.name}').css('display','block');"
         = "$('.hide_summary.#{section.name}').css('display','none');"

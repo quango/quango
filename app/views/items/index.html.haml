@@ -39,8 +39,8 @@
             %li.highlight
               = t(".empty")
           -current_group.items.each do |item|
-            -if item.section == @active_section
-              = render :partial => "item", :object => item #, :section => @active_section
+            -if item.doctype.name == @active_section
+              = render :partial => "item", :object => item, :section => @active_section
 
         #additional_info
           -#=will_paginate @items

@@ -4,7 +4,7 @@
   \#header-container {background-color: #{current_group.primary};}
   \#header-container-inner { 
   -if current_group.header_bg?
-    background-image: url(#{current_group.header_bg_image};)
+    background-image: url(#{current_group.header_bg_image})
   -if !current_group.header_bg? && !current_group.header_bg_image?
     background-color: #{current_group.primary};
   }

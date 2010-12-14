@@ -2,7 +2,7 @@
   .secondary-navigation-sections
     %small
       = "Back to: "
-      = link_to @item.title, item_path(@item), :class=>"standard-button"
+      = link_to @item.title, item_path(@item.doctype, @item), :class=>"standard-button"
   
 
 - content_for :main do
@@ -14,7 +14,7 @@
 
 
     %p
-      = link_to 'Add a New image', new_item_image_path(@item), :class => "action-button"
+      = link_to 'Add a New image', new_item_image_path(@item.doctype, @item), :class => "action-button"
 
     %p
       %table{:class => "image-table"}
@@ -35,7 +35,7 @@
                     = image_tag("/images/buttons/radio_button_on.png" , :title => "selected")
                     %input{:type => "radio", :name => "default_avatar", :style => "height:20px; width:20px", :checked => true}
                   -else
-                    = link_to "set", set_default_thumbnail_item_image_path(@item, image)
+                    = link_to "set", set_default_thumbnail_item_image_path(@item.doctype, @item, image)
                     -#%input{:type => "radio", :name => "default_avatar"}
                 %td
                   = image.name.to_s
@@ -43,14 +43,14 @@
                   - cropped_image = image.image.process(:thumb,image.image_cropping)
                   = image_tag cropped_image.process(:thumb,"128x").url, :alt => image.name, :title => image.name
                 %td.order
-                  -form_tag move_item_image_path(@item, image) do
+                  -form_tag move_item_image_path(@item.doctype, @item, image) do
                     = submit_tag("up", :name=>"move_to", :value => "up") 
                     = submit_tag("down", :name=>"move_to", :value => "down")
                 %td
-                  = link_to 'Show', item_image_path(@item, image)
-                  = link_to 'Edit', edit_item_image_path(@item, image)
-                  = link_to 'Cropping', crop_item_image_path(@item, image), :class => "action-link"
-                  = link_to 'Destroy', item_image_path(@item, image), :confirm => 'Are you sure?', :method => :delete
+                  = link_to 'Show', item_image_path(@item.doctype, @item, image)
+                  = link_to 'Edit', edit_item_image_path(@item.doctype, @item, image)
+                  = link_to 'Cropping', crop_item_image_path(@item.doctype, @item, image), :class => "action-link"
+                  = link_to 'Destroy', item_image_path(@item.doctype, @item, image), :confirm => 'Are you sure?', :method => :delete
 
 
 

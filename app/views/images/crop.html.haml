@@ -53,15 +53,15 @@
       ="<b>Instructions:</b></br>"
       ="Click and drag box and the press the big red Crop! button"
       %div.right
-        - form_for @image, :url => item_image_path(@item,@image), :html => {:multipart => true} do |f|
+        - form_for @image, :url => item_image_path(@item.doctype, @item,@image), :html => {:multipart => true} do |f|
           = f.hidden_field :image_cropping, :id => 'image_cropping'
           = f.submit "Crop!", :class => "edit-button"   
       %div.right
-        = link_to "Flip", flip_item_image_path(@item,@image), :class => "standard-button"
-        = link_to "Flop", flop_item_image_path(@item,@image), :class => "standard-button"
-        = link_to "-5", rotate_left_item_image_path(@item,@image), :class => "standard-button"
-        = link_to "+5", rotate_right_item_image_path(@item,@image), :class => "standard-button"
-        = link_to "180", rotate_180_item_image_path(@item,@image), :class => "standard-button"
+        = link_to "Flip", flip_item_image_path(@item.doctype, @item, @image), :class => "standard-button"
+        = link_to "Flop", flop_item_image_path(@item.doctype, @item, @image), :class => "standard-button"
+        = link_to "-5", rotate_left_item_image_path(@item.doctype, @item, @image), :class => "standard-button"
+        = link_to "+5", rotate_right_item_image_path(@item.doctype, @item, @image), :class => "standard-button"
+        = link_to "180", rotate_180_item_image_path(@item.doctype, @item, @image), :class => "standard-button"
 
     .clear
     %p

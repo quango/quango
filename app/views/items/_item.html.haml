@@ -38,8 +38,8 @@
 
       -cache("item_on_index_#{item.id}_#{I18n.locale}") do
         %h3
-          = image_tag("/images/icons/"+item.mode.to_s+"_icon_16.png", :width => 16, :height => 16)
-          = link_to title, "/#{item.section}/#{item.slug}", :title => truncate(strip_tags(item.body), :length => 200)
+          = image_tag("/images/icons/"+item.doctype.name+"_icon_16.png", :width => 16, :height => 16)
+          = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
         .tag-list
           -if item.tags.empty? && logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group))
             %span.retag
@@ -54,7 +54,7 @@
         -else
           =t("global.anonymous")
         %small.time_ago
-          = link_to t("time.ago", :time => time_ago_in_words(last_target.updated_at)), items_path(item)+"##{last_target.id}"
+          = link_to t("time.ago", :time => time_ago_in_words(last_target.updated_at)), items_path(item.doctype, item)+"##{last_target.id}"
         -if item.wiki
           %span.wiki_flag
             wiki

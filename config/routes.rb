@@ -62,7 +62,7 @@ ActionController::Routing::Routes.draw do |map|
                                  :member     => {:solve => :get,:unsolve => :get,:favorite => :any,:unfavorite => :any,:watch => :any,:unwatch => :any,
                                                  :history => :get,:revert => :get,:diff => :get,
                                                  :move => :get,:move_to => :put, :retag => :get,:retag_to => :put,
-                                            :close => :put,:open => :put}, :name_prefix => nil,  :as => 'stub' do |items| #:name_prefix => nil,
+                                            :close => :put,:open => :put}, :name_prefix => nil,  :as => '' do |items| #:name_prefix => nil,
 
         items.resources :comments
         items.resources :images, :member => { :crop => :get, 
@@ -144,7 +144,7 @@ ActionController::Routing::Routes.draw do |map|
     manage.domain '/domain', :action => 'domain'
   end
 
-  map.resources :nodes , :controller => :items, :action => :index, :member => {:section => :any}, :as => ":section"
+  #map.resources :nodes , :controller => :items, :action => :index, :member => {:section => :any}, :as => ":section"
 
   map.search '/search.:format', :controller => "searches", :action => "index"
   map.about '/about', :controller => "groups", :action => "show"

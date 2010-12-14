@@ -54,11 +54,14 @@ class ItemsController < ApplicationController
     else
       feed_params = {}
     end
+
     add_feeds_url(url_for({:format => "atom"}.merge(feed_params)), t("feeds.items"))
+
     if params[:tags]
       add_feeds_url(url_for({:format => "atom", :tags => params[:tags]}.merge(feed_params)),
                     "#{t("feeds.tag")} #{params[:tags].inspect}")
     end
+
     @tag_cloud = Item.tag_cloud(scoped_conditions, 25)
 
     respond_to do |format|

@@ -62,16 +62,12 @@ class ImagesController < ApplicationController
 
     @image.image = @image.image.process!(:resize, '962>')
 
-    #todo: set the default thub if none present
-    if !@item.default_thumbnail
-        @item.default_thumbnail = params[:id]
-        @item.save
-    end    
+   
 
     respond_to do |format|
       if @image.save
         if params[:image][:image].present?
-          format.html { redirect_to(crop_item_image_path(@item, @image))}
+          format.html { redirect_to(crop_item_image_path(@item.doctype, @item, @image))}
           #render :action => 'crop'
         else
           #format.html { render :action => "new" }
@@ -89,9 +85,17 @@ class ImagesController < ApplicationController
     @image = Image.find(params[:id])
     @image.safe_update(%w[name image_cropping], params[:image])
 
+    if @item.default_thumbnail.blank?
+        
+        @item.default_thumbnail = params[:id]
+        @item.save
+    end 
+
+
     respond_to do |format|
       if @image.save
-        format.html { redirect_to(item_images_path(@item), :notice => 'Image was successfully updated so it claims.') }
+        
+        format.html { redirect_to(item_images_path(@item.doctype, @item), :notice => 'Image was successfully updated so it claims.') }
         format.xml  { render :xml => @image, :status => :created, :location => @image }
       else
         format.html { render :action => "new" }
@@ -105,11 +109,17 @@ class ImagesController < ApplicationController
 
   def destroy
     @item = Item.find_by_slug_or_id(params[:item_id])
+
+    if @item.default_thumbnail == params[:id]
+      @item.default_thumbnail = nil
+      @item.save
+    end
+
     @image = Image.find(params[:id])
     @image.destroy
 
     respond_to do |format|
-      format.html { redirect_to(item_images_path(@item), :notice => 'Image was successfully deleted so it claims.') }
+      format.html { redirect_to(item_images_path(@item.doctype, @item), :notice => 'Image was successfully deleted so it claims.') }
       format.xml  { head :ok }
     end
   end
@@ -125,6 +135,9 @@ class ImagesController < ApplicationController
   def crop
     @item = Item.find_by_slug_or_id(params[:item_id])
     @image = Image.find(params[:id])
+
+
+
   end
 
   def flip

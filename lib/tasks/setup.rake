@@ -73,13 +73,13 @@ namespace :setup do
 
     doctypes = Array.new
 
-    doctypes << Doctype.new(:name => "news", :doctype => "standard", :create_label => "Add some news", :group_id => default_group.id)
-    doctypes << Doctype.new(:name => "thoughts", :doctype => "standard", :create_label => "Share a thought", :group_id => default_group.id)
-    doctypes << Doctype.new(:name => "newsfeeds", :doctype => "newsfeed", :create_label => "Add a newsfeed", :hidden => "true", :group_id => default_group.id)
-    doctypes << Doctype.new(:name => "discussions", :doctype => "standard", :create_label => "Discuss something", :group_id => default_group.id)
-    doctypes << Doctype.new(:name => "articles", :doctype => "standard", :create_label => "Write an article", :group_id => default_group.id)
-    doctypes << Doctype.new(:name => "videos", :doctype => "video", :create_label => "Share a video", :group_id => default_group.id)
-    doctypes << Doctype.new(:name => "links", :doctype => "bookmark", :create_label => "Share a link", :group_id => default_group.id)
+    doctypes << Doctype.new(:name => "news", :doctype => "standard", :custom_icon => "news", :create_label => "Add some news", :group_id => default_group.id)
+    doctypes << Doctype.new(:name => "thoughts", :doctype => "standard", :custom_icon => "thoughts", :create_label => "Share a thought", :group_id => default_group.id)
+    doctypes << Doctype.new(:name => "newsfeeds", :doctype => "newsfeed", :custom_icon => "newsfeeds", :create_label => "Add a newsfeed", :hidden => "true", :group_id => default_group.id)
+    doctypes << Doctype.new(:name => "discussions", :doctype => "standard", :custom_icon => "discussions", :create_label => "Discuss something", :group_id => default_group.id)
+    doctypes << Doctype.new(:name => "articles", :doctype => "standard", :custom_icon => "articles", :create_label => "Write an article", :group_id => default_group.id)
+    doctypes << Doctype.new(:name => "videos", :doctype => "video", :custom_icon => "videos", :create_label => "Share a video", :group_id => default_group.id)
+    doctypes << Doctype.new(:name => "links", :doctype => "bookmark", :custom_icon => "links", :create_label => "Share a link", :group_id => default_group.id)
 
     doctypes.each do |doctype| 
      doctype.save!
@@ -93,6 +93,8 @@ namespace :setup do
     admin = User.new(:login => "admin", :password => "admins",
                                         :password_confirmation => "admins",
                                         :email => "shapado@example.com",
+                                        :first_name => "The",
+                                        :last_name => "Administrator",
                                         :role => "admin")
 
     admin.save!
@@ -103,7 +105,8 @@ namespace :setup do
     user = User.new(:login => "user", :password => "user123",
                                       :password_confirmation => "user123",
                                       :email => "user@example.com",
-                                      :real_name => "Gary Baldie",
+                                      :first_name => "Gary",
+                                      :last_name => "Baldie",
                                       :role => "user")
     user.save!
   end
