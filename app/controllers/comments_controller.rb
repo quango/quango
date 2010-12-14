@@ -18,10 +18,6 @@ class CommentsController < ApplicationController
         Item.update_last_target(item_id, @comment)
       end
 
-      if discussion_id = @comment.discussion_id
-        Discussion.update_last_target(discussion_id, @comment)
-      end
-
       flash[:notice] = t("comments.create.flash_notice")
     else
       flash[:error] = @comment.errors.full_messages.join(", ")
@@ -131,16 +127,10 @@ class CommentsController < ApplicationController
   end
 
   def find_scope
-    #if !@item
-      @item = Item.by_slug(params[:item_id])
+    @item = Item.by_slug(params[:item_id])
       if @item
         @answer = @item.answers.find(params[:answer_id]) unless params[:answer_id].blank?
       end
-
-      @discussion = Discussion.by_slug(params[:discussion_id])
-      
-      #@answer = @discussion.answers.find(params[:answer_id]) unless params[:answer_id].blank?
-    #end
   end
 
   def scope
@@ -148,7 +138,7 @@ class CommentsController < ApplicationController
       @answer
     else
       @item
-      #@discussion
+
     end
   end
 

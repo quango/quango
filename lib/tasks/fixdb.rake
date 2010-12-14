@@ -1,34 +1,34 @@
 desc "Fix all"
-#task :fixall => [:environment, "fixdb:section2suction"] do
-task :fixall => [:environment, "fixdb:insertsuctionid"] do
+#task :fixall => [:environment, "fixdb:section2doctype"] do
+task :fixall => [:environment, "fixdb:insertdoctypeid"] do
 end
 
 namespace :fixdb do
 
-  task :section2suction => :environment do
+  task :section2doctype => :environment do
     count = 0
     Group.find_each do |group|
       group.sections.each do |section| 
         puts "#{section.name}"  
-        suction = Suction.new(:name => "#{section.name}", :display_name => "#{section.name}", :doctype => "#{section.type}", :group_id => "#{group.id}", :create_label => "#{section.create_label}", :hidden => "#{section.hidden}")
-        suction.save
+        doctype = Doctype.new(:name => "#{section.name}", :display_name => "#{section.name}", :doctype => "#{section.type}", :group_id => "#{group.id}", :create_label => "#{section.create_label}", :hidden => "#{section.hidden}")
+        doctype.save
 
       end
     end
     puts "Updated #{count}  items"
   end
 
-  task :insertsuctionid => :environment do
+  task :insertdoctypeid => :environment do
     count = 0
     Group.find_each do |group|
       puts "#{group.name}"  
-      #Suctions.find_each(:group_id => group.id) do |suction|
+      #Doctypes.find_each(:group_id => group.id) do |doctype|
         #Item.find_each(:group_id => group.id) do |item|
               count = count + 1
   
-         #if item.section.upcase == suction.name.upcase
+         #if item.section.upcase == doctype.name.upcase
               #count = count + 1
-            	#item.set({:suction_id => "#{suction.id}"})
+            	#item.set({:doctype_id => "#{doctype.id}"})
 
          #end
 

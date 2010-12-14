@@ -1,6 +1,7 @@
 desc "Setup application"
 task :bootstrap => [:environment, "setup:reset",
                     "setup:create_admin",
+                    "setup:create_user",
                     "setup:default_group",
                     "setup:create_sections",
                     "setup:create_widgets",
@@ -70,18 +71,18 @@ namespace :setup do
   task :create_sections => :environment do
     default_group = Group.find_by_domain(AppConfig.domain)
 
-    suctions = Array.new
+    doctypes = Array.new
 
-    suctions << Suction.new(:name => "news", :doctype => "standard", :create_label => "Add some news", :group_id => default_group.id)
-    suctions << Suction.new(:name => "thoughts", :doctype => "standard", :create_label => "Share a thought", :group_id => default_group.id)
-    suctions << Suction.new(:name => "newsfeeds", :doctype => "newsfeed", :create_label => "Add a newsfeed", :hidden => "true", :group_id => default_group.id)
-    suctions << Suction.new(:name => "discussions", :doctype => "standard", :create_label => "Discuss something", :group_id => default_group.id)
-    suctions << Suction.new(:name => "articles", :doctype => "standard", :create_label => "Write an article", :group_id => default_group.id)
-    suctions << Suction.new(:name => "videos", :doctype => "video", :create_label => "Share a video", :group_id => default_group.id)
-    suctions << Suction.new(:name => "links", :doctype => "bookmark", :create_label => "Share a link", :group_id => default_group.id)
+    doctypes << Doctype.new(:name => "news", :doctype => "standard", :create_label => "Add some news", :group_id => default_group.id)
+    doctypes << Doctype.new(:name => "thoughts", :doctype => "standard", :create_label => "Share a thought", :group_id => default_group.id)
+    doctypes << Doctype.new(:name => "newsfeeds", :doctype => "newsfeed", :create_label => "Add a newsfeed", :hidden => "true", :group_id => default_group.id)
+    doctypes << Doctype.new(:name => "discussions", :doctype => "standard", :create_label => "Discuss something", :group_id => default_group.id)
+    doctypes << Doctype.new(:name => "articles", :doctype => "standard", :create_label => "Write an article", :group_id => default_group.id)
+    doctypes << Doctype.new(:name => "videos", :doctype => "video", :create_label => "Share a video", :group_id => default_group.id)
+    doctypes << Doctype.new(:name => "links", :doctype => "bookmark", :create_label => "Share a link", :group_id => default_group.id)
 
-    suctions.each do |suction| 
-     suction.save!
+    doctypes.each do |doctype| 
+     doctype.save!
     end
 
   end
@@ -102,6 +103,7 @@ namespace :setup do
     user = User.new(:login => "user", :password => "user123",
                                       :password_confirmation => "user123",
                                       :email => "user@example.com",
+                                      :real_name => "Gary Baldie",
                                       :role => "user")
     user.save!
   end

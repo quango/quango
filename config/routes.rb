@@ -53,12 +53,12 @@ ActionController::Routing::Routes.draw do |map|
 
   def build_items_routes(router, options ={})
     router.with_options(options) do |route|
-      route.se_url "/:suction/:id/:slug", :controller => "items", :action => "show", :section => /\d+/, :id => /\d+/,
+      route.se_url "/:doctype/:id/:slug", :controller => "items", :action => "show", :section => /\d+/, :id => /\d+/,
  :conditions => { :method => :get }
 
-      route.resources :suctions, :as => 'community' do |suctions|
+      route.resources :doctypes, :as => 'community' do |doctypes|
 
-        suctions.resources :items, :collection => {:tags => :get,:tags_for_autocomplete => :get,:unanswered => :get,:related_items => :get},
+        doctypes.resources :items, :collection => {:tags => :get,:tags_for_autocomplete => :get,:unanswered => :get,:related_items => :get},
                                  :member     => {:solve => :get,:unsolve => :get,:favorite => :any,:unfavorite => :any,:watch => :any,:unwatch => :any,
                                                  :history => :get,:revert => :get,:diff => :get,
                                                  :move => :get,:move_to => :put, :retag => :get,:retag_to => :put,
@@ -95,24 +95,24 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect 'items/topic/:tags', :controller => :items, :action => :index,:requirements => {:tags => /\S+/}
   map.connect 'items/unanswered/tags/:tags', :controller => :items, :action => :unanswered
-  #map.connect 'suctions/:suction_id/items/:id', :controller => :items, :action => :show, :as => ':suction_id/:id' #, :only => 'show'
+  #map.connect 'doctypes/:doctype_id/items/:id', :controller => :items, :action => :show, :as => ':doctype_id/:id' #, :only => 'show'
 
-  #map.connect 'suctions', :controller => :items, :action => :show, :as => ''
+  #map.connect 'doctypes', :controller => :items, :action => :show, :as => ''
 
-  build_items_routes(map) #, :as => ':suction/:id', :only => 'show')
+  build_items_routes(map) #, :as => ':doctype/:id', :only => 'show')
 
   
-  #map.resources :suctions, :controller => :suctions, :action => :index, :as => 'foo'
+  #map.resources :doctypes, :controller => :doctypes, :action => :index, :as => 'foo'
 
-  map.resources :suctions, :member => {:move => :post, :list => :get}
+  map.resources :doctypes, :member => {:move => :post, :list => :get}
 
 
-  #map.connect 'items/:id',:controller => :items, :path_prefix => ":suctions"
+  #map.connect 'items/:id',:controller => :items, :path_prefix => ":doctypes"
   
 
 
 
-  #map.resources :mangle, :controller => "items", :action => "show", :path_prefix => "/:suctions"
+  #map.resources :mangle, :controller => "items", :action => "show", :path_prefix => "/:doctypes"
 
 
   map.resources :groups, :member => {:check_available => :get,

@@ -51,7 +51,7 @@ class BunniesController < ApplicationController
 
     respond_to do |format|
       if @bunny.save
-        format.html { redirect_to(item_bunnies_path(@item.suction_id, @item), :notice => 'Bunny was successfully created so it claims.') }
+        format.html { redirect_to(item_bunnies_path(@item.doctype_id, @item), :notice => 'Bunny was successfully created so it claims.') }
         format.xml  { render :xml => @bunny, :status => :created, :location => @bunny }
       else
         format.html { render :action => "new" }
@@ -70,7 +70,7 @@ class BunniesController < ApplicationController
 
     respond_to do |format|
       if @bunny.save
-        format.html { redirect_to(item_bunnies_path(@item.suction_id, @item), :notice => 'Bunny was successfully updated so it claims.') }
+        format.html { redirect_to(item_bunnies_path(@item.doctype_id, @item), :notice => 'Bunny was successfully updated so it claims.') }
         format.xml  { render :xml => @bunny, :status => :created, :location => @bunny }
       else
         format.html { render :action => "new" }
@@ -88,7 +88,7 @@ class BunniesController < ApplicationController
     @bunny.destroy
 
     respond_to do |format|
-      format.html { redirect_to(item_bunnies_path(@item.suction_id, @item), :notice => 'Bunny was successfully deleted so it claims.') }
+      format.html { redirect_to(item_bunnies_path(@item.doctype_id, @item), :notice => 'Bunny was successfully deleted so it claims.') }
       format.xml  { head :ok }
     end
   end

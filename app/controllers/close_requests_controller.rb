@@ -8,9 +8,6 @@ class CloseRequestsController < ApplicationController
    if @item
     @close_requests = @item.close_requests
    end
-   if @discussion
-    @close_requests = @discussion.close_requests
-   end
   end
 
   def new
@@ -21,16 +18,6 @@ class CloseRequestsController < ApplicationController
       format.js do
         render :json => {:html => render_to_string(:partial => "close_requests/form",
                                                    :locals => {:item => @item,
-                                                               :close_request => @close_request})}.to_json
-        end
-      end
-    end
-    if @discussion
-    respond_to do |format|
-      format.html
-      format.js do
-        render :json => {:html => render_to_string(:partial => "close_requests/form",
-                                                   :locals => {:discussion => @discussion,
                                                                :close_request => @close_request})}.to_json
         end
       end
@@ -72,38 +59,9 @@ class CloseRequestsController < ApplicationController
           format.js { render :json => {:message => flash[:error], :success => false }.to_json }
         end
       end
-    end
 
-    #Discussion
-    if @discussion
-      @discussion.close_requests << @close_request
-      if current_user.mod_of?(current_group)
-        @discussion.closed = Boolean.to_mongo(params[:close]||false)
-        if @discussion.closed
-          @discussion.close_reason_id = @close_request.id
-        else
-          @discussion.close_reason_id = nil
-        end
-      end
 
-      respond_to do |format|
-        if @close_request.valid?
-          @discussion.save
-          if @discussion.closed
-            flash[:notice] = "discussion closed successfully"
-          else
-            flash[:notice] = t(:flash_notice, :scope => "close_requests.create")
-          end
-          format.html { redirect_to(discussion_path(@discussion)) }
-          format.json { render :json => @close_request.to_json, :status => :created}
-          format.js { render :json => {:message => flash[:notice], :success => true }.to_json }
-        else
-          flash[:error] = @close_request.errors.full_messages.join(", ")
-          format.html { redirect_to(discussion_path(@discussion)) }
-          format.json { render :json => @close_request.errors, :status => :unprocessable_entity}
-          format.js { render :json => {:message => flash[:error], :success => false }.to_json }
-        end
-      end
+
     end
   end
 
@@ -120,20 +78,6 @@ class CloseRequestsController < ApplicationController
         end
       end
     end
-    #
-    if @discussion
-      @close_request = @discussion.close_requests.find(params[:id])
-      respond_to do |format|
-        format.html
-        format.js do
-          render :json => {:html => render_to_string(:partial => "close_requests/form",
-                                                     :locals => {:close_request => @close_request,
-                                                                 :discussion => @discussion,
-                                                                 :form_id => "discussion_close_form" })}.to_json
-        end
-      end
-    end
-    #
   end
 
   def update
@@ -169,39 +113,6 @@ class CloseRequestsController < ApplicationController
         end
       end
     end
-    #
-    if @discussion
-      @close_request = @discussion.close_requests.find(params[:id])
-      @close_request.reason = params[:close_request][:reason]
-
-      close_discussion = Boolean.to_mongo(params[:close]||false)
-      if current_user.mod_of?(current_group)
-        @discussion.closed = close_discussion
-        if @discussion.closed_changed?
-          if @discussion.closed
-            @discussion.close_reason_id = @close_request.id
-          else
-            @discussion.close_reason_id = nil
-          end
-        end
-      end
-
-      respond_to do |format|
-        if @close_request.valid?
-          @discussion.save
-          flash[:notice] = t(:flash_notice, :scope => "close_requests.update")
-          format.html { redirect_to(discussion_path(@discussion)) }
-          format.json { render :json => @close_request.to_json }
-          format.js { render :json => {:message => flash[:notice], :success => true }.to_json }
-        else
-          flash[:error] = @close_request.errors.full_messages.join(", ")
-          format.html { redirect_to(discussion_path(@discussion)) }
-          format.json { render :json => @close_request.errors, :status => :unprocessable_entity}
-          format.js { render :json => {:message => flash[:error], :success => false }.to_json }
-        end
-      end
-    end
-    #
   end
 
   def destroy
@@ -221,29 +132,11 @@ class CloseRequestsController < ApplicationController
         format.js { render :json => {:message => flash[:notice], :success => true}.to_json }
       end
     end
-    #
-    if @discussion
-      @close_request = @discussion.close_requests.find(params[:id])
-      if @discussion.closed && @discussion.close_reason_id == @close_request.id
-        @discussion.closed = false
-      end
-      @discussion.close_requests.delete(@close_request)
-
-      @discussion.save
-      flash[:notice] = t(:flash_notice, :scope => "close_requests.destroy")
-      respond_to do |format|
-        format.html { redirect_to(discussion_path(@discussion)) }
-        format.json {head :ok}
-        format.js { render :json => {:message => flash[:notice], :success => true}.to_json }
-      end
-    end
-    #
   end
 
   protected
   def find_item
     @item = current_group.items.find_by_slug_or_id(params[:item_id])
-    @discussion = current_group.discussions.find_by_slug_or_id(params[:discussion_id])
   end
 
   def check_permissions
@@ -260,20 +153,5 @@ class CloseRequestsController < ApplicationController
         return
       end
     end
-    #
-    if @discussion
-      @close_request = @discussion.close_requests.find(params[:id])
-      if (@close_request && @close_request.user_id != current_user.id) ||
-         (@discussion.closed && !current_user.mod_of?(current_group)) ||
-         !@discussion.can_be_requested_to_close_by?(current_user)
-        flash[:error] = t("global.permission_denied")
-        respond_to do |format|
-          format.html {redirect_to discussion_path(@discussion)}
-          format.js {render :json => {:success => false, :message => flash[:error]}}
-        end
-        return
-      end
-    end
-    #
   end
 end

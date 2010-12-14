@@ -11,19 +11,11 @@ class Favorite
   key :item_id, String
   belongs_to :item
 
-  key :discussion_id, String
-  belongs_to :discussion
-
-  key :bookmark_id, String
-  belongs_to :bookmark
-
   validate :should_be_unique # FIXME
 
   protected
   def should_be_unique
-    favorite = Favorite.first({:item_id => self.item_id,
-                               :discussion_id => self.discussion_id,
-                               :bookmark_id => self.bookmark_id,
+    favorite = Favorite.first({:item_id     => self.item_id,
                                :user_id     => self.user_id,
                                :group_id    => self.group_id
                               })

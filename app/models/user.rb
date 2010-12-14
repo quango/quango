@@ -12,6 +12,8 @@ class User
   key :_id,                       String
   key :login,                     String, :limit => 40, :index => true
   key :name,                      String, :limit => 100, :default => '', :null => true
+  key :first_name,                String, :limit => 40
+  key :last_name,                 String, :limit => 40
 
   key :bio,                       String, :limit => 200
   key :website,                   String, :limit => 200
@@ -94,6 +96,8 @@ class User
   end
 
   validates_length_of       :name,     :maximum => 100
+  validates_presence_of       :first_name
+  validates_presence_of       :last_name
 
   validates_presence_of     :email,    :if => lambda { |e| !e.openid_login? && !e.twitter_login? }
   validates_uniqueness_of   :email,    :scope => [:anonymous], :if => lambda { |e| !e.openid_login? && !e.twitter_login? && !e.anonymous }

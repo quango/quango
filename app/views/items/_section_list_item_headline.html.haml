@@ -19,7 +19,7 @@
 
   -#"/#{item.section}/#{item.slug}"
 
-  = link_to title, item_path(item.suction, item), :locals => {:section => @active_section}, :title => truncate(strip_tags(item.title), :length => 200)
+  = link_to title, item_path(item.doctype, item), :locals => {:section => @active_section}, :title => truncate(strip_tags(item.title), :length => 200)
   %small
     = link_to t("time.ago", :time => time_ago_in_words(item.updated_at)), items_path(item.section, item.id)+"##{item.id}"
 

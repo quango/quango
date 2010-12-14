@@ -5,5 +5,4 @@
       = t(".title", :model => I18n.t("activerecord.models.item"))
   - if @item
     = render :partial => "close_requests/form", :locals => {:close_request => @close_request, :item => @item }
-  - if @discussion
-    = render :partial => "close_requests/form", :locals => {:close_request => @close_request, :discussion => @discussion }
+

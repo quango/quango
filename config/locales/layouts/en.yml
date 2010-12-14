@@ -6,7 +6,7 @@ en:
       latest:
         news_article: Latest
         newsfeed: Latest
-        discussion: Latest
+
         video: Latest
         article: Latest
         blog: Blogs
@@ -15,8 +15,7 @@ en:
       headlines:
         news_article: News headlines
         newsfeed: Newsfeeds
-        discussion: Active Discussions
-        video: Active Discussions
+
         article: Article Headlines
         blog: Recent blogs
         bookmark: Recent Bookmarks
@@ -24,7 +23,6 @@ en:
       features:
         news_article: News Features
         newsfeed: Latest
-        discussion: Latest
         video: Latest
         article: Article features
         blog: Hot blogs
@@ -40,7 +38,7 @@ en:
       article: Write an article
       blog: Write a blog
       question: Ask a question
-      discussion: Start a discussion
+
       bookmark: Share a bookmark
     forms:
       wiki: Open Edit
@@ -52,8 +50,6 @@ en:
       items_in: Items in
       items_tagged: tagged with
       ask_item: Ask item
-      discussions: Discussions
-      discussion: Discussion
       tags: Topics
       users: members
       questions: Questions

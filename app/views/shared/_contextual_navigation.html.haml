@@ -1,23 +1,23 @@
 #contextual-navigation{:class => @active_section}
   %ul
-    -current_group.suctions.each do |suction|
-      -if !suction.hidden?
-        -if suction.name == @active_section
-          %li{:class => suction.name }
-            - section_link = suction.name.capitalize
-            = link_to section_link, items_path(suction), :style => "color: black;"
+    -current_group.doctypes.each do |doctype|
+      -if !doctype.hidden?
+        -if doctype.name == @active_section
+          %li{:class => doctype.name }
+            - section_link = doctype.name.capitalize
+            = link_to section_link, items_path(doctype), :style => "color: black;"
         -else
-          %li{:class => suction.name }
-            - section_link = suction.name.capitalize
+          %li{:class => doctype.name }
+            - section_link = doctype.name.capitalize
             -#= link_to section_link, nodes_path(section.name)
-            = link_to section_link, items_path(suction), :style => "color: white;", :object => suction
+            = link_to section_link, items_path(doctype), :style => "color: white;", :object => doctype
 
 
     %li{:style => "border-left:1px solid #{current_group.secondary}"}
       -if @active_section == "groups"
-        = link_to "Groups", groups_path, :style => "color: black;"
+        = link_to "Communities", groups_path, :style => "color: black;"
       -else
-        = link_to "Groups", groups_path
+        = link_to "Communities", groups_path
     %li
       -if @active_section == "members"
         = link_to "Members", users_path, :style => "color: black;"

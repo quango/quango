@@ -6,7 +6,7 @@
       = "Editing bunny"
 
     %p
-      - form_for @bunny, :url => item_bunny_path(@item.suction_id, @item), :html =>{ :method => :put } do |f|
+      - form_for @bunny, :url => item_bunny_path(@item.doctype_id, @item), :html =>{ :method => :put } do |f|
         = f.error_messages
         %p
           = f.text_field :name, :value => @bunny.name

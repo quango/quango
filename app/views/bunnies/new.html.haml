@@ -6,7 +6,7 @@
       = "New bunny"
 
     %p
-      - form_for @bunny, :url => item_bunnies_path(@item.suction_id, @item) do |f|
+      - form_for @bunny, :url => item_bunnies_path(@item.doctype_id, @item) do |f|
         = f.error_messages
         %p
           = f.text_field :name, :value => @bunny.name
@@ -14,4 +14,4 @@
           = f.submit 'Create'
 
     %p
-      = link_to 'Back', item_bunnies_path(@item.suction_id, @item)
+      = link_to 'Back', item_bunnies_path(@item.doctype_id, @item)

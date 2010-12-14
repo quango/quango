@@ -1,7 +1,9 @@
 -title = h(item.title)
+-doctype = item.doctype
 -last_target = item.last_target
 
-%li.headline{:class => class_for_item(item)}
+%li.headline
+
   -if item.activity_at > Time.zone.now.yesterday
     %span.new
       = "new"
@@ -18,10 +20,10 @@
       = image_tag("/images/icons/comments.png", :width => 12, :height => 12)
 
   -#= title
-  = link_to title, "item_path(@section, @item)", :locals => {:section => @active_section}, :title => truncate(strip_tags(item.title), :length => 200)
+  = link_to title, item_path(doctype, item), :locals => {:section => @active_section}, :title => truncate(strip_tags(item.title), :length => 200)
 
   %small
-    -#= link_to t("time.ago", :time => time_ago_in_words(item.updated_at)), item_path(item.suction_id, item)+"##{item.id}"
+    -#= link_to t("time.ago", :time => time_ago_in_words(item.updated_at)), item_path(item.doctype_id, item)+"##{item.id}"
 
 
 

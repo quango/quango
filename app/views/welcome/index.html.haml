@@ -53,7 +53,7 @@
  
   #section-listing-welcome{:class => @active_tab}
     %ul
-      -@suctions.each do |section|
+      -@doctypes.each do |section|
         -if !section.hidden?
           %li{:class => section.name }
           = render :partial => "items/section_head_welcome", :locals => {:section => section,:tab=>"activity", :list_mode => "standard"}

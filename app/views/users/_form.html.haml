@@ -1,5 +1,13 @@
 
 .group
+  = f.label :first_name, t(:first_name, :scope => "activerecord.attributes.user"), :class => "label"
+  = f.text_field :first_name, :class => "text_field"
+.group
+  = f.label :last_name, t(:last_name, :scope => "activerecord.attributes.user"), :class => "label"
+  = f.text_field :last_name, :class => "text_field"
+
+
+.group
   = f.label :login, t(:login, :scope => "activerecord.attributes.user"), :class => "label"
   = f.text_field :login, :class => "text_field"
 
@@ -21,7 +29,7 @@
     = f.label :password_confirmation, t(:password_confirmation, :scope => "activerecord.attributes.user"), :class => "label"
     = f.password_field :password_confirmation, :class => "text_field"
 
-.group
+.group.hidden
   = f.label :name, t(:name, :scope => "activerecord.attributes.user"), :class => "label"
   = f.text_field :name, :class => "text_field"
 

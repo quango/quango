@@ -7,7 +7,7 @@
 -content_for :secondary_navigation do
   .secondary-navigation{:class => @active_subtab.to_s}
     %h3
-      -#= h(@active_section.name.capitalize << " Listing")
+      -#= h(@active_doctype.name.capitalize << " Listing")
 
     .navcontrols
       %ul
@@ -25,9 +25,9 @@
 
 
 /Items
--content_for :section_head do
-  #section-listing{:class => @active_tab}
-    = render :partial => "items/section_head_summary", :locals => {:section => @active_section,  :list_mode => "standard"}
+-content_for :doctype_head do
+  #doctype-listing{:class => @active_tab}
+    = render :partial => "items/doctype_head_summary", :locals => {:doctype => @active_doctype,  :list_mode => "standard"}
 
 -content_for :main do
   #main-index
@@ -35,11 +35,11 @@
     .content
       .inner
         %h1
-          = "section:"
+          = "doctype:"
           = @doctype.id.to_s
           = "grp:"
           = current_group.name.to_s
-          -#= @active_section.to_s
+          -#= @active_doctype.to_s
         -#%ul.items#items
           -#-if @items.empty?
             -#%li.highlight
@@ -49,8 +49,8 @@
             %li
               = item.doctype_id
               = item.title.to_s
-          -#-if item.section == @active_section
-          -#= render :partial => "items/item", :object => item #, :section => @active_section
+          -#-if item.doctype == @active_doctype
+          -#= render :partial => "items/item", :object => item #, :doctype => @active_doctype
 
         #additional_info
           -#=will_paginate @items
@@ -62,7 +62,7 @@
     .sidebar
       .inner
         = render :partial => "shared/current_tags"
-        -#= render :partial => "shared/tag_list", :object => @tag_cloud, :section => @active_section
+        -#= render :partial => "shared/tag_list", :object => @tag_cloud, :doctype => @active_doctype
         -current_group.widgets.each do |widget|
           .widget.block{:id => widget.name}
             = render :partial => widget.partial_name, :locals => {:widget => widget}
@@ -80,7 +80,7 @@
           %h3
             = "Related items"
           .content
-            = "Shows a list of related items from other sections"
+            = "Shows a list of related items from other doctypes"
 
         .block
           %h3

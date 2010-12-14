@@ -56,8 +56,16 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new
-    @user.safe_update(%w[login email name password_confirmation password preferred_languages website
+    @user.safe_update(%w[login email first_name last_name password_confirmation password preferred_languages website
                          language timezone identity_url bio hide_country], params[:user])
+
+
+    first_name = params[:user][:first_name]
+    last_name = params[:user][:last_name]
+
+    named = first_name.capitalize << " " << last_name.capitalize
+
+    @user.name = named
 
     @user.profile_images << ProfileImage.new
     @user.profile_images << ProfileImage.new
@@ -159,8 +167,15 @@ class UsersController < ApplicationController
       @user.password_confirmation = params[:user][:password_confirmation]
     end
 
-    @user.safe_update(%w[login email name default_avatar language timezone preferred_languages
+    @user.safe_update(%w[login email first_name last_name default_avatar language timezone preferred_languages
                          notification_opts bio hide_country website], params[:user])
+
+    first_name = params[:user][:first_name]
+    last_name = params[:user][:last_name]
+
+    named = first_name.capitalize << " " << last_name.capitalize
+
+    @user.name = named
 
     if params[:user]["birthday(1i)"]
       @user.birthday = build_date(params[:user], "birthday")

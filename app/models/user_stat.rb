@@ -7,8 +7,6 @@ class UserStat
 
   key :answer_tags, Array
   key :item_tags, Array
-  key :bookmark_tags, Array
-  key :discussion_tags, Array
   key :expert_tags, Array
 
   key :tag_votes, Hash
@@ -26,20 +24,6 @@ class UserStat
     self.collection.update({:_id => self._id,
                             :item_tags => {:$nin => tags} },
                            {:$pushAll => {:item_tags => tags}},
-                           {:upsert => true})
-  end
-
-  def add_bookmark_tags(*tags)
-    self.collection.update({:_id => self._id,
-                            :bookmark_tags => {:$nin => tags} },
-                           {:$pushAll => {:bookmark_tags => tags}},
-                           {:upsert => true})
-  end
-
-  def add_discussion_tags(*tags)
-    self.collection.update({:_id => self._id,
-                            :discussion_tags => {:$nin => tags} },
-                           {:$pushAll => {:discussion_tags => tags}},
                            {:upsert => true})
   end
 

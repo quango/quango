@@ -103,7 +103,7 @@ class Group
   
   has_many :widgets, :class_name => "Widget"
   has_many :badges, :dependent => :destroy
-  has_many :suctions, :dependent => :destroy
+  has_many :doctypes, :dependent => :destroy
   has_many :items, :dependent => :destroy
   has_many :answers, :dependent => :destroy
   has_many :votes, :dependent => :destroy
@@ -171,22 +171,6 @@ class Group
 
   def item_help
     self.custom_html.item_help[I18n.locale.to_s.split("-").first] || ""
-  end
-
-  def bookmark_prompt
-    self.custom_html.item_prompt[I18n.locale.to_s.split("-").first] || ""
-  end
-
-  def bookmark_help
-    self.custom_html.item_help[I18n.locale.to_s.split("-").first] || ""
-  end
-
-  def discussion_prompt
-    self.custom_html.discussion_prompt[I18n.locale.to_s.split("-").first] || ""
-  end
-
-  def discussion_help
-    self.custom_html.discussion_help[I18n.locale.to_s.split("-").first] || ""
   end
 
   def head

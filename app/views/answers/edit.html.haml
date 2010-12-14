@@ -15,20 +15,6 @@
           = t("global.or")
           = link_to t('scaffold.cancel'), item_path(@item), :class => "button cancel"
 
-  -if @discussion
-    - form_for(:answer, :url => discussion_answer_path(@discussion, @answer), :html => {:method => :put, :class => "form"}) do |f|
-      =render :partial => "form", :locals => {:f => f, :markdown => true}
-      .group
-        .group.navform
-          .right
-            = f.label :wiki, "Wiki", :class => "radio"
-            = f.check_box :wiki, :class => "checkbox"
-          = f.submit t("scaffold.update"), :class => "buttton"
-          = t("global.or")
-          = link_to t('scaffold.cancel'), discussion_path(@discussion), :class => "button cancel"
-
-
-
 /Layout
 -content_for :main do
 

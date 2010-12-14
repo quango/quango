@@ -15,8 +15,6 @@
     -owner = item.user unless item.anonymous
 
   %li.entry.item{:class => class_for_item(item)}
-    - if item.mode == "discussion"
-      = "discusison mode"
 
     %small
       =@active_section #.has_images
@@ -45,7 +43,7 @@
         .tag-list
           -if item.tags.empty? && logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group))
             %span.retag
-              = link_to t('items.show.retag'), retag_item_path(item.suction_id, item), :id => 'retag', :class => "important"
+              = link_to t('items.show.retag'), retag_item_path(item.doctype_id, item), :id => 'retag', :class => "important"
           -item.first_tags.each do |tag|
             %span.tag{:class => "tag_#{h(tag)}"}
               = link_to h(tag), url_for(:controller => "items", :action => "index", :tags => tag), :rel => "tag", :title => t("items.tags.tooltip", :tag => tag)

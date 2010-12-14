@@ -19,9 +19,9 @@
 - content_for :head do
   %meta{:name => "keywords", :content => clean_seo_keywords(@item.tags.dup, @item.title)}
   %meta{:name => "description", :content => item_body.gsub(/<\/?[^>]*>/, "")[0, 255] }
-  %link{:rel => "canonical", :href => item_url(@item.suction, @item) }
+  %link{:rel => "canonical", :href => item_url(@item.doctype, @item) }
 
-- source = item_path(@item.suction_id, @item)
+- source = item_path(@item.doctype_id, @item)
 = error_messages_for 'answer'
 
 -content_for :section_head do
@@ -57,8 +57,8 @@
                   = @item.id 
                   -#= "<br/>Item section:"
                   -#= @item.section
-                  -#= "<br/>Active suction:"
-                  -#= @active_suction.id
+                  -#= "<br/>Active doctype:"
+                  -#= @active_doctype.id
                   -#= "<br/>Item section id:"
                   -#= @item.section_id
 
@@ -78,7 +78,7 @@
                     = link_to h(tag), url_for(:controller => "item", :action => "index", :tags => tag), :rel => "tag"
                 - if logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group)) #tofix
                   %span.retag
-                    = link_to t('.retag'), retag_item_path(@item.suction, @item), :id => 'retag'
+                    = link_to t('.retag'), retag_item_path(@item.doctype, @item), :id => 'retag'
 
             .entry-content
               = item_body
@@ -98,7 +98,7 @@
 
           -unless @item.closed
             %a{:name=>"to_answer"}
-            -form_for @answer, :url => item_answers_path(@item.suction_id, @item.id), :html => {:class => "form mainAnswerForm"} do |f|
+            -form_for @answer, :url => item_answers_path(@item.doctype_id, @item.id), :html => {:class => "form mainAnswerForm"} do |f|
               = render :partial => "answers/form", :locals => {:f => f, :markdown => true, :mode => "item"}
               -if logged_in?
                 .group.navform
@@ -119,11 +119,11 @@
             .navcontrols
               %ul
                 %li.newest
-                  = link_to t("items.index.newest"), item_path(@item.suction_id, @item, :sort=>"newest", :anchor => "answers"),:class=>"standard-button", :rel => "nofollow"
+                  = link_to t("items.index.newest"), item_path(@item.doctype_id, @item, :sort=>"newest", :anchor => "answers"),:class=>"standard-button", :rel => "nofollow"
                 %li.votes
-                  = link_to t("items.index.votes"), item_path(@item.suction_id, @item, :sort=>"votes", :anchor => "answers"),:class=>"standard-button", :rel => "nofollow"
+                  = link_to t("items.index.votes"), item_path(@item.doctype_id, @item, :sort=>"votes", :anchor => "answers"),:class=>"standard-button", :rel => "nofollow"
                 %li.oldest
-                  = link_to t("items.index.oldest"), item_path(@item.suction_id, @item, :sort=>"oldest", :anchor => "answers"),:class=>"standard-button", :rel => "nofollow"
+                  = link_to t("items.index.oldest"), item_path(@item.doctype_id, @item, :sort=>"oldest", :anchor => "answers"),:class=>"standard-button", :rel => "nofollow"
                 %li.spin
                   = link_to "&#9733;", "#",:class=>"standard-button"
           .clear
@@ -158,7 +158,7 @@
           %ul.list
             -related_items.each do |rq|
               %li
-                = link_to h(rq.title), items_path(rq.suction_id, rq), :title => truncate(strip_tags(rq.body), :length => 200)
+                = link_to h(rq.title), items_path(rq.doctype_id, rq), :title => truncate(strip_tags(rq.body), :length => 200)
 
 
 -content_for :sidebar do

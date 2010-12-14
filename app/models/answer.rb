@@ -21,16 +21,11 @@ class Answer < Comment
   key :item_id, String
   belongs_to :item
 
-  key :discussion_id, String
-  belongs_to :discussion
-
   has_many :flags
 
   has_many :comments, :foreign_key => "commentable_id", :class_name => "Comment", :order => "created_at asc", :dependent => :destroy
 
   validates_presence_of :user_id
-  #validates_presence_of :item_id
-  #validates_presence_of :discussion_id
 
   versionable_keys :body
   filterable_keys :body

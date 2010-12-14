@@ -34,13 +34,7 @@ module VotesHelper
     else
       %@
 
-          <button type="submit" name="vote_up" value="1" class="button" style="width:96px;">
-            #{image_tag("/images/icons/lightbulb_on.png", :width => 18, :height => 18, :class=>'voted')}
-            Insightfully
-          </button>
-          <button type="submit" name="vote_down" value="1" class="button">
-            #{image_tag("/images/icons/lightbulb_off.png", :width => 18, :height => 18, :class=>'novoted')}
-          </button>
+
 
       @
     end

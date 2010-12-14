@@ -22,15 +22,15 @@ class WelcomeController < ApplicationController
 
 
 
-    @suctions = current_group.suctions.all
+    @doctypes = current_group.doctypes.all
 
     @items = current_group.items
 
-    section = Suction.find_by_slug_or_id(params[:suction_id])
+    doctype = Doctype.find_by_slug_or_id(params[:doctype_id])
     
-    @section = section
+    @doctype = doctype
 
-    #@item.suction_id = @section.id
+    #@item.doctype_id = @section.id
 
 
     #@section_items = current_group.current_section.items

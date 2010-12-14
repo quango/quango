@@ -214,7 +214,7 @@ class ItemsController < ApplicationController
 
     @item = Item.find_by_slug_or_id(params[:id])
 
-    target_section = Suction.find_by_slug_or_id(@item.suction_id)
+    target_section = Doctype.find_by_slug_or_id(@item.doctype_id)
     @section = target_section
 
 
@@ -271,11 +271,11 @@ class ItemsController < ApplicationController
   def new
     @item = Item.new(params[:item])
 
-    target_section = Suction.find_by_slug_or_id(params[:suction_id])
+    target_section = Doctype.find_by_slug_or_id(params[:doctype_id])
 
     @section = target_section
 
-    @item.suction_id = @section.id
+    @item.doctype_id = @section.id
 
     @item.tags = current_group.default_tags.first
 
@@ -303,11 +303,11 @@ class ItemsController < ApplicationController
     @item.group = current_group
     @item.user = current_user
 
-    section = Suction.find_by_slug_or_id(params[:suction_id])
+    section = Doctype.find_by_slug_or_id(params[:doctype_id])
     
     @section = section
 
-    @item.suction_id = @section.id
+    @item.doctype_id = @section.id
     
  
    #@item.section = current_section
@@ -401,7 +401,7 @@ class ItemsController < ApplicationController
         if @item.mode == "news_article"
           format.html { redirect_to(news_article_path(@item)) }        
         else
-          format.html { redirect_to(item_path(@item.suction_id, @item)) }
+          format.html { redirect_to(item_path(@item.doctype_id, @item)) }
           #format.html { redirect_to("/#{@item.section}/#{@item.slug}") }
         end
 
@@ -815,18 +815,18 @@ class ItemsController < ApplicationController
 
   def set_active_section
 
-     @active_section = params[:suction_id]
+     @active_section = params[:doctype_id]
 
      #@item = Item.find_by_slug_or_id(params[:id])
 
 
-     @suctions = current_group.sections
+     @doctypes = current_group.doctypes
         
   
-     @suctions.each do |suction|
+     @doctypes.each do |doctype|
       
-     if suction.name == @active_section
-        @active_suction = suction
+     if doctype.name == @active_section
+        @active_doctype = doctype
      end
 
      end
@@ -843,10 +843,10 @@ class ItemsController < ApplicationController
     if @item.nil?
       @item = current_group.items.first(:slugs => params[:id], :select => [:_id, :slug])
       if @item.present?
-        head :moved_permanently, :location => item_url(@item.suction, @item)
+        head :moved_permanently, :location => item_url(@item.doctype, @item)
         return
       elsif params[:id] =~ /^(\d+)/ && (@item = current_group.items.first(:se_id => $1, :select => [:_id, :slug]))
-        head :moved_permanently, :location => item_url(@item.suction, @item)
+        head :moved_permanently, :location => item_url(@item.doctype, @item)
       else
         raise PageNotFound
       end

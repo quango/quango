@@ -18,8 +18,6 @@ class Item
   key :bookmark, String
   key :title, String, :required => true
   key :body, String
-  key :persons, String
-  key :locations, String
 
   slug_key :title, :unique => true, :min_length => 8
   key :slugs, Array, :index => true
@@ -27,10 +25,6 @@ class Item
   key :video_mode, String, :in => VIDEO_MODES, :default => "youtube"
 
   key :default_thumbnail, String
-
-
-  key :main_image, String, :default => "main-image.gif"
-  key :main_thumbnail, String, :default => "main-thumbnail.gif"
 
   key :answers_count, Integer, :default => 0, :required => true
   key :views_count, Integer, :default => 0
@@ -74,8 +68,8 @@ class Item
   key :group_id, String, :index => true
   belongs_to :group
 
-  key :suction_id, String, :index => true
-  belongs_to :suction
+  key :doctype_id, String, :index => true
+  belongs_to :doctype
 
   key :watchers, Array
 

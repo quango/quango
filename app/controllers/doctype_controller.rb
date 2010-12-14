@@ -1,5 +1,5 @@
 class DoctypesController < ApplicationController
-  before_filter :set_active_section
+  before_filter :set_active_doctype
 
   # GET /bunnies
   # GET /bunnies.xml
@@ -20,9 +20,9 @@ class DoctypesController < ApplicationController
   def show
     @group = current_group
     #@group = Group.find_by_slug_or_id(params[:group_id])
-    #@doctype = @active_section #"sausage"  #Doctype.find(params[:id])
+    #@doctype = @active_doctype #"sausage"  #Doctype.find(params[:id])
 
-    #@active_section = @doctype
+    #@active_doctype = @doctype
     @doctype = Doctype.find_by_slug_or_id(params[:id])
     doctype = Doctype.find_by_slug_or_id(params[:id])
     #@sausage =  
@@ -42,7 +42,7 @@ class DoctypesController < ApplicationController
 
      #age.find(:all, :conditions => [ "id != ? and publish = ? and category like "%?%", @page.id, true, @page.category ]) 
 
-    #@items = @doctype.items #some sort of condition to only grab trhat section
+    #@items = @doctype.items #some sort of condition to only grab trhat doctype
 
     respond_to do |format|
       format.html # show.html.erb
@@ -143,28 +143,28 @@ class DoctypesController < ApplicationController
   end
 
   protected
-  def set_active_section
+  def set_active_doctype
 
-     @active_section = params[:doctype_id]
+     @active_doctype = params[:doctype_id]
 
      #@item = Item.find_by_slug_or_id(params[:id])
 
 
-     @doctypes = current_group.sections
+     @doctypes = current_group.doctypes
         
   
      @doctypes.each do |doctype|
       
-     if doctype.name == @active_section
+     if doctype.name == @active_doctype
         @active_doctype = doctype
      end
 
      end
 
-     #@section = Section.find
+     #@doctype = Section.find
 
 
-     @active_section
+     @active_doctype
   end
 
 

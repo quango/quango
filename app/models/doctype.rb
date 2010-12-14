@@ -1,4 +1,4 @@
-class Suction
+class Doctype
   include MongoMapper::Document
   include MongoMapperExt::Slugizer
   #include MongoMapperExt::Filter
@@ -37,22 +37,22 @@ class Suction
 
   def move_to(pos)
     pos ||= "up"
-    suctions = group.suctions
-    current_pos = suctions.index(self)
+    doctypes = group.doctypes
+    current_pos = doctypes.index(self)
     if pos == "up"
       pos = current_pos-1
     elsif pos == "down"
       pos = current_pos+1
     end
 
-    if pos >= suctions.size
+    if pos >= doctypes.size
       pos = 0
     elsif pos < 0
-      pos = suctions.size-1
+      pos = doctypes.size-1
     end
 
-    suctions[current_pos], suctions[pos] = suctions[pos], suctions[current_pos]
-    group.suctions = suctions
+    doctypes[current_pos], doctypes[pos] = doctypes[pos], doctypes[current_pos]
+    group.doctypes = doctypes
     group.save
   end
 
