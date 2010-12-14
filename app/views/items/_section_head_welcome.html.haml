@@ -13,16 +13,16 @@
     .navlinks.right
       -if section.name
         - create_item = section.create_label
-        - url = domain_url(:custom => current_group.domain) << "/add/new?section=" << section.name.downcase
+        - url = domain_url(:custom => current_group.domain) << new_item_path(section)
         = link_to h(create_item), url,:class =>"link", :rel => 'nofollow', :node => section.name, :class => "create-item-button"
       -else
         = "no mode"
  
     .navcontrols
       %a.show_summary{:class => "#{section.name} navlinks showhide right"}
-        = "show headlxines"
+        = "show headlines"
       %a.hide_summary{:class => "#{section.name} navlinks showhide right"}
-        = "hide headlixnes"
+        = "hide headlines"
 
 
   .section-listing-welcome{:class => section.name}
@@ -38,9 +38,13 @@
               = t(".empty")
           -else
 
-            -@items.each do |item|
-              - if item.section == section.name
-                = render :partial => "items/section_list_item_welcome", :locals => {:section => section, :item => item, :list_mode => "headline"}
+            -@items.each do |item| #scoping
+              -#-- if item.section == section.name
+              = render :partial => "items/section_list_item_welcome", :locals => {:section => section, :item => item, :list_mode => "headline"}
+
+
+
+
 
         .clear
 
@@ -77,13 +81,13 @@
         = "if (#{section.name} == null) {"
         = "$('.show_summary.#{section.name}').css('display','block');"
         = "$('.hide_summary.#{section.name}').css('display','none');"
-        = "$('.#{section.name}.section-listing').hide();"
+        = "$('.#{section.name}.section-listing-welcome').hide();"
         = "};"
       - else
         = "if (#{section.name} == null) {"
         = "$('.hide_summary.#{section.name}').css('display','block');"
         = "$('.show_summary.#{section.name}').css('display','none');"
-        = "$('.#{section.name}.section-listing').show();"
+        = "$('.#{section.name}.section-listing-welcome').show();"
         = "};"
 
 

@@ -57,7 +57,7 @@ class Item
   key :activity_at, Time
 
   #key :section_id, String
-  #belongs_to :section, :class_name => "Section"
+  #belongs_to :section
 
   key :user_id, String, :index => true
   belongs_to :user
@@ -74,8 +74,8 @@ class Item
   key :group_id, String, :index => true
   belongs_to :group
 
-  #key :section_id, String, :index => true
-  #belongs_to :section
+  key :suction_id, String, :index => true
+  belongs_to :suction
 
   key :watchers, Array
 

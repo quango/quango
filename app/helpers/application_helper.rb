@@ -388,6 +388,13 @@ module ApplicationHelper
       render_page_links(line.strip)
     end
   end
+
+  #takes any item and works out it's section TODO
+  def item_section(item)
+    @item = Item.find_by_slug_or_id(item)    
+    @item_section = Suction.find_by_id(@item.suction_id)
+    @item_section
+  end
   
 
   #take any comma seperated string and spit out an unordered list

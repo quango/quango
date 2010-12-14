@@ -96,7 +96,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_item
 
   def find_section
-    @section
+    @current_section
   end
 
 

@@ -1,0 +1,18 @@
+-content_for :main do
+
+  #main-index
+
+    %h1
+      = "Editing suction"
+
+    %p
+      - form_for @suction, :html =>{ :method => :put } do |f| #, :url => suction_path(@group)
+        = f.error_messages
+        %p
+          = f.text_field :name, :value => @suction.name
+        %p
+          = f.submit 'Update'
+
+    %p
+      = link_to 'Show', suction_path
+      = link_to 'Back', suctions_path

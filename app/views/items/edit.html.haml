@@ -5,7 +5,7 @@
     = t(".title")
 
 -content_for :main do
-  - form_for(@item, :url => item_path(@item), :html => {:class => "form"}) do |f|
+  - form_for(@item, :url => item_path(@item.suction_id, @item), :html => {:class => "form"}) do |f|
     =render :partial => "form", :locals => {:f => f}
     .group.navform
       .controls.right{:style => "width: 50%"}

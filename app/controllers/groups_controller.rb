@@ -13,6 +13,7 @@ class GroupsController < ApplicationController
       when "pendings"
         @state = "pending"
     end
+    @active_section = "groups"
 
     options = {:per_page => params[:per_page] || 15,
                :page => params[:page],
@@ -101,16 +102,20 @@ class GroupsController < ApplicationController
 
     @group.widgets << TopUsersWidget.new
     @group.widgets << GroupsWidget.new
-    @group.widgets << BadgesWidget.new
 
-    @group.sections << NewsSection.new
-    @group.sections << NewsfeedSection.new
-    @group.sections << ThoughtSection.new
-    @group.sections << DiscussionSection.new
-    @group.sections << VideoSection.new
-    @group.sections << ImageSection.new
-    @group.sections << ArticleSection.new
-    @group.sections << BookmarkSection.new
+    suctions = Array.new
+
+    suctions << Suction.new(:name => "news", :doctype => "standard", :create_label => "Add some news", :group_id => @group.id)
+    suctions << Suction.new(:name => "thoughts", :doctype => "standard", :create_label => "Share a thought", :group_id => @group.id)
+    suctions << Suction.new(:name => "newsfeeds", :doctype => "newsfeed", :create_label => "Add a newsfeed", :hidden => "true", :group_id => @group.id)
+    suctions << Suction.new(:name => "discussions", :doctype => "standard", :create_label => "Discuss something", :group_id => @group.id)
+    suctions << Suction.new(:name => "articles", :doctype => "standard", :create_label => "Write an article", :group_id => @group.id)
+    suctions << Suction.new(:name => "videos", :doctype => "video", :create_label => "Share a video", :group_id => @group.id)
+    suctions << Suction.new(:name => "links", :doctype => "bookmark", :create_label => "Share a link", :group_id => @group.id)
+
+    suctions.each do |suction| 
+     suction.save!
+    end
 
 
     respond_to do |format|

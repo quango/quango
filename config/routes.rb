@@ -49,29 +49,20 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :create, :action => :new, :as => "add"
 
+
+
   def build_items_routes(router, options ={})
     router.with_options(options) do |route|
-      route.se_url "/item/:id/:slug", :controller => "items", :action => "show", :section => /\d+/, :id => /\d+/,
+      route.se_url "/:suction/:id/:slug", :controller => "items", :action => "show", :section => /\d+/, :id => /\d+/,
  :conditions => { :method => :get }
-      route.resources :items, :collection => {:tags => :get,
-                                                  :tags_for_autocomplete => :get,
-                                                  :unanswered => :get,
-                                                  :related_items => :get},
-                                :member => {:solve => :get,
-                                            :unsolve => :get,
-                                            :favorite => :any,
-                                            :unfavorite => :any,
-                                            :watch => :any,
-                                            :unwatch => :any,
-                                            :history => :get,
-                                            :revert => :get,
-                                            :diff => :get,
-                                            :move => :get,
-                                            :move_to => :put,
-                                            :retag => :get,
-                                            :retag_to => :put,
-                                            :close => :put,
-                                            :open => :put} do |items|
+
+      route.resources :suctions, :as => 'community' do |suctions|
+
+        suctions.resources :items, :collection => {:tags => :get,:tags_for_autocomplete => :get,:unanswered => :get,:related_items => :get},
+                                 :member     => {:solve => :get,:unsolve => :get,:favorite => :any,:unfavorite => :any,:watch => :any,:unwatch => :any,
+                                                 :history => :get,:revert => :get,:diff => :get,
+                                                 :move => :get,:move_to => :put, :retag => :get,:retag_to => :put,
+                                            :close => :put,:open => :put}, :name_prefix => nil,  :as => 'stub' do |items| #:name_prefix => nil,
 
         items.resources :comments
         items.resources :images, :member => { :crop => :get, 
@@ -93,15 +84,35 @@ ActionController::Routing::Routes.draw do |map|
         items.resources :open_requests
         items.resources :bunnies #this item has_many bunnies
 
+        
+
+        end
+
       end
+
     end
   end
 
   map.connect 'items/topic/:tags', :controller => :items, :action => :index,:requirements => {:tags => /\S+/}
   map.connect 'items/unanswered/tags/:tags', :controller => :items, :action => :unanswered
+  #map.connect 'suctions/:suction_id/items/:id', :controller => :items, :action => :show, :as => ':suction_id/:id' #, :only => 'show'
 
-  build_items_routes(map)
+  #map.connect 'suctions', :controller => :items, :action => :show, :as => ''
 
+  build_items_routes(map) #, :as => ':suction/:id', :only => 'show')
+
+  
+  #map.resources :suctions, :controller => :suctions, :action => :index, :as => 'foo'
+
+  map.resources :suctions, :member => {:move => :post, :list => :get}
+
+
+  #map.connect 'items/:id',:controller => :items, :path_prefix => ":suctions"
+  
+
+
+
+  #map.resources :mangle, :controller => "items", :action => "show", :path_prefix => "/:suctions"
 
 
   map.resources :groups, :member => {:check_available => :get,
@@ -114,12 +125,10 @@ ActionController::Routing::Routes.draw do |map|
                                      :favicon => :get,
                                      :background => :get,
                                      :css => :get},
-                          :collection => { :autocomplete_for_group_slug => :get}
+                          :collection => { :autocomplete_for_group_slug => :get}, :as => "communities"
 
   map.resources :votes
 
-  map.resources :sections, :member => {:move => :post}, :path_prefix => "/manage"
-  map.resources :sections, :path_prefix => "/manage"
 
   map.resources :widgets, :member => {:move => :post}, :path_prefix => "/manage"
   map.resources :members, :path_prefix => "/manage"

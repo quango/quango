@@ -1,8 +1,8 @@
 -active_section = local_assigns[:section]
 -expanded = local_assigns[:expanded]
 = expanded
-- current_group.sections.each do |section|
-  -if active_section == section.name.to_s
+- current_group.suctions.each do |section|
+  -if !active_section == section.name.to_s
     .section-head
       .secondary-navigation-sections
         .navlabel
@@ -13,16 +13,16 @@
         .navlinks.right
           -if section.name
             - create_item = section.create_label
-            - url = domain_url(:custom => current_group.domain) << "/add/new?section=" << section.name.downcase
+            - url = domain_url(:custom => current_group.domain) << new_item_path
             = link_to h(create_item), url,:class =>"link", :rel => 'nofollow', :node => section.name, :class => "create-item-button"
           -else
             = "no mode"
      
         .navcontrols
           %a.show_summary{:class => "#{section.name} navlinks showhide right"}
-            = "show headlxines"
+            = "show headlines"
           %a.hide_summary{:class => "#{section.name} navlinks showhide right"}
-            = "hide headlixnes"
+            = "hide headlines"
 
 
       .section-listing{:class => section.name}

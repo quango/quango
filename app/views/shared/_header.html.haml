@@ -1,30 +1,26 @@
 = current_group.head
-#header
 
-  #logo
-    -if current_group.logo_path?
-      = link_to image_tag("#{current_group.logo_path}", :class => "group_logo", :width => current_group.logo_info["width"], :height => current_group.logo_info["height"]), domain_url(:custom => current_group.domain)
+#logo
+  -if current_group.logo_path?
+    = link_to image_tag("#{current_group.logo_path}", :class => "group_logo", :width => current_group.logo_info["width"], :height => current_group.logo_info["height"]), domain_url(:custom => current_group.domain)
+  -else
+    = link_to image_tag("#{current_group.logo_path}", :class => "group_logo"), domain_url(:custom => current_group.domain)
+
+#label
+  .label-highlight
+    = link_to h(current_group.name_highlight), domain_url(:custom => current_group.domain)
+  %span.label-special
+    -if @active_user
+      = h(@active_user)
+    -elsif @active_section
+      = h(@active_section)
     -else
-      = link_to image_tag("#{current_group.logo_path}", :class => "group_logo"), domain_url(:custom => current_group.domain)
-
-  #label
-    .label-highlight
-      = link_to h(current_group.name_highlight), domain_url(:custom => current_group.domain)
-    %span.label-special
-      -if @active_user
-        = h(@active_user)
-      -elsif @active_section
-        = h(@active_section)
-      -else
-        = h(@active_tab)
+      = h(@active_tab)
 
 
 
-  #search
-    = render :partial => "shared/search"
-
-
-
+#search
+  = render :partial => "shared/search"
 
 .clear
 

@@ -36,8 +36,8 @@ namespace :setup do
                               :domain => AppConfig.domain,
                               :subdomain => subdomain,
                               :domain => AppConfig.domain,
-                              :description => "item-and-answer website",
-                              :legend => "item and answer website",
+                              :description => "Share your thoughts daily",
+                              :legend => "Share your thoughts",
                               :default_tags => default_tags,
                               :state => "active")
 
@@ -46,9 +46,9 @@ namespace :setup do
       default_group.owner = admin
       default_group.add_member(admin, "owner")
     end
-    default_group.logo = File.open(RAILS_ROOT+"/public/images/logo.png")
-    default_group.logo.extension = "png"
-    default_group.logo.content_type = "image/png"
+    default_group.logo_path = "/images/thought_bubble_32.png"
+    #default_group.logo.extension = "png"
+    #default_group.logo.content_type = "image/png"
 
 
 
@@ -63,7 +63,6 @@ namespace :setup do
       default_group.widgets << GroupsWidget.new
     end
     default_group.widgets << UsersWidget.new
-    default_group.widgets << BadgesWidget.new
     default_group.save!
   end
 
@@ -71,14 +70,20 @@ namespace :setup do
   task :create_sections => :environment do
     default_group = Group.find_by_domain(AppConfig.domain)
 
-    default_group.sections << NewsSection.new(:name => "news", :mode => "news", :create_label => "Add some news")
-    default_group.sections << NewsfeedSection.new(:name => "newsfeeds", :mode => "newsfeed", :create_label => "Add a newsfeed")
-    default_group.sections << VideoSection.new(:name => "video", :mode => "video",  :create_label => "Share a video")
-    default_group.sections << ImageSection.new(:name => "images", :mode => "image", :hidden => "true",  :create_label => "Add an image")
-    default_group.sections << ArticleSection.new(:name => "articles", :mode => "article", :create_label => "Write an article")
-    default_group.sections << DiscussionSection.new(:name => "discussion", :mode => "discussion", :create_label => "Discuss something")
-    default_group.sections << BookmarkSection.new(:name => "bookmarks", :mode => "bookmark",  :create_label => "Share a link")
-    default_group.save!
+    suctions = Array.new
+
+    suctions << Suction.new(:name => "news", :doctype => "standard", :create_label => "Add some news", :group_id => default_group.id)
+    suctions << Suction.new(:name => "thoughts", :doctype => "standard", :create_label => "Share a thought", :group_id => default_group.id)
+    suctions << Suction.new(:name => "newsfeeds", :doctype => "newsfeed", :create_label => "Add a newsfeed", :hidden => "true", :group_id => default_group.id)
+    suctions << Suction.new(:name => "discussions", :doctype => "standard", :create_label => "Discuss something", :group_id => default_group.id)
+    suctions << Suction.new(:name => "articles", :doctype => "standard", :create_label => "Write an article", :group_id => default_group.id)
+    suctions << Suction.new(:name => "videos", :doctype => "video", :create_label => "Share a video", :group_id => default_group.id)
+    suctions << Suction.new(:name => "links", :doctype => "bookmark", :create_label => "Share a link", :group_id => default_group.id)
+
+    suctions.each do |suction| 
+     suction.save!
+    end
+
   end
 
 

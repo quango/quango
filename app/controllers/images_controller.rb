@@ -2,6 +2,10 @@ class ImagesController < ApplicationController
 
   # GET /images
   # GET /images.xml
+
+  def logos
+  end
+
   def index
     @item = Item.find_by_slug_or_id(params[:item_id])
     @image = Image.find(params[:id])
@@ -58,8 +62,10 @@ class ImagesController < ApplicationController
 
     @image.image = @image.image.process!(:resize, '962>')
 
-    if !@item.default_thumbnail?
+    #todo: set the default thub if none present
+    if !@item.default_thumbnail
         @item.default_thumbnail = params[:id]
+        @item.save
     end    
 
     respond_to do |format|
@@ -109,8 +115,9 @@ class ImagesController < ApplicationController
   end
 
   def move
-    image = @item.image.find(params[:id])
-    image.move_to(params[:move_to])
+    @item = Item.find_by_slug_or_id(params[:item_id])
+    @image = Image.find(params[:id])
+    @image.move_to(params[:move_to])
     redirect_to item_images_path
   end
 

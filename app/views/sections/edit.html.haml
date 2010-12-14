@@ -1,6 +1,0 @@
--#content_for :main do
-
-- form_for(:section, :url => section_path(@section), :html => {:method => :put, :class => "form"}) do |f|
-  =render :partial => "form" , :locals => {:f => f, :section => @section}
-  .group.navform
-    =submit_tag t("scaffold.update"), :class => "button"

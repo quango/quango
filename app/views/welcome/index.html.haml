@@ -31,10 +31,10 @@
 
 #additional_info
   #help_us
-    = t(".browse_all_or_by_tags", :full_list_of_items => link_to(t('.full_list_of_items'), items_path), :browse_by_tags => link_to(t('.browse_by_tags'), tags_items_path))
+    -#= t(".browse_all_or_by_tags", :full_list_of_items => link_to(t('.full_list_of_items'), items_path), :browse_by_tags => link_to(t('.browse_by_tags'), tags_items_path))
     %br
-    = t("items.index.help_to_answer")
-    = link_to t("items.index.unanswered_items"), unanswered_items_path
+    -#= t("items.index.help_to_answer")
+    -#= link_to t("items.index.unanswered_items"), unanswered_items_path()
 
 
   .clear
@@ -53,7 +53,7 @@
  
   #section-listing-welcome{:class => @active_tab}
     %ul
-      -current_group.sections.each do |section|
+      -@suctions.each do |section|
         -if !section.hidden?
           %li{:class => section.name }
           = render :partial => "items/section_head_welcome", :locals => {:section => section,:tab=>"activity", :list_mode => "standard"}
@@ -64,27 +64,29 @@
 /Layout
 -content_for :main do
 
-  #main-index-right
+  
+
+
+  #sidebar-inner
     = render :partial => "are_you_thinking" #, :locals => {:item => item}
+    = render :partial => "widgets/recent_members", :locals=> {:group => current_group}
+    - current_group.widgets.each do |widget|
+      .widget.block{:id => widget.name}
+        = render :partial => widget.partial_name, :locals => {:widget => widget}
 
-    #sidebar
-      - current_group.widgets.each do |widget|
-        .widget.block{:id => widget.name}
-          = render :partial => widget.partial_name, :locals => {:widget => widget}
-
-      .block
-        %h3
-          = h("Something")
-        .content
-          = h("Something else")
-
-    #sidebar-inner
-      = render :partial => "widgets/recent_members", :locals=> {:group => current_group}
-
+    .block
+      %h3
+        = h("Something")
+      .content
+        = h("Something else")
 
   #main-index
     -#= render :partial => "feature", :locals => {:item => current_group.items.last}
-
+    .content
+      .inner
+        %div{:style => "background-color:pink"}
+        = "here will go the gubbins"
+        = render :partial => "homepage_content" #, :locals => {:item => item}
     .content
       .inner
         = yield :list

@@ -1,10 +1,12 @@
 -if logged_in?
   .block
 
-    .group-button{:style => "width:362px;background-color:#{current_group.primary}; font-size:18px "}
+    .group-button{:style => "width:212px;background-color:#{current_group.primary}; font-size:18px "}
+      %small{:style => "font-size:11px "}
+        = "#{current_group.name} are Thinking Daily...<br/>"
       = "ARE YOU THINKING DAILY?<br/>"
-      %small
-        = "Check to see if your personal thinking space is available"
+      %small{:style => "font-size:11px "}
+        = "Find out here:"
       -form_for @group  do |f|
         = f.error_messages
         %div.left
@@ -26,7 +28,7 @@
 
 -else
   .block
-    .signup-button{:style => "width:360px;background-color:#{current_group.primary}; font-size:18px "}
+    .signup-button{:style => "width:202px;background-color:#{current_group.primary}; font-size:18px "}
       = link_to "SIGNUP NOW for a free account<br/>", new_user_path
       %small
         = "And get heard in our fast growing global community"

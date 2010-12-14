@@ -34,25 +34,35 @@
     = yield :secondary_navigation
     .content
       .inner
-        %ul.items#items
-          -if @items.empty?
-            %li.highlight
-              = t(".empty")
-          -current_group.items.each do |item|
-            -if item.section == @active_section
-              = render :partial => "item", :object => item #, :section => @active_section
+        %h1
+          = "section:"
+          = @suction.id.to_s
+          = "grp:"
+          = current_group.name.to_s
+          -#= @active_section.to_s
+        -#%ul.items#items
+          -#-if @items.empty?
+            -#%li.highlight
+              -#= t(".empty")
+        .foo
+          - @suction_items.each do |item|
+            %li
+              = item.suction_id
+              = item.title.to_s
+          -#-if item.section == @active_section
+          -#= render :partial => "items/item", :object => item #, :section => @active_section
 
         #additional_info
           -#=will_paginate @items
 
-          .clear
+        .clear
 
 -content_for :sidebar do
   #sidebar
     .sidebar
       .inner
         = render :partial => "shared/current_tags"
-        = render :partial => "shared/tag_list", :object => @tag_cloud, :section => @active_section
+        -#= render :partial => "shared/tag_list", :object => @tag_cloud, :section => @active_section
         -current_group.widgets.each do |widget|
           .widget.block{:id => widget.name}
             = render :partial => widget.partial_name, :locals => {:widget => widget}

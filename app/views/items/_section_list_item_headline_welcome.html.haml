@@ -13,14 +13,15 @@
     %span.icon
       = image_tag("/images/icons/new_comments.png")
 
-  -#-if last_target.present?
-  -#  %span.active
-  -#    = image_tag("/images/icons/comments.png", :width => 12, :height => 12)
+  -if last_target.present?
+    %span.active
+      = image_tag("/images/icons/comments.png", :width => 12, :height => 12)
 
+  -#= title
+  = link_to title, "item_path(@section, @item)", :locals => {:section => @active_section}, :title => truncate(strip_tags(item.title), :length => 200)
 
-  = link_to title, "/#{item.section}/#{item.slug}", :locals => {:section => @active_section}, :title => truncate(strip_tags(item.title), :length => 200)
   %small
-    = link_to t("time.ago", :time => time_ago_in_words(item.updated_at)), item_path(item)+"##{item.id}"
+    -#= link_to t("time.ago", :time => time_ago_in_words(item.updated_at)), item_path(item.suction_id, item)+"##{item.id}"
 
 
 

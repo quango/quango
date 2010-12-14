@@ -6,7 +6,7 @@
     .tag-list
       %ul.list
         -tag_array = Array.new
-        -(tag_list).each do |tag|
+        -tag_list.each do |tag|
           -tag_array << [tag["count"],tag["name"]]
 
         -sorted_array = tag_array.sort_by{|a|a}.reverse

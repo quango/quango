@@ -1,0 +1,24 @@
+-content_for :main do
+
+  #main-index
+
+    %h1
+      = "Listing items for"
+      = @suction.name
+      = "...count ( #{@items.count} )"
+
+    %p
+      %table
+        %tr
+          %th
+            = "name"
+
+        - @items.each do |item|
+          %tr
+            %td
+              = link_to "#{item_path(@suction,item).to_s}", item_path(@suction, item)
+
+
+
+
+

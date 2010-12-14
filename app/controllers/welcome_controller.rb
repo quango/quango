@@ -21,7 +21,23 @@ class WelcomeController < ApplicationController
     end
 
 
-    @items = current_group.items.sort_by(&:activity_at).reverse
+
+    @suctions = current_group.suctions.all
+
+    @items = current_group.items
+
+    section = Suction.find_by_slug_or_id(params[:suction_id])
+    
+    @section = section
+
+    #@item.suction_id = @section.id
+
+
+    #@section_items = current_group.current_section.items
+
+    #@items = @items.sort_by(&:activity_at).reverse
+
+
     #@items = current_group.items.sort_by{|a,b| b.activity_at <=> a.activity_at} #({:order => "created_at"}.merge(conditions))
     #@items = current_group.items({:order => "created_at desc"}.merge(conditions))
 

@@ -57,7 +57,7 @@ class Group
   key :fb_button, Boolean, :default => true
 
   key :logo_path, String, :default => "/images/logos/star_32.png"
-  key :favicon_path, String, :default => "/images/logos/star.ico"
+  key :favicon_path, String, :default => "/images/logos/thinking_favicon.png"
 
   key :image_of_the_day, String
 
@@ -65,18 +65,22 @@ class Group
   key :header_bg_image, String
   key :toolbar_bg, String
   key :toolbar_bg_image, String, :default => "/images/black_25_bg.png"
-  key :primary, String, :default => "#2b5782" #tabs, 
+  key :primary, String, :default => "#4183AF" #tabs, 
   key :primary_hover, String, :default => "#E1A970" #header_bg and edit buttons
   key :primary_selected, String, :default => "#990000"
-  key :secondary, String, :default => "#728FAC" #tabs,
+  key :secondary, String, :default => "#72AFD7" #tabs,
   key :secondary_hover, String, :default => "orange"
   key :secondary_selected, String, :default => "#E1A970"
   key :secondary_active, String, :default => "#990000"
-  key :tertiary, String, :default => "#B8C7D5" #tabs, 
+  key :tertiary, String, :default => "#8DBAD7" #tabs, 
   key :secondary_navigation_bg, String, :default => "gainsboro"
   key :secondary_navigation_text, String, :default => "white"
   key :edit_button_bg, String, :default => "#990000" #tabs, 
   key :edit_button_bg_image, String, :default => "/images/default_button_bg.png"
+
+  key :supplementary_dark, String, :default => "#A6691C" #action buttons and anything requiring high visibility
+  key :supplementary, String, :default => "#FFB455" #action buttons and anything requiring high visibility
+  key :supplementary_lite, String, :default => "#FFD6A2" #action buttons and anything requiring high visibility
 
   key :logo_info, Hash, :default => {"width" => 32, "height" => 32}
   key :share, Share, :default => Share.new
@@ -96,9 +100,10 @@ class Group
   filterable_keys :name
 
   has_many :ads, :dependent => :destroy
-  has_many :sections, :class_name => "Section"
+  
   has_many :widgets, :class_name => "Widget"
   has_many :badges, :dependent => :destroy
+  has_many :suctions, :dependent => :destroy
   has_many :items, :dependent => :destroy
   has_many :answers, :dependent => :destroy
   has_many :votes, :dependent => :destroy

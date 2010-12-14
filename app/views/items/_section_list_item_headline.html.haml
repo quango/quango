@@ -17,10 +17,11 @@
   -#  %span.active
   -#    = image_tag("/images/icons/comments.png", :width => 12, :height => 12)
 
+  -#"/#{item.section}/#{item.slug}"
 
-  = link_to title, "/#{item.section}/#{item.slug}", :locals => {:section => @active_section}, :title => truncate(strip_tags(item.title), :length => 200)
+  = link_to title, item_path(item.suction, item), :locals => {:section => @active_section}, :title => truncate(strip_tags(item.title), :length => 200)
   %small
-    = link_to t("time.ago", :time => time_ago_in_words(item.updated_at)), item_path(item)+"##{item.id}"
+    = link_to t("time.ago", :time => time_ago_in_words(item.updated_at)), items_path(item.section, item.id)+"##{item.id}"
 
 
 

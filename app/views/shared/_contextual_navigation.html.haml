@@ -1,21 +1,27 @@
 #contextual-navigation{:class => @active_section}
   %ul
-    -current_group.sections.each do |section|
-      -if !section.hidden?
-        -if section.name == @active_section
-          %li{:class => section.name }
-            - section_link = section.name.capitalize
-            = link_to section_link, nodes_path(section.name), :style => "color: black;"
+    -current_group.suctions.each do |suction|
+      -if !suction.hidden?
+        -if suction.name == @active_section
+          %li{:class => suction.name }
+            - section_link = suction.name.capitalize
+            = link_to section_link, items_path(suction), :style => "color: black;"
         -else
-          %li{:class => section.name }
-            - section_link = section.name.capitalize
+          %li{:class => suction.name }
+            - section_link = suction.name.capitalize
             -#= link_to section_link, nodes_path(section.name)
-            = link_to section_link, nodes_path(section.name), :style => "color: white;", :object => section
+            = link_to section_link, items_path(suction), :style => "color: white;", :object => suction
 
 
-    %li{:style => "border-left:1px solid white"}
-      = link_to "Groups", groups_path
+    %li{:style => "border-left:1px solid #{current_group.secondary}"}
+      -if @active_section == "groups"
+        = link_to "Groups", groups_path, :style => "color: black;"
+      -else
+        = link_to "Groups", groups_path
     %li
-      = link_to "Members", users_path
+      -if @active_section == "members"
+        = link_to "Members", users_path, :style => "color: black;"
+      -else
+        = link_to "Members", users_path
 
 .clear

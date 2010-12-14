@@ -46,6 +46,7 @@ class ItemsController < ApplicationController
 
     #@items = current_group.items({:order => current_order}.merge(conditions))
     @items = current_group.items.sort_by(&:activity_at).reverse
+    #@items = @items.merge(conditions)
     #@langs_conds = scoped_conditions[:language][:$in]
 
     if logged_in?
@@ -213,6 +214,10 @@ class ItemsController < ApplicationController
 
     @item = Item.find_by_slug_or_id(params[:id])
 
+    target_section = Suction.find_by_slug_or_id(@item.suction_id)
+    @section = target_section
+
+
     if params[:language]
       params.delete(:language)
       head :moved_permanently, :location => url_for(params)
@@ -265,7 +270,15 @@ class ItemsController < ApplicationController
   # GET /items/new.xml
   def new
     @item = Item.new(params[:item])
+
+    target_section = Suction.find_by_slug_or_id(params[:suction_id])
+
+    @section = target_section
+
+    @item.suction_id = @section.id
+
     @item.tags = current_group.default_tags.first
+
     respond_to do |format|
       format.html # new.html.erb
       format.json  { render :json => @item.to_json }
@@ -290,8 +303,12 @@ class ItemsController < ApplicationController
     @item.group = current_group
     @item.user = current_user
 
- 
+    section = Suction.find_by_slug_or_id(params[:suction_id])
+    
+    @section = section
 
+    @item.suction_id = @section.id
+    
  
    #@item.section = current_section
 
@@ -352,8 +369,8 @@ class ItemsController < ApplicationController
         current_group.on_activity(:ask_item)
         flash[:notice] = t(:flash_notice, :scope => "items.create")
 
-        #format.html { redirect_to item_path(@item)}
-        format.html { redirect_to("/#{@item.section}/#{@item.slug}") }
+        format.html { redirect_to item_path(section.name, @item)}
+        #format.html { redirect_to("/#{@item.section}/#{@item.slug}") }
 
         format.json { render :json => @item.to_json(:except => %w[_keywords watchers]), :status => :created}
       else
@@ -384,8 +401,8 @@ class ItemsController < ApplicationController
         if @item.mode == "news_article"
           format.html { redirect_to(news_article_path(@item)) }        
         else
-          #format.html { redirect_to(item_path(@item)) }
-          format.html { redirect_to("/#{@item.section}/#{@item.slug}") }
+          format.html { redirect_to(item_path(@item.suction_id, @item)) }
+          #format.html { redirect_to("/#{@item.section}/#{@item.slug}") }
         end
 
 
@@ -797,10 +814,15 @@ class ItemsController < ApplicationController
   end
 
   def set_active_section
-     @active_section = params[:section]
+
+     @active_section = params[:suction_id]
+
+     #@item = Item.find_by_slug_or_id(params[:id])
+
 
      @suctions = current_group.sections
-     
+        
+  
      @suctions.each do |suction|
       
      if suction.name == @active_section
@@ -821,10 +843,10 @@ class ItemsController < ApplicationController
     if @item.nil?
       @item = current_group.items.first(:slugs => params[:id], :select => [:_id, :slug])
       if @item.present?
-        head :moved_permanently, :location => item_url(@item)
+        head :moved_permanently, :location => item_url(@item.suction, @item)
         return
       elsif params[:id] =~ /^(\d+)/ && (@item = current_group.items.first(:se_id => $1, :select => [:_id, :slug]))
-        head :moved_permanently, :location => item_url(@item)
+        head :moved_permanently, :location => item_url(@item.suction, @item)
       else
         raise PageNotFound
       end

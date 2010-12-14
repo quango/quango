@@ -1,8 +1,63 @@
 desc "Fix all"
-task :fixall => [:environment, "fixdb:modes2nodes"] do
+#task :fixall => [:environment, "fixdb:section2suction"] do
+task :fixall => [:environment, "fixdb:insertsuctionid"] do
 end
 
 namespace :fixdb do
+
+  task :section2suction => :environment do
+    count = 0
+    Group.find_each do |group|
+      group.sections.each do |section| 
+        puts "#{section.name}"  
+        suction = Suction.new(:name => "#{section.name}", :display_name => "#{section.name}", :doctype => "#{section.type}", :group_id => "#{group.id}", :create_label => "#{section.create_label}", :hidden => "#{section.hidden}")
+        suction.save
+
+      end
+    end
+    puts "Updated #{count}  items"
+  end
+
+  task :insertsuctionid => :environment do
+    count = 0
+    Group.find_each do |group|
+      puts "#{group.name}"  
+      #Suctions.find_each(:group_id => group.id) do |suction|
+        #Item.find_each(:group_id => group.id) do |item|
+              count = count + 1
+  
+         #if item.section.upcase == suction.name.upcase
+              #count = count + 1
+            	#item.set({:suction_id => "#{suction.id}"})
+
+         #end
+
+      #end
+
+    end
+
+         puts "found #{count}  groups"
+
+  end
+
+
+  task :sectionfix => :environment do
+    count = 0
+    Group.find_each do |group|
+      #group.sections.each do |section|    
+        Item.find_each(:group_id => group.id) do |item|
+          count = count + 1
+       
+           if item.section
+              	item.set({:section_id => "egg"})
+                puts "#{item.section.name.to_s}"
+           end
+      end
+      puts "Updating #{count}  #{group["name"]}  items"
+    #end
+    end
+  end
+
 
   task :fixusers => :environment do
     count = 0
@@ -22,6 +77,7 @@ namespace :fixdb do
        
            if item.section == section.name
               	item.set({:section_id => section.id})
+                puts "#{section.id}"
            end
       end
       puts "Updating #{count}  #{group["name"]}  items"

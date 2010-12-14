@@ -2,8 +2,8 @@
 
   %li.item{:style => "background-image:url(#{background_group_path(group)})"}
     .logo
-      -if group.has_logo?
-        = link_to image_tag(logo_group_path(group), :style => "height: 32px; width: 32px; vertical-align: top"), domain_url(:custom => group.domain)
+      -if group.logo_path?
+        = link_to image_tag ("#{current_group.logo_path}", :style => "height: 32px; width: 32px; vertical-align: top"), domain_url(:custom => group.domain)
       -else
         = image_tag("default_logo.png", :style => "height: 32px; width: 32px; vertical-align: top", :class => "group_logo")
     .summary
