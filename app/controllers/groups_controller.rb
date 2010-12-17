@@ -66,6 +66,9 @@ class GroupsController < ApplicationController
   # GET /groups/new
   # GET /groups/new.json
   def new
+
+    @active_subtab = "New"
+
     @group = Group.new
 
     respond_to do |format|
@@ -74,8 +77,9 @@ class GroupsController < ApplicationController
     end
   end
 
-  def check_available
-    @group = Group.new
+  def check
+
+    @active_subtab = "Check"
 
     respond_to do |format|
       format.html 
@@ -92,7 +96,7 @@ class GroupsController < ApplicationController
   # POST /groups.json
   def create
     @group = Group.new
-    @group.safe_update(%w[name legend description default_tags subdomain logo forum
+    @group.safe_update(%w[name legend description default_tags subdomain logo logo_path favicon_path forum
                           custom_favicon language theme custom_css wysiwyg_editor], params[:group])
 
     @group.safe_update(%w[isolate domain private], params[:group]) if current_user.admin?
@@ -137,8 +141,8 @@ class GroupsController < ApplicationController
     @group.safe_update(%w[name name_highlight legend description has_custom_channels custom_channels default_tags subdomain logo logo_info forum
                           custom_favicon language theme reputation_rewards reputation_constrains
                           has_adult_content registered_only openid_only custom_css wysiwyg_editor fb_button share 
-                          primary secondary tertiary header_bg_image background toolbar_bg toolbar_bg_image
-                          robots
+                          primary secondary tertiary supplementary header_bg_image background toolbar_bg toolbar_bg_image
+                          robots logo_path favicon_path link_colour
                          ], params[:group])
 
     @group.safe_update(%w[isolate domain private has_custom_analytics has_custom_html has_custom_js], params[:group]) #if current_user.admin?

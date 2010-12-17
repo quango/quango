@@ -19,7 +19,14 @@
 
 
       .thumbnail
-        = link_to image_tag(item.main_thumbnail, :style => "width:75px"), "#{item.section}/#{item.slug}"
+        -if item.default_thumbnail?
+          
+          - image = Image.find(item.default_thumbnail)
+          - base_image = image.image.process(:thumb,image.image_cropping)
+          - base_thumbnail = base_image.process(:thumb,"75x")
+          = image_tag base_thumbnail.url, :class => 'none', :alt => image.name, :title => image.name
+        -else
+          = link_to image_tag("/images/main_image.gif", :style => "width:75px"), item_path(item.doctype, item)
       .inner-content
         .inner-mode
           = h("#{item.section}")
@@ -29,7 +36,7 @@
             %span.edit-edit-edit
               = "edit"
         .inner-link
-          = link_to title, "#{item.section}/#{item.slug}", :title => truncate(strip_tags(item.body), :length => 200)
+          = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
 
         .inner-topics
           -topics_array = Array.new

@@ -1,11 +1,3 @@
-
--content_for :subtabs do
-  .primary-title
-    %h1
-      &= @user.login
-
-
-
 -content_for :form do
   - @user.password = @user.password_confirmation = nil
   = error_messages_for :user
@@ -16,12 +8,14 @@
 
 - content_for :main do
 
- 
+  #main
+    .left{:style => "width:50%"}
+      %h1
+        = "Create a new account"
+      = yield :form
 
-  
-
-  #main-index
-    = yield :subtabs
-    .clear
-    = yield :form
+    .right{:style => "width:50%"}
+      %h1
+        = "Join an existing profile"
+      = render :partial => "sessions/openid"
   .clear

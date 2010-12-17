@@ -1,6 +1,6 @@
 desc "Fix all"
-#task :fixall => [:environment, "fixdb:section2doctype"] do
-task :fixall => [:environment, "fixdb:insertdoctypeid"] do
+task :fixall => [:environment, "fixdb:section2doctype"] do
+#task :fixall => [:environment, "fixdb:insertdoctypeid"] do
 end
 
 namespace :fixdb do
@@ -9,14 +9,33 @@ namespace :fixdb do
     count = 0
     Group.find_each do |group|
       group.sections.each do |section| 
-        puts "#{section.name}"  
-        doctype = Doctype.new(:name => "#{section.name}", :display_name => "#{section.name}", :doctype => "#{section.type}", :group_id => "#{group.id}", :create_label => "#{section.create_label}", :hidden => "#{section.hidden}")
-        doctype.save
+        puts "#{section}"
+        #doctype = Doctype.new(:name => "#{section.name}", :display_name => "#{section.name}", :doctype => "standard", :group_id => "#{group.id}", :create_label => "#{section.create_label}", :hidden => "#{section.hidden}")
+        #doctype.save
 
       end
     end
-    puts "Updated #{count}  items"
+    puts "Migrated #{count}  sections"
   end
+
+  task :modes2nodes => :environment do
+    count = 0
+    Group.find_each do |group|
+      group.sections.each do |section|    
+        Item.find_each(:group_id => group.id) do |item|
+          count = count + 1
+       
+           if item.section == section.name
+              	item.set({:section_id => section.id})
+                puts "#{section.id}"
+           end
+      end
+      puts "Updating #{count}  #{group["name"]}  items"
+    end
+    end
+  end
+
+
 
   task :insertdoctypeid => :environment do
     count = 0
@@ -68,22 +87,7 @@ namespace :fixdb do
     puts "Updating #{count} users"
   end
 
-  task :modes2nodes => :environment do
-    count = 0
-    Group.find_each do |group|
-      group.sections.each do |section|    
-        Item.find_each(:group_id => group.id) do |item|
-          count = count + 1
-       
-           if item.section == section.name
-              	item.set({:section_id => section.id})
-                puts "#{section.id}"
-           end
-      end
-      puts "Updating #{count}  #{group["name"]}  items"
-    end
-    end
-  end
+
 
   task :badges => :environment do
     puts "Updating #{User.count} users..."

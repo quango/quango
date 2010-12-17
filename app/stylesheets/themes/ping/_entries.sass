@@ -1,14 +1,9 @@
-#toolbox
+.toolbox
 
-  height: 26px
-  width: 549px
+  height: 27px
+  line-height: 27px
   margin: 0
   padding: 2px 0 0 2px  
-  //background-color: #eee
-  //+rounded(4px,4px,4px,4px)
-  //background-image: url('/images/buttons/bar_bg.gif')
-  //background-repeat: repeat-x
-  //border-top: 2px solid #990000
   &:hover
     background-color: #eee
   display: inline-block
@@ -25,20 +20,16 @@
   background: -webkit-gradient(linear,left top,left bottom,from(#dcdcdc),to(#bbbbbb))
   background: -moz-linear-gradient(top,#dcdcdc,#bbbbbb)
 
-  //filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#bbbbbb',endColorstr='#dcdcdc')
-  //background: -webkit-gradient(linear,left top,left bottom,from(#bbb),to(#dcdcdc))
-  //background: -moz-linear-gradient(top,#bbb,#dcdcdc)
+  border-bottom: 1px solid #ffffff
 
-  border-bottom: 1px solid #bbbbbb
-  //border-right: 1px solid #bbb
-  //border-top: 1px solid #fff
-  //+rounded(0px,0px,0px,8px)
-  //-webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.2)
-  //-moz-box-shadow: 0 1px 4px rgba(0,0,0,0.2)
-  //box-shadow: 0 1px 4px rgba(0,0,0,0.2)
   -webkit-font-smoothing:antialiased
   small
     font-weight: normal
+
+  &.main
+    width: 549px
+  &.inner
+    width: 239px
 
 .toolbox-inner
 

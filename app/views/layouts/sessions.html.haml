@@ -21,15 +21,20 @@
           = render :partial => "shared/toolbar"
         #header
           = render :partial => "shared/header"
-        #channel-container
-          = render :partial => "shared/channel_navigation", :object => @active_tag
-    #container
+        #navigation-container
+          = render :partial => "shared/contextual_navigation"
+
+    #container{:class => @current_class}
+      #announcement
+        = render :partial => "shared/announcements"
+
       #wrapper
         #main
-          #block-text.block
-            .content
-              %p.markdown
-                = show_flash_messages(:class => "flash", :markdown => true)
-              .inner
-                = yield :main
-                .clear
+          = yield :main
+          .clear
+
+    .clear
+    #footer
+      .block.content
+        = render :partial => "layouts/footer"
+        = render :partial => "shared/ads/footer_ads"

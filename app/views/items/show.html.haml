@@ -141,9 +141,11 @@
 
 -content_for :sidebar_inner do
   #sidebar-inner
+    = render :partial => "create_button"
     = render :partial => "default_image", :locals => {:item => @item}
     = render :partial => "author"
     = render :partial => "images", :locals => {:item => @item}
+
 
     -if logged_in? && current_group.has_bunnies?
       -if current_user.owner_of?(current_group)
@@ -163,6 +165,7 @@
 
 -content_for :sidebar do
   #sidebar
+    = render :partial => "welcome/are_you_thinking", :locals => {:small => true}
     = render :partial => "participants", :locals=> {:item => @item}
     = render :partial => "shared/current_tags"
     = render :partial => "shared/tag_list", :object => @tag_cloud

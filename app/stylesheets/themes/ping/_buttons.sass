@@ -125,7 +125,7 @@
   text-transform: uppercase
   color: white
   padding: 2px 7px 2px 3px
-  background-image: url(/images/buttons/section_bg.png)
+  //background-image: url(/images/buttons/section_bg.png)
   background-repeat: repeat-x
   //background-position: -1px
   height: 14px
@@ -210,17 +210,33 @@
     text-decoration: underline
 
 .action-button
-  float: right
-  border: 1px solid green //#990000
+
   color: white
+  height: 27px
+  line-height: 27px
+
+  padding: 0px 16px 0px 16px
+  margin: 4px 0 0 0 
+  text-shadow: 0px 1px 1px rgba(255,255,255,0.75)
   font-size: 12px
   font-weight: bold
-  height: 26px
-  line-height: 24px
-  margin: 0 3px 0 3px
-  padding: 0 16px
-  text-transform: uppercase
+
+  //text-transform: uppercase
+
+  -webkit-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+  -moz-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+  box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+  -webkit-font-smoothing:antialiased
+
   +rounded(4px,4px,4px,4px)
+
+  &.inner
+    width: 200px  
+
+  &a
+    height: 27px
+
+
   a:hover
     color: white
 
@@ -310,13 +326,6 @@ button
   float: left
   +rounded(4px,4px,4px,4px)
 
-  .watch
-    float: left
-    border: green
-
-  .unwatch
-    float: left
-    border: red
   color: #6D6D6D
   padding: 2px 4px 0px 4px
   margin: 3px 0 0 0 
@@ -328,17 +337,8 @@ button
   background: -webkit-gradient(linear,left top,left bottom,from(#dcdcdc),to(#bbbbbb))
   background: -moz-linear-gradient(top,#dcdcdc,#bbbbbb)
 
-  //filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#dcdcdc',endColorstr='#bbbbbb')
-  //background: -webkit-gradient(linear,left top,left bottom,from(#dcdcdc),to(#bbbbbb))
-  //background: -moz-linear-gradient(top,#dcdcdc,#bbbbbb)
-
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#dcdcdc',endColorstr='#bbbbbb')
-  background: -webkit-gradient(linear,left top,left bottom,from(#dcdcdc),to(#bbbbbb))
-  background: -moz-linear-gradient(top,#dcdcdc,#bbbbbb)
   border: 1px solid #dcdcdc
-  -webkit-border-radius: 4px
-  -moz-border-radius: 4px
-  border-radius: 4px
+
   -webkit-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
   -moz-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
   box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
@@ -347,6 +347,14 @@ button
     float: right
     margin-left: 0px
     //border: 1px solid blue
+
+
+  .watch
+    float: left
+    border: green
+  .unwatch
+    float: left
+    border: red
 
   .vote-down
 

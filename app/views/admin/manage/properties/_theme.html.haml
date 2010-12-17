@@ -38,6 +38,9 @@
     = "the url to where it is uploaded"
 
 .group
+  = "Use complementary colours http://colorschemedesigner.com/"
+
+.group
   = f.label :primary, "Primary colour", :class => "label"
   = f.text_field :primary, :class => "text_field"
   .swatch{:style => "background: #{current_group.primary}"}
@@ -51,6 +54,17 @@
   = f.label :tertiary, "Tertiary colour", :class => "label"
   = f.text_field :tertiary, :class => "text_field"
   .swatch{:style => "background: #{current_group.tertiary}"}
+
+.group
+  = f.label :supplementary, "Supplementary colour", :class => "label"
+  = f.text_field :supplementary, :class => "text_field"
+  .swatch{:style => "background: #{current_group.supplementary}"}
+
+.group
+  = f.label :link_colour, "Links colour", :class => "label"
+  = f.text_field :link_colour, :class => "text_field"
+  .swatch{:style => "background: #{current_group.link_colour}"}
+
 
 .group
   = f.label :custom_css, "Custom css", :class => "label"

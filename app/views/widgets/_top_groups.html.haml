@@ -5,7 +5,7 @@
   %ul.list
     -widget.top_groups.each do |group|
       %li
-        = image_tag(favicon_group_path(group), :style => "background-color:#{group.secondary};")
+        = image_tag(group.favicon_path, :style => "background-color:#{group.secondary};")
         = link_to h(group.name), domain_url(:custom => group.domain)
 
   .more

@@ -1,17 +1,5 @@
-= "sausage"
-= current_group.sections.to_s
-%br
-
--if @active_section
-  -#= current_section.create_label
-  - section = @section
-  - create_mode = "layouts.create." << @active_section #.create_label
-  - url = domain_url(:custom => current_group.domain) << "/add/new?section=" << @active_section
-
-  = link_to '&#9733;'<< t(create_mode), url, :rel => 'nofollow', :mode => @mode , :class=>"create-button"
-
--else
-  = "no mode"
+.toolbox{:class => "inner"}
+  = link_to "#{@item.doctype.create_label}",new_item_path(@item.doctype), :class => "action-button", :style => "width:100%; height:50px"
 
 
 

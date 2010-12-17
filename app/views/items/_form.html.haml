@@ -1,4 +1,5 @@
 = "create: " << @sectional.to_s
+= local_assigns[f]
 = f.error_messages
 = error_messages_for(:user)
 
@@ -10,12 +11,13 @@
         = "<span style='background-color:pink'>"
         = f.radio_button :section, section.name, :class => "radio_button", :checked => true
         = "#{section.name}" << "</span>"
-        -#= f.hidden_field :mode, :value => section.mode        
+        = f.hidden_field :doctype, :value => section.name        
         - @mode = section.name
       -else
         = f.radio_button :section, section.name, :class => "radio_button", :onchange => "document.location.href='/add/new?section=#{section.name}'"
         = "#{section.name}"
-
+  .description
+    = "Caution! Do not switch modes cos they aint persistent yet"
 .group
 
 
@@ -27,7 +29,7 @@
   .description
     = current_group.item_prompt
 
--if @section.doctype == "video"
+-if @mode == "video"
   .group
     = f.label :bookmark, "#{t(:video_link, :scope => "activerecord.attributes")}", :class => "label"
     = f.text_field :bookmark, :class => "text_field"
@@ -36,14 +38,9 @@
 
 .group
   = f.label :tags, "#{t(:tags, :scope => "activerecord.attributes.item")}", :class => "label"
-  = f.text_field :tags, :value => @item.tags.join(", "), :class => "text_field autocomplete_for_tags"
+  = f.text_field :tags, :value => current_group.default_tags.join(", "), :class => "text_field autocomplete_for_tags"
   .description
     = t(".tags_tip")
-
-.group
-  %label.label#rqlabel
-    =t(".related_items", :default => :"items.show.related_items" )
-  %ul.items#related_items
 
 .group
   = f.label :body, t(:body, :scope => "activerecord.attributes.item"), :class => "label"
@@ -68,4 +65,34 @@
   .group
     = f.label :version_message, t("wiki.model.attributes.message"), :class => "label"
     = f.text_field :version_message, :class => "text_field"
+
+
+-content_for :sidebar_inner do
+
+  #sidebar-inner
+
+    -if !current_group.item_help.empty?
+      .help
+        %h4
+          = t(".how_to_ask")
+        =current_group.item_help
+    %h3
+      = "Simimilar"
+
+    .related-item
+      %ul.items#related_items
+
+    .block
+      %h3
+        = "Markdown tips"
+      .content.markdown
+        = "Markdown is very easy to use, either use the buttons or you can type characters to identfy formatting:"
+        = "<h1 style='margin:0'>#Heading One</h1>"
+        = "<h2 style='margin:0'>##Heading Two</h2>"
+        = "<h3 style='margin:0'>###heading Three</h3>"
+
+
+
+
+
 

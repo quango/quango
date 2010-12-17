@@ -14,7 +14,7 @@
         =current_group.item_help
 
 -content_for :main do
-  #main
+  #main-index
     - form_for(@item, :html=>{:class => "form", :id => "ask_item"}) do |f|
       =render :partial => "form", :locals => {:f => f}
 

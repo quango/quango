@@ -10,9 +10,9 @@
               -current_user.groups(:select => [:name, :domain]).each do |group|
                 %li
                   -if group.favicon_path?
-                    = image_tag( "#{current_group.favicon_path}", :style => "background-color:#{group.secondary};")
+                    = image_tag( "#{group.favicon_path}", :style => "background-color:#{group.secondary};")
                   -else
-                    -#= image_tag("#{current_group.favicon_path}",  :style => "background-color:#{group.secondary};")
+                    -#= image_tag("#{group.favicon_path}",  :style => "background-color:#{group.secondary};")
                   =link_to h(group.name), domain_url(:custom => group.domain)
 
   -else

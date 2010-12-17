@@ -45,8 +45,16 @@ class ItemsController < ApplicationController
 
 
     #@items = current_group.items({:order => current_order}.merge(conditions))
-    @items = current_group.items.sort_by(&:activity_at).reverse
-    #@items = @items.merge(conditions)
+
+    #@items = current_group.items.sort_by(&:activity_at).reverse
+
+    doctype = Doctype.find_by_slug_or_id(params[:doctype_id])
+    @doctype = doctype
+
+
+    @items = current_group.items
+
+   #@items = @items.merge(conditions)
     #@langs_conds = scoped_conditions[:language][:$in]
 
     if logged_in?
@@ -62,7 +70,7 @@ class ItemsController < ApplicationController
                     "#{t("feeds.tag")} #{params[:tags].inspect}")
     end
 
-    @tag_cloud = Item.tag_cloud(scoped_conditions, 25)
+    #@tag_cloud = Item.tag_cloud(scoped_conditions, 25)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -242,10 +250,12 @@ class ItemsController < ApplicationController
     #@items = Item.all({:order => current_order}.merge(conditions))
 
     @tag_cloud = Item.tag_cloud(:_id => @item.id, :banned => false)
+
     options = {:per_page => 25, :page => params[:page] || 1,
                :order => current_order, :banned => false}
     options[:_id] = {:$ne => @item.answer_id} if @item.answer_id
     options[:fields] = {:_keywords => 0}
+
     @answers = @item.answers.paginate(options)
 
     @answer = Answer.new(params[:answer])

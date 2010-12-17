@@ -24,11 +24,15 @@ class WelcomeController < ApplicationController
 
     @doctypes = current_group.doctypes.all
 
-    @items = current_group.items
+    @items = current_group.doctypes
 
-    doctype = Doctype.find_by_slug_or_id(params[:doctype_id])
+
+    #doctype = Doctype.find_by_slug_or_id(params[:doctype_id])
+    #@items = current_group.doctype.items.all
+
     
-    @doctype = doctype
+    
+   # @doctype = doctype
 
     #@item.doctype_id = @section.id
 

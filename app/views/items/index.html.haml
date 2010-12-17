@@ -38,8 +38,8 @@
           -if @items.empty?
             %li.highlight
               = t(".empty")
-          -current_group.items.each do |item|
-            -if item.doctype.name == @active_section
+          -@items.each do |item|
+            - if item.doctype.name == @active_section #TODO: scope to doctype
               = render :partial => "item", :object => item, :section => @active_section
 
         #additional_info
@@ -52,7 +52,7 @@
     .sidebar
       .inner
         = render :partial => "shared/current_tags"
-        = render :partial => "shared/tag_list", :object => @tag_cloud, :section => @active_section
+        -#= render :partial => "shared/tag_list", :object => @tag_cloud, :section => @active_section
         -current_group.widgets.each do |widget|
           .widget.block{:id => widget.name}
             = render :partial => widget.partial_name, :locals => {:widget => widget}

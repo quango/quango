@@ -3,8 +3,8 @@
 -#= expanded
 
 
-.section-head-welcome
-  .secondary-navigation-sections{:style => "width:565px"}
+.section-head-welcome{:style => "width:702px"}
+  .secondary-navigation-sections{:style => "width:702px"}
     .navlabel
       -#= link_to "#{section.name.upcase}", domain_url(:custom => current_group.domain) << "/" << section.node.downcase, :locals => section
       - section_link = section.name.downcase
@@ -29,19 +29,34 @@
 
     .listings-centre
       .title
+        = h("mode.#{section.type}")
       .content
 
         %ul.listing
+          -if current_group.doctypes.empty?
+            %li.highlight
+              = t(".empty")
+          -else
+            - current_group.items.reverse.each do |item| 
+              - if item.section == section.name #TODO: scoping to doctype
+                = render :partial => "items/section_list_item_welcome", :locals => {:section => section, :item => item, :list_mode => "headline"}
+
+
+    .listings-right
+      .title
+        = h("mode.#{section.name}")
+      .content
+        %ul.features
           -if @items.empty?
             %li.highlight
               = t(".empty")
           -else
-
-            - section.items.each do |item| #scoping to section ( consider @ )
-              -#-- if item.section == section.name
-              = render :partial => "items/section_list_item_welcome", :locals => {:section => section, :item => item, :list_mode => "headline"}
-
-
+            -features_array = Array.new
+            -current_group.items.reverse.each do |item|
+              -if item.section == section.name
+                -features_array << item
+            -features_array[0..1].each do |item|
+              = render :partial => "items/section_list_item", :locals => {:item => item,:sort=>"hot", :list_mode => "thumbnail"}
 
 
 

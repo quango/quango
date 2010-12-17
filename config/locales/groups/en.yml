@@ -1,5 +1,5 @@
 en:
-  communities:
+  groups:
     index:
       title: Communities
       filter: "Search for communities"
@@ -8,21 +8,22 @@ en:
       most_active: Most active
       request_community: Request a community
       name: Name
-    community:
+    group:
+      admin: Manage
       about: About
       close: Close
-      accept_community: Accept this community
-      close_community: Close this community
+      accept_group: Accept this community
+      close_group: Close this community
       allow_ads: Allow ads
       disallow_ads: Disallow ads
     show:
       title: "About %{name}"
-      visit_community: Visit this community
-      community_awaiting_acceptance: "This community is awaiting acceptance of a moderator."
-      community_closed: This community was closed.
-      accept_community: Accept this community
-      close_community: Close this community
-      accept_community_with_custom_ads: Accept community and allow custom ads
+      visit_group: Visit this community
+      group_awaiting_acceptance: "This community is awaiting acceptance of a moderator."
+      group_closed: This community was closed.
+      accept_group: Accept this community
+      close_group: Close this community
+      accept_group_with_custom_ads: Accept community and allow custom ads
     new:
       title: Create your community
     create:
@@ -34,7 +35,7 @@ en:
       logo_legend: "You can upload the community logo. The maximum file size is 2MB."
       any_language: Any
       access: Access Settings
-      isolate_community: Isolate the community from other communities
+      isolate_group: Isolate the community from other communities
       members_only: "Only the community's members will be able to access this community"
       custom_html: Allow custom HTML
       custom_js: Allow custom JavaScript
@@ -48,7 +49,7 @@ en:
       community: community
       default_tags_message: "You cannot have more than 10 default tags"
     attributes:
-      community:
+      group:
         name: Name
         subdomain: URL
         domain: Domain
@@ -56,7 +57,7 @@ en:
         description: Description
         state: State
         owner: "This community was created by %{login}"
-        community_created_by: created by
+        group_created_by: created by
         language: Language
         has_custom_channels: "Use custom channels"
         custom_channels: "Custom Channels"

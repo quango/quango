@@ -1,5 +1,7 @@
 %style{:type => 'text/css'}
-  a {color: #{current_group.primary};}
+
+  \.text-field{border:0}
+  a {color: #{current_group.link_colour};}
   a:hover {color: #444;}
   \#header-container {background-color: #{current_group.primary};}
   \#header-container-inner { 
@@ -45,6 +47,9 @@
   \.create-item-button:hover {background-color: #{current_group.secondary_hover}; border:1px solid #{current_group.tertiary};text-shadow: #{current_group.secondary_hover} -1px -1px 1px;}
   \.signup-button{background:#{current_group.primary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.secondary}',endColorstr='#{current_group.tertiary}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#{current_group.tertiary}));background:-moz-linear-gradient(top,#{current_group.tertiary},#{current_group.secondary});border:1px solid #{current_group.secondary};}
   \.group-button{background:#{current_group.primary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.secondary}',endColorstr='#{current_group.tertiary}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#{current_group.tertiary}));background:-moz-linear-gradient(top,#{current_group.tertiary},#{current_group.secondary});border:1px solid #{current_group.secondary};}
+  \.login-form{background:#{current_group.primary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.tertiary}',endColorstr='#{current_group.primary}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.tertiary}),to(#{current_group.primary}));background:-moz-linear-gradient(top,#{current_group.tertiary},#{current_group.primary})}
+  \.input-holder{background:#{current_group.primary}}
+  \.input-holder-password{background:#{current_group.primary}}
 
 <!--//-->
 

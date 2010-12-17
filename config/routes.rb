@@ -62,7 +62,7 @@ ActionController::Routing::Routes.draw do |map|
                                  :member     => {:solve => :get,:unsolve => :get,:favorite => :any,:unfavorite => :any,:watch => :any,:unwatch => :any,
                                                  :history => :get,:revert => :get,:diff => :get,
                                                  :move => :get,:move_to => :put, :retag => :get,:retag_to => :put,
-                                            :close => :put,:open => :put}, :name_prefix => nil,  :as => '' do |items| #:name_prefix => nil,
+                                            :close => :put,:open => :put}, :name_prefix => nil,  :as => 'o' do |items| #:name_prefix => nil,
 
         items.resources :comments
         items.resources :images, :member => { :crop => :get, 
@@ -115,7 +115,7 @@ ActionController::Routing::Routes.draw do |map|
   #map.resources :mangle, :controller => "items", :action => "show", :path_prefix => "/:doctypes"
 
 
-  map.resources :groups, :member => {:check_available => :get,
+  map.resources :groups, :member => {:check => :get,
                                      :accept => :get,
                                      :close => :get,
                                      :allow_custom_ads => :get,

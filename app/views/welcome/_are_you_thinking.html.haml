@@ -1,34 +1,39 @@
 -if logged_in?
   .block
+    -if (params[:small] = true)
+      .group-button{:style => "width:114px;background-color:#{current_group.primary}; font-size:16px "}
+        %small{:style => "font-size:11px "}
+          = "<strong>#{current_group.name}</strong> is thinking daily...<br/>"
+          = link_to  "Check availability",check_group_path(current_group) , :class => "action-button"
 
-    .group-button{:style => "width:212px;background-color:#{current_group.primary}; font-size:18px "}
-      %small{:style => "font-size:11px "}
-        = "#{current_group.name} is Thinking Daily...<br/>"
-      = "ARE YOU THINKING DAILY?<br/>"
-      %small{:style => "font-size:11px "}
-        = "Find out here:"
-      -form_for @group  do |f|
-        = f.error_messages
-        %div.left
-          -if logged_in?
-            = f.text_field :subdomain, :value => current_user.first_name.downcase, :class=>"gb_input", :style => "width:96px; background-color:#{current_group.secondary}; border:0; color:white; font-size:18px"
-            = f.hidden_field :name, :value => current_user.first_name.downcase, :style => "width:180px; background-color:#{current_group.secondary}; color:white; font-size:18px"
-            = ".thinkingdaily.com"
-          -else
-            = f.text_field :name, :value => "Empty", :class=>"gb_input", :style => "width:48px;text-overflow:hidden, background-color:#{current_group.secondary}"
-            = ".thinkingdaily.com"
+    -else
+      .group-button{:style => "width:232px;background-color:#{current_group.primary}; font-size:16px "}
+        %small{:style => "font-size:11px "}
+          = "#{current_group.name} is thinking daily...<br/>"
+        = "ARE <u>YOU</u> THINKING DAILY?<br/>"
+        %small{:style => "font-size:11px "}
+          = "Find out here:"
+        -form_for current_group  do |f|
+          = f.error_messages
+          %div.left
+            -if logged_in?
+              = f.text_field :subdomain, :value => current_user.first_name.downcase, :class=>"gb_input", :style => "width:72px; background-color:#{current_group.secondary}; border:0; color:white; font-size:18px"
+              = f.hidden_field :name, :value => current_user.first_name.downcase, :style => "width:180px; background-color:#{current_group.secondary}; color:white; font-size:18px"
+              = ".thinkingdaily.com"
+            -else
+              = f.text_field :name, :value => "Empty", :class=>"gb_input", :style => "width:48px;text-overflow:hidden, background-color:#{current_group.secondary}"
+              = ".thinkingdaily.com"
 
-        %div.right
-          .group.navform
-            = f.submit  "Check availability", :class => "standard-button"
-      .clear
-      %div.small
-        ="Find out more..."
+          %div.right
+            = f.submit  "Check availability", :class => "action-button"
+        .clear
+        %div.small
+          ="Find out more..."
 
 
 -else
   .block
-    .signup-button{:style => "width:202px;background-color:#{current_group.primary}; font-size:18px "}
+    .signup-button{:style => "width:222px;background-color:#{current_group.primary}; font-size:18px "}
       = link_to "SIGNUP NOW for a free account<br/>", new_user_path
       %small
         = "And get heard in our fast growing global community"
