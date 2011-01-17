@@ -1,21 +1,25 @@
-.right
+.left
 
   -unless local_assigns[:only_openid]
 
     #google
-      =link_to "Google<img class='right' src='/images/share/google_32.png' style='height:24px; width:24px'>", "#", :title => "Google", :id => "google_auth"
+      =link_to "Google<img class='left' src='/images/share/google_32.png' style='height:20px; width:20px'>", google_authorize_path, :title => "Google", :id => "google_auth"
+
+    #thinkingdaily{:style => "visibility:hidden; height:0"}
+      =link_to "thinking<span style='color:#{current_group.primary}'>daily</span><img class='left' src='/images/logos/star_32.png' style='margin-top:0px;height:19px; width:19px'>", "#", :title => "Google", :id => "thinkingdaily_auth"
+
 
     #facebook
       -if with_facebook?
-        =link_to "Facebook<img class='right' src='/images/share/facebook_32.png' style='height:24px; width:24px'>", oauth_authorize_path, :title => "Facebook", :id => "facebook_auth"
+        =link_to "<img class='left' src='/images/logos/facebook-cropped.png' style='height:18px; width:90px; margin: 2px 0; border: 0'>", facebook_authorize_path, :title => "Facebook", :id => "facebook_auth"
   
     #twitter
 
       -if AppConfig.twitter["activate"]
-        =link_to "Twitter<img class='right' src='/images/share/twitter_32.png' style='height:24px; width:24px'>", twitter_authorize_path, :title => "Twitter", :id => "twitter_auth"
+        =link_to "<img class='left' src='/images/logos/twitter-logo.png' style='height:20px; width:108px; margin: 3px 0; border: 0'>", twitter_authorize_path, :title => "Twitter", :id => "twitter_auth"
 
-    -#linkedin #TODO
-      -#=link_to "Linkedin<img class='right' src='/images/share/linkedin_32.png' style='height:24px; width:24px'>", "#", :title => "Google", :id => "linkedin_auth"
+    #linkedin
+      =link_to "<img class='left' src='/images/logos/linkedin.png' style='height:20px; border:0'>", "#", :title => "Google", :id => "linkedin_auth"
 
-    .note
-      = "We do not store or access any of your personal information"
+
+

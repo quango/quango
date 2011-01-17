@@ -3,20 +3,15 @@
 -#= expanded
 
 
-.section-head-welcome{:style => "width:702px"}
-  .secondary-navigation-sections{:style => "width:702px"}
+.section-head-welcome
+  .secondary-navigation-sections
     .navlabel
       -#= link_to "#{section.name.upcase}", domain_url(:custom => current_group.domain) << "/" << section.node.downcase, :locals => section
       - section_link = section.name.downcase
       = h(section.name.capitalize)
 
     .navlinks.right
-      -if section.name
-        - create_item = section.create_label
-        - url = domain_url(:custom => current_group.domain) << new_item_path(section)
-        = link_to h(create_item), url,:class =>"link", :rel => 'nofollow', :node => section.name, :class => "create-item-button"
-      -else
-        = "no mode"
+      -#= link_to "<img class='right' src='/images/icons/publish-something.png' style='height:16px; width:16px'>",new_item_path(@item.doctype, item), :class => "create-button" #, :style => "width:200px; padding: 8px"
  
     .navcontrols
       %a.show_summary{:class => "#{section.name} navlinks showhide right"}
@@ -27,9 +22,9 @@
 
   .section-listing-welcome{:class => section.name}
 
-    .listings-centre
+    .listings-centre{:style => "width:438px; float:left;"}
       .title
-        = h("mode.#{section.type}")
+        = h("mode.#{section.class}")
       .content
 
         %ul.listing
@@ -42,7 +37,7 @@
                 = render :partial => "items/section_list_item_welcome", :locals => {:section => section, :item => item, :list_mode => "headline"}
 
 
-    .listings-right
+    .listings-right{:style => "width:256px; float:right;"}
       .title
         = h("mode.#{section.name}")
       .content

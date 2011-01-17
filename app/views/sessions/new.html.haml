@@ -7,27 +7,38 @@
     IMPORTANT: You must be logged in to see this site
 
 
-- @active_section = "Login"
+- @active_section = "Community login..."
 
--content_for :open_login do
-  .login-form-holder
+
+-content_for :lead_communities do
+
+  = render :partial => "welcome/featured_groups"
+
+
+-content_for :browser do
+  .login-form-holder{:style => "border-left: 16px solid white; padding-left: 16px;  margin-left: 16px"}
     .open-login-form
-      %span{:style => "font-color: white; font-size: 18px;"}
-        = "Other login options:"
+      %h2
+        = "The winner is"
       .note
         = "Don't want to remember another login?<br/>Easy! Just use one of your existing ones:"
 
+-content_for :open_login do
+  .login-form-holder{:style => "border-left: 16px solid white; padding-left: 16px;  margin-left: 16px"}
+    .open-login-form
+      %h2{:style => "font-color: white; font-size: 18px;"}
+        = "Other login options:"
       = render :partial => "sessions/openid"
 
 -content_for :login do
   -unless current_group.openid_only
     .login-form-holder
       .login-form
-        -form_for :user, resource, :url => session_path(resource_name), :html => {:class => ""} do |f|
+        -form_for :user, resource, :url => session_path(resource_name), :html => {:class => "login"} do |f|
           %table.login
             %tr
               %td{:colspan => "2"}
-                %span{:style => "font-color: white; font-size: 18px;"}
+                %h3{:style => "font-color: white; font-size: 18px;"}
                   = "Login to your account"
 
             %tr
@@ -36,25 +47,25 @@
                   = f.label :email, t("email", :scope => "activerecord.attributes.user"), :class => "label left"
               %td
                 .input-holder
-                  = f.text_field :email, :class => "text-field right", :style => "width:256px"
+                  = f.text_field :email, :class => "text-field right", :style => "width:176px"
             %tr
               %td{:valign => "top"}
                 .input-holder
                   = f.label :password, t("password", :scope => "activerecord.attributes.user"), :class => "label left"
               %td
                 .input-holder-password
-                  = f.password_field :password, :class => "password text-field right", :style => "width:256px"
+                  = f.password_field :password, :class => "password text-field right", :style => "width:176px"
                 -if devise_mapping.rememberable?
-                  .remember{:style => "background-color:#{current_group.primary}"}
+                  .remember{:style => "background-color:#{current_group.tertiary}"}
                     =f.label :remember_me, t(".remember_me")
                     =f.check_box :remember_me
 
             %tr
               %td
               %td
-                = f.submit "Login and share your thoughts...", :class => "action-button", :style => "width:256px"
+                = f.submit "Share your thoughts...", :class => "action-button", :style => "width:176px"
                 = "or"
-                = link_to "Sign up now!", new_user_path, :style => "border: 1px solid white"
+                = link_to "Sign up now!", new_user_path, :class => "supplementary-button", :style => "border: 1px solid white"
 
 
       = render :partial => "shared/devise_links"
@@ -66,10 +77,17 @@
 
 /Layout
 -content_for :main do
-  .right
-    = yield :open_login
-  .left
-    = yield :login
+  #login-row
+    .left
+      = yield :browser
+    .left
+      = yield :login
+    .right
+      = yield :open_login
+
+  #sidebar-inner
+    = yield :lead_communities
+
 .clear
 
 

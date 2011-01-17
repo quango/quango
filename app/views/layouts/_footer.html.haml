@@ -1,9 +1,12 @@
-.footer-links
-  .entry.left
-    #{AppConfig.version}
+-if logged_in?
+  .footer-links
+    .entry.left
+      = "Thoughtdomains v"
+    .entry.left
+      #{AppConfig.version}
 
-  .entry.right{:style => "width:128px"}
-    = render :partial => "shared/bug"
+    .entry.right{:style => "width:128px"}
+      = render :partial => "shared/bug"
 
 .clear
 

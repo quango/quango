@@ -2,7 +2,7 @@
   = f.error_messages
   =hidden_field_tag :source, domain_url(:custom => @group.domain, :controller => "admin/manage", :action => "properties", :tab => @active_subtab)
   =render :partial => "admin/manage/properties/subtabs"
-  =render :partial => "admin/manage/properties/#{@active_subtab||'general'}", :locals => {:f => f}
+  =render :partial => "admin/manage/properties/#{@active_subtab||'welcome'}", :locals => {:f => f}
 
 
 = yield :after_form

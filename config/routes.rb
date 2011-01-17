@@ -5,6 +5,14 @@ ActionController::Routing::Routes.draw do |map|
   map.oauth_authorize '/oauth/start', :controller => 'oauth', :action => 'start'
   map.oauth_callback '/oauth/callback', :controller => 'oauth', :action => 'callback'
 
+  map.google_authorize '/google/start', :controller => 'oauth', :action => 'start'
+  map.google_callback '/google/callback', :controller => 'oauth', :action => 'callback'
+  map.google_share '/google/share', :controller => 'oauth', :action => 'share'
+
+  map.facebook_authorize '/facebook/start', :controller => 'oauth', :action => 'start'
+  map.facebook_callback '/facebook/callback', :controller => 'oauth', :action => 'callback'
+  map.facebook_share '/facebook/share', :controller => 'oauth', :action => 'share'
+
   map.twitter_authorize '/twitter/start', :controller => 'twitter', :action => 'start'
   map.twitter_callback '/twitter/callback', :controller => 'twitter', :action => 'callback'
   map.twitter_share '/twitter/share', :controller => 'twitter', :action => 'share'
@@ -112,20 +120,23 @@ ActionController::Routing::Routes.draw do |map|
 
 
 
-  #map.resources :mangle, :controller => "items", :action => "show", :path_prefix => "/:doctypes"
-
-
-  map.resources :groups, :member => {:check => :get,
-                                     :accept => :get,
+  map.resources :groups, :member => {:accept => :get,
                                      :close => :get,
                                      :allow_custom_ads => :get,
                                      :disallow_custom_ads => :get,
                                      :image_of_the_day => :get,
                                      :logo => :get,
+                                     :sponsor_logo => :get,
+                                     :sponsor_logo_wide => :get,
+                                     :sponsor_logo_narrow => :get,
+                                     :check => :any,
                                      :favicon => :get,
                                      :background => :get,
                                      :css => :get},
                           :collection => { :autocomplete_for_group_slug => :get}, :as => "communities"
+
+  #map.groups '/check',:controller => "groups", :action => "post", :as => "communities"
+
 
   map.resources :votes
 
@@ -142,6 +153,7 @@ ActionController::Routing::Routes.draw do |map|
     manage.stats '/stats', :action => 'stats'
     manage.reputation '/reputation', :action => 'reputation'
     manage.domain '/domain', :action => 'domain'
+    manage.welcome '/welcome', :action => 'welcome'
   end
 
   #map.resources :nodes , :controller => :items, :action => :index, :member => {:section => :any}, :as => ":section"

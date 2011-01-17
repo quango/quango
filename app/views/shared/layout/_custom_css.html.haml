@@ -1,33 +1,38 @@
 %style{:type => 'text/css'}
-
   \.text-field{border:0}
   a {color: #{current_group.link_colour};}
   a:hover {color: #444;}
-  \#header-container {background-color: #{current_group.primary};}
+  \#header-container {background-color: #{current_group.secondary};padding-top:8px;}
   \#header-container-inner { 
   -if current_group.header_bg?
     background-image: url(#{current_group.header_bg_image})
   -if !current_group.header_bg? && !current_group.header_bg_image?
     background-color: #{current_group.primary};
+    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.primary_dark}',endColorstr='#{current_group.primary}');background:-webkit-gradient(linear,left top,left bottom,to(#{current_group.primary_dark}),from(#{current_group.primary}));background:-moz-linear-gradient(top,#{current_group.secondary},#{current_group.primary});
   }
 
-  \#toolbar-container { 
+  \#toolbar-container {   border: 1px solid #{current_group.primary_dark};  
   -if current_group.toolbar_bg?
     background-color: #{current_group.toolbar_bg};
+
   -if current_group.toolbar_bg_image?
     background-image:url(#{current_group.toolbar_bg_image});
   -if !current_group.toolbar_bg? && !current_group.toolbar_bg_image?
-    background-color: black;
+    background-color: #{current_group.primary_dark};
+    text-shadow: #{current_group.primary_dark} 0px -1px 1px;
+    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#000000',endColorstr='#{current_group.primary_dark}');background:-webkit-gradient(linear,left top,left bottom,from(#000000),to(#555555));background:-moz-linear-gradient(top,#{current_group.secondary},#{current_group.primary});
   }
 
-  /* \#header #logo { background-color: #{current_group.secondary} ;} */
-  /* \#main-index .title { background-color: #{current_group.primary} ;} */
 
-  \.tag-list a{ background-color: #{current_group.secondary};}
-  \.tag-list .tag a:link, .tag-list .tag a:active, .tag-list .tag a:visited { background-color: #{current_group.secondary};}
+  \div.signup-form{background:#{current_group.primary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.primary}',endColorstr='#{current_group.tertiary}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.primary}),to(#{current_group.tertiary}));background:-moz-linear-gradient(top,#{current_group.tertiary},#{current_group.primary})}
+  \h2.form-header{ background-color: #{current_group.primary};}
+  \.form-footer{ background-color: #{current_group.tertiary};}
+
+  \.tag-list a{background: filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.supplementary_dark}',endColorstr='#{current_group.supplementary_lite}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.supplementary}),to(#{current_group.supplementary_dark}));background:-moz-linear-gradient(top,#{current_group.supplementary_lite},#{current_group.supplementary}); text-shadow: #{current_group.supplementary_dark} 0px -1px 1px; border: 1px solid #{current_group.supplementary_dark};}
+  \.tag-list .tag a:link, .tag-list .tag a:active, .tag-list .tag a:visited {}
   \.tag-list .tag a:hover{ background-color: #{current_group.tertiary};}
   \.label-highlight a{ color: #{current_group.secondary};}
-  \.secondary-navigation-sections{ background-color: #{current_group.primary};}
+  \.secondary-navigation-sections{ background-color: #{current_group.secondary};}
   \.secondary-navigation{ background-color: #{current_group.secondary};}
   \.tertiary-navigation{ background-color: #{current_group.tertiary};}
   \.trends{ background-color: #{current_group.secondary};}
@@ -38,19 +43,29 @@
   \#sidebar h3{color:white; background-color: #{current_group.tertiary};}
   \#sidebar-inner h3{background-color: #b6b6b6;/* #{current_group.secondary}; /*border: 1px solid #{current_group.tertiary}*/}
   \.section-topic a{color: #{current_group.tertiary};}
-  \.action-button {background: #{current_group.supplementary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.supplementary_dark}',endColorstr='#{current_group.supplementary_lite}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.supplementary}),to(#{current_group.supplementary_dark}));background:-moz-linear-gradient(top,#{current_group.supplementary_lite},#{current_group.supplementary}); border:1px solid #{current_group.supplementary};text-shadow: #{current_group.supplementary_dark} 0px -1px 1px}
+
+  -#\.action-button {background: #{current_group.supplementary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.supplementary_dark}',endColorstr='#{current_group.supplementary_lite}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.supplementary}),to(#{current_group.supplementary_dark}));background:-moz-linear-gradient(top,#{current_group.supplementary_lite},#{current_group.supplementary}); border:1px solid #{current_group.supplementary};text-shadow: #{current_group.supplementary_dark} 0px -1px 1px}
+  \.login-button {background: #{current_group.supplementary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.supplementary}',endColorstr='#{current_group.supplementary_dark}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.supplementary}),to(#{current_group.supplementary_dark}));background:-moz-linear-gradient(top,#{current_group.supplementary_lite},#{current_group.supplementary}); border:1px none #{current_group.primary_dark};text-shadow: #{current_group.supplementary_dark} 0px -1px 1px}
+  \.create-button {background: #{current_group.supplementary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.supplementary_dark}',endColorstr='#{current_group.supplementary_lite}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.supplementary}),to(#{current_group.supplementary_dark}));background:-moz-linear-gradient(top,#{current_group.supplementary_lite},#{current_group.supplementary}); border:1px solid white;text-shadow: #{current_group.supplementary_dark} 0px -1px 1px}
+  \.supplementary-button {background: #{current_group.supplementary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.supplementary_dark}',endColorstr='#{current_group.supplementary_lite}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.supplementary}),to(#{current_group.supplementary_dark}));background:-moz-linear-gradient(top,#{current_group.supplementary_lite},#{current_group.supplementary}); border:1px solid #{current_group.supplementary};text-shadow: #{current_group.supplementary_dark} 0px -1px 1px}
+  \.action-button {border:1px solid #{current_group.primary_dark};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.primary_dark}',endColorstr='#{current_group.primary}');background:-webkit-gradient(linear,left top,left bottom,to(#{current_group.primary_dark}),from(#{current_group.primary}));background:-moz-linear-gradient(top,#{current_group.secondary},#{current_group.primary});text-shadow: #{current_group.primary_dark} 0px -1px 1px }
   \.primary-button {background-color: #{current_group.primary}; border:1px solid #{current_group.primary};text-shadow: #{current_group.primary} 0px -1px 1px}
   \.section-button {background-color: #{current_group.primary}; border:1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px}
   \.secondary-button {background-color: #{current_group.primary}; border:1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px}
   \.tertiary-button {background-color: #{current_group.tertiary}; border:1px solid #{current_group.tertiary};text-shadow: #{current_group.tertiary} 0px -1px 1px}
   \.create-item-button {background:#{current_group.secondary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.secondary}',endColorstr='#{current_group.primary}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#{current_group.primary}));background:-moz-linear-gradient(top,#{current_group.primary},#{current_group.secondary});border:1px solid #{current_group.secondary};}
   \.create-item-button:hover {background-color: #{current_group.secondary_hover}; border:1px solid #{current_group.tertiary};text-shadow: #{current_group.secondary_hover} -1px -1px 1px;}
-  \.signup-button{background:#{current_group.primary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.secondary}',endColorstr='#{current_group.tertiary}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#{current_group.tertiary}));background:-moz-linear-gradient(top,#{current_group.tertiary},#{current_group.secondary});border:1px solid #{current_group.secondary};}
-  \.group-button{background:#{current_group.primary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.secondary}',endColorstr='#{current_group.tertiary}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#{current_group.tertiary}));background:-moz-linear-gradient(top,#{current_group.tertiary},#{current_group.secondary});border:1px solid #{current_group.secondary};}
-  \.login-form{background:#{current_group.primary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.tertiary}',endColorstr='#{current_group.primary}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.tertiary}),to(#{current_group.primary}));background:-moz-linear-gradient(top,#{current_group.tertiary},#{current_group.primary})}
-  \.input-holder{background:#{current_group.primary}}
-  \.input-holder-password{background:#{current_group.primary}}
+  \.signup-button{background:#{current_group.primary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.secondary}',endColorstr='#{current_group.tertiary}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#{current_group.tertiary}));background:-moz-linear-gradient(top,#{current_group.tertiary},#{current_group.secondary});border:2px solid #{current_group.primary};}
+  \.group-button{background:#{current_group.primary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.secondary}',endColorstr='#{current_group.primary}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#{current_group.primary}));background:-moz-linear-gradient(top,#{current_group.tertiary},#{current_group.secondary});}
+  -#-\.login-form{background:#{current_group.primary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.tertiary}',endColorstr='#{current_group.primary}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.tertiary}),to(#{current_group.primary}));background:-moz-linear-gradient(top,#{current_group.tertiary},#{current_group.primary})}
+  \.input-holder{background:#{current_group.tertiary}}
+  \.input-holder-password{background:#{current_group.tertiary}}
+  \.login{background:#{current_group.tertiary}}
 
+  \.mainAnswerForm{background:#{current_group.primary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.secondary}',endColorstr='#{current_group.primary}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.tertiary}),to(#{current_group.secondary}));background:-moz-linear-gradient(top,#{current_group.tertiary},#{current_group.secondary});border:2px solid #{current_group.secondary};}
+  \.supplementary-navigation {background: #{current_group.supplementary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.supplementary_dark}',endColorstr='#{current_group.supplementary_lite}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.supplementary}),to(#{current_group.supplementary_dark}));background:-moz-linear-gradient(top,#{current_group.supplementary_lite},#{current_group.supplementary}); border:1px solid #{current_group.supplementary_dark};text-shadow: #{current_group.supplementary_dark} 0px -1px 1px}
+  
+  \.community {background: #{current_group.supplementary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.supplementary}',endColorstr='#{current_group.supplementary_lite}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.supplementary}),to(#{current_group.supplementary_dark}));background:-moz-linear-gradient(top,#{current_group.supplementary_lite},#{current_group.supplementary}); border:1px solid white;text-shadow: #{current_group.supplementary_dark} 0px -1px 1px}
 <!--//-->
 
 -#\.edit-button{ background-color: #{current_group.tertiary};}

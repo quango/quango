@@ -1,20 +1,205 @@
+#answer-form
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#dcdcdc',endColorstr='#bbbbbb')
+  background: -webkit-gradient(linear,left top,left bottom,from(#dcdcdc),to(#bbbbbb))
+  background: -moz-linear-gradient(top,#dcdcdc,#bbbbbb)
+  //+rounded(8px,8px,8px,8px)
+  border-top: 1px solid white
+  border-left: 1px solid white
+  border-right: 1px solid gainsboro
+  border-bottom: 1px solid gainsboro
+  margin: 0 8px 8px 8px
+  -webkit-box-shadow: 0px -1px 3px rgba(0,0,0,0.25)
+  -moz-box-shadow: 0px -1px 3px rgba(0,0,0,0.25)
+  box-shadow: 0px -1px 3px rgba(0,0,0,0.25)
+
+#markdown_editor
+
+
+
+
+h2.form-header
+  //text-align: center
+  margin: 0 32px 0 32px 
+  padding: 8px
+  height: 20px
+  font-size: 16px
+  font-weight: bold
+  color: white
+  width: 50%
+  +rounded(8px,8px,0px,0px)
+
+.form-footer
+  float: right
+  margin: 0
+  padding: 8px
+  height: 32px
+  font-size: 16px
+  font-weight: bold
+  color: white
+  +rounded(0px,0px,8px,8px)
+
+
+
+.signup-form
+  width: 468px
+  +rounded(0px,8px,0px,8px)
+  //border: 2px solid red
+  padding: 16px
+  margin-left: 32px
+
+.answer-form-holder
+  padding-top: 8px
+  height: 32px
+  padding-bottom: 8px
+  +rounded(8px,8px,0px,0px)
+
+
+.mainAnswerForm
+  +rounded(8px,8px,8px,8px)
+
+.answer-form-actions
+  padding-top: 0px
+  height: 8px
+  padding-bottom: 8px
+  +rounded(0px,0px,8px,8px)
+  margin: 0 auto
+
+  ul  
+    float: right
+    list-style-type: none
+    border: 0
+    padding: 0
+    li
+      line-height: 32px
+      display: inline
+      &a.filter
+        color: white
+
+  .check
+    margin-top: 4px
+  
+.answer-form
+ 
+
+
+.facebook
+
+  +fancy-button-structure
+  +fancy-button-colors-matte(#3b5997)
+  +fancy-button-size(16px, 8px, 1px)
+
+  white-space: nowrap
+  width: 88px
+  line-height: 24px
+  margin-bottom: 8px
+  img
+    border: 2px inset
+    //-webkit-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+    //-moz-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+    //box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+  -webkit-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+  -moz-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+  box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+
+.think
+  +fancy-button-structure
+  +fancy-button-colors-matte(#4183AF)
+  +fancy-button-size(16px, 8px, 1px)
+  white-space: nowrap
+  width: 96px
+  height: 24px
+  line-height: 20px
+  margin-bottom: 8px
+  font-family: "DIN-black"
+  font-size: 22px
+  font-weight: normal
+  letter-spacing: -1px
+  img
+    //border: 1px outset white
+    //-webkit-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+    //-moz-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+    //box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+  -webkit-font-smoothing:antialiased
+  -webkit-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+  -moz-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+  box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+
+.twitter
+  +fancy-button-structure
+  +fancy-button-colors-matte(#111111)
+  +fancy-button-size(16px, 8px, 1px)
+  white-space: nowrap
+  width: 88px
+  line-height: 24px
+  margin-bottom: 8px
+  img
+    border: 1px outset white
+    //-webkit-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+    //-moz-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+    //box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+  -webkit-font-smoothing:antialiased
+  -webkit-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+  -moz-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+  box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+  &:hover
+    -webkit-box-shadow: 0px -1px 2px rgba(255,255,255,0.25)
+    -moz-box-shadow: 0px -1px 2px rgba(255,255,255,0.25)
+    box-shadow: 0px -1px 2px rgba(255,255,255,0.25)
+
+.google
+  padding: 0
+  +fancy-button-structure
+  +fancy-button-colors-matte(#dcdcdc)
+  +fancy-button-size(16px, 8px, 1px)
+  white-space: nowrap
+  width: 96px
+  margin-bottom: 8px
+  img
+    border: 1px outset white
+    //-webkit-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+    //-moz-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+    //box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+  -webkit-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+  -moz-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+  box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+
+.linkedin
+  +fancy-button-structure
+  +fancy-button-colors-matte(#dcdcdc)
+  +fancy-button-size(16px, 8px, 1px)
+  white-space: nowrap
+  width: 96px
+
+  margin-bottom: 8px
+
+  -webkit-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+  -moz-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+  box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+
+
+
+
+
+
+
+
+
 .text-field
   font-weight: bold
   padding: 8px
   +rounded(8px,8px,8px,8px)
 
 .form
-  background-color: gainsboro
+  //background-color: gainsboro
   input.text, textarea.textarea
     border: 1px solid #ddd
     padding: 5px
 
-
-  input.text_field, textarea.text_area
-    border: 2px solid #ddd
+  input.text_field, textarea.answer_text_area
+    border: 2px inset #ddd
     font-family: arial, sans-serif
     padding: 8px
-    +rounded(8px,8px,8px,8px)
+    margin: 0 auto
 
   .navform
     padding: 10px
@@ -24,11 +209,30 @@
     input
       font-size: 14px
 
+
+  input.text_field, textarea.text_area
+    border: 2px solid #ddd
+    font-family: arial, sans-serif
+    padding: 8px
+    margin: 0 auto
+
+  .navform
+    padding: 10px
+    font-size: 14px
+    +rounded(4px,4px,4px,4px)
+
+    input
+      font-size: 14px
+
+
+
+
 .login-form-holder
   background-color: white
-  +rounded(8px,8px,8px,8px)
+  background-image: url(/images/backgrounds/section_listings_bg.png)
+  background-repeat: repeat-x
   padding: 8px
-  margin: 8px
+  //margin: 8px
   min-height: 208px
 
 .login-form
@@ -40,11 +244,15 @@
   font-size: 12px
   font-weight: bold
   -webkit-font-smoothing:antialiased
+  //background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #dcdcdc), color-stop(100%, #ffffff))
+  //background-image: -moz-linear-gradient(top, #dcdcdc 0%, #ffffff 100%)
+  //background-image: linear-gradient(top, #dcdcdc 0%, #ffffff 100%)
 
 .input-holder
   +rounded(8px,8px,8px,8px)  
   padding: 4px
   height: 32px
+  width: 176px
   .label
     font-size: 16px
     font-weight: bold
@@ -60,6 +268,7 @@
   +rounded(8px,8px,0px,8px)  
   padding: 4px
   height: 32px
+  width: 176px
 
   .text-field
     height: 24px

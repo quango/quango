@@ -76,14 +76,7 @@ module VotesHelper
       @
     else
       %@
-        <div class='vote_box'>
-          <button type="submit" name="vote_up" value="1" class="button" disabled>
-            image_tag("/images/icons/lightbulb_xoff.png", :width => 18, :height => 18, :class=>'novoted')
-          </button>
-          <button type="submit" name="vote_down" value="1" class="button" disabled>
-            image_tag("/images/icons/lightbulb_xoff.png", :width => 18, :height => 18, :class=>'novoted')
-          </button>
-        </div>
+
       @
     end
   end

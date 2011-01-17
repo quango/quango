@@ -1,10 +1,13 @@
-#toolbar{:style => "float:left;width:160px;"}
+#toolbar{:style => "float:left;width:256px;"}
   -if logged_in?
     -if !current_group.isolate && AppConfig.enable_groups
       .edition
         %ul.topbar.combobox.left
           %li
-            =link_to h(current_group.name), domain_url(:custom => current_group.domain), :style=>"margin-left:7px;"
+            = image_tag(current_group.favicon_path,  :style => "height:28px: width:20px; margin:0};")
+            .thoughtdomain
+              =link_to h(current_group.name), domain_url(:custom => current_group.domain), :style=>"margin:0px;"
+              =link_to h(current_group.name_highlight), domain_url(:custom => current_group.domain), :style=> "color:#{current_group.primary};margin:0 0 0 -2px;"
 
             %ul
               -current_user.groups(:select => [:name, :domain]).each do |group|
@@ -12,12 +15,18 @@
                   -if group.favicon_path?
                     = image_tag( "#{group.favicon_path}", :style => "background-color:#{group.secondary};")
                   -else
-                    -#= image_tag("#{group.favicon_path}",  :style => "background-color:#{group.secondary};")
+                    = image_tag("#{group.favicon_path}",  :style => "background-color:#{group.secondary};")
                   =link_to h(group.name), domain_url(:custom => group.domain)
 
   -else
     .edition
-      =link_to h(current_group.name), domain_url(:custom => current_group.domain)
+      %ul.topbar.combobox.left
+        %li
+          = image_tag(current_group.favicon_path,  :style => "height:24px: width:24px; margin:0};")
+          .thoughtdomain
+            =link_to h(current_group.name), domain_url(:custom => current_group.domain), :style=>"margin:0px;"
+            =link_to h(current_group.name_highlight), domain_url(:custom => current_group.domain), :style=> "color:#{current_group.primary};margin:0 0 0 -2px;"
+
 
 
 

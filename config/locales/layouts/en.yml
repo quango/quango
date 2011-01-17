@@ -89,11 +89,12 @@ en:
       openid:
         explaination: "If you would like to register or just log in, please select your OpenID provider:"
     manage:
+      sponsor: Sponsorship Settings
       advertising: Advertising
       analytics: Analytics
       sections: Sections
       dashboard: Dashboard
-      properties: Group Properties
+      properties: Community Settings
       widgets: Widgets
       actions: Actions
       stats: Stats

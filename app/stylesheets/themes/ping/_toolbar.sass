@@ -1,11 +1,42 @@
+.thoughtdomain
+  text-shadow
+
+
+#toolbar-container-inner
+  width: 962px
+  margin: 16px auto 0 auto
+  height: 16px
+  //background-image: url(/images/black_50_bg.png)
+
 #toolbar-container
+
+  height: 48px
+
+
+  //+rounded(4px,4px,4px,4px)
   //background: #000
   //background: #ababab
-  //background-image: url(/images/black_25_bg.png)
+
+
+  //+fancy-button-structure
+  //+fancy-button-colors-matte(#000000)
+  //+fancy-button-size(16px, 8px, 2px)
+  //border: 1px solid black
+
+  -webkit-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+  -moz-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+  box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+
+  -webkit-box-shadow: 1px 1px 3px rgba(255,255,255,0.25)
+  -moz-box-shadow: 1px 1px 3px rgba(255,255,255,0.25)
+  box-shadow: 1px 1px 3px rgba(255,255,255,0.25)
+
+  -webkit-font-smoothing:antialiased
 
 #toolbar
-  padding: 1px 4px 3px 13px
-  margin: 0
+  padding: 0
+
+
   //font-size: 0.75em
   font-weight: normal
   float: right
@@ -16,7 +47,7 @@
   a
     color: white
     &:hover
-      text-decoration: underline
+      text-decoration: none
 
 
   .item
@@ -66,13 +97,13 @@
   .combobox
     font-weight: bold
     padding: 0
-    margin: 0 -13px 0 -13px
+    margin: 0
     list-style: none
     list-style-position: outside
     display: inline
     li
       float: left
-      width: 185px
+      width: 256px
       margin-right: 0
       &:hover ul
         left: auto
@@ -94,7 +125,7 @@
           display: block
           clear: both
           &:hover
-            background-color: #E0E0E0
+            background-color: #000000
           a
             //padding: 4px
             color: #666666

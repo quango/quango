@@ -1,37 +1,52 @@
 .tag-list
   font-size: .785em
   overflow: hidden
-  line-height: 25px
+  line-height: 20px
+
+  a
+    color: white
+    padding: 0 4px
+    +rounded(2px,2px,2px,2px)
 
   ul
     list-style-type: none
 
   .tag
-    margin-right: 3px
+    margin: 2px 2px 8px 2px
     display: inline
     overflow: visible
     float: left
-    //width: 100px
-    //height: 16px
+    +rounded(4px,4px,4px,4px)
+    -webkit-box-shadow: 1px 2px 2px rgba(0,0,0,0.5)
+    -moz-box-shadow: 1px 2px 2px rgba(0,0,0,0.5)
+    box-shadow: 1px 2px 2px rgba(0,0,0,0.5)
+    -webkit-font-smoothing:antialiased
     a
       &:link, &:active, &:visited
-        color: #fff
-        border: 1px solid black
-        width: 100px
-        cursor: pointer
-        font-size: 100%
-        font-weight: normal
-        margin-bottom: 4px
-        padding: 3px 8px
-        text-align: left
-        text-decoration: none
-        text-transform: lowercase
-        //white-space: nowrap
-        line-height: 20px
+        height: 18px
+        line-height: 18px
+        cursor: pointer  
+        overflow: visible
+        float: left
         +rounded(4px,4px,4px,4px)
+
+        color: white
+        padding: 1px 8px 1px 8px
+        //margin: 3px 0 0 0 
+
+        font-size: 12px
+        font-weight: bold
+
+        //-webkit-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+        //-moz-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+        //box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+        -webkit-font-smoothing:antialiased
+
+
+
       &:hover
-        color: #613C24
-        background: #B2653F
+        color: #000000
+
       &.remove_tag
         background: #E55252 !important
         padding: 0px 2px

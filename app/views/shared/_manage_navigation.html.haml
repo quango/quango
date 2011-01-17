@@ -1,4 +1,4 @@
-#contextual-navigation{:class => @active_tab}
+#contextual-navigation
 
   %ul
     %li.properties
@@ -18,6 +18,9 @@
         =link_to t("layouts.manage.advertising"), ads_path
     %li.members
       = link_to t("layouts.manage.members"), members_path
+    %li
+      %strong
+        = "Administration:"
 
 
 %script

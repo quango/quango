@@ -15,27 +15,32 @@
     = render :partial => "shared/analytics"
     = @current_class
 
-    #flash
-      = show_flash_messages(:class => "flash", :markdown => true)
+    #toolbar-container
+      #toolbar-container-inner    
+        = render :partial => "shared/toolbar"
 
     #header-container
       #header-container-inner
         #leaderboard-container
           = render :partial => "shared/ads/header_ads"
-        #toolbar-container
-          = render :partial => "shared/toolbar"
-        #header
-          = render :partial => "shared/header"
+        #search
+          = render :partial => "shared/search"
         #navigation-container
           = render :partial => "shared/contextual_navigation"
+
+    #flash
+      = show_flash_messages(:class => "flash", :markdown => true)
+
 
     #container{:class => @current_class}
       #announcement
         = render :partial => "shared/announcements"
 
       #wrapper
+        = render :partial => "shared/header"
         = yield :sidebar
         = yield :section_head
+
         = yield :main
         = yield :sidebar_inner
 

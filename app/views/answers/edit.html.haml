@@ -3,7 +3,7 @@
   =local_assigns[:mode]
 
   -if @item
-    - form_for(:answer, :url => item_answer_path(@item, @answer), :html => {:method => :put, :class => "form"}) do |f|
+    - form_for(:answer, :url => item_answer_path(@item.doctype, @item, @answer), :html => {:method => :put, :class => "form"}) do |f|
       = h(@item.mode.to_s)
       =render :partial => "form", :locals => {:f => f, :markdown => true, }
       .group
@@ -13,7 +13,7 @@
             = f.check_box :wiki, :class => "checkbox"
           = f.submit t("scaffold.update"), :class => "buttton"
           = t("global.or")
-          = link_to t('scaffold.cancel'), item_path(@item), :class => "button cancel"
+          = link_to t('scaffold.cancel'), item_path(@item.doctype, @item), :class => "button cancel"
 
 /Layout
 -content_for :main do

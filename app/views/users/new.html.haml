@@ -3,19 +3,28 @@
   = error_messages_for :user
   - form_for @user, :url => users_path, :html => {:class => "form"} do |f|
     =render :partial => "form", :locals => {:f => f}
-    .group.navform
-      = submit_tag t('.submit')
+    .form-footer
+      = submit_tag "Create account", :class => "create-button", :style => "width:312px; height:32px; padding: 0 32px; font-weight: bold; font-size:18px;"
 
 - content_for :main do
 
-  #main
-    .left{:style => "width:50%"}
-      %h1
-        = "Create a new account"
+  #main{:style => "width:898px; padding: 0 32px"}
+    %h1{:style => "color:#{current_group.primary}; font-weight:bold; padding: 8px 0 0 0;text-shadow: 1px 1px 0 rgba(255,255,255,255.25)"}
+      = "Thinking is free, so naturally thinking daily is also free..."
+
+    .left
+      %h2.form-header
+        = "Create a free account"
+
       = yield :form
 
-    .right{:style => "width:50%"}
-      %h1
-        = "Join an existing profile"
+    .left{:style => "width:240px;padding: 0 32px 32px 32px"}
+      %h3{:style => "margin-top:32px"}
+        = "or simply login with an existing account..."
       = render :partial => "sessions/openid"
+      .clear
+      %h3
+        = "Note..."
+      = "Using an existing login will create a new account which you access using your ogin from another site"
+
   .clear

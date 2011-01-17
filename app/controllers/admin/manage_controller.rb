@@ -9,13 +9,15 @@ class Admin::ManageController < ApplicationController
        :actions => :actions,
        :stats => :stats,
        :widgets => :widgets,
-       :sections => :sections
+       :sections => :sections,
+       :welcome => :sections
 
   subtabs :properties => [[:general, "general"],
                           [:share, "share"],
                           [:rewards, "rewards"],
                           [:constrains, "constrains"],
                           [:theme, "theme"],
+                          [:welcome, "welcome"],
                           [:domain, "domain"]]
   subtabs :content => [[:item_prompt, "item_prompt"],
                        [:item_help, "item_help"],
@@ -27,7 +29,7 @@ class Admin::ManageController < ApplicationController
   end
 
   def properties
-    @active_subtab ||= "general"
+    @active_subtab ||= "welcome"
   end
 
   def actions

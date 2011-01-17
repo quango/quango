@@ -26,15 +26,21 @@
 
 -content_for :section_head do
   #section-listing{:class => @active_section}
-    = render :partial => "items/section_head_summary", :locals => {:section => @active_section, :default_state => "hidden"}
+    = render :partial => "items/section_head_welcome",  :locals => {:section => @item.doctype,:tab=>"activity"}
+ 
+
+
 
 - content_for :main do
+  = javascript_include_merged :show
+
+
   #main-index
     .content
       .inner
-        = javascript_include_merged :show
-        =render :partial => "toolbox"
-        =render :partial => "controls", :object=>@item
+        .toolbox
+          = render :partial => "toolbox"
+          = render :partial => "controls", :object=>@item
   
         -if @item.mode == "video"
           #video-box
@@ -50,6 +56,8 @@
                 - if !@item.close_reason.comment.empty?
                   .comment
                     =find_and_preserve(shapado_auto_link(@item.close_reason.comment))
+            .entry-publisher
+
             .entry-details
               .small
                 %small
@@ -91,41 +99,30 @@
 
         %a{:name=>"answers"}
         #answers
-          .secondary-navigation{:class => @active_subtab.to_s}
-            %h3
-              = h("What do you think?")
           .clear
 
           -unless @item.closed
             %a{:name=>"to_answer"}
             -form_for @answer, :url => item_answers_path(@item.doctype_id, @item.id), :html => {:class => "form mainAnswerForm"} do |f|
               = render :partial => "answers/form", :locals => {:f => f, :markdown => true, :mode => "item"}
-              -if logged_in?
-                .group.navform
-                  .controls.right{:style => "width: 50%"}
-                    .left{:style => "width: 49.5%"}
-                      = f.label :wiki, "OpenEdit", :class => "radio"
-                      = f.check_box :wiki, :class => "checkbox"
-                    .left{:style => "width: 49.5%"}
-                      = f.label :anonymous, t("scaffold.post_as_anonymous"), :class => "radio"
-                      = f.check_box :anonymous, :class => "checkbox"
-                  = submit_tag t('answers.form.submit'), :class => "button"
-              .clear
+            .clear
 
-          .secondary-navigation{:class => @active_subtab.to_s}
-            %h3
-              = h("What others think")
-              = t(@answers.total_entries + (@item.accepted ? 1 : 0))
-            .navcontrols
-              %ul
-                %li.newest
-                  = link_to t("items.index.newest"), item_path(@item.doctype_id, @item, :sort=>"newest", :anchor => "answers"),:class=>"standard-button", :rel => "nofollow"
-                %li.votes
-                  = link_to t("items.index.votes"), item_path(@item.doctype_id, @item, :sort=>"votes", :anchor => "answers"),:class=>"standard-button", :rel => "nofollow"
-                %li.oldest
-                  = link_to t("items.index.oldest"), item_path(@item.doctype_id, @item, :sort=>"oldest", :anchor => "answers"),:class=>"standard-button", :rel => "nofollow"
-                %li.spin
-                  = link_to "&#9733;", "#",:class=>"standard-button"
+
+          .answers
+            .supplementary-navigation{:style => "margin-top:16px; height: 32px"}
+              .left
+                = h("What others think")
+                = t(@answers.total_entries + (@item.accepted ? 1 : 0))
+              .right
+                %ul{:style => "width: 256px;"}
+                  %li.filter
+                    = link_to "Fresh", item_path(@item.doctype_id, @item, :sort=>"fresh", :anchor => "answers"),:rel => "nofollow"
+                  %li
+                    = link_to "Hot", item_path(@item.doctype_id, @item, :sort=>"hot", :anchor => "answers"),:rel => "nofollow"
+                  %li
+                    = link_to "Historical", item_path(@item.doctype_id, @item, :sort=>"sweaty", :anchor => "answers"),:rel => "nofollow"
+                  %li
+                    = link_to "&#9733;", "#"
           .clear
 
           .block
@@ -141,11 +138,10 @@
 
 -content_for :sidebar_inner do
   #sidebar-inner
-    = render :partial => "create_button"
     = render :partial => "default_image", :locals => {:item => @item}
-    = render :partial => "author"
     = render :partial => "images", :locals => {:item => @item}
-
+    = render :partial => "related_communities"
+    = render :partial => "create_button"
 
     -if logged_in? && current_group.has_bunnies?
       -if current_user.owner_of?(current_group)
@@ -166,9 +162,13 @@
 -content_for :sidebar do
   #sidebar
     = render :partial => "welcome/are_you_thinking", :locals => {:small => true}
+    = render :partial => "author"
     = render :partial => "participants", :locals=> {:item => @item}
+
     = render :partial => "shared/current_tags"
     = render :partial => "shared/tag_list", :object => @tag_cloud
+    = render :partial => "related_communities"
+
 
     - if logged_in? && (current_user.mod_of?(current_group) || current_user.can_view_offensive_counts_on?(current_group))
       -unless @item.flags.count == 0

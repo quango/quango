@@ -12,19 +12,20 @@
 
   %body
     = render :partial => "shared/analytics"
-    #flash
-      = show_flash_messages(:class => "flash", :markdown => true)
+
+    #toolbar-container
+      #toolbar-container-inner    
+        = render :partial => "shared/toolbar"
 
     #header-container
       #header-container-inner
         #leaderboard-container
           = render :partial => "shared/ads/header_ads"
-        #toolbar-container
-          = render :partial => "shared/toolbar"
-        #header
-          = render :partial => "shared/header"
-        #channel-container
+        #navigation-container
           = render :partial => "shared/manage_navigation"
+
+    #flash
+      = show_flash_messages(:class => "flash", :markdown => true)
 
     #container{:class => @active_tab}
       #wrapper

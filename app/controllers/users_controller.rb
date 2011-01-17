@@ -12,7 +12,7 @@ class UsersController < ApplicationController
                      [:name, "login asc"]]
 
   def index
-    @active_section = "members"
+    @active_section = "Thinking is free"
     set_page_title(t("users.index.title"))
     options =  {:per_page => params[:per_page]||24,
                :order => current_order,

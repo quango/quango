@@ -1,10 +1,15 @@
+%h3
+  = "Free to join..!"
+
 -if logged_in?
   .block
-    -if (params[:small] = true)
-      .group-button{:style => "width:114px;background-color:#{current_group.primary}; font-size:16px "}
+    -if (params[:target] = "welcome")
+      .group-button{:style => "width:256px;height:132px; border-bottom: 1px solid white"}
         %small{:style => "font-size:11px "}
-          = "<strong>#{current_group.name}</strong> is thinking daily...<br/>"
-          = link_to  "Check availability",check_group_path(current_group) , :class => "action-button"
+          = "Not a member?"
+        = link_to "&#9733; free signup", new_user_path, :class => "login-button", :style => "font-weight:bold;"
+        %div.small
+          = "And start thinking daily..."
 
     -else
       .group-button{:style => "width:232px;background-color:#{current_group.primary}; font-size:16px "}
@@ -33,10 +38,13 @@
 
 -else
   .block
-    .signup-button{:style => "width:222px;background-color:#{current_group.primary}; font-size:18px "}
-      = link_to "SIGNUP NOW for a free account<br/>", new_user_path
-      %small
-        = "And get heard in our fast growing global community"
+    .group-button{:style => "width:132px;height:188px; padding-top:64px"}
+      %small{:style => "font-size:11px "}
+        = "Not a member?"
+      = link_to "SIGNUP<br/>", new_user_path, :class => "login-button", :style => "font-weight:bold;"
+      %div.small
+        = "And start thinking daily..."
+  .clear
 
 
 

@@ -237,9 +237,9 @@ class ApplicationController < ActionController::Base
         "#{AppConfig.application_name} - #{t("layouts.application.title")}"
       else
         if current_group.isolate
-          "#{current_group.name} - #{current_group.legend}"
+          "#{current_group.name}#{current_group.name_highlight} - #{current_group.legend}"
         else
-          "#{current_group.name} - #{current_group.legend} - #{AppConfig.application_name}"
+          "#{current_group.name}#{current_group.name_highlight} - #{current_group.legend} - #{AppConfig.application_name}"
         end
       end
     end

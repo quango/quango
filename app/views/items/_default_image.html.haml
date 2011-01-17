@@ -3,18 +3,13 @@
 -if @default_thumbnail
 
   .block
-    .toolbox-inner
-      %span.right
-        - if current_user
-          - if (@item.wiki && current_user.can_edit_wiki_post_on?(@item.group)) || current_user.can_edit_others_posts_on?(@item.group) || current_user.can_modify?(@item)
-            = link_to "Change", item_images_path(@item.doctype, @item), :class => "button left"        
-      %span.left
-        = "Thumbnail"
+    %h3
+      = "Thumbnail"
 
     .content
       - image = @default_thumbnail
       - base_image = image.image.process(:thumb,image.image_cropping)
-      - base_thumbnail = base_image.process(:thumb,"256x")
+      - base_thumbnail = base_image.process(:thumb,"255x")
       = image_tag base_thumbnail.url, :class => 'none', :alt => image.name, :title => image.name
 
 

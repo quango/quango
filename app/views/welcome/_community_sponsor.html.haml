@@ -1,0 +1,47 @@
+-if width == "wide"
+
+  %h3
+    = "community sponsor..."
+  .content
+
+    -if current_group.has_sponsor?
+
+      -if current_group.has_sponsor?
+        .edition
+          = image_tag(sponsor_logo_wide_group_path(current_group), :alt => "#{current_group.sponsor_name}", :title => "#{current_group.sponsor_name}")
+
+      -if current_group.show_sponsor_description?
+        .description
+          = current_group.sponsor_description
+
+
+
+    -else
+      = "not sponsored"
+
+
+  .clear
+
+-if width == "narrow"
+
+  %h3
+    = "Sponsor..."
+  .content
+
+    -if current_group.has_sponsor?
+
+      -if current_group.has_sponsor?
+        .edition
+          = image_tag(sponsor_logo_narrow_group_path(current_group), :alt => "#{current_group.sponsor_name}", :title => "#{current_group.sponsor_name}")
+
+      -if current_group.show_sponsor_description?
+        .description
+          = current_group.sponsor_description
+
+
+
+    -else
+      = "not sponsored"
+
+
+  .clear

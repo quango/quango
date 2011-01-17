@@ -1,0 +1,97 @@
+#main{:style => "width:702px; float:left"}
+  %h1
+    = "Community Sponsor"
+
+  = "Sponsorship options are only available in the community edition - upgrade now to sponsor this thought domain and gain access to additional functionality and controls."
+
+  .group
+    = f.label :has_sponsor, "Is this a sponsored community?", :class => "label"
+    = f.check_box :has_sponsor, :class => "text_field"
+    = "If you check this box, the sponsorship settings below will be available"
+
+  %hr{:style =>"margin:8px 0"}
+
+  .group
+    = f.label :sponsor_name, "Sponsor name", :class => "label"
+    = f.text_field :sponsor_name, :class => "text_field"
+
+  .group
+    = f.label :sponsor_link, "Sponsor link", :class => "label"
+    = f.text_field :sponsor_link, :class => "text_field"
+    = "The logo will link to the sponsor's website"
+
+  .group
+    = f.label :show_sponsor_welcome, "Show logo on welcome page?", :class => "label"
+    = f.check_box :show_sponsor_welcome, :class => "text_field"
+    = "If you check this box, the <b>wide logo</b> you specify will appear on the welcome page"
+
+  .group
+    = f.label :show_sponsor_subsequent, "Show logo on subsequent pages?", :class => "label"
+    = f.check_box :show_sponsor_subsequent, :class => "text_field"
+    .note
+      = "If you check this box, the <b>narrow logo</b> you specify will appear on most subsequent pages excluding member pages"
+
+  .group
+    .box.left{:style => "width:50%"}
+      = f.label :sponsor_logo_wide, t('Wide logo', :scope => "activerecord.attributes.group"), :class => "label"
+      -unless @group.new?
+        = image_tag(sponsor_logo_wide_group_path(@group))
+      %br
+      = f.file_field :sponsor_logo_wide
+      .description
+        = t('.logo_legend')
+      = text_field_tag "group[sponsor_logo_wide_info][width]", @group.sponsor_logo_wide_info["width"], :style => "width:32px"
+      x
+      = text_field_tag "group[sponsor_logo_wide_info][height]", @group.sponsor_logo_wide_info["height"], :style => "width:32px"
+
+    .box.right{:style => "width:50%"}
+      = f.label :sponsor_logo_wide, t('Narrow logo', :scope => "activerecord.attributes.group"), :class => "label"
+      -unless @group.new?
+        = image_tag(sponsor_logo_narrow_group_path(@group))
+      %br
+      = f.file_field :sponsor_logo_narrow
+      .description
+        = t('.logo_legend')
+      = text_field_tag "group[sponsor_logo_narrow_info][width]", @group.sponsor_logo_narrow_info["width"], :style => "width:32px"
+      x
+      = text_field_tag "group[sponsor_logo_narrow_info][height]", @group.sponsor_logo_narrow_info["height"], :style => "width:32px"
+
+  .clear
+  .group
+    = f.label :show_sponsor_description, "Show the sponsor description on the welcome page?", :class => "label"
+    = f.check_box :show_sponsor_description, :class => "text_field"
+    = "If you check this box, any text in the box below will appear on the welcome page"
+
+  .group
+    = f.label :sponsor_description,  t('description', :scope => "activerecord.attributes.group"), :class => "label"
+    -if current_group.wysiwyg_editor
+      = f.text_area :sponsor_description, :class => "text_area", :id => "wysiwyg_editor", :value => markdown(@group.description)
+    -else
+      = f.text_area :sponsor_description, :class => "text_area", :id => "markdown_editor"
+      .description
+        = t('.sponsor_description_legend')
+      %label.label
+        = t("global.preview")
+      #markdown_preview.markdown
+        =markdown(@group.sponsor_description)
+
+  .clear
+
+  .group.navform
+    = f.submit t('scaffold.update'), :class => "action-button"
+
+
+#sidebar-inner{:style => "width:256px; float:right"}
+  %h2
+    = "Wide Preview"
+    = render :partial => "welcome/community_sponsor",  :locals => {:width => "wide"}
+
+#sidebar-inner{:style => "width:144px; float:right"}
+  %h2
+    = "Narrow Preview"
+    = render :partial => "welcome/community_sponsor",  :locals => {:width => "narrow"}
+
+
+
+
+

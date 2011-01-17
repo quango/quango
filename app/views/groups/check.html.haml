@@ -13,22 +13,8 @@
   .description
     = "Feel free to start with the free version, you can always upgrade later if you like it"
 
-  .comparison
-
-
-    %table
-      %tr
-        %td
-          = "Egg"
-
-
-    .left
-      .group-button{:style => "background-color:#{current_group.primary}; font-size:16px "}
-        = "Free Edition"
-
-    .right
-      .group-button{:style => "background-color:#{current_group.supplementary}; font-size:16px "}
-        = "Premium Edition"
+  .compare-editions
+    = render :partial => "compare_editions"
 
 
 

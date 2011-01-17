@@ -1,5 +1,4 @@
-.toolbox{:class => "inner"}
-  = link_to "#{@item.doctype.create_label}",new_item_path(@item.doctype), :class => "action-button", :style => "width:100%; height:50px"
+= link_to " Add #{@item.doctype}<img class='right' src='/images/icons/publish-something.png' style='height:16px; width:16px; margin-right:4px'>",new_item_path(@item.doctype), :class => "create-button" #, :style => "width:200px; padding: 8px"
 
 
 

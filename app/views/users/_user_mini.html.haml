@@ -2,7 +2,7 @@
 
 .user_mini{:style=>"width:128px; overflow:hidden"}
 
-  %div.gravatar{:style=>"width:32px;float:left; margin-right:4px;"}
+  %div.gravatar{:style=>"width:32px;float:right; margin-right:4px;"}
 
     - @avatar = Avatar.find(user.default_avatar)
     - if @avatar.present?

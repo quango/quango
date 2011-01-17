@@ -1,27 +1,68 @@
 .markdown_toolbar
   position: relative
   list-style: none
-  border: 1px solid #d7d7d7
-  background-color: #F6F6F6
-  margin: 0
+
+
   padding: 0
-  height: 18px
-  margin-bottom: 2px
+  height: 24px
+
+  padding: 4px 8px 4px 8px
+  margin: 0 auto
+  color: #fff
+  text-shadow: -1px -1px 0 rgba(0,0,0,0.25)
+  font-size: 12px
+  font-weight: bold
+
+  width: 520px
+
 
   li
     list-style: none
     margin: 0
-    padding: 0
+
     float: left
+    +rounded(8px,8px,8px,8px)
+    height: 20px
+    line-height: 18px
+    cursor: pointer  
+    overflow: visible
+    float: left
+    +rounded(4px,4px,4px,4px)
+
+    color: #6D6D6D
+    padding: 0px
+    margin: 2px
+    text-shadow: 0px 1px 1px rgba(255,255,255,0.75)
+    font-size: 12px
+    font-weight: normal
+    background: gainsboro
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#dcdcdc',endColorstr='#bbbbbb')
+    background: -webkit-gradient(linear,left top,left bottom,from(#dcdcdc),to(#bbbbbb))
+    background: -moz-linear-gradient(top,#dcdcdc,#bbbbbb)
+
+    border: 1px solid #dcdcdc
+
+    -webkit-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+    -moz-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+    box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+    -webkit-font-smoothing:antialiased
+    img
+      float: right
+      margin-left: 0px
+      //border: 1px solid blue
+
+
 
     a
-      width: 24px
+      width: 16px
       height: 16px
       float: left
       display: block
+      padding: 4px
       background-image: url(/images/markdown_icons.gif)
-      border: 1px solid #fff
-      border-right-color: #d7d7d7
+
+
+
 
       &:hover
         border-color: #900
@@ -42,46 +83,60 @@
 
 
 #markdown_italics_button
-  background-position: 0 -119px
+  background-image: url(/images/markdown/text_italic.png)
+  background-repeat: no-repeat
+  background-position: 4px 1px
 
 
 #markdown_bold_button
-  background-position: 0 -102px
-
+  background-image: url(/images/markdown/text_bold.png)
+  background-repeat: no-repeat
+  background-position: 4px 1px
 
 #markdown_link_button
-  background-position: 0 0
-
+  background-image: url(/images/markdown/text_link.png)
+  background-repeat: no-repeat
+  background-position: 4px 1px
 
 #markdown_image_button
-  background-position: 0 -170px
-
+  background-image: url(/images/markdown/text_image.png)
+  background-repeat: no-repeat
+  background-position: 4px 1px
 
 #markdown_unordered_list_button
-  background-position: 0 -34px
-
+  background-image: url(/images/markdown/text_list_bullets.png)
+  background-repeat: no-repeat
+  background-position: 4px 1px
 
 #markdown_ordered_list_button
-  background-position: 0 -51px
-
+  background-image: url(/images/markdown/text_list_numbers.png)
+  background-repeat: no-repeat
+  background-position: 4px 1px
 
 #markdown_quote_button
-  background-position: 0 -68px
-
+  background-image: url(/images/markdown/text_quote.png)
+  background-repeat: no-repeat
+  background-position: 4px 1px
 
 #markdown_code_button
-  background-position: 0 -136px
-
+  background-image: url(/images/markdown/text_code.png)
+  background-repeat: no-repeat
+  background-position: 4px 1px
 
 #markdown_help_button
-  background-position: 0 -153px
-
+  background-image: url(/images/markdown/information.png)
+  background-repeat: no-repeat
+  background-position: 4px 1px
 
 #markdown_heading_button
-  background-position: 0 -85px
+  background-image: url(/images/markdown/text_heading.png)
+  background-repeat: no-repeat
+  background-position: 4px 1px
 
 #markdown_latex_button
   background-position: 0 -306px
+  visibility: hidden
+  background-position: 4px 1px
 
 .resizeHandle
   overflow: hidden
@@ -91,3 +146,26 @@
   margin-right: auto
   background-image: url(/images/handle.png)
   cursor: n-resize
+
+#markdown_footer
+  height: 64px
+
+  padding: 4px 8px 4px 8px
+  margin: 0 auto
+  color: #fff
+  text-shadow: -1px -1px 0 rgba(0,0,0,0.25)
+  font-size: 12px
+  font-weight: bold
+
+  width: 520px
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#dcdcdc',endColorstr='#bbbbbb')
+  background: -webkit-gradient(linear,left top,left bottom,from(#dcdcdc),to(#bbbbbb))
+  background: -moz-linear-gradient(top,#dcdcdc,#bbbbbb)
+  +rounded(0px,0px,8px,8px)
+  border-bottom: 2px solid gainsboro
+  border-left: 2px solid white
+  border-right: 2px solid gainsboro
+  ul
+    li
+      display: inline
+

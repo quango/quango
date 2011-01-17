@@ -5,11 +5,6 @@
   .block
     %h3
       = "Images"
-    .controls
-      - if current_user
-        - if (@item.wiki && current_user.can_edit_wiki_post_on?(@item.group)) || current_user.can_edit_others_posts_on?(@item.group) || current_user.can_modify?(@item)
-          %span
-            = link_to "Edit", item_images_path(@item.doctype, @item), :class => "standard-button right"        
     .content
       %ul
         - @item.images.each do |image|

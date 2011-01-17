@@ -1,7 +1,7 @@
 class Doctype
   include MongoMapper::Document
   include MongoMapperExt::Slugizer
-  #include MongoMapperExt::Filter
+  include MongoMapperExt::Filter
 
   key :_id, String
   key :_type, String

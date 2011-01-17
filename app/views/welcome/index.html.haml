@@ -67,8 +67,11 @@
   
 
 
-  #sidebar-inner
-    = render :partial => "are_you_thinking" #, :locals => {:item => item}
+  #sidebar-inner{:style => "float:right; width:256px;"}
+    = render :partial => "community_sponsor"
+    = render :partial => "featured_groups" #, :locals => {:item => item}
+    = render :partial => "are_you_thinking", :locals => {:target => "welcome"}
+
     = render :partial => "widgets/recent_members", :locals=> {:group => current_group}
     - current_group.widgets.each do |widget|
       .widget.block{:id => widget.name}
@@ -80,7 +83,7 @@
       .content
         = h("Something else")
 
-  #main-index
+  #welcome-index{:style => "float:left;"}
     -#= render :partial => "feature", :locals => {:item => current_group.items.last}
     .content
       .inner

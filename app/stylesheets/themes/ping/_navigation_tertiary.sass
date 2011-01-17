@@ -1,3 +1,19 @@
+.supplementary-navigation
+  color: white
+  font-weight: bold
+  line-height: 32px
+  +rounded(4px,4px,4px,4px)
+  padding: 4px
+  ul  
+    list-style-type: none
+    border: 0
+    padding: 0
+    li
+      line-height: 32px
+      display: inline
+      &a.filter
+        color: white
+
 .tertiary-navigation ul li a
   &:link, &:visited, &:hover, &:active
     text-decoration: none
@@ -29,6 +45,6 @@
       padding: 0
       li
         line-height: 26px
-        display: block
+        display: inline
 
 

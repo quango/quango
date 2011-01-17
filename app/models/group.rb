@@ -66,6 +66,7 @@ class Group
   key :toolbar_bg, String
   key :toolbar_bg_image, String, :default => "/images/black_25_bg.png"
   key :primary, String, :default => "#4183AF" #tabs, 
+  key :primary_dark, String, :default => "#154D72" #tabs, 
   key :primary_hover, String, :default => "#E1A970" #header_bg and edit buttons
   key :primary_selected, String, :default => "#990000"
   key :secondary, String, :default => "#72AFD7" #tabs,
@@ -91,9 +92,28 @@ class Group
   key :show_modes, Array #Hash, :default => Item::MODES
   key :show_modes_order, Hash
 
+  #community sponsor settings
 
-  #file_key :logo, :max_length => 2.megabytes
-  #file_key :background, :max_length => 256.kilobytes
+  key :has_sponsor, Boolean, :default => false
+
+  key :sponsor_name, String
+  key :sponsor_link, String
+
+  key :show_sponsor_welcome, Boolean, :default => false #sponsor logo on welcome page
+  key :show_sponsor_subsequent, Boolean, :default => false #sponsor logo on subsequent pages
+
+  file_key :sponsor_logo_wide, :max_length => 256.kilobytes
+  file_key :sponsor_logo_narrow, :max_length => 256.kilobytes
+  key :sponsor_logo_wide_info, Hash, :default => {"width" => 256, "height" => 128}
+  key :sponsor_logo_narrow_info, Hash, :default => {"width" => 144, "height" => 144}
+
+  key :show_sponsor_description, Boolean, :default => false
+  key :show_sponsor_description_boxheader, Boolean, :default => true
+  key :sponsor_description_boxheader, String, :default => "About this sponsor..."
+  key :sponsor_description, String
+
+
+
   file_key :custom_css, :max_length => 256.kilobytes
   #file_key :custom_favicon, :max_length => 256.kilobytes
 

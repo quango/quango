@@ -2,9 +2,11 @@
 
   .secondary-navigation{:class => @active_subtab.to_s,:style => "background-color:#{current_group.secondary}"}
     %h3
-      = t("admin.manage.properties.#{@active_subtab}.title")
+      = t("layouts.manage.properties.#{@active_subtab}.title")
     .navcontrols
       %ul
+        %li.general
+          = link_to t("layouts.manage.sponsor"), manage_properties_path(:tab => "sponsor"), :class=>"standard-button"
         %li.general
           = link_to t("layouts.manage.general"), manage_properties_path(:tab => "general"), :class=>"standard-button"
         %li.analytics

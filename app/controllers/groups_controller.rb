@@ -141,8 +141,9 @@ class GroupsController < ApplicationController
     @group.safe_update(%w[name name_highlight legend description has_custom_channels custom_channels default_tags subdomain logo logo_info forum
                           custom_favicon language theme reputation_rewards reputation_constrains
                           has_adult_content registered_only openid_only custom_css wysiwyg_editor fb_button share 
-                          primary secondary tertiary supplementary header_bg_image background toolbar_bg toolbar_bg_image
-                          robots logo_path favicon_path link_colour
+                          primary primary_dark secondary tertiary supplementary supplementary_dark supplementary_lite header_bg_image background toolbar_bg toolbar_bg_image
+                          robots logo_path favicon_path link_colour  sponsor_logo_wide_info sponsor_logo_narrow_info
+                          has_sponsor sponsor_name sponsor_link sponsor_logo_wide sponsor_logo_narrow show_sponsor_description sponsor_description
                          ], params[:group])
 
     @group.safe_update(%w[isolate domain private has_custom_analytics has_custom_html has_custom_js], params[:group]) #if current_user.admin?
@@ -193,6 +194,33 @@ class GroupsController < ApplicationController
       send_data(@group.logo.try(:read), :filename => "logo.#{@group.logo.extension}", :type => @group.logo.content_type,  :disposition => 'inline')
     else
       render :text => ""
+    end
+  end
+
+  def sponsor_logo
+    @group = Group.find_by_slug_or_id(params[:id], :select => [:file_list])
+    if @group && @group.has_logo?
+      send_data(@group.sponsor_logo.try(:read), :filename => "sponsor_logo.#{@group.sponsor_logo.extension}", :type => @group.sponsor_logo.content_type,  :disposition => 'inline')
+    else
+      render :text => ""
+    end
+  end
+
+  def sponsor_logo_wide
+    @group = Group.find_by_slug_or_id(params[:id], :select => [:file_list])
+    if @group && @group.has_sponsor_logo_wide?
+      send_data(@group.sponsor_logo_wide.try(:read), :filename => "sponsor_logo.#{@group.sponsor_logo_wide.extension}", :type => @group.sponsor_logo_wide.content_type,  :disposition => 'inline')
+    else
+      render :text => "logo error"
+    end
+  end
+
+  def sponsor_logo_narrow
+    @group = Group.find_by_slug_or_id(params[:id], :select => [:file_list])
+    if @group && @group.has_sponsor_logo_narrow?
+      send_data(@group.sponsor_logo_narrow.try(:read), :filename => "sponsor_logo.#{@group.sponsor_logo_narrow.extension}", :type => @group.sponsor_logo_narrow.content_type,  :disposition => 'inline')
+    else
+      render :text => "logo error"
     end
   end
 

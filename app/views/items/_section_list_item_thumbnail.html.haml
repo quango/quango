@@ -43,7 +43,7 @@
           -item.first_tags.each do |topic|
             -topics_array << topic
           -topics_array[0..1].each do |topic|
-            %span.section-topic{:class => "tag_#{h(topic)}"}
+            %span.tag-list{:class => "tag_#{h(topic)}"}
               = link_to h(topic), url_for(:controller => "items", :action => "index", :topics => topic), :rel => "tag", :title => t("items.tags.tooltip", :tag => topic)
 
     .clear

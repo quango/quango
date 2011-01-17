@@ -48,26 +48,53 @@
     font-weight: normal
 
 
-.create-item-button 
-
-  //background-image: url(/images/buttons/section_bg.png)
-  background-repeat: repeat-x
-  height: 16px
-  width: 140px
-  line-height: 16px
-  margin: 4px 4px 4px 0
-  color: #eee
-  cursor: pointer
+.create-button 
+  width: 128px
+  height: 21px
+  line-height: 21px
+  cursor: pointer  
   overflow: visible
   float: left
-  font-weight: bold
-  font-size: 10px
-  text-spacing: -1px
-  text-transform: uppercase
-  padding: 0 8px 0 4px
+  +rounded(8px,8px,8px,8px)
+
+  color: white
+  padding: 2px 4px 0px 4px
+  //margin: 3px 0 0 0 
+  text-shadow: 0px 1px 1px rgba(255,255,255,0.75)
+  font-size: 13px
+  font-weight: normal
+
+  -webkit-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+  -moz-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+  box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+  -webkit-font-smoothing:antialiased
+
+.login-button 
+  width: 96px
+  height: 17px
+  line-height: 15px
+  cursor: pointer  
+  overflow: visible
+
+  float: left
   +rounded(4px,4px,4px,4px)
-  &:hover
-    color: #666
+
+  color: white
+  padding: 2px 4px 0px 4px
+  margin: 3px 0 0 0 
+  text-shadow: 0px 1px 1px rgba(255,255,255,0.75)
+  filter: Shadow(color=#000000, Direction=90, Strength=0.75)
+  font-size: 12px
+  font-weight: bold
+
+  -webkit-box-shadow: 1px 2px 2px rgba(0,0,0,0.5)
+  -moz-box-shadow: 1px 2px 2px rgba(0,0,0,0.5)
+  box-shadow: 1px 2px 2px rgba(0,0,0,0.5)
+  -webkit-font-smoothing:antialiased
+
+  &a:hover
+    text-decoration: none
+
 
 
 .section-button 
@@ -209,29 +236,67 @@
     color: white
     text-decoration: underline
 
-.action-button
+
+.community
+
+  width: 256px
+  height: 20px
+  line-height: 20px
+  cursor: pointer  
+  overflow: visible
+
+  float: left
+  +rounded(4px,4px,4px,4px)
 
   color: white
-  height: 27px
-  line-height: 27px
-
-  padding: 0px 16px 0px 16px
-  margin: 4px 0 0 0 
+  padding: 2px 4px 0px 4px
+  margin: 3px 0 0 0 
   text-shadow: 0px 1px 1px rgba(255,255,255,0.75)
+
   font-size: 12px
   font-weight: bold
 
-  //text-transform: uppercase
+  //+fancy-button-structure
+  //+fancy-button-colors-matte(#A6691C)
+  //+fancy-button-size(11px, 4px, 1px)
+
+  font-family: georgia
+  letter-spacing: -1px
+  text-transform: lowercase
 
   -webkit-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
   -moz-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
   box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
   -webkit-font-smoothing:antialiased
 
-  +rounded(4px,4px,4px,4px)
+  //+rounded(4px,4px,4px,4px)
+
+.action-button
+
+  color: black
+  height: 20px
+  line-height: 24px
+
+  padding: 0px 16px 4px 16px
+  margin: 0 8px 0 8px
+  //text-shadow: none
+  text-shadow: 0px 1px 1px rgba(255,255,255,0.75)
+  font-size: 12px
+  font-weight: bold
+  +fancy-button-structure
+  +fancy-button-colors-matte(#4183AF)
+  +fancy-button-size(12px, 4px, 1px)
+  text-transform: lowercase
+
+  -webkit-box-shadow: none
+  -moz-box-shadow: none
+  box-shadow: none
+  //-webkit-font-smoothing:antialiased
+
+  //+rounded(4px,4px,4px,4px)
 
   &.inner
-    width: 200px  
+    width: 256px  
 
   &a
     height: 27px
@@ -364,19 +429,6 @@ button
     border: 1px solid #990000
 a
   &.create-button
-    width: 255px
-    font-weight: normal
-    font-size: 12px
-    text-transform: uppercase
-    color: white
-    padding: 1px 3px
-    background-image: url(/images/buttons/section_bg.png)
-    background-repeat: repeat-x
-    background-position: -1px
-    height: 26px
-    line-height: 14px
-    margin: 2px 4px
-    +rounded(2px,2px,2px,2px)
     img
       float: left
     .label

@@ -1,20 +1,66 @@
 -if logged_in?
-  .group
-    %label.label
-      = h('What do you think?')
-
+  .answer-form-holder
+    .toolbar-container
+      %a.show_summary{:class => "action-button showhide left", :style => "margin-left: 8px"}
+        = "Share your thoughts..."
+      = " < Click here"
+  .clear
 
     = f.hidden_field :mode, :value=> local_assigns[:mode]
 
-    -opts = {:class => "text_area", :rows => '3', :cols => 'auto', :style => "height:64px"}
-    -if local_assigns[:markdown]
-      -if current_group.wysiwyg_editor
-        -opts[:id] = "wysiwyg_editor"
-        -opts[:value] = markdown(@answer.body)
-      -else
-        -opts[:id] = "markdown_editor"
+  -#.answer-form{:style => "margin:0px auto; background-image:url(/images/backgrounds/answer_textarea_bg.gif); background-repeat:repeat-y"}
+  -opts = {:class => "answer_text_area", :rows => '3', :cols => 'auto'}
+  -if local_assigns[:markdown]
+    -if current_group.wysiwyg_editor
+      -opts[:id] = "wysiwyg_editor"
+      -opts[:value] = markdown(@answer.body)
+    -else
+      -opts[:id] = "markdown_editor"
+      -opts[:style] = "height:64px; width:496px; max-width:496px; margin:0 16px"
+
+  #answer-form
 
     = f.text_area :body, opts
+
+    -if logged_in?
+
+      .answer-share{:style => "height: 32px; width: 512px; margin:0 auto 8px auto"}
+        %ul
+          %li{:style => "float:left; line-height:32px; margin-right:16px"}
+            = "Share: "
+          %li{:style => "float:left; line-height:32px; margin-right:4px"}
+            - google_check = ""
+            - google_check = google_check + "<input type='checkbox' class='check left' style='margin:3px;' />"
+            - google_check = google_check + "<img class='left' src='/images/logos/google.png' style='height:16px; float:left;'>"
+            = link_to google_check, google_authorize_path, :title => "Google", :class => "google button"
+
+          %li{:style => "float:left; line-height:32px; margin-right:4px"}
+            -if with_facebook?
+              - facebook_check = ""
+              - facebook_check = facebook_check + "<input type='checkbox' class='check left' style='margin:3px;' />"
+              - facebook_check = facebook_check + "<img class='right' src='/images/logos/facebook-cropped.png' style='height:14px; margin: 2px 0; border: 0; float:left;'>"
+              =link_to facebook_check, facebook_authorize_path, :title => "Facebook", :class => "facebook button"
+          %li{:style => "float:left; line-height:32px; margin-right:4px"}
+            -if AppConfig.twitter["activate"]
+              - twitter_check = ""
+              - twitter_check = twitter_check + "<input type='checkbox' class='check left' style='margin:3px;' checked />"
+              - twitter_check = twitter_check + "<img class='right' src='/images/logos/twitter-logo.png' style='height:12px; margin: 2px 0; border: 0; float:left;'>"
+              =link_to twitter_check, twitter_authorize_path, :title => "twitter", :class => "twitter button"
+
+          %li{:style => "float:left; line-height:32px; margin-right:4px"}
+            - linked_check = ""
+            - linked_check = linked_check + "<input type='checkbox' class='check left' style='margin:3px;' />"
+            - linked_check = linked_check + "<img class='left' src='/images/logos/linkedin.png' style='height:16px; float:left;'>"
+            = link_to linked_check, "#", :title => "linked", :class => "linkedin button"
+
+      .clear
+        .answer-actions{:style => "line-height:32px; height: 32px; width: 512px; margin: 0 auto 16px auto"}
+          = submit_tag t('answers.form.submit'), :class => "create-button", :style => "width:256px; height:24px; float:right;"
+          .openedit{:style => "float:right; margin-right: 16px"}
+            = f.label :wiki, "Anybody can edit? ", :class => "radio"
+            = check_box :wiki, :class => "checkbox right"
+          .clear
+      .clear
 
     -if !local_assigns[:markdown] && !current_group.wysiwyg_editor
       %label.label
