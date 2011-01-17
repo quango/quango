@@ -8,16 +8,18 @@
 
       -if current_group.has_sponsor?
         .edition
-          = image_tag(sponsor_logo_wide_group_path(current_group), :alt => "#{current_group.sponsor_name}", :title => "#{current_group.sponsor_name}")
+          = image_tag(sponsor_logo_wide_group_path(current_group), :width => current_group.sponsor_logo_wide_info["width"], :height => current_group.sponsor_logo_wide_info["height"], :alt => "#{current_group.sponsor_name}", :title => "#{current_group.sponsor_name}")
 
       -if current_group.show_sponsor_description?
+        -if current_group.show_sponsor_description_boxheader?
+          %span.strong
+            = current_group.sponsor_description_boxheader
         .description
-          = current_group.sponsor_description
+          = markdown(current_group.sponsor_description)
 
 
-
-    -else
-      = "not sponsored"
+  .block
+    = render :partial => "welcome/are_you_thinking",  :locals => {:width => "wide"}
 
 
   .clear

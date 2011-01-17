@@ -63,6 +63,15 @@
     = "If you check this box, any text in the box below will appear on the welcome page"
 
   .group
+    = f.label :show_sponsor_description_boxheader, "Show the sponsor description on the welcome page?", :class => "label"
+    = f.check_box :show_sponsor_description_boxheader, :class => "text_field"
+    = "Simply switches box header on or off"
+
+  .group
+    = f.label :sponsor_description_boxheader, "Sponsor box title", :class => "label"
+    = f.text_field :sponsor_description_boxheader, :class => "text_field"
+
+  .group
     = f.label :sponsor_description,  t('description', :scope => "activerecord.attributes.group"), :class => "label"
     -if current_group.wysiwyg_editor
       = f.text_area :sponsor_description, :class => "text_area", :id => "wysiwyg_editor", :value => markdown(@group.description)
@@ -86,7 +95,7 @@
     = "Wide Preview"
     = render :partial => "welcome/community_sponsor",  :locals => {:width => "wide"}
 
-#sidebar-inner{:style => "width:144px; float:right"}
+#sidebar{:style => "width:140px; float:right"}
   %h2
     = "Narrow Preview"
     = render :partial => "welcome/community_sponsor",  :locals => {:width => "narrow"}

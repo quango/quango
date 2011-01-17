@@ -105,7 +105,7 @@ class Group
   file_key :sponsor_logo_wide, :max_length => 256.kilobytes
   file_key :sponsor_logo_narrow, :max_length => 256.kilobytes
   key :sponsor_logo_wide_info, Hash, :default => {"width" => 256, "height" => 128}
-  key :sponsor_logo_narrow_info, Hash, :default => {"width" => 144, "height" => 144}
+  key :sponsor_logo_narrow_info, Hash, :default => {"width" => 140, "height" => 140}
 
   key :show_sponsor_description, Boolean, :default => false
   key :show_sponsor_description_boxheader, Boolean, :default => true
