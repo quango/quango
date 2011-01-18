@@ -34,6 +34,7 @@ namespace :setup do
 
     subdomain = AppConfig.application_name.gsub(/[^A-Za-z0-9\s\-]/, "")[0,20].strip.gsub(/\s+/, "-").downcase
     default_group = Group.new(:name => AppConfig.application_name,
+                              :name_highlight => "domains",
                               :domain => AppConfig.domain,
                               :subdomain => subdomain,
                               :domain => AppConfig.domain,
@@ -60,10 +61,10 @@ namespace :setup do
   task :create_widgets => :environment do
     default_group = Group.find_by_domain(AppConfig.domain)
 
-    if AppConfig.enable_groups
-      default_group.widgets << GroupsWidget.new
-    end
-    default_group.widgets << UsersWidget.new
+    #if AppConfig.enable_groups
+      #default_group.widgets << GroupsWidget.new
+    #end
+    default_group.widgets << TopUsersWidget.new
     default_group.save!
   end
 

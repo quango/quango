@@ -70,9 +70,10 @@
   #sidebar-inner{:style => "float:right; width:256px;"}
     = render :partial => "welcome/community_sponsor",  :locals => {:width => "wide"}
     = render :partial => "featured_groups" #, :locals => {:item => item}
-    = render :partial => "are_you_thinking", :locals => {:target => "welcome"}
 
-    = render :partial => "widgets/recent_members", :locals=> {:group => current_group}
+
+    -#= render :partial => "widgets/recent_members", :locals=> {:group => current_group}
+
     - current_group.widgets.each do |widget|
       .widget.block{:id => widget.name}
         = render :partial => widget.partial_name, :locals => {:widget => widget}

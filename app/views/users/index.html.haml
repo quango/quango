@@ -21,6 +21,8 @@
 
 -content_for :sidebar_inner do
   #sidebar-inner
+    = render :partial => "welcome/community_sponsor",  :locals => {:width => "wide"}
+
     .block
       %h3
         = h("Search for a member")
@@ -48,7 +50,7 @@
 
     .block
       %h3
-        = h("Something")
+        = h("SomethingS")
       .content
         = h("Something else")
 

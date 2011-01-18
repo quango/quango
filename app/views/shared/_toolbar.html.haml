@@ -16,7 +16,8 @@
                     = image_tag( "#{group.favicon_path}", :style => "background-color:#{group.secondary};")
                   -else
                     = image_tag("#{group.favicon_path}",  :style => "background-color:#{group.secondary};")
-                  =link_to h(group.name), domain_url(:custom => group.domain)
+                  - gname = group.name + " " + group.name_highlight
+                  =link_to h(gname), domain_url(:custom => group.domain)
 
   -else
     .edition

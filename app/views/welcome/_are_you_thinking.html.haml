@@ -1,15 +1,15 @@
 %h3
-  = "Free to join..!"
+  = "Thought is free..!"
 
 -if logged_in?
   .block
     -if (params[:target] = "welcome")
-      .group-button{:style => "width:256px;height:132px; border-bottom: 1px solid white"}
-        %small{:style => "font-size:11px "}
-          = "Not a member?"
-        = link_to "&#9733; free signup", new_user_path, :class => "login-button", :style => "font-weight:bold;"
+      .group-button{:style => "width:248px;height:120px; border-bottom: 1px solid white"}
+        %div{:style => "font-size:12px; margin-bottom:8px "}
+          = "Not a member? Join this community and share your knowledge"
+        = link_to "&#9733; free signup", new_user_path, :class => "publish-button", :style => ""
         %div.small
-          = "And start thinking daily..."
+          = "Start thinking daily..."
 
     -else
       .group-button{:style => "width:232px;background-color:#{current_group.primary}; font-size:16px "}

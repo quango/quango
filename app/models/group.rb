@@ -57,14 +57,14 @@ class Group
   key :fb_button, Boolean, :default => true
 
   key :logo_path, String, :default => "/images/logos/star_32.png"
-  key :favicon_path, String, :default => "/images/logos/thinking_favicon.png"
+  key :favicon_path, String, :default => "/images/logos/star_32.png"
 
   key :image_of_the_day, String
 
   key :header_bg, String, :default => "#2b5782"
   key :header_bg_image, String
   key :toolbar_bg, String
-  key :toolbar_bg_image, String, :default => "/images/black_25_bg.png"
+  key :toolbar_bg_image, String
   key :primary, String, :default => "#4183AF" #tabs, 
   key :primary_dark, String, :default => "#154D72" #tabs, 
   key :primary_hover, String, :default => "#E1A970" #header_bg and edit buttons

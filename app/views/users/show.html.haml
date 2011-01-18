@@ -7,10 +7,10 @@
 
   .secondary-navigation
     %h3
-      .icon.left
-        = gravatar(@user.email.to_s, :size => 20)
-      = @user.login.capitalize
-      = render :partial => "follow_button", :object => @user
+      .left
+        = @user.first_name.capitalize
+        = " "
+        = @user.last_name.capitalize
 
     .navcontrols
 
@@ -74,6 +74,9 @@
 
 -content_for :sidebar_inner do
   #sidebar-inner
+    .block
+      = render :partial => "follow_button", :object => @user
+
     = render :partial => "/users/profile_image", :object => @user
     .block
       %h3
