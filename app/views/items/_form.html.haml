@@ -3,11 +3,8 @@
 = error_messages_for(:user)
 
 %h1
-  = "create: " + @doctype.name + "in " + current_group.name
-
-.group
-  = f.label "doctype id"
-  = f.text_field :doctype_id, :value => @doctype.id
+  = "Publish " + @doctype.name
+  = f.hidden_field :doctype_id, :value => @doctype.id
 
 
 

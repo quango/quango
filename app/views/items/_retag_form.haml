@@ -1,4 +1,4 @@
-- form_for @item, :url => retag_to_item_path(@item.id), :html => {:class => "form retag-form"} do |f|
+- form_for @item, :url => retag_to_item_path(@doctype, @item.id), :html => {:class => "form retag-form"} do |f|
   = f.label :tags, "#{t('items.show.tags')}", :class => "label"
   = submit_tag t(".submit")
   = link_to t('.cancel.sausage'), item_path(@item), :class => 'cancel-retag'

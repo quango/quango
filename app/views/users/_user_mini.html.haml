@@ -17,7 +17,7 @@
 
     %span.fn.nickname
       -unless user.nil?
-        =link_to h(user.name), user_path(user), :class => "user-link"
+        =link_to h(user.first_name + " " + user.last_name), user_path(user), :class => "user-link"
     .clear
 
 

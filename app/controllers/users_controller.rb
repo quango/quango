@@ -62,9 +62,12 @@ class UsersController < ApplicationController
 
     first_name = params[:user][:first_name]
     last_name = params[:user][:last_name]
+    login = params[:user][:email]
 
     named = first_name.capitalize << " " << last_name.capitalize
 
+
+    @user.login = login
     @user.name = named
 
     @user.profile_images << ProfileImage.new

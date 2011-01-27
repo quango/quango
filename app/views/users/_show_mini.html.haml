@@ -1,8 +1,8 @@
 -bronze, silver, gold = user.badges_count_on(current_group)
 
-%span{:style=>"float:left; margin-right:7px;"}
+%span{:style=>"float:right; margin-right:7px;"}
   -unless user.nil?
-    =link_to h(user.login), user_path(user), :class => "user-link"
+    =link_to h(user.first_name + " " + user.last_name), user_path(user), :style => "font-size:12px;"
 
 %span.reputation{:title => t("activerecord.attributes.user.reputation")}
   -unless user.nil?
@@ -21,7 +21,7 @@
   -else
     = t('users.deleted')
   -unless user.nil?
-    %span.label
+    %span.label{:style=>"display:none;"}
       =user.reputation_on(current_group)
 
 -if local_assigns[:with_badges] != false

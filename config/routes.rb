@@ -71,7 +71,7 @@ ActionController::Routing::Routes.draw do |map|
                                  :member     => {:solve => :get,:unsolve => :get,:favorite => :any,:unfavorite => :any,:watch => :any,:unwatch => :any,
                                                  :history => :get,:revert => :get,:diff => :get,
                                                  :move => :get,:move_to => :put, :retag => :get,:retag_to => :put,
-                                            :close => :put,:open => :put}, :name_prefix => nil,  :as => 'id' do |items| #:name_prefix => nil,
+                                            :close => :put,:open => :put}, :name_prefix => nil,  :as => '!' do |items| #:name_prefix => nil,
 
         items.resources :comments
         items.resources :images, :member => { :crop => :get, 

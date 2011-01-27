@@ -700,7 +700,9 @@ class ItemsController < ApplicationController
 
 
   def retag
-    @item = Item.find_by_slug_or_id(params[:id])
+    @item = current_group.items.find_by_slug_or_id(params[:id])
+    @doctypes = current_group.doctypes
+    @doctype = @doctypes.find_by_slug_or_id(params[:doctype_id])
     respond_to do |format|
       format.html {render}
       format.js {
