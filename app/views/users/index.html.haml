@@ -21,7 +21,8 @@
 
 -content_for :sidebar_inner do
   #sidebar-inner
-    = render :partial => "welcome/community_sponsor",  :locals => {:width => "wide"}
+    = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
+    = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
 
     .block
       %h3

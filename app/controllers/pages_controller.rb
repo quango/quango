@@ -16,7 +16,7 @@ class PagesController < ApplicationController
 
     @pages = current_group.pages.paginate(options)
 
-    set_page_title("Wiki") # TODO: i18n
+    set_page_title("System Pages") # TODO: i18n
 
     respond_to do |format|
       format.html # index.html.haml

@@ -94,7 +94,6 @@ en:
       analytics: Analytics
       sections: Sections
       dashboard: Dashboard
-      properties: Community Settings
       widgets: Widgets
       actions: Actions
       stats: Stats
@@ -108,5 +107,16 @@ en:
       rewards: Rewards
       general: General
       announcements: Announcements
+      doctypes: Sections
+      signup_button: Signup Member
+      signup_community: Signup Community
+      properties: Something
+
+      properties:
+        signup_button: Signup Button
+
     notifications:
       message: "If you do not want to receive automatic notifications from %{domain} anymore, change your preferences in the notifications screen."
+
+
+

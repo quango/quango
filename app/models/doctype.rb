@@ -3,6 +3,8 @@ class Doctype
   include MongoMapperExt::Slugizer
   include MongoMapperExt::Filter
 
+  timestamps!
+
   key :_id, String
   key :_type, String
   key :name, String
@@ -13,8 +15,6 @@ class Doctype
 
   key :create_label, String
   key :custom_icon, String
-
-  timestamps!
 
   key :group_id, String
   belongs_to :group

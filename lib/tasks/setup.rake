@@ -1,7 +1,8 @@
 desc "Setup application"
 task :bootstrap => [:environment, "setup:reset",
                     "setup:create_admin",
-                    "setup:create_user",
+                    "setup:create_user1",
+                    "setup:create_user2",
                     "setup:default_group",
                     "setup:create_sections",
                     "setup:create_widgets",
@@ -29,8 +30,7 @@ namespace :setup do
 
   desc "Create the default group"
   task :default_group => [:environment] do
-    default_tags = %w[technology business science politics religion
-                               sports entertainment gaming lifestyle offbeat]
+    default_tags = %w[something something-else]
 
     subdomain = AppConfig.application_name.gsub(/[^A-Za-z0-9\s\-]/, "")[0,20].strip.gsub(/\s+/, "-").downcase
     default_group = Group.new(:name => AppConfig.application_name,
@@ -93,7 +93,7 @@ namespace :setup do
   task :create_admin => [:environment] do
     admin = User.new(:login => "admin", :password => "admins",
                                         :password_confirmation => "admins",
-                                        :email => "shapado@example.com",
+                                        :email => "admin@something.com",
                                         :first_name => "The",
                                         :last_name => "Administrator",
                                         :role => "admin")
@@ -101,16 +101,28 @@ namespace :setup do
     admin.save!
   end
 
-  desc "Create user"
-  task :create_user => [:environment] do
-    user = User.new(:login => "user", :password => "user123",
+  desc "Create user 1"
+  task :create_user1 => [:environment] do
+    user = User.new(:login => "user1", :password => "user123",
                                       :password_confirmation => "user123",
-                                      :email => "user@example.com",
+                                      :email => "user1@example.com",
                                       :first_name => "Gary",
                                       :last_name => "Baldie",
                                       :role => "user")
     user.save!
   end
+
+  desc "Create user 2"
+  task :create_user2 => [:environment] do
+    user = User.new(:login => "user2", :password => "user123",
+                                      :password_confirmation => "user123",
+                                      :email => "user2@example.com",
+                                      :first_name => "Ginger",
+                                      :last_name => "Snap",
+                                      :role => "user")
+    user.save!
+  end
+
 
   desc "Create pages"
   task :create_pages => [:environment] do
@@ -137,12 +149,22 @@ namespace :setup do
       end
     end
 
+    class Doctype
+      def update_timestamps
+      end
+    end
+
     class Answer
       def update_timestamps
       end
     end
 
     class Group
+      def update_timestamps
+      end
+    end
+
+    class User
       def update_timestamps
       end
     end

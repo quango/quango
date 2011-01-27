@@ -69,7 +69,7 @@ class DoctypesController < ApplicationController
 
   # GET /bunnies/1/edit
   def edit
-    @doctype = Doctype.find(params[:id])
+    @doctype = Doctype.find_by_slug_or_id(params[:id])
   end
 
   # POST /bunnies
@@ -98,12 +98,13 @@ class DoctypesController < ApplicationController
 
   def update
     @group = current_group
-    @doctype = Doctype.find(params[:id])
-    @doctype.safe_update(%w[name], params[:doctype])
+    @doctypes = current_group.doctypes
+    @doctype = @doctypes.find_by_slug_or_id(params[:id])
+    @doctype.safe_update(%w[name hidden], params[:doctype])
 
     respond_to do |format|
       if @doctype.save
-        format.html { redirect_to(doctypes_path, :notice => 'doctype was successfully updated so it claims.') }
+        format.html { redirect_to(doctypes_path, :notice => @doctype.name + ' was successfully updated so it claims.') }
         format.xml  { render :xml => @doctype, :status => :created, :location => @doctype }
       else
         format.html { render :action => "new" }
@@ -112,39 +113,25 @@ class DoctypesController < ApplicationController
     end
   end
 
-  #def destroy
-   # @doctype = @group.doctypes.find(params[:id])
-    #@group.widgets.delete(@widget)
-    #@group.save
-
-    #respond_to do |format|
-    #  format.html { redirect_to(widgets_url) }
-    #  format.json  { head :ok }
-    #end
-  #end
-
-  #def move
-    #widget = @group.widgets.find(params[:id])
-    #widget.move_to(params[:move_to])
-    #redirect_to widgets_path
-  #end
-
   def destroy
     @group = current_group
-    @doctype = Doctype.find(params[:id])
-    @doctype.destroy
-
+    doctype = Doctype.find_by_slug_or_id(params[:id])
+    doctype_name = doctype.name
+    doctype.destroy
     respond_to do |format|
-      format.html { redirect_to(doctypes_path, :notice => 'doctype was successfully deleted so it claims.') }
+      format.html { redirect_to(doctypes_path, :notice => doctype_name + ' was successfully deleted so it claims.') }
       format.xml  { head :ok }
     end
   end
 
   def move
-    #@doctype = Doctype.find_by_slug_or_id(params[:id])
-    doctype = Doctype.find_by_slug_or_id(params[:id])
-    #doctype = @doctypes.find(params[:id])
+    @group = current_group
+    @doctypes = current_group.doctypes
+    doctype = @doctypes.find_by_slug_or_id(params[:id])
+    #doctype = Doctype.find_by_slug_or_id(params[:id])
+
     doctype.move_to(params[:move_to])
+
     redirect_to doctypes_path
   end
 

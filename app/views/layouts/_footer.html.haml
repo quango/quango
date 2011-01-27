@@ -1,18 +1,25 @@
--if logged_in?
-  .footer-links
-    .entry.left
-      = "Thoughtdomains v"
-    .entry.left
-      #{AppConfig.version}
-
-    .entry.right{:style => "width:128px"}
-      = render :partial => "shared/bug"
-
-.clear
+.footer
+  #{current_group.footer}
 
 .footer-information
-  .entry.left
-    = "copyright, advertising credits and legals"
+  .footer-links.left
+    .entry.left
+      = "This community site is running thoughtdomains v"
+    .entry.left
+      #{AppConfig.version}
+      = "<i>beta</i> |&nbsp;"
+    .entry.left
+      = " Please <a href='http://thoughtdomains.org/community/bugs/new'>report bugs</a>"
+  .footer-links.right
+    %ul.footer-links
+      %li
+        = "copyright"
+      %li
+        = "advertising"
+      %li
+        = "credits"
+      %li
+        = "and legals"
 
-  .entry.right
-    -#= render :partial => "shared/hosting_partner"
+
+

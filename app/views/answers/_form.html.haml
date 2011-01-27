@@ -3,12 +3,10 @@
     .toolbar-container
       %a.show_summary{:class => "action-button showhide left", :style => "margin-left: 8px"}
         = "Share your thoughts..."
-      = " < Click here"
   .clear
 
     = f.hidden_field :mode, :value=> local_assigns[:mode]
 
-  -#.answer-form{:style => "margin:0px auto; background-image:url(/images/backgrounds/answer_textarea_bg.gif); background-repeat:repeat-y"}
   -opts = {:class => "answer_text_area", :rows => '3', :cols => 'auto'}
   -if local_assigns[:markdown]
     -if current_group.wysiwyg_editor
@@ -24,7 +22,7 @@
 
     -if logged_in?
 
-      .answer-share{:style => "height: 32px; width: 512px; margin:0 auto 8px auto"}
+      .answer-share{:style => "height: 32px; width: 512px; margin:0 auto 8px auto; display:none"}
         %ul
           %li{:style => "float:left; line-height:32px; margin-right:16px"}
             = "Share: "

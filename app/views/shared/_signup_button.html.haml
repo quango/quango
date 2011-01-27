@@ -1,0 +1,31 @@
+
+-if !logged_in? && current_group.show_signup_button? || logged_in? && current_user.owner_of?(current_group)
+
+  -if width == "wide"
+    .block
+      .group-button{:style => "width:248px;height:120px; border-bottom: 1px solid white"}
+        %div{:style => "font-size:16px; margin-bottom:4px; font-family:georgia; font-weight:bold; "}
+          = current_group.signup_button_title
+        %div{:style => "font-size:12px; margin-bottom:8px "}
+          = current_group.signup_button_description
+        %div{:style => "font-size:18px; margin-bottom:8px "}
+          = link_to current_group.signup_button_label, new_user_path, :class => "community", :style => "font-weight:18px; width:224px;"
+        %div{:style => "font-size:12px; margin-bottom:8px "}
+          = current_group.signup_button_footnote
+
+  -if width == "narrow"
+    .block
+      .group-button{:style => "width:132px;height:120px; border-bottom: 1px solid white"}
+        %div{:style => "font-size:16px; margin-bottom:4px; font-family:georgia; font-weight:bold; "}
+          = current_group.signup_button_title
+        %div{:style => "font-size:12px; margin-bottom:8px "}
+          = current_group.signup_button_description
+        %div{:style => "font-size:18px; margin-bottom:8px "}
+          = link_to current_group.signup_button_title, new_user_path, :class => "signup-button", :style => "font-weight:18px"
+        %div{:style => "font-size:12px; margin-bottom:8px "}
+          = current_group.signup_button_footnote
+
+
+
+
+

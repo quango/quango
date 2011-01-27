@@ -19,18 +19,15 @@
 - content_for :head do
   %meta{:name => "keywords", :content => clean_seo_keywords(@item.tags.dup, @item.title)}
   %meta{:name => "description", :content => item_body.gsub(/<\/?[^>]*>/, "")[0, 255] }
-  %link{:rel => "canonical", :href => item_url(@item.doctype, @item) }
+  %link{:rel => "canonical", :href => item_url(@doctype, @item) }
 
-- source = item_path(@item.doctype_id, @item)
+- source = item_path(@doctype, @item)
 = error_messages_for 'answer'
 
 -content_for :section_head do
   #section-listing{:class => @active_section}
-    = render :partial => "items/section_head_welcome",  :locals => {:section => @item.doctype,:tab=>"activity"}
+    = render :partial => "items/section_head_index", :locals => {:doctype => @doctype, :section => @doctype,  :list_mode => "standard"}
  
-
-
-
 - content_for :main do
   = javascript_include_merged :show
 
@@ -60,18 +57,7 @@
 
             .entry-details
               .small
-                %small
-                  -#= "<br/>Item id:"
-                  = @item.id 
-                  -#= "<br/>Item section:"
-                  -#= @item.section
-                  -#= "<br/>Active doctype:"
-                  -#= @active_doctype.id
-                  -#= "<br/>Item section id:"
-                  -#= @item.section_id
-
-
-
+                = @doctype.name 
               .entry-title
                 = @item.title
                 - if @item.closed
@@ -84,9 +70,9 @@
                 - @item.tags.each do |tag|
                   %span.tag
                     = link_to h(tag), url_for(:controller => "item", :action => "index", :tags => tag), :rel => "tag"
-                - if logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group)) #tofix
-                  %span.retag
-                    = link_to t('.retag'), retag_item_path(@item.doctype, @item), :id => 'retag'
+              - if logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group)) #tofix
+                %span.retag
+                  = link_to t('.retag'), retag_item_path(@doctype, @item), :id => 'retag'
 
             .entry-content
               = item_body
@@ -103,7 +89,7 @@
 
           -unless @item.closed
             %a{:name=>"to_answer"}
-            -form_for @answer, :url => item_answers_path(@item.doctype_id, @item.id), :html => {:class => "form mainAnswerForm"} do |f|
+            -form_for @answer, :url => item_answers_path(@doctype, @item), :html => {:class => "form mainAnswerForm"} do |f|
               = render :partial => "answers/form", :locals => {:f => f, :markdown => true, :mode => "item"}
             .clear
 
@@ -114,13 +100,13 @@
                 = h("What others think")
                 = t(@answers.total_entries + (@item.accepted ? 1 : 0))
               .right
-                %ul{:style => "width: 256px;"}
+                %ul{:style => "width: 256px; display:none"}
                   %li.filter
-                    = link_to "Fresh", item_path(@item.doctype_id, @item, :sort=>"fresh", :anchor => "answers"),:rel => "nofollow"
+                    = link_to "Fresh", item_path(@doctype, @item, :sort=>"fresh", :anchor => "answers"),:rel => "nofollow"
                   %li
-                    = link_to "Hot", item_path(@item.doctype_id, @item, :sort=>"hot", :anchor => "answers"),:rel => "nofollow"
+                    = link_to "Hot", item_path(@doctype, @item, :sort=>"hot", :anchor => "answers"),:rel => "nofollow"
                   %li
-                    = link_to "Historical", item_path(@item.doctype_id, @item, :sort=>"sweaty", :anchor => "answers"),:rel => "nofollow"
+                    = link_to "Historical", item_path(@doctype, @item, :sort=>"sweaty", :anchor => "answers"),:rel => "nofollow"
                   %li
                     = link_to "&#9733;", "#"
           .clear
@@ -138,6 +124,7 @@
 
 -content_for :sidebar_inner do
   #sidebar-inner
+    = render :partial => "author"
     = render :partial => "default_image", :locals => {:item => @item}
     = render :partial => "images", :locals => {:item => @item}
     = render :partial => "related_communities"
@@ -161,8 +148,9 @@
 
 -content_for :sidebar do
   #sidebar
-    = render :partial => "welcome/are_you_thinking", :locals => {:small => true}
-    = render :partial => "author"
+    = render :partial => "shared/community_sponsor", :locals => {:width => "narrow"}
+    = render :partial => "shared/signup_button", :locals => {:width => "narrow"}
+
     = render :partial => "participants", :locals=> {:item => @item}
 
     = render :partial => "shared/current_tags"

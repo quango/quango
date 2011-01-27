@@ -1,25 +1,13 @@
-= "create: " << @sectional.to_s
 = local_assigns[f]
 = f.error_messages
 = error_messages_for(:user)
 
-.group
-  = f.label :title, "#{t(:mode, :scope => "activerecord.attributes.item")}*", :class => "label"
-  -current_group.doctypes.each do |section|
-    -if !section.hidden?
-      -if section.name == @active_section
-        = "<span style='background-color:pink'>"
-        = f.radio_button :section, section.name, :class => "radio_button", :checked => true
-        = "#{section.name}" << "</span>"
-        = f.hidden_field :doctype, :value => section.name        
-        - @mode = section.name
-      -else
-        = f.radio_button :section, section.name, :class => "radio_button", :onchange => "document.location.href='/add/new?section=#{section.name}'"
-        = "#{section.name}"
-  .description
-    = "Caution! Do not switch modes cos they aint persistent yet"
-.group
+%h1
+  = "create: " + @doctype.name + "in " + current_group.name
 
+.group
+  = f.label "doctype id"
+  = f.text_field :doctype_id, :value => @doctype.id
 
 
 

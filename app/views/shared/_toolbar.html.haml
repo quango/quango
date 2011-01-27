@@ -16,8 +16,18 @@
                     = image_tag( "#{group.favicon_path}", :style => "background-color:#{group.secondary};")
                   -else
                     = image_tag("#{group.favicon_path}",  :style => "background-color:#{group.secondary};")
-                  - gname = group.name + " " + group.name_highlight
+                  - gname = group.name + " " + group.name_highlight.to_s
                   =link_to h(gname), domain_url(:custom => group.domain)
+
+    -else
+      .edition
+        %ul.topbar.combobox.left
+          %li
+            = image_tag(current_group.favicon_path,  :style => "height:24px: width:24px; margin:0};")
+            .thoughtdomain
+              =link_to h(current_group.name), domain_url(:custom => current_group.domain), :style=>"margin:0px;"
+              =link_to h(current_group.name_highlight), domain_url(:custom => current_group.domain), :style=> "color:#{current_group.primary};margin:0 0 0 -2px;"
+
 
   -else
     .edition
@@ -52,8 +62,8 @@
       -#  = image_tag "/images/anonymous_avatar.png", :height => "18px", :width => "18px"
 
 
-
-      %strong= link_to(h(current_user.login), user_path(current_user))
+      - real_name = "#{current_user.first_name} #{current_user.last_name}"
+      %strong= link_to(h(real_name), user_path(current_user))
       %span.reputation{:title => t("activerecord.attributes.user.reputation"), :style => "background-color:"+current_group.primary+""}=format_number(current_user.reputation_on(current_group))
       |
     .entry
@@ -70,8 +80,12 @@
       |
 
   -if !logged_in?
-
     .entry
+      = link_to h("About this community"), "/about/community"
+      |
+    .entry
+      = link_to h("FAQ"), "/about/faq"
+    .entry{:style => "margin-left:8px"}
       = render :partial => "shared/login"
 
   -if logged_in?

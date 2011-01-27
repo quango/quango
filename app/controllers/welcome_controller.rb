@@ -1,33 +1,27 @@
 class WelcomeController < ApplicationController
   helper :items
   helper :channels
-  before_filter :set_default_thumbnail
 
   tabs :default => :welcome
-
   subtabs :index => [[:fresh, "created_at desc"], [:heat, "hotness desc, views_count desc"], [:relevance, "votes_average desc"], [:activity, "activity_at desc"], [:expert, "created_at desc"]]
-
 
   def index
     @active_subtab = params.fetch(:tab, "activity")
-
     conditions = scoped_conditions({:banned => false})
 
-    @group = Group.new
     current_order = ":heat"
 
     if params[:sort] == "hot"
       conditions[:activity_at] = {"$gt" => 7.days.ago}
     end
 
+    @doctypes = current_group.doctypes
+
+    #@items = current_group.doctypes
 
 
-    @doctypes = current_group.doctypes.all
+    @doctype = current_group.doctypes.find_by_slug_or_id(params[:doctype])
 
-    @items = current_group.doctypes
-
-
-    #doctype = Doctype.find_by_slug_or_id(params[:doctype_id])
     #@items = current_group.doctype.items.all
 
     
@@ -144,15 +138,8 @@ class WelcomeController < ApplicationController
 
   protected
 
-  def set_default_thumbnail
-    #@item = Item.find_by_slug_or_id(params[:id])
-    #@images = Image.all
- #   @default_thumbnail = Image.find(@item.default_thumbnail)
-
-    #@default_thumbnail = Image.find(@item.default_thumbnail)
-
+  def placeholder
   end
-
 
 end
 

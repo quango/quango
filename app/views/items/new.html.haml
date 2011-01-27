@@ -7,25 +7,19 @@
 
 -content_for :sidebar do
   #sidebar
-    -if !current_group.item_help.empty?
-      .help
-        %h4
-          = t(".how_to_ask")
-        =current_group.item_help
+    = render :partial => "shared/community_sponsor", :locals => {:width => "narrow"}
 
 -content_for :main do
   #main-index
     - form_for(@item, :html=>{:class => "form", :id => "ask_item"}) do |f|
-      =render :partial => "form", :locals => {:f => f}
+      =render :partial => "form", :locals => {:f => f, :doctype => @doctype}
 
       .group.navform
         .controls.right{:style => "width: 50%"}
           .left{:style => "width: 49.5%"}
-            = f.label :wiki, "Wiki", :class => "radio"
+            = f.label :wiki, "Allow anybody to edit?", :class => "radio"
             = f.check_box :wiki, :class => "checkbox"
-          .left{:style => "width: 49.5%"}
-            = f.label :anonymous, t("scaffold.post_as_anonymous"), :class => "radio"
-            = f.check_box :anonymous, :class => "checkbox"
+
 
         = f.submit t('scaffold.create')
         = t("global.or")

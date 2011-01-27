@@ -102,7 +102,7 @@ class AnswersController < ApplicationController
       if (logged_in? || (recaptcha_valid? && @answer.user.valid?)) && @answer.save
         after_create_item_answer
 
-        flash[:notice] = t(:flash_notice, :scope => "answers.create")
+        flash[:notice] = t(:flubble_notice, :scope => "answers.create")
 
         format.html { redirect_to item_path(@item.doctype, @item)}
         #format.html{redirect_to item_path(@item)}
@@ -110,10 +110,11 @@ class AnswersController < ApplicationController
 
         format.json { render :json => @answer.to_json(:except => %w[_keywords]) }
         format.js do
-          render(:json => {:success => true, :message => flash[:notice],
-            :html => render_to_string(:partial => "items/answer",
-                                      :object => @answer,
-                                      :locals => {:item => @item})}.to_json)
+          render(:json => { :success => true, 
+                            :message => flash[:notice],
+                            :html => render_to_string(:partial => "items/answer",
+                            :object => @answer,
+                            :locals => {:item => @item})}.to_json)
         end
       else
         @answer.errors.add(:captcha, "is invalid") if !logged_in? && !recaptcha_valid?

@@ -13,15 +13,19 @@
             = link_to section_link, items_path(doctype), :style => "color: white;", :object => doctype
 
 
-    %li{:style => "border-right:1px solid #{current_group.primary}"}
-      -if @active_section == "groups"
-        = link_to "Communities", groups_path, :style => "color: black;"
-      -else
-        = link_to "Communities", groups_path
+    -if !current_group.isolate && AppConfig.enable_groups
+      %li{:style => "border-right:1px solid #{current_group.primary}"}
+        -if @active_section == "groups"
+          = link_to "Communities", groups_path, :style => "color: black;"
+        -else
+          = link_to "Communities", groups_path, :style => "margin-right:8px;"
+
+
+
     %li{:style => "border-right:1px solid #{current_group.primary}"}
       -if @active_section == "members"
         = link_to "Members", users_path, :style => "color: black;"
       -else
-        = link_to "Members", users_path
+        = link_to "Members", users_path, :style => "margin-right:8px;"
 
 .clear

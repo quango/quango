@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
   skip_before_filter :check_group_access, :only => [:logo, :css, :favicon, :background]
-  before_filter :login_required, :except => [:index, :show, :logo, :css, :favicon, :background]
+  before_filter :login_required, :except => [:pages, :index, :show, :logo,:sponsor_logo_wide,:sponsor_logo_narrow, :css, :signup_button_css, :favicon, :background]
   before_filter :check_permissions, :only => [:edit, :update, :close]
   before_filter :moderator_required , :only => [:accept, :destroy]
   subtabs :index => [ [:most_active, "activity_rate desc"], [:newest, "created_at desc"],
@@ -96,7 +96,7 @@ class GroupsController < ApplicationController
   # POST /groups.json
   def create
     @group = Group.new
-    @group.safe_update(%w[name legend description default_tags subdomain logo logo_path favicon_path forum
+    @group.safe_update(%w[name name_highlight legend description default_tags subdomain logo logo_path favicon_path forum
                           custom_favicon language theme custom_css wysiwyg_editor], params[:group])
 
     @group.safe_update(%w[isolate domain private], params[:group]) if current_user.admin?
@@ -105,22 +105,62 @@ class GroupsController < ApplicationController
     @group.state = "active"
 
     @group.widgets << TopUsersWidget.new
-    @group.widgets << TopGroupsWidget.new
+
+    puts "Starting doctype creation /n"
 
     doctypes = Array.new
 
     doctypes << Doctype.new(:name => "news", :doctype => "standard", :create_label => "Add some news", :group_id => @group.id)
     doctypes << Doctype.new(:name => "thoughts", :doctype => "standard", :create_label => "Share a thought", :group_id => @group.id)
-    doctypes << Doctype.new(:name => "newsfeeds", :doctype => "newsfeed", :create_label => "Add a newsfeed", :hidden => "true", :group_id => @group.id)
+    #doctypes << Doctype.new(:name => "newsfeeds", :doctype => "newsfeed", :create_label => "Add a newsfeed", :hidden => "true", :group_id => @group.id)
     doctypes << Doctype.new(:name => "discussions", :doctype => "standard", :create_label => "Discuss something", :group_id => @group.id)
     doctypes << Doctype.new(:name => "articles", :doctype => "standard", :create_label => "Write an article", :group_id => @group.id)
     doctypes << Doctype.new(:name => "videos", :doctype => "video", :create_label => "Share a video", :group_id => @group.id)
     doctypes << Doctype.new(:name => "links", :doctype => "bookmark", :create_label => "Share a link", :group_id => @group.id)
+    doctypes << Doctype.new(:name => "eggs", :doctype => "bookmark", :create_label => "Share a link", :group_id => @group.id)
 
     doctypes.each do |doctype| 
-     doctype.save!
+     doctype.hidden = true
+     doctype.save
+     puts "saved #{doctype}"
+     #doctype.state = active
+     #doctype.save!
+     #puts "saved #{doctype} again"
     end
 
+    doctypes.each do |doctype| 
+     doctype.hidden = false
+     doctype.save!
+     puts "saved #{doctype}"
+    end
+
+    puts "Finished doctype creation /n"
+
+    #Create standard pages
+
+    puts "Starting standard page creation /n"
+
+    pages = Array.new
+
+    Dir.glob(RAILS_ROOT+"/db/fixtures/pages/*.markdown") do |page_path|
+      basename = File.basename(page_path, ".markdown")
+      title = basename.gsub(/\.(\w\w)/, "").titleize
+      language = $1
+
+      body = File.read(page_path)
+
+      puts "Loading: #{title.inspect} [lang=#{language}]"
+
+      #if Page.count(:title => title, :language => language, :group_id => current_group.id) == 0
+        pages << Page.create(:title => title, :language => language, :body => body, :user_id => current_group.owner, :group_id => @group.id)
+      #end
+    end
+
+    pages.each do |page| 
+     page.save!
+    end
+
+    puts "Ending standard page creation /n"
 
     respond_to do |format|
       if @group.save
@@ -140,13 +180,15 @@ class GroupsController < ApplicationController
   def update
     @group.safe_update(%w[name name_highlight legend description has_custom_channels custom_channels default_tags subdomain logo logo_info forum
                           custom_favicon language theme reputation_rewards reputation_constrains
-                          has_adult_content registered_only openid_only custom_css wysiwyg_editor fb_button share 
+                          has_adult_content registered_only openid_only custom_css wysiwyg_editor fb_button share show_beta_tools
+                          publish_label signup_heading
                           primary primary_dark secondary tertiary supplementary supplementary_dark supplementary_lite header_bg_image background toolbar_bg toolbar_bg_image
                           robots logo_path favicon_path link_colour  sponsor_logo_wide_info sponsor_logo_narrow_info
-                          has_sponsor sponsor_name sponsor_link sponsor_logo_wide sponsor_logo_narrow show_sponsor_description sponsor_description
+                          has_sponsor sponsor_name sponsor_link sponsor_logo_wide sponsor_logo_narrow show_sponsor_description show_sponsor_description_boxheader sponsor_description
+                          show_signup_button signup_button_title signup_button_description signup_button_label signup_button_footnote signup_custom_css
                          ], params[:group])
 
-    @group.safe_update(%w[isolate domain private has_custom_analytics has_custom_html has_custom_js], params[:group]) #if current_user.admin?
+    @group.safe_update(%w[isolate show_group_create domain private has_custom_analytics has_custom_html has_custom_js], params[:group]) #if current_user.admin?
     @group.safe_update(%w[analytics_id analytics_vendor], params[:group]) if @group.has_custom_analytics
     @group.custom_html.update_attributes(params[:group][:custom_html] || {}) if @group.has_custom_html
 

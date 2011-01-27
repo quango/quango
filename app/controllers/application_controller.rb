@@ -36,6 +36,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :find_group
+
   before_filter :find_section
   before_filter :check_group_access
   before_filter :set_locale
@@ -99,6 +100,10 @@ class ApplicationController < ActionController::Base
     @current_section
   end
 
+  def current_doctype
+    @doctype
+  end
+  helper_method :current_doctype
 
   def current_section
     @section
@@ -224,22 +229,22 @@ class ApplicationController < ActionController::Base
   def page_title
     if @page_title
       if current_group.name == AppConfig.application_name
-        "#{@page_title} - #{AppConfig.application_name}: #{t("layouts.application.title")}"
+        "#{@page_title} - #{current_group.name.capitalize} #{current_group.name_highlight.capitalize}"
       else
         if current_group.isolate
-          "#{@page_title} - #{current_group.name} #{current_group.legend}"
+          "#{@page_title} - #{current_group.name.capitalize} #{current_group.name_highlight.capitalize} - #{current_group.legend}"
         else
-          "#{@page_title} - #{current_group.name} - #{AppConfig.application_name} -  #{current_group.legend}"
+          "#{@page_title} - #{current_group.name.capitalize} #{current_group.name_highlight.capitalize} - #{current_group.legend}"
         end
       end
     else
       if current_group.name == AppConfig.application_name
-        "#{AppConfig.application_name} - #{t("layouts.application.title")}"
+        "#{current_group.name.capitalize} #{current_group.name_highlight.capitalize} - #{current_group.legend}"
       else
         if current_group.isolate
-          "#{current_group.name}#{current_group.name_highlight} - #{current_group.legend}"
+          "#{current_group.name.capitalize} #{current_group.name_highlight.capitalize} - #{current_group.legend}"
         else
-          "#{current_group.name}#{current_group.name_highlight} - #{current_group.legend} - #{AppConfig.application_name}"
+          "#{current_group.name.capitalize} #{current_group.name_highlight.capitalize} - #{current_group.legend} - #{AppConfig.application_name}"
         end
       end
     end

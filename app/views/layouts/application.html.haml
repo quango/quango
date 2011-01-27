@@ -15,6 +15,9 @@
     = render :partial => "shared/analytics"
     = @current_class
 
+    #notifyBar
+      = show_flash_messages(:class => "flash", :markdown => true)
+
     #toolbar-container
       #toolbar-container-inner    
         = render :partial => "shared/toolbar"
@@ -28,8 +31,7 @@
         #navigation-container
           = render :partial => "shared/contextual_navigation"
 
-    #flash
-      = show_flash_messages(:class => "flash", :markdown => true)
+
 
 
     #container{:class => @current_class}

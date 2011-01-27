@@ -10,20 +10,30 @@
     &= @page.title
 
 -content_for :sidebar do
-  -if (logged_in? && current_user.can_edit_wiki_post_on?(current_group) )
-    .block
-      %h3
-        =t("pages.actions.title")
-      .content
-        %ul.navigation
-          %li
-            = link_to t("pages.actions.create_page"), new_page_path
-          %li
-            = link_to t("pages.actions.edit_page"), edit_page_path(@page)
 
-.markdown
-  -if safe_page?(@page)
-    -body = current_group.wysiwyg_editor ? CGI.unescapeHTML(@page.body) : @page.body
-    = RDiscount.new(render_page_links(body)).to_html
-  -else
-    = markdown(@page.body)
+  #sidebar-inner
+    = render :partial => "shared/community_sponsor", :locals => {:width => "wide"}
+    = render :partial => "shared/signup_button", :locals => {:width => "wide"}
+
+    -if (logged_in? && current_user.can_edit_wiki_post_on?(current_group) )
+      .block
+        %h3
+          =t("pages.actions.title")
+        .content
+          %ul.navigation
+            %li
+              = link_to t("pages.actions.create_page"), new_page_path
+            %li
+              = link_to t("pages.actions.edit_page"), edit_page_path(@page)
+            %li
+              = link_to t("pages.actions.list_pages"), pages_path
+
+
+-content_for :main do
+  #main-index
+    .markdown
+      -if safe_page?(@page)
+        -body = current_group.wysiwyg_editor ? CGI.unescapeHTML(@page.body) : @page.body
+        = RDiscount.new(render_page_links(body)).to_html
+      -else
+        = markdown(@page.body)

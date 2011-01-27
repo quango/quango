@@ -11,6 +11,11 @@
         %p
           = f.text_field :name, :value => @doctype.name
         %p
+          = "Hidden?"
+          = f.check_box :hidden
+
+
+        %p
           = f.submit 'Update'
 
     %p

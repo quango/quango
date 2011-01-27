@@ -9,6 +9,11 @@
     = f.check_box :has_sponsor, :class => "text_field"
     = "If you check this box, the sponsorship settings below will be available"
 
+  .group
+    = f.label :show_group_create, "Show the community buttons", :class => "label"
+    = f.check_box :show_group_create, :class => "text_field"
+    = "Show or hide community create buttons"
+
   %hr{:style =>"margin:8px 0"}
 
   .group
@@ -93,12 +98,12 @@
 #sidebar-inner{:style => "width:256px; float:right"}
   %h2
     = "Wide Preview"
-    = render :partial => "welcome/community_sponsor",  :locals => {:width => "wide"}
+    = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
 
 #sidebar{:style => "width:140px; float:right"}
   %h2
     = "Narrow Preview"
-    = render :partial => "welcome/community_sponsor",  :locals => {:width => "narrow"}
+    = render :partial => "shared/community_sponsor",  :locals => {:width => "narrow"}
 
 
 

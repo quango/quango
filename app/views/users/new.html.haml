@@ -10,7 +10,7 @@
 
   #main{:style => "width:898px; padding: 0 32px"}
     %h1{:style => "color:#{current_group.primary}; font-weight:bold; padding: 8px 0 0 0;text-shadow: 1px 1px 0 rgba(255,255,255,255.25)"}
-      = "Thinking is free, so naturally thinking daily is also free..."
+      = "#{current_group.signup_heading}"
 
     .left
       %h2.form-header
@@ -18,13 +18,23 @@
 
       = yield :form
 
+      .clear
+      .group{:style => "margin-left:32px;"}
+        %h3
+          = "Existing members..."
+        %p
+          = link_to "I already have an account and want to login normally", new_user_session_path
+
+
+
     .left{:style => "width:240px;padding: 0 32px 32px 32px"}
       %h3{:style => "margin-top:32px"}
-        = "or simply login with an existing account..."
+        = "or login with another account..."
       = render :partial => "sessions/openid"
       .clear
       %h3
         = "Note..."
-      = "Using an existing login will create a new account which you access using your ogin from another site"
+      = "Using an existing login will create a new account which you access using your login from another site"
+
 
   .clear

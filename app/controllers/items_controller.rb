@@ -48,8 +48,9 @@ class ItemsController < ApplicationController
 
     #@items = current_group.items.sort_by(&:activity_at).reverse
 
-    doctype = Doctype.find_by_slug_or_id(params[:doctype_id])
-    @doctype = doctype
+    @doctypes = current_group.doctypes
+    @doctype = Doctype.find_by_slug_or_id(params[:doctype_id])
+
 
 
     @items = current_group.items
@@ -220,14 +221,14 @@ class ItemsController < ApplicationController
   # GET /items/1.xml
   def show
 
-    #@item.section
-
-
     @item = Item.find_by_slug_or_id(params[:id])
 
     target_section = Doctype.find_by_slug_or_id(@item.doctype_id)
     @section = target_section
 
+
+    @doctypes = current_group.doctypes
+    @doctype = current_group.doctypes.find_by_slug_or_id(params[:doctype_id])
 
     if params[:language]
       params.delete(:language)
@@ -284,11 +285,16 @@ class ItemsController < ApplicationController
   def new
     @item = Item.new(params[:item])
 
-    target_section = Doctype.find_by_slug_or_id(params[:doctype_id])
 
-    @section = target_section
+    @doctypes = current_group.doctypes
+    @doctype = @doctypes.find_by_slug_or_id(params[:doctype_id])
 
-    @item.doctype_id = @section.id
+
+    #target_section = Doctype.find_by_slug_or_id(params[:doctype_id])
+
+    #@section = target_section
+
+    @item.doctype_id = @doctype.id
 
     @item.tags = current_group.default_tags.first
 
@@ -312,21 +318,14 @@ class ItemsController < ApplicationController
   # POST /items.xml
   def create
     @item = Item.new
-    @item.safe_update(%w[section node mode title bookmark main_image main_thumbnail images body language tags wiki anonymous], params[:item])
+    @item.safe_update(%w[doctype_id section node mode title bookmark main_image main_thumbnail images body language tags wiki anonymous], params[:item])
     @item.group = current_group
     @item.user = current_user
 
-    section = Doctype.find_by_slug_or_id(params[:doctype_id])
-    
-    @section = section
+    @doctypes = current_group.doctypes
+    @doctype = @doctypes.find_by_slug_or_id(params[:doctype_id])
 
-    @item.doctype_id = @section.id
-    
- 
-   #@item.section = current_section
-
-    #We also need to set the section updated for welcome page section list order
-
+    @item.doctype_id = @doctype.id
 
     if !logged_in?
       if recaptcha_valid? && params[:user]
@@ -382,7 +381,7 @@ class ItemsController < ApplicationController
         current_group.on_activity(:ask_item)
         flash[:notice] = t(:flash_notice, :scope => "items.create")
 
-        format.html { redirect_to item_path(section.name, @item)}
+        format.html { redirect_to item_path(@doctype, @item)}
         #format.html { redirect_to("/#{@item.section}/#{@item.slug}") }
 
         format.json { render :json => @item.to_json(:except => %w[_keywords watchers]), :status => :created}
@@ -405,21 +404,17 @@ class ItemsController < ApplicationController
       @item.slugs << @item.slug
       @item.send(:generate_slug)
 
+      @doctypes = current_group.doctypes
+      @doctype = @doctypes.find_by_slug_or_id(params[:doctype_id])
+
+
       if @item.valid? && @item.save
         sweep_item_views
         sweep_item(@item)
 
         flash[:notice] = t(:flash_notice, :scope => "items.update")
 
-        if @item.mode == "news_article"
-          format.html { redirect_to(news_article_path(@item)) }        
-        else
-          format.html { redirect_to(item_path(@item.doctype_id, @item)) }
-          #format.html { redirect_to("/#{@item.section}/#{@item.slug}") }
-        end
-
-
-        #format.html { redirect_to(item_path(@item)) }
+        format.html { redirect_to(item_path(@doctype, @item)) }
         format.json  { head :ok }
       else
         format.html { render :action => "edit" }

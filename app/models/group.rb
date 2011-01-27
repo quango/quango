@@ -28,9 +28,12 @@ class Group
   key :state, String, :default => "pending" #pending, active, closed
   key :isolate, Boolean, :default => false
   key :private, Boolean, :default => false
+  key :real_names, Boolean, :default => true
   key :theme, String, :default => "ping"
   key :owner_id, String
-  key :has_bunnies, Boolean, :default => true
+  key :has_bunnies, Boolean, :default => false
+  key :show_group_create, Boolean, :default => true
+  key :show_beta_links, Boolean, :default => true
 
   #analytics
   key :robots, Boolean, :default => true
@@ -56,6 +59,12 @@ class Group
   key :has_custom_js, Boolean, :default => true
   key :fb_button, Boolean, :default => true
 
+  #labels
+  key :publish_label, String, :default => "publish"
+  key :leaders_label, String, :default => "Thought leaders" 
+  key :signup_heading, String, :default => "Thinking is free, so naturally thinkingdaily.com is also free..."  
+
+  # theme
   key :logo_path, String, :default => "/images/logos/star_32.png"
   key :favicon_path, String, :default => "/images/logos/star_32.png"
 
@@ -112,6 +121,13 @@ class Group
   key :sponsor_description_boxheader, String, :default => "About this sponsor..."
   key :sponsor_description, String
 
+  #signup button
+
+  key :show_signup_button, Boolean, :default => true
+  key :signup_button_title, String, :default => "It's free to think..."
+  key :signup_button_description, String, :default => "Join this community to share your thoughts"
+  key :signup_button_label, String, :default => "SIGNUP NOW"
+  key :signup_button_footnote, String, :default => "and start thinking daily"
 
 
   file_key :custom_css, :max_length => 256.kilobytes

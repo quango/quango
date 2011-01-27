@@ -56,7 +56,7 @@
       -@doctypes.each do |doctype|
         -if !doctype.hidden?
           %li{:class => doctype.name }
-          = render :partial => "items/section_head_welcome", :locals => {:section => doctype, :tab=>"activity"}
+            = render :partial => "items/section_head_welcome", :locals => {:doctype => doctype, :section => doctype, :tab=>"activity"}
 
 
 
@@ -68,11 +68,12 @@
 
 
   #sidebar-inner{:style => "float:right; width:256px;"}
-    = render :partial => "welcome/community_sponsor",  :locals => {:width => "wide"}
-    = render :partial => "featured_groups" #, :locals => {:item => item}
 
+    = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
+    = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
 
-    -#= render :partial => "widgets/recent_members", :locals=> {:group => current_group}
+    -if !current_group.isolate # this will be the group connect thing
+      = render :partial => "featured_groups" #, :locals => {:item => item}
 
     - current_group.widgets.each do |widget|
       .widget.block{:id => widget.name}
@@ -80,7 +81,7 @@
 
     .block
       %h3
-        = h("Something")
+        = h("About this community")
       .content
         = h("Something else")
 

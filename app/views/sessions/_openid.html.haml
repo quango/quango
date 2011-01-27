@@ -5,7 +5,7 @@
     #google
       =link_to "Google<img class='left' src='/images/share/google_32.png' style='height:20px; width:20px'>", google_authorize_path, :title => "Google", :id => "google_auth"
 
-    #thinkingdaily{:style => "visibility:hidden; height:0"}
+    #thinkingdaily{:style => "display:none"}
       =link_to "thinking<span style='color:#{current_group.primary}'>daily</span><img class='left' src='/images/logos/star_32.png' style='margin-top:0px;height:19px; width:19px'>", "#", :title => "Google", :id => "thinkingdaily_auth"
 
 
@@ -18,7 +18,7 @@
       -if AppConfig.twitter["activate"]
         =link_to "<img class='left' src='/images/logos/twitter-logo.png' style='height:20px; width:108px; margin: 3px 0; border: 0'>", twitter_authorize_path, :title => "Twitter", :id => "twitter_auth"
 
-    #linkedin
+    #linkedin{:style => "display:none"}
       =link_to "<img class='left' src='/images/logos/linkedin.png' style='height:20px; border:0'>", "#", :title => "Google", :id => "linkedin_auth"
 
 

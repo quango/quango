@@ -1,6 +1,49 @@
 .navlinks
   cursor: pointer
 
+.signup-button
+  display: inline-block
+  //width: 256px
+  padding: 4px 24px
+  margin: 4px
+  color: #fff
+  text-shadow: -1px -1px 0 rgba(0,0,0,0.25)
+  font-size: 12px
+  font-weight: bold
+  //background: #286da3
+
+  -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.3)
+  -moz-box-shadow: 0 1px 4px rgba(0,0,0,0.3)
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3)
+  -webkit-font-smoothing:antialiased
+  small
+    font-weight: normal
+  a
+    color: white
+  a:hover
+    color: #eee
+
+.group-button
+  display: inline-block
+  padding: 4px
+  margin: 0
+  color: #fff
+  text-shadow: -1px -1px 0 rgba(0,0,0,0.25)
+  font-size: 12px
+  font-weight: bold
+  //background: #286da3
+
+  //-webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.3)
+  //-moz-box-shadow: 0 1px 4px rgba(0,0,0,0.3)
+  //box-shadow: 0 1px 4px rgba(0,0,0,0.3)
+  -webkit-font-smoothing:antialiased
+  small
+    font-weight: normal
+  a
+    color: white
+  a:hover
+    color: #eee
+
 .tertiary-button
 
   background-image: url(/images/buttons/section_bg.png)
@@ -283,10 +326,6 @@
   font-size: 12px
   font-weight: bold
 
-  //+fancy-button-structure
-  //+fancy-button-colors-matte(#A6691C)
-  //+fancy-button-size(11px, 4px, 1px)
-
   font-family: georgia
   letter-spacing: -1px
   text-transform: lowercase
@@ -300,27 +339,24 @@
 
 .action-button
 
-  color: black
+  color: white
   height: 20px
-  line-height: 24px
+  line-height: 20px
 
-  padding: 0px 16px 4px 16px
-  margin: 0 8px 0 8px
-  //text-shadow: none
-  text-shadow: 0px 1px 1px rgba(255,255,255,0.75)
+  padding: 0 16px 0 16px
+  margin: 0 8px 0 0
+
   font-size: 12px
   font-weight: bold
-  +fancy-button-structure
-  +fancy-button-colors-matte(#4183AF)
-  +fancy-button-size(12px, 4px, 1px)
+
   text-transform: lowercase
 
-  -webkit-box-shadow: none
-  -moz-box-shadow: none
-  box-shadow: none
-  //-webkit-font-smoothing:antialiased
+  -webkit-box-shadow: 1px 2px 2px rgba(0,0,0,0.25)
+  -moz-box-shadow: 1px 2px 2px rgba(0,0,0,0.25)
+  box-shadow: 1px 2px 2px rgba(0,0,0,0.25)
+  -webkit-font-smoothing:antialiased
 
-  //+rounded(4px,4px,4px,4px)
+  +rounded(4px,4px,4px,4px)
 
   &.inner
     width: 256px  
@@ -329,8 +365,8 @@
     height: 27px
 
 
-  a:hover
-    color: white
+  &a:hover
+    color: black
 
 
 .share

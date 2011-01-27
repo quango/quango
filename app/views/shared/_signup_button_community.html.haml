@@ -1,3 +1,6 @@
+
+-if logged_in? && current_group.show_signup_button? || logged_in? && current_user.owner_of?(current_group)
+
 -if width == "wide"
   -if logged_in? && current_group.show_group_create?
     .block
@@ -8,7 +11,7 @@
           %div{:style => "font-size:12px; margin-bottom:8px "}
             = "Join this community and share your knowledge"
           %div{:style => "font-size:18px; margin-bottom:8px "}
-            = link_to "&#9733; signup to particpiate", new_user_path, :class => "signup-button", :style => "font-weight:18px"
+            = link_to "&#9733; signup to particpiate", new_user_path, :class => "create-button", :style => "font-weight:18px"
           %div{:style => "font-size:12px; margin-bottom:8px "}
             = "Start thinking daily..."
 
@@ -54,6 +57,11 @@
             = link_to "&#9733; signup to particpiate", new_user_path, :class => "signup-button", :style => "font-weight:18px"
           %div{:style => "font-size:12px; margin-bottom:8px "}
             = "Start thinking daily..."
+
+
+
+
+
 
 
 

@@ -1,20 +1,19 @@
 -active_section = local_assigns[:section]
--#-doctype = local_assigns[:doctype]
+-doctype = local_assigns[:doctype]
 -expanded = local_assigns[:expanded]
 -#= expanded
 
-- @doctype = @doctypes.find_by_slug_or_id(doctype.id)
-- items = @doctype.items
+
 
 .section-head-welcome
   .secondary-navigation-sections
     .navlabel
       -#= link_to "#{section.name.upcase}", domain_url(:custom => current_group.domain) << "/" << section.node.downcase, :locals => section
-      - section_link = section.name.downcase
-      = h(section.name.capitalize)
+
+      = h(doctype.name.capitalize)
 
     .navlinks.right
-      = link_to "#{current_group.publish_label} #{doctype.name}",new_item_path(doctype),:locals => {:doctype => doctype}, :class => "publish-button" #, :style => "width:200px; padding: 8px"
+      = link_to "&#9733; add",new_item_path(doctype), :class => "publish-button" #, :style => "width:200px; padding: 8px"
  
     .navcontrols
       %a.show_summary{:class => "#{section.name} navlinks showhide right"}
@@ -27,17 +26,16 @@
 
     .listings-centre{:style => "width:420px; float:left;"}
       .title
-        = h("Headlines + #{doctype.id} / #{@doctype.id}")
+        = h("Headlines")
       .content
 
         %ul.listing
-          -if doctype.items.empty?
+          -if current_group.doctypes.empty?
             %li.highlight
               = t(".empty")
           -else
             - doctype.items.reverse.each do |item| 
-              -#= item.title
-              = render :partial => "items/section_list_item_welcome", :locals => {:section => section, :item => item, :list_mode => "headline"}
+              = render :partial => "items/section_list_item_welcome", :locals => {:doctype => doctype, :section => section, :item => item, :list_mode => "headline"}
 
 
     .listings-right{:style => "width:280px; float:right;"}
@@ -49,7 +47,11 @@
             %li.highlight
               = t(".empty")
           -else
-            - doctype.items.reverse.each do |item| 
+            -features_array = Array.new
+            -current_group.items.reverse.each do |item|
+              -if item.section == section.name
+                -features_array << item
+            -features_array[0..1].each do |item|
               = render :partial => "items/section_list_item", :locals => {:item => item,:sort=>"hot", :list_mode => "thumbnail"}
 
 

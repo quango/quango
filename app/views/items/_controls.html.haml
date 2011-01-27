@@ -6,38 +6,38 @@
     - if !@flag.new?
       .flagged
         = "#{t('.flagged_as')} #{t(@flag.reason, :scope=>'flags.form')}"
-        = link_to t("scaffold.edit"), edit_item_flag_path(@item.doctype_id, @item, @flag,:mode=>@item.mode), :class => "flag-link", :id => "edit_item_flag_link", :rel => 'nofollow'
-        = link_to t("scaffold.destroy"), item_flag_path(@item.doctype_id, @item, @flag), :id => "destroy_item_flag_link", :rel => 'nofollow', :confirm => "are you sure?", :method => :delete
+        = link_to t("scaffold.edit"), edit_item_flag_path(@doctype, @item, @flag,:mode=>@item.mode), :class => "flag-link", :id => "edit_item_flag_link", :rel => 'nofollow'
+        = link_to t("scaffold.destroy"), item_flag_path(@doctype, @item, @flag), :id => "destroy_item_flag_link", :rel => 'nofollow', :confirm => "are you sure?", :method => :delete
     - elsif logged_in? && current_user != @item.user
-      = link_to t(".flag"), new_item_flag_path(@item.doctype_id, @item), :class => "flag-link", :id => "item_flag_link", :rel => 'nofollow'
+      = link_to t(".flag"), new_item_flag_path(@doctype, @item), :class => "flag-link", :id => "item_flag_link", :rel => 'nofollow'
 
     - if logged_in?
       - if show_close_request_form
         -if !@close_request.new?
           .flagged
             = "#{t('.requested_close_as')} #{t(@close_request.reason, :scope=>'close_requests.form')}"
-            = link_to t(".edit_request"), edit_item_close_request_path(@item.doctype_id, @item, @close_request), :class => "flag-link", :id => "edit_item_close_request_link", :rel => 'nofollow'
-            = link_to t(".retract_request"), item_close_request_path(@item.doctype_id, @item, @close_request), :id => "destroy_item_close_request_link", :rel => 'nofollow', :confirm => "are you sure?", :method => :delete
-        = link_to t(".request_closing"), @close_request.new? ? new_item_close_request_path(@item.doctype_id, @item) : edit_item_close_request_path(@item.doctype_id, @item, @close_request), :id => "request-close-link", :rel => 'nofollow', :title => t('.request_closing_details')
+            = link_to t(".edit_request"), edit_item_close_request_path(@doctype, @item, @close_request), :class => "flag-link", :id => "edit_item_close_request_link", :rel => 'nofollow'
+            = link_to t(".retract_request"), item_close_request_path(@doctype, @item, @close_request), :id => "destroy_item_close_request_link", :rel => 'nofollow', :confirm => "are you sure?", :method => :delete
+        = link_to t(".request_closing"), @close_request.new? ? new_item_close_request_path(@doctype, @item) : edit_item_close_request_path(@doctype, @item, @close_request), :id => "request-close-link", :rel => 'nofollow', :title => t('.request_closing_details')
 
       - if show_open_request_form
         -if !@open_request.new?
           .flagged
             = "#{t('.requested_reopening')} #{@open_request.comment}"
-            = link_to t(".edit_request"), edit_item_open_request_path(@item.doctype_id, @item, @open_request), :class => "flag-link", :id => "edit_item_open_request_link", :rel => 'nofollow'
-            = link_to t(".retract_request"), item_open_request_path(@item.doctype_id, @item, @open_request), :id => "destroy_item_open_request_link", :rel => 'nofollow', :confirm => "are you sure?", :method => :delete
+            = link_to t(".edit_request"), edit_item_open_request_path(@doctype, @item, @open_request), :class => "flag-link", :id => "edit_item_open_request_link", :rel => 'nofollow'
+            = link_to t(".retract_request"), item_open_request_path(@doctype, @item, @open_request), :id => "destroy_item_open_request_link", :rel => 'nofollow', :confirm => "are you sure?", :method => :delete
 
         -if current_user.mod_of?(current_group)
           = link_to t(".open"), open_item_path(@item), :rel => 'nofollow', :title => t('.request_opening_details'), :method => "put"
         -else
-          = link_to t(".request_opening"), new_item_open_request_path(@item.doctype_id, @item), :id => "request-open-link", :rel => 'nofollow', :title => t('.request_opening_details')
+          = link_to t(".request_opening"), new_item_open_request_path(@doctype, @item), :id => "request-open-link", :rel => 'nofollow', :title => t('.request_opening_details')
 
       - if @item.versions.count > 0
-        = link_to t(".history", :default => "history"), history_item_path(@item.doctype_id, @item)
+        = link_to t(".history", :default => "history"), history_item_path(@doctype, @item)
       - if (current_user.can_modify?(@item) || current_user.owner_of?(@item.group))
-        = link_to t("scaffold.destroy"), item_path(@item.doctype_id, @item.id), :confirm => "are you sure?", :method => :delete
+        = link_to t("scaffold.destroy"), item_path(@doctype, @item.id), :confirm => "are you sure?", :method => :delete
       - if current_user.mod_of?(@item.group)
         -if !@item.closed
-          = link_to t('.close'), item_close_requests_path(@item.doctype_id, @item)
+          = link_to t('.close'), item_close_requests_path(@doctype, @item)
         = link_to t(".ban"), ban_path(:item_ids => [@item.id]), :class => "ban-button", :confirm => "are you sure?"
   .forms

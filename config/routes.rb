@@ -49,7 +49,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :adsenses
   map.resources :adbards
   map.resources :badges
-  map.resources :pages, :member => {:css => :get, :js => :get}
+  #system pages
+  map.resources :pages, :member => {:css => :get, :js => :get}, :as => "about"
   map.resources :announcements, :collection => {:hide => :any }
   map.resources :imports, :collection => {:send_confirmation => :post}
 
@@ -70,7 +71,7 @@ ActionController::Routing::Routes.draw do |map|
                                  :member     => {:solve => :get,:unsolve => :get,:favorite => :any,:unfavorite => :any,:watch => :any,:unwatch => :any,
                                                  :history => :get,:revert => :get,:diff => :get,
                                                  :move => :get,:move_to => :put, :retag => :get,:retag_to => :put,
-                                            :close => :put,:open => :put}, :name_prefix => nil,  :as => 'o' do |items| #:name_prefix => nil,
+                                            :close => :put,:open => :put}, :name_prefix => nil,  :as => 'id' do |items| #:name_prefix => nil,
 
         items.resources :comments
         items.resources :images, :member => { :crop => :get, 
@@ -129,6 +130,7 @@ ActionController::Routing::Routes.draw do |map|
                                      :sponsor_logo => :get,
                                      :sponsor_logo_wide => :get,
                                      :sponsor_logo_narrow => :get,
+                                     :signup_button_css => :get,
                                      :check => :any,
                                      :favicon => :get,
                                      :background => :get,
@@ -142,6 +144,8 @@ ActionController::Routing::Routes.draw do |map|
 
 
   map.resources :widgets, :member => {:move => :post}, :path_prefix => "/manage"
+
+
   map.resources :members, :path_prefix => "/manage"
 
   map.with_options :controller => 'admin/manage', :name_prefix => "manage_",
@@ -149,6 +153,7 @@ ActionController::Routing::Routes.draw do |map|
     manage.properties '/properties', :action => 'properties'
     manage.content '/content', :action => 'content'
     manage.theme '/theme', :action => 'theme'
+
     manage.actions '/actions', :action => 'actions'
     manage.stats '/stats', :action => 'stats'
     manage.reputation '/reputation', :action => 'reputation'
