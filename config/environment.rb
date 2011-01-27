@@ -26,7 +26,7 @@ Rails::Initializer.run do |config|
   config.gem "rdiscount", :version => "1.6.5"
   config.gem "jnunemaker-validatable", :version => "1.8.4", :lib => "validatable"
   config.gem "mongo_mapper", :version => "0.8.3", :source => "http://gemcutter.org"
-  config.gem "compass", :version => "0.10.4", :lib => "compass", :source => "http://gemcutter.org"
+  config.gem "compass"
   config.gem "fancy-buttons", :version => "0.5.5", :source => "http://gemcutter.org"
   config.gem "compass-colors", :version => "0.3.1", :source => "http://gemcutter.org"
   config.gem "ruby-stemmer", :version => ">=0.8.2", :lib => "lingua/stemmer"
