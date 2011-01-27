@@ -11,16 +11,20 @@
 
 -content_for :main do
   #main-index
-    - form_for(@item, :html=>{:class => "form", :id => "ask_item"}) do |f|
-      =render :partial => "form", :locals => {:f => f, :doctype => @doctype}
+    -if logged_in?
+      - form_for(@item, :html=>{:class => "form", :id => "ask_item"}) do |f|
+        =render :partial => "form", :locals => {:f => f, :doctype => @doctype}
 
-      .group.navform
-        .controls.right{:style => "width: 50%"}
-          .left{:style => "width: 49.5%"}
-            = f.label :wiki, "Allow anybody to edit?", :class => "radio"
-            = f.check_box :wiki, :class => "checkbox"
+        .group.navform
+          .controls.right{:style => "width: 50%; display:none"}
+            .left{:style => "width: 49.5%"}
+              = f.label :wiki, "Allow anybody to edit?", :class => "radio"
+              = f.check_box :wiki, :class => "checkbox"
 
 
-        = f.submit t('scaffold.create')
-        = t("global.or")
-        = link_to t('scaffold.cancel'), items_path, :class => "button cancel"
+          = f.submit t('scaffold.create')
+          = t("global.or")
+          = link_to t('scaffold.cancel'), items_path, :class => "button cancel"
+
+    -else
+      = "You must be logged in to " + current_group.publish_label + " something"

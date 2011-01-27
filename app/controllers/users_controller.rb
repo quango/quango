@@ -134,7 +134,7 @@ class UsersController < ApplicationController
       format.html
       format.atom
       format.json {
-        render :json => @user.to_json(:only => %w[name login membership_list bio website location language])
+        render :json => @user.to_json(:only => %w[name membership_list bio website location language])
       }
     end
   end

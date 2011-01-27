@@ -126,7 +126,8 @@
     = render :partial => "default_image", :locals => {:item => @item}
     = render :partial => "images", :locals => {:item => @item}
     = render :partial => "related_communities"
-    = render :partial => "create_button"
+    -if logged_in?
+      = render :partial => "create_button"
 
     -if logged_in? && current_group.has_bunnies?
       -if current_user.owner_of?(current_group)

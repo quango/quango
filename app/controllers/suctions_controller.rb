@@ -150,7 +150,7 @@ class DoctypesController < ApplicationController
      #@item = Item.find_by_slug_or_id(params[:id])
 
 
-     @doctypes = current_group.sections
+     @doctypes = current_group.doctypes
         
   
      @doctypes.each do |doctype|
