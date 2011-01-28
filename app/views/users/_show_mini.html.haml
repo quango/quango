@@ -7,8 +7,8 @@
 %span.reputation{:title => t("activerecord.attributes.user.reputation")}
   -unless user.nil?
     -if user.owner_of?(current_group)
-      %span.ownerflair{:title => "This user is an admin", :style=>"background-color:gold", :class=>"button"}
-        ☠
+      %span.ownerflair{:title => "This user is an admin"}
+        Admin
     -elsif user.mod_of?(current_group)
       %span.modflair{:title => "moderator", :style=>"background-color:bronze"}
         Associate

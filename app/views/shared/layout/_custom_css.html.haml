@@ -28,9 +28,12 @@
   \h2.form-header{ background-color: #{current_group.primary};}
   \.form-footer{ background-color: #{current_group.tertiary};}
 
-  \.tag-list a{background: filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.supplementary_dark}',endColorstr='#{current_group.supplementary_lite}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.supplementary}),to(#{current_group.supplementary_dark}));background:-moz-linear-gradient(top,#{current_group.supplementary_lite},#{current_group.supplementary}); text-shadow: #{current_group.supplementary_dark} 0px -1px 1px; border: 1px solid #{current_group.supplementary_dark};}
+  \.tag-list a{background:#{current_group.supplementary}; filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.supplementary}',endColorstr='#{current_group.supplementary_dark}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.supplementary}),to(#{current_group.supplementary_dark}));background:-moz-linear-gradient(top,#{current_group.supplementary},#{current_group.supplementary_dark}); text-shadow: #{current_group.supplementary_dark} 0px -1px 1px; border: 1px solid #{current_group.supplementary_dark};}
+  -#\.tag-list a{filter:progid:DXImageTransform.Microsoft.shadow(color=#{current_group.supplementary_dark}, direction=0, strength=0.5)}  
   \.tag-list .tag a:link, .tag-list .tag a:active, .tag-list .tag a:visited {}
   \.tag-list .tag a:hover{ background-color: #{current_group.tertiary};}
+  \.ownerflair {background-color: #{current_group.secondary}; border:1px solid #{current_group.primary};text-shadow: #{current_group.primary} 0px -1px 1px}
+
   \.label-highlight a{ color: #{current_group.secondary};}
   \.secondary-navigation-sections{ background-color: #{current_group.secondary};}
   \.secondary-navigation{ background-color: #{current_group.secondary};}
@@ -63,10 +66,10 @@
   \.input-holder-password{background:#{current_group.tertiary}}
   \.login{background:#{current_group.tertiary}}
 
-  \.mainAnswerForm{background:#{current_group.primary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.secondary}',endColorstr='#{current_group.primary}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.tertiary}),to(#{current_group.secondary}));background:-moz-linear-gradient(top,#{current_group.tertiary},#{current_group.secondary});border:2px solid #{current_group.secondary};}
+  \.mainAnswerForm{background:#{current_group.primary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.tertiary}',endColorstr='#{current_group.secondary}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.tertiary}),to(#{current_group.secondary}));background:-moz-linear-gradient(top,#{current_group.tertiary},#{current_group.secondary});border:1px solid #{current_group.secondary};}
   \.supplementary-navigation {background: #{current_group.supplementary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.supplementary_dark}',endColorstr='#{current_group.supplementary_lite}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.supplementary}),to(#{current_group.supplementary_dark}));background:-moz-linear-gradient(top,#{current_group.supplementary_lite},#{current_group.supplementary}); border:1px solid #{current_group.supplementary_dark};text-shadow: #{current_group.supplementary_dark} 0px -1px 1px}
   
-  \.community {background: #{current_group.supplementary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.supplementary}',endColorstr='#{current_group.supplementary_lite}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.supplementary}),to(#{current_group.supplementary_dark}));background:-moz-linear-gradient(top,#{current_group.supplementary},#{current_group.supplementary_dark}); border:1px solid white;text-shadow: #{current_group.supplementary_dark} 0px -1px 1px}
+  \.community {background: #{current_group.supplementary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.supplementary}',endColorstr='#{current_group.supplementary_dark}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.supplementary}),to(#{current_group.supplementary_dark}));background:-moz-linear-gradient(top,#{current_group.supplementary},#{current_group.supplementary_dark}); border:1px solid white;text-shadow: #{current_group.supplementary_dark} 0px -1px 1px}
 <!--//-->
 
 -#\.edit-button{ background-color: #{current_group.tertiary};}

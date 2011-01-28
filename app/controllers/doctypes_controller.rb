@@ -69,7 +69,8 @@ class DoctypesController < ApplicationController
 
   # GET /bunnies/1/edit
   def edit
-    @doctype = Doctype.find_by_slug_or_id(params[:id])
+    @doctypes = current_group.doctypes
+    @doctype = @doctypes.find_by_slug_or_id(params[:id])
   end
 
   # POST /bunnies

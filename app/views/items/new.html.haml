@@ -9,22 +9,26 @@
   #sidebar
     = render :partial => "shared/community_sponsor", :locals => {:width => "narrow"}
 
+-content_for :sidebar_inner do
+  #sidebar-inner
+    = render :partial => "shared/community_sponsor", :locals => {:width => "wide"}
+    -if !current_group.item_help.empty?
+      .help
+        %h3
+          = t(".how_to_ask")
+        =current_group.item_help
+    %h3
+      = "Similar"
+
+    .related-item
+      %ul.items#related_items
+
+
 -content_for :main do
   #main-index
     -if logged_in?
-      - form_for(@item, :html=>{:class => "form", :id => "ask_item"}) do |f|
+      - form_for(@item, :html=>{:class => "form mainAnswerForm", :id => "ask_item"}) do |f|
         =render :partial => "form", :locals => {:f => f, :doctype => @doctype}
-
-        .group.navform
-          .controls.right{:style => "width: 50%; display:none"}
-            .left{:style => "width: 49.5%"}
-              = f.label :wiki, "Allow anybody to edit?", :class => "radio"
-              = f.check_box :wiki, :class => "checkbox"
-
-
-          = f.submit t('scaffold.create')
-          = t("global.or")
-          = link_to t('scaffold.cancel'), items_path, :class => "button cancel"
 
     -else
       = "You must be logged in to " + current_group.publish_label + " something"

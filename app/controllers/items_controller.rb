@@ -447,6 +447,8 @@ class ItemsController < ApplicationController
     @item.accepted = true
     @item.answered_with = @answer if @item.answered_with.nil?
 
+    @doctype = current_group.doctypes.find_by_slug_or_id(@item.doctype_id)
+
     respond_to do |format|
       if @item.save
         sweep_item(@item)
@@ -459,7 +461,7 @@ class ItemsController < ApplicationController
         Magent.push("actors.judge", :on_item_solved, @item.id, @answer.id)
 
         flash[:notice] = t(:flash_notice, :scope => "items.solve")
-        format.html { redirect_to item_path(@item) }
+        format.html { redirect_to item_path(@doctype, @item) }
         format.json  { head :ok }
       else
         @tag_cloud = Item.tag_cloud(:_id => @item.id, :banned => false)
@@ -479,6 +481,8 @@ class ItemsController < ApplicationController
     @answer_id = @item.answer.id
     @answer_owner = @item.answer.user
 
+    @doctype = current_group.doctypes.find_by_slug_or_id(@item.doctype_id)
+
     @item.answer = nil
     @item.accepted = false
     @item.answered_with = nil if @item.answered_with == @item.answer
@@ -495,7 +499,7 @@ class ItemsController < ApplicationController
 
         Magent.push("actors.judge", :on_item_unsolved, @item.id, @answer_id)
 
-        format.html { redirect_to item_path(@item) }
+        format.html { redirect_to item_path(@doctype, @item) }
         format.json  { head :ok }
       else
         @tag_cloud = Item.tag_cloud(:_id => @item.id, :banned => false)

@@ -1,5 +1,5 @@
 %h3
-  =t(".title")
+  =h("#{current_group.leaders_label}")
 .content
   %ul.members-list
     -widget.top_users(current_group).each do |user|

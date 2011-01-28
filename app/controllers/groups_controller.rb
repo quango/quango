@@ -105,6 +105,7 @@ class GroupsController < ApplicationController
     @group.state = "active"
 
     @group.widgets << TopUsersWidget.new
+    @group.widgets << UsersWidget.new
 
     puts "Starting doctype creation /n"
 
@@ -181,7 +182,7 @@ class GroupsController < ApplicationController
     @group.safe_update(%w[name name_highlight legend description has_custom_channels custom_channels default_tags subdomain logo logo_info forum
                           custom_favicon language theme reputation_rewards reputation_constrains
                           has_adult_content registered_only openid_only custom_css wysiwyg_editor fb_button share show_beta_tools
-                          publish_label signup_heading
+                          publish_label signup_heading leaders_label
                           primary primary_dark secondary tertiary supplementary supplementary_dark supplementary_lite header_bg_image background toolbar_bg toolbar_bg_image
                           robots logo_path favicon_path link_colour  sponsor_logo_wide_info sponsor_logo_narrow_info
                           has_sponsor sponsor_name sponsor_link sponsor_logo_wide sponsor_logo_narrow show_sponsor_description show_sponsor_description_boxheader sponsor_description

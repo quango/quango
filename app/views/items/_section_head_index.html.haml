@@ -13,7 +13,7 @@
       = h(doctype.name.capitalize)
 
     .navlinks.right
-      = link_to "&#9733; add",new_item_path(doctype), :class => "publish-button" #, :style => "width:200px; padding: 8px"
+      = link_to "#{current_group.publish_label} #{doctype.name}",new_item_path(doctype), :class => "publish-button" #, :style => "width:200px; padding: 8px"
  
     .navcontrols
       %a.show_summary{:class => "#{section.name} navlinks showhide right"}

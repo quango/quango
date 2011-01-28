@@ -61,7 +61,7 @@ class Group
 
   #labels
   key :publish_label, String, :default => "publish"
-  key :leaders_label, String, :default => "Thought leaders" 
+  key :leaders_label, String, :default => "Thought leaders..." 
   key :signup_heading, String, :default => "Thinking is free, so naturally thinkingdaily.com is also free..."  
 
   # theme
