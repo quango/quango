@@ -1,10 +1,7 @@
--# url = "http://developers.thinkingdaily.com/add/new?item[section]=bugs"
-- url = "/add/new?item[section]=bugs"
+- url = "http://thoughtdomains.org/community/bugs/!/new?"
 - url << "&item[title]='Bug: '"
-- url << "&item[tags]=bug,#{AppConfig.version},#{current_group.name}"
-- url << "&item[body]=This is what happened..."
+- url << "&item[tags]='bug','#{AppConfig.version}','#{current_group.name}-#{current_group.name_highlight}'"
+- url << "&item[body]='This is what happened...'"
 
-%div.contribute.bug-button{:style => "background-color:#990000;border: 1px solid #990000;text-shadow: #990000 0px -1px 1px"}
-  ="&#9733;"
-  =link_to "bug ", url, :rel => 'nofollow'
+=link_to "report bugs ", url, :rel => 'nofollow'
 
