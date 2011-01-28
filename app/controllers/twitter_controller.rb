@@ -48,12 +48,15 @@ class TwitterController < ApplicationController
         end
 
         if @user.nil?
+          twitter_name = user_json["name"].split
           @user = User.create(:twitter_token => @access_token.token,
                               :twitter_secret => @access_token.secret,
                               :login => user_json["screen_name"],
                               :website => user_json["url"],
                               :location => user_json["location"],
                               :name => user_json["name"],
+                              :first_name => twitter_name[0],
+                              :last_name => twitter_name[1],
                               :language => find_valid_locale(user_json["lang"]))
 
           if @user.errors.on(:login)

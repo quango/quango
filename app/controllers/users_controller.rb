@@ -64,10 +64,10 @@ class UsersController < ApplicationController
     last_name = params[:user][:last_name]
     login = params[:user][:email]
 
-    named = first_name.capitalize << " " << last_name.capitalize
+    named = first_name.downcase << "-" << last_name.downcase
 
 
-    @user.login = login
+    @user.login = named
     @user.name = named
 
     @user.profile_images << ProfileImage.new
