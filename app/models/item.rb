@@ -22,7 +22,12 @@ class Item
   slug_key :title, :unique => true, :min_length => 8
   key :slugs, Array, :index => true
 
-  key :video_mode, String, :in => VIDEO_MODES, :default => "youtube"
+  #video stuff (replace with model later)
+
+  key :video_link, String
+
+  #key :video_id, String
+  #belongs_to :video
 
   key :default_thumbnail, String
 

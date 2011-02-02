@@ -1,5 +1,5 @@
 -solution = item.accepted && item.answer_id == answer.id
--source = item_path(@item.doctype_id, @item)
+-source = item_path(@doctype, @item)
 
 - @aflag = current_user.has_flagged?(answer) if logged_in?
 - @aflag ||= Flag.new
@@ -80,27 +80,28 @@
 
     .clear
     / Nested Answers
-    .children.comments{:style => "border-top: 4px solid gainsboro; background-color:#eee; width:70%"}
-      -answer.comments.each do |comment|
-        .inline-comment{:style => "border-bottom: 1px dotted gainsboro"}
-          = render :partial => "comments/comment", :object => comment, :locals => {:source => source, :mini => true}
-
-    .clear
     -if logged_in?
-      .actionbox-container{:style => "height:26px; width:70%"}
-        .actionbox{:style => "display:none"}
-          = link_to h("Reply to this comment"), new_item_comment_path(@item.doctype_id, @item, answer), :class => "addNestedAnswer add_answer_comment_link action-button"
+      .actionbox-container{:style => "height:26px; width:100%; background-color:gainsboro"}
+        .actionbox{:style => ""}
+          = link_to h("Reply to this comment"), new_item_comment_path(@item.doctype_id, @item, @answer), :class => "addNestedAnswer add_answer_comment_link action-button"
 
 
   .clear
   .forms.comment-form{:style => "background-color:#eee; width:70%"}
-    -form_tag item_answer_comments_path(@item.doctype_id, @item, answer), :class => "form commentForm nestedAnswerForm" do
+    -form_tag item_answer_comments_path(@doctype, @item, answer), :class => "form commentForm nestedAnswerForm" do
       -@comment = Comment.new
       = render :partial => "comments/form", :locals => {:source => source, :commentable => answer}
       .group.navform
         = t("global.or")
         = link_to t('scaffold.cancel'), '', :class => 'cancel_comment'
         = submit_tag t("comments.shared.comment_submit"), :class => "create-button", :style => "width:128px; height:24px; float:right;"
+
+    .children.comments{:style => "border-top: 4px solid gainsboro; background-color:#eee; width:70%"}
+      -answer.comments.each do |comment|
+        .inline-comment{:style => "border-bottom: 1px dotted gainsboro"}
+          = render :partial => "comments/comment", :object => comment, :locals => {:source => source, :mini => true}
+
+    .clear
 
 
 .clear

@@ -12,7 +12,7 @@
       = link_to 'New doctype', new_doctype_path #(@group)
 
     %p
-      %table
+      %table{:class => "doctype_index"}
         %tr
           %th
             = "name"
@@ -22,6 +22,12 @@
             = "#"
           %th
             = "Hidden?"
+          %th
+            = "Has video?"
+          %th
+            = "Has link?"
+          %th
+            = "Custom_icon?"
           %th
             = "actions"
         - current_group.doctypes.each do |doctype|
@@ -36,6 +42,12 @@
               = "#{doctype.items.count.to_i}"
             %td
               = "#{doctype.hidden}"
+            %td
+              = "#{doctype.has_video}"
+            %td
+              = "#{doctype.has_link}"
+            %td
+              = "#{doctype.custom_icon}"
             %td
               = link_to 'List Items', list_doctype_path(doctype)
               = link_to 'Show', doctype_path(doctype)

@@ -111,13 +111,13 @@ class GroupsController < ApplicationController
 
     doctypes = Array.new
 
-    doctypes << Doctype.new(:name => "news", :doctype => "standard", :create_label => "Add some news", :group_id => @group.id)
+    doctypes << Doctype.new(:name => "news", :doctype => "standard",:create_label => "Add some news", :group_id => @group.id)
     doctypes << Doctype.new(:name => "thoughts", :doctype => "standard", :create_label => "Share a thought", :group_id => @group.id)
     #doctypes << Doctype.new(:name => "newsfeeds", :doctype => "newsfeed", :create_label => "Add a newsfeed", :hidden => "true", :group_id => @group.id)
     doctypes << Doctype.new(:name => "discussions", :doctype => "standard", :create_label => "Discuss something", :group_id => @group.id)
     doctypes << Doctype.new(:name => "articles", :doctype => "standard", :create_label => "Write an article", :group_id => @group.id)
-    doctypes << Doctype.new(:name => "videos", :doctype => "video", :create_label => "Share a video", :group_id => @group.id)
-    doctypes << Doctype.new(:name => "links", :doctype => "bookmark", :create_label => "Share a link", :group_id => @group.id)
+    doctypes << Doctype.new(:name => "videos",:has_video => "true", :doctype => "video", :create_label => "Share a video", :group_id => @group.id)
+    doctypes << Doctype.new(:name => "links",:has_links => "true", :doctype => "bookmark", :create_label => "Share a link", :group_id => @group.id)
     doctypes << Doctype.new(:name => "eggs", :doctype => "bookmark", :create_label => "Share a link", :group_id => @group.id)
 
     doctypes.each do |doctype| 

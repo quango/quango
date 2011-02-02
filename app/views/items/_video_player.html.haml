@@ -2,7 +2,7 @@
 
 #video-player
 
--if @item.bookmark
+-if @item.video_link
 
   %script{:type=>"text/javascript"}
     = "jwplayer('video-player').setup({"
@@ -10,9 +10,9 @@
     = "stretching: 'fill',"
     = "flashplayer: '/javascripts/mediaplayer/player.swf',"
     = "flashvars: 'file=playlist.xml',"
-    = "file: '"+@item.bookmark+"',"
-    = "height: 263,"
-    = "width: 468"
+    = "file: '"+@item.video_link+"',"
+    = "height: 304,"
+    = "width: 540"
     = "});"
 
 -else

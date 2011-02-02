@@ -1,0 +1,17 @@
+-content_for :main do
+
+  #main-index
+
+    %h1
+      = "New video"
+
+    %p
+      - form_for @video, :url => item_videos_path() do |f|
+        = f.error_messages
+        %p
+          = f.text_field :video_link, :value => @video.video_link
+        %p
+          = f.submit 'Create'
+
+    %p
+      = link_to 'Back', item_videos_path(@item.doctype_id, @item)

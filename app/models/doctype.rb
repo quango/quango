@@ -12,6 +12,8 @@ class Doctype
   key :doctype, String
 
   key :hidden, Boolean, :default => false
+  key :has_video, Boolean, :default => false
+  key :has_links, Boolean, :default => false
 
   key :create_label, String
   key :custom_icon, String

@@ -60,7 +60,8 @@ class Group
   key :fb_button, Boolean, :default => true
 
   #labels
-  key :publish_label, String, :default => "publish"
+  key :publish_label, String, :default => "post"
+  key :publish_label_past, String, :default => "posted"
   key :leaders_label, String, :default => "Thought leaders..." 
   key :signup_heading, String, :default => "Thinking is free, so naturally thinkingdaily.com is also free..."  
 

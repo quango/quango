@@ -72,5 +72,15 @@
       = f.text_field :version_message, :class => "text_field"
 
 -elsif !logged_in?
-  = "You must be logged in to answer..."
-  = render :partial => "shared/login"
+  .answer-form-holder
+    .toolbar-container
+      %a.show_summary{:class => "action-button showhide left", :style => "margin-left: 8px"}
+        = "Share your thoughts..."
+      %span.right{:style=>"margin-right:8px"}
+        = render :partial => "shared/login"
+    .clear
+    %span.left{:style=>"margin-left:8px"}
+      = "You must be logged in to share your thoughts..."
+
+
+

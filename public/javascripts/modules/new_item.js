@@ -6,7 +6,7 @@ $(document).ready(function() {
     highlightEffect($("#sidebar .help"))
   });
 
-  $("#ask_item").searcher({ url : "/items/related_items.js",
+  $("#ask_item").searcher({ url : "related_items.js",
                               target : $("#related_items"),
                               fields : $("input[type=text][name*=item]"),
                               behaviour : "focusout",

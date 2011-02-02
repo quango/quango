@@ -75,7 +75,7 @@
 -content_for :sidebar_inner do
   #sidebar-inner
     .block
-      = render :partial => "follow_button", :object => @user
+      = render :partial => "follow_button", :locals => {:object => @user, :width => "wide"}
 
     = render :partial => "/users/profile_image", :object => @user
     .block

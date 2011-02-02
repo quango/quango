@@ -6,7 +6,7 @@
       -recent_users(current_group).each do |user|
         %li
           .gravatar
-            =gravatar(user.email.to_s, :size => 32)
+            =gravatar(user.email.to_s, :size => 99)
           .item
             =link_to h(user.login), user_path(user)
             .joined

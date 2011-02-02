@@ -50,7 +50,7 @@
 
       .owner-data
         -if owner
-          =render :partial => "users/user_mini", :locals => {:user => owner}
+          =render :partial => "users/user_mini", :locals => {:user => owner, :width => "narrow"}
         -else
           =t("global.anonymous")
         %small.time_ago

@@ -2,7 +2,7 @@
 
 .member-details
 
-  %div.thumbnail.left{:style=>"width:42px;margin-right:4px;padding:1px"}
+  %div.thumbnail.right{:style=>"width:42px;margin-left:4px;padding:1px"}
     - @avatar = Avatar.find(user.default_avatar)
     - if @avatar.present?
       - cropped_avatar = @avatar.avatar.process(:thumb,@avatar.avatar_cropping)
@@ -15,7 +15,7 @@
 
     %span.nickname
       -unless user.nil?
-        =link_to h(user.login), user_path(user), :class => "user-link"
+        =link_to h("#{user.first_name} #{user.last_name}"), user_path(user), :class => "user-link"
 
       %span.adr
         - if !user.hide_country

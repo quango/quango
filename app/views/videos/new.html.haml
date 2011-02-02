@@ -1,0 +1,17 @@
+-content_for :main do
+
+  #main-index
+
+    %h1
+      = "New bunny"
+
+    %p
+      - form_for @bunny, :url => item_bunnies_path(@item.doctype_id, @item) do |f|
+        = f.error_messages
+        %p
+          = f.text_field :name, :value => @bunny.name
+        %p
+          = f.submit 'Create'
+
+    %p
+      = link_to 'Back', item_bunnies_path(@item.doctype_id, @item)

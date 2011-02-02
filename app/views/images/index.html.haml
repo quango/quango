@@ -1,20 +1,12 @@
-- content_for :secondary_navigation do
-  .secondary-navigation-sections
-    %small
-      = "Back to: "
-      = link_to @item.title, item_path(@item.doctype, @item), :class=>"standard-button"
-  
 
 - content_for :main do
   #main-index
-    .title
-      =@item.title << "'s Images"
+    .supplementary-navigation{:class => @active_subtab.to_s, :style => "height:35px; line-height:35px; padding:0;"}
+      = "Editing #{@item.title}'s Images"
+      = link_to "Back to page", item_path(@item.doctype, @item), :class=>"link", :style => "float: right; margin-right:8px"
 
-    = yield :secondary_navigation
-
-
-    %p
-      = link_to 'Add a New image', new_item_image_path(@item.doctype, @item), :class => "action-button"
+    .toolbox
+      = link_to 'Add an image to this post', new_item_image_path(@item.doctype, @item), :class => "button", :style => "float:right"
 
     %p
       %table{:class => "image-table"}
@@ -56,15 +48,12 @@
 
 -content_for :sidebar_inner do
   #sidebar-inner
-    = render :partial => "items/default_image", :locals => {:item => @item}
-    = render :partial => "items/images", :locals => {:item => @item}
     .block
       %h3
-        = h("Tips")
-      .content
-        = h("This is an example of a good profile image")
-      .content
-        = h("This is an example of a bad profile image")
+        = h("Preview images")
+    = render :partial => "items/default_image", :locals => {:item => @item}
+    = render :partial => "items/images", :locals => {:item => @item}
+
 
 -content_for :sidebar do
   #sidebar

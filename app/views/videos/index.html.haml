@@ -1,0 +1,33 @@
+-content_for :main do
+
+  #main-index
+
+    %h1
+      = "Listing videos for"
+      = @item.id
+    %small
+      = link_to @item.title, item_path(@item.doctype_id, @item)
+
+    %p
+      = link_to 'New video', new_item_video_path(@item.doctype_id, @item)
+
+    %p
+      %table
+        %tr
+          %th
+            = "name"
+          %th
+            = "actions"
+        - @item.videos.each do |video|
+          %tr
+            %td
+              = bunny.name.to_s
+            %td
+              = link_to 'Show', item_video_path(@item.doctype_id, @item, video)
+              = link_to 'Edit', edit_item_video_path(@item.doctype_id, @item, video)
+              = link_to 'Destroy', item_video_path(@item.doctype_id, @item, video), :confirm => 'Are you sure?', :method => :delete
+
+
+
+
+

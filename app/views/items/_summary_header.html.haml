@@ -35,8 +35,8 @@
               = t(".empty")
           -else
             - doctype.items.reverse.each do |item| 
-              = render :partial => "items/section_list_item_welcome", :locals => {:doctype => doctype, :section => section, :item => item, :list_mode => "headline"}
-
+              -#= render :partial => "items/section_list_item_welcome", :locals => {:doctype => doctype, :section => section, :item => item, :list_mode => "headline"}
+              = render :partial => "/items/summary_list_headline", :locals => {:item => item, :sort=>"hot"}
 
     .listings-right{:style => "width:280px; float:right;"}
       .title
@@ -47,14 +47,8 @@
             %li.highlight
               = t(".empty")
           -else
-            -features_array = Array.new
-            -current_group.items.reverse.each do |item|
-              -if item.section == section.name
-                -features_array << item
-            -features_array[0..1].each do |item|
-              = render :partial => "items/section_list_item", :locals => {:item => item,:sort=>"hot", :list_mode => "thumbnail"}
-
-
+            - doctype.items.reverse.each do |item| 
+              = render :partial => "/items/summary_list_thumbnail", :locals => {:item => item, :sort=>"hot"}
 
         .clear
 

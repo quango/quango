@@ -1,4 +1,33 @@
+$(document).ready(function(){
+$("input#item_video_link").blur(function() {
+  $("#spinner").show(); // show the spinner
+    var form = $(this).parents("form"); // grab the form wrapping the search bar.
+    var url = form.attr("action"); // grab the URL from the form's action value.
+    var url = url + "/get_video_info"
+    var formData = form.serialize(); // grab the data in the form
+    $.get(url, formData, function(html) { // perform an AJAX get, the trailing function is what happens on successful get.
+      $("#spinner").hide(); // hide the spinner
+      $("#results").html(html).show(); // replace the "results" div with the result of action taken
+  });
+});
+});
+
 // perform JavaScript after the document is scriptable.
+
+$(document).ready(function(){
+$(".user-mini").hover(
+    function() {$(".avatar-wide").children('.a').stop().animate({"opacity": "0"}, "slow");},
+    function() {$(".avatar-wide").children('.a').stop().animate({"opacity": "1"}, "fast");}
+);
+});
+
+$(document).ready(function(){
+$(".avatar-narrow").hover(
+    function() {$(this).children('.a').stop().animate({"opacity": "0"}, "slow");},
+    function() {$(this).children('.a').stop().animate({"opacity": "1"}, "fast");}
+);
+});
+
 
 $(document).ready(function(){
 $(".fade-thumbnails").hover(

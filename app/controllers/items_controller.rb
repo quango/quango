@@ -24,7 +24,65 @@ class ItemsController < ApplicationController
   helper :items
 
 
+  def get_video_info
+    respond_to do |format|
+      format.js do
 
+        #now lets try an array
+
+        results = []
+
+        video_link = []
+        video_link << "video_link"
+        video_link << params[:item][:video_link]
+        results << video_link
+
+
+        video = VideoInfo.new(video_link.to_s)
+
+        video_id = []
+        video_id << "video_id" 
+        video_id << video.id
+        results << video_id
+
+        video_provider = []
+        video_provider << "video_provider" 
+        #video_provider << video.provider
+        results << video_provider
+
+        video_title = []
+        video_title << "video_title" 
+        #video_title << video.title.to_s
+        results << video_title
+
+        video_description = []
+        video_description << "video_description" 
+        #video_description << video.description.to_s
+        results << video_description
+
+        video_keywords = []
+        video_keywords << "video_keywords" 
+        #video_keywords << video.keywords.to_s
+        results << video_keywords
+
+        video_thumbnail_small = []
+        video_thumbnail_small << "video_thumbnail_small" 
+        #video_thumbnail_small << video.thumbnail_small.to_s
+        results << video_thumbnail_small
+
+
+
+
+
+        results << "sausage"
+
+
+
+        render :json => results
+      end
+    end
+    
+  end
 
 
   # GET /items
@@ -290,6 +348,8 @@ class ItemsController < ApplicationController
     @doctype = @doctypes.find_by_slug_or_id(params[:doctype_id])
 
 
+
+
     #target_section = Doctype.find_by_slug_or_id(params[:doctype_id])
 
     #@section = target_section
@@ -306,6 +366,10 @@ class ItemsController < ApplicationController
 
   # GET /items/1/edit
   def edit
+
+    @doctypes = current_group.doctypes
+    @doctype = @doctypes.find_by_slug_or_id(params[:doctype_id])
+
   end
 
   def images
@@ -318,14 +382,34 @@ class ItemsController < ApplicationController
   # POST /items.xml
   def create
     @item = Item.new
-    @item.safe_update(%w[doctype_id section node mode title bookmark main_image main_thumbnail images body language tags wiki anonymous], params[:item])
+    @item.safe_update(%w[doctype_id section node mode title bookmark video_link main_image main_thumbnail images body language tags wiki anonymous], params[:item])
     @item.group = current_group
     @item.user = current_user
+
+    #sane_title = params[:item][:title].to_s
+    #sane_title_down = sane_title.downcase
+    #sane_title_capitals = sane_title_down.capitalize
+    #@item.title = sane_title_capitals
 
     @doctypes = current_group.doctypes
     @doctype = @doctypes.find_by_slug_or_id(params[:doctype_id])
 
     @item.doctype_id = @doctype.id
+
+    if @item.video_link?
+
+      image = Image.new
+      image.item = @item
+
+      video = VideoInfo.new(@item.video_link)
+      video_thumbnail_small = video.thumbnail_small.to_s
+
+      image.image = video_thumbnail_small
+
+    end
+
+
+
 
     if !logged_in?
       if recaptcha_valid? && params[:user]
@@ -379,7 +463,7 @@ class ItemsController < ApplicationController
         end
 
         current_group.on_activity(:ask_item)
-        flash[:notice] = t(:flash_notice, :scope => "items.create")
+        flash[:notice] = t(:flash_notice, :scope => "items.create" + "nbkjhbd")
 
         format.html { redirect_to item_path(@doctype, @item)}
         #format.html { redirect_to("/#{@item.section}/#{@item.slug}") }
@@ -397,15 +481,23 @@ class ItemsController < ApplicationController
   # PUT /items/1.xml
   def update
     respond_to do |format|
-      @item.safe_update(%w[node mode title bookmark main_thumbnail images body language tags wiki adult_content version_message  anonymous], params[:item])
+      @item.safe_update(%w[node mode title bookmark video_link main_thumbnail images body language tags wiki adult_content version_message  anonymous], params[:item])
       @item.updated_by = current_user
       @item.last_target = @item
       #@item.section = @active_section
       @item.slugs << @item.slug
       @item.send(:generate_slug)
 
+      sane_title = params[:item][:title]
+      sane_title_down = sane_title.downcase
+      sane_title_capitals = sane_title_down.capitalize
+      @item.title = sane_title_capitals
+
       @doctypes = current_group.doctypes
       @doctype = @doctypes.find_by_slug_or_id(params[:doctype_id])
+
+
+
 
 
       if @item.valid? && @item.save

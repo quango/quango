@@ -7,7 +7,7 @@
 
 -content_for :sidebar do
   #sidebar
-    = render :partial => "shared/community_sponsor", :locals => {:width => "narrow"}
+    = render :partial => "shared/signup_button", :locals => {:width => "narrow"}
 
 -content_for :sidebar_inner do
   #sidebar-inner
@@ -26,6 +26,9 @@
 
 -content_for :main do
   #main-index
+    .supplementary-navigation{:class => @active_subtab.to_s, :style => "height:35px; line-height:35px; padding:0 8px 0 8px"}
+      = current_group.publish_label.capitalize + " " + @doctype.name  
+
     -if logged_in?
       - form_for(@item, :html=>{:class => "form mainAnswerForm", :id => "ask_item"}) do |f|
         =render :partial => "form", :locals => {:f => f, :doctype => @doctype}

@@ -1,9 +1,9 @@
 -content_for :list do
-  .title
+  .supplementary-navigation
     = t("groups.index.title")
     -if @groups
       == (#{format_number(@groups.total_entries)})  
-  .secondary-navigation{:class => @active_subtab.to_s}
+  .toolbox{:class => @active_subtab.to_s}
     .navlabel.left
       = "Sort"
     .navcontrols.right
@@ -58,7 +58,7 @@
   #sidebar
     -current_group.widgets.each do |widget|
       .widget.block{:id => widget.name}
-        = render :partial => widget.partial_name, :locals => {:widget => widget}
+        = render :partial => widget.partial_name, :locals => {:widget => widget, :width => "wide"}
 
     .block
       %h3

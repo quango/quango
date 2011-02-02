@@ -3,79 +3,87 @@
 = error_messages_for(:user)
 
 
+
+
 .answer-form-holder
+  = f.hidden_field :doctype_id, :value => @doctype.id
 
-  %h1
-    = current_group.publish_label.capitalize + " your " + @doctype.name
-    = f.hidden_field :doctype_id, :value => @doctype.id
+  -if @doctype.has_video?
+    #video-link-serialize
+      .answer-form
+        .group
+          = f.label :video_link, "#{t(:video_link, :scope => "activerecord.attributes")}", :class => "label", :style => "margin-left: 8px"
+          = f.text_field :video_link, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+         
+          .description
+            = link_to "Process","#", :class => "action-button"
+          -# observe_field :video_link,:update=>"video_response", :width => "Sausage", :on => "blur"#:url=>{:controller=>"video",:action=>"get_info"},:with=>"@get_info",:on=>"blur"
+
+    #spinner{:style => "display:none; width:100%; background-color:white"}
+      = image_tag "/images/indicator.gif"
+    #results{:style => "display:none; width:100%; background-color:white"}
+      = "done"
 
 
+    .clear
 
-#answer-form
-  .group
-    = f.label :title, "#{t(:title, :scope => "activerecord.attributes.item")}*", :class => "label"
-    = f.text_field :title, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+  -#else
 
+  .answer-form
+    .group
+      = f.label :title, "#{t(:title, :scope => "activerecord.attributes.item")}*", :class => "label"
+      = f.text_field :title, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
 
--if @mode == "video"
-  .group
-    = f.label :bookmark, "#{t(:video_link, :scope => "activerecord.attributes")}", :class => "label"
-    = f.text_field :bookmark, :class => "text_field"
-    .description
-      = t("activerecord.attributes.video_link_description")
+  .answer-form
+    .group
+      = f.label :tags, "#{t(:tags, :scope => "activerecord.attributes.item")}", :class => "label"
+      = f.text_field :tags, :value => current_group.default_tags.join(", "), :class => "text_field autocomplete_for_tags"
+      .description
+        = t(".tags_tip")
 
-#answer-form
-  .group
-    = f.label :tags, "#{t(:tags, :scope => "activerecord.attributes.item")}", :class => "label"
-    = f.text_field :tags, :value => current_group.default_tags.join(", "), :class => "text_field autocomplete_for_tags"
-    .description
-      = t(".tags_tip")
+    = f.label :body, t(:body, :scope => "activerecord.attributes.item"), :class => "label"
 
-  = f.label :body, t(:body, :scope => "activerecord.attributes.item"), :class => "label"
+  .answer-form
+    .group
 
-#answer-form
-  .group
+      -if current_group.wysiwyg_editor
+        = f.text_area :body, :class => "text_area", :id => "wysiwyg_editor", :value => markdown(@item.body)
+      -else
+        = f.text_area :body, :class => "text_area", :id => "markdown_editor", :style => "height:256px; width:496px; max-width:496px; margin:0 16px"
 
-    -if current_group.wysiwyg_editor
-      = f.text_area :body, :class => "text_area", :id => "wysiwyg_editor", :value => markdown(@item.body)
-    -else
-      = f.text_area :body, :class => "text_area", :id => "markdown_editor", :style => "height:256px; width:496px; max-width:496px; margin:0 16px"
+      .clear{:style => "height:16px;"}
 
-    .clear{:style => "height:16px;"}
+      .answer-actions{:style => "line-height:32px; height: 32px; width: 512px; margin: 0 auto 16px auto"}
+        = submit_tag h(current_group.publish_label), :class => "create-button", :style => "width:256px; height:28px; float:right;"
+        = link_to t('scaffold.cancel'), items_path, :class => "button cancel", :style => "float:right;"
 
-    .answer-actions{:style => "line-height:32px; height: 32px; width: 512px; margin: 0 auto 16px auto"}
-      = submit_tag h(current_group.publish_label), :class => "create-button", :style => "width:256px; height:28px; float:right;"
-      = link_to t('scaffold.cancel'), items_path, :class => "button cancel", :style => "float:right;"
+        .openedit{:style => "float:right; margin-right: 16px; display:none"}
+          = f.label :wiki, "Anybody can edit? ", :class => "radio"
+          = check_box :wiki, :class => "checkbox right"
 
-      .openedit{:style => "float:right; margin-right: 16px; display:none"}
-        = f.label :wiki, "Anybody can edit? ", :class => "radio"
-        = check_box :wiki, :class => "checkbox right"
+        .clear
 
-      .clear
-
-    -#markdown_preview.markdown
-      -#=markdown(@item.body)
+      -#markdown_preview.markdown
+        -#=markdown(@item.body)
+        -#.clear
       -#.clear
-    -#.clear
-  .clear
+    .clear
 
+  -if current_group.language.nil? && AppConfig.enable_i18n
+    .group
+      = f.label :language, t(:language, :scope => "activerecord.attributes.item"), :class => "label"
+      = language_select(f, @item)
+      .description
+        = t(".language_tip")
+  -else
+    = f.hidden_field :language, :value => (current_group.language || AppConfig.default_language)
 
+  -if !@item.new?
+    .group
+      = f.label :version_message, t("wiki.model.attributes.message"), :class => "label"
+      = f.text_field :version_message, :class => "text_field"
 
-
-
--if current_group.language.nil? && AppConfig.enable_i18n
-  .group
-    = f.label :language, t(:language, :scope => "activerecord.attributes.item"), :class => "label"
-    = language_select(f, @item)
-    .description
-      = t(".language_tip")
--else
-  = f.hidden_field :language, :value => (current_group.language || AppConfig.default_language)
-
--if !@item.new?
-  .group
-    = f.label :version_message, t("wiki.model.attributes.message"), :class => "label"
-    = f.text_field :version_message, :class => "text_field"
+.clear
 
 
 

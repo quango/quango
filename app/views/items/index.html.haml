@@ -25,9 +25,9 @@
 
 
 /Items
--content_for :section_head do
-  #section-listing{:class => @active_tab}
-    = render :partial => "items/section_head_index", :locals => {:doctype => @doctype, :section => @doctype,  :list_mode => "standard"}
+-content_for :summary_header do
+  #summary-header{:class => @active_tab}
+    = render :partial => "summary_header", :locals => {:doctype => @doctype, :section => @doctype,  :list_mode => "standard"}
 
 -content_for :main do
   #main-index

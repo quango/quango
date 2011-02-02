@@ -67,13 +67,14 @@ ActionController::Routing::Routes.draw do |map|
 
       route.resources :doctypes, :as => 'community' do |doctypes|
 
-        doctypes.resources :items, :collection => {:tags => :get,:tags_for_autocomplete => :get,:unanswered => :get,:related_items => :get},
+        doctypes.resources :items, :collection => {:get_video_info => :get, :tags => :get,:tags_for_autocomplete => :get,:unanswered => :get,:related_items => :get},
                                  :member     => {:solve => :get,:unsolve => :get,:favorite => :any,:unfavorite => :any,:watch => :any,:unwatch => :any,
                                                  :history => :get,:revert => :get,:diff => :get,
                                                  :move => :get,:move_to => :put, :retag => :get,:retag_to => :put,
                                             :close => :put,:open => :put}, :name_prefix => nil,  :as => '!' do |items| #:name_prefix => nil,
 
         items.resources :comments
+
         items.resources :images, :member => { :crop => :get, 
                                               :pull => :get, 
                                               :set_default_thumbnail => :get, 
@@ -91,8 +92,8 @@ ActionController::Routing::Routes.draw do |map|
         items.resources :flags
         items.resources :close_requests
         items.resources :open_requests
+        items.resources :videos #this item has_many videos
         items.resources :bunnies #this item has_many bunnies
-
         
 
         end

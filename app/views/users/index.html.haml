@@ -1,7 +1,7 @@
 -content_for :subtabs do
   .secondary-navigation{:class => @active_subtab.to_s}
     %h3
-      = t("users.index.title")
+      = "Members"
       -if @users
         == (#{format_number(@users.total_entries)})
     .navcontrols
@@ -29,9 +29,8 @@
         = h("Search for a member")
       .content{:style => "background-color: gainsboro"}
         -form_tag "/users", :class => "form", :id => "filter_users", :method => "get" do
-          = "Find"
           = submit_tag("Search",:class => "right")
-          = text_field_tag "q", params[:q], :class => "text_field filter_field right" 
+          = text_field_tag "q", params[:q], :class => "text_field search_field left" 
           .clear
 
 
@@ -47,13 +46,10 @@
   #sidebar
     -current_group.widgets.each do |widget|
       .widget.block{:id => widget.name}
-        = render :partial => widget.partial_name, :locals => {:widget => widget}
+        = render :partial => widget.partial_name, :locals => {:widget => widget, :width => "narrow"}
 
-    .block
-      %h3
-        = h("SomethingS")
-      .content
-        = h("Something else")
+    -if !current_group.isolate # this will be the group connect thing
+      = render :partial => "welcome/featured_groups" #, :locals => {:item => item}
 
 -content_for :list do
 

@@ -1,7 +1,7 @@
 .author
   .user_data{:style => "font-size:1em"}
     %span.asked_by{:style=>"float:left; margin-right:7px; font-size:12px"}
-      = "Posted by"
+      = "#{current_group.publish_label_past.capitalize} by"
       = render :partial => "users/show_mini", :locals => {:user => @item.user}
 
   .clear

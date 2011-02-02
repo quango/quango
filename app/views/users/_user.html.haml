@@ -1,22 +1,17 @@
 %li{:onclick => "document.location.href='#{user_path(user)}'"}
   .member-profile-list
-    .profile-image
+    .profile-image{:style => "height:64px; width:64px;"}
       - @avatar = Avatar.find(user.profile_image)
       - if @avatar.present?
         - cropped_avatar = @avatar.avatar.process(:thumb,@avatar.avatar_cropping)
-        - profile_image = cropped_avatar.process(:thumb,"128x128").url
+        - profile_image = cropped_avatar.process(:thumb,"64x64").url
         = image_tag profile_image 
       - else
-        = image_tag "/images/anonymous_avatar.png"
+        = image_tag "/images/anonymous_avatar.png", :style => "height:64px; width:64px;"
 
     .summary.left
       %h3{:style => "margin: 0px"}
-        - if user.name.present?
-          = link_to h(user.name), user_path(user)
-          = " aka "
-          = link_to h(user.login), user_path(user)
-        - else
-          = link_to h(user.login), user_path(user)
+        = link_to h("#{user.first_name} #{user.last_name}"), user_path(user)
 
       .badges
         -user.badges_on(current_group, :limit => 3).each do |badge|
@@ -29,7 +24,7 @@
         -# item = user.items.last_updated
         - user.items[0..0].each do |item|
           = link_to "#{item.title}", "/#{item.section}/" << item.slug
-          = " in " << "#{item.section}"
+          = " in " << "#{@doctype}"
 
       .latest-comment
         = "Latest Comment:"
@@ -39,7 +34,7 @@
 
 
 
-    .profile_box.right
+    .profile_box.right{:style => "display:none"}
       = render :partial => "member_details_inner", :locals => {:user => user}
 
       .stats.left

@@ -22,8 +22,9 @@
   -#= title
   = link_to title, item_path(doctype, item), :locals => {:section => @active_section}, :title => truncate(strip_tags(item.title), :length => 200)
 
-  %small
-    -#= link_to t("time.ago", :time => time_ago_in_words(item.updated_at)), item_path(item.doctype_id, item)+"##{item.id}"
+  -if item.activity_at < Time.zone.now.yesterday
+    %small
+      = link_to t("time.ago", :time => time_ago_in_words(item.updated_at)), item_path(item.doctype_id, item)+"##{item.id}"
 
 
 
