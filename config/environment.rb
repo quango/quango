@@ -52,6 +52,7 @@ Rails::Initializer.run do |config|
   config.gem 'hpricot', :version => "0.8.3"
   config.gem 'video_info', :version => "0.2.4"
 
+
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
   # config.plugins = [ :exception_notification, :ssl_requirement, :all ]

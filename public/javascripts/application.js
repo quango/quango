@@ -28,6 +28,10 @@ $(".avatar-narrow").hover(
 );
 });
 
+$(document).ready(function() {
+        $('#gallery a').lightBox();
+});
+
 
 $(document).ready(function(){
 $(".fade-thumbnails").hover(

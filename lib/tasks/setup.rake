@@ -2,7 +2,7 @@ desc "Setup application"
 task :bootstrap => [:environment, "setup:reset",
                     "setup:create_admin",
                     "setup:create_user1",
-                    "setup:create_user2",
+                    #"setup:create_user2",
                     "setup:default_group",
                     "setup:create_sections",
                     "setup:create_widgets",
@@ -76,7 +76,7 @@ namespace :setup do
 
     doctypes << Doctype.new(:name => "news", :doctype => "standard", :custom_icon => "news", :create_label => "Add some news", :group_id => default_group.id)
     doctypes << Doctype.new(:name => "thoughts", :doctype => "standard", :custom_icon => "thoughts", :create_label => "Share a thought", :group_id => default_group.id)
-    doctypes << Doctype.new(:name => "newsfeeds", :doctype => "newsfeed", :custom_icon => "newsfeeds", :create_label => "Add a newsfeed", :hidden => "true", :group_id => default_group.id)
+    #doctypes << Doctype.new(:name => "newsfeeds", :doctype => "newsfeed", :custom_icon => "newsfeeds", :create_label => "Add a newsfeed", :hidden => "true", :group_id => default_group.id)
     doctypes << Doctype.new(:name => "discussions", :doctype => "standard", :custom_icon => "discussions", :create_label => "Discuss something", :group_id => default_group.id)
     doctypes << Doctype.new(:name => "articles", :doctype => "standard", :custom_icon => "articles", :create_label => "Write an article", :group_id => default_group.id)
     doctypes << Doctype.new(:name => "videos", :doctype => "video",:has_video => "true", :custom_icon => "videos", :create_label => "Share a video", :group_id => default_group.id)

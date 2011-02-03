@@ -17,6 +17,7 @@ javascripts:
   - jquery.cookie
   - jquery.effects.core
   - jquery.effects.bounce
+  - jquery.lightbox
   - showdown
   - highlight/prettify
   - components/search
@@ -48,7 +49,10 @@ javascripts:
 stylesheets:
 - base:
   - jquery-ui
+  - jquery-lightbox
   - compiled/application
   - prettify
   - ../javascripts/openid/css/style
+
+
 

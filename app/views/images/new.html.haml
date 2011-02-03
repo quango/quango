@@ -2,49 +2,68 @@
 
   #main-index
 
-    %h1
-      = "New image"
+    .supplementary-navigation
+      = "Add a new image"
 
-    %p
-      - form_for @image, :url => item_images_path(@item.doctype, @item), :html => {:multipart => true} do |f|
-        = f.error_messages
 
-        .group
-          = f.label :image 
-          = f.file_field :image, :value => @image.image
+    - form_for @image, :url => item_images_path(@item.doctype, @item), :html => {:multipart => true, :class => "form mainAnswerForm"} do |f|
+      = f.error_messages
+      .answer-form-holder
+        .answer-form
+          .group
+            = f.label :image
+            = f.file_field :image, :value => @image.image, :style => "width:496px; max-width:496px; margin:0 16px"
 
-        .group
-          = f.label :name
-          = f.text_field :name, :value => @image.name
-          .small
-            = "A single name, used by the system for identifying an image"
+        .answer-form
+          .group
+            = f.label :name
+            = f.text_field :name, :value => @image.name, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+            .small
+              = "A single name, used by the system for identifying an image"
 
-        .group
-          = f.label :caption
-          = f.text_field :caption, :value => @image.caption
-          .description
-            = "A single name, used by the system for identifying an image"
+        .answer-form
+          .group
+            = f.label :caption
+            = f.text_field :caption, :value => @image.caption, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+            .description
+              = "A single name, used by the system for identifying an image"
 
-        .group
-          = f.label :copyright
-          = f.text_field :copyright, :value => @image.copyright
-          .small
-            = "The system will default to your name unless otherwise specified, this measn that the image will be licensed under the same license that written works are on Thinking Daily"
+        .answer-form
+          .group
+            = f.label :copyright
+            = f.text_field :copyright, :value => @image.copyright, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+            .small
+              = "The system will default to your name unless otherwise specified, this measn that the image will be licensed under the same creative commons"
 
-        .group
-          = f.label :copyright_url
-          = f.text_field :copyright_url, :value => "#{domain_url(:custom => current_group.domain)}#{user_path(current_user)}"
-          .small
-            = "Unless otherwise specified the system defaults your member profile. "
+        .answer-form
+          .group
+            = f.label :copyright_url
+            = f.text_field :copyright_url, :value => "#{domain_url(:custom => current_group.domain)}#{user_path(current_user)}", :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+            .small
+              = "Unless otherwise specified the system defaults your member profile. "
 
-        .notice
-          %h3
+          %p
+            = f.submit 'Create'
+
+
+          .notice
             = "If you have gotten your image from another site please ensure you fill in the copyright and copyright_url correctly - coorect attribution is your responsibility, Thinking Daily will not be liable for copyright infringements - YOU WILL BE"
 
 
 
-        %p
-          = f.submit 'Create'
 
     %p
       = link_to 'Back', item_images_path(@item.doctype, @item)
+
+
+-content_for :sidebar_inner do
+  #sidebar-inner
+    = render :partial => "shared/community_sponsor", :locals => {:width => "wide"}
+    -if !current_group.item_help.empty?
+      .help
+        %h3
+          = t(".how_to_ask")
+        =current_group.item_help
+
+
+

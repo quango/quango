@@ -1,9 +1,9 @@
 
 - content_for :main do
   #main-index
-    .supplementary-navigation{:class => @active_subtab.to_s, :style => "height:35px; line-height:35px; padding:0;"}
-      = "Editing #{@item.title}'s Images"
-      = link_to "Back to page", item_path(@item.doctype, @item), :class=>"link", :style => "float: right; margin-right:8px"
+    .supplementary-navigation{:class => @active_subtab.to_s, :style => "height:35px; line-height:35px; padding:0 8px;"}
+      = "Editing &quot;#{@item.title}'s&quot; Images"
+      = link_to "Back to page", item_path(@item.doctype, @item), :style => "float: right; color:white"
 
     .toolbox
       = link_to 'Add an image to this post', new_item_image_path(@item.doctype, @item), :class => "button", :style => "float:right"
