@@ -4,7 +4,7 @@
       .edition
         %ul.topbar.combobox.left
           %li
-            = image_tag(current_group.favicon_path,  :style => "height:28px: width:20px; margin:0};")
+            = image_tag(current_group.favicon_path,  :style => "margin:0};")
             .thoughtdomain
               =link_to h(current_group.name), domain_url(:custom => current_group.domain), :style=>"margin:0px;"
               =link_to h(current_group.name_highlight), domain_url(:custom => current_group.domain), :style=> "color:#{current_group.primary};margin:0 0 0 -2px;"
