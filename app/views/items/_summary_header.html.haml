@@ -34,7 +34,10 @@
             %li.highlight
               = t(".empty")
           -else
-            - doctype.items.reverse.each do |item| 
+            - items_array = Array.new
+            - doctype.items.reverse.each do |item|
+              - items_array << item
+            - items_array[0..7].each do |item|
               -#= render :partial => "items/section_list_item_welcome", :locals => {:doctype => doctype, :section => section, :item => item, :list_mode => "headline"}
               = render :partial => "/items/summary_list_headline", :locals => {:item => item, :sort=>"hot"}
 
@@ -47,7 +50,10 @@
             %li.highlight
               = t(".empty")
           -else
-            - doctype.items.reverse.each do |item| 
+            - items_array = Array.new
+            - doctype.items.reverse.each do |item|
+              - items_array << item
+            - items_array[0..1].each do |item|
               = render :partial => "/items/summary_list_thumbnail", :locals => {:item => item, :sort=>"hot"}
 
         .clear
