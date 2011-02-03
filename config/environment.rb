@@ -23,7 +23,7 @@ Rails::Initializer.run do |config|
   # config.gem "aws-s3", :lib => "aws/s3"
   config.gem "mongo", :version => "1.2.0"
   config.gem "bson", :version => "1.2.0", :lib => "bson"
-  #config.gem "bson_ext", :version => "1.2.0"
+  config.gem "bson_ext", :version => "1.2.0", :lib => false
   config.gem "rdiscount", :version => "1.6.5"
   config.gem "jnunemaker-validatable", :version => "1.8.4", :lib => "validatable"
   config.gem "mongo_mapper", :version => "0.8.3", :source => "http://gemcutter.org"

@@ -13,10 +13,11 @@
         %tr
           %th
             = "default"
-          %th
-            = "name"
+
           %th
             = "thumbnail"
+          %th
+            = "caption"
           %th
             = "actions"
           - unless @item.images.empty?
@@ -27,13 +28,14 @@
                     = image_tag("/images/buttons/radio_button_on.png" , :title => "selected")
                     %input{:type => "radio", :name => "default_avatar", :style => "height:20px; width:20px", :checked => true}
                   -else
-                    = link_to "set", set_default_thumbnail_item_image_path(@item.doctype, @item, image)
+                    = link_to "set", set_default_thumbnail_item_image_path(@doctype, @item, image)
                     -#%input{:type => "radio", :name => "default_avatar"}
-                %td
-                  = image.name.to_s
+
                 %td
                   - cropped_image = image.image.process(:thumb,image.image_cropping)
                   = image_tag cropped_image.process(:thumb,"128x").url, :alt => image.name, :title => image.name
+                %td
+                  = image.caption.to_s
                 %td.order
                   -form_tag move_item_image_path(@item.doctype, @item, image) do
                     = submit_tag("up", :name=>"move_to", :value => "up") 

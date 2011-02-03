@@ -8,6 +8,9 @@ class ImagesController < ApplicationController
 
   def index
     @item = Item.find_by_slug_or_id(params[:item_id])
+    @doctypes = current_group.doctypes
+    @doctype = Doctype.find_by_slug_or_id(params[:doctype_id])
+
     @image = Image.find(params[:id])
 
     @default_thumbnail = Image.find(@item.default_thumbnail)
@@ -37,8 +40,9 @@ class ImagesController < ApplicationController
   # GET /images/new.xml
   def new
     @item = Item.find_by_slug_or_id(params[:item_id])
-    @image = Image.new
+    @image = Image.new(params[:image])
     @image.item = @item
+    #@image.name = @image.to_s
 
     respond_to do |format|
       format.html # new.html.erb
@@ -59,7 +63,7 @@ class ImagesController < ApplicationController
     @image.safe_update(%w[name], params[:image])
     @item = Item.find_by_slug_or_id(params[:item_id])
     @image.item = @item
-
+    #@image.name = @image.to_s
     @image.image = @image.image.process!(:resize, '962>')
 
    
@@ -83,7 +87,7 @@ class ImagesController < ApplicationController
   def update
     @item = Item.find_by_slug_or_id(params[:item_id])
     @image = Image.find(params[:id])
-    @image.safe_update(%w[name image_cropping], params[:image])
+    @image.safe_update(%w[name caption copyright copyright_url image_cropping], params[:image])
 
     if @item.default_thumbnail.blank?
         
@@ -195,8 +199,9 @@ class ImagesController < ApplicationController
 
   def set_default_thumbnail
     @item = Item.find_by_slug_or_id(params[:item_id])
+    @image = Image.find_by_slug_or_id(params[:id])
 
-    @item.default_thumbnail = params[:id]
+    @item.default_thumbnail = @image.id
 
 
     if @item.save

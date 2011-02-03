@@ -13,20 +13,14 @@
           .group
             = f.label :image
             = f.file_field :image, :value => @image.image, :style => "width:496px; max-width:496px; margin:0 16px"
-
-        .answer-form
-          .group
-            = f.label :name
-            = f.text_field :name, :value => @image.name, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
-            .small
-              = "A single name, used by the system for identifying an image"
+            = f.hidden_field :name, :value => @image.name, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
 
         .answer-form
           .group
             = f.label :caption
             = f.text_field :caption, :value => @image.caption, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
             .description
-              = "A single name, used by the system for identifying an image"
+              = "Say something interesting abou this ( max 40 chars ) "
 
         .answer-form
           .group

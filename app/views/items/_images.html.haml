@@ -16,5 +16,7 @@
               = image_tag base_thumbnail.url, :class => 'b', :alt => image.name, :title => image.name
               = image_tag base_thumbnail_grey.url, :class => 'a', :alt => image.name, :title => image.name  
               %div.right  
+                = "{image.caption}<br/>"
+                = "&copy; #{image.copyright}<br/><br/>"
                 = link_to  "Expand image", base_image.url, :title => "somthing"
 

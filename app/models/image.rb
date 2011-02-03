@@ -1,10 +1,15 @@
 class Image
   include MongoMapper::Document
   include MongoMapperExt::Filter
+  include MongoMapperExt::Slugizer
+
 
   key :_id, String
   key :_type, String
-  key :name, String
+
+  key :name, String, :default => "image"
+
+
   key :caption, String
   key :copyright, String
   key :copyright_url, String
