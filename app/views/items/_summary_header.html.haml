@@ -7,19 +7,19 @@
 
 .section-head-welcome
   .secondary-navigation-sections
-    .navlabel
-      -#= link_to "#{section.name.upcase}", domain_url(:custom => current_group.domain) << "/" << section.node.downcase, :locals => section
+    .navlabel.left
+      - section_link = section.name.downcase
+      = link_to h(section.name.capitalize), items_path(doctype)
 
-      = h(doctype.name.capitalize)
-
-    .navlinks.right
-      = link_to "#{current_group.publish_label} #{doctype.name}",new_item_path(doctype), :class => "publish-button" #, :style => "width:200px; padding: 8px"
- 
-    .navcontrols
+    .navcontrols.right
       %a.show_summary{:class => "#{section.name} navlinks showhide right"}
         = "show headlines"
       %a.hide_summary{:class => "#{section.name} navlinks showhide right"}
         = "hide headlines"
+
+    .navlinks.right{:style => "width:128px"}
+      = link_to "#{current_group.publish_label.capitalize} #{doctype.name}",new_item_path(doctype),:locals => {:doctype => doctype}
+      |
 
 
   .section-listing-welcome{:class => section.name}

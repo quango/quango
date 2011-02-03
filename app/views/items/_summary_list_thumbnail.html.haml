@@ -16,36 +16,53 @@
 
   %li.thumbnail{:class => class_for_item(item)}
     -cache("item_on_index_#{item.id}_#{I18n.locale}") do
-
-
-      .thumbnail
-        -if item.default_thumbnail?
-          
+      -if item.default_thumbnail?
+        .thumbnail
           - image = Image.find(item.default_thumbnail)
           - base_image = image.image.process(:thumb,image.image_cropping)
           - base_thumbnail = base_image.process(:thumb,"96x")
           = image_tag base_thumbnail.url, :class => 'none', :alt => image.name, :title => image.name
 
+        .inner-content
+          .inner-mode
+            -if item.wiki
+              %span.open-edit-open
+                = "open"
+              %span.edit-edit-edit
+                = "edit"
+          .inner-link
+            = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
 
-        -else
-          = link_to image_tag("/images/main_image.gif", :style => "width:96px"), item_path(item.doctype, item)
-      .inner-content
-        .inner-mode
-          -if item.wiki
-            %span.open-edit-open
-              = "open"
-            %span.edit-edit-edit
-              = "edit"
-        .inner-link
-          = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
+          .inner-topics
+            -topics_array = Array.new
+            -item.first_tags.each do |topic|
+              -topics_array << topic
+            -topics_array[0..1].each do |topic|
+              %span.tag-list{:class => "tag_#{h(topic)}"}
+                = link_to h(topic), url_for(:controller => "items", :action => "index", :topics => topic), :rel => "tag", :title => t("items.tags.tooltip", :tag => topic)
+      -else
+        .inner-content{:style => "width:100%"}
+          .inner-mode
+            -if item.wiki
+              %span.open-edit-open
+                = "open"
+              %span.edit-edit-edit
+                = "edit"
+          .inner-link
+            = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
 
-        .inner-topics
-          -topics_array = Array.new
-          -item.first_tags.each do |topic|
-            -topics_array << topic
-          -topics_array[0..1].each do |topic|
-            %span.tag-list{:class => "tag_#{h(topic)}"}
-              = link_to h(topic), url_for(:controller => "items", :action => "index", :topics => topic), :rel => "tag", :title => t("items.tags.tooltip", :tag => topic)
+          .inner-topics
+            -topics_array = Array.new
+            -item.first_tags.each do |topic|
+              -topics_array << topic
+            -topics_array[0..1].each do |topic|
+              %span.tag-list{:class => "tag_#{h(topic)}"}
+                = link_to h(topic), url_for(:controller => "items", :action => "index", :topics => topic), :rel => "tag", :title => t("items.tags.tooltip", :tag => topic)
+
+
+
+
+
 
     .clear
 

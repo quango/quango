@@ -48,7 +48,7 @@
 
     = render :partial => "top_groups"
 
-    .block
+    .block{:style => "display:none"}
       %h3
         = h("Something")
       .content
@@ -58,9 +58,9 @@
   #sidebar
     -current_group.widgets.each do |widget|
       .widget.block{:id => widget.name}
-        = render :partial => widget.partial_name, :locals => {:widget => widget, :width => "wide"}
+        = render :partial => widget.partial_name, :locals => {:widget => widget, :width => "narrow"}
 
-    .block
+    .block{:style => "display:none"}
       %h3
         = h("Something")
       .content

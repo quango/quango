@@ -77,7 +77,7 @@
         = render :partial => widget.partial_name, :locals => {:widget => widget, :width => "wide"}
 
     -if !current_group.isolate # this will be the group connect thing
-      = render :partial => "featured_groups" #, :locals => {:item => item}
+      -#= render :partial => "featured_groups", :locals => {:width => "wide"}
 
     .block
       %h3

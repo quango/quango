@@ -6,21 +6,11 @@
 
 -content_for :main do
   #main-index
-    .content
-      .inner
-        = "Create a " << @active_section.to_s
-        - form_for(@item, :html=>{:class => "form", :id => "ask_item"}, :mode => @mode) do |f|
-          =render :partial => "form", :locals => {:f => f, :mode => @mode}
+    = "What would you like to create?<br><br><br>"
+    - current_group.doctypes.each do |doctype|
+      - if !doctype.hidden
+        = link_to "Create a #{doctype.name} item", new_item_path(doctype)
+        = "<br/>"
 
-          .group.navform
-            .controls.right{:style => "width: 50%"}
-              .left{:style => "width: 49.5%"}
-                = f.label :wiki, "Wiki", :class => "radio"
-                = f.check_box :wiki, :class => "checkbox"
-              .left{:style => "width: 49.5%"}
-                = f.label :anonymous, t("scaffold.post_as_anonymous"), :class => "radio"
-                = f.check_box :anonymous, :class => "checkbox"
 
-            = f.submit t('scaffold.create')
-            = t("global.or")
-            = link_to t('scaffold.cancel'), items_path, :class => "button cancel"
+

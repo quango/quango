@@ -55,7 +55,7 @@
         -#= render :partial => "shared/tag_list", :object => @tag_cloud, :section => @active_section
         -current_group.widgets.each do |widget|
           .widget.block{:id => widget.name}
-            = render :partial => widget.partial_name, :locals => {:widget => widget}
+            = render :partial => widget.partial_name, :locals => {:widget => widget, :width=> "narrow"}
 
 
 

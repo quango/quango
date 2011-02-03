@@ -19,7 +19,8 @@ class GroupsController < ApplicationController
                :page => params[:page],
                :state => @state,
                :order => current_order,
-               :private => false}
+               :private => false
+              }
 
     if params[:q].blank?
       @groups = Group.paginate(options)
@@ -118,7 +119,7 @@ class GroupsController < ApplicationController
     doctypes << Doctype.new(:name => "articles", :doctype => "standard", :create_label => "Write an article", :group_id => @group.id)
     doctypes << Doctype.new(:name => "videos",:has_video => "true", :doctype => "video", :create_label => "Share a video", :group_id => @group.id)
     doctypes << Doctype.new(:name => "links",:has_links => "true", :doctype => "bookmark", :create_label => "Share a link", :group_id => @group.id)
-    doctypes << Doctype.new(:name => "eggs", :doctype => "bookmark", :create_label => "Share a link", :group_id => @group.id)
+    #doctypes << Doctype.new(:name => "eggs", :doctype => "bookmark", :create_label => "Share a link", :group_id => @group.id)
 
     doctypes.each do |doctype| 
      doctype.hidden = true
@@ -181,7 +182,7 @@ class GroupsController < ApplicationController
   def update
     @group.safe_update(%w[name name_highlight legend description has_custom_channels custom_channels default_tags subdomain logo logo_info forum
                           custom_favicon language theme reputation_rewards reputation_constrains
-                          has_adult_content registered_only openid_only custom_css wysiwyg_editor fb_button share show_beta_tools
+                          hidden has_adult_content registered_only openid_only custom_css wysiwyg_editor fb_button share show_beta_tools
                           publish_label signup_heading leaders_label
                           primary primary_dark secondary tertiary supplementary supplementary_dark supplementary_lite header_bg_image background toolbar_bg toolbar_bg_image
                           robots logo_path favicon_path link_colour  sponsor_logo_wide_info sponsor_logo_narrow_info

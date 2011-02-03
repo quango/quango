@@ -45,6 +45,9 @@
     = form.check_box :private, :class => "checkbox"
     = form.label :private, t(".members_only"), :class => "radio"
   .group
+    = form.check_box :hidden, :class => "checkbox"
+    = form.label :hidden, h("Hide this group?"), :class => "radio"
+  .group
     = form.check_box :has_custom_html, :class => "checkbox"
     = form.label :has_custom_html, t(".custom_html"), :class => "radio"
   .group

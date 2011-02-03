@@ -8,18 +8,21 @@
 
 .section-head-welcome
   .secondary-navigation-sections
-    .navlabel
+    .navlabel.left
       - section_link = section.name.downcase
-      = h(section.name.capitalize)
+      = link_to h(section.name.capitalize), items_path(doctype)
+
+    .navcontrols{:style => "width:96px"}
+      %a.show_summary{:class => "#{section.name} navlinks showhide left"}
+        = "show headlines"
+      %a.hide_summary{:class => "#{section.name} navlinks showhide left"}
+        = "hide headlines"
 
     .navlinks.right
-      = link_to "&#9733;",new_item_path(doctype),:locals => {:doctype => doctype}, :class => "publish-button" #, :style => "width:200px; padding: 8px"
+      = link_to "#{current_group.publish_label.capitalize} #{doctype.name}",new_item_path(doctype),:locals => {:doctype => doctype}
+      |
  
-    .navcontrols
-      %a.show_summary{:class => "#{section.name} navlinks showhide right"}
-        = "show headlines"
-      %a.hide_summary{:class => "#{section.name} navlinks showhide right"}
-        = "hide headlines"
+
 
 
   .section-listing-welcome{:class => section.name}

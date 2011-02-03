@@ -62,9 +62,9 @@ class UsersController < ApplicationController
 
     first_name = params[:user][:first_name]
     last_name = params[:user][:last_name]
-    login = params[:user][:email]
+    #login = params[:user][:email]
 
-    named = first_name.downcase << "-" << last_name.downcase
+    named = first_name.downcase + "-" + last_name.downcase
 
 
     @user.login = named
