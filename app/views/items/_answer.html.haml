@@ -51,7 +51,7 @@
 
         .author
           -unless answer.anonymous
-            = render :partial => "users/user_mini", :locals => {:user => answer.user}
+            = render :partial => "users/user_mini", :locals => {:user => answer.user, :width => "narrow"}
           -else
             %b=t("global.anonymous")
           %small.time_ago

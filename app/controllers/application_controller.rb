@@ -2,7 +2,7 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
-  include Rack::Recaptcha::Helpers
+  #sinclude Rack::Recaptcha::Helpers
   include AuthenticatedSystem
   include Subdomains
   include Sweepers

@@ -15,8 +15,8 @@
             %div.fade-thumbnails
               = image_tag base_thumbnail.url, :class => 'b', :alt => image.name, :title => image.name
               = image_tag base_thumbnail_grey.url, :class => 'a', :alt => image.name, :title => image.name  
-              %div.right  
-                = "{image.caption}<br/>"
+              %div{:style => "width:124px; margin-left:4px; float:right"} 
+                = "#{image.caption}<br/>"
                 = "&copy; #{image.copyright}<br/><br/>"
                 = link_to  "Expand image", base_image.url, :title => "somthing"
 

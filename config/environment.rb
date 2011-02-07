@@ -44,7 +44,7 @@ Rails::Initializer.run do |config|
   config.gem "oauth2", :version => "0.0.8"
   config.gem "twitter_oauth", :version => "0.4.3"
   config.gem "sanitize", :version => "1.2.1"
-  config.gem "rack-recaptcha", :lib => "rack/recaptcha", :version => "0.2.2"
+  #config.gem "rack-recaptcha", :lib => "rack/recaptcha"
   config.gem "tabs_on_rails"
   config.gem 'rmagick',    :lib => 'RMagick'
   config.gem 'rack-cache', :lib => 'rack/cache'
