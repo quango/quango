@@ -1,3 +1,5 @@
+"tagss"
+
 -unless self.current_tags.empty?
   .block
     %h3
@@ -14,3 +16,5 @@
           -else
             = link_to "-", url_for(:tags => tags.join("+")), :class => "remove_tag"
     .clear
+
+

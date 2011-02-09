@@ -170,7 +170,7 @@ $(document).ready(function() {
 
 function initAutocomplete(){
   var tagInput = $('.autocomplete_for_tags');
-  tagInput.autoSuggest('/items/tags_for_autocomplete.js', {
+  tagInput.autoSuggest('tags_for_autocomplete.js', {
     queryParam: 'tag',
     formatList: function(data, elem){
       return elem.html(data.caption);
@@ -184,7 +184,7 @@ function initAutocomplete(){
 
 function initAutocompleteLocations(){
   var tagInput = $('.autocomplete_for_locations');
-  tagInput.autoSuggest('/items/tags_for_locations.js', {
+  tagInput.autoSuggest('tags_for_locations.js', {
     queryParam: 'location',
     formatList: function(data, elem){
       return elem.html(data.caption);
@@ -198,7 +198,7 @@ function initAutocompleteLocations(){
 
 function initAutocompletePersons(){
   var tagInput = $('.autocomplete_for_persons');
-  tagInput.autoSuggest('/items/tags_for_persons.js', {
+  tagInput.autoSuggest('tags_for_persons.js', {
     queryParam: 'person',
     formatList: function(data, elem){
       return elem.html(data.caption);

@@ -5,7 +5,7 @@ class User
   devise :database_authenticatable, :http_authenticatable, :recoverable, :registerable, :rememberable,
          :lockable, :token_authenticatable
 
-  ROLES = %w[user moderator admin]
+  ROLES = %w[user editor moderator admin]
   LANGUAGE_FILTERS = %w[any user] + AVAILABLE_LANGUAGES
   LOGGED_OUT_LANGUAGE_FILTERS = %w[any] + AVAILABLE_LANGUAGES
 
@@ -14,6 +14,7 @@ class User
   key :name,                      String, :limit => 100, :default => '', :null => true
   key :first_name,                String, :limit => 40
   key :last_name,                 String, :limit => 40
+  key :has_agreed,                Boolean, :default => false
 
   key :bio,                       String, :limit => 200
   key :website,                   String, :limit => 200

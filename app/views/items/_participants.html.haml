@@ -2,9 +2,7 @@
 
   %h3
     = "Participants"
-  .control
-    .data.updated{:title => @item.activity_at, :class => "relativetime"}
-      = t("time.ago", :time => time_ago_in_words(@item.activity_at))
+
 
   .content
     %ul.list

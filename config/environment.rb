@@ -16,11 +16,6 @@ Rails::Initializer.run do |config|
   # Add additional load paths for your own custom dirs
   config.load_paths += %W( #{RAILS_ROOT}/app/middlewares #{RAILS_ROOT}/app/models/widgets #{RAILS_ROOT}/app/models/sections )
 
-  # Specify gems that this application depends on and have them installed with rake gems:install
-  # config.gem "bj"
-  # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
-  # config.gem "sqlite3-ruby", :lib => "sqlite3"
-  # config.gem "aws-s3", :lib => "aws/s3"
   config.gem "mongo", :version => "1.2.0"
   config.gem "bson", :version => "1.2.0", :lib => "bson"
   config.gem "bson_ext", :version => "1.2.0", :lib => false
@@ -31,7 +26,7 @@ Rails::Initializer.run do |config|
   config.gem "fancy-buttons", :version => "0.5.5", :source => "http://gemcutter.org"
   config.gem "compass-colors", :version => "0.3.1", :source => "http://gemcutter.org"
   config.gem "ruby-stemmer", :version => ">=0.8.2", :lib => "lingua/stemmer"
-  config.gem "mongomapper_ext", :version => "0.4.0", :source => "http://gemcutter.org"
+  config.gem "mongomapper_ext", :version => "0.5.1", :source => "http://gemcutter.org"
   config.gem "geoip"
   #config.gem "whatlanguage", :version => "1.0.0"
   config.gem "uuidtools", :version => "2.1.1"

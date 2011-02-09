@@ -1,7 +1,28 @@
-- url = "http://thoughtdomains.org/community/bugs/!/new?"
-- url << "&item[title]='Bug: '"
-- url << "&item[tags]='bug','#{AppConfig.version.to_s}','#{current_group.name}-#{current_group.name_highlight}'"
-- url << "&item[body]='This is what happened...'"
+-# url = "http://thoughtdomains.org/community/bugs/!/new?"
+- bug_url = "http://localhost.lan:3000/community/bugs/!/new?"
+- bug_url << "&item[title]=Bug: "
+- bug_url << "&item[tags]=bug,#{AppConfig.version.to_s},#{current_group.name}-#{current_group.name_highlight}"
+- bug_url << "&item[body]=This is what happened..."
 
-=link_to "report bugs ", url, :rel => 'nofollow'
+- usability_url = "http://localhost.lan:3000/community/discussions/!/new?"
+- usability_url << "&item[title]=User experience: "
+- usability_url << "&item[tags]=UX,UX,#{AppConfig.version.to_s},#{current_group.name}-#{current_group.name_highlight}"
+- usability_url << "&item[body]=This is what happened..."
+
+- feature_url = "http://localhost.lan:3000/community/features/!/new?"
+- feature_url << "&item[title]=Feature Request: "
+- feature_url << "&item[tags]=feature-request,#{AppConfig.version.to_s},#{current_group.name}-#{current_group.name_highlight}"
+- feature_url << "&item[body]=This is what happened..."
+
+
+.beta
+  %ul{:style => "display:inline"}
+    %li
+      =link_to "report bugs ", bug_url, :rel => "nofollow"
+    |
+    %li
+      =link_to "discuss usability ", usability_url, :rel => "nofollow"
+    |    
+    %li
+      =link_to "request features ", feature_url, :rel => "nofollow"
 

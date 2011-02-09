@@ -1,45 +1,45 @@
 -bronze, silver, gold = user.badges_count_on(current_group)
 
-%span{:style=>"float:right; margin-right:7px;"}
+.member{:style=>"float:left; margin:0 7px;"}
   -unless user.nil?
-    =link_to h(user.first_name + " " + user.last_name), user_path(user), :style => "font-size:12px;"
+    =link_to h(user.first_name + " " + user.last_name), user_path(user)
 
-%span.reputation{:title => t("activerecord.attributes.user.reputation")}
-  -unless user.nil?
-    -if user.owner_of?(current_group)
-      %span.ownerflair{:title => "This user is an admin"}
-        Admin
-    -elsif user.mod_of?(current_group)
-      %span.modflair{:title => "moderator", :style=>"background-color:bronze"}
-        Associate
-    -elsif user.editor_of?(current_group)
-      %span.editorflair{:title => "editor", :style=>"background-color:silver"}
-        Editor
-    -elsif user.editor_of?(current_group)
-      %span.editorflair{:title => "editor", :style=>"background-color:#{current_group.tertiary}"}
-        Beta
-  -else
-    = t('users.deleted')
-  -unless user.nil?
-    %span.label{:style=>"display:none;"}
-      =user.reputation_on(current_group)
+  .reputation{:title => t("activerecord.attributes.user.reputation")}
+    -unless user.nil?
+      -if user.owner_of?(current_group)
+        %span.ownerflair{:title => "This user is an admin"}
+          Admin
+      -elsif user.mod_of?(current_group)
+        %span.modflair{:title => "moderator", :style=>"background-color:bronze"}
+          Associate
+      -elsif user.editor_of?(current_group)
+        %span.editorflair{:title => "editor", :style=>"background-color:silver"}
+          Editor
+      -elsif user.editor_of?(current_group)
+        %span.editorflair{:title => "editor", :style=>"background-color:#{current_group.tertiary}"}
+          Beta
+    -else
+      = t('users.deleted')
+    -unless user.nil?
+      %span.label{:style=>"display:none;"}
+        =user.reputation_on(current_group)
 
--if local_assigns[:with_badges] != false
-  -if gold.to_i > 0
-    %span{:title => "#{gold} gold badges"}
-      %span.gold.badgeicon
-      %span.badgecount
-        =gold
+  -if local_assigns[:with_badges] != false
+    -if gold.to_i > 0
+      %span{:title => "#{gold} gold badges"}
+        %span.gold.badgeicon
+        %span.badgecount
+          =gold
 
-  -if silver.to_i > 0
-    %span{:title => "#{silver} silver badges"}
-      %span.silver.badgeicon
-      %span.badgecount
-        =silver
+    -if silver.to_i > 0
+      %span{:title => "#{silver} silver badges"}
+        %span.silver.badgeicon
+        %span.badgecount
+          =silver
 
-  -if bronze.to_i > 0
-    %span{:title => "#{bronze} bronze badges"}
-      %span.bronze.badgeicon
-      %span.badgecount
-        =bronze
+    -if bronze.to_i > 0
+      %span{:title => "#{bronze} bronze badges"}
+        %span.bronze.badgeicon
+        %span.badgecount
+          =bronze
 

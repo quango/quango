@@ -101,15 +101,8 @@ class ItemsController < ApplicationController
       conditions[:activity_at] = {"$gt" => 21.days.ago}
     end
 
-
-    #@items = current_group.items({:order => current_order}.merge(conditions))
-
-    #@items = current_group.items.sort_by(&:activity_at).reverse
-
     @doctypes = current_group.doctypes
     @doctype = Doctype.find_by_slug_or_id(params[:doctype_id])
-
-
 
     @items = current_group.items
 
@@ -129,7 +122,7 @@ class ItemsController < ApplicationController
                     "#{t("feeds.tag")} #{params[:tags].inspect}")
     end
 
-    #@tag_cloud = Item.tag_cloud(scoped_conditions, 25)
+    @tag_cloud = Item.tag_cloud(scoped_conditions, 25)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -356,7 +349,7 @@ class ItemsController < ApplicationController
 
     @item.doctype_id = @doctype.id
 
-    @item.tags = current_group.default_tags.first
+    #@item.tags = current_group.default_tags.first
 
     respond_to do |format|
       format.html # new.html.erb
@@ -386,11 +379,6 @@ class ItemsController < ApplicationController
     @item.group = current_group
     @item.user = current_user
 
-    #sane_title = params[:item][:title].to_s
-    #sane_title_down = sane_title.downcase
-    #sane_title_capitals = sane_title_down.capitalize
-    #@item.title = sane_title_capitals
-
     @doctypes = current_group.doctypes
     @doctype = @doctypes.find_by_slug_or_id(params[:doctype_id])
 
@@ -407,9 +395,6 @@ class ItemsController < ApplicationController
       image.image = video_thumbnail_small
 
     end
-
-
-
 
     if !logged_in?
       if recaptcha_valid? && params[:user]
@@ -435,9 +420,11 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if (logged_in? ||  (@item.user.valid? && recaptcha_valid?)) && @item.save
+
         sweep_item_views
 
         current_group.tag_list.add_tags(*@item.tags)
+
         unless @item.anonymous
           @item.user.stats.add_item_tags(*@item.tags)
           @item.user.on_activity(:ask_item, current_group)
@@ -758,6 +745,8 @@ class ItemsController < ApplicationController
 
   def retag_to
     @item = Item.find_by_slug_or_id(params[:id])
+    @doctype = current_group.doctypes.find_by_slug_or_id(params[:doctype_id])
+
 
     @item.tags = params[:item][:tags]
     @item.updated_by = current_user
@@ -770,11 +759,11 @@ class ItemsController < ApplicationController
         @item.on_activity(true)
       end
 
-      Magent.push("actors.judge", :on_retag_item, @item.id, current_user.id)
+      #Magent.push("actors.judge", :on_retag_item, @item.id, current_user.id)
 
       flash[:notice] = t("items.retag_to.success", :group => @item.group.name)
       respond_to do |format|
-        format.html {redirect_to item_path(@item)}
+        format.html {redirect_to item_path(@doctype, @item)}
         format.js {
           render(:json => {:success => true,
                    :message => flash[:notice], :tags => @item.tags }.to_json)

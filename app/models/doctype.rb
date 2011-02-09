@@ -21,7 +21,7 @@ class Doctype
   key :group_id, String
   belongs_to :group
 
-  has_many :items, :dependent => :destroy
+  has_many :items #, :dependent => :destroy
 
   slug_key :name, :unique => true, :min_length => 3
   key :slugs, Array, :index => true

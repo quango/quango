@@ -1,5 +1,8 @@
-Quango source is available here: ( http://github.com/quango/quango )
-Quango is a fork of the Shapado Project ( http://github.com/patcito/shapado )
+
+Thoughtdomains source is available here: ( http://github.com/quango/quango )
+Quango is a fork of the Shapado Project ( http://github.com/ricodigo/shapado )
+
+Both are licenses under the GNU Affero GPL, which basically means you can do whatever you like with the source code as long as any derivative work is licensed under the same license. 
 
 
 Quango contributors
@@ -8,12 +11,23 @@ Simon Probert
 Steve King
 
 
-Original Shapado Contributors
+Original Shapado Development Team - Kudos!
 ------------
+David Cuadrado, Diego Mazzocchi, Jorge Cuadrado, Patrick Aljord, Victor Cedeno
 
-David Cuadrado
-Diego Mazzocchi
-Jorge Cuadrado
-Patrick Aljord
-Victor Cedeno
+
+Many of the icons used in this application come from the very excellent Famfamfam series
+
+Thoughtdomains use many different open source projects  - we have attempted to list them all, but may have ommited some.
+
+Ruby on Rails 2.3.8
+MongoDB
+
+Rubygems
+
+Feedzirra
+Nokogiri
+Dragonfly
+
+
 

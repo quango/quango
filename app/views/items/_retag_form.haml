@@ -1,6 +1,11 @@
 - form_for @item, :url => retag_to_item_path(@doctype, @item.id), :html => {:class => "form retag-form"} do |f|
-  = f.label :tags, "#{t('items.show.tags')}", :class => "label"
-  = submit_tag t(".submit")
-  = link_to t('.cancel.sausage'), item_path(@item), :class => 'cancel-retag'
-  = f.text_field :tags, :value => @item.tags.join(", "), :class => "text_field autocomplete_for_tags" 
+  .group
+    = f.label :tags, "#{t('items.show.tags')}", :class => "label"
+  .group
+    = f.text_field :tags, :value => @item.tags.join(", "), :class => "text_field autocomplete_for_tags"
+  .group
+
+    = link_to t('.cancel'), item_path(@doctype, @item), :class => 'cancel-retag' 
+    = submit_tag t(".submit"), :style => "float:right"
+
 

@@ -1,4 +1,5 @@
-= link_to " Add #{@item.doctype}<img class='right' src='/images/icons/publish-something.png' style='height:16px; width:16px; margin-right:4px'>",new_item_path(@item.doctype), :class => "create-button" #, :style => "width:200px; padding: 8px"
+.toolbox{:style=> "width:240px"}
+  = link_to " Add #{@doctype.name}",new_item_path(@item.doctype), :class => "button" #, :style => "width:200px; padding: 8px"
 
 
 

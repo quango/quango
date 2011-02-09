@@ -59,7 +59,7 @@
                 - if !@item.close_reason.comment.empty?
                   .comment
                     =find_and_preserve(shapado_auto_link(@item.close_reason.comment))
-            .entry-publisher
+            -#.entry-publisher
 
             .entry-details
               .entry-title
@@ -67,16 +67,16 @@
                 - if @item.closed
                   =" [#{t("closed", :scope => "activerecord.attributes.item").upcase}]"
 
-              .entry-authors
+              .entry-authors{:style => "border-bottom:1px solid gainsboro;"}
                 = render :partial => "entry_authors"
 
-              .entry-tags.tag-list
+              .tag-list
                 - @item.tags.each do |tag|
                   %span.tag
                     = link_to h(tag), url_for(:controller => "item", :action => "index", :tags => tag), :rel => "tag"
-              - if logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group)) #tofix
-                %span.retag
-                  = link_to t('.retag'), retag_item_path(@doctype, @item), :id => 'retag'
+                - if logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group)) #tofix
+                  %span.retag
+                    = link_to t('.retag'), retag_item_path(@doctype, @item), :id => 'retag', :class => "action-link"
 
             .entry-content
               = item_body
@@ -128,6 +128,8 @@
 
 -content_for :sidebar_inner do
   #sidebar-inner
+    -if logged_in?
+      = render :partial => "create_button"
     = render :partial => "author"
     -if @doctype.has_video?
       = render :partial => "video_info", :locals => {:item => @item}
@@ -136,15 +138,14 @@
     = render :partial => "shared/signup_button", :locals => {:width => "wide"}
     = render :partial => "images", :locals => {:item => @item}
     = render :partial => "related_communities"
-    -if logged_in?
-      = render :partial => "create_button"
+
 
     -if logged_in? && current_group.has_bunnies?
       -if current_user.owner_of?(current_group)
         = render :partial => "bunnies", :locals => {:item => @item}
 
     -related_items = Item.related_items(@item, :language => find_languages)
-    - if !related_items.empty?
+    - if related_items
       .block
         %h3
           =t(".related_items")
@@ -152,7 +153,7 @@
           %ul.list
             -related_items.each do |rq|
               %li
-                = link_to h(rq.title), items_path(rq.doctype_id, rq), :title => truncate(strip_tags(rq.body), :length => 200)
+                = link_to h(rq.title), items_path(rq.doctype, rq), :title => truncate(strip_tags(rq.body), :length => 200)
 
 
 -content_for :sidebar do
