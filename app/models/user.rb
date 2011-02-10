@@ -2,6 +2,8 @@ require 'digest/sha1'
 
 class User
   include MongoMapper::Document
+  include MongoMapperExt::Slugizer
+
   devise :database_authenticatable, :http_authenticatable, :recoverable, :registerable, :rememberable,
          :lockable, :token_authenticatable
 
@@ -15,6 +17,9 @@ class User
   key :first_name,                String, :limit => 40
   key :last_name,                 String, :limit => 40
   key :has_agreed,                Boolean, :default => false
+
+  slug_key :name, :unique => true, :min_length => 8
+  key :slugs, Array, :index => true
 
   key :bio,                       String, :limit => 200
   key :website,                   String, :limit => 200

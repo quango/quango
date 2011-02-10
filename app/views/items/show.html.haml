@@ -75,8 +75,8 @@
                   %span.tag
                     = link_to h(tag), url_for(:controller => "item", :action => "index", :tags => tag), :rel => "tag"
                 - if logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group)) #tofix
-                  %span.retag
-                    = link_to t('.retag'), retag_item_path(@doctype, @item), :id => 'retag', :class => "action-link"
+                  %span.retagX
+                    = link_to t('.retag'), retag_item_path(@doctype, @item), :id => 'retag', :class => "link"
 
             .entry-content
               = item_body

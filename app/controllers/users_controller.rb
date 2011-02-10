@@ -95,7 +95,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by_login_or_id(params[:id])
+    @user = User.find_by_slug_or_id(params[:id])
     raise PageNotFound unless @user
 
     set_page_title(t("users.show.title", :user => @user.login))
