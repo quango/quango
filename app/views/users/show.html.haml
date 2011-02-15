@@ -7,10 +7,7 @@
 
   .secondary-navigation
     %h3
-      .left
-        = @user.first_name.capitalize
-        = " "
-        = @user.last_name.capitalize
+      = @user.display_name
 
     .navcontrols
 

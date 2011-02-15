@@ -44,8 +44,8 @@
     = f.text_field :name, :class => "text_field right"
 
   .group{:style => "margin-bottom:4px; border: 0; float: right; width: 300px"}
-    = check_box :has_agreed, :class => "left" 
-    = f.label :has_agreed, "I agree to your <a href='/about/legal'>terms and conditions</a>", :class => "label right", :style => "margin-top:4px; margin-right: 16px"
+    = f.check_box :terms
+    = f.label :terms, "I agree to your <a href='/about/legal'>terms and conditions</a>", :class => "label right", :style => "margin-top:4px; margin-right: 16px"
   .clear
 
 

@@ -16,12 +16,12 @@ Rails::Initializer.run do |config|
   # Add additional load paths for your own custom dirs
   config.load_paths += %W( #{RAILS_ROOT}/app/middlewares #{RAILS_ROOT}/app/models/widgets #{RAILS_ROOT}/app/models/sections )
 
-  config.gem "mongo", :version => "1.2.0"
-  config.gem "bson", :version => "1.2.0", :lib => "bson"
-  config.gem "bson_ext", :version => "1.2.0", :lib => false
+  config.gem "mongo", :version => "1.1.4"
+  config.gem "bson", :version => "1.1.4", :lib => "bson"
+  #config.gem "bson_ext", :version => "1.2.0", :lib => false
   config.gem "rdiscount", :version => "1.6.5"
   config.gem "jnunemaker-validatable", :version => "1.8.4", :lib => "validatable"
-  config.gem "mongo_mapper", :version => "0.8.3", :source => "http://gemcutter.org"
+  config.gem "mongo_mapper", :version => "0.8.6", :source => "http://gemcutter.org"
   config.gem "compass", :version => "0.10.4", :lib => "compass", :source => "http://gemcutter.org"
   config.gem "fancy-buttons", :version => "0.5.5", :source => "http://gemcutter.org"
   config.gem "compass-colors", :version => "0.3.1", :source => "http://gemcutter.org"

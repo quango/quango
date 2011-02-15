@@ -1,7 +1,9 @@
 require 'digest/sha1'
 
 class User
+
   include MongoMapper::Document
+  include MongoMapperExt::Filter
   include MongoMapperExt::Slugizer
 
   devise :database_authenticatable, :http_authenticatable, :recoverable, :registerable, :rememberable,
@@ -16,9 +18,13 @@ class User
   key :name,                      String, :limit => 100, :default => '', :null => true
   key :first_name,                String, :limit => 40
   key :last_name,                 String, :limit => 40
-  key :has_agreed,                Boolean, :default => false
+  key :display_name,              String
+  key :display_slug,                 String
+  key :terms,                Boolean, :default => false
 
-  slug_key :name, :unique => true, :min_length => 8
+
+
+  slug_key :display_name, :unique => true, :min_length => 8
   key :slugs, Array, :index => true
 
   key :bio,                       String, :limit => 200
@@ -104,6 +110,8 @@ class User
   validates_length_of       :name,     :maximum => 100
   validates_presence_of       :first_name
   validates_presence_of       :last_name
+  #validates_acceptance_of     :terms
+
 
   validates_presence_of     :email,    :if => lambda { |e| !e.openid_login? && !e.twitter_login? }
   validates_uniqueness_of   :email,    :scope => [:anonymous], :if => lambda { |e| !e.openid_login? && !e.twitter_login? && !e.anonymous }
@@ -115,6 +123,11 @@ class User
     v.validates_confirmation_of :password
     v.validates_length_of       :password, :within => 6..20, :allow_blank => true
   end
+
+  #validates_acceptance_of :terms
+
+
+
 
   before_save :update_languages
   before_create :logged!

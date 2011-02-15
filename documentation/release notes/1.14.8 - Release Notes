@@ -1,0 +1,27 @@
+
+This is mainly a bugfix release, but also a few usability issues
+
+Changelog
+
+
+* Added the 
+* Made the images process much more obvious & removed the polaroid icon from the markdown editor
+* Added a "Landing Page" - for non-logged guests instead of first seeing the homepage, they get a landing page which explains exactly what the site is and how it works. To date people don't realize that *anybody* can add an article or thought or link to a site. [I think many people still don't get this about Wikipedia either]. JK never tires of pointing out to me that not everybody is a naturally wired in to this kind of stuff as I am
+
+Bugfixes ( Spotted by )
+
+* Fixed "topic" link when you click on topics
+* Fixed 'Related Topics" for sidebar on show pages
+* Fixed the url generation in messages so they now point at an actual link (SK)
+* Fixed messaging setting page in member settings (SK)
+* Fixed the url generation in Related Items (SS)
+
+Stylefixes
+
+* A few minor tweaks in the member section
+* Improved the search results page
+
+
+Developers Notes
+
+

@@ -56,19 +56,18 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new
-    @user.safe_update(%w[login email first_name last_name password_confirmation password preferred_languages website
-                         language timezone identity_url bio hide_country], params[:user])
+    @user.safe_update(%w[login email first_name last_name display_name password_confirmation password terms preferred_languages website language timezone identity_url bio hide_country], params[:user])
 
 
     first_name = params[:user][:first_name]
     last_name = params[:user][:last_name]
-    #login = params[:user][:email]
+    display_slug = first_name.downcase + "-" + last_name.downcase
+    display_name = first_name.capitalize + " " + last_name.capitalize
+    @user.display_slug = display_slug
+    @user.display_name = display_name
 
-    named = first_name.downcase + "-" + last_name.downcase
-
-
-    @user.login = named
-    @user.name = named
+    email = params[:user][:email]
+    @user.login = email
 
     @user.profile_images << ProfileImage.new
     @user.profile_images << ProfileImage.new
@@ -96,6 +95,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by_slug_or_id(params[:id])
+
+
+
     raise PageNotFound unless @user
 
     set_page_title(t("users.show.title", :user => @user.login))
@@ -141,7 +143,6 @@ class UsersController < ApplicationController
 
   def edit
     @user = current_user
-
     @user.timezone = AppConfig.default_timezone if @user.timezone.blank?
   end
 
@@ -170,15 +171,15 @@ class UsersController < ApplicationController
       @user.password_confirmation = params[:user][:password_confirmation]
     end
 
-    @user.safe_update(%w[login email first_name last_name default_avatar language timezone preferred_languages
+    @user.safe_update(%w[login email first_name last_name default_avatar language timezone preferred_languages 
                          notification_opts bio hide_country website], params[:user])
 
     first_name = params[:user][:first_name]
     last_name = params[:user][:last_name]
-
-    named = first_name.capitalize << " " << last_name.capitalize
-
-    @user.name = named
+    display_slug = first_name.downcase + "-" + last_name.downcase
+    display_name = first_name.capitalize + " " + last_name.capitalize
+    @user.display_slug = display_slug
+    @user.display_name = display_name
 
     if params[:user]["birthday(1i)"]
       @user.birthday = build_date(params[:user], "birthday")
