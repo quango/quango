@@ -28,7 +28,7 @@
             = link_to t(".retract_request"), item_open_request_path(@doctype, @item, @open_request), :id => "destroy_item_open_request_link", :rel => 'nofollow', :confirm => "are you sure?", :method => :delete
 
         -if current_user.mod_of?(current_group)
-          = link_to t(".open"), open_item_path(@item), :rel => 'nofollow', :title => t('.request_opening_details'), :method => "put"
+          = link_to t(".open"), open_item_path(@doctype, @item), :rel => 'nofollow', :title => t('.request_opening_details'), :method => "put"
         -else
           = link_to t(".request_opening"), new_item_open_request_path(@doctype, @item), :id => "request-open-link", :rel => 'nofollow', :title => t('.request_opening_details')
 

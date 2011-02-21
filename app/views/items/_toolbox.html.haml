@@ -1,5 +1,8 @@
 
 #vote-col
+
+  = link_to "&#x2620;", new_item_flag_path(@doctype, @item), :class => "button", :style => "float:left;", :id => "item_flag_link"
+
   - if current_user && @item.watch_for?(current_user)
     = link_to image_tag("/images/icons/bell.png", 'data-src' => "/images/icons/bell_mono.png", :width => 18, :height => 18), unwatch_item_path(@doctype, @item), :class => 'button', "data-undo" =>  watch_item_path(@doctype, @item), "data-title" => t(".watch_tooltip"), :title => t(".unwatch_tooltip"), :id => "watch-item"
 

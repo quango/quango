@@ -8,7 +8,7 @@
 -content_for :main do
   %h2.title
     - if @item
-      =link_to h(@item.title), item_path(@item)
+      =link_to h(@item.title), item_path(@doctype, @item)
 
   -content_for :close_requests_table do
     %table.table
@@ -31,11 +31,11 @@
 
   - if logged_in? && current_user.mod_of?(current_group)
     - if @item
-      - form_for @item, :url => close_item_url(@item), :method => :post, :html => {:class => "form"} do |form|
+      - form_for @item, :url => close_item_url(@doctype, @item), :method => :post, :html => {:class => "form"} do |form|
         = yield :close_requests_table
         .group.navform
           = form.submit t("scaffold.update"), :id => "close_item_submit_#{@item.id}"
           = t("global.or")
-          = link_to t("scaffold.cancel"), item_path(@item), :class => "button cancel"
+          = link_to t("scaffold.cancel"), item_path(@doctype, @item), :class => "button cancel"
   - else
     = yield :close_requests_table

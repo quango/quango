@@ -7,16 +7,25 @@
       = t(".title", :name => h(@group.name))
 
 - content_for :list_members do
-  -if logged_in? && current_user.owner_of?(@group)
+
+  ok
+
+  -if logged_in? #&& current_user.owner_of?(@group)
     #manage_members
       -form_tag(members_path, :class => "form", :method => :post) do
         =render :partial => "form"
         .group.navform
           = submit_tag t('scaffold.add', :model => "member")
 
-  %ul.items#members
-    -@members.each do |member|
-      = render :partial => "member", :object => member
+    %ul.items#members
+      -@users.each do |member|
+        = render :partial => "member", :object => member
+
+  -#%ul.members-list-index#users
+    -#-@users.each do |user|
+      -#-if user.login != "admin"
+        -#= render :partial => "user", :object => user
+
 
   =will_paginate @members
 

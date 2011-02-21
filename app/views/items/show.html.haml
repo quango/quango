@@ -3,7 +3,8 @@
 
 - if logged_in?
   - if current_user.mod_of?(current_group) && @item.closed
-    - show_close_request_form = (@item.close_reason.user_id == current_user.id)
+    -# show_close_request_form = (@item.close_reason.user == current_user.id)
+    = "closed"
   - @flag = current_user.has_flagged?(@item) || Flag.new
 
 - @flag ||= Flag.new

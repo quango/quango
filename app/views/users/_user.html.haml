@@ -12,7 +12,9 @@
     .summary.left
       %h3{:style => "margin: 0px"}
         = link_to h("#{user.first_name} #{user.last_name}"), user_path(user)
-
+        - if current_user.owner_of?(current_group)
+          %span{:style => "color:red; font-size:8px"}
+            = user.email
       .badges
         -user.badges_on(current_group, :limit => 3).each do |badge|
           =render :partial => "badges/badge", :object => badge, :locals => {:mini => true}

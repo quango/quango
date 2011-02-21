@@ -3,18 +3,21 @@ This is mainly a bugfix release, but also a few usability issues
 
 Changelog
 
+* Added a members email address visible to group owner only in member list
+* Made the create button much more prominent on show pages & 
+* Added the "report post" button in toolbox, any user can now flag a post for moderation
+* Extended doctype model to include create_button_label and create_help_text
 
-* Added the 
-* Made the images process much more obvious & removed the polaroid icon from the markdown editor
-* Added a "Landing Page" - for non-logged guests instead of first seeing the homepage, they get a landing page which explains exactly what the site is and how it works. To date people don't realize that *anybody* can add an article or thought or link to a site. [I think many people still don't get this about Wikipedia either]. JK never tires of pointing out to me that not everybody is a naturally wired in to this kind of stuff as I am
 
 Bugfixes ( Spotted by )
 
-* Fixed "topic" link when you click on topics
+* Fixed "topic" link when you click on topics it now sends you to a search results page
 * Fixed 'Related Topics" for sidebar on show pages
 * Fixed the url generation in messages so they now point at an actual link (SK)
 * Fixed messaging setting page in member settings (SK)
-* Fixed the url generation in Related Items (SS)
+* Fixed toolbox obscuring answer text (SS)
+* Changed login to full name in participants ( removed members email as we don't want that public )
+* Fixed moderation tools eg. report this post
 
 Stylefixes
 
@@ -24,4 +27,4 @@ Stylefixes
 
 Developers Notes
 
-
+* Downgraded mongo to the 1.9 drivers as there was compatability issues with the 2.0.1

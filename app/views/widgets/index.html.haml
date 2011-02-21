@@ -20,7 +20,7 @@
               = image_submit_tag("to_vote_down.png", :name=>"move_to", :value => "down")
             .clear
           .widget_content
-            = render :partial => widget.partial_name, :locals => {:widget => widget}
+            = render :partial => widget.partial_name, :locals => {:widget => widget, :width => "wide"}
         .clear
 
 %h2.title

@@ -7,6 +7,9 @@ class CloseRequestsController < ApplicationController
   def index
    if @item
     @close_requests = @item.close_requests
+    @doctype = @item.doctype 
+
+
    end
   end
 
