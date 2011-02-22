@@ -1,17 +1,17 @@
+- referral_link = "http://" + @domain + item_path(@item.doctype, @item)
 
-= t('notifier.global.hi', :user => h(@user.login))
+= t('.hi', :user => h(@user.first_name))
 
-= t('.message1', :user => h(@item.user.login))
+= t('.message1', :user => h(@item.user.id))
 
 == "#{h(@item.title)}"
 
 = t('.message2')
-= url_for(:host => @domain, :controller => "items", :action => "show", :id => @item.slug)
-
-= t('.message3')
-=  url_for(:host => @domain, :controller => "items", :action => "show", :id => @item.slug)
+= t('#{referral_link}')
 
 = t('.message4')
+
+= t('.message_footer')
 
 == - #{@group.name}
 
