@@ -4,9 +4,9 @@ This is mainly a bugfix release, but also a few usability issues
 Changelog
 
 * Added a members email address visible to group owner only in member list
-* Made the create button much more prominent on show pages & 
+* Made the create button much more prominent on show pages
 * Added the "report post" button in toolbox, any user can now flag a post for moderation
-* Extended doctype model to include create_button_label and create_help_text
+
 
 
 Bugfixes ( Spotted by )
