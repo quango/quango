@@ -100,7 +100,7 @@ class UsersController < ApplicationController
 
     raise PageNotFound unless @user
 
-    set_page_title(t("users.show.title", :user => @user.login))
+    set_page_title("#{@user.display_name}")
 
     @q_sort, order = active_subtab(:sort)
     @items = @user.items.paginate(:page=>params[:items_page],

@@ -5,10 +5,13 @@
       = t("layouts.manage.properties.#{@active_subtab}.title")
     .navcontrols
       %ul
-        %li.general
+        %li.sponsor
           = link_to t("layouts.manage.sponsor"), manage_properties_path(:tab => "sponsor"), :class=>"standard-button"
         %li.general
           = link_to t("layouts.manage.general"), manage_properties_path(:tab => "general"), :class=>"standard-button"
+        %li.messaging
+          = link_to t("layouts.manage.messaging"), manage_properties_path(:tab => "messaging"), :class=>"standard-button"
+
         %li.analytics
           = link_to t("layouts.manage.analytics"), manage_properties_path(:tab => "analytics"), :class=>"standard-button"
         %li.signup

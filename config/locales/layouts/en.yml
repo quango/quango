@@ -90,6 +90,7 @@ en:
         explaination: "If you would like to register or just log in, please select your OpenID provider:"
     manage:
       sponsor: Sponsorship Settings
+      messaging: Message settings
       advertising: Advertising
       analytics: Analytics
       sections: Sections

@@ -1,16 +1,22 @@
-- referral_link = "http://" + @domain + item_path(@item.doctype, @item)
+- referral_link = link_to "#{h(@item.title)}", "http://" + @domain + item_path(@item.doctype, @item)
+- profile_link = link_to "Profile","http://" + @domain + user_path(@user)
+- user = @user.first_name.capitalize
+- poster = @item.user.first_name + " " + @item.user.last_name
+- doctype = @item.doctype.name
 
 %p
-  = t('.hi', :user => h(@user.first_name))
+  = t('.hi', :user => user)
   %br
-  = t('.message1', :user => h(@item.user.first_name))
+  = t('.message1', :poster => poster, :doctype => doctype)
   %br
-  == "#{h(@item.title)}"
+  = "#{referral_link}"
   %br
-  = link_to "#{h(@item.title)}", referral_link
+  = t('.message3')
   %br
   = t('.message4')
+  %hr
   %br
-  = t('.message_footer')
+    %small
+      = t('.message_footer', :profile => profile_link)
   %br
 == - #{h(@group.name)}

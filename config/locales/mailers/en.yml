@@ -8,13 +8,13 @@ en:
       new_comment:
         subject: "%{login} commented on %{group}"
       give_advice:
-        subject: "We need your advice: %{item_title}"
+        subject: "What do you think about %{item_title}..?"
         friend_subject: "Your friend needs help: %{item_title}"
       follow:
         subject: "%{login} is now following you on %{app}"
       earned_badge:
         subject: "You have earned a badge on %{group}!"
       favorited:
-        subject: "%{login} added your item as a favorite!"
+        subject: "%{login} added your post as a favourite!"
       report:
         subject: "Report for the group %{group} of %{app}"

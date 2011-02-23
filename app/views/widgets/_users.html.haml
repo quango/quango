@@ -6,7 +6,7 @@
       -widget.recent_users(current_group).each do |user|
         -if user.login != "admin"
           %li{:onclick => "document.location.href='#{user_path(user)}'"}
-            = render :partial => "users/user_mini", :locals => {:user => user, :width => "wide"}
+            = render :partial => "users/user_mini", :locals => {:user => user, :width => "narrow"}
       .more
         =link_to t("scaffold.more"), users_path
   .clear

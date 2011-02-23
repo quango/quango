@@ -1,7 +1,6 @@
 Changelog
  
 * Improved support for logo in the toolbar for the community sponsor - currently the old shapado blob way
-* Made the images process much more obvious & removed the polaroid icon from the markdown editor
 * Extended doctype model to include create_button_label and create_help_text, this affects the create buttons and the create page
 * Improved layout of the create page
 * Further enhancements to the messaging templates, added a messaging management section to the community admin
@@ -15,7 +14,8 @@ Bugfixes ( Spotted by )
 * Fixed 'My profile link throws hard error'
 * Fixed messaging setting page in member settings (SS)
 * Fixed the bug where posts with answers throw NameError in Items#show (SK)
- 
+* Fixed Sponsor Box title in Admin (SP)
+* Minor fixes to page titles - notably removed users email from member page!
 
 Stylefixes
 

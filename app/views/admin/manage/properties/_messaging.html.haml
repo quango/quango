@@ -1,0 +1,22 @@
+#main{:style => "width:702px; float:left"}
+  %h1
+    = "Email Messaging"
+
+  = "Change community messaging parameters here"
+
+  .group
+    = f.label :notification_from, "Who should messages be sent FROM", :class => "label"
+    = f.text_field :notification_from, :class => "text_field"
+    = "This is the 'from' field, usually the same as the community name"
+
+  .group
+    = f.label :notification_email, "What EMAIL should messages be sent from", :class => "label"
+    = f.text_field :notification_email, :class => "text_field"
+    = "This is the email that your messages get sent from field"
+
+  %hr{:style =>"margin:8px 0"}
+  .clear
+
+  .group.navform
+    = f.submit t('scaffold.update'), :class => "action-button"
+

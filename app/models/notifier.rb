@@ -6,7 +6,7 @@ class Notifier < ActionMailer::Base
 
       scope = "mailers.notifications.give_advice"
 
-      from "#{group ? group.name : AppConfig.application_name} <#{AppConfig.notification_email}>"
+      from "#{group.notification_from} <#{group.notification_email}>"
       recipients user.email
 
       if following

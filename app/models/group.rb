@@ -36,10 +36,16 @@ class Group
   key :show_group_create, Boolean, :default => true
   key :show_beta_links, Boolean, :default => true
 
+  #email notifications
+  key :notification_from, String, :default => "Your Community"
+  key :notification_email, String, :default => "no-reply@yourcommunity.com"
+
+
   #analytics
   key :robots, Boolean, :default => true
   key :analytics_id, String
   key :analytics_vendor, String
+
   key :has_custom_analytics, Boolean, :default => true
 
   key :language, String
@@ -156,8 +162,7 @@ class Group
   validates_length_of       :name,           :within => 3..40
   validates_length_of       :description,    :within => 3..10000, :allow_blank => true
   validates_length_of       :legend,         :maximum => 50
-  validates_length_of       :default_tags,   :within => 0..15,
-      :message =>  I18n.t('activerecord.models.default_tags_message')
+  validates_length_of       :default_tags,   :within => 0..15, :message =>  I18n.t('activerecord.models.default_tags_message')
   validates_uniqueness_of   :name
   validates_uniqueness_of   :subdomain
   validates_presence_of     :subdomain

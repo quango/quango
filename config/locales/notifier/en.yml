@@ -16,10 +16,12 @@ en:
       message1: "%{user} is now following your thoughts in %{app}"
       message2: 'You may follow him back by clicking on the button "Follow" on his %{user_page}'
     give_advice:
-      message1: "%{user} just posted a %{item.doctype.name} you might have an interest in:"
-      message2: "To answer, just reply to this message here:"
-      message3: "Or, if you know someone who might be able to answer, send them this referral link:"
-      message4: "If we do not get an answer from you soon, we will ask someone else. You can still answer it whenever you want."
+      hi: "Hi %{user},"
+      message1: "%{poster} just posted a %{doctype} you may have an interest in:"
+      message2: "To share your thoughts on this subject simply follow this link::"
+      message4: "This message will self destruct in 10 seconds..."
+      message3: "You can enhance your reputation by participating in this community."
+      message_footer: "You have received this message because you have chosen to do so - if you change your mind, you can modify your message settings in your %{profile}"
     new_answer:
       message: "%{user} commented %{new_answer} on %{item}"
     new_comment:

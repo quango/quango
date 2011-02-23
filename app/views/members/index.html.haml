@@ -10,16 +10,17 @@
 
   ok
 
-  -if logged_in? #&& current_user.owner_of?(@group)
-    #manage_members
-      -form_tag(members_path, :class => "form", :method => :post) do
-        =render :partial => "form"
-        .group.navform
-          = submit_tag t('scaffold.add', :model => "member")
 
-    %ul.items#members
-      -@users.each do |member|
-        = render :partial => "member", :object => member
+  #manage_members
+    -form_tag(members_path, :class => "form", :method => :post) do
+      =render :partial => "form"
+      .group.navform
+        = submit_tag t('scaffold.add', :model => "member")
+
+  %ul.items#members
+    -@users.each do |user|
+
+      = render :partial => "member", :object => user
 
   -#%ul.members-list-index#users
     -#-@users.each do |user|
