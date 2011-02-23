@@ -26,8 +26,9 @@
   #main-index
     .content
       .inner
-        .title
-          = "#{@user.login.capitalize}'s " << t("users.manage.#{@active_subtab}")
+        .supplementary-navigation
+          = "#{@user.first_name.to_s}'s "
+          = "#{@active_subtab}"
         .clear
         = yield :secondary_navigation
         = yield :form

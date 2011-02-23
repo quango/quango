@@ -16,8 +16,8 @@ Rails::Initializer.run do |config|
   # Add additional load paths for your own custom dirs
   config.load_paths += %W( #{RAILS_ROOT}/app/middlewares #{RAILS_ROOT}/app/models/widgets #{RAILS_ROOT}/app/models/sections )
 
-  config.gem "mongo", :version => "1.1.4"
-  config.gem "bson", :version => "1.1.4", :lib => "bson"
+  config.gem "mongo", :version => "=1.1.4"
+  config.gem "bson", :version => "=1.1.4", :lib => "bson"
   #config.gem "bson_ext", :version => "1.2.0", :lib => false
   config.gem "rdiscount", :version => "1.6.5"
   config.gem "jnunemaker-validatable", :version => "1.8.4", :lib => "validatable"

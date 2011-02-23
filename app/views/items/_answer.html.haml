@@ -67,7 +67,7 @@
 
 
         .author
-          = render :partial => "users/user_mini", :locals => {:user => answer.updated_by}
+          = render :partial => "users/user_mini", :locals => {:user => answer.updated_by, :width => "narrow"}
           -unless answer.updated_by.hide_country
             .adr
               %small.country-name

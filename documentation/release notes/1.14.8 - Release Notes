@@ -12,9 +12,7 @@ Changelog
 Bugfixes ( Spotted by )
 
 * Fixed "topic" link when you click on topics it now sends you to a search results page
-* Fixed 'Related Topics" for sidebar on show pages
 * Fixed the url generation in messages so they now point at an actual link (SK)
-* Fixed messaging setting page in member settings (SK)
 * Fixed toolbox obscuring answer text (SS)
 * Changed login to full name in participants ( removed members email as we don't want that public )
 * Fixed moderation tools eg. report this post
