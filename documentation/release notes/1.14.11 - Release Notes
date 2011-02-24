@@ -1,0 +1,20 @@
+
+This is mainly a bugfix release, but also a few usability issues
+
+Changelog
+
+* Improved support for logo in the toolbar for the community sponsor - currently the old shapado blob way
+* Added a "Landing Page" - for non-logged guests instead of first seeing the homepage, they get a landing page which explains exactly what the site is and how it works. To date people don't realize that *anybody* can add an article or thought or link to a site. [I think many people still don't get this about Wikipedia either]. JK never tires of pointing out to me that not everybody is a naturally wired in to this kind of stuff as I am
+* Made the images process much more obvious & removed the polaroid icon from the markdown editor
+
+Bugfixes ( Spotted by )
+
+
+
+Stylefixes
+
+
+
+Developers Notes
+
+

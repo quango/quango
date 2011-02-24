@@ -9,7 +9,7 @@
     = "What would you like to create?<br><br><br>"
     - current_group.doctypes.each do |doctype|
       - if !doctype.hidden
-        = link_to "Create a #{doctype.name} item", new_item_path(doctype)
+        = link_to "#{doctype.create_label}", new_item_path(doctype)
         = "<br/>"
 
 

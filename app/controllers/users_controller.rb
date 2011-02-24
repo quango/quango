@@ -215,7 +215,7 @@ class UsersController < ApplicationController
     @user = User.find_by_login_or_id(params[:id])
     current_user.add_friend(@user)
 
-    flash[:notice] = t("flash_notice", :scope => "users.follow", :user => @user.login)
+    flash[:notice] = t("flash_notice", :scope => "users.follow", :user => @user.display_name)
 
     if @user.notification_opts.activities
       Notifier.deliver_follow(current_user, @user)

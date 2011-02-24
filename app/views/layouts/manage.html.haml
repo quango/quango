@@ -30,12 +30,9 @@
     #container{:class => @active_tab}
       #wrapper
         #main{:style=>"width: 100%"}
-          #block-text.block
-            .content
-              = yield :subtabs
-              .inner
-                = yield
-                .clear
+          .content
+            = yield :subtabs
+            = yield
         .clear
       #footer
         .block.content

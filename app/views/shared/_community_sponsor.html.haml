@@ -29,9 +29,7 @@
             .edition
               = image_tag(sponsor_logo_narrow_group_path(current_group), :alt => "#{current_group.sponsor_name}", :title => "#{current_group.sponsor_name}")
 
-          -if current_group.show_sponsor_description?
-            .description
-              = current_group.sponsor_description
+
 
 
 .clear

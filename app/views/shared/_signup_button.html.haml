@@ -8,6 +8,7 @@
           = current_group.signup_button_title
         %div{:style => "font-size:12px; margin-bottom:8px "}
           = current_group.signup_button_description
+
         %div{:style => "font-size:18px; margin-bottom:8px; height:32px "}
           = link_to current_group.signup_button_label, new_user_path, :class => "create-button", :style => "height:32px; line-height:32px ;margin:0;font-size:18px; width:220px;font-weight:bold; text-align:center;"
         %div{:style => "font-size:12px; margin-bottom:8px; float:right "}
@@ -16,13 +17,14 @@
 
   -if width == "narrow"
     .block
-      .group-button{:style => "width:132px;height:132px; border-bottom: 1px solid white"}
+      .group-button{:style => "width:124px;height:132px; border-bottom: 1px solid white"}
         %div{:style => "font-size:14px; margin-bottom:4px; font-family:georgia; font-weight:bold; "}
           = current_group.signup_button_title
         %div{:style => "font-size:12px; margin-bottom:8px "}
           = current_group.signup_button_description
+          = @doctype
         %div{:style => "font-size:18px; margin-bottom:8px "}
-          = link_to current_group.signup_button_label, new_user_path, :class => "create-button", :style => "height:28px; margin:0 auto;font-size:14px; width:132px;font-weight:bold; text-align:center;"
+          = link_to current_group.signup_button_label, new_user_path, :class => "create-button", :style => "height:22px; margin:0 auto;font-size:12px; width:124px;font-weight:bold; text-align:center;"
         %div{:style => "font-size:12px; margin-bottom:8px "}
           = current_group.signup_button_footnote
     .clear

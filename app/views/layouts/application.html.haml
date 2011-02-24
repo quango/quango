@@ -47,7 +47,17 @@
         = yield :sidebar_inner
 
     .clear
+
     #footer
+
+      .quick-create
+        = render :partial => "shared/quick_create"
+
+
       .block.content
         = render :partial => "layouts/footer"
         = render :partial => "shared/ads/footer_ads"
+
+
+
+

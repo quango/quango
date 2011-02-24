@@ -19,7 +19,7 @@
         = "hide headlines"
 
     .navlinks.right
-      = link_to "#{current_group.publish_label.capitalize} #{doctype.name}",new_item_path(doctype),:locals => {:doctype => doctype}
+      = link_to "#{doctype.create_label}",new_item_path(doctype),:locals => {:doctype => doctype}
       |
  
 

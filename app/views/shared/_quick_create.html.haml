@@ -1,0 +1,7 @@
+%div.quick-create{:style => "background-color:#{current_group.tertiary}; padding:0 8px; height:32px;"}
+  = "What would you like to create?"
+  - current_group.doctypes.each do |doctype|
+    %ul
+      - if !doctype.hidden
+        %li
+          = link_to "#{doctype.create_label}", new_item_path(doctype), :class => "button"

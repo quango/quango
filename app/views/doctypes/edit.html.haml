@@ -1,6 +1,6 @@
 -content_for :main do
 
-  #main-index
+  #main
 
     %h1
       = "Editing doctype"
@@ -8,14 +8,34 @@
     %p
       - form_for @doctype, :html =>{ :method => :put } do |f| #, :url => doctype_path(@group)
         = f.error_messages
-        %p
+        .group
           = f.text_field :name, :value => @doctype.name
-        %p
-          = "Hidden?"
+        .group
+          = "Create label, used for buttons in show and shortcuts in indexes"
+          = f.text_field :create_label, :value => @doctype.create_label
+        .group
+          = "Create label Past tense , used for messaging eg. Rudy *shared a thought* on..."
+          = f.text_field :created_label, :value => @doctype.created_label
+        .group
+          = "Help text, used on a create page to describe what that section is about"
+          -if current_group.wysiwyg_editor
+            = f.text_area :help_text, :class => "text_area", :id => "wysiwyg_editor", :value => markdown(@doctype.help_text)
+          -else
+            = f.text_area :help_text, :class => "text_area", :id => "markdown_editor"
+            .description
+              = t('.sponsor_description_legend')
+            %label.label
+              = t("global.preview")
+            #markdown_preview.markdown
+              =markdown(@doctype.help_text)
+
+
+        .group
+          = "Hide this section?"
           = f.check_box :hidden
 
 
-        %p
+        .group
           = f.submit 'Update'
 
     %p

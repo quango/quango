@@ -16,6 +16,11 @@ class Doctype
   key :has_links, Boolean, :default => false
 
   key :create_label, String
+  key :created_label, String
+  key :help_text, String
+
+
+
   key :custom_icon, String
 
   key :group_id, String
