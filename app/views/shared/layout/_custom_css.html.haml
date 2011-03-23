@@ -11,7 +11,7 @@
     filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.primary_dark}',endColorstr='#{current_group.primary}');background:-webkit-gradient(linear,left top,left bottom,to(#{current_group.primary_dark}),from(#{current_group.primary}));background:-moz-linear-gradient(top,#{current_group.secondary},#{current_group.primary});
   }
 
-  \#toolbar-container {   border: 1px solid #{current_group.primary_dark};  
+  \#toolbar-container {   
   -if current_group.toolbar_bg?
     background-color: #{current_group.toolbar_bg};
 
@@ -19,9 +19,17 @@
     background-image:url(#{current_group.toolbar_bg_image});
   -if !current_group.toolbar_bg? && !current_group.toolbar_bg_image?
     background-color: #{current_group.primary_dark};
-    text-shadow: #{current_group.primary_dark} 0px -1px 1px;
-    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#000000',endColorstr='#{current_group.primary_dark}');background:-webkit-gradient(linear,left top,left bottom,from(#000000),to(#{current_group.primary_dark}));background:-moz-linear-gradient(top,#000000,#{current_group.primary_dark});
+    -#text-shadow: #{current_group.primary_dark} 0px -1px 1px;
+    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#000000',endColorstr='#{current_group.primary_dark}');
+    background:-webkit-gradient(linear,left top,left bottom,from(#000000),to(#{current_group.primary_dark}));
+    background:-moz-linear-gradient(top,#000000,#{current_group.primary_dark});
   }
+
+  \#toolbar{
+    
+  }
+
+  \.logo-text a{background-color:#{current_group.primary}}
 
 
   \div.signup-form{background:#{current_group.primary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.primary}',endColorstr='#{current_group.tertiary}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.primary}),to(#{current_group.tertiary}));background:-moz-linear-gradient(top,#{current_group.primary},#{current_group.tertiary})}

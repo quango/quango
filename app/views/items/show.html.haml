@@ -129,8 +129,7 @@
 
 -content_for :sidebar_inner do
   #sidebar-inner
-    -if logged_in?
-      = render :partial => "create_button"
+
     = render :partial => "author"
     -if @doctype.has_video?
       = render :partial => "video_info", :locals => {:item => @item}
@@ -139,7 +138,8 @@
     = render :partial => "shared/signup_button", :locals => {:width => "wide"}
     = render :partial => "images", :locals => {:item => @item}
     = render :partial => "related_communities"
-
+    -if logged_in?
+      = render :partial => "create_button"
 
     -if logged_in? && current_group.has_bunnies?
       -if current_user.owner_of?(current_group)

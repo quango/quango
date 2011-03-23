@@ -107,7 +107,7 @@ class CommentsController < ApplicationController
     if params[:action] == "destroy"
       valid = @comment.can_be_deleted_by?(current_user)
     else
-      valid = current_user.can_modify?(@comment) || current_user.mod_of?(@comment.group)
+      valid = current_user.can_modify?(@comment) #|| current_user.mod_of?(@comment.group)
     end
 
     if !valid

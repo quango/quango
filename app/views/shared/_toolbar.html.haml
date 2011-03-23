@@ -1,45 +1,11 @@
-#toolbar{:style => "float:left;width:256px;"}
-  -if logged_in?
-    -if !current_group.isolate && AppConfig.enable_groups
-      .edition
-        %ul.topbar.combobox.left
-          %li
-            = image_tag(current_group.favicon_path,  :style => "margin:0;", :class => "main-icon")
-            .thoughtdomain
-              =link_to h(current_group.name), domain_url(:custom => current_group.domain), :style=>"margin:0px;"
-              =link_to h(current_group.name_highlight), domain_url(:custom => current_group.domain), :style=> "color:#{current_group.primary};margin:0 0 0 -2px;"
-
-            %ul
-              -current_user.groups(:select => [:name, :domain]).each do |group|
-                %li
-                  -if group.favicon_path?
-                    = image_tag( "#{group.favicon_path}", :style => "background-color:#{group.secondary};")
-                  -else
-                    = image_tag("#{group.favicon_path}",  :style => "background-color:#{group.secondary};")
-                  - gname = group.name + " " + group.name_highlight.to_s
-                  =link_to h(gname), domain_url(:custom => group.domain)
-
-    -else
-      .edition
-        %ul.topbar.combobox.left
-          %li
-            = image_tag(current_group.favicon_path,  :style => "height:24px: width:24px; margin:0};")
-            .thoughtdomain
-              =link_to h(current_group.name), domain_url(:custom => current_group.domain), :style=>"margin:0px;"
-              =link_to h(current_group.name_highlight), domain_url(:custom => current_group.domain), :style=> "color:#{current_group.primary};margin:0 0 0 -2px;"
-
-
+#logo{:style => "float:left;"}
+  -if current_group.logo_only?
+    .logo-text
+      =link_to h(current_group.name), domain_url(:custom => current_group.domain), :style=>"background-color:#{current_group.primary};color:white;margin:0px;float:left"
+      =link_to h(current_group.name_highlight), domain_url(:custom => current_group.domain), :style=> "background-color:white;color:#{current_group.primary};margin:0px;float:left"
   -else
-    .edition
-      %ul.topbar.combobox.left
-        %li
-          = image_tag(current_group.favicon_path,  :style => "height:24px: width:24px; margin:0};")
-          .thoughtdomain
-            =link_to h(current_group.name), domain_url(:custom => current_group.domain), :style=>"margin:0px;"
-            =link_to h(current_group.name_highlight), domain_url(:custom => current_group.domain), :style=> "color:#{current_group.primary};margin:0 0 0 -2px;"
-
-
-
+    .logo
+      = link_to image_tag(current_group.logo_path, :width => current_group.logo_info["width"], :height => current_group.logo_info["height"],  :style => "bottom:0px;"), domain_url(:custom => current_group.domain), :style=>"margin:0px;"
 
 
 #toolbar{:style => "float:right;width:auto;"}

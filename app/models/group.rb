@@ -74,6 +74,9 @@ class Group
 
   # theme
   key :logo_path, String, :default => "/images/logos/star_32.png"
+  key :logo_info, Hash, :default => {"width" => 32, "height" => 32}
+  key :logo_only, Boolean, :default => false
+
   key :favicon_path, String, :default => "/images/logos/star_32.png"
 
   key :image_of_the_day, String
@@ -101,7 +104,7 @@ class Group
   key :supplementary, String, :default => "#FFB455" #action buttons and anything requiring high visibility
   key :supplementary_lite, String, :default => "#FFD6A2" #action buttons and anything requiring high visibility
 
-  key :logo_info, Hash, :default => {"width" => 32, "height" => 32}
+
   key :share, Share, :default => Share.new
 
   #temp sections to be refactored with dynamic sections controller

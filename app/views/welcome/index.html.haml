@@ -83,7 +83,8 @@
       %h3
         = h("About this community")
       .content
-        = h("#{current_group.description}")
+        .markdown
+          = "#{current_group.description}"
 
   #welcome-index{:style => "float:left;"}
     .content

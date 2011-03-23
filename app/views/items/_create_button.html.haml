@@ -1,5 +1,5 @@
 .create{:style=> "width:240px; padding: 0 32pxs"}
-  = link_to " Add #{@doctype.name}",new_item_path(@item.doctype), :class => "create-button", :style => "width:160px; height:32px; padding: 0 32px; font-weight: bold; font-size:18px;color:white"
+  = link_to "#{@doctype.create_label}",new_item_path(@item.doctype), :class => "create-button", :style => "width:160px; height:32px; padding: 0 32px; font-weight: bold; font-size:18px;color:white"
 
 .clear
 

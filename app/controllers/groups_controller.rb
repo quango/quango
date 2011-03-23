@@ -112,13 +112,13 @@ class GroupsController < ApplicationController
 
     doctypes = Array.new
 
-    doctypes << Doctype.new(:name => "news", :doctype => "standard",:create_label => "Add some news", :group_id => @group.id)
-    doctypes << Doctype.new(:name => "thoughts", :doctype => "standard", :create_label => "Share a thought", :group_id => @group.id)
+    doctypes << Doctype.new(:name => "news", :doctype => "standard",:create_label => "Add some news",:created_label => "added some news", :group_id => @group.id)
+    doctypes << Doctype.new(:name => "thoughts", :doctype => "standard", :create_label => "Share a thought", :created_label => "shared a thought", :group_id => @group.id)
     #doctypes << Doctype.new(:name => "newsfeeds", :doctype => "newsfeed", :create_label => "Add a newsfeed", :hidden => "true", :group_id => @group.id)
-    doctypes << Doctype.new(:name => "discussions", :doctype => "standard", :create_label => "Discuss something", :group_id => @group.id)
-    doctypes << Doctype.new(:name => "articles", :doctype => "standard", :create_label => "Write an article", :group_id => @group.id)
-    doctypes << Doctype.new(:name => "videos",:has_video => "true", :doctype => "video", :create_label => "Share a video", :group_id => @group.id)
-    doctypes << Doctype.new(:name => "links",:has_links => "true", :doctype => "bookmark", :create_label => "Share a link", :group_id => @group.id)
+    doctypes << Doctype.new(:name => "discussions", :doctype => "standard", :create_label => "Start a discussion", :created_label => "started a discussion", :group_id => @group.id)
+    doctypes << Doctype.new(:name => "articles", :doctype => "standard", :create_label => "Write an article", :created_label => "wrote an article", :group_id => @group.id)
+    doctypes << Doctype.new(:name => "videos",:has_video => "true", :doctype => "video", :create_label => "Suggest a video", :create_label => "suggested a video", :group_id => @group.id)
+    doctypes << Doctype.new(:name => "links",:has_links => "true", :doctype => "bookmark", :create_label => "Share a link", :created_label => "shared a link", :group_id => @group.id)
     #doctypes << Doctype.new(:name => "eggs", :doctype => "bookmark", :create_label => "Share a link", :group_id => @group.id)
 
     doctypes.each do |doctype| 
@@ -180,7 +180,8 @@ class GroupsController < ApplicationController
   # PUT /groups/1
   # PUT /groups/1.json
   def update
-    @group.safe_update(%w[name name_highlight legend description has_custom_channels custom_channels default_tags subdomain logo logo_info
+    @group.safe_update(%w[name name_highlight legend description has_custom_channels custom_channels default_tags subdomain 
+                          logo logo_info logo_only
                           forum notification_from notification_email
                           custom_favicon language theme reputation_rewards reputation_constrains
                           hidden has_adult_content registered_only openid_only custom_css wysiwyg_editor fb_button share show_beta_tools
@@ -254,7 +255,7 @@ class GroupsController < ApplicationController
   def sponsor_logo_wide
     @group = Group.find_by_slug_or_id(params[:id], :select => [:file_list])
     if @group && @group.has_sponsor_logo_wide?
-      send_data(@group.sponsor_logo_wide.try(:read), :filename => "sponsor_logo.#{@group.sponsor_logo_wide.extension}", :type => @group.sponsor_logo_wide.content_type,  :disposition => 'inline')
+      send_data(@group.sponsor_logo_wide.try(:read), :filename => "sponsor_logo.#{@group.sponsor_logo_wide.extension}") #, :type => @group.sponsor_logo_wide.content_type,  :disposition => 'inline')
     else
       render :text => "logo error"
     end
@@ -263,7 +264,7 @@ class GroupsController < ApplicationController
   def sponsor_logo_narrow
     @group = Group.find_by_slug_or_id(params[:id], :select => [:file_list])
     if @group && @group.has_sponsor_logo_narrow?
-      send_data(@group.sponsor_logo_narrow.try(:read), :filename => "sponsor_logo.#{@group.sponsor_logo_narrow.extension}", :type => @group.sponsor_logo_narrow.content_type,  :disposition => 'inline')
+      send_data(@group.sponsor_logo_narrow.try(:read), :filename => "sponsor_logo.#{@group.sponsor_logo_narrow.extension}") #, :type => @group.sponsor_logo_narrow.content_type,  :disposition => 'inline')
     else
       render :text => "logo error"
     end

@@ -1,7 +1,9 @@
 en:
   items:
-    section_head:
-      empty: Nada
+    summary_header_welcome:
+      empty: Coming soon...
+    summary_header:
+      empty: Coming soon...
     edit_button:
       label: Open Edit
     toolbox:
