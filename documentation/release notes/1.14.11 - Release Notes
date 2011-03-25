@@ -4,6 +4,12 @@ This is mainly a bugfix release, but also a few usability issues
 Changelog
 
 * Improved support for logo in the toolbar for the community sponsor - hardwired atm
+* made "about label" editable ( appears for non-logged in users in toolbar and in the description box on homepage )
+* Fixed admin area so admins can manage members
+* Switched order of sponsor block to bottom and description to top
+* Made the sponsor logo and text independent ( means you can show neither, either or both ) This is primarily useful if there are multiple sponsors and they be different sponsor types 
+* Commented out "My Edition" and "My Community" until those sections are ready
+
 
 Stylefixes
 

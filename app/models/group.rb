@@ -70,6 +70,7 @@ class Group
   key :publish_label, String, :default => "post"
   key :publish_label_past, String, :default => "posted"
   key :leaders_label, String, :default => "Thought leaders..." 
+  key :about_label, String, :default => "About this community" 
   key :signup_heading, String, :default => "Thinking is free, so naturally thinkingdaily.com is also free..."  
 
   # theme
@@ -116,6 +117,8 @@ class Group
 
   key :has_sponsor, Boolean, :default => false
 
+  key :sponsor_label, String, :default => "Supporters"
+
   key :sponsor_name, String
   key :sponsor_link, String
 
@@ -126,6 +129,7 @@ class Group
   file_key :sponsor_logo_narrow, :max_length => 256.kilobytes
   key :sponsor_logo_wide_info, Hash, :default => {"width" => 256, "height" => 128}
   key :sponsor_logo_narrow_info, Hash, :default => {"width" => 140, "height" => 140}
+
 
   key :show_sponsor_description, Boolean, :default => false
   key :show_sponsor_description_boxheader, Boolean, :default => true

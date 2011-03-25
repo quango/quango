@@ -32,22 +32,22 @@
       %strong= link_to(h(real_name), user_path(current_user))
       %span.reputation{:title => t("activerecord.attributes.user.reputation"), :style => "background-color:"+current_group.primary+""}=format_number(current_user.reputation_on(current_group))
       |
-    .entry
-      =link_to h("My Edition"), user_path(current_user)
-      | 
+    -#.entry
+      -#=link_to h("My Edition"), user_path(current_user)
+      -#| 
     .entry
       =link_to h("My Profile"), user_path(current_user)
       | 
-    .entry
-      =link_to h("My Community"), user_path(current_user)
-      |
+    -#.entry
+      -#=link_to h("My Community"), user_path(current_user)
+      -#|
     .entry
       =link_to h("My Settings"), settings_path(:tab => "welcome")
       |
 
   -if !logged_in?
     .entry
-      = link_to h("About this community"), "/about/community"
+      = link_to h(current_group.about_label), "/about/community"
       |
     .entry
       = link_to h("FAQ"), "/about/faq"

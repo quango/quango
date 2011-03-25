@@ -68,23 +68,27 @@
 
 
   #sidebar-inner{:style => "float:right; width:256px;"}
+    .block
+      %h3
+        = h(current_group.about_label)
+      .content
+        .markdown
+          = "#{current_group.description}"
 
-    = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
     = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
+
 
     - current_group.widgets.each do |widget|
       .widget.block{:id => widget.name}
         = render :partial => widget.partial_name, :locals => {:widget => widget, :width => "wide"}
 
+    = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
+
+
     -if !current_group.isolate # this will be the group connect thing
       -#= render :partial => "featured_groups", :locals => {:width => "wide"}
 
-    .block
-      %h3
-        = h("About this community")
-      .content
-        .markdown
-          = "#{current_group.description}"
+
 
   #welcome-index{:style => "float:left;"}
     .content

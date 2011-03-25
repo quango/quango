@@ -19,13 +19,14 @@
 
   %ul.items#members
     -@users.each do |user|
+      %li
+        = user.email.to_s
+      = render :partial => "member", :member => user
 
-      = render :partial => "member", :object => user
-
-  -#%ul.members-list-index#users
-    -#-@users.each do |user|
-      -#-if user.login != "admin"
-        -#= render :partial => "user", :object => user
+  %ul.members-list-index#users
+    -@users.each do |user|
+      -if user.login != "admin"
+        = render :partial => "member", :object => user
 
 
   =will_paginate @members

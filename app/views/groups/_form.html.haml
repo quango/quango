@@ -22,6 +22,11 @@
   = form.text_field :leaders_label, :class => "text_field"
 
 .group
+  = form.label :about_label, t('about_label', :scope => "activerecord.attributes.group"), :class => "label"
+  = form.text_field :about_label, :class => "text_field"
+
+
+.group
   = form.label :subdomain, "URL", :class => "label"
   %div
     %span.description

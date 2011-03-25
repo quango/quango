@@ -4,7 +4,7 @@
   -if width == "wide"
     .block
       %h3
-        = "community partner..."
+        = current_group.sponsor_label
       .content
         -if current_group.has_sponsor?
           .sponsor{:style => "height:#{current_group.sponsor_logo_wide_info["height"]}px"}

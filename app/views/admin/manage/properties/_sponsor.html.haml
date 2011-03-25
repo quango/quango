@@ -17,18 +17,26 @@
   %hr{:style =>"margin:8px 0"}
 
   .group
-    = f.label :sponsor_name, "Sponsor name", :class => "label"
-    = f.text_field :sponsor_name, :class => "text_field"
-
-  .group
-    = f.label :sponsor_link, "Sponsor link", :class => "label"
-    = f.text_field :sponsor_link, :class => "text_field"
-    = "The logo will link to the sponsor's website"
-
-  .group
     = f.label :show_sponsor_welcome, "Show logo on welcome page?", :class => "label"
     = f.check_box :show_sponsor_welcome, :class => "text_field"
     = "If you check this box, the <b>wide logo</b> you specify will appear on the welcome page"
+
+
+  .group
+    = f.label :sponsor_label, "Sponsor label", :class => "label"
+    = f.text_field :sponsor_label, :class => "text_field"
+
+
+  .group
+    = f.label :sponsor_name, "Sponsor name (main)", :class => "label"
+    = f.text_field :sponsor_name, :class => "text_field"
+
+  .group
+    = f.label :sponsor_link, "Sponsor link (main)", :class => "label"
+    = f.text_field :sponsor_link, :class => "text_field"
+    = "The logo will link to the sponsor's website"
+
+
 
   .group
     = f.label :show_sponsor_subsequent, "Show logo on subsequent pages?", :class => "label"
@@ -63,9 +71,9 @@
 
   .clear
   .group
-    = f.label :show_sponsor_description, "Show the sponsor description on the welcome page?", :class => "label"
+    = f.label :show_sponsor_description, "Show the sponsor description?", :class => "label"
     = f.check_box :show_sponsor_description, :class => "text_field"
-    = "If you check this box, any text in the box below will appear on the welcome page"
+    = "If you check this box, the sponsor description below will appear on welcome page"
 
   .group
     = f.label :show_sponsor_description_boxheader, "Show the sponsor description on the welcome page?", :class => "label"
