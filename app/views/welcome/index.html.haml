@@ -73,7 +73,7 @@
         = h(current_group.about_label)
       .content
         .markdown
-          = "#{current_group.description}"
+          = markdown(current_group.description)
 
     = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
 
