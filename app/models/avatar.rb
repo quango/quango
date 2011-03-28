@@ -2,7 +2,7 @@ class Avatar
   include MongoMapper::Document
 
   key :_id, String
-  key :name, String
+  key :name, String, :default => "image"
   key :avatar_uid, String
   key :avatar_width, Integer, :default => 48
   key :avatar_height, Integer, :default => 48

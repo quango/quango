@@ -76,8 +76,8 @@
                   %span.tag
                     = link_to h(tag), url_for(:controller => "item", :action => "index", :tags => tag), :rel => "tag"
                 - if logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group)) #tofix
-                  %span.retagX
-                    = link_to t('.retag'), retag_item_path(@doctype, @item), :id => 'retag', :class => "link"
+                  %span.retag
+                    = link_to t('.retag'), retag_item_path(@doctype, @item), :id => 'retag',:style => "border:0; background:white", :class => "link"
 
             .entry-content
               = item_body
@@ -137,7 +137,8 @@
 
     = render :partial => "shared/signup_button", :locals => {:width => "wide"}
     = render :partial => "images", :locals => {:item => @item}
-    = render :partial => "related_communities"
+    -if !current_group.isolate
+      = render :partial => "related_communities"
     -if logged_in?
       = render :partial => "create_button"
 
@@ -163,7 +164,7 @@
     = render :partial => "shared/community_sponsor", :locals => {:width => "narrow"}
     = render :partial => "shared/current_tags"
     = render :partial => "shared/tag_list", :object => @tag_cloud
-    = render :partial => "related_communities"
+    -#= render :partial => "related_communities"
 
 
     - if logged_in? && (current_user.mod_of?(current_group) || current_user.can_view_offensive_counts_on?(current_group))

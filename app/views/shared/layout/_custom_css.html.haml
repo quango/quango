@@ -1,4 +1,5 @@
 %style{:type => 'text/css'}
+
   \.text-field{border:0}
   a {color: #{current_group.link_colour};}
   a:hover {color: #444;}
@@ -36,10 +37,10 @@
   \h2.form-header{ background-color: #{current_group.primary};}
   \.form-footer{ background-color: #{current_group.tertiary};}
 
-  \.tag-list a{background:#{current_group.supplementary}; filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.supplementary}',endColorstr='#{current_group.supplementary_dark}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.supplementary}),to(#{current_group.supplementary_dark}));background:-moz-linear-gradient(top,#{current_group.supplementary},#{current_group.supplementary_dark}); text-shadow: #{current_group.supplementary_dark} 0px -1px 1px; border: 1px solid #{current_group.supplementary_dark};}
+  \.tag-list a{background:#{current_group.primary_dark};}
   -#\.tag-list a{filter:progid:DXImageTransform.Microsoft.shadow(color=#{current_group.supplementary_dark}, direction=0, strength=0.5)}  
   \.tag-list .tag a:link, .tag-list .tag a:active, .tag-list .tag a:visited {}
-  \.tag-list .tag a:hover{ background-color: #{current_group.tertiary};}
+  \.tag-list .tag a:hover{ background:#{current_group.primary};}
   \.ownerflair {background-color: #{current_group.secondary}; border:1px solid #{current_group.primary};text-shadow: #{current_group.primary} 0px -1px 1px}
 
   \.label-highlight a{ color: #{current_group.secondary};}
@@ -60,7 +61,11 @@
   \.login-button {background: #{current_group.supplementary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.supplementary}',endColorstr='#{current_group.supplementary_dark}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.supplementary}),to(#{current_group.supplementary_dark}));background:-moz-linear-gradient(top,#{current_group.supplementary},#{current_group.supplementary_dark}); border:1px none #{current_group.primary_dark};text-shadow: #{current_group.supplementary_dark} 0px -1px 1px}
   \.create-button {background: #{current_group.supplementary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.supplementary}',endColorstr='#{current_group.supplementary_dark}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.supplementary}),to(#{current_group.supplementary_dark}));background:-moz-linear-gradient(top,#{current_group.supplementary},#{current_group.supplementary_dark}); border:1px solid white;text-shadow: #{current_group.supplementary_dark} 0px -1px 1px}
   \.supplementary-button {background: #{current_group.supplementary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.supplementary}',endColorstr='#{current_group.supplementary_dark}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.supplementary}),to(#{current_group.supplementary_dark}));background:-moz-linear-gradient(top,#{current_group.supplementary},#{current_group.supplementary_dark}); border:1px solid #{current_group.supplementary};text-shadow: #{current_group.supplementary_dark} 0px -1px 1px}
-  \.action-button {border:0;filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.primary_dark}',endColorstr='#{current_group.primary}');background:-webkit-gradient(linear,left top,left bottom,to(#{current_group.primary_dark}),from(#{current_group.primary}));background:-moz-linear-gradient(top,#{current_group.secondary},#{current_group.primary});text-shadow: #{current_group.primary_dark} 0px -1px 1px }
+
+  \.action-button {background:#{current_group.primary}}
+  \.action-button:hover {background:#{current_group.primary_dark}}
+  \a.action-button:hover {color:pink}
+
   \.primary-button {background-color: #{current_group.primary}; border:1px solid #{current_group.primary};text-shadow: #{current_group.primary} 0px -1px 1px}
   \.section-button {background-color: #{current_group.primary}; border:1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px}
   \.secondary-button {background-color: #{current_group.primary}; border:1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px}
@@ -75,8 +80,9 @@
   \.login{background:#{current_group.tertiary}}
 
 
-  \.supplementary-navigation {background: #{current_group.supplementary}} #;text-shadow: #{current_group.supplementary_dark} 0px -1px 1px}
-  
+  \.supplementary-navigation {background: #b6b6b6; height:26px; line-height:26px}
+  \#main-index .title {background: #b6b6b6; height:29px; line-height:29px}  
+
   \.community {background: #{current_group.supplementary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.supplementary}',endColorstr='#{current_group.supplementary_dark}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.supplementary}),to(#{current_group.supplementary_dark}));background:-moz-linear-gradient(top,#{current_group.supplementary},#{current_group.supplementary_dark}); border:1px solid white;text-shadow: #{current_group.supplementary_dark} 0px -1px 1px}
 <!--//-->
 

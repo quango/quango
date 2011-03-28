@@ -450,7 +450,7 @@ class ItemsController < ApplicationController
         end
 
         current_group.on_activity(:ask_item)
-        flash[:notice] = t(:flash_notice, :scope => "items.create" + "nbkjhbd")
+        flash[:notice] = "Thanks, you have just " + @doctype.created_label.to_s
 
         format.html { redirect_to item_path(@doctype, @item)}
         #format.html { redirect_to("/#{@item.section}/#{@item.slug}") }

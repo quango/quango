@@ -4,104 +4,106 @@
 -#= expanded
 
 
+-if doctype
 
-.section-head-welcome
-  .secondary-navigation-sections
-    .navlabel.left
-      - section_link = section.name.downcase
-      = link_to h(section.name.capitalize), items_path(doctype)
+  .section-head-welcome
+    .secondary-navigation-sections
+      .navlabel.left
 
-    .navcontrols.right
-      %a.show_summary{:class => "#{section.name} navlinks showhide right"}
-        = "show headlines"
-      %a.hide_summary{:class => "#{section.name} navlinks showhide right"}
-        = "hide headlines"
+        - section_link = section.name.downcase
+        = link_to h(section.name.capitalize), items_path(doctype)
 
-    .navlinks.right{:style => "width:128px"}
-      = link_to "#{doctype.create_label}",new_item_path(doctype),:locals => {:doctype => doctype}
-      |
+      .navcontrols.right
+        %a.show_summary{:class => "#{section.name} navlinks showhide right"}
+          = "show headlines"
+        %a.hide_summary{:class => "#{section.name} navlinks showhide right"}
+          = "hide headlines"
+
+      .navlinks.right{:style => "width:128px"}
+        = link_to "#{doctype.create_label}",new_item_path(doctype),:locals => {:doctype => doctype}
+        |
 
 
-  .section-listing-welcome{:class => section.name}
+    .section-listing-welcome{:class => section.name}
 
-    .listings-centre{:style => "width:420px; float:left;"}
-      .title
-        = h("Headlines")
-      .content
+      .listings-centre{:style => "width:420px; float:left;"}
+        .title
+          = h("Headlines")
+        .content
 
-        %ul.listing
-          -if current_group.doctypes.empty?
-            %li.highlight
-              = t(".empty")
-          -else
-            - items_array = Array.new
-            - @doctype.items.reverse.each do |item|
-              - items_array << item
-            - items_array[0..7].each do |item|
-              = render :partial => "/items/summary_list_headline", :locals => {:item => item, :sort=>"hot"}
+          %ul.listing
+            -if current_group.doctypes.empty?
+              %li.highlight
+                = t(".empty")
+            -else
+              - items_array = Array.new
+              - @doctype.items.reverse.each do |item|
+                - items_array << item
+              - items_array[0..7].each do |item|
+                = render :partial => "/items/summary_list_headline", :locals => {:item => item, :sort=>"hot"}
 
-    .listings-right{:style => "width:280px; float:right;"}
-      .title
-        = h("Features")
-      .content
-        %ul.features
-          -if doctype.items.empty?
-            %li.highlight
-              = t(".empty")
-          -else
-            - items_array = Array.new
-            - @doctype.items.reverse.each do |item|
-              - items_array << item
-            - items_array[0..1].each do |item|
-              = render :partial => "/items/summary_list_thumbnail", :locals => {:item => item, :sort=>"hot"}
+      .listings-right{:style => "width:280px; float:right;"}
+        .title
+          = h("Features")
+        .content
+          %ul.features
+            -if doctype.items.empty?
+              %li.highlight
+                = t(".empty")
+            -else
+              - items_array = Array.new
+              - @doctype.items.reverse.each do |item|
+                - items_array << item
+              - items_array[0..1].each do |item|
+                = render :partial => "/items/summary_list_thumbnail", :locals => {:item => item, :sort=>"hot"}
 
-        .clear
+          .clear
 
-    %script{:type => "text/javascript"}
-      = "// collapse:"
-      = "$('.hide_summary.#{section.name}').click(function() {"
-      = "$('.hide_summary.#{section.name}').css('display','none');"
-      = "$('.show_summary.#{section.name}').css('display','block');"
-      = "$('.#{section.name}.section-listing-welcome').hide('slow');"
-      = "$.cookie('#{section.name}.index.summary', 'collapsed', { expires: 2 });"
-      = "});"
-      = "// expand:"
-      = "$('.show_summary.#{section.name}').click(function() {"
-      = "$('.show_summary.#{section.name}').css('display','none');"
-      = "$('.hide_summary.#{section.name}').css('display','block');"
-      = "$('.#{section.name}.section-listing-welcome').show('slow');"
-      = "$.cookie('#{section.name}.index.summary', 'expanded', { expires: 2 });"
-      = "});"
-      = "// ok so far"
-      = "// COOKIES"
-      = "var #{section.name} = $.cookie('#{section.name}.index.summary');"
-      = "	// Set the user's selection for the left column"
-      = "if (#{section.name} == 'collapsed') {"
-      = "$('.hide_summary.#{section.name}').css('display','none');"
-      = "$('.show_summary.#{section.name}').css('display','block');"
-      = "$('.#{section.name}.section-listing-welcome').hide();"
-      = "};"
-      = "if (#{section.name} == 'expanded') {"
-      = "$('.hide_summary.#{section.name}').css('display','block');"
-      = "$('.show_summary.#{section.name}').css('display','none');"
-      = "$('#{section.name}.#{section.name}.section-listing-welcome').show();"
-      = "};"
-      - if expanded == "false"
-        = "if (#{section.name} == null) {"
-        = "$('.show_summary.#{section.name}').css('display','block');"
+      %script{:type => "text/javascript"}
+        = "// collapse:"
+        = "$('.hide_summary.#{section.name}').click(function() {"
         = "$('.hide_summary.#{section.name}').css('display','none');"
+        = "$('.show_summary.#{section.name}').css('display','block');"
+        = "$('.#{section.name}.section-listing-welcome').hide('slow');"
+        = "$.cookie('#{section.name}.index.summary', 'collapsed', { expires: 2 });"
+        = "});"
+        = "// expand:"
+        = "$('.show_summary.#{section.name}').click(function() {"
+        = "$('.show_summary.#{section.name}').css('display','none');"
+        = "$('.hide_summary.#{section.name}').css('display','block');"
+        = "$('.#{section.name}.section-listing-welcome').show('slow');"
+        = "$.cookie('#{section.name}.index.summary', 'expanded', { expires: 2 });"
+        = "});"
+        = "// ok so far"
+        = "// COOKIES"
+        = "var #{section.name} = $.cookie('#{section.name}.index.summary');"
+        = "	// Set the user's selection for the left column"
+        = "if (#{section.name} == 'collapsed') {"
+        = "$('.hide_summary.#{section.name}').css('display','none');"
+        = "$('.show_summary.#{section.name}').css('display','block');"
         = "$('.#{section.name}.section-listing-welcome').hide();"
         = "};"
-      - else
-        = "if (#{section.name} == null) {"
+        = "if (#{section.name} == 'expanded') {"
         = "$('.hide_summary.#{section.name}').css('display','block');"
         = "$('.show_summary.#{section.name}').css('display','none');"
-        = "$('.#{section.name}.section-listing-welcome').show();"
+        = "$('#{section.name}.#{section.name}.section-listing-welcome').show();"
         = "};"
+        - if expanded == "false"
+          = "if (#{section.name} == null) {"
+          = "$('.show_summary.#{section.name}').css('display','block');"
+          = "$('.hide_summary.#{section.name}').css('display','none');"
+          = "$('.#{section.name}.section-listing-welcome').hide();"
+          = "};"
+        - else
+          = "if (#{section.name} == null) {"
+          = "$('.hide_summary.#{section.name}').css('display','block');"
+          = "$('.show_summary.#{section.name}').css('display','none');"
+          = "$('.#{section.name}.section-listing-welcome').show();"
+          = "};"
 
 
-    .clear
-.clear
+      .clear
+  .clear
 
 
 

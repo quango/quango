@@ -1,11 +1,9 @@
 .block
   %h3
-    = "#{@user.name}"
+    = "#{@user.display_name}"
+  - if current_user.can_modify?(@user)
+    = "edit"
 
-  .controls
-    -if current_user == @user
-      .navcontrols.right
-        =link_to h("Edit Image"), avatars_path, :class => "standard-button"
   .content
     - @avatar = Avatar.find(@user.profile_image)
     - if @avatar.present?

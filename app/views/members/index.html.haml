@@ -18,10 +18,10 @@
         = submit_tag t('scaffold.add', :model => "member")
 
   %ul.items#members
-    -@users.each do |user|
+    -@members.each do |member|
       %li
-        = user.email.to_s
-      = render :partial => "member", :member => user
+        = member.email.to_s
+      = render :partial => "member", :object => member
 
   %ul.members-list-index#users
     -@users.each do |user|

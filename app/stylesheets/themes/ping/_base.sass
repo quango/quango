@@ -1,3 +1,12 @@
+.filter
+  &ul
+    list-style-type: none
+    li
+      list-style-type: none
+      display: inline
+
+
+
 .thoughtdomain
 
   font-weight: bold
@@ -64,7 +73,7 @@ hr
 p
   margin: 12px 0 12px 0
   font-size: 12px
-  line-height: 13px
+  //line-height: 13px
 
 input.checkbox
   vertical-align: middle
@@ -112,13 +121,7 @@ input.checkbox
   //border-top: 1px solid white
   .title
     color: white
-    height: 20px
-    line-height: 20px
-    margin: 0
-    padding: 3px
-    font-weight: normal
-    font-size: 1em
-    border-bottom: 1px solid white
+
 
   .profile-title
     color: white
@@ -241,26 +244,31 @@ input.checkbox
 
 .flash
   .message
-    -moz-border-radius: 3px
-    -webkit-border-radius: 3px
-    text-align: center
-    margin: 0 auto 5px
-    width: 80%
 
-    p
-      margin: 8px
+    height: 32px
+    line-height: 32px
 
   .error
-    border: 1px solid #fbb
-    background-color: #fdd
+    background-color: amber
+    color: white
 
   .warning
-    border: 1px solid #fffaaa
-    background-color: #ffffcc
+    margin: 0 auto
+    width: 990px
+    background-color: red
+    color: white
 
   .notice
-    border: 1px solid #ddf
-    background-color: #eef
+    margin: 0 auto
+    width: 990px
+    background-color: green
+    color: white
+    p
+    text-align: center
+    font-weight: bold
+      padding: 0
+      margin: 0
+      line-height: 32px
 
 
 #box .block

@@ -21,8 +21,7 @@
 
 -content_for :sidebar_inner do
   #sidebar-inner
-    = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
-    = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
+
 
     .block
       %h3
@@ -32,7 +31,8 @@
           = submit_tag("Search",:class => "right")
           = text_field_tag "q", params[:q], :class => "text_field search_field left" 
           .clear
-
+    = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
+    = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
 
 
     = render :partial => "recent_members"

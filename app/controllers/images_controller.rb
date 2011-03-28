@@ -65,7 +65,7 @@ class ImagesController < ApplicationController
     @item = Item.find_by_slug_or_id(params[:item_id])
     @image.item = @item
     #@image.name = @image.to_s
-    @image.image = @image.image.process!(:resize, '962>')
+    @image.image = @image.image.process(:resize, '962>')
 
    
 

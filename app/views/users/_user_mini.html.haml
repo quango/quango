@@ -9,7 +9,7 @@
         - default_avatar = cropped_avatar.process(:thumb,"56x56")
         - default_avatar_grey = default_avatar.process(:greyscale,"20")
         -#= image_tag default_avatar.url, :class => 'b', :alt => user.first_name, :title => user.first_name
-        = image_tag default_avatar_grey.url, :class => 'a', :alt => user.first_name, :title => user.first_name 
+        = image_tag default_avatar_grey.url, :class => 'a', :alt => user.first_name, :title => user.first_name, :height => "56px", :width => "56px" 
       - else
         = image_tag "/images/anonymous_avatar.png", :height => "56px", :width => "56px" #, user_path(user)
     %div.details{:style=>"float:left; overflow:hidden"}
@@ -68,7 +68,7 @@
         - default_avatar_grey = default_avatar.process(:greyscale,"20")
 
         -#= image_tag default_avatar.url, :class => 'b', :alt => user.first_name, :title => user.first_name
-        = image_tag default_avatar_grey.url, :class => 'a', :alt => user.first_name, :title => user.first_name 
+        = image_tag default_avatar_grey.url, :class => 'a', :alt => user.first_name, :title => user.first_name, :height => "32px", :width => "32px" 
 
       - else
         = image_tag "/images/anonymous_avatar.png", :height => "32px", :width => "32px" #, user_path(user)

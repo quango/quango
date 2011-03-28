@@ -4,15 +4,15 @@
 - content_for :main do
 
   #main-index
-    .title
-      =@user.login.capitalize << "'s Profile Images"
+    .supplementary-navigation
+      ="My Profile Images"
     
     = yield :secondary_navigation
 
 
-    .help
+    .help{:style=>"margin:16px 0px"}
       = "Members use two types of image, avatars and profile images:"
-      %ul
+      %ul{:style=>"list-style-type:default;"}
         %li
           = "<b>Avatars</b> are used as your 'icon' it will be shown in listings and when you write comments"
         %li
@@ -20,25 +20,22 @@
 
 
 
-    .instruction-box
-      = link_to 'New image', new_avatar_path, :class => "action-button"
-
-
-    %hr
     %table{:class => "image-table"}
       %tr
         %th 
-          ="Use for icons"
-        %th 
-          ="Use for profile"
-        %th 
           ="Thumbnail"
+        %th 
+          ="Icons"
+        %th 
+          ="Profile Image"
+
         %th 
           ="Actions"
 
       -# TODO: Change to a scoped condition
 
       -@user_avatars.each do |avatar|
+          
 
         -if @user.id == avatar.user_id
           - cropped_avatar = avatar.avatar.process(:thumb,avatar.avatar_cropping)
@@ -46,68 +43,52 @@
 
 
           %tr
+            %td{:style=>"text-align:center"}
+              = image_tag cropped_avatar.process(:thumb,"48x48").url, :alt => avatar.name
             %td
               -if @user.default_avatar == avatar.id
-                = image_tag("/images/buttons/radio_button_on.png" , :title => "selected")
-                %input{:type => "radio", :name => "default_avatar", :style => "height:20px; width:20px", :checked => true}
+                = "selected"
               -else
-                = link_to "set", set_default_avatar_path(avatar)
-                %input{:type => "radio", :name => "default_avatar"}
+                = link_to "choose", set_default_avatar_path(avatar)
+
             %td
               -if @user.profile_image == avatar.id
-                = "default"
+                = "selected"
               -else
-                = link_to "set", set_profile_avatar_path(avatar), :locals => avatar32
-
-            %td
-
-              = image_tag cropped_avatar.process(:thumb,"48x48").url, :alt => avatar.name
-
+                = link_to "choose", set_profile_avatar_path(avatar), :locals => avatar32
             %td
               = link_to 'Change image', edit_avatar_path(avatar), :class => "action-link"
               = link_to 'Cropping', crop_avatar_path(avatar), :class => "action-link"
               = link_to 'Delete', avatar, :confirm => 'Are you sure?', :method => :delete, :class => "delete-link"
 
 
+
+
       %tr
-        %td{:colspan => 2}
-          = "Click on the radio buttons to choose your images"
+        %td{:colspan=>"3"}
+          -if @user_avatars.empty?
+            = "No avatar images have been uploaded yet" 
+          -else
+            = "Choose from above or..."            
         %td
-          = "&nbsp;"
-        %td
-          = "Editing"
+          .instruction-box{:style=>"float:right;"}
+            = link_to 'Add a new image', new_avatar_path, :class => "action-button", :style=>"width:256px; height:24px" 
 
  
-
-
-
+-content_for :sidebar do
+  #sidebar
+    = render :partial => "/users/profile_mini", :object => @user
+    = render :partial => "/users/profile_statistics", :object => @user
+    = render :partial => "/users/profile_achievements", :object => @user
 
 -content_for :sidebar_inner do
   #sidebar-inner
     = render :partial => "/users/profile_image", :object => @user
-    .block
-      %h3
-        = h("Tips")
-      .content
-        = h("This is an example of a good profile image")
-      .content
-        = h("This is an example of a bad profile image")
+    = render :partial => "/users/profile_biography", :object => @user
+    = render :partial => "/users/profile_details", :object => @user
 
--content_for :sidebar do
-  #sidebar
-    .block
-      %h3
-        = h("Profile mini")
-      .controls
-        = "<!---->"
-      .content
-        = render :partial => "/users/profile_mini", :object => @user
 
-    .block
-      %h3
-        = h("Something")
-      .content
-        = h("Something else")
 
+       
 
 

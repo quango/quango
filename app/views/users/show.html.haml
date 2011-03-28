@@ -12,17 +12,7 @@
     .navcontrols
 
 
-      %ul
-        %li.label
-          = "Filter by:&nbsp;"
-        %li.newest
-          = link_to "newest", user_path(@user, params.merge(:sort=>"newest")), :rel => "nofollow", :class => "standard-button"
-        %li.oldest
-          = link_to "oldest", user_path(@user, params.merge(:sort=>"oldest")), :rel => "nofollow", :class => "standard-button"
-        %li.views
-          = link_to "views ", user_path(@user, params.merge(:sort=>"views")), :rel => "nofollow", :class => "standard-button"
-        %li.votes
-          = link_to "votes ", user_path(@user, params.merge(:sort=>"votes")), :rel => "nofollow", :class => "standard-button"
+
   .clear
 
   #member-tabs
@@ -33,8 +23,16 @@
         = link_to "Comments", "#answers"
       %li
         = link_to "Favourites",  "#favourites"
-
-
+  .filter{:style=>""}
+    %ul
+      %li.newest
+        = link_to "newest", user_path(@user, params.merge(:sort=>"newest")), :rel => "nofollow"
+      %li.oldest
+        = link_to "oldest", user_path(@user, params.merge(:sort=>"oldest")), :rel => "nofollow"
+      %li.views
+        = link_to "views ", user_path(@user, params.merge(:sort=>"views")), :rel => "nofollow"
+      %li.votes
+        = link_to "votes ", user_path(@user, params.merge(:sort=>"votes")), :rel => "nofollow"
 
 
     %div.panes
@@ -66,6 +64,7 @@
 
 -content_for :sidebar do
   #sidebar
+    = render :partial => "profile_mini", :object => @user
     = render :partial => "profile_achievements", :object => @user
     = render :partial => "profile_statistics", :object => @user
 

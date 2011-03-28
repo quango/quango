@@ -5,17 +5,42 @@ Changelog
 
 * Improved support for logo in the toolbar for the community sponsor - hardwired atm
 * made "about label" editable ( appears for non-logged in users in toolbar and in the description box on homepage )
-* Fixed admin area so admins can manage members
 * Switched order of sponsor block to bottom and description to top
 * Made the sponsor logo and text independent ( means you can show neither, either or both ) This is primarily useful if there are multiple sponsors and they be different sponsor types 
 * Commented out "My Edition" and "My Community" until those sections are ready
+* Removed "Related Communities" for Isolated Comms
+* Fixed the flubble notice
+* Added variations of grey as a conviguration option
+* Simplified the main create form
+* Simplified the member setting section
+* Improved the UI on profile images
 
 
 Stylefixes
 
-* Various stylefixes
+* Made the tags simpler and more obvious
+* Fixed various buttons that weren't appearing in IE
+* Added variations of grey as a conviguration option
+* Sorted out the block headers in the member profile and settings pages
 
-Developers Notes
+
+Developers Notes:
+
+Pending for next release:
+
+* Fixed admin area so admins can manage members ( eg. assign owners to communities )
+* Rollovers for member lists ( mono -> colour )
+
+
+
+
+
+
+
+
+
+
+
 
 Snipped from toolbar - may need again later:
 

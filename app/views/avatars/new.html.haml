@@ -1,13 +1,14 @@
 - content_for :main do
 
   %h1
-    ="New avatar"
+    ="Add a profile image to your account"
+  .description
+    ="You can have multiple images associated with your account"
+ 
 
   -form_for @avatar, :html => {:multipart => true} do |f|
     = f.error_messages
-    %p
-      = f.label :name
-      = f.text_field :name
+
     %p
       = f.file_field :avatar
     %p

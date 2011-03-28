@@ -201,25 +201,24 @@
     width: 80px
     cursor: n-resize
 
+a.standard-button
+  font-weight: bold
+  font-size: 11px
+  color: white
+
 
 .standard-button 
-  border: 1px solid #6d6d6d
-  background: #cdcdcd
-  background-image: url(/images/buttons/section_bg.png)
-  background-repeat: repeat-x
+  background: red
   height: 16px
   line-height: 16px
-  margin: 4px 4px 4px 0
-  color: #6d6d6d
+  margin: 0
   cursor: pointer
   overflow: visible
   float: left
-  font-weight: normal
-  font-size: 10px
+
   text-align: center
-  text-shadow: white 0px 1px 1px
-  padding: 0 13px 0 13px
-  +rounded(2px,2px,2px,2px)
+  padding: 0 8px 0 8px
+  +rounded(4px,4px,4px,4px)
 
 
 .toolbar-button
@@ -341,13 +340,13 @@
 
   //+rounded(4px,4px,4px,4px)
 
-.action-button
+a.action-button
 
   color: white
-  height: 20px
-  line-height: 20px
+  height: 24px
+  line-height: 24px
 
-  padding: 0 16px 0 16px
+  padding: 4px 16px 4px 16px
   margin: 0 8px 0 0
 
   font-size: 12px
@@ -355,9 +354,8 @@
 
   text-transform: lowercase
 
-  -webkit-box-shadow: 1px 2px 2px rgba(0,0,0,0.25)
-  -moz-box-shadow: 1px 2px 2px rgba(0,0,0,0.25)
-  box-shadow: 1px 2px 2px rgba(0,0,0,0.25)
+  border: 2px solid white
+
   -webkit-font-smoothing:antialiased
 
   +rounded(4px,4px,4px,4px)
