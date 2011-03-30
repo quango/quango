@@ -7,7 +7,7 @@
 -if doctype
 
   .section-head-welcome
-    .secondary-navigation-sections
+    .secondary-navigation-sections{:style=>"width:821px"}
       .navlabel.left
 
         - section_link = section.name.downcase
@@ -19,9 +19,6 @@
         %a.hide_summary{:class => "#{section.name} navlinks showhide right"}
           = "hide headlines"
 
-      .navlinks.right{:style => "width:128px"}
-        = link_to "#{doctype.create_label}",new_item_path(doctype),:locals => {:doctype => doctype}
-        |
 
 
     .section-listing-welcome{:class => section.name}
@@ -37,7 +34,7 @@
                 = t(".empty")
             -else
               - items_array = Array.new
-              - @doctype.items.reverse.each do |item|
+              - doctype.items.reverse.each do |item|
                 - items_array << item
               - items_array[0..7].each do |item|
                 = render :partial => "/items/summary_list_headline", :locals => {:item => item, :sort=>"hot"}
@@ -52,7 +49,7 @@
                 = t(".empty")
             -else
               - items_array = Array.new
-              - @doctype.items.reverse.each do |item|
+              - doctype.items.reverse.each do |item|
                 - items_array << item
               - items_array[0..1].each do |item|
                 = render :partial => "/items/summary_list_thumbnail", :locals => {:item => item, :sort=>"hot"}

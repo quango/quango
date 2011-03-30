@@ -135,12 +135,11 @@
       = render :partial => "video_info", :locals => {:item => @item}
     = render :partial => "default_image", :locals => {:item => @item}
 
-    = render :partial => "shared/signup_button", :locals => {:width => "wide"}
+
     = render :partial => "images", :locals => {:item => @item}
     -if !current_group.isolate
       = render :partial => "related_communities"
-    -if logged_in?
-      = render :partial => "create_button"
+    = render :partial => "shared/signup_button", :locals => {:width => "wide"}
 
     -if logged_in? && current_group.has_bunnies?
       -if current_user.owner_of?(current_group)
@@ -164,6 +163,7 @@
     = render :partial => "shared/community_sponsor", :locals => {:width => "narrow"}
     = render :partial => "shared/current_tags"
     = render :partial => "shared/tag_list", :object => @tag_cloud
+    = render :partial => "shared/sidebar_actions"
     -#= render :partial => "related_communities"
 
 

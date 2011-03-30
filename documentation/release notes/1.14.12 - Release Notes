@@ -3,9 +3,18 @@ This is mainly a bugfix release, but also a few usability issues
 
 Changelog
 
+
+
 * Improved support for logo in the toolbar for the community sponsor - currently the old shapado blob way
-* Added a "Landing Page" - for non-logged guests instead of first seeing the homepage, they get a landing page which explains exactly what the site is and how it works. To date people don't realize that *anybody* can add an article or thought or link to a site. [I think many people still don't get this about Wikipedia either]. JK never tires of pointing out to me that not everybody is a naturally wired in to this kind of stuff as I am
+
 * Made the images process much more obvious & removed the polaroid icon from the markdown editor
+* Rollovers for member lists ( mono -> colour )
+* Added an "actions' widet on index and show pages - not sure how much simpler I can make that
+* Made default state of section headers closed
+* Stripped out the cookies thing - who cares is the browser remembers if a section header is open or closed?
+* Section header state editable by admin
+
+
 
 Bugfixes ( Spotted by )
 
@@ -17,40 +26,10 @@ Stylefixes
 
 Developers Notes
 
-Snipped from toolbar - may need again later:
-
-<code>
-
-  -if logged_in?
-    -if !current_group.isolate && AppConfig.enable_groups
-      .edition
-        %ul.topbar.combobox.left
-          %li
-            = "combobox"
-
-            %ul
-              -current_user.groups(:select => [:name, :domain]).each do |group|
-                %li
-                  -if group.favicon_path?
-                    = image_tag( "#{group.favicon_path}", :style => "background-color:#{group.secondary};")
-                  -else
-                    = image_tag("#{group.favicon_path}",  :style => "background-color:#{group.secondary};")
-                  - gname = group.name + " " + group.name_highlight.to_s
-                  =link_to h(gname), domain_url(:custom => group.domain)
-
-    -else
+Pending for next release:
 
 
 
-      .edition
-        %ul.topbar.combobox.left
-          %li
-            = link_to image_tag(current_group.favicon_path, :width => current_group.logo_info["width"], :height => current_group.logo_info["height"],  :style => "margin:0;"), domain_url(:custom => current_group.domain), :style=>"border:0px;"
-            -if current_group.logo_only?
-              .thoughtdomain
-                =link_to h(current_group.name), domain_url(:custom => current_group.domain), :style=>"margin:0px;"
-                =link_to h(current_group.name_highlight), domain_url(:custom => current_group.domain), :style=> "background-color:white;color:#{current_group.primary};margin:0 0 0 -2px;"
-
-</code>
-
+* Fixed admin area so admins can manage members ( eg. assign owners to communities )
+* Added a "Ladning page" - non-logged guests instead of first seeing the homepage, they get a landing page which explains exactly what the site is and how it works. To date people don't realize that *anybody* can add an article or thought or link to a site. [I think many people still don't get this about Wikipedia either]. JK never tires of pointing out to me that not everybody is a naturally wired in to this kind of stuff as I am
 

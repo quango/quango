@@ -12,6 +12,7 @@ class Doctype
   key :doctype, String
 
   key :hidden, Boolean, :default => false
+  key :expanded, Boolean, :default => false
   key :has_video, Boolean, :default => false
   key :has_links, Boolean, :default => false
 

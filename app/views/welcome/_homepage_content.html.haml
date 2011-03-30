@@ -1,0 +1,23 @@
+#welcome-content
+  %h1
+    ="Welcome"
+  %p
+    ="Here are some items of interest"
+
+    -current_group.doctypes[0..3].each do |doctype|
+      -if !doctype.hidden?
+        -if doctype.name == @active_section
+          .div.left{:style=>"background-color:#efefef;height:128px;width:25%"}
+            - section_link = doctype.name.capitalize
+            %h4
+              = link_to section_link, items_path(doctype), :style => "color: white; background-color:#{current_group.primary}"
+        -else
+          .div.left{:style=>"width:25%;"}
+            - section_link = doctype.name.capitalize
+            .div.inner{:style=>"background-color:#efefef;height:128px;border-right:1px solid white"}
+              %h4{:style => "font-weight:bold; border-bottom:2px solid #{current_group.primary}"}
+                = link_to section_link, items_path(doctype), :style => "color: #{current_group.primary};", :object => doctype
+
+
+
+

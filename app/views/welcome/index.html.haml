@@ -56,7 +56,7 @@
       -@doctypes.each do |doctype|
         -if !doctype.hidden?
           %li{:class => doctype.name }
-            = render :partial => "items/summary_header_welcome", :locals => {:doctype => doctype, :section => doctype, :tab=>"activity"}
+            = render :partial => "items/summary_header_welcome", :locals => {:doctype => doctype, :section => doctype, :tab=>"activity", :expanded => doctype.expanded}
 
 
 

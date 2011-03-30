@@ -101,7 +101,7 @@ class DoctypesController < ApplicationController
     @group = current_group
     @doctypes = current_group.doctypes
     @doctype = @doctypes.find_by_slug_or_id(params[:id])
-    @doctype.safe_update(%w[name hidden create_label created_label help_text], params[:doctype])
+    @doctype.safe_update(%w[name hidden expanded create_label created_label help_text], params[:doctype])
 
     respond_to do |format|
       if @doctype.save

@@ -12,21 +12,21 @@
     .summary.left
       %h3{:style => "margin: 0px"}
         = link_to h("#{user.first_name} #{user.last_name}"), user_path(user)
-        - if current_user.owner_of?(current_group)
-          %span{:style => "color:red; font-size:8px"}
-            = user.email
+        -#- if current_user.owner_of?(current_group)
+          -#%span{:style => "color:red; font-size:8px"}
+            -#= user.email
       .badges
         -user.badges_on(current_group, :limit => 3).each do |badge|
           =render :partial => "badges/badge", :object => badge, :locals => {:mini => true}
 
       -# TODO: Scope this, need to get the last updated posts and comments
-      .latest-thought
+      .latest-thought{:style => "width:468px"}
 
         = "Latest Post:"
         -# item = user.items.last_updated
-        - user.items[0..0].each do |item|
-          = link_to "#{item.title}", "/#{item.section}/" << item.slug
-          = " in " << "#{@doctype}"
+        - user.items.each do |item|
+          = link_to item.title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
+          = " in " << "#{item.doctype}"
 
       .latest-comment
         = "Latest Comment:"
