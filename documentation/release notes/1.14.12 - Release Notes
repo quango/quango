@@ -34,3 +34,6 @@ Pending for next release:
 * Fixed admin area so admins can manage members ( eg. assign owners to communities )
 * Added a "Ladning page" - non-logged guests instead of first seeing the homepage, they get a landing page which explains exactly what the site is and how it works. To date people don't realize that *anybody* can add an article or thought or link to a site. [I think many people still don't get this about Wikipedia either]. JK never tires of pointing out to me that not everybody is a naturally wired in to this kind of stuff as I am
 
+-#{:onclick => "javascript:window.location.href='" << items_path(doctype) <<"';"}
+
+

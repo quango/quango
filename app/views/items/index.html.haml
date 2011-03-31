@@ -5,8 +5,8 @@
   %link{:rel=>"alternate", :type=>"application/atom+xml", :title => "atom", :href=> url_for(:format => "atom")}
 
 -content_for :secondary_navigation do
-  .secondary-navigation{:class => @active_subtab.to_s}
-    %h3
+  .secondary-navigation 
+    -#%h3
       -#= h(@active_section.name.capitalize << " Listing")
 
     .navcontrols
@@ -64,6 +64,9 @@
   #sidebar-inner
     .sidebar
       .inner
+        = render :partial => "shared/active"
+
+
         .block
           -#= render :partial => "item_topics", :object => @tag_cloud
         .block

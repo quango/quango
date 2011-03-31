@@ -21,9 +21,9 @@
 
 
 
-    .section-listing-welcome{:class => section.name}
+    .section-listing-welcome{:class => section.name, :style => "width:821px;"}
 
-      .listings-centre{:style => "width:420px; float:left;"}
+      .listings-centre{:style => "width:563px; float:left;"}
         .title
           = h("Headlines")
         .content
@@ -39,7 +39,7 @@
               - items_array[0..7].each do |item|
                 = render :partial => "/items/summary_list_headline", :locals => {:item => item, :sort=>"hot"}
 
-      .listings-right{:style => "width:280px; float:right;"}
+      .listings-right{:style => "width:255px; float:right;"}
         .title
           = h("Features")
         .content

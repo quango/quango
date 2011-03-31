@@ -1,11 +1,13 @@
-"tagss"
+.block
+  %h3
+    = "Hot topics"
 
 -unless self.current_tags.empty?
   .block
     %h3
-      =h("Selected Topics")
+      = "Hot topics"
     .content.tag-list
-      -if !self.current_tags
+      -#-if !self.current_tags
       -self.current_tags.each do |tag|
 
         %span.tag{:class => "tag_#{h(tag)}"}
