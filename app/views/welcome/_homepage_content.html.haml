@@ -1,22 +1,88 @@
-#welcome-content
-  %h1
-    ="Welcome"
-  %p
-    ="Here are some items of interest"
+- expanded = local_assigns[:expanded]
 
-    -current_group.doctypes[0..3].each do |doctype|
-      -if !doctype.hidden?
-        -if doctype.name == @active_section
-          .div.left{:style=>"background-color:#efefef;height:128px;width:25%"}
-            - section_link = doctype.name.capitalize
-            %h4
-              = link_to section_link, items_path(doctype), :style => "color: white; background-color:#{current_group.primary}"
-        -else
-          .div.left{:style=>"width:25%;"}
-            - section_link = doctype.name.capitalize
-            .div.inner{:style=>"background-color:#efefef;height:128px;border-right:1px solid white"}
-              %h4{:style => "font-weight:bold; border-bottom:2px solid #{current_group.primary}"}
-                = link_to section_link, items_path(doctype), :style => "color: #{current_group.primary};", :object => doctype
+
+.section-head-welcome
+  .secondary-navigation-sections{:style => "background: #{current_group.primary}"}
+    .navlabel.left
+      = "Hot today"
+
+    .navcontrols{:style => "width:96px"}
+      %a.show_summary{:class => "summary navlinks showhide left"}
+        = "show summary"
+      %a.hide_summary{:class => "summary navlinks showhide left"}
+        = "hide summary"
+
+
+  .section-listing-welcome{:class => "summary"}
+
+    #welcome-content
+      %h1
+        ="Welcome"
+      %p
+        ="Here are some items of interest"
+
+        -current_group.doctypes[0..3].each do |doctype|
+          -if !doctype.hidden?
+            -if doctype.name == @active_section
+              .div.left{:style=>"background-color:#efefef;height:128px;width:25%"}
+                - section_link = doctype.name.capitalize
+                %h4
+                  = link_to section_link, items_path(doctype), :style => "color: white; background-color:#{current_group.primary}"
+            -else
+              .div.left{:style=>"width:25%;"}
+                - section_link = doctype.name.capitalize
+                .div.inner{:style=>"background-color:#efefef;height:128px;border-right:1px solid white"}
+                  %h4{:style => "font-weight:bold; border-bottom:2px solid #{current_group.primary}"}
+                    = link_to section_link, items_path(doctype), :style => "color: #{current_group.primary};", :object => doctype
+
+
+        %script{:type => "text/javascript"}
+          = "// collapse:"
+          = "$('.hide_summary.summary').click(function() {"
+          = "$('.hide_summary.summary').css('display','none');"
+          = "$('.show_summary.summary').css('display','block');"
+          = "$('.summary.section-listing-welcome').hide('slow');"
+          -#= "$.cookie('summary.index.summary', 'collapsed', { expires: 2 });"
+          = "});"
+          = "// expand:"
+          = "$('.show_summary.summary').click(function() {"
+          = "$('.show_summary.summary').css('display','none');"
+          = "$('.hide_summary.summary').css('display','block');"
+          = "$('.summary.section-listing-welcome').show('slow');"
+          -#= "$.cookie('summary.index.summary', 'expanded', { expires: 2 });"
+          = "});"
+          = "// ok so far"
+          -#= "// COOKIES"
+          -#= "var summary = $.cookie('summary.index.summary');"
+          -#= "	// Set the user's selection for the left column"
+          -#= "if (summary == 'collapsed') {"
+          -#= "$('.hide_summary.summary').css('display','none');"
+          -#= "$('.show_summary.summary').css('display','block');"
+          -#= "$('.summary.section-listing-welcome').hide();"
+          -#= "};"
+          -#= "if (summary == 'expanded') {"
+          -#= "$('.hide_summary.summary').css('display','block');"
+          -#= "$('.show_summary.summary').css('display','none');"
+          -#= "$('summary.summary.section-listing-welcome').show();"
+          -#= "};"
+          - if expanded == false
+            -#= "if (summary == null) {"
+            = "$('.show_summary.summary').css('display','block');"
+            = "$('.hide_summary.summary').css('display','none');"
+            = "$('.summary.section-listing-welcome').hide();"
+            -#= "};"
+          - else
+            -#= "if (summary == null) {"
+            = "$('.hide_summary.summary').css('display','block');"
+            = "$('.show_summary.summary').css('display','none');"
+            = "$('.summary.section-listing-welcome').show();"
+            -#= "};"
+          -#= "};"
+
+        .clear
+    .clear
+
+
 
 
 
