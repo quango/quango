@@ -4,7 +4,8 @@ This is mainly a bugfix release, but also a few usability issues
 Changelog
 
 
-
+* Made the "Edit text" and "add images buttons" red and green and much more obvious than before
+* Change the icons to text for watch and book mark and made easier to see button
 * Improved support for logo in the toolbar for the community sponsor - currently the old shapado blob way
 
 * Made the images process much more obvious & removed the polaroid icon from the markdown editor

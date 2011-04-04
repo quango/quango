@@ -1,9 +1,10 @@
 %h3
   = "Actions"
 
-%div.tag-list{:style => "background-color:#{current_group.tertiary}; width:140px;padding:0 0 4px 0"}
-  - current_group.doctypes.each do |doctype|
-    %ul.tag-list
+%div{:style => "background-color:#BBBBBB; width:140px;padding:0 0 4px 0"}
+  %ul
+    - current_group.doctypes.each do |doctype|
+
       - if !doctype.hidden
         %li{:style=>"padding:2px 0;"}
-          = link_to "#{doctype.create_label}", new_item_path(doctype), :class => "tag", :style => "font-weight:bold; width:124px; margin:1px 4px 1px 4px;"
+          = link_to "#{doctype.create_label}", new_item_path(doctype), :class => "standard-button", :style => "border:2px solid green; background-color:green;font-weight:bold; width:112px; margin:1px 4px 1px 4px;"

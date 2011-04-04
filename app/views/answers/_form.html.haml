@@ -1,8 +1,8 @@
 -if logged_in?
-  .answer-form-holder
-    .toolbar-container
-      %h3
-        = "Share your thoughts..."
+
+  .entry-details
+    .entry-title{:style=>"height:32px; line-height:32px; margin-bottom:4px;"}
+      = "Share your thoughts..."
   .clear
 
     = f.hidden_field :mode, :value=> local_assigns[:mode]
@@ -14,7 +14,7 @@
       -opts[:value] = markdown(@answer.body)
     -else
       -opts[:id] = "markdown_editor"
-      -opts[:style] = "height:64px; width:496px; max-width:496px; margin:0 16px"
+      -opts[:style] = "height:64px; width:547px; max-width:547px; margin:0"
 
   #answer-form
 
@@ -52,8 +52,8 @@
             = link_to linked_check, "#", :title => "linked", :class => "linkedin button"
 
       .clear
-        .answer-actions{:style => "line-height:32px; height: 32px; width: 512px; margin: 0 auto 16px auto"}
-          = submit_tag t('answers.form.submit'), :class => "create-button", :style => "width:256px; height:24px; float:right;"
+        .answer-actions{:style => "background-color: #dcdcdc;line-height:32px; height: 32px; width: 565px; margin: 0 0 16px 0; padding 4px"}
+          = submit_tag t('answers.form.submit'), :class => "standard-button", :style => "width:256px; height:24px; float:right; margin: 4px;"
           .openedit{:style => "float:right; margin-right: 16px; display:none"}
             = f.label :wiki, "Anybody can edit? ", :class => "radio"
             = check_box :wiki, :class => "checkbox right"

@@ -3,6 +3,10 @@
 
 .controls
   .actions
+
+    = link_to "Report", new_item_flag_path(@doctype, @item), :class => "button", :style => "float:left;", :id => "item_flag_link"
+
+
     - if !@flag.new?
       .flagged
         = "#{t('.flagged_as')} #{t(@flag.reason, :scope=>'flags.form')}"

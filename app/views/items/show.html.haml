@@ -40,7 +40,7 @@
           = render :partial => "toolbox"
         -if logged_in?
           -if current_user.owner_of?(current_group) | current_user.mod_of?(current_group)
-            %div{:style => "height:1em"}
+            %div.secondary-navigation{:style => "height:1em"}
               = render :partial => "controls", :object=>@item
   
         -if @doctype.has_video?
@@ -100,20 +100,20 @@
 
 
           .answers
-            .supplementary-navigation{:style => "margin-top:16px; height: 32px"}
-              .left
+
+            .entry-details
+              .entry-title
                 = h("What others think")
-                = t(@answers.total_entries + (@item.accepted ? 1 : 0))
-              .right
-                %ul{:style => "width: 256px; display:none"}
-                  %li.filter
-                    = link_to "Fresh", item_path(@doctype, @item, :sort=>"fresh", :anchor => "answers"),:rel => "nofollow"
-                  %li
-                    = link_to "Hot", item_path(@doctype, @item, :sort=>"hot", :anchor => "answers"),:rel => "nofollow"
-                  %li
-                    = link_to "Historical", item_path(@doctype, @item, :sort=>"sweaty", :anchor => "answers"),:rel => "nofollow"
-                  %li
-                    = link_to "&#9733;", "#"
+            .secondary-navigation
+              %ul.navcontrols
+                %li.filter
+                  = link_to "Fresh", item_path(@doctype, @item, :sort=>"fresh", :anchor => "answers"),:rel => "nofollow"
+                %li
+                  = link_to "Hot", item_path(@doctype, @item, :sort=>"hot", :anchor => "answers"),:rel => "nofollow"
+                %li
+                  = link_to "Historical", item_path(@doctype, @item, :sort=>"sweaty", :anchor => "answers"),:rel => "nofollow"
+                %li
+                  = link_to "&#9733;", "#"
           .clear
 
           .block
