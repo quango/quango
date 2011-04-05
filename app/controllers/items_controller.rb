@@ -104,10 +104,12 @@ class ItemsController < ApplicationController
     @doctypes = current_group.doctypes
     @doctype = Doctype.find_by_slug_or_id(params[:doctype_id])
 
-    @items = current_group.items
+    @items = current_group.items.reverse #.merge(conditions)
 
-   #@items = @items.merge(conditions)
-    #@langs_conds = scoped_conditions[:language][:$in]
+ 
+
+
+    @langs_conds = scoped_conditions[:language][:$in]
 
     if logged_in?
       feed_params = { :feed_token => current_user.feed_token }

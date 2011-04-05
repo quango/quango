@@ -34,11 +34,11 @@
                 = t(".empty")
             -else
               - items_array = Array.new
-              - current_group.items.each do |item|
-                - if item.doctype == doctype
-                  - items_array << item
-              - items_array[0..7].reverse.each do |item|
-                = render :partial => "/items/summary_list_headline", :locals => {:item => item, :sort=>"hot"}
+              - @items.each do |item|
+                - if item.doctype.name == doctype.name
+                  -#- items_array << item
+                  -#- items_array.each do |item|
+                  = render :partial => "/items/summary_list_headline", :locals => {:item => item, :sort=>"hot"}
 
       .listings-right{:style => "width:255px; float:right;"}
         .title
@@ -50,9 +50,10 @@
                 = t(".empty")
             -else
               - items_array = Array.new
-              - @doctype.items.reverse.each do |item|
-                - items_array << item
-              - items_array.each do |item|
+              - current_group.items.reverse.each do |item|
+                - if item.doctype.name == doctype.name
+                  - items_array << item
+              - items_array[0..1].each do |item|
                 = render :partial => "/items/summary_list_thumbnail", :locals => {:item => item, :sort=>"hot"}
 
           .clear
