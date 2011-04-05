@@ -90,11 +90,14 @@ class Group
   key :primary_dark, String, :default => "#154D72" #tabs, 
   key :primary_hover, String, :default => "#E1A970" #header_bg and edit buttons
   key :primary_selected, String, :default => "#990000"
+
   key :secondary, String, :default => "#72AFD7" #tabs,
   key :secondary_hover, String, :default => "orange"
   key :secondary_selected, String, :default => "#E1A970"
   key :secondary_active, String, :default => "#990000"
   key :tertiary, String, :default => "#8DBAD7" #tabs, 
+  key :complementary, String, :default => "#007500" #tabs, 
+
   key :secondary_navigation_bg, String, :default => "gainsboro"
   key :secondary_navigation_text, String, :default => "white"
   key :edit_button_bg, String, :default => "#990000" #tabs, 

@@ -53,7 +53,7 @@
 
       .clear
         .answer-actions{:style => "background-color: #dcdcdc;line-height:32px; height: 32px; width: 565px; margin: 0 0 16px 0; padding 4px"}
-          = submit_tag t('answers.form.submit'), :class => "standard-button", :style => "width:256px; height:24px; float:right; margin: 4px;"
+          = submit_tag t('answers.form.submit'), :class => "standard-button", :style => "width:256px; height:24px; float:right; margin: 4px 8px; padding: 8px"
           .openedit{:style => "float:right; margin-right: 16px; display:none"}
             = f.label :wiki, "Anybody can edit? ", :class => "radio"
             = check_box :wiki, :class => "checkbox right"

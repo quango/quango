@@ -8,16 +8,13 @@
     %span.new
       = "new"
   -elsif item.activity_at > Time.zone.now.yesterday && !last_target.present
-    %span.updated
+    %span.edited
       = "edited"
 
   -if item.activity_at > Time.zone.now.yesterday && last_target.present?
-    %span.icon
-      = image_tag("/images/icons/new_comments.png")
-
-  -if last_target.present?
     %span.active
-      = image_tag("/images/icons/comments.png", :width => 12, :height => 12)
+      = "active"
+
 
   -#= title
   = link_to title, item_path(doctype, item), :locals => {:section => @active_section}, :title => truncate(strip_tags(item.title), :length => 200)

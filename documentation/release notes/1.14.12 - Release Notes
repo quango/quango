@@ -3,10 +3,11 @@ This is mainly a bugfix release, but also a few usability issues
 
 Changelog
 
-
+* Added "channels" bar between header and contextual navigation - it's off by default - at present it allows you to put an additional hardcoded block of navigation in ( use the channel_listing_horizontal class in css )
+* Added the "bump" feature, admins and authors can "bump" a post back up the list ( will restrict this to 3 bumps eventually )
 * Made the "Edit text" and "add images buttons" red and green and much more obvious than before
 * Change the icons to text for watch and book mark and made easier to see button
-* Improved support for logo in the toolbar for the community sponsor - currently the old shapado blob way
+
 
 * Made the images process much more obvious & removed the polaroid icon from the markdown editor
 
@@ -31,7 +32,8 @@ Developers Notes
 Pending for next release:
 
 * Rollovers for member lists ( mono -> colour )
-
+* Fix bumping to be a maximum of three times
+* Adapt bump into pin so posts can be made sticky as well as bumped
 * Fixed admin area so admins can manage members ( eg. assign owners to communities )
 * Added a "Ladning page" - non-logged guests instead of first seeing the homepage, they get a landing page which explains exactly what the site is and how it works. To date people don't realize that *anybody* can add an article or thought or link to a site. [I think many people still don't get this about Wikipedia either]. JK never tires of pointing out to me that not everybody is a naturally wired in to this kind of stuff as I am
 

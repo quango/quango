@@ -4,16 +4,16 @@
 
   %div{:style=>"float:left"}
     - if current_user && @item.watch_for?(current_user)
-      = link_to "unwatch", unwatch_item_path(@doctype, @item),:style =>"border: 2px solid #555;background-color:#555;", :class => 'toolbar-button', "data-undo" =>  watch_item_path(@doctype, @item), "data-title" => t(".watch_tooltip"), :title => t(".unwatch_tooltip"), :id => "watch-item"
+      = link_to "unfollow", unwatch_item_path(@doctype, @item),:style =>"border: 2px solid #555;background-color:#555;", :class => 'toolbar-button', "data-undo" =>  watch_item_path(@doctype, @item), "data-title" => t(".watch_tooltip"), :title => t(".unwatch_tooltip"), :id => "watch-item"
 
     - else
-      = link_to "watch", watch_item_path(@doctype, @item),:style =>"border: 2px solid #555;background-color:#555;", :class => 'toolbar-button', "data-undo" =>  unwatch_item_path(@doctype, @item), "data-title" => t(".unwatch_tooltip"), :title => t(".watch_tooltip"), :id => "watch-item"
+      = link_to "follow", watch_item_path(@doctype, @item),:style =>"border: 2px solid #555;background-color:#555;", :class => 'toolbar-button', "data-undo" =>  unwatch_item_path(@doctype, @item), "data-title" => t(".unwatch_tooltip"), :title => t(".watch_tooltip"), :id => "watch-item"
 
     - if logged_in? && favorite = current_user.favorite(@item)
-      = link_to "unmark", unfavorite_item_path(@doctype, @item),:style =>"border: 2px solid #555;background-color:#555;", :id => "unfavorite-link", :title => t(".unfavorite_tooltip"), :class => 'toolbar-button watch', "data-undo" =>  favorite_item_path(@doctype, @item), "data-title" => t(".favorite_tooltip"), 'data-counter' => '.favorites_count'
+      = link_to "unclip", unfavorite_item_path(@doctype, @item),:style =>"border: 2px solid #555;background-color:#555;", :id => "unfavorite-link", :title => t(".unfavorite_tooltip"), :class => 'toolbar-button watch', "data-undo" =>  favorite_item_path(@doctype, @item), "data-title" => t(".favorite_tooltip"), 'data-counter' => '.favorites_count'
 
     - else
-      = link_to "bookmark", favorite_item_path(@doctype, @item),:style =>"border: 2px solid #555;background-color:#555;", :id => "favorite-link", :title => t(".favorite_tooltip"), :class => 'toolbar-button unwatch', "data-undo" =>  unfavorite_item_path(@doctype, @item), "data-title" => t(".unfavorite_tooltip"), 'data-counter' => '.favorites_count'
+      = link_to "clippings", favorite_item_path(@doctype, @item),:style =>"border: 2px solid #555;background-color:#555;", :id => "favorite-link", :title => t(".favorite_tooltip"), :class => 'toolbar-button unwatch', "data-undo" =>  unfavorite_item_path(@doctype, @item), "data-title" => t(".unfavorite_tooltip"), 'data-counter' => '.favorites_count'
 
     -#%button.share
       
@@ -26,10 +26,12 @@
   - if logged_in?
     %div{:style=>"float:right"}
       - if (@item.wiki && current_user.can_edit_wiki_post_on?(@item.group)) || current_user.can_edit_others_posts_on?(@item.group) || current_user.can_modify?(@item)
+        - if current_user.can_edit_others_posts_on?(@item.group)
+          = link_to "Bump", bump_item_path(@doctype, @item), :style => "text-shadow:orange;border: 2px solid orange;background-color:orange; color:white", :class => "toolbar-button"
         = link_to "Edit", edit_item_path(@doctype, @item), :style => "text-shadow:red;border: 2px solid red;background-color:red; color:white", :class => "toolbar-button"
+
         = link_to "Add images", item_images_path(@doctype, @item), :style => "text-shadow:green;border: 2px solid green;background-color:green; color:white", :class => "toolbar-button" 
-      - if current_user.can_edit_others_posts_on?(@item.group)
-        = link_to "Bump", item_images_path(@doctype, @item), :class => "button right" 
+
 
   -# if current_user.can_modify?(@item.group)
     -#= link_to "Refer", "#", :class => "button right" 

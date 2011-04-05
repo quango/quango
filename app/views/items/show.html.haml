@@ -40,7 +40,7 @@
           = render :partial => "toolbox"
         -if logged_in?
           -if current_user.owner_of?(current_group) | current_user.mod_of?(current_group)
-            %div.secondary-navigation{:style => "height:1em"}
+            %div
               = render :partial => "controls", :object=>@item
   
         -if @doctype.has_video?
@@ -105,15 +105,17 @@
               .entry-title
                 = h("What others think")
             .secondary-navigation
-              %ul.navcontrols
-                %li.filter
-                  = link_to "Fresh", item_path(@doctype, @item, :sort=>"fresh", :anchor => "answers"),:rel => "nofollow"
-                %li
-                  = link_to "Hot", item_path(@doctype, @item, :sort=>"hot", :anchor => "answers"),:rel => "nofollow"
-                %li
-                  = link_to "Historical", item_path(@doctype, @item, :sort=>"sweaty", :anchor => "answers"),:rel => "nofollow"
-                %li
-                  = link_to "&#9733;", "#"
+              .navcontrols
+                %ul
+                  %li
+                    = "Sort by: "
+                  %li.filter
+                    = link_to "Fresh", item_path(@doctype, @item, :sort=>"fresh", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
+                  %li
+                    = link_to "Hot", item_path(@doctype, @item, :sort=>"hot", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
+                  %li
+                    = link_to "Historical", item_path(@doctype, @item, :sort=>"sweaty", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
+
           .clear
 
           .block
@@ -130,11 +132,10 @@
 -content_for :sidebar_inner do
   #sidebar-inner
 
-    = render :partial => "author"
     -if @doctype.has_video?
       = render :partial => "video_info", :locals => {:item => @item}
     = render :partial => "default_image", :locals => {:item => @item}
-
+    = render :partial => "author"
 
     = render :partial => "images", :locals => {:item => @item}
     -if !current_group.isolate

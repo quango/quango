@@ -1,3 +1,10 @@
+.flag-link
+  &a
+    color: #aaa
+  &a:hover
+    color: #aaa
+    text-decoration: underline
+
 .quick-create
   ul
     width: 100%
@@ -226,7 +233,7 @@ a.standard-button
   background-color: orange
   border: 2px solid orange
   text-align: center
-  padding: 4px 8px 4px 8px
+
   +rounded(4px,4px,4px,4px)
   font-weight: bold
   color: white
@@ -242,17 +249,19 @@ a.standard-button
   font-weight: bold
   font-size: 12px
   //text-transform: uppercase
+  height: 24px
   color: white
+  margin: 4px
   padding: 4px 8px 4px 8px
-  //background-image: url(/images/buttons/section_bg.png)
+  background-image: url(/images/white_25_bg.png)
   background-repeat: repeat
-  //background-position: -1px
-  height: 18px
+
+  height: 16px
   line-height: 16px
-  margin: 3px 0 3px 3px
+  margin: 0px
   +rounded(4px,4px,4px,4px)
   //border: 2px solid white
-  background-image: url(/images/white_25_bg.png)
+
 
   &:hover
     background-image: url(/images/white_50_bg.png)
@@ -486,19 +495,10 @@ button
   color: #6D6D6D
   padding: 2px 4px 0px 4px
   margin: 3px 0 0 0 
-  text-shadow: 0px 1px 1px rgba(255,255,255,0.75)
+
   font-size: 12px
   font-weight: normal
-  background: gainsboro
-  filter: progid:DXImageTransform.Microsoft.dropshadow(offx='0', offy='-2', color='#cccccc', positive='true') progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#bbbbbb',endColorstr='#dcdcdc')
-  background: -webkit-gradient(linear,left top,left bottom,from(#bbbbbb),to(#dcdcdc))
-  background: -moz-linear-gradient(top,#dcdcdc,#bbbbbb)
 
-  border: 1px solid #dcdcdc
-
-  -webkit-box-shadow: 0px 1px 2px rgba(0,0,0,0.25)
-  -moz-box-shadow: 0px 1px 2px rgba(0,0,0,0.25)
-  box-shadow: 0px 1px 2px rgba(0,0,0,0.25)
 
 
   -webkit-font-smoothing:antialiased

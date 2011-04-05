@@ -22,6 +22,12 @@
       .toolbar-container-inner    
         = render :partial => "shared/toolbar"
 
+    -if current_group.has_custom_channels
+      #channel-container
+        .channel-container-inner
+          = render :partial => "shared/channels"
+
+
     #header-container
       #header-container-inner
         #search

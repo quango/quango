@@ -12,7 +12,7 @@ module VotesHelper
           #{hidden_field_tag "voteable_type", class_name, :id => "voteable_type_#{class_name}_#{voteable.id}"}
           #{hidden_field_tag "voteable_id", voteable.id, :id => "voteable_id_#{class_name}_#{voteable.id}"}
           #{hidden_field_tag "source", source, :id => "source_#{class_name}_#{voteable.id}"}
-          <button type="submit" name="vote_up" value="1" class="right", style ="width:96px">
+          <button type="submit" name="vote_up" value="1" class="standard-button", style ="float:right;border:2px solid #333;background-color:#333;width:96px; height:26px;margin: 4px 0px;">
              Insightful
             #{if vote && vote.value > 0
                 image_tag("/images/icons/lightbulb_on.png", :width => 18, :height => 18, :class => "float:left; margin-left: 2px", :title => "Set as insightful")

@@ -689,6 +689,24 @@ class ItemsController < ApplicationController
     end
   end
 
+  def bump
+    @item = Item.find_by_slug_or_id(params[:id])
+    @item.last_target = @item  
+    @item.save
+
+    flash[:notice] = "#{@item.title} bumped"
+    respond_to do |format|
+      format.html { redirect_to(item_path(@item.doctype, @item)) }
+      format.js {
+        render(:json => {:success => true,
+                 :message => flash[:notice] }.to_json)
+      }
+      format.json { head :ok }
+    end
+  end
+
+
+
   def watch
     @item = Item.find_by_slug_or_id(params[:id])
     @item.add_watcher(current_user)
@@ -702,6 +720,9 @@ class ItemsController < ApplicationController
       format.json { head :ok }
     end
   end
+
+
+
 
   def unwatch
     @item = Item.find_by_slug_or_id(params[:id])

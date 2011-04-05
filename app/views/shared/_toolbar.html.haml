@@ -13,11 +13,11 @@
     -if current_user.owner_of?(current_group)
       .entry
         =link_to "&#x2620;", manage_properties_path, :class => "manage_link", :style => "font-size:1.5em;"
-        |
+        &#9733;
     -if current_user.mod_of?(current_group)
       .entry
         =link_to t("layouts.application.moderate"), moderate_path, :class => "moderate_link"
-        |
+        &#9733;
     .entry
       -# @avatar = Avatar.find(current_user.default_avatar)
       -# if @avatar.present?
@@ -31,24 +31,24 @@
       - real_name = "#{current_user.first_name} #{current_user.last_name}"
       %strong= link_to(h(real_name), user_path(current_user))
       %span.reputation{:title => t("activerecord.attributes.user.reputation"), :style => "background-color:"+current_group.primary+""}=format_number(current_user.reputation_on(current_group))
-      |
+      &#9733;
     -#.entry
       -#=link_to h("My Edition"), user_path(current_user)
-      -#| 
+      -#&#9733; 
     .entry
       =link_to h("My Profile"), user_path(current_user)
-      | 
+      &#9733; 
     -#.entry
       -#=link_to h("My Community"), user_path(current_user)
-      -#|
+      -#&#9733;
     .entry
       =link_to h("My Settings"), settings_path(:tab => "welcome")
-      |
+      &#9733;
 
   -if !logged_in?
     .entry
       = link_to h(current_group.about_label), "/about/community"
-      |
+      &#9733;
     .entry
       = link_to h("FAQ"), "/about/faq"
     .entry{:style => "margin-left:8px"}
@@ -57,7 +57,7 @@
   -if logged_in?
     .entry
       =link_to t("layouts.application.logout"), destroy_user_session_path
-      |
+      &#9733;
     .entry
       = render :partial => "shared/contribute"
 

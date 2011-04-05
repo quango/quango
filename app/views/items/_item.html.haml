@@ -16,25 +16,10 @@
 
   %li.entry.item{:class => class_for_item(item)}
 
-    %small
-      =@active_section #.has_images
-
-    .summary
-      =render :partial => "/items/stats", :locals => {:item => item}
-      .left.vote-icon
-        -unless item.closed
-          -if logged_in? && (vote = current_user.vote_on(item))
-            -if vote.value < 0
-              = image_tag "edit-delete.png"
-            -else
-              = image_tag "dialog-ok-apply.png"
-          -elsif current_user != item.user
-            -form_tag votes_path, :class => "vote-up-form" do
-              .fields
-                = hidden_field_tag "voteable_type", item.class.name, :id => "voteable_type_#{item.id}"
-                = hidden_field_tag "voteable_id", item.id, :id =>  "voteable_id_#{item.id}"
-                = hidden_field_tag "source", items_path(item.section, item), :id =>  "source_#{item.id}"
-                = image_submit_tag("dialog-ok.png", :name=>"vote_up", :value=>"1", :title => t("votes.control.to_vote_up"), :class => "quick-vote-button")
+    .summary{:style=>"width:400px"}
+      %small
+        =@active_section #.has_images
+        =render :partial => "/items/stats", :locals => {:item => item}
 
       -cache("item_on_index_#{item.id}_#{I18n.locale}") do
         %h3
@@ -48,16 +33,16 @@
             %span.tag{:class => "tag_#{h(tag)}"}
               = link_to h(tag), url_for(:controller => "items", :action => "index", :tags => tag), :rel => "tag", :title => t("items.tags.tooltip", :tag => tag)
 
-      .owner-data
-        -if owner
-          =render :partial => "users/user_mini", :locals => {:user => owner, :width => "narrow"}
-        -else
-          =t("global.anonymous")
-        %small.time_ago
-          = link_to t("time.ago", :time => time_ago_in_words(last_target.updated_at)), items_path(item.doctype, item)+"##{last_target.id}"
-        -if item.wiki
-          %span.wiki_flag
-            wiki
+    .owner-data
+      -if owner
+        =render :partial => "users/user_mini", :locals => {:user => owner, :width => "narrow"}
+      -else
+        =t("global.anonymous")
+      %small.time_ago
+        = link_to t("time.ago", :time => time_ago_in_words(last_target.updated_at)), items_path(item.doctype, item)+"##{last_target.id}"
+      -if item.wiki
+        %span.wiki_flag
+          wiki
     .clear
 -else
   -cache("mini_item_on_index_#{item.id}_#{I18n.locale}") do

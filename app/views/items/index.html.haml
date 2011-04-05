@@ -27,7 +27,7 @@
 /Items
 -content_for :summary_header do
   #summary-header{:class => @active_tab}
-    = render :partial => "summary_header", :locals => {:doctype => @doctype, :section => @doctype,  :list_mode => "standard", :expanded => false} #@doctype.expanded}
+    = render :partial => "summary_header", :locals => {:doctype => @doctype, :section => @doctype,  :list_mode => "standard", :expanded => true} #@doctype.expanded}
 
 -content_for :main do
   #main-index
