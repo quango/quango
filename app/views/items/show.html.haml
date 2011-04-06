@@ -140,7 +140,6 @@
     = render :partial => "images", :locals => {:item => @item}
     -if !current_group.isolate
       = render :partial => "related_communities"
-    = render :partial => "shared/signup_button", :locals => {:width => "wide"}
 
     -if logged_in? && current_group.has_bunnies?
       -if current_user.owner_of?(current_group)
@@ -155,7 +154,9 @@
           %ul.list
             -related_items.each do |rq|
               %li
-                = link_to h(rq.title), items_path(rq.doctype, rq), :title => truncate(strip_tags(rq.body), :length => 200)
+                = link_to h(rq.title), items_path(rq.doctype, rq.slug.to_s), :title => truncate(strip_tags(rq.body), :length => 200)
+
+    = render :partial => "shared/signup_button", :locals => {:width => "wide"}
 
 
 -content_for :sidebar do

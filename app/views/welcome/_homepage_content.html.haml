@@ -19,21 +19,43 @@
       %h1
         ="Welcome"
       %p
-        ="Here are some items of interest"
 
         -current_group.doctypes[0..2].each do |doctype|
           -if !doctype.hidden?
             -if doctype.name == @active_section
-              .div.left{:style=>"background-color:#efefef;height:128px;width:33%"}
+              .div.left{:style=>"width:33%"}
                 - section_link = doctype.name.capitalize
                 %h4
                   = link_to section_link, items_path(doctype), :style => "color: white; background-color:#{current_group.primary}"
             -else
-              .div.left{:style=>"width:25%;"}
+              .div.left{:style=>"width:233px;"}
                 - section_link = doctype.name.capitalize
-                .div.inner{:style=>"background-color:#efefef;height:128px;border-right:1px solid white"}
-                  %h4{:style => "font-weight:bold; border-bottom:2px solid #{current_group.primary}"}
+                .div.inner{:style=>"background-color:#ffffff;border-right:1px solid white"}
+                  %h4{:style => "font-weight:bold; border-bottom:4px solid #{current_group.primary};margin:0;height:32px; line-height:32px"}
                     = link_to section_link, items_path(doctype), :style => "color: #{current_group.primary};", :object => doctype
+                  .content
+
+                    %ul.features
+                      -if doctype.items.empty?
+                        %li.highlight
+                          = t(".empty")
+                      -else
+
+                        - items_array = Array.new
+                        - doctype.items.reverse.each do |item|
+                          - items_array << item
+                        - items_array[0..0].each do |item|
+                          = render :partial => "/items/summary_list_feature", :locals => {:item => item, :sort=>"hot"}
+
+                        .more
+                          %h5{:style => "font-weight:bold; border-bottom:4px solid #{current_group.primary};margin:0;height:32px; line-height:32px"}
+                            = "More " + section_link.downcase
+                        - items_array[1..3].each do |item|
+                          = render :partial => "/items/summary_list_thumbnail_small", :locals => {:item => item, :sort=>"hot"}
+
+                    .clear
+
+
 
 
         %script{:type => "text/javascript"}

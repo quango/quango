@@ -78,9 +78,9 @@
     = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
 
 
-    - current_group.widgets.each do |widget|
-      .widget.block{:id => widget.name}
-        = render :partial => widget.partial_name, :locals => {:widget => widget, :width => "wide"}
+    -#- current_group.widgets.each do |widget|
+      -#.widget.block{:id => widget.name}
+        -#= render :partial => widget.partial_name, :locals => {:widget => widget, :width => "wide"}
 
     = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
 
@@ -93,7 +93,7 @@
   #welcome-index{:style => "float:left;"}
     .content
       .inner
-        = render :partial => "homepage_content", :locals => {:expanded => false}
+        = render :partial => "homepage_content", :locals => {:expanded => true}
 
     .content
       .inner

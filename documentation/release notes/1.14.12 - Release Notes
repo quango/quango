@@ -3,17 +3,13 @@ This is mainly a bugfix release, but also a few usability issues
 
 Changelog
 
+
+* Fixed the listing order for summaries and listings - still not sorting correclty, but a step in the right direction
 * Added "channels" bar between header and contextual navigation - it's off by default - at present it allows you to put an additional hardcoded block of navigation in ( use the channel_listing_horizontal class in css )
 * Added the "bump" feature, admins and authors can "bump" a post back up the list ( will restrict this to 3 bumps eventually )
-* Made the "Edit text" and "add images buttons" red and green and much more obvious than before
-* Change the icons to text for watch and book mark and made easier to see button
-
-
-* Made the images process much more obvious & removed the polaroid icon from the markdown editor
-
+* Made the images process much more obvious
 * Added an "actions' widet on index and show pages - not sure how much simpler I can make that
 * Made default state of section headers closed
-* Stripped out the cookies thing - who cares is the browser remembers if a section header is open or closed?
 * Section header state editable by admin
 * Added the homepage section ( default closed for now ) This will be the community magazine type thing 
 
@@ -25,12 +21,18 @@ Bugfixes ( Spotted by )
 
 Stylefixes
 
+* Made the "Edit text" and "add images buttons" red and green and much more obvious than before
+* Change the icons to text for watch and book mark and made easier to see button
 
 
 Developers Notes
 
+* Stripped out the cookies thing - who cares is the browser remembers if a section header is open or closed?
+
+
 Pending for next release:
 
+* Need to figure out why the images do not work correctly in production mode, but work perfectly in dev mode
 * Rollovers for member lists ( mono -> colour )
 * Fix bumping to be a maximum of three times
 * Adapt bump into pin so posts can be made sticky as well as bumped

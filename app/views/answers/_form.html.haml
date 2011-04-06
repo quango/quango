@@ -73,11 +73,10 @@
 
 -elsif !logged_in?
   .answer-form-holder
-    .toolbar-container
-      %a.show_summary{:class => "action-button showhide left", :style => "margin-left: 8px"}
+    .entry-details
+      .entry-title{:style=>"height:32px; line-height:32px; margin-bottom:4px;"}
         = "Share your thoughts..."
-      %span.right{:style=>"margin-right:8px"}
-        = render :partial => "shared/login"
+
     .clear
     %span.left{:style=>"margin:8px"}
       = "You must be logged in to share your thoughts... Don't have an account? <a href='/members/new'>Signup now!</>"

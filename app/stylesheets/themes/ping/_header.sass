@@ -7,7 +7,7 @@
   margin: 0px auto
 
 .channel_listing_horizontal
-  height: 24px
+  height: 28px
   margin: 0
   padding: 2px 0
   -webkit-padding-start: 0px
@@ -15,14 +15,13 @@
 .channel_listing_horizontal li
   display: inline
   list-style-type: disc
-  height: 24px
-  line-height: 24px
+  height: 28px
+  line-height: 28px
 
 .channel_listing_horizontal li.selected
   background-color: red
-  border-bottom: 6px solid red
-  border-top: 2px solid red
-  +rounded(4px,4px,0,0)
+  border: 2px solid red
+  +rounded(4px,4px,4px,4px)
 
 .channel_listing_horizontal a
   font-weight: bold
@@ -33,6 +32,8 @@
 .channel_listing_horizontal a:hover li:hover
   font-weight: bold
   background-color: #333431
+  background-image: url(/images/white_25_bg.png)
+  background-repeat: repeat
   color: #ffffff
   font-size: 12px
 
