@@ -180,7 +180,7 @@ class GroupsController < ApplicationController
   # PUT /groups/1
   # PUT /groups/1.json
   def update
-    @group.safe_update(%w[name name_highlight legend description has_custom_channels custom_channels default_tags subdomain 
+    @group.safe_update(%w[name name_highlight legend description has_custom_channels custom_channels custom_channel_content default_tags subdomain 
                           logo logo_info logo_only
                           forum notification_from notification_email
                           custom_favicon language theme reputation_rewards reputation_constrains

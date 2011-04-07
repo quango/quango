@@ -111,6 +111,12 @@
   = form.label :has_custom_channels, t('has_custom_channels', :scope => "activerecord.attributes.group"), :class => "radio"
 
 .group
+  = form.label :custom_channel_content, t('Custom channel content html', :scope => "activerecord.attributes.group"), :class => "label"
+  = form.text_area :custom_channel_content, :class => "text_field"
+  .description
+    = t('.custom_channel_content')
+
+.group
   = form.label :custom_channels, t('custom_channels', :scope => "activerecord.attributes.group"), :class => "label"
   = form.text_field :custom_channels, :value => @group.custom_channels.join(", "), :class => "text_field"
   .description

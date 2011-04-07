@@ -21,7 +21,7 @@
           - image = Image.find(item.default_thumbnail)
           - base_image = image.image.process(:thumb,image.image_cropping)
           - base_thumbnail = base_image.process(:thumb,"80x")
-          = image_tag base_thumbnail.url, :class => 'none', :alt => image.name, :title => image.name
+          = link_to image_tag(base_thumbnail.url, :class => 'none', :alt => image.name, :title => image.name), item_path(item.doctype, item)
 
         .inner-link{:style=>"width:float:150px"}
           = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
@@ -29,7 +29,7 @@
       -else
         .inner-content
           .thumbnail{:style => "width:80px; float:left;"}
-            = image_tag "http://dummyimage.com/80x45/dcdcdc/fff.gif&text=#{item.doctype}"           
+            = image_tag "http://dummyimage.com/80x45/dcdcdc/fff.gif&text=" + item.doctype.name.to_s           
           .inner-link{:style=>"width:float:150px"}
             = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
 
