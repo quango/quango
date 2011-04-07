@@ -21,32 +21,31 @@
           - image = Image.find(item.default_thumbnail)
           - base_image = image.image.process(:thumb,image.image_cropping)
           - base_thumbnail = base_image.process(:thumb,"233x")
-          = link_to image_tag(base_thumbnail.url, :class => 'none', :alt => image.name, :title => image.name), item_path(item.doctype, item)
+          = link_to image_tag(base_thumbnail.url, :class => 'none', :alt => image.name, :title => image.name,:style => "width:233px;min-height:131px" ), item_path(item.doctype, item)
 
         .inner-content
-          %div{:style=>"height:176px"}
-            .inner-link{:style=>"font-size:14px;font-weight:bold;height:32px;border-bottom:1px dotted #{current_group.tertiary}; padding-bottom:4px; margin-bottom:4px;"}
-              = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
-              .inner-topics{:style=>"display:none"}
-                -topics_array = Array.new
-                -item.first_tags.each do |topic|
-                  -topics_array << topic
-                -topics_array[0..1].each do |topic|
-                  %span.tag-list{:class => "tag_#{h(topic)}"}
-                    = link_to h(topic), url_for(:controller => "items", :action => "index", :topics => topic), :rel => "tag", :title => t("items.tags.tooltip", :tag => topic)
-   
-            .inner-teaser{:style=>"height:104px; text-overflow:hidden"}
-              = h( truncate(strip_tags(item.body), :length => 256) )
-            .inner-link
-              = link_to "Read more...", item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
+          .inner-link{:style=>"font-size:14px;font-weight:bold;height:32px;border-bottom:1px dotted #{current_group.tertiary}; padding-bottom:4px; margin-bottom:4px;"}
+            = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
+            
+          .inner-teaser
+            = h( truncate(strip_tags(item.body), :length => 160) )
+
+          .inner-topics
+            -topics_array = Array.new
+            -item.first_tags.each do |topic|
+              -topics_array << topic
+            -topics_array[0..1].each do |topic|
+              %span.tag-list{:class => "tag_#{h(topic)}"}
+                = link_to h(topic), url_for(:controller => "items", :action => "index", :topics => topic), :rel => "tag", :title => t("items.tags.tooltip", :tag => topic)
+
 
       -else
 
         .thumbnail
-          = image_tag "http://dummyimage.com/233x131/#{current_group.primary}/fff.gif&text=#{item.doctype.to_s}"  
+          = link_to image_tag( "http://dummyimage.com/233x131/#{current_group.primary}/fff.gif&text=#{item.doctype.to_s}",:width => "233px", :height => "131px"  )
 
 
-        .inner-content{:style => "width:100%"}
+        .inner-content
 
           .inner-link{:style=>"font-size:14px;font-weight:bold;height:32px;border-bottom:1px dotted #{current_group.tertiary}; padding-bottom:4px; margin-bottom:4px;"}
             = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 96)
@@ -61,9 +60,6 @@
             -topics_array[0..1].each do |topic|
               %span.tag-list{:class => "tag_#{h(topic)}"}
                 = link_to h(topic), url_for(:controller => "items", :action => "index", :topics => topic), :rel => "tag", :title => t("items.tags.tooltip", :tag => topic)
-
-
-
 
 
 

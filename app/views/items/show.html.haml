@@ -151,10 +151,10 @@
         %h3
           =t(".related_items")
         .content
-          %ul.list
-            -related_items.each do |rq|
-              %li
-                = link_to h(rq.title), items_path(rq.doctype, rq.slug.to_s), :title => truncate(strip_tags(rq.body), :length => 200)
+          -#%ul.list
+            -#-related_items.each do |rq|
+              -#%li
+                -#= link_to h(rq.title), items_path(rq.doctype, rq.slug.to_s), :title => truncate(strip_tags(rq.body), :length => 200)
 
     = render :partial => "shared/signup_button", :locals => {:width => "wide"}
 
