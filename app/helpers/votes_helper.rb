@@ -12,6 +12,15 @@ module VotesHelper
           #{hidden_field_tag "voteable_type", class_name, :id => "voteable_type_#{class_name}_#{voteable.id}"}
           #{hidden_field_tag "voteable_id", voteable.id, :id => "voteable_id_#{class_name}_#{voteable.id}"}
           #{hidden_field_tag "source", source, :id => "source_#{class_name}_#{voteable.id}"}
+
+          <button type="submit" name="vote_down" value="-1" class="standard-button right" style="float:right;border:2px solid #{current_group.primary_dark};background-color:#{current_group.primary_dark}">
+            #{if vote && vote.value < 0
+                "+"
+              else
+                " - "
+              end}
+          </button>
+
           <button type="submit" name="vote_up" value="1" class="standard-button", style ="float:right;border:2px solid #333;background-color:#333;width:96px; height:26px;margin: 4px 0px;">
              Insightful
             #{if vote && vote.value > 0
@@ -22,13 +31,7 @@ module VotesHelper
              }
           </button>
 
-          <button type="submit" name="vote_down" value="-1" class="vote-down right">
-            #{if vote && vote.value < 0
-                "+"
-              else
-                " - "
-              end}
-          </button>
+
       </form>
       @
     else

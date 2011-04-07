@@ -1,8 +1,18 @@
 #logo{:style => "float:left;"}
   -if current_group.logo_only?
     .logo-text
-      =link_to h(current_group.name), domain_url(:custom => current_group.domain), :style=>"background-color:#{current_group.primary};color:white;margin:0;"
-      =link_to h(current_group.name_highlight), domain_url(:custom => current_group.domain), :style=> "background-color:white;color:#{current_group.primary};margin:0;"
+      -if current_group.sandwich_top?
+        .sandwich-top
+          = current_group.sandwich_top
+      .filling
+        .left
+          =link_to h(current_group.name), domain_url(:custom => current_group.domain), :style=>"background-color:#{current_group.primary};color:white;margin:0;"
+        .left
+        =link_to h(current_group.name_highlight), domain_url(:custom => current_group.domain), :style=> "background-color:white;color:#{current_group.primary};margin:0;"
+      -if current_group.sandwich_bottom?
+        .sandwich-top
+          = current_group.sandwich_bottom
+
   -else
     .logo
       = link_to image_tag(current_group.logo_path, :width => current_group.logo_info["width"], :height => current_group.logo_info["height"],  :style => "bottom:0px;"), domain_url(:custom => current_group.domain), :style=>"margin:0px;"

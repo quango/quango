@@ -15,8 +15,13 @@ class Group
   key :_id, String
   key :parent_id, String #this will be used for groups hierarchies
 
+  key :sandwich_top, String
+
   key :name, String, :required => true
   key :name_highlight, String
+
+  key :sandwich_bottom, String
+
   key :subdomain, String
   key :domain, String
   key :legend, String
