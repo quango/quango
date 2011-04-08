@@ -1,0 +1,42 @@
+#main{:style => "width:702px; float:left"}
+  %h1
+    = "Channel settings"
+
+  = "You can choose not to show channels, show default channels ( auto ), set which channels you want to feature or alternative drop a html block in"
+
+  .group
+    = f.check_box :has_custom_channels, :class => "checkbox"
+    = f.label :has_custom_channels, t('has_custom_channels', :scope => "activerecord.attributes.group"), :class => "radio"
+
+  .group
+    = f.label :custom_channel_content, t('Custom channel content html', :scope => "activerecord.attributes.group"), :class => "label"
+    = f.text_area :custom_channel_content, :class => "text_field"
+    .description
+      = t('.custom_channel_content')
+
+  .group
+    = f.label :custom_channels, t('custom_channels', :scope => "activerecord.attributes.group"), :class => "label"
+    = f.text_field :custom_channels, :value => @group.custom_channels.join(", "), :class => "text_field"
+    .description
+      = t('.custom_channels_legend')
+
+  .clear
+
+  .group.navf
+    = f.submit t('scaffold.update'), :class => "action-button"
+
+
+#sidebar-inner{:style => "width:256px; float:right"}
+  %h2
+    = "Wide Preview"
+    = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
+
+#sidebar{:style => "width:140px; float:right"}
+  %h2
+    = "Narrow Preview"
+    = render :partial => "shared/community_sponsor",  :locals => {:width => "narrow"}
+
+
+
+
+

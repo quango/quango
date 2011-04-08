@@ -68,6 +68,7 @@
 
 
   #sidebar-inner{:style => "float:right; width:256px;"}
+    = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
     .block
       %h3
         = h(current_group.about_label)
@@ -75,7 +76,7 @@
         .markdown
           = markdown(current_group.description)
 
-    = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
+
 
 
     -#- current_group.widgets.each do |widget|
