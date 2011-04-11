@@ -15,7 +15,7 @@
 
   -else
     .logo
-      = link_to image_tag(current_group.logo_path, :width => current_group.logo_info["width"], :height => current_group.logo_info["height"],  :style => "bottom:0px;"), domain_url(:custom => current_group.domain), :style=>"margin:0px;"
+      = link_to image_tag(current_group.logo_path, :width => current_group.logo_info["width"], :height => current_group.logo_info["height"],  :style => "bottom:0px;"), domain_url(:custom => current_group.domain), :style=>"margin:0px;", :alt => "Home"
 
 
 #toolbar{:style => "float:right;width:auto;"}
@@ -55,14 +55,15 @@
       |
     .entry
       = link_to h("FAQ"), "/about/faq"
+      |
     .entry{:style => "margin-left:8px"}
       =link_to "Login", new_user_session_path
-  .entry
-    |
-    =link_to "#{current_group.publish_label.capitalize}", new_create_path, :rel => 'nofollow'
 
 
   -if logged_in?
+    .entry
+      |
+      =link_to "#{current_group.publish_label.capitalize}", new_create_path, :rel => 'nofollow'
     |
     .entry
       =link_to t("layouts.application.logout"), destroy_user_session_path

@@ -57,7 +57,7 @@
         -current_group.widgets.each do |widget|
           .widget.block{:id => widget.name}
             = render :partial => widget.partial_name, :locals => {:widget => widget, :width=> "narrow"}
-        = render :partial => "shared/sidebar_actions"
+        = render :partial => "shared/sidebar_actions", :locals =>  {:width=> "narrow"}
 
 
 -content_for :sidebar_inner do
