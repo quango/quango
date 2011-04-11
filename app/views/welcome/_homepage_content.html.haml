@@ -46,14 +46,14 @@
                           = render :partial => "/items/summary_list_feature", :locals => {:item => item, :sort=>"hot"}
 
                       .more
-                        %h4{:style => "color: #{current_group.primary};font-weight:bold; border-bottom:4px solid #{current_group.primary};height:32px; line-height:40px"}
+                        %h4{:style => "color: #{current_group.primary};font-weight:bold; border-bottom:4px solid #{current_group.primary};height:32px; line-height:40px; margin-bottom:1px"}
                           = "More " + section_link.downcase
                         .summary-list-text
                         - items_array[1..3].each do |item|
                           = render :partial => "/items/summary_list_thumbnail_small", :locals => {:item => item, :sort=>"hot"}
 
                       .also
-                        %h4{:style => "color: #{current_group.primary};font-weight:bold; border-bottom:4px solid #{current_group.primary};height:32px; line-height:40px"}
+                        %h4{:style => "color: #{current_group.primary};font-weight:bold; border-bottom:4px solid #{current_group.primary};height:32px; line-height:40px; margin-bottom:1px"}
                           = "Also..."
                         .summary-list-text
                         - if items_array.count > 4
