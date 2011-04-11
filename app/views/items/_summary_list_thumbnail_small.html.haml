@@ -32,7 +32,7 @@
 
       -else
         .inner-content
-          .thumbnail-placeholder{:style => "width:80px;height:45px; float:left;"  }
+          .thumbnail-placeholder{:style => "width:80px;height:45px;"  }
             = link_to image_tag("/images/spacer.gif", :style => "background-color:#{current_group.secondary};width:80px;height:45px"), item_path(item.doctype, item)        
           .inner-link{:style=>"width:float:150px"}
             = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
