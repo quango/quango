@@ -1,21 +1,21 @@
 %div.signup-form
   .group
-    = f.text_field :first_name, :class => "text_field right", :style => "width:300px; margin-bottom:4px; border: 0"
+    = f.text_field :first_name, :class => "text_field right", :style => "width:300px; margin-bottom:4px;"
     = f.label :first_name, "First name", :class => "label right", :style => "margin-top:4px; margin-right: 16px"
   .clear
 
   .group
-    = f.text_field :last_name, :class => "text_field right", :style => "width:300px; margin-bottom:4px; border: 0"
+    = f.text_field :last_name, :class => "text_field right", :style => "width:300px; margin-bottom:4px;"
     = f.label :last_name, "Last name", :class => "label right", :style => "margin-top:4px; margin-right: 16px"
   .clear
 
   .group{:style => "display:none"}
-    = f.text_field :login, :class => "text_field right", :style => "width:300px; margin-bottom:4px; border: 0"
+    = f.text_field :login, :class => "text_field right", :style => "width:300px; margin-bottom:4px;"
     = f.label :login, t(:login, :scope => "activerecord.attributes.user"), :class => "label right", :style => "margin-top:4px; margin-right: 16px"
   .clear
 
   .group
-    = f.text_field :email, :class => "text_field right", :style => "width:300px; margin-bottom:4px; border: 0"
+    = f.text_field :email, :class => "text_field right", :style => "width:300px; margin-bottom:4px;"
     = f.label :email, t(:email, :scope => "activerecord.attributes.user"), :class => "label right", :style => "margin-top:4px; margin-right: 16px"
   .clear
 
@@ -29,12 +29,12 @@
 
 
     .group
-      = f.password_field :password, :class => "text_field right", :style => "width:300px; margin-bottom:4px; border: 0; background-color: #{current_group.supplementary_lite}"
+      = f.password_field :password, :class => "text_field right", :style => "width:300px; margin-bottom:4px;"
       = f.label :password, t(:password, :scope => "activerecord.attributes.user"), :class => "label right", :style => "margin-top:4px; margin-right: 16px"
     .clear
 
     .group
-      = f.password_field :password_confirmation, :class => "text_field right", :style => "width:300px; margin-bottom:4px; border: 0; background-color: #{current_group.supplementary_lite}"
+      = f.password_field :password_confirmation, :class => "text_field right", :style => "width:300px; margin-bottom:4px;"
       = f.label :password_confirmation, "Password again", :class => "label right", :style => "margin-top:4px; margin-right: 16px"
     .clear
 

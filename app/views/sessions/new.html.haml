@@ -20,12 +20,12 @@ Layout
       -form_for :user, resource, :url => session_path(resource_name), :html => {:class => "form"} do |f|
         %div.signup-form
           .group
-            = f.text_field :email, :class => "text_field right", :style => "width:300px; margin-bottom:4px; border: 0"
+            = f.text_field :email, :class => "text_field right", :style => "width:300px; margin-bottom:4px"
             = f.label :email, "Email", :class => "label right", :style => "margin-top:4px; margin-right: 16px"
           .clear
 
           .group
-            = f.password_field :password, :class => "text_field right", :style => "width:300px; margin-bottom:4px; border: 0; background-color: #{current_group.supplementary_lite}"
+            = f.password_field :password, :class => "text_field right", :style => "width:300px;"
             = f.label :password, t("password", :scope => "activerecord.attributes.user"), :class => "label right", :style => "margin-top:4px; margin-right: 16px"
           .clear
 
