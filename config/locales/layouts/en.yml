@@ -103,6 +103,7 @@ en:
       content: Content
       theme: Theme
       domain: Domain
+      channels: Channel
       pages: Pages
       constrains: Requirements
       rewards: Rewards

@@ -1,21 +1,21 @@
 -# url = "http://thoughtdomains.org/community/bugs/!/new?"
-- bug_url = "http://thoughtdomains.org/community/bugs/!/new?"
+- bug_url = "http://think.it/community/bugs/!/new?"
 - bug_url << "&item[title]=Bug: "
 - bug_url << "&item[tags]=bug,#{AppConfig.version.to_s},#{current_group.name}-#{current_group.name_highlight}"
 - bug_url << "&item[body]=This is what happened..."
 
-- usability_url = "http://thoughtdomains.org/community/discussions/!/new?"
+- usability_url = "http://think.it/community/discussions/!/new?"
 - usability_url << "&item[title]=User experience: "
 - usability_url << "&item[tags]=UX,UX,#{AppConfig.version.to_s},#{current_group.name}-#{current_group.name_highlight}"
 - usability_url << "&item[body]=This is what happened..."
 
-- feature_url = "http://thoughtdomains.org/community/features/!/new?"
+- feature_url = "http://think.it/community/features/!/new?"
 - feature_url << "&item[title]=Feature Request: "
 - feature_url << "&item[tags]=feature-request,#{AppConfig.version.to_s},#{current_group.name}-#{current_group.name_highlight}"
 - feature_url << "&item[body]=This is what happened..."
 
 
-.bug-report
+.bug-report{:style => "margin-left: 16px"}
   = "Please: "
   %ul{:style => "display:inline"}
     %li
@@ -25,5 +25,5 @@
       =link_to "discuss usability ", usability_url, :rel => "nofollow"
     |    
     %li
-      =link_to "request features ", feature_url, :rel => "nofollow"
+      =link_to "change request ", feature_url, :rel => "nofollow"
 

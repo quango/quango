@@ -28,7 +28,7 @@
             .div.left{:style=>"width:233px;background-color:#ffffff;border-right:1px solid white; display:block"}
               - section_link = doctype.name.capitalize
               .div.inner{:style=>"margin:0"}
-                %h4{:style => "font-weight:bold; border-bottom:4px solid #{current_group.primary};height:32px; line-height:40px"}
+                %h4{:style => "font-weight:bold; border-bottom:4px solid #{current_group.primary};height:32px; line-height:40px; margin:0"}
                   = link_to section_link, items_path(doctype), :style => "color: #{current_group.primary};", :object => doctype
                 .content
 
@@ -112,7 +112,7 @@
           -#= "};"
         -#= "};"
 
-        .clear
+      .clear
     .clear
 
 

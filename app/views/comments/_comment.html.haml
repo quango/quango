@@ -7,7 +7,7 @@
     %span.left{:style => "padding: 2px; width: 64px; margin-right: 10px"}
       .gravatar
         = gravatar(comment.user.email.to_s)
-      = link_to h(comment.user.login), user_path(comment.user), :class => "clear"
+      = link_to h(comment.user.display_name), user_path(comment.user), :class => "clear"
     .markdown
       = shapado_auto_link(markdown(comment.body), :link_users => true)
     .comment-info
@@ -28,7 +28,7 @@
     .comment-info
       %strong
         = t("time.ago", :time => time_ago_in_words(comment.created_at))
-      =link_to comment.user.login, user_path(comment.user)
+      =link_to comment.user.display_name, user_path(comment.user)
       == #{t("comments.shared.said")}:
     .comment-votes
       .votes_average

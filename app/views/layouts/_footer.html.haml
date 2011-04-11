@@ -1,14 +1,9 @@
 .footer
   #{current_group.footer}
 
-.footer-information
-  .footer-links.left
-    .entry.left
-      = "This community site is running <a href='http://thoughtdomains.org'>quango</a> v" + AppConfig.version.to_s + "<a class='beta' style='background-color:#{current_group.supplementary};'>beta</a>"
-    .clear
-    .entry.left
-      = render :partial => "shared/bug"
-  .footer-links.right
+.footer
+
+  .footer-links
     .entry
       %ul
         %li
@@ -34,6 +29,10 @@
 
 
 
-
+.footer{:style => "border-top:1px solid #{current_group.secondary}; margin:8px 0 32px 0; padding-top:8px;"}
+  .entry.left
+    = "This community is <a href='http://thinkingdaily.com.au'>Thinking Daily</a> on <strong><a href='http://think.it'>think</a></strong> v" + AppConfig.version.to_s + "<a class='beta' style='background-color:#{current_group.supplementary};'>beta</a>"
+  .entry.left
+    = render :partial => "shared/bug"
 
 

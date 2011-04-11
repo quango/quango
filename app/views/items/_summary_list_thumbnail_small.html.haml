@@ -2,6 +2,10 @@
 -if item.closed
   -title += " [#{t("closed", :scope => "activerecord.attributes.item").upcase}]"
 
+-if !item
+
+  = "Empty"
+
 -if !local_assigns[:mini]
   -owner = nil
   -if item.last_target.present?
@@ -14,7 +18,7 @@
     -last_target = item
     -owner = item.user unless item.anonymous
 
-  %li.thumbnail{:class => class_for_item(item)}
+  %li.thumbnail{:class => class_for_item(item), :style => "border-bottom:1px solid white; height:45px"}
     -cache("item_on_index_#{item.id}_#{I18n.locale}") do
       -if item.default_thumbnail?
         .thumbnail{:style => "width:80px; float:left;"}
@@ -28,8 +32,8 @@
 
       -else
         .inner-content
-          .thumbnail{:style => "width:80px; float:left;"}
-            = image_tag "http://dummyimage.com/80x45/dcdcdc/fff.gif&text=" + item.doctype.name.to_s           
+          .thumbnail-placeholder{:style => "width:80px;height:45px; float:left;"  }
+            = link_to image_tag("/images/spacer.gif", :style => "background-color:#{current_group.secondary};width:80px;height:45px"), item_path(item.doctype, item)        
           .inner-link{:style=>"width:float:150px"}
             = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
 

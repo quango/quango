@@ -132,6 +132,8 @@
 -content_for :sidebar_inner do
   #sidebar-inner
 
+    = render :partial => "shared/signup_button", :locals => {:width => "wide"}
+
     -if @doctype.has_video?
       = render :partial => "video_info", :locals => {:item => @item}
     = render :partial => "default_image", :locals => {:item => @item}
@@ -156,7 +158,7 @@
               -#%li
                 -#= link_to h(rq.title), items_path(rq.doctype, rq.slug.to_s), :title => truncate(strip_tags(rq.body), :length => 200)
 
-    = render :partial => "shared/signup_button", :locals => {:width => "wide"}
+
 
 
 -content_for :sidebar do
@@ -165,7 +167,7 @@
     = render :partial => "shared/community_sponsor", :locals => {:width => "narrow"}
     = render :partial => "shared/current_tags"
     = render :partial => "shared/tag_list", :object => @tag_cloud
-    = render :partial => "shared/sidebar_actions"
+    = render :partial => "shared/signup_button", :locals => {:width => "narrow"}
     -#= render :partial => "related_communities"
 
 

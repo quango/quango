@@ -108,7 +108,7 @@ class Group
   key :secondary_navigation_text, String, :default => "white"
   key :edit_button_bg, String, :default => "#990000" #tabs, 
   key :edit_button_bg_image, String, :default => "/images/default_button_bg.png"
-  key :link_colour, String, :default => "#750024"
+  key :link_colour, String, :default => "#005858"
 
   key :supplementary_dark, String, :default => "#A6691C" #action buttons and anything requiring high visibility
   key :supplementary, String, :default => "#FFB455" #action buttons and anything requiring high visibility

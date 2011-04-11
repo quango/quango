@@ -1,0 +1,15 @@
+- item = local_assigns[:item]
+
+
+-if item.activity_at > Time.zone.now.yesterday && !item.last_target.present?
+  %span.new
+    = "new"
+
+
+-if item.activity_at > Time.zone.now.yesterday && item.last_target.present?
+  %span.hot
+    = "hot"
+
+-#elsif item.activity_at > Time.zone.now.yesterday && !item.last_target.present
+  -#%span.edited
+    -#= "edited"

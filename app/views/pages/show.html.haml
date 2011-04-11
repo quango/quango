@@ -12,6 +12,10 @@
 -content_for :sidebar do
 
   #sidebar-inner
+
+
+    = render :partial => "shared/signup_button", :locals => {:width => "narrow"}
+
     .block
       %h3
         = h(current_group.about_label)
@@ -19,13 +23,12 @@
         .markdown
           = "#{current_group.description}"
 
-    = render :partial => "shared/signup_button", :locals => {:width => "wide"}
     = render :partial => "shared/community_sponsor", :locals => {:width => "wide"}
 
     -if (logged_in? && current_user.can_edit_wiki_post_on?(current_group) )
       .block
         %h3
-          = "Administrator options" 
+          = "Admin" 
         .content
           %ul.navigation
             %li

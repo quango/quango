@@ -87,7 +87,7 @@
 
 
   .clear
-  .forms.comment-form{:style => "background-color:#eee; width:70%"}
+  .forms.comment-form{:style => "background-color:#eee"}
     -form_tag item_answer_comments_path(@doctype, @item, answer), :class => "form commentForm nestedAnswerForm" do
       -@comment = Comment.new
       = render :partial => "comments/form", :locals => {:source => source, :commentable => answer}
@@ -96,7 +96,7 @@
         = link_to t('scaffold.cancel'), '', :class => 'cancel_comment'
         = submit_tag t("comments.shared.comment_submit"), :class => "create-button", :style => "width:128px; height:24px; float:right;"
 
-    .children.comments{:style => "border-top: 4px solid gainsboro; background-color:#eee; width:70%"}
+    .children.comments{:style => "border-top: 4px solid gainsboro; background-color:#eee"}
       -answer.comments.each do |comment|
         .inline-comment{:style => "border-bottom: 1px dotted gainsboro"}
           = render :partial => "comments/comment", :object => comment, :locals => {:source => source, :mini => true}

@@ -6,9 +6,9 @@
           = current_group.sandwich_top
       .filling
         .left
-          =link_to h(current_group.name), domain_url(:custom => current_group.domain), :style=>"background-color:#{current_group.primary};color:white;margin:0;"
+          =link_to h(current_group.name), domain_url(:custom => current_group.domain), :style=>"color:white;margin:0;"
         .left
-        =link_to h(current_group.name_highlight), domain_url(:custom => current_group.domain), :style=> "background-color:white;color:#{current_group.primary};margin:0;"
+          =link_to h(current_group.name_highlight), domain_url(:custom => current_group.domain), :style=> "background-color:white;color:#{current_group.primary};margin:0;"
       -if current_group.sandwich_bottom?
         .sandwich-top
           = current_group.sandwich_bottom
@@ -29,13 +29,7 @@
         =link_to t("layouts.application.moderate"), moderate_path, :class => "moderate_link"
         |
     .entry
-      -# @avatar = Avatar.find(current_user.default_avatar)
-      -# if @avatar.present?
-      -#  - cropped_avatar = @avatar.avatar.process(:thumb,@avatar.avatar_cropping)
-      -#  - default_avatar = cropped_avatar.process(:thumb,"18x18").url
-      -#  = image_tag default_avatar, :style => "margin-bottom:-4px"
-      -# else
-      -#  = image_tag "/images/anonymous_avatar.png", :height => "18px", :width => "18px"
+
 
 
       - real_name = "#{current_user.first_name} #{current_user.last_name}"
@@ -69,9 +63,9 @@
 
 
   -if logged_in?
+    |
     .entry
       =link_to t("layouts.application.logout"), destroy_user_session_path
-      |
 
 
 

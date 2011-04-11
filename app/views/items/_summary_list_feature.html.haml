@@ -1,4 +1,8 @@
 -title = h(item.title)
+
+
+
+
 -if item.closed
   -title += " [#{t("closed", :scope => "activerecord.attributes.item").upcase}]"
 
@@ -14,6 +18,9 @@
     -last_target = item
     -owner = item.user unless item.anonymous
 
+
+
+
   %li.thumbnail{:class => class_for_item(item)}
     -cache("item_on_index_#{item.id}_#{I18n.locale}") do
       -if item.default_thumbnail?
@@ -24,7 +31,10 @@
           = link_to image_tag(base_thumbnail.url, :class => 'none', :alt => image.name, :title => image.name,:style => "width:233px;min-height:131px" ), item_path(item.doctype, item)
 
         .inner-content
+
           .inner-link{:style=>"font-size:14px;font-weight:bold;height:32px;border-bottom:1px dotted #{current_group.tertiary}; padding-bottom:4px; margin-bottom:4px;"}
+
+            = render :partial => "shared/activity_markers", :locals => {:item => item}
             = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
             
           .inner-teaser
@@ -41,13 +51,14 @@
 
       -else
 
-        .thumbnail
-          = link_to image_tag( "http://dummyimage.com/233x131/#{current_group.primary}/fff.gif&text=#{item.doctype.to_s}",:width => "233px", :height => "131px"  )
+        .thumbnail-placeholder{:style => "background-color:#{current_group.secondary};width:233px;height:131px"  }
+          = link_to image_tag("/images/spacer.gif", :style => "background-color:#{current_group.secondary};width:233px;height:131px"), item_path(item.doctype, item)
 
 
         .inner-content
 
           .inner-link{:style=>"font-size:14px;font-weight:bold;height:32px;border-bottom:1px dotted #{current_group.tertiary}; padding-bottom:4px; margin-bottom:4px;"}
+            = render :partial => "shared/activity_markers", :locals => {:item => item}
             = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 96)
 
           .inner-teaser

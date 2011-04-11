@@ -3,16 +3,24 @@ This is mainly a bugfix release, but also a few usability issues
 
 Changelog
 
-
-* Made the images process much more obvious
-
+* Removed the dummy image placeholders and replaced with a text box - better not to rely on any third party site wherever possible and keep think entirely self-contained other than the linkouts to FB and Linked etc
+* Removed the summary lists for the homepage items already open to make homepage more cleaner
+* Added "new""hot" and "edited" markers in the new homepage lists 
+* Switched order of signup on content pages
+* Straightened out the bug thingy at the bottom & moved from thoughtdomains to think
+* Moved channels from general to it's own tab under admin
 
 
 Bugfixes ( Spotted by )
 
-
+* Show today/Hide today fixed for Hot homepage
+* Bump button?
 
 Stylefixes
+
+* Standardized the content lists with one pixel whitespace above image
+* Twiddled a bit with the logo-text, typically I expect these will be overwritten by logo's anyway
+* Made the inline comments wider - I still think answers and inline comments are a bit confusing though
 
 
 
@@ -21,9 +29,19 @@ Developers Notes
 
 Pending for next release:
 
+
 * Need to figure out why the images do not work correctly in production mode, but work perfectly in dev mode
 * Rollovers for member lists ( mono -> colour )
-* Fix bumping to be a maximum of three times
+* Fix bumping to be a maximum of three times & fix the "bumped by" on show pages - consider a bumpk marker?
 * Adapt bump into pin so posts can be made sticky as well as bumped
 * Fixed admin area so admins can manage members ( eg. assign owners to communities )
 
+
+      %div{:style=>"margin:0 0 8px 0:display:hidden"}
+        - @avatar = Avatar.find(current_user.default_avatar)
+        - if @avatar.present?
+          - cropped_avatar = @avatar.avatar.process(:thumb,@avatar.avatar_cropping)
+          - default_avatar = cropped_avatar.process(:thumb,"32x32").url
+          = image_tag default_avatar, :style => "margin-bottom:-4px"
+        - else
+          = image_tag "/images/anonymous_avatar.png", :height => "32px", :width => "32px"
