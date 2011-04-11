@@ -47,9 +47,10 @@
       -#|
     .entry
       =link_to h("My Settings"), settings_path(:tab => "welcome")
-      |
+
 
   -if !logged_in?
+
     .entry
       = link_to h(current_group.about_label), "/about/community"
       |
@@ -57,14 +58,14 @@
       = link_to h("FAQ"), "/about/faq"
       |
     .entry{:style => "margin-left:8px"}
-      =link_to "Login", new_user_session_path
+      = link_to "Login", new_user_session_path
 
 
   -if logged_in?
     .entry
       |
       =link_to "#{current_group.publish_label.capitalize}", new_create_path, :rel => 'nofollow'
-    |
+      |
     .entry
       =link_to t("layouts.application.logout"), destroy_user_session_path
 
