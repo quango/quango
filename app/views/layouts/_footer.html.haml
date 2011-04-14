@@ -31,7 +31,7 @@
 
 .footer{:style => "border-top:1px solid #{current_group.secondary}; margin:8px 0 32px 0; padding-top:8px;"}
   .entry.left
-    = "<a href='http://thinkingdaily.com.au'>Thinking Daily</a> on Quango v" + AppConfig.version.to_s + "<a class='beta' style='background-color:#{current_group.supplementary};'>beta</a>"
+    = "#{current_group.name} #{current_group.name_highlight} is <a href='http://thinkingdaily.com.au' style='font-weight:bold;font-family:georgia;letter-spacing:-1px;font-size:14px;'>thinkingdaily</a> on quango v" + AppConfig.version.to_s + "<a class='beta' style='background-color:#{current_group.supplementary};'>beta</a>"
   .entry.left
     = render :partial => "shared/bug"
 
