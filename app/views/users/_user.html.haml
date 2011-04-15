@@ -24,15 +24,21 @@
 
         = "Latest Post:"
         -# item = user.items.last_updated
-        - user.items.each do |item|
-          = link_to item.title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
-          = " in " << "#{item.doctype}"
+
+        -if !user.items   
+
+          - user.items.each do |item|
+            = link_to item.title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
+            = " in " << "#{item.doctype}"
 
       .latest-comment
         = "Latest Comment:"
-        - user.answers[0..0].each do |answer|
-          = link_to "#{answer.item.title}", "/#{answer.item.section}/" << answer.item.slug
-          = " in " << "#{answer.item.section}"
+
+        -if !user.answers
+
+          - user.answers[0..0].each do |answer|
+            = link_to "#{answer.item.title}", "/#{answer.item.section}/" << answer.item.slug
+            = " in " << "#{answer.item.section}"
 
 
 

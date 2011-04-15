@@ -32,7 +32,7 @@
 
         .inner-content
 
-          .inner-link{:style=>"font-size:14px;font-weight:bold;height:32px;border-bottom:1px dotted #{current_group.tertiary}; padding-bottom:4px; margin-bottom:4px;"}
+          .inner-link{:style=>"font-size:14px;font-weight:bold;height:40px;border-bottom:1px dotted #{current_group.tertiary}; padding-bottom:4px; margin-bottom:4px;"}
 
             = render :partial => "shared/activity_markers", :locals => {:item => item}
             = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
@@ -57,7 +57,7 @@
 
         .inner-content
 
-          .inner-link{:style=>"font-size:14px;font-weight:bold;height:32px;border-bottom:1px dotted #{current_group.tertiary}; padding-bottom:4px; margin-bottom:4px;"}
+          .inner-link{:style=>"font-size:14px;font-weight:bold;height:40px;border-bottom:1px dotted #{current_group.tertiary}; padding-bottom:4px; margin-bottom:4px;"}
             = render :partial => "shared/activity_markers", :locals => {:item => item}
             = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 96)
 
