@@ -7,6 +7,8 @@
       %ul
         %li.sponsor
           = link_to t("layouts.manage.sponsor"), manage_properties_path(:tab => "sponsor"), :class=>"standard-button"
+        %li.sponsored_links
+          = link_to t("layouts.manage.sponsors"), manage_properties_path(:tab => "sponsored_links"), :class=>"standard-button"
         %li.general
           = link_to t("layouts.manage.general"), manage_properties_path(:tab => "general"), :class=>"standard-button"
         %li.general

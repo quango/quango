@@ -1,0 +1,28 @@
+
+-if current_group.has_sponsors?
+
+  -if width == "wide"
+    .block
+      %h3
+        = current_group.sponsors_label
+      .content
+        -if current_group.has_sponsors?
+          = "Sponsors list"
+
+  -if width == "narrow"
+    .block
+      %h3
+        = current_group.sponsors_label
+      .content
+
+        -if current_group.has_sponsors?
+
+          = "Sponsors list"
+
+
+
+
+.clear
+
+
+

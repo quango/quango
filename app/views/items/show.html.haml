@@ -132,7 +132,7 @@
 -content_for :sidebar_inner do
   #sidebar-inner
 
-    = render :partial => "shared/signup_button", :locals => {:width => "wide"}
+    -#= render :partial => "shared/signup_button", :locals => {:width => "wide"}
 
     -if @doctype.has_video?
       = render :partial => "video_info", :locals => {:item => @item}
@@ -140,12 +140,7 @@
     = render :partial => "author"
 
     = render :partial => "images", :locals => {:item => @item}
-    -if !current_group.isolate
-      = render :partial => "related_communities"
 
-    -if logged_in? && current_group.has_bunnies?
-      -if current_user.owner_of?(current_group)
-        = render :partial => "bunnies", :locals => {:item => @item}
 
     -related_items = Item.related_items(@item, :language => find_languages)
     - if related_items
@@ -158,16 +153,22 @@
               -#%li
                 -#= link_to h(rq.title), items_path(rq.doctype, rq.slug.to_s), :title => truncate(strip_tags(rq.body), :length => 200)
 
+    -if !current_group.isolate
+      = render :partial => "related_communities"
 
+    -if logged_in? && current_group.has_bunnies?
+      -if current_user.owner_of?(current_group)
+        = render :partial => "bunnies", :locals => {:item => @item}
 
 
 -content_for :sidebar do
   #sidebar
+    = render :partial => "shared/signup_button", :locals => {:width => "narrow"}
     = render :partial => "participants", :locals=> {:item => @item}
     = render :partial => "shared/community_sponsor", :locals => {:width => "narrow"}
     = render :partial => "shared/current_tags"
     = render :partial => "shared/tag_list", :object => @tag_cloud
-    = render :partial => "shared/signup_button", :locals => {:width => "narrow"}
+
     -#= render :partial => "related_communities"
 
 

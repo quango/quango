@@ -72,7 +72,7 @@
   
 
 
-  #sidebar-inner{:style => "float:right; width:256px;"}
+  #sidebar-inner{:style => "float:right; width:300px;"}
     = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
     .block{:style => "margin-bottom:4px"}
       %h3
@@ -96,14 +96,14 @@
         -#= render :partial => widget.partial_name, :locals => {:widget => widget, :width => "wide"}
 
     = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
-
+    = render :partial => "shared/sponsored_links",  :locals => {:width => "wide"}
 
     -if !current_group.isolate # this will be the group connect thing
       -#= render :partial => "featured_groups", :locals => {:width => "wide"}
 
 
 
-  #welcome-index{:style => "float:left;"}
+  #welcome-index{:style => "float:left; width:729px;"}
     .content
       .inner
         = render :partial => "homepage_content", :locals => {:expanded => true}

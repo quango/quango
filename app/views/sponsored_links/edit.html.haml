@@ -1,0 +1,17 @@
+-content_for :main do
+
+  #main-index
+
+    %h1
+      = "New sponsored link"
+
+    %p
+      - form_for @sponsored_link do |f|
+        = f.error_messages
+        %p
+          = f.text_field :name, :value => @sponsored_link.name
+        %p
+          = f.submit 'Create'
+
+    %p
+      = link_to 'Back', sponsored_links_path

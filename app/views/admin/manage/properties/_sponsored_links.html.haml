@@ -1,0 +1,71 @@
+#main{:style=>"width:590px;float:left;"}
+  %h1
+    = "Sponsored Links"
+
+  = "Sponsored links are static links which have run of site - frequently these are used for paid site sponsorships."
+
+  .group
+    = f.label :has_sponsors, "Show the sponsored links?", :class => "label"
+    = f.check_box :has_sponsors, :class => "text_field"
+    = "If you check this box, the sponsored links will appear in the site"
+
+
+
+
+  .group
+    = f.label :sponsors_label, "Sponsored Links label", :class => "label"
+    = f.text_field :sponsors_label, :class => "text_field"
+
+
+
+  .group.navform
+    = f.submit t('scaffold.update'), :class => "action-button"
+  %hr{:style =>"margin:8px 0"}
+
+
+
+
+  .form
+
+    %h1
+      = "Listing sponsored_links for"
+      = current_group
+
+
+    %p
+      = link_to 'New sponsored_link', new_sponsored_link_path
+
+    %p
+      %table
+        %tr
+          %th
+            = "name"
+          %th
+            = "actions"
+        - if current_group.sponsored_links
+          - current_group.sponsored_links.each do |sponsored_link|
+            %tr
+              %td
+                = sponsored_link.name.to_s
+              %td
+                = link_to 'Show', sponsored_link_path(sponsored_link)
+                = link_to 'Edit', edit_sponsored_link_path(sponsored_link)
+                = link_to 'Destroy', sponsored_link_path(sponsored_link), :confirm => 'Are you sure?', :method => :delete
+
+
+
+
+#sidebar-inner
+  %h2
+    = "Wide Preview"
+    = render :partial => "shared/sponsored_links",  :locals => {:width => "wide"}
+
+#sidebar
+  %h2
+    = "Narrow Preview"
+    = render :partial => "shared/sponsored_links",  :locals => {:width => "narrow"}
+
+
+
+
+

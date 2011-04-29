@@ -1,0 +1,34 @@
+-content_for :main do
+
+  #main-index
+
+    %h1
+      = "Listing sponsored_links for"
+      = current_group
+
+
+    %p
+      = link_to 'New sponsored_link', new_sponsored_link_path
+
+    %p
+      %table
+        %tr
+          %th
+            = "name"
+          %th
+            = "actions"
+        - if @sponsored_links
+          - @sponsored_links.each do |sponsored_link|
+            %tr
+              %td
+                = sponsored_link.name.to_s
+              %td
+                = link_to 'Show', sponsored_link_path(sponsored_link)
+                = link_to 'Edit', edit_sponsored_link_path(sponsored_link)
+                = link_to 'Destroy', sponsored_link_path(sponsored_link), :confirm => 'Are you sure?', :method => :delete
+
+
+
+
+
+

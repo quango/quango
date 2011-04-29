@@ -124,10 +124,10 @@ class Group
 
   #community sponsor settings
 
-  key :has_sponsor, Boolean, :default => false
+  key :has_sponsor, Boolean, :default => false #headline sponsor
+
 
   key :sponsor_label, String, :default => "Supporters"
-
   key :sponsor_name, String
   key :sponsor_link, String
 
@@ -144,6 +144,11 @@ class Group
   key :show_sponsor_description_boxheader, Boolean, :default => true
   key :sponsor_description_boxheader, String, :default => "About this sponsor..."
   key :sponsor_description, String
+
+
+  key :has_sponsors, Boolean, :default => false #sponsored links
+  key :sponsors_label, String, :default => "Sponsored links"
+
 
   #signup button
 
@@ -169,6 +174,7 @@ class Group
   has_many :answers, :dependent => :destroy
   has_many :votes, :dependent => :destroy
   has_many :pages, :dependent => :destroy
+  has_many :sponsored_links, :dependent => :destroy
   has_many :announcements, :dependent => :destroy
 
   belongs_to :owner, :class_name => "User"

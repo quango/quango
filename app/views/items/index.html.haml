@@ -27,7 +27,7 @@
 /Items
 -content_for :summary_header do
   #summary-header{:class => @active_tab}
-    = render :partial => "summary_header", :locals => {:doctype => @doctype, :section => @doctype,  :list_mode => "standard", :expanded => true} #@doctype.expanded}
+    = render :partial => "summary_header", :locals => {:doctype => @doctype, :section => @doctype,  :list_mode => "standard", :expanded => false} #@doctype.expanded}
 
 -content_for :main do
   #main-index
@@ -57,7 +57,7 @@
         -current_group.widgets.each do |widget|
           .widget.block{:id => widget.name}
             = render :partial => widget.partial_name, :locals => {:widget => widget, :width=> "narrow"}
-        = render :partial => "shared/sidebar_actions", :locals =>  {:width=> "narrow"}
+
 
 
 -content_for :sidebar_inner do
@@ -65,7 +65,7 @@
   #sidebar-inner
     .sidebar
       .inner
-        = render :partial => "shared/active"
+        = render :partial => "shared/sidebar_actions", :locals =>  {:width=> "wide"}
 
 
         .block

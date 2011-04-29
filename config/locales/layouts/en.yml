@@ -89,7 +89,8 @@ en:
       openid:
         explaination: "If you would like to register or just log in, please select your OpenID provider:"
     manage:
-      sponsor: Sponsorship Settings
+      sponsor: Main Sponsor
+      sponsors: Sponsored Links
       messaging: Message settings
       advertising: Advertising
       analytics: Analytics
@@ -116,6 +117,8 @@ en:
 
       properties:
         signup_button: Signup Button
+        sponsored_links:
+          title: Sponsored Links
 
     notifications:
       message: "If you do not want to receive automatic notifications from %{domain} anymore, change your preferences in the notifications screen."

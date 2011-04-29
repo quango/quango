@@ -1,0 +1,33 @@
+
+-if current_group.has_sponsors?
+
+  -if width == "wide"
+    .block
+      %h3
+        = current_group.sponsors_label
+      .content
+        -if current_group.has_sponsors?
+          - current_group.sponsored_links.each do |sponsored_link|
+            .sponsored_link{:style=>"height:35px;background-color:#dcdcdc; border-bottom:1px solid white;"}
+              .thumbnail{:style => "width:140px; height:35px; float:left;background:#{current_group.supplementary};"}
+                = "thumb"
+              .text{:style => "width:160px; height:35px; float:right;"}
+                = sponsored_link.name.to_s
+
+  -if width == "narrow"
+    .block
+      %h3
+        = current_group.sponsors_label
+      .content
+        -if current_group.has_sponsors?
+          - current_group.sponsored_links.each do |sponsored_link|
+            %li
+              = sponsored_link.name.to_s
+
+
+
+
+.clear
+
+
+
