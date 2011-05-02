@@ -24,20 +24,20 @@
   %li.thumbnail{:class => class_for_item(item)}
     -cache("item_on_index_#{item.id}_#{I18n.locale}") do
       -if item.default_thumbnail?
-        .thumbnail{:style => "width:242px;min-height:137px; overflow:hidden" }
+        .thumbnail{:style => "width:242px;height:136px; overflow:hidden" }
           - image = Image.find(item.default_thumbnail)
           - base_image = image.image.process(:thumb,image.image_cropping)
           - base_thumbnail = base_image.process(:thumb,"242x")
           = link_to image_tag(base_thumbnail.url, :class => 'none', :alt => image.name, :title => image.name,:style => "width:242px;min-height:137px" ), item_path(item.doctype, item)
 
-        .inner-content
+        .inner-content{:style=>"padding-bottom:8px; margin-bottom:8px;border-bottom:1px solid gainsboro"}
 
-          .inner-link{:style=>"font-size:14px;font-weight:bold;height:44px;border-bottom:1px dotted #{current_group.tertiary}; padding-bottom:4px; margin-bottom:4px;"}
+          .inner-link{:style=>"font-size:14px;font-weight:bold;height:36px; line-height:18px;padding:8px 0 4px 0; margin-bottom:4px;;letter-spacing:-1px;"}
 
             = render :partial => "shared/activity_markers", :locals => {:item => item}
             = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
             
-          .inner-teaser
+          .inner-teaser{:style=>"height:80px;"}
             = h( truncate(strip_tags(item.body), :length => 160) )
 
           .inner-topics
@@ -51,17 +51,17 @@
 
       -else
 
-        .thumbnail-placeholder{:style => "background-color:#{current_group.secondary};width:242px;height:137px"  }
+        .thumbnail-placeholder{:style => "background-color:#{current_group.secondary};width:242px;height:136px"  }
           = link_to image_tag("/images/spacer.gif", :style => "background-color:#{current_group.secondary};width:242px;height:137px"), item_path(item.doctype, item)
 
 
-        .inner-content
+        .inner-content{:style=>"padding-bottom:8px; margin-bottom:8px;border-bottom:1px solid gainsboro"}
 
-          .inner-link{:style=>"font-size:14px;font-weight:bold;height:44px;border-bottom:1px dotted #{current_group.tertiary}; padding-bottom:4px; margin-bottom:4px;"}
+          .inner-link{:style=>"font-size:14px;font-weight:bold;height:36px; line-height:18px;padding:8px 0 4px 0; margin-bottom:4px;letter-spacing:-1px;"}
             = render :partial => "shared/activity_markers", :locals => {:item => item}
             = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 96)
 
-          .inner-teaser
+          .inner-teaser{:style=>"height:80px;"}
             = h(truncate(strip_tags(item.body), :length => 160) )
 
           .inner-topics

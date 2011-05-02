@@ -9,14 +9,18 @@
       %ul
         - @item.images.each do |image|
           - base_image = image.image.process(:thumb,image.image_cropping)
-          - base_thumbnail = base_image.process(:thumb,"128x")
+          - base_thumbnail = base_image.process(:thumb,"140x")
           - base_thumbnail_grey = base_thumbnail.process(:greyscale, "20")
-          %li
+          %ul.image-link-wide
             %div.fade-thumbnails
               = image_tag base_thumbnail.url, :class => 'b', :alt => image.name, :title => image.name
               = image_tag base_thumbnail_grey.url, :class => 'a', :alt => image.name, :title => image.name  
-              %div{:style => "width:124px; margin-left:4px; float:right"} 
-                = "#{image.caption}<br/>"
-                = "&copy; #{image.copyright}<br/><br/>"
-                = link_to  "Expand image", base_image.url, :title => "somthing"
+              %div{:style => "width:152px; height:80px; line-height:13px;float:right; overflow:hidden; padding:0 4px;"} 
+                %div{:style => "width:152px; height:40px; line-height:13px;float:right; overflow:hidden;"}
+                  = "#{image.caption}"
+                %div{:style => "width:152px;margin-top:8px; height:30px; line-height:13px;float:right; overflow:hidden;"}
+                  = "&copy; #{image.copyright}<br/>"
+                  = link_to  "Expand image", base_image.url, :title => "#{image.caption}"
+
+
 

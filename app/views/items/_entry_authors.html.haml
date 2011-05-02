@@ -1,4 +1,4 @@
-.author{:style => "height: 14px;"}
+.author{:style => "height: 14px;font-size:14px;"}
   .user_data
     %span.asked_by{:style=>"float:left"}
       = "#{current_group.publish_label_past.capitalize} by"
@@ -11,7 +11,7 @@
   .author{:style => "height: 14px;"}
     .user_data
       %span.asked_by{:style=>"float:left;"}
-        = "Last edited by"
+        = "Edited by "
       = render :partial => "users/show_mini", :locals => {:user => @item.updated_by}
       = t("time.ago", :time => time_ago_in_words(@item.updated_at))
   .clear

@@ -14,6 +14,7 @@ $("input#item_video_link").blur(function() {
 
 // perform JavaScript after the document is scriptable.
 
+
 $(document).ready(function(){
 $(".user-mini").hover(
     function() {$(".avatar-wide").children('.a').stop().animate({"opacity": "0"}, "slow");},

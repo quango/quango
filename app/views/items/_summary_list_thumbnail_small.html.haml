@@ -2,9 +2,7 @@
 -if item.closed
   -title += " [#{t("closed", :scope => "activerecord.attributes.item").upcase}]"
 
--if !item
 
-  = "Empty"
 
 -if !local_assigns[:mini]
   -owner = nil
@@ -18,22 +16,22 @@
     -last_target = item
     -owner = item.user unless item.anonymous
 
-  %li.thumbnail{:class => class_for_item(item), :style => "border-bottom:1px solid white; height:45px"}
+  %div.image-link-wide{:style => "border-bottom:1px solid gainsboro; height:45px",:onclick=>"window.location.href='#{item_url(item.doctype, item)}'"}
 
     -if item.default_thumbnail?
-      .thumbnail{:style => "width:80px; float:left; border-right:4px solid white"}
+      .thumbnail{:style => "width:80px;height:45px; float:left; margin-right:4px solid white"}
         - image = Image.find(item.default_thumbnail)
         - base_image = image.image.process(:thumb,image.image_cropping)
         - base_thumbnail = base_image.process(:thumb,"80x")
-        = link_to image_tag(base_thumbnail.url, :class => 'none', :alt => image.name, :title => image.name), item_path(item.doctype, item)
+        = link_to image_tag(base_thumbnail.url, :height => '45px', :alt => image.name, :title => image.name), item_path(item.doctype, item)
 
-      .inner-link{:style => "float:right;width:149px;"}
+      .inner-link{:style => "float:right;width:156px;height:45px;overflow:hidden"}
         = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
 
     -else
-      .thumbnail{:style => "width:80px;float:left;; border-right:4px solid white"}
+      .thumbnail{:style => "width:80px;height:45px;float:left; margin-right:4px"}
         = link_to image_tag("/images/spacer.gif", :class => 'none', :style => "background-color:#{current_group.secondary};width:80px;height:45px"), item_path(item.doctype, item)        
-      .inner-link{:style => "float:right;width:149px;"}
+      .inner-link{:style => "float:right;width:156px;height:45px;overflow:hidden"}
         = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
 
 

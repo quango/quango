@@ -4,7 +4,7 @@
   -unless user.nil?
     =link_to h(user.display_name), user_path(user)
 
-  .reputation{:title => t("activerecord.attributes.user.reputation")}
+  .reputation{:title => t("activerecord.attributes.user.reputation"),:style=>"float:left; margin:0 7px;"}
     -unless user.nil?
       -if user.owner_of?(current_group)
         %span.ownerflair{:title => "This user is an admin"}

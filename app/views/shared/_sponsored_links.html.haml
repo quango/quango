@@ -8,10 +8,10 @@
       .content
         -if current_group.has_sponsors?
           - current_group.sponsored_links.each do |sponsored_link|
-            .sponsored_link{:style=>"height:35px;background-color:#dcdcdc; border-bottom:1px solid white;"}
-              .thumbnail{:style => "width:140px; height:35px; float:left;background:#{current_group.supplementary};"}
-                = "thumb"
-              .text{:style => "width:160px; height:35px; float:right;"}
+            .sponsored-link-wide
+              .thumbnail{:style => "width:140px; height:40px; float:left;background:#{current_group.supplementary};"}
+                = "&nbsp;"
+              .text{:style => "width:152px; height:40px; line-height:13px;; float:right; overflow:hidden; padding:0 4px;"}
                 = sponsored_link.name.to_s
 
   -if width == "narrow"

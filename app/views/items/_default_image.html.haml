@@ -6,10 +6,10 @@
     %h3
       = "Thumbnail"
 
-    .content
+    .default_thumbnail
       - image = @default_thumbnail
       - base_image = image.image.process(:thumb,image.image_cropping)
-      - base_thumbnail = base_image.process(:thumb,"255x")
+      - base_thumbnail = base_image.process(:thumb,"300x")
       = image_tag base_thumbnail.url, :class => 'none', :alt => image.name, :title => image.name
 
 

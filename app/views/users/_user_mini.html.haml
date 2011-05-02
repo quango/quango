@@ -1,7 +1,7 @@
 -bronze, silver, gold = user.badges_count_on(current_group)
 
 -if width == "wide"
-  .user_mini{:style=>"width:256px; height:72px; overflow:hidden"}
+  .user_mini{:style=>"width:300px; height:72px; overflow:hidden"}
     %div.avatar-wide
       - @avatar = Avatar.find(user.default_avatar)
       - if @avatar.present?
