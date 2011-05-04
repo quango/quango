@@ -36,9 +36,11 @@
 
             = render :partial => "shared/activity_markers", :locals => {:item => item}
             = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
-          .inner-author
-            = "x"
-            = render :partial => "users/show_mini", :locals => {:user => item.user}
+
+          .inner-author{:style=>"height:16px;margin-bottom:4px;"}
+            = "By " 
+            = link_to h(item.user.display_name), user_path(item.user)
+
           .inner-teaser{:style=>"height:80px;"}
             = h( truncate(strip_tags(item.body), :length => 160) )
 
