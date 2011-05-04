@@ -18,6 +18,7 @@ Bugfixes ( Spotted by )
 
 Stylefixes
 
+* Sorted out formats and sizes - added author to the listings
 * Changed width of page to accomodate current IAB banner sizes
 * Changed the style of listings to be more consistent and hover on mouseover
 

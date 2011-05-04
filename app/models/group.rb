@@ -18,7 +18,9 @@ class Group
   key :sandwich_top, String
 
   key :name, String, :required => true
-  key :name_highlight, String
+  key :name_highlight, String, :default => "daily"
+  key :name_link, String
+  key :name_highlight_link, String, :default => "http://thinkingdaily.com.au"
 
   key :sandwich_bottom, String
 

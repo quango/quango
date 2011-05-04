@@ -6,8 +6,17 @@
   = form.text_field :name, :class => "text_field", :value => params[:name]
 
 .group
+  = form.label :name_link, t('name_highlight_link', :scope => "activerecord.attributes.group"), :class => "label"
+  = form.text_field :name_link, :class => "text_field"
+
+.group
   = form.label :name_highlight, t('name_highlight', :scope => "activerecord.attributes.group"), :class => "label"
   = form.text_field :name_highlight, :class => "text_field"
+
+.group
+  = form.label :name_highlight_link, t('name_highlight_link', :scope => "activerecord.attributes.group"), :class => "label"
+  = form.text_field :name_highlight_link, :class => "text_field"
+
 
 .group
   = form.label :publish_label, t('publish_label', :scope => "activerecord.attributes.group"), :class => "label"

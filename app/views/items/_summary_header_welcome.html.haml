@@ -37,7 +37,7 @@
             - items_array = Array.new
             - doctype.items.reverse.each do |item|
               - items_array << item
-            - items_array[2..9].each do |item|
+            - items_array[2..8].each do |item|
               = render :partial => "/items/summary_list_headline", :locals => {:item => item, :sort=>"hot"}
 
     .listings-right{:style => "width:280px; float:right;"}

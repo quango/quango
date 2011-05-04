@@ -8,7 +8,7 @@
         .left
           =link_to h(current_group.name), domain_url(:custom => current_group.domain), :style=>"color:white;margin:0;"
         .left
-          =link_to h(current_group.name_highlight), domain_url(:custom => current_group.domain), :style=> "color:#{current_group.primary};margin:0;"
+          =link_to h(current_group.name_highlight), current_group.name_highlight_link, :style=> "color:#{current_group.primary};margin:0;"
       -if current_group.sandwich_bottom?
         .sandwich-top
           = current_group.sandwich_bottom
