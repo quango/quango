@@ -477,10 +477,10 @@ class ItemsController < ApplicationController
       @item.slugs << @item.slug
       @item.send(:generate_slug)
 
-      sane_title = params[:item][:title]
-      sane_title_down = sane_title.downcase
-      sane_title_capitals = sane_title_down.capitalize
-      @item.title = sane_title_capitals
+      #sane_title = params[:item][:title]
+      #sane_title_down = sane_title.downcase
+      #sane_title_capitals = sane_title_down.capitalize
+      @item.title = params[:item][:title]
 
       @doctypes = current_group.doctypes
       @doctype = @doctypes.find_by_slug_or_id(params[:doctype_id])

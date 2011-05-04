@@ -1,4 +1,5 @@
 class SponsoredLinksController < ApplicationController
+  skip_before_filter :check_group_access, :only => [:image]
 
   # GET /sponsored_links
   # GET /sponsored_links.xml
@@ -45,7 +46,7 @@ class SponsoredLinksController < ApplicationController
   # POST /sponsored_links.xml
   def create
     @sponsored_link = SponsoredLink.new
-    @sponsored_link.safe_update(%w[name], params[:sponsored_link])
+    @sponsored_link.safe_update(%w[name image image_info], params[:sponsored_link])
 
     @group = current_group
 
@@ -69,7 +70,7 @@ class SponsoredLinksController < ApplicationController
   def update
     @sponsored_link = SponsoredLink.find(params[:id])
 
-    @sponsored_link.safe_update(%w[name], params[:sponsored_link])
+    @sponsored_link.safe_update(%w[name image image_info], params[:sponsored_link])
 
     respond_to do |format|
       if @sponsored_link.save

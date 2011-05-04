@@ -78,8 +78,8 @@ class Group
   key :publish_label, String, :default => "post"
   key :publish_label_past, String, :default => "posted"
   key :leaders_label, String, :default => "Thought leaders..." 
-  key :about_label, String, :default => "About this community" 
-  key :signup_heading, String, :default => "Thinking is free, so naturally thinkingdaily.com is also free..."  
+  key :about_label, String, :default => "How to use this website..." 
+  key :signup_heading, String, :default => "Thinking is free, so naturally it free to share your thoughts..."  
 
   # theme
   key :logo_path, String, :default => "/images/logos/star_32.png"
@@ -94,23 +94,23 @@ class Group
   key :header_bg_image, String
   key :toolbar_bg, String
   key :toolbar_bg_image, String
-  key :primary, String, :default => "#920000" #tabs, 
-  key :primary_dark, String, :default => "#504d4e" #tabs, 
+  key :primary, String, :default => "#4183AF" #tabs, 
+  key :primary_dark, String, :default => "#525051" #tabs, 
   key :primary_hover, String, :default => "#E1A970" #header_bg and edit buttons
   key :primary_selected, String, :default => "#990000"
 
-  key :secondary, String, :default => "#b5aeb1" #tabs,
+  key :secondary, String, :default => "#72AFD7" #tabs,
   key :secondary_hover, String, :default => "orange"
   key :secondary_selected, String, :default => "#E1A970"
   key :secondary_active, String, :default => "#990000"
-  key :tertiary, String, :default => "#924200" #tabs, 
+  key :tertiary, String, :default => "#8DBAD7" #tabs, 
   key :complementary, String, :default => "#007500" #tabs, 
 
   key :secondary_navigation_bg, String, :default => "gainsboro"
   key :secondary_navigation_text, String, :default => "white"
   key :edit_button_bg, String, :default => "#990000" #tabs, 
   key :edit_button_bg_image, String, :default => "/images/default_button_bg.png"
-  key :link_colour, String, :default => "#005858"
+  key :link_colour, String, :default => "#00A08A"
 
   key :supplementary_dark, String, :default => "#A6691C" #action buttons and anything requiring high visibility
   key :supplementary, String, :default => "#FFB455" #action buttons and anything requiring high visibility

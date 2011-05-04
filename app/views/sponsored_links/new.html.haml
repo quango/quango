@@ -9,7 +9,22 @@
       - form_for @sponsored_link do |f|
         = f.error_messages
         %p
-          = f.text_field :name, :value => @sponsored_link.name
+          = f.text_area :name, :value => @sponsored_link.name, :rows => "3", :style => "width:153px;"
+
+        .group
+          .box.left{:style => "width:50%"}
+            = f.label :sponsored_link_image, t('Wide logo', :scope => "activerecord.attributes.group"), :class => "label"
+            -unless @sponsored_link.new?
+              = image_tag(@sponsored_link.image)
+            %br
+            = f.file_field :sponsor_link_image
+            .description
+              = t('.logo_legend')
+            = text_field_tag "group[sponsored_link_image_info][width]", @sponsored_link.image_info["width"], :style => "width:32px"
+            x
+            = text_field_tag "group[sponsored_link_image_info][height]", @sponsored_link.image_info["height"], :style => "width:32px"
+
+
         %p
           = f.submit 'Create'
 
