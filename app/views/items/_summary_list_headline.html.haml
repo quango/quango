@@ -1,27 +1,29 @@
--title = h(item.title)
--doctype = item.doctype
--last_target = item.last_target
+-if item
 
-%li.headline
+  -title = h(item.title)
+  -doctype = item.doctype
+  -last_target = item.last_target
 
-  -if item.activity_at > Time.zone.now.yesterday
-    %span.new
-      = "new"
-  -elsif item.activity_at > Time.zone.now.yesterday && !last_target.present
-    %span.edited
-      = "edited"
+  %li.headline
 
-  -if item.activity_at > Time.zone.now.yesterday && last_target.present?
-    %span.active
-      = "active"
+    -if item.activity_at > Time.zone.now.yesterday
+      %span.new
+        = "new"
+    -elsif item.activity_at > Time.zone.now.yesterday && !last_target.present
+      %span.edited
+        = "edited"
+
+    -if item.activity_at > Time.zone.now.yesterday && last_target.present?
+      %span.active
+        = "active"
 
 
-  -#= title
-  = link_to title, item_path(doctype, item), :locals => {:section => @active_section}, :title => truncate(strip_tags(item.title), :length => 200)
+    -#= title
+    = link_to title, item_path(doctype, item), :locals => {:section => @active_section}, :title => truncate(strip_tags(item.title), :length => 200)
 
-  -if item.activity_at < Time.zone.now.yesterday
-    %small
-      = link_to t("time.ago", :time => time_ago_in_words(item.updated_at)), item_path(item.doctype_id, item)+"##{item.id}"
+    -if item.activity_at < Time.zone.now.yesterday
+      %small
+        = link_to t("time.ago", :time => time_ago_in_words(item.updated_at)), item_path(item.doctype_id, item)+"##{item.id}"
 
 
 
