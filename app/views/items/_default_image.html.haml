@@ -2,15 +2,32 @@
 
 -if @default_thumbnail
 
+  - image = @default_thumbnail
+  - base_image = image.image.process(:thumb,image.image_cropping)
+  - expanded_image = base_image.process(:thumb,"800x")
+  - base_thumbnail = base_image.process(:thumb,"300x")
+
   .block
     %h3
-      = "Thumbnail"
+      = "Image"
+      .expand
+        = link_to  "Expand image", expanded_image.url, :title => "#{image.caption}"
+
 
     .default_thumbnail
-      - image = @default_thumbnail
-      - base_image = image.image.process(:thumb,image.image_cropping)
-      - base_thumbnail = base_image.process(:thumb,"300x")
-      = image_tag base_thumbnail.url, :class => 'none', :alt => image.name, :title => image.name
+      .expand
+        = link_to (image_tag base_thumbnail.url, :class => 'expand', :alt => "#{image.name}", :title => "#{image.name}"), expanded_image.url, :title => "#{image.caption}"
 
 
   .clear
+
+-else
+  - if logged_in? || current_user.can_edit_others_posts_on?(@item.group)
+
+    .block
+      %h3
+        = "Image"
+    .content
+      ="No image added"
+      = link_to "Add images", item_images_path(@doctype, @item), :style => "text-shadow:green;border: 2px solid green;background-color:green; color:white", :class => "toolbar-button" 
+

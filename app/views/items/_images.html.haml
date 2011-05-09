@@ -4,23 +4,26 @@
 
   .block
     %h3
-      = "Images"
+      = "More images..."
     #gallery
       %ul
         - @item.images.each do |image|
           - base_image = image.image.process(:thumb,image.image_cropping)
+          - expanded_image = base_image.process(:thumb,"800x").encode(:jpeg){self.quality = 75}
           - base_thumbnail = base_image.process(:thumb,"140x")
           - base_thumbnail_grey = base_thumbnail.process(:greyscale, "20")
           %ul.image-link-wide
             %div.fade-thumbnails
-              = image_tag base_thumbnail.url, :class => 'b', :alt => image.name, :title => image.name
-              = image_tag base_thumbnail_grey.url, :class => 'a', :alt => image.name, :title => image.name  
+              = link_to (image_tag base_thumbnail.url, :class => 'b', :alt => image.name, :title => image.name), expanded_image.url, :title => "#{image.caption}", :class=>"expand"
+              = link_to (image_tag base_thumbnail_grey.url, :class => 'a', :alt => image.name, :title => image.name), expanded_image.url, :title => "#{image.caption}", :class=>"expand"
+              -#= image_tag base_thumbnail.url, :class => 'b', :alt => image.name, :title => image.name
+              -#= image_tag base_thumbnail_grey.url, :class => 'a', :alt => image.name, :title => image.name  
               %div{:style => "width:152px; height:80px; line-height:13px;float:right; overflow:hidden; padding:0 4px;"} 
                 %div{:style => "width:152px; height:40px; line-height:13px;float:right; overflow:hidden;"}
                   = "#{image.caption}"
                 %div{:style => "width:152px;margin-top:8px; height:30px; line-height:13px;float:right; overflow:hidden;"}
                   = "&copy; #{image.copyright}<br/>"
-                  = link_to  "Expand image", base_image.url, :title => "#{image.caption}"
+                  = link_to  "Expand image", expanded_image.url, :title => "#{image.caption}"
 
 
 

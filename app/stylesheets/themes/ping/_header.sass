@@ -3,21 +3,26 @@
   color: white
 
 .channel-container-inner
-  width: 962px
-  margin: 0px auto
+  width: 1029px
+  //margin: 0 auto
+
 
 .channel_listing_horizontal
-  height: 28px
-  margin: 0
+  height: 32px
+  margin: 0 auto
   padding: 2px 0
   -webkit-padding-start: 0px
   //float: left
+  line-height: 32px
 
 .channel_listing_horizontal li
   display: inline
-  list-style-type: disc
-  height: 32px
-  line-height: 32px
+
+  margin: 0
+  +rounded(8px,8px,0,0)
+  padding: 6px 2px
+  background-color: #111111
+  border-bottom: 2px solid #111111
 
 .channel_listing_horizontal li.selected
   background-color: red
@@ -27,8 +32,8 @@
   font-weight: bold
   color: #ffffff
   font-size: 12px
-  padding: 0 8px
-  height: 32px
+  padding: 8px
+  //margin: 8px
 
   &:hover
     font-weight: bold
@@ -40,7 +45,8 @@
     text-decoration: underline
 
 #header-container
-
+  //background-image: url(/images/white_25_bg.png)
+  background-repeat: repeat
 
 #header-container-inner
   width: 1032px

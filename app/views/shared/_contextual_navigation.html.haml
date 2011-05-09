@@ -14,7 +14,7 @@
 
 
     -if !current_group.isolate && AppConfig.enable_groups
-      %li{:style => "border-right:1px solid #{current_group.primary}"}
+      %li{:style => "border-right:1px solid #ffffff"}
         -if @active_section == "groups"
           = link_to "Communities", groups_path, :style => "color: black;"
         -else
@@ -22,7 +22,7 @@
 
 
 
-    %li{:style => "border-right:1px solid #{current_group.primary}"}
+    %li{:style => "border-right:1px solid #ffffff"}
       -if @active_section == "members"
         = link_to "Members", users_path, :style => "color: black;"
       -else

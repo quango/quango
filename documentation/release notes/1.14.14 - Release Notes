@@ -3,6 +3,11 @@ This is mainly a bugfix release, but also a few usability issues
 
 Changelog
 
+
+
+* Fixed the page titles they now read a sane " Page title | Group Name | Legend " on all pages
+* Group naming for communities that do not use a custom logo - display name is now distinct from group name
+* Group name itself must be unique - eg "marketing-australia" and "marketing-uk" however bot groups can display the same namein the toolbar - this solves the problem of having multiple identically named domains across different TLDs 
 * Added the optional "Sponsored links" section - this delivers a standardized approach to handling multiple site sponsors, usually used for paid sponsorship slots
 
 * Added optional leaderboard & medium slot for homepage and index pages. Medium Rectangle/Half Page slots only on show, cyrrently non-functional however these will eventually be populated from a 3rd party ad server - this is the simplest and most efficient approach howver maybe later we will support native banners for "completeness"

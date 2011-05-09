@@ -136,9 +136,10 @@
 
     -if @doctype.has_video?
       = render :partial => "video_info", :locals => {:item => @item}
-    = render :partial => "default_image", :locals => {:item => @item}
-    = render :partial => "author"
 
+
+    = render :partial => "author"
+    = render :partial => "default_image", :locals => {:item => @item}
     = render :partial => "images", :locals => {:item => @item}
 
 

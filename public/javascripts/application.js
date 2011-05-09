@@ -33,9 +33,13 @@ $(document).ready(function() {
         $('#gallery a').lightBox();
 });
 
+$(document).ready(function() {
+        $('.expand a').lightBox();
+});
+
 
 $(document).ready(function(){
-$(".fade-thumbnails").hover(
+$(".fade-thumbnails a").hover(
     function() {$(this).children('.a').stop().animate({"opacity": "0"}, "slow");},
     function() {$(this).children('.a').stop().animate({"opacity": "1"}, "fast");}
 );

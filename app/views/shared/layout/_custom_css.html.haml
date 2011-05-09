@@ -3,7 +3,7 @@
   \.text-field{border:0}
   a {color: #{current_group.link_colour};}
   a:hover {color: #444;}
-  \#header-container {background-color: #{current_group.secondary};padding-top:8px; border-bottom: 1px solid #{current_group.primary_dark}}
+  \#header-container {background-color: #{current_group.primary};padding-top:8px; border-bottom: 1px solid #{current_group.primary_dark}}
   \#header-container-inner { 
   -if current_group.header_bg?
     background-image: url(#{current_group.header_bg_image})
@@ -55,8 +55,8 @@
   \.toolbar-button{ background-color: #{current_group.secondary};}
   \.secondary_box{ background-color: #{current_group.secondary};}
   \.tertiary_box{ background-color: #{current_group.tertiary};}
-  \#sidebar h3{color:white; background-color: #{current_group.tertiary};}
-  \#sidebar-inner h3{background-color: #{current_group.secondary}; /*border: 1px solid #{current_group.tertiary}*/}
+  \#sidebar h3{color:white; background-color: #{current_group.primary_dark};}
+  \#sidebar-inner h3{background-color: #{current_group.primary_dark};}
   \.section-topic a{color: #{current_group.tertiary};}
 
   -#\.action-button {background: #{current_group.supplementary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.supplementary_dark}',endColorstr='#{current_group.supplementary_lite}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.supplementary}),to(#{current_group.supplementary_dark}));background:-moz-linear-gradient(top,#{current_group.supplementary_lite},#{current_group.supplementary}); border:1px solid #{current_group.supplementary};text-shadow: #{current_group.supplementary_dark} 0px -1px 1px}
@@ -78,7 +78,7 @@
   \.create-item-button:hover {background-color: #{current_group.secondary_hover}; border:1px solid #{current_group.tertiary};text-shadow: #{current_group.secondary_hover} -1px -1px 1px;}
   \.signup-button{background:#{current_group.primary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.secondary}',endColorstr='#{current_group.tertiary}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#{current_group.tertiary}));background:-moz-linear-gradient(top,#{current_group.tertiary},#{current_group.secondary});border:1px solid #{current_group.primary_dark};}
 
-  \.group-button{background:#{current_group.primary};}
+  \.group-button{background:#{current_group.primary_dark};}
 
   \.input-holder{background:#{current_group.tertiary}}
   \.input-holder-password{background:#{current_group.tertiary}}
