@@ -18,11 +18,18 @@ class Group
   key :sandwich_top, String
 
   key :name, String, :required => true
-  key :name_highlight, String, :default => "daily"
   key :name_link, String
+
+  key :display_name_i, String, :default => "start"
+  key :display_name_i_link, String, :default => "/"
+
+  key :display_name_ii, String, :default => "thinking"
+  key :display_name_ii_link, String, :default => "/"
+
+  key :name_highlight, String, :default => "daily"
   key :name_highlight_link, String, :default => "http://thinkingdaily.com.au"
 
-  key :sandwich_bottom, String
+  key :strapline, String, :default => "Strapline here..."
 
   key :subdomain, String
   key :domain, String

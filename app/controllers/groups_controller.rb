@@ -181,7 +181,10 @@ class GroupsController < ApplicationController
   # PUT /groups/1.json
   def update
     @group.safe_update(%w[name name_highlight name_link name_highlight_link
-                          legend description has_custom_channels custom_channels custom_channel_content default_tags subdomain 
+                          display_name_i display_name_i_link
+                          display_name_ii display_name_ii_link
+                          strapline legend 
+                          description has_custom_channels custom_channels custom_channel_content default_tags subdomain 
                           logo logo_info logo_only
                           forum notification_from notification_email
                           custom_favicon language theme reputation_rewards reputation_constrains

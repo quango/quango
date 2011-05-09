@@ -1,22 +1,66 @@
 -require_js "modules/themes"
 
+%h2
+  = "Group Naming Conventions "
 
-.group
-  = form.label :name, t('name', :scope => "activerecord.attributes.group"), :class => "label"
-  = form.text_field :name, :class => "text_field", :value => params[:name]
+%div{:style => "float:left"}
+  .group{:style => "width:312px;float:left"}
+    = form.label :name, h('Unique group name'), :class => "label"
+    = form.text_field :name, :class => "text_field", :value => params[:name]
 
-.group
-  = form.label :name_link, t('name_highlight_link', :scope => "activerecord.attributes.group"), :class => "label"
-  = form.text_field :name_link, :class => "text_field"
+  .group{:style => "width:312px;float:right"}
+    = form.label :name_link, h('Group link'), :class => "label"
+    = form.text_field :name_link, :class => "text_field"
+    
+  .description
+    = "Each group must have a unique identifier"
 
-.group
-  = form.label :name_highlight, t('name_highlight', :scope => "activerecord.attributes.group"), :class => "label"
-  = form.text_field :name_highlight, :class => "text_field"
+.clear
 
-.group
-  = form.label :name_highlight_link, t('name_highlight_link', :scope => "activerecord.attributes.group"), :class => "label"
-  = form.text_field :name_highlight_link, :class => "text_field"
+%div{:style => "width:312px;float:left"}
 
+
+.clear
+
+%div
+  %div{:style => "width:312px;float:left"}
+    .group
+      = form.label :display_name_i, h('Display name #1'), :class => "label"
+      = form.text_field :display_name_i, :class => "text_field", :value => params[:name]
+
+    .group{:class => "small"}
+      = form.label :display_name_i_link, h('Display name #1 link'), :class => "label"
+      = form.text_field :display_name_i_link, :class => "text_field"
+
+  %div{:style => "width:312px;float:left"}
+    .group
+      = form.label :display_name_ii, h('Display name #2'), :class => "label"
+      = form.text_field :display_name_ii, :class => "text_field", :value => params[:name]
+
+    .group
+      = form.label :display_name_ii_link, h('Display name #2 link'), :class => "label"
+      = form.text_field :display_name_ii_link, :class => "text_field"
+
+  %div{:style => "float:left"}
+    .group
+      = form.label :legend, h('Legend'), :class => "label"
+      = form.text_field :legend, :class => "text_field"
+      .description
+        = "This appears in the very last part of the page title "
+
+  .clear
+
+
+  %div{:style => "width:312px;float:left"}
+    .group
+      = form.label :strapline, h('Strapline'), :class => "label"
+      = form.text_field :strapline, :class => "text_field"
+    .description
+      = "Unless this is left blank the strapline will appear next to the logo"
+
+
+
+%hr
 
 .group
   = form.label :publish_label, t('publish_label', :scope => "activerecord.attributes.group"), :class => "label"
@@ -109,12 +153,7 @@
     = form.check_box :has_adult_content, :class => "checkbox"
     = form.label :has_adult_content, t('may_contain_adult_content', :scope => "activerecord.attributes.group"), :class => "radio"
 
-  .group
-    = form.label :legend, t('legend', :scope => "activerecord.attributes.group"), :class => "label"
-    = form.text_field :legend, :class => "text_field"
-    .description
-      = t('.legend_legend')
-
+%hr
 
 
 .group

@@ -1,17 +1,17 @@
 #logo{:style => "float:left;"}
   -if current_group.logo_only?
     .logo-text
-      -if current_group.sandwich_top?
-        .sandwich-top
-          = current_group.sandwich_top
       .filling
         .left
-          =link_to h(current_group.name), domain_url(:custom => current_group.domain), :style=>"color:white;margin:0;"
+          =link_to h(current_group.display_name_i), domain_url(:custom => current_group.domain), :style=>"color:white;margin:0;"
         .left
-          =link_to h(current_group.name_highlight), current_group.name_highlight_link, :style=> "color:#{current_group.primary};margin:0;"
-      -if current_group.sandwich_bottom?
-        .sandwich-top
-          = current_group.sandwich_bottom
+          =link_to h(current_group.display_name_ii), current_group.display_name_ii_link, :style=> "color:#{current_group.primary};margin:0;"
+
+        -if current_group.strapline?
+          .strapline
+            %p{:style => "color:white;margin:0"}
+              ="#{current_group.strapline}"
+
 
   -else
     .logo
