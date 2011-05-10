@@ -1,15 +1,20 @@
 %style{:type => 'text/css'}
 
+  \#channel-container{background-color: #{current_group.primary_dark};}
+
   \.text-field{border:0}
   a {color: #{current_group.link_colour};}
   a:hover {color: #444;}
-  \#header-container {background-color: #{current_group.primary};padding-top:8px; border-bottom: 1px solid #{current_group.primary_dark}}
+  \#header-container {padding-top:8px;background-color: #{current_group.primary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.secondary}',endColorstr='#{current_group.primary}');background:-webkit-gradient(linear,left top,left bottom,to(#{current_group.tertiary}),from(#{current_group.primary}));background:-moz-linear-gradient(top,#{current_group.secondary},#{current_group.primary});}
+
   \#header-container-inner { 
   -if current_group.header_bg?
     background-image: url(#{current_group.header_bg_image})
   -if !current_group.header_bg? && !current_group.header_bg_image?
     background-color: #{current_group.primary};
-    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.primary_dark}',endColorstr='#{current_group.primary}');background:-webkit-gradient(linear,left top,left bottom,to(#{current_group.primary_dark}),from(#{current_group.primary}));background:-moz-linear-gradient(top,#{current_group.secondary},#{current_group.primary});
+    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.primary_dark}',endColorstr='#{current_group.primary}');
+    background:-webkit-gradient(linear,left top,left bottom,to(#{current_group.primary_dark}),from(#{current_group.primary}));
+    background:-moz-linear-gradient(top,#{current_group.secondary},#{current_group.primary});
   }
 
   \#toolbar-container {   
