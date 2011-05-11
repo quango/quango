@@ -38,6 +38,10 @@ class Group
   key :has_custom_channels, Boolean, :default => false
   key :custom_channels, Array #, :default => "something, something else"
   key :custom_channel_content, String
+
+  key :has_leaderboard, Boolean, :default => false
+  key :leaderboard_content, String
+
   key :default_tags, Array
   key :has_custom_ads, Boolean, :default => true
   key :state, String, :default => "pending" #pending, active, closed

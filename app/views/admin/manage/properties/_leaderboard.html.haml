@@ -1,0 +1,27 @@
+#main{:style => "width:702px; float:left"}
+  %h1
+    = "Leaderboard"
+
+  = "You can choose to show or not to show"
+
+  .group
+    = f.check_box :has_leaderboard, :class => "checkbox"
+    = f.label :has_leaderboard, "Show leaderboard on community homepage", :class => "radio"
+
+  .group
+    = f.label :leaderboard_content, "Show leaderboard on community homepage", :class => "label"
+    = f.text_area :leaderboard_content, :class => "text_field"
+    .description
+      = t('.custom_channel_content')
+
+
+
+  .clear
+
+  .group.navf
+    = f.submit t('scaffold.update'), :class => "action-button"
+
+
+
+
+

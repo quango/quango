@@ -104,6 +104,9 @@
 
 
   #welcome-index{:style => "float:left; width:729px;"}
+    -if current_group.has_leaderboard
+      .leaderboard
+        = current_group.leaderboard_content
     .content
       .inner
         = render :partial => "homepage_content", :locals => {:expanded => true}
