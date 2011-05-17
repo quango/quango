@@ -1,13 +1,13 @@
 %style{:type => 'text/css'}
-  \body { background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#ffffff));}
+  \body { background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#ffffff));    background:-moz-linear-gradient(top,#{current_group.secondary},#ffffff);}
   \#container{border-left: 2px solid #{current_group.secondary};border-right: 2px solid #{current_group.secondary};}
 
   \.text-field{border:0}
   a {color: #{current_group.link_colour};}
   a:hover {color: #444;}
-  \#header-container-inner { background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#ffffff));border-left: 2px solid #{current_group.secondary};border-right: 2px solid #{current_group.secondary};}
+  \#header-container-inner { background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#ffffff));background:-moz-linear-gradient(top,#{current_group.secondary},#ffffff);border-left: 2px solid #{current_group.secondary};border-right: 2px solid #{current_group.secondary};}
 
-  \#navigation-container { background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.primary}),to(#{current_group.tertiary}));}
+  \#navigation-container { background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.primary}),to(#{current_group.tertiary}));background:-moz-linear-gradient(top,#{current_group.primary},#{current_group.tertiary});}
 
   \#navigation-container {padding-top:8px ;}
 
@@ -33,8 +33,8 @@
     background-image:url(#{current_group.toolbar_bg_image});
   -if !current_group.toolbar_bg? && !current_group.toolbar_bg_image?
     filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.tertiary}',endColorstr='#{current_group.secondary}');
-    background:-webkit-gradient(linear,left top,left bottom,to(#{current_group.secondary}),from(#525051));
-    background:-moz-linear-gradient(top,#{current_group.primary},#ffffff);
+    background:-webkit-gradient(linear,left top,left bottom,to(#{current_group.secondary}),from(#323031));
+    background:-moz-linear-gradient(top,#323031,#{current_group.secondary});
 
   }
 
