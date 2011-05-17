@@ -110,6 +110,13 @@
     .content
       .inner
         = render :partial => "homepage_content", :locals => {:expanded => true}
+    .content
+      
+      .leaderboard{:style => "height:90px; width:728px; background-color: #{current_group.secondary}; border-bottom:1px solid white;"}
+        = "Leaderboard"
+
+    .clear
+
 
     .content
       .inner

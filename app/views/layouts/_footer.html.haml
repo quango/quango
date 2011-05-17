@@ -29,9 +29,11 @@
 
 
 
-.footer{:style => "border-top:1px solid #{current_group.secondary}; margin:8px 0 32px 0; padding-top:8px;"}
+.footer{:style => "border-top:1px solid #{current_group.secondary}; margin:8px 0 32px 0; padding-top:8px;line-height:24px"}
   .entry.left
-    = "<a href='http://think.it' style='font-weight:bold;font-family:georgia;letter-spacing:-1px;font-size:14px;'><span style='color:#{current_group.primary};'>thinking</span><span style='color:#{current_group.secondary};'>daily</span></a> on quango v" + AppConfig.version.to_s + "<a class='beta' style='background-color:#{current_group.supplementary};'>beta</a>"
+    = link_to "<img src='/images/logos/logo-fastthinking-small.png' height='24px'>", "http://fastthinking.com.au"
+  .entry.left
+    = "v" + AppConfig.version.to_s + "<a class='beta' style='background-color:#{current_group.supplementary};'>beta</a>"
   .entry.left
     = render :partial => "shared/bug"
 

@@ -1,34 +1,41 @@
 %style{:type => 'text/css'}
-
-  \#channel-container{background-color: #{current_group.primary_dark};}
+  \body { background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.tertiary}),to(#ffffff));}
+ 
 
   \.text-field{border:0}
   a {color: #{current_group.link_colour};}
   a:hover {color: #444;}
-  \#header-container {padding-top:8px;background-color: #{current_group.primary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.tertiary}',endColorstr='#{current_group.primary}');background:-webkit-gradient(linear,left top,left bottom,to(#{current_group.tertiary}),from(#{current_group.primary}));background:-moz-linear-gradient(top,#{current_group.primary},#{current_group.tertiary});}
+  \#header-container-inner { background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#ffffff));}
 
-  \#header-container-inner { 
-  -if current_group.header_bg?
-    background-image: url(#{current_group.header_bg_image})
-  -if !current_group.header_bg? && !current_group.header_bg_image?
-    background-color: #{current_group.primary};
-    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.primary_dark}',endColorstr='#{current_group.primary}');
-    background:-webkit-gradient(linear,left top,left bottom,to(#{current_group.primary_dark}),from(#{current_group.primary}));
-    background:-moz-linear-gradient(top,#{current_group.secondary},#{current_group.primary});
-  }
+  \#navigation-container { background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.primary}),to(#{current_group.tertiary}));}
+
+  \#navigation-container {padding-top:8px ;}
+
 
   \#toolbar-container {   
+
+  -if current_group.toolbar_bg?
+    background-color: #{current_group.toolbar_bg};
+
+
+  -if current_group.toolbar_bg_image?
+    background-image:url(#{current_group.toolbar_bg_image});
+  -if !current_group.toolbar_bg? && !current_group.toolbar_bg_image?
+    -#background-image: url(/images/black_25_bg.png);
+
+  }
+
+  \.toolbar-container-inner {width: 1032px;   
   -if current_group.toolbar_bg?
     background-color: #{current_group.toolbar_bg};
 
   -if current_group.toolbar_bg_image?
     background-image:url(#{current_group.toolbar_bg_image});
   -if !current_group.toolbar_bg? && !current_group.toolbar_bg_image?
-    background-color: #{current_group.primary_dark};
-    -#text-shadow: #{current_group.primary_dark} 0px -1px 1px;
-    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#000000',endColorstr='#{current_group.primary_dark}');
-    background:-webkit-gradient(linear,left top,left bottom,from(#000000),to(#{current_group.primary_dark}));
-    background:-moz-linear-gradient(top,#000000,#{current_group.primary_dark});
+    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.tertiary}',endColorstr='#{current_group.secondary}');
+    background:-webkit-gradient(linear,left top,left bottom,to(#{current_group.secondary}),from(#525051));
+    background:-moz-linear-gradient(top,#{current_group.primary},#ffffff);
+
   }
 
   \.entry-details{border-left:8px solid #{current_group.primary}}
@@ -36,11 +43,26 @@
 
   }
 
+
+
+  \.channel-container-inner {width: 1032px;background-color: #{current_group.secondary};/*background:-webkit-gradient(linear,left top,left bottom,to(#{current_group.secondary}),from(#525051));*/}
+
+  \.channel_listing_horizontal li {background-color: #525051;
+  background-color: #{current_group.tertiary};
+  }
+
+  \.channel_listing_horizontal li {background-color: #525051;
+  border-bottom: 1px;
+  }
+
   \.channel_listing_horizontal li.selected {
+  border-bottom: 1px solid #{current_group.primary};
   background-color: #{current_group.primary};
-  border: 2px solid #{current_group.primary};
-  background-image: url(/images/white_25_bg.png)
-  backgroud-repeat: repeat
+  filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.primary_dark}',endColorstr='#{current_group.primary}');
+  background:-webkit-gradient(linear,left top,left bottom,from((#{current_group.primary_dark}),to(#{current_group.secondary}));
+  background:-moz-linear-gradient(top,#{current_group.primary_dark},#{current_group.secondary});
+  -#background-image: url(/images/spacer.gif);
+  -#backgroud-repeat: repeat;
   }
 
   \h2.form-header{ color: #{current_group.primary};}
@@ -67,7 +89,10 @@
   -#\.action-button {background: #{current_group.supplementary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.supplementary_dark}',endColorstr='#{current_group.supplementary_lite}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.supplementary}),to(#{current_group.supplementary_dark}));background:-moz-linear-gradient(top,#{current_group.supplementary_lite},#{current_group.supplementary}); border:1px solid #{current_group.supplementary};text-shadow: #{current_group.supplementary_dark} 0px -1px 1px}
   \.publish-button {background: #{current_group.supplementary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.supplementary}',endColorstr='#{current_group.supplementary_dark}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.supplementary}),to(#{current_group.supplementary_dark}));background:-moz-linear-gradient(top,#{current_group.supplementary},#{current_group.supplementary_dark}); border:1px none #{current_group.primary_dark};text-shadow: #{current_group.supplementary_dark} 0px -1px 1px}
   
-  \.create-button {background: orange; border:2px solid orange;} 
+
+
+  \.create-button {background-color:orange;filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.supplementary_dark}',endColorstr='#{current_group.supplementary}');background:-webkit-gradient(linear,left top,left bottom,from((#{current_group.supplementary_lite}),to '#ffcc00');background:-moz-linear-gradient(top,'#ffcc00',#{current_group.supplementary_dark}); border:1px solid #{current_group.supplementary_lite};text-shadow: #{current_group.supplementary_lite} 0px -1px -1px}
+
   \.supplementary-button {background: #{current_group.supplementary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.supplementary}',endColorstr='#{current_group.supplementary_dark}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.supplementary}),to(#{current_group.supplementary_dark}));background:-moz-linear-gradient(top,#{current_group.supplementary},#{current_group.supplementary_dark}); border:1px solid #{current_group.supplementary};text-shadow: #{current_group.supplementary_dark} 0px -1px 1px}
 
 
@@ -83,7 +108,7 @@
   \.create-item-button:hover {background-color: #{current_group.secondary_hover}; border:1px solid #{current_group.tertiary};text-shadow: #{current_group.secondary_hover} -1px -1px 1px;}
   \.signup-button{background:#{current_group.primary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.secondary}',endColorstr='#{current_group.tertiary}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#{current_group.tertiary}));background:-moz-linear-gradient(top,#{current_group.tertiary},#{current_group.secondary});border:1px solid #{current_group.primary_dark};}
 
-  \.group-button{background:#{current_group.primary_dark};}
+  \.group-button{background-color: #525051;}
 
   \.input-holder{background:#{current_group.tertiary}}
   \.input-holder-password{background:#{current_group.tertiary}}

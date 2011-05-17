@@ -13,9 +13,17 @@
   %body
     = render :partial => "shared/analytics"
 
+    #flash
+      = show_flash_messages(:class => "flash", :markdown => true)
+
     #toolbar-container
       .toolbar-container-inner    
         = render :partial => "shared/toolbar"
+
+    -if current_group.has_custom_channels
+      #channel-container
+        .channel-container-inner
+          = render :partial => "shared/channels"
 
     #header-container
       #header-container-inner
@@ -24,8 +32,9 @@
         #navigation-container
           = render :partial => "shared/manage_navigation"
 
-    #flash
-      = show_flash_messages(:class => "flash", :markdown => true)
+
+
+
 
     #container{:class => @active_tab}
       #wrapper

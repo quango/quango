@@ -42,6 +42,9 @@ class Group
   key :has_leaderboard, Boolean, :default => false
   key :leaderboard_content, String
 
+  key :standard_leaderboard, Boolean, :default => false
+  key :standard_leaderboard_content, String
+
   key :default_tags, Array
   key :has_custom_ads, Boolean, :default => true
   key :state, String, :default => "pending" #pending, active, closed
@@ -110,7 +113,7 @@ class Group
   key :primary_hover, String, :default => "#E1A970" #header_bg and edit buttons
   key :primary_selected, String, :default => "#990000"
 
-  key :secondary, String, :default => "#72AFD7" #tabs,
+  key :secondary, String, :default => "#a9a5a7" #tabs,
   key :secondary_hover, String, :default => "orange"
   key :secondary_selected, String, :default => "#E1A970"
   key :secondary_active, String, :default => "#990000"
@@ -166,10 +169,10 @@ class Group
   #signup button
 
   key :show_signup_button, Boolean, :default => true
-  key :signup_button_title, String, :default => "It's free to think..."
-  key :signup_button_description, String, :default => "Join this community to share your thoughts"
-  key :signup_button_label, String, :default => "SIGNUP NOW"
-  key :signup_button_footnote, String, :default => "and start thinking daily"
+  key :signup_button_title, String, :default => "Contribute to this community"
+  key :signup_button_description, String, :default => ""
+  key :signup_button_label, String, :default => "Become a member"
+  key :signup_button_footnote, String, :default => ""
 
 
   file_key :custom_css, :max_length => 256.kilobytes
