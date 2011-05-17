@@ -77,8 +77,8 @@
     .block
       = render :partial => "shared/sidebar_actions",  :locals => {:width => "wide"}
     .block{:style => "margin-bottom:4px"}
-      %h3
-        = "About #{current_group.name} #{current_group.name_highlight}"
+      %h3{:style=>"background:#{current_group.primary_dark}"}
+        = "About #{current_group.display_name_i} #{current_group.display_name_ii}"
       .content
         .markdown
           = markdown(current_group.description)

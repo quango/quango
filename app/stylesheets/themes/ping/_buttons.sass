@@ -110,6 +110,22 @@
     font-weight: normal
 
 
+.contribute-button 
+  width: 128px
+  height: 21px
+  line-height: 21px
+  cursor: pointer  
+  overflow: visible
+  float: left
+  +rounded(8px,8px,8px,8px)
+
+  color: white
+  text-align: center
+
+  +fancy-button(#a6691c)
+  +fancy-button-structure(12px, 0.7em, 2px)
+  +fancy-button-colors(#a6691c, adjust-hue(#a6691c, -3), darken(adjust-hue(#aa691c, -3), 1))
+
 .create-button 
   width: 128px
   height: 21px
@@ -120,12 +136,11 @@
   +rounded(8px,8px,8px,8px)
 
   color: white
-  padding: 2px 4px 0px 4px
+  text-align: center
 
-  font-size: 13px
-  font-weight: normal
-
-
+  +fancy-button(#a6691c)
+  +fancy-button-structure(16px, 0.7em, 3px)
+  +fancy-button-colors(#a6691c, adjust-hue(#a6691c, -3), darken(adjust-hue(#aa691c, -3), 1))
 
 .publish-button 
 

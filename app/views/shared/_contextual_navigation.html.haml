@@ -1,4 +1,4 @@
-#contextual-navigation{:class => @active_section}
+#contextual-navigation{:class => @active_section, :style=>"height:32px; line-height:32px;"}
   %ul
     -current_group.doctypes.reverse.each do |doctype|
       -if !doctype.hidden?

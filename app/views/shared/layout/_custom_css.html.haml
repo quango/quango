@@ -1,54 +1,57 @@
+- group = current_group
+
+
+
 %style{:type => 'text/css'}
-  \body { background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#ffffff));    background:-moz-linear-gradient(top,#{current_group.secondary},#ffffff);}
-  \#container{border-left: 2px solid #{current_group.secondary};border-right: 2px solid #{current_group.secondary};}
 
-  \.text-field{border:0}
-  a {color: #{current_group.link_colour};}
-  a:hover {color: #444;}
-  \#header-container-inner { background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#ffffff));background:-moz-linear-gradient(top,#{current_group.secondary},#ffffff);border-left: 2px solid #{current_group.secondary};border-right: 2px solid #{current_group.secondary};}
+  body {background:-webkit-gradient(linear,left top,left bottom,from(#{group.secondary}),to(#ffffff));background:-moz-linear-gradient(top,#{group.secondary},#ffffff);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{group.secondary}',endColorstr='#ffffff');}
+  \#container{border-left: 2px solid #{group.secondary};border-right: 2px solid #{group.secondary};}
 
-  \#navigation-container { background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.primary}),to(#{current_group.tertiary}));background:-moz-linear-gradient(top,#{current_group.primary},#{current_group.tertiary});}
+  /.text-field{border:0}
+  /a {color: #{group.link_colour};}
+  /a:hover {color: #444;}
+  \#header-container-inner { background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#ffffff));background:-moz-linear-gradient(top,#{group.secondary},#ffffff);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{group.secondary}',endColorstr='#ffffff');border-left: 2px solid #{group.secondary};border-right: 2px solid #{group.secondary};}
 
-  \#navigation-container {padding-top:8px ;}
+  \.navigation-container {background:#{current_group.primary}}
+
+  }
+
+
 
 
   \#toolbar-container {   
 
-  -if current_group.toolbar_bg?
-    background-color: #{current_group.toolbar_bg};
+  -if group.toolbar_bg?
+    background-color: #{group.toolbar_bg};
 
 
-  -if current_group.toolbar_bg_image?
-    background-image:url(#{current_group.toolbar_bg_image});
-  -if !current_group.toolbar_bg? && !current_group.toolbar_bg_image?
+  -if group.toolbar_bg_image?
+    background-image:url(#{group.toolbar_bg_image});
+  -if !group.toolbar_bg? && !group.toolbar_bg_image?
     -#background-image: url(/images/black_25_bg.png);
 
   }
 
-  \.toolbar-container-inner {width: 1032px;border-left: 2px solid #{current_group.secondary};border-right: 2px solid #{current_group.secondary};   
-  -if current_group.toolbar_bg?
-    background-color: #{current_group.toolbar_bg};
+  \.toolbar-container-inner {border-left: 2px solid #{group.secondary};border-right: 2px solid #{group.secondary};   
+  -if group.toolbar_bg?
+    background-color: #{group.toolbar_bg};
 
-  -if current_group.toolbar_bg_image?
-    background-image:url(#{current_group.toolbar_bg_image});
-  -if !current_group.toolbar_bg? && !current_group.toolbar_bg_image?
-    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.tertiary}',endColorstr='#{current_group.secondary}');
-    background:-webkit-gradient(linear,left top,left bottom,to(#{current_group.secondary}),from(#323031));
-    background:-moz-linear-gradient(top,#323031,#{current_group.secondary});
-
-  }
-
-  \.entry-details{border-left:8px solid #{current_group.primary}}
-  \.entry-title h3{color: #{current_group.primary}    
+  -if group.toolbar_bg_image?
+    background-image:url(#{group.toolbar_bg_image});
+  -if !group.toolbar_bg? && !group.toolbar_bg_image?
+    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#323031',endColorstr='#{group.secondary}');
+    background:-webkit-gradient(linear,left top,left bottom,to(#{group.secondary}),from(#323031));
+    background:-moz-linear-gradient(top,#323031,#{group.secondary});
 
   }
 
+  \.entry-details{border-left:8px solid #{group.primary}}
+  \.entry-title h3{color: #{group.primary}}
 
-
-  \.channel-container-inner {width: 1032px;background-color: #{current_group.secondary};border-left: 2px solid #{current_group.secondary};border-right: 2px solid #{current_group.secondary};}
+  \.channel-container-inner {background-color: #{group.secondary};border-left: 2px solid #{group.secondary};border-right: 2px solid #{group.secondary};}
 
   \.channel_listing_horizontal li {background-color: #525051;
-  background-color: #{current_group.tertiary};
+  background-color: #{group.tertiary};
   }
 
   \.channel_listing_horizontal li {background-color: #525051;
@@ -56,69 +59,66 @@
   }
 
   \.channel_listing_horizontal li.selected {
-  border-bottom: 1px solid #{current_group.primary};
-  background-color: #{current_group.primary};
-  filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.primary_dark}',endColorstr='#{current_group.primary}');
-  background:-webkit-gradient(linear,left top,left bottom,from((#{current_group.primary_dark}),to(#{current_group.secondary}));
-  background:-moz-linear-gradient(top,#{current_group.primary_dark},#{current_group.secondary});
+  border-bottom: 1px solid #{group.primary};
+  background-color: #{group.primary};
+  filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{group.primary_dark}',endColorstr='#{group.primary}');
+  background:-webkit-gradient(linear,left top,left bottom,from((#{group.primary_dark}),to(#{group.secondary}));
+  background:-moz-linear-gradient(top,#{group.primary_dark},#{group.secondary});
   -#background-image: url(/images/spacer.gif);
   -#backgroud-repeat: repeat;
   }
 
-  \h2.form-header{ color: #{current_group.primary};}
+  \h2.form-header{ color: #{group.primary};}
 
-  \.tag-list a{background:#{current_group.primary_dark};}
-  -#\.tag-list a{filter:progid:DXImageTransform.Microsoft.shadow(color=#{current_group.supplementary_dark}, direction=0, strength=0.5)}  
+  \.tag-list a{background:#{group.primary_dark};}
+  -#\.tag-list a{filter:progid:DXImageTransform.Microsoft.shadow(color=#{group.supplementary_dark}, direction=0, strength=0.5)}  
   \.tag-list .tag a:link, .tag-list .tag a:active, .tag-list .tag a:visited {}
-  \.tag-list .tag a:hover{ background:#{current_group.primary};}
-  \.ownerflair {background-color: #{current_group.secondary}; border:1px solid #{current_group.primary};text-shadow: #{current_group.primary} 0px -1px 1px}
+  \.tag-list .tag a:hover{ background:#{group.primary};}
+  \.ownerflair {background-color: #{group.secondary}; border:1px solid #{group.primary};text-shadow: #{group.primary} 0px -1px 1px}
 
-  \.label-highlight a{ color: #{current_group.secondary};}
-  \.secondary-navigation-sections{ background-color: #{current_group.secondary};}
-  \.secondary-navigation{ background-color: #{current_group.secondary};}
-  \.tertiary-navigation{ background-color: #{current_group.tertiary};}
-  \.trends{ background-color: #{current_group.secondary};}
-  h1 .item{ background-color: #{current_group.tertiary};}
-  \.toolbar-button{ background-color: #{current_group.secondary};}
-  \.secondary_box{ background-color: #{current_group.secondary};}
-  \.tertiary_box{ background-color: #{current_group.tertiary};}
-  \#sidebar h3{color:white; background-color: #{current_group.primary_dark};}
-  \#sidebar-inner h3{background-color: #{current_group.primary_dark};}
-  \.section-topic a{color: #{current_group.tertiary};}
+  \.label-highlight a{ color: #{group.secondary};}
+  \.secondary-navigation-sections{ background-color: #{group.secondary};}
+  \.secondary-navigation{ background-color: #{group.secondary};}
+  \.tertiary-navigation{ background-color: #{group.tertiary};}
+  \.trends{ background-color: #{group.secondary};}
+  h1 .item{ background-color: #{group.tertiary};}
+  \.toolbar-button{ background-color: #{group.secondary};}
+  \.secondary_box{ background-color: #{group.secondary};}
+  \.tertiary_box{ background-color: #{group.tertiary};}
+  \#sidebar h3{color:white; background-color: #{group.primary_dark};}
+  \#sidebar-inner h3{background-color: #{group.primary_dark};}
+  \.section-topic a{color: #{group.tertiary};}
 
-  -#\.action-button {background: #{current_group.supplementary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.supplementary_dark}',endColorstr='#{current_group.supplementary_lite}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.supplementary}),to(#{current_group.supplementary_dark}));background:-moz-linear-gradient(top,#{current_group.supplementary_lite},#{current_group.supplementary}); border:1px solid #{current_group.supplementary};text-shadow: #{current_group.supplementary_dark} 0px -1px 1px}
-  \.publish-button {background: #{current_group.supplementary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.supplementary}',endColorstr='#{current_group.supplementary_dark}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.supplementary}),to(#{current_group.supplementary_dark}));background:-moz-linear-gradient(top,#{current_group.supplementary},#{current_group.supplementary_dark}); border:1px none #{current_group.primary_dark};text-shadow: #{current_group.supplementary_dark} 0px -1px 1px}
+  -#\.action-button {background: #{group.supplementary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{group.supplementary_dark}',endColorstr='#{group.supplementary_lite}');background:-webkit-gradient(linear,left top,left bottom,from(#{group.supplementary}),to(#{group.supplementary_dark}));background:-moz-linear-gradient(top,#{group.supplementary_lite},#{group.supplementary}); border:1px solid #{group.supplementary};text-shadow: #{group.supplementary_dark} 0px -1px 1px}
+  \.publish-button {background: #{group.supplementary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{group.supplementary}',endColorstr='#{group.supplementary_dark}');background:-webkit-gradient(linear,left top,left bottom,from(#{group.supplementary}),to(#{group.supplementary_dark}));background:-moz-linear-gradient(top,#{group.supplementary},#{group.supplementary_dark}); border:1px none #{group.primary_dark};text-shadow: #{group.supplementary_dark} 0px -1px 1px}
   
 
-
-  \.create-button {background-color:orange;filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.supplementary_dark}',endColorstr='#{current_group.supplementary}');background:-webkit-gradient(linear,left top,left bottom,from((#{current_group.supplementary_lite}),to '#ffcc00');background:-moz-linear-gradient(top,'#ffcc00',#{current_group.supplementary_dark}); border:1px solid #{current_group.supplementary_lite};text-shadow: #{current_group.supplementary_lite} 0px -1px -1px}
-
-  \.supplementary-button {background: #{current_group.supplementary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.supplementary}',endColorstr='#{current_group.supplementary_dark}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.supplementary}),to(#{current_group.supplementary_dark}));background:-moz-linear-gradient(top,#{current_group.supplementary},#{current_group.supplementary_dark}); border:1px solid #{current_group.supplementary};text-shadow: #{current_group.supplementary_dark} 0px -1px 1px}
+  \.supplementary-button {background: #{group.supplementary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{group.supplementary}',endColorstr='#{group.supplementary_dark}');background:-webkit-gradient(linear,left top,left bottom,from(#{group.supplementary}),to(#{group.supplementary_dark}));background:-moz-linear-gradient(top,#{group.supplementary},#{group.supplementary_dark}); border:1px solid #{group.supplementary};text-shadow: #{group.supplementary_dark} 0px -1px 1px}
 
 
-  \.action-button {background:#{current_group.primary}}
-  \.action-button:hover {background:#{current_group.primary_dark}}
+  \.action-button {background:#{group.primary}}
+  \.action-button:hover {background:#{group.primary_dark}}
   \a.action-button:hover {color:pink}
 
-  \.primary-button {background-color: #{current_group.primary}; border:1px solid #{current_group.primary};text-shadow: #{current_group.primary} 0px -1px 1px}
-  \.section-button {background-color: #{current_group.primary}; border:1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px}
-  \.secondary-button {background-color: #{current_group.primary}; border:1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px}
-  \.tertiary-button {background-color: #{current_group.tertiary}; border:1px solid #{current_group.tertiary};text-shadow: #{current_group.tertiary} 0px -1px 1px}
-  \.create-item-button {background:#{current_group.secondary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.secondary}',endColorstr='#{current_group.primary}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#{current_group.primary}));background:-moz-linear-gradient(top,#{current_group.primary},#{current_group.secondary});border:1px solid #{current_group.secondary};}
-  \.create-item-button:hover {background-color: #{current_group.secondary_hover}; border:1px solid #{current_group.tertiary};text-shadow: #{current_group.secondary_hover} -1px -1px 1px;}
-  \.signup-button{background:#{current_group.primary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.secondary}',endColorstr='#{current_group.tertiary}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#{current_group.tertiary}));background:-moz-linear-gradient(top,#{current_group.tertiary},#{current_group.secondary});border:1px solid #{current_group.primary_dark};}
+  \.primary-button {background-color: #{group.primary}; border:1px solid #{group.primary};text-shadow: #{group.primary} 0px -1px 1px}
+  \.section-button {background-color: #{group.primary}; border:1px solid #{group.secondary};text-shadow: #{group.secondary} 0px -1px 1px}
+  \.secondary-button {background-color: #{group.primary}; border:1px solid #{group.secondary};text-shadow: #{group.secondary} 0px -1px 1px}
+  \.tertiary-button {background-color: #{group.tertiary}; border:1px solid #{group.tertiary};text-shadow: #{group.tertiary} 0px -1px 1px}
+  \.create-item-button {background:#{group.secondary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{group.secondary}',endColorstr='#{group.primary}');background:-webkit-gradient(linear,left top,left bottom,from(#{group.secondary}),to(#{group.primary}));background:-moz-linear-gradient(top,#{group.primary},#{group.secondary});border:1px solid #{group.secondary};}
+  \.create-item-button:hover {background-color: #{group.secondary_hover}; border:1px solid #{group.tertiary};text-shadow: #{group.secondary_hover} -1px -1px 1px;}
+  \.signup-button{background:#{group.primary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{group.secondary}',endColorstr='#{group.tertiary}');background:-webkit-gradient(linear,left top,left bottom,from(#{group.secondary}),to(#{group.tertiary}));background:-moz-linear-gradient(top,#{group.tertiary},#{group.secondary});border:1px solid #{group.primary_dark};}
 
-  \.group-button{background-color: #525051;}
 
-  \.input-holder{background:#{current_group.tertiary}}
-  \.input-holder-password{background:#{current_group.tertiary}}
+
+  \.input-holder{background:#{group.tertiary}}
+  \.input-holder-password{background:#{group.tertiary}}
 
 
 
   \.supplementary-navigation {background: #b6b6b6; height:26px; line-height:26px}
   \#main-index .title {background: #b6b6b6; height:29px; line-height:29px}  
 
-  \.community {background: #{current_group.supplementary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.supplementary}',endColorstr='#{current_group.supplementary_dark}');background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.supplementary}),to(#{current_group.supplementary_dark}));background:-moz-linear-gradient(top,#{current_group.supplementary},#{current_group.supplementary_dark}); border:1px solid white;text-shadow: #{current_group.supplementary_dark} 0px -1px 1px}
+  \.community {background: #{group.supplementary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{group.supplementary}',endColorstr='#{group.supplementary_dark}');background:-webkit-gradient(linear,left top,left bottom,from(#{group.supplementary}),to(#{group.supplementary_dark}));background:-moz-linear-gradient(top,#{group.supplementary},#{group.supplementary_dark}); border:1px solid white;text-shadow: #{group.supplementary_dark} 0px -1px 1px}
 <!--//-->
 
 

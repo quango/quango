@@ -30,11 +30,12 @@
 
     #header-container
       #header-container-inner
-        #search
-          = render :partial => "shared/search"
-        #navigation-container
-          = render :partial => "shared/contextual_navigation"
 
+        .navigation-container{:style=>"height:32px"}
+          .navigation{:style=>"float:left; height:32px; line-height:32px"}
+            = render :partial => "shared/contextual_navigation"
+          .search{:style=>"float:right"}
+            = render :partial => "shared/search"
 
 
 

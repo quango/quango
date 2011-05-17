@@ -3,16 +3,17 @@
 
   -if width == "wide"
     .block
-      .group-button{:style => "width:284px; border-bottom: 1px solid white"}
-        %div{:style => "font-size:14px; margin-bottom:4px; font-weight:bold; "}
+      %div{:style => "width:300px;height:90px; border-bottom: 1px solid white; background-color:#{current_group.primary}"}
+        %div{:style => "font-size:13px; padding:4px 8px 0 8px; font-weight:bold; color:white; "}
           = current_group.signup_button_title
         %div{:style => "font-size:11px; margin-bottom:8px "}
           = current_group.signup_button_description
 
         %div{:style => "font-size:16px; margin-bottom:8px; height:32px "}
-          = link_to current_group.signup_button_label, new_user_path, :class => "create-button", :style => "height:32px; line-height:32px ;margin:0;font-size:18px; width:256px;font-weight:bold; text-align:center;"
-        %div{:style => "font-size:11px; margin-bottom:8px; float:right "}
+          = link_to current_group.signup_button_label, new_user_path, :class => "create-button", :style => "height:28px; line-height:28px ;margin:0 8px; width:240px;"
+        %div{:style => "font-size:12px; padding:0 8px; float:right; color: white "}
           = current_group.signup_button_footnote
+          = "Already a member? Login"
       .clear
 
   -if width == "narrow"
@@ -20,7 +21,7 @@
       = "Join!"
     .block
       .group-button{:style => "width:124px;height:169px; border-bottom: 1px solid white"}
-        %div{:style => "font-size:14px; margin-bottom:4px; font-weight:bold; "}
+        %div{:style => "font-size:14px; margin:4px; font-weight:bold;color:white "}
           = current_group.signup_button_title
         %div{:style => "font-size:12px; margin-bottom:8px "}
           = current_group.signup_button_description
