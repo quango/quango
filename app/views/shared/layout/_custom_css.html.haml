@@ -1,11 +1,11 @@
 %style{:type => 'text/css'}
-  \body { background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.tertiary}),to(#ffffff));}
- 
+  \body { background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#ffffff));}
+  \#container{border-left: 2px solid #{current_group.secondary};border-right: 2px solid #{current_group.secondary};}
 
   \.text-field{border:0}
   a {color: #{current_group.link_colour};}
   a:hover {color: #444;}
-  \#header-container-inner { background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#ffffff));}
+  \#header-container-inner { background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#ffffff));border-left: 2px solid #{current_group.secondary};border-right: 2px solid #{current_group.secondary};}
 
   \#navigation-container { background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.primary}),to(#{current_group.tertiary}));}
 
@@ -25,7 +25,7 @@
 
   }
 
-  \.toolbar-container-inner {width: 1032px;   
+  \.toolbar-container-inner {width: 1032px;border-left: 2px solid #{current_group.secondary};border-right: 2px solid #{current_group.secondary};   
   -if current_group.toolbar_bg?
     background-color: #{current_group.toolbar_bg};
 
@@ -45,7 +45,7 @@
 
 
 
-  \.channel-container-inner {width: 1032px;background-color: #{current_group.secondary};/*background:-webkit-gradient(linear,left top,left bottom,to(#{current_group.secondary}),from(#525051));*/}
+  \.channel-container-inner {width: 1032px;background-color: #{current_group.secondary};border-left: 2px solid #{current_group.secondary};border-right: 2px solid #{current_group.secondary};}
 
   \.channel_listing_horizontal li {background-color: #525051;
   background-color: #{current_group.tertiary};
