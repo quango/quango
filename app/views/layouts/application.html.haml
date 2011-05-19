@@ -48,7 +48,7 @@
 
         = yield :summary_header
 
-        #leaderboard{:style=>"margin-bottom:1px;height:90px"}
+        #leaderboard{:style=>"border-bottom:8px solid white;height:90px"}
           -if current_group.has_leaderboard
             .leaderboard{:style=>"width:728px;height:90px; float:left;"}
               = current_group.leaderboard_content

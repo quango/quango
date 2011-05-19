@@ -8,8 +8,8 @@
   - base_thumbnail = base_image.process(:thumb,"300x")
 
   .block
-    %h3
-      = "Image"
+    %h3{:style=>"background-color: #525051; color: white"}
+      = "Main Image"
       .expand
         = link_to  "Expand image", expanded_image.url, :title => "#{image.caption}"
 
@@ -25,8 +25,8 @@
   - if logged_in? || current_user.can_edit_others_posts_on?(@item.group)
 
     .block
-      %h3
-        = "Image"
+      %h3{:style=>"background-color: #525051; color: white"}
+        = "Main Image"
     .content
       ="No image added"
       = link_to "Add images", item_images_path(@doctype, @item), :style => "text-shadow:green;border: 2px solid green;background-color:green; color:white", :class => "toolbar-button" 
