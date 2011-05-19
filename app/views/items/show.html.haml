@@ -32,8 +32,9 @@
 - content_for :main do
   = javascript_include_merged :show
 
-
   #main-index
+
+
     .content
       .inner
         .toolbox
@@ -42,7 +43,7 @@
           -if current_user.owner_of?(current_group) | current_user.mod_of?(current_group)
             %div
               = render :partial => "controls", :object=>@item
-  
+
         -if @doctype.has_video?
 
           #video-box
@@ -85,60 +86,60 @@
 
         .clear
 
-  
 
 
-        %a{:name=>"answers"}
-        #answers
+
+      %a{:name=>"answers"}
+      #answers
+        .clear
+
+        -unless @item.closed
+          %a{:name=>"to_answer"}
+          -form_for @answer, :url => item_answers_path(@doctype, @item), :html => {:class => "form mainAnswerForm"} do |f|
+            = render :partial => "answers/form", :locals => {:f => f, :markdown => true, :mode => "item"}
           .clear
 
-          -unless @item.closed
-            %a{:name=>"to_answer"}
-            -form_for @answer, :url => item_answers_path(@doctype, @item), :html => {:class => "form mainAnswerForm"} do |f|
-              = render :partial => "answers/form", :locals => {:f => f, :markdown => true, :mode => "item"}
-            .clear
 
+        .answers
 
-          .answers
+          .entry-details
+            .entry-title
+              = h("What others think")
+          .secondary-navigation
+            .navcontrols
+              %ul
+                %li
+                  = "Sort by: "
+                %li.filter
+                  = link_to "Fresh", item_path(@doctype, @item, :sort=>"fresh", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
+                %li
+                  = link_to "Hot", item_path(@doctype, @item, :sort=>"hot", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
+                %li
+                  = link_to "Historical", item_path(@doctype, @item, :sort=>"sweaty", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
 
-            .entry-details
-              .entry-title
-                = h("What others think")
-            .secondary-navigation
-              .navcontrols
-                %ul
-                  %li
-                    = "Sort by: "
-                  %li.filter
-                    = link_to "Fresh", item_path(@doctype, @item, :sort=>"fresh", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
-                  %li
-                    = link_to "Hot", item_path(@doctype, @item, :sort=>"hot", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
-                  %li
-                    = link_to "Historical", item_path(@doctype, @item, :sort=>"sweaty", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
+        .clear
 
-          .clear
-
-          .block
-            - if @item.accepted
-              -solution = @item.answer
-              =render :partial=> "answer", :locals=> {:item => @item, :answer => solution} unless solution.nil?
-            .hentry
-              -@answers.each do |answer|
-                =render :partial=> "answer", :locals=> {:item => @item, :answer => answer}
-            =will_paginate(@answers)
+        .block
+          - if @item.accepted
+            -solution = @item.answer
+            =render :partial=> "answer", :locals=> {:item => @item, :answer => solution} unless solution.nil?
+          .hentry
+            -@answers.each do |answer|
+              =render :partial=> "answer", :locals=> {:item => @item, :answer => answer}
+          =will_paginate(@answers)
 
 
 
 -content_for :sidebar_inner do
-  #sidebar-inner
+  #sidebar-inner{:style=>"border:0"}
 
-    -#= render :partial => "shared/signup_button", :locals => {:width => "wide"}
+
 
     -if @doctype.has_video?
       = render :partial => "video_info", :locals => {:item => @item}
 
 
-    = render :partial => "author"
+    -#= render :partial => "author"
     = render :partial => "default_image", :locals => {:item => @item}
     = render :partial => "images", :locals => {:item => @item}
 
@@ -166,8 +167,8 @@
 
 
 -content_for :sidebar do
-  #sidebar
-    = render :partial => "shared/signup_button", :locals => {:width => "narrow"}
+  #sidebar{:style=>"float:left;border-right:1px solid white"}
+    = render :partial => "author", :locals => {:width => "narrow"}
     = render :partial => "participants", :locals=> {:item => @item}
 
     = render :partial => "shared/sidebar_actions",  :locals => {:width => "narrow"}

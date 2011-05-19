@@ -1,6 +1,6 @@
 .block
   %h3
-    = "Published by"
+    = @item.user.first_name
   .content
     = render :partial => "users/user_mini", :locals => {:user => @item.user, :width => "wide"}
 
