@@ -22,7 +22,7 @@
   .clear
 
 -else
-  - if logged_in? || current_user.can_edit_others_posts_on?(@item.group)
+  - if logged_in?
 
     .block
       %h3{:style=>"background-color: #525051; color: white"}
