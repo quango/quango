@@ -31,9 +31,10 @@
 
 .footer{:style => "border-top:1px solid #{current_group.secondary}; margin:8px 0 32px 0; padding-top:8px;line-height:24px"}
   .entry.left
-    = link_to "<img src='/images/logos/logo-fastthinking-small.png' height='24px'>", "http://fastthinking.com.au"
+    = link_to "think", "http://think.it", :style=>"padding:4px;font-size:14px;font-family:georgia;font-weight:bold;color:#4183AF;"
   .entry.left
-    = "v" + AppConfig.version.to_s + "<a class='beta' style='background-color:#{current_group.supplementary};'>beta</a>"
+    = " v" + AppConfig.version.to_s + "<a style='border:1px solid #{current_group.supplementary};'>beta</a>"
+    = " - open source"
   .entry.left
     = render :partial => "shared/bug"
 
