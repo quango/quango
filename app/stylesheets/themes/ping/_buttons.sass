@@ -63,51 +63,6 @@
   a:hover
     color: #eee
 
-.tertiary-button
-
-  background-image: url(/images/buttons/section_bg.png)
-  background-repeat: repeat-x
-  height: 16px
-  line-height: 14px
-  margin: 4px 4px 4px 0
-  color: white
-  cursor: pointer
-  overflow: visible
-  float: left
-  font-weight: bold
-  font-size: 10px
-  text-align: center
-  text-spacing: -1px
-  padding: 0 13px 0 13px
-  +rounded(2px,2px,2px,2px)
-  &:hover
-    color: gainsboro
-  &:hover
-    background-color: #eee
-  display: inline-block
-
-  padding: 4px 24px
-  margin: 4px
-  color: #fff
-  text-shadow: -1px -1px 0 rgba(0,0,0,0.25)
-  font-size: 12px
-  font-weight: bold
-  background: gainsboro
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#bbbbbb',endColorstr='#dcdcdc')
-  background: -webkit-gradient(linear,left top,left bottom,from(#bbbbbb),to(#dcdcdc))
-  background: -moz-linear-gradient(top,#bbbbbb,#dcdcdc)
-  border: 1px solid #bbbbbb
-  -webkit-border-radius: 4px
-  -moz-border-radius: 4px
-  border-radius: 4px
-  //zoom: 1
-  //filter: progid:DXImageTransform.Microsoft.Shadow(color='#000000', Direction=135, Strength=3)
-  -webkit-box-shadow: 1px 1px 2px rgba(128,128,128,0.5)
-  -moz-box-shadow: 1px 1px 2px rgba(128,128,128,0.5)
-  box-shadow: 1px 1px 2px rgba(128,128,128,0.5)
-  -webkit-font-smoothing:antialiased
-  small
-    font-weight: normal
 
 
 .contribute-button 
@@ -125,6 +80,36 @@
   +fancy-button(#cf7200)
   +fancy-button-structure(12px, 0.7em, 2px)
   +fancy-button-colors(#cf7200, adjust-hue(#cf7200, -3), darken(adjust-hue(#cf7200, -3), 1))
+  border-color: black
+
+
+
+  &:hover
+    border-color: black
+
+.contribute-button-glow 
+  width: 128px
+  height: 21px
+  line-height: 21px
+  cursor: pointer  
+  overflow: visible
+  float: left
+  +rounded(8px,8px,8px,8px)
+
+  color: white
+  text-align: center
+
+  +fancy-button(#9a0000)
+  +fancy-button-structure(12px, 0.7em, 2px)
+  +fancy-button-colors(#9a0000, adjust-hue(#9a0000, +3), darken(adjust-hue(#9a0000, +3), 1))
+  border-color: black
+
+
+
+
+  &:hover
+    border-color: black
+
 
 .search-button 
   width: 128px
@@ -141,6 +126,7 @@
   +fancy-button(#525051)
   +fancy-button-structure(12px, 0.7em, 1px)
   +fancy-button-colors(#525051, adjust-hue(#525051, -3), darken(adjust-hue(#525051, -3), 1))
+
 
 .contribute-button-narrow
   width: 128px
@@ -173,6 +159,41 @@
   +fancy-button(#cf7200)
   +fancy-button-structure(14px, 0.7em, 3px)
   +fancy-button-colors(#cf7200, adjust-hue(#cf7200, -3), darken(adjust-hue(#cf7200, -3), 1))
+  border-color: black
+
+  position: absolute
+  left: 0
+  top: 0
+  z-index: 10
+
+  &:hover
+    border-color: black
+
+
+.create-button-glow
+  width: 140px
+  height: 21px
+  line-height: 21px
+  cursor: pointer  
+  overflow: visible
+  float: left
+  +rounded(8px,8px,8px,8px)
+
+  color: white
+  text-align: center
+
+  +fancy-button(#cfa168)
+  +fancy-button-structure(14px, 0.7em, 3px)
+  +fancy-button-colors(#cfa168, adjust-hue(#cfa168, -3), darken(adjust-hue(#cfa168, -3), 1))
+  border-color: black
+
+  position: absolute
+  left: 0
+  top: 0
+  
+
+  &:hover
+    border-color: black
 
 .publish-button 
 
@@ -637,6 +658,27 @@ a
   margin-right: 4px
   +rounded(4px,4px,4px,4px)
 
+
+
+.submit-button 
+  width: 140px
+  height: 21px
+  line-height: 21px
+  cursor: pointer  
+  overflow: visible
+  float: left
+  +rounded(8px,8px,8px,8px)
+
+  color: white
+  text-align: center
+
+  +fancy-button(#cf7200)
+  +fancy-button-structure(14px, 0.7em, 3px)
+  +fancy-button-colors(#cf7200, adjust-hue(#cf7200, -3), darken(adjust-hue(#cf7200, -3), 1))
+  border-color: black
+
+  &:hover
+    border-color: black
 
 
 

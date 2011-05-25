@@ -1,0 +1,23 @@
+#main
+  %h1
+    = "Medium Rectangle"
+
+  = "You can choose to show or not to show"
+
+  .group
+    = f.check_box :has_medium_rectangle, :class => "checkbox"
+    = f.label :has_leaderboard, "Show medium rectangles", :class => "radio"
+
+  .group
+    = f.label :medium_rectangle_content, "Medium rectangle content", :class => "label"
+    = f.text_area :medium_rectangle_content, :class => "text_field"
+
+  .clear
+
+  .group.navf
+    = f.submit t('scaffold.update'), :class => "action-button"
+
+
+
+
+

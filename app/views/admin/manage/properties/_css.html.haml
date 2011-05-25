@@ -1,0 +1,21 @@
+#main
+  %h1
+    = "CSS"
+
+  = "Overwrite existing styles here if necessary"
+
+  .group
+    = f.label :custom_css, "Custom css", :class => "label"
+    -custom_css = ""
+    -@group.has_custom_css? ? custom_css = @group.custom_css.read : custom_css = ""
+    = f.text_area :custom_css, :value => custom_css, :class => "text_area"
+
+  .clear
+
+  .group.nav
+    = f.submit t('scaffold.update'), :class => "action-button"
+
+
+
+
+

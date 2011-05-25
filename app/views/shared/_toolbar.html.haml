@@ -20,7 +20,7 @@
       = link_to image_tag(current_group.logo_path, :width => current_group.logo_info["width"], :height => current_group.logo_info["height"],  :style => "bottom:0px;"), domain_url(:custom => current_group.domain), :style=>"margin:0px;", :alt => "Home"
 
 
-#toolbar{:style => "float:right;width:auto;"}
+#toolbar
   -if logged_in?
     -if current_user.owner_of?(current_group)
       .entry

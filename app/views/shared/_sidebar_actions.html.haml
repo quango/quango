@@ -13,20 +13,20 @@
 
 -if width == "wide"
 
-  %h3{:style=>"background-color:#{current_group.primary};color:white;"}
-    = "How to contribute..."
+  %h3{:style=>"background-color:#{current_group.primary_dark};color:white;"}
+    = "How to use this website..."
 
-  %div{:style => "float:left;width:300px;padding:0; margin:0; background-color:#{current_group.tertiary};"}
-    %div{:style => "float:left;width:150px;padding:8px;"}
+  %div{:style => "float:left;width:300px;padding:0; margin:0; background-color:#{current_group.secondary};border-bottom:1px solid white"}
+    %div{:style => "float:left;width:150px;padding:10px 0 10px 10px;"}
       %ul{:style=>"display:block"}
         - current_group.doctypes.each do |doctype|
 
           - if !doctype.hidden
-            %li{:style=>"margin:4px; height:24px;float:left"}
-              = link_to "#{doctype.create_label}", new_item_path(doctype), :class => "contribute-button", :style => "width:108px;height:20px; line-height:20px;" 
+            %li{:style=>"margin:0; height:28px;float:left"}
+              = link_to "#{doctype.create_label}", new_item_path(doctype), :class => "contribute-button", :style => "width:118px;height:18px; line-height:18px;" 
 
-    %div{:style => "float:left;width:100px; padding:10px;"}
-      = "Anybody is welcome to contribute to this community, simply sign up for a free account and get involved now!"
+    %div{:style => "float:left;width:110px; padding:10px;color:white; font-weight:bold;"}
+      = "Become a member to post your stuff on our website, why not share your news, articles and links with the community ..? "
 
   .clear
 

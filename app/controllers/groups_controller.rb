@@ -113,12 +113,14 @@ class GroupsController < ApplicationController
     doctypes = Array.new
 
     doctypes << Doctype.new(:name => "news", :doctype => "standard",:create_label => "Add some news",:created_label => "added some news", :group_id => @group.id)
-    doctypes << Doctype.new(:name => "thoughts", :doctype => "standard", :create_label => "Share a thought", :created_label => "shared a thought", :group_id => @group.id)
+    doctypes << Doctype.new(:name => "articles", :doctype => "standard", :create_label => "Write an article", :created_label => "wrote an article", :group_id => @group.id)
+    doctypes << Doctype.new(:name => "links",:has_links => "true", :doctype => "bookmark", :create_label => "Share a link", :created_label => "shared a link", :group_id => @group.id)
+    #doctypes << Doctype.new(:name => "thoughts", :doctype => "standard", :create_label => "Share a thought", :created_label => "shared a thought", :group_id => @group.id)
     #doctypes << Doctype.new(:name => "newsfeeds", :doctype => "newsfeed", :create_label => "Add a newsfeed", :hidden => "true", :group_id => @group.id)
     doctypes << Doctype.new(:name => "questions", :doctype => "standard", :create_label => "Ask a question", :created_label => "asked a question", :group_id => @group.id)
-    doctypes << Doctype.new(:name => "articles", :doctype => "standard", :create_label => "Write an article", :created_label => "wrote an article", :group_id => @group.id)
+
     doctypes << Doctype.new(:name => "videos",:has_video => "true", :doctype => "video", :create_label => "Suggest a video", :create_label => "suggested a video", :group_id => @group.id)
-    doctypes << Doctype.new(:name => "links",:has_links => "true", :doctype => "bookmark", :create_label => "Share a link", :created_label => "shared a link", :group_id => @group.id)
+
 
 
     doctypes.each do |doctype| 
@@ -185,7 +187,7 @@ class GroupsController < ApplicationController
                           display_name_ii display_name_ii_link
                           strapline legend 
                           description has_custom_channels custom_channels custom_channel_content default_tags subdomain 
-                          has_leaderboard leaderboard_content
+                          has_leaderboard leaderboard_content has_medium_rectangle medium_rectangle_content
                           logo logo_info logo_only
                           forum notification_from notification_email
                           custom_favicon language theme reputation_rewards reputation_constrains

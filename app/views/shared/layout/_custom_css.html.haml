@@ -32,7 +32,7 @@
 
   }
 
-  \.toolbar-container-inner {border-left: 2px solid #{group.secondary};border-right: 2px solid #{group.secondary};   
+  \.toolbar-container-inner {border-left: 2px solid #{current_group.secondary};border-right: 2px solid #{current_group.secondary};   
   -if group.toolbar_bg?
     background-color: #{group.toolbar_bg};
 
@@ -119,6 +119,12 @@
   \#main-index .title {background: #b6b6b6; height:29px; line-height:29px}  
 
   \.community {background: #{group.supplementary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{group.supplementary}',endColorstr='#{group.supplementary_dark}');background:-webkit-gradient(linear,left top,left bottom,from(#{group.supplementary}),to(#{group.supplementary_dark}));background:-moz-linear-gradient(top,#{group.supplementary},#{group.supplementary_dark}); border:1px solid white;text-shadow: #{group.supplementary_dark} 0px -1px 1px}
+
+  \.create-button {border-color: #{group.primary_dark}}
+  \.contribute-button {border-color: #{group.primary_dark}; font-weight:normal;}
+  \.create-button:hover{border-color: #{group.primary_dark}}
+  \.contribute-button:hover{border-color: #{group.primary_dark}; font-weight:normal;}
+
 <!--//-->
 
 

@@ -42,6 +42,9 @@ class Group
   key :has_leaderboard, Boolean, :default => false
   key :leaderboard_content, String
 
+  key :has_medium_rectangle, Boolean, :default => false
+  key :medium_rectangle_content, String
+
   key :standard_leaderboard, Boolean, :default => false
   key :standard_leaderboard_content, String
 
@@ -108,8 +111,8 @@ class Group
   key :header_bg_image, String
   key :toolbar_bg, String
   key :toolbar_bg_image, String
-  key :primary, String, :default => "#4183AF" #tabs, 
-  key :primary_dark, String, :default => "#525051" #tabs, 
+  key :primary, String, :default => "#9a0000" #tabs, 
+  key :primary_dark, String, :default => "#000000" #tabs, 
   key :primary_hover, String, :default => "#E1A970" #header_bg and edit buttons
   key :primary_selected, String, :default => "#990000"
 
@@ -117,7 +120,7 @@ class Group
   key :secondary_hover, String, :default => "orange"
   key :secondary_selected, String, :default => "#E1A970"
   key :secondary_active, String, :default => "#990000"
-  key :tertiary, String, :default => "#8DBAD7" #tabs, 
+  key :tertiary, String, :default => "#cd3333" #tabs, 
   key :complementary, String, :default => "#007500" #tabs, 
 
   key :secondary_navigation_bg, String, :default => "gainsboro"

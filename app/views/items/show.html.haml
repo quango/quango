@@ -142,11 +142,18 @@
     -#= render :partial => "author"
     = render :partial => "default_image", :locals => {:item => @item}
     = render :partial => "images", :locals => {:item => @item}
-
+    = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
+    -if current_group.has_medium_rectangle
+      .label
+        = "Advertisment"
+      .medium-rectangle{:style=>"width:300px;height:250px; float:left; background-color:pink; border-bottom:1px solid white"}
+        = current_group.medium_rectangle_content
+      .clear
+    = render :partial => "shared/sponsored_links",  :locals => {:width => "wide"}
 
     -related_items = Item.related_items(@item, :language => find_languages)
     - if related_items
-      .block
+      .block{:style=>"display:none;"}
         %h3
           =t(".related_items")
         .content
@@ -163,7 +170,6 @@
         = render :partial => "bunnies", :locals => {:item => @item}
 
 
-    = render :partial => "shared/sponsored_links", :locals => {:width => "wide"}
 
 
 -content_for :sidebar do

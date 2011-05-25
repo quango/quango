@@ -1,5 +1,5 @@
 
--if !logged_in? && current_group.show_signup_button? || logged_in? && current_user.owner_of?(current_group)
+-if !logged_in? && current_group.show_signup_button?
 
   -if width == "wide"
     .block
@@ -9,12 +9,23 @@
         %div{:style => "font-size:11px; margin-bottom:8px "}
           = current_group.signup_button_description
 
-        %div{:style => "font-size:16px; margin-bottom:8px; height:32px "}
+        %div{:style => "font-size:16px; margin-bottom:8px; height:32px;position:relative;"}
           = link_to current_group.signup_button_label, new_user_path, :class => "create-button", :style => "height:28px; line-height:28px ;margin:0 8px; width:250px;"
+          = link_to current_group.signup_button_label, new_user_path, :class => "create-button-glow", :style => "height:28px; line-height:28px ;margin:0 8px; width:250px;"
+
         %div{:style => "font-size:12px; padding:0 8px; float:right; color: white "}
           = current_group.signup_button_footnote
-          = "Already a member? <a href='/users/login'>Login</a>"
+          = "Already a member? <a href='/users/login' style='color:white; font-weight:bold;'><span style='text-decoration:underline'>Lo</span>g<span style='text-decoration:underline'>in here</span></a>"
       .clear
+
+      %script{:type=>"text/javascript"}
+        // collapse:
+        $('.create-button').ready(function() {
+        $('.create-button').delay('2400').fadeIn('slow').fadeOut('slow').fadeIn('slow').fadeOut('slow').fadeIn('slow').fadeOut('slow').fadeIn('slow');
+        //$('.create-button')
+        });
+
+
 
   -if width == "narrow"
     %h3

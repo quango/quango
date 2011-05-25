@@ -18,14 +18,18 @@
       .toolbar-container-inner    
         = render :partial => "shared/toolbar"
 
+    -if current_group.has_custom_channels
+      #channel-container
+        .channel-container-inner
+          = render :partial => "shared/channels"
+
     #header-container
       #header-container-inner
-        #leaderboard-container
-          = render :partial => "shared/ads/header_ads"
-        #search
-          = render :partial => "shared/search"
-        #navigation-container
-          = render :partial => "shared/contextual_navigation"
+        .navigation-container{:style=>"height:40px"}
+          .navigation{:style=>"float:left; height:32px; line-height:32px"}
+            = render :partial => "shared/contextual_navigation"
+          .search{:style=>"float:right"}
+            = render :partial => "shared/search"
 
     #container{:class => @current_class}
       #announcement
@@ -36,8 +40,8 @@
           = yield :main
           .clear
 
-    .clear
-    #footer
-      .block.content
-        = render :partial => "layouts/footer"
-        = render :partial => "shared/ads/footer_ads"
+      .clear
+      #footer
+        .block.content
+          = render :partial => "layouts/footer"
+          = render :partial => "shared/ads/footer_ads"

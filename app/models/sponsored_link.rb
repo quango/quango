@@ -12,6 +12,7 @@ class SponsoredLink
   file_key :image, :max_length => 256.kilobytes
   key :image_info, Hash, :default => {"width" => 140, "height" => 40}
 
+  key :image_link, String
   key :group_id, String
   belongs_to :group
 

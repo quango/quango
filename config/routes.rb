@@ -57,21 +57,20 @@ ActionController::Routing::Routes.draw do |map|
   map.channels 'channels/:tags', :controller => :channels, :action => :index,:requirements => {:tags => /\S+/}
 
   map.resources :create, :action => :new, :as => "add"
-
+  map.root :controller => "welcome"
 
 
   def build_items_routes(router, options ={})
     router.with_options(options) do |route|
-      route.se_url "/:doctype/:id/:slug", :controller => "items", :action => "show", :section => /\d+/, :id => /\d+/,
- :conditions => { :method => :get }
+      route.se_url "/:doctype/:id/:slug", :controller => "items", :action => "show", :section => /\d+/, :id => /\d+/, :conditions => { :method => :get }
+      route.resources :doctypes, :as => 'group' do |doctypes|
 
-      route.resources :doctypes, :as => 'community' do |doctypes|
-
-        doctypes.resources :items, :collection => {:get_video_info => :get, :tags => :get,:tags_for_autocomplete => :get,:unanswered => :get,:related_items => :get},
-                                 :member     => {:bump => :any,:solve => :get,:unsolve => :get,:favorite => :any,:unfavorite => :any,:watch => :any,:unwatch => :any,
+        doctypes.resources :items, 
+                           :collection => {:get_video_info => :get, :tags => :get,:tags_for_autocomplete => :get,:unanswered => :get,:related_items => :get},
+                           :member     => {:bump => :any,:solve => :get,:unsolve => :get,:favorite => :any,:unfavorite => :any,:watch => :any,:unwatch => :any,
                                                  :history => :get,:revert => :get,:diff => :get,
                                                  :move => :get,:move_to => :put, :retag => :get,:retag_to => :put,
-                                            :close => :put,:open => :put}, :name_prefix => nil,  :as => '!' do |items| #:name_prefix => nil,
+                                            :close => :put,:open => :put}, :name_prefix => nil, :as => 'index'  do |items| #:name_prefix => nil,
 
         items.resources :comments
 
@@ -98,6 +97,8 @@ ActionController::Routing::Routes.draw do |map|
 
         end
 
+
+
       end
 
     end
@@ -105,19 +106,19 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect 'items/topic/:tags', :controller => :items, :action => :index,:requirements => {:tags => /\S+/}
   map.connect 'items/unanswered/tags/:tags', :controller => :items, :action => :unanswered
-  #map.connect 'doctypes/:doctype_id/items/:id', :controller => :items, :action => :show, :as => ':doctype_id/:id' #, :only => 'show'
+
+
 
   #map.connect 'doctypes', :controller => :items, :action => :show, :as => ''
 
-  build_items_routes(map) #, :as => ':doctype/:id', :only => 'show')
+  build_items_routes(map) #, :as => ':doctype_id/:item_id', :only => ':show, :index')
 
-  
-  #map.resources :doctypes, :controller => :doctypes, :action => :index, :as => 'foo'
+
 
   map.resources :doctypes, :member => {:move => :post, :list => :get}
 
 
-  #map.connect 'items/:id',:controller => :items, :path_prefix => ":doctypes"
+
   
 
 
@@ -167,7 +168,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.search '/search.:format', :controller => "searches", :action => "index"
   map.about '/about', :controller => "groups", :action => "show"
-  map.root :controller => "welcome"
+
+
+
 
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'

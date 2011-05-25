@@ -1,18 +1,26 @@
+So many functionality changes and fixing in this release it's quite astounding - largely driven by the release of a number of new sites
 
-This is mainly a bugfix release, but also a few usability issues
+New sites enabled:
+
+http://fastthinking.com.au, http://innovativehousehold.com, http://nobellaureates.com.au, 
+
+And the Fast Thinking network:
+
+http://thebusinessdaily.com.au, http://themarketingdaily.com.au, http://theeducationdaily.com.au, 
+http://thegovernmentdaily.com.au, http://thesciencedaily.com.au, http://thesustainabilitydaily.com.au,
+http://thetechnologydaily.com.au
 
 Changelog
-
-
 
 * Fixed the page titles they now read a sane " Page title | Group Name | Legend " on all pages
 * Group naming for communities that do not use a custom logo - display name is now distinct from group name
 * Group name itself must be unique - eg "marketing-australia" and "marketing-uk" however bot groups can display the same namein the toolbar - this solves the problem of having multiple identically named domains across different TLDs 
 * Added the optional "Sponsored links" section - this delivers a standardized approach to handling multiple site sponsors, usually used for paid sponsorship slots
-
-* Added optional leaderboard & medium slot for homepage and index pages. Medium Rectangle/Half Page slots only on show, cyrrently non-functional however these will eventually be populated from a 3rd party ad server - this is the simplest and most efficient approach howver maybe later we will support native banners for "completeness"
+* Added optional leaderboard & medium slot for homepage, index and show pages. Place script here from a 3rd party ad server - this is the simplest and most efficient approach however maybe later we will support native banners for "completeness"
 * In list blocks you can now click anywhere - not just the link itself - this is mainly a usability thing
-
+* Made the signup button glow pleasantly after a short while
+* Tidied up admin a bit
+* Various image uploader issues
 
 
 
@@ -30,17 +38,12 @@ Stylefixes
 Developers Notes
 
 
-
-
-
 Pending for next release:
 
-
 * Need to figure out why the images do not work correctly in production mode, but work perfectly in dev mode
-* Fixed admin area so admins can manage members ( eg. assign owners to communities )
-* topics listing bugs
+* Fix admin area so admins can manage members ( eg. assign owners to communities )
+* Topics listing bugs
 * IE return bug in the editor
 * General listing and sorting problems
-* 
 
 

@@ -27,12 +27,9 @@
 
     #header-container
       #header-container-inner
-        #leaderboard-container
-          = render :partial => "shared/ads/header_ads"
-        #navigation-container
-          = render :partial => "shared/manage_navigation"
-
-
+        .navigation-container{:style=>"height:40px"}
+          .navigation{:style=>"float:left; height:32px; line-height:32px"}
+            = render :partial => "shared/manage_navigation"
 
 
 

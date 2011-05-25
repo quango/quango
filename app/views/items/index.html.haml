@@ -25,12 +25,10 @@
 
 
 /Items
--content_for :summary_header do
-  #summary-header{:class => @active_tab}
-    = render :partial => "summary_header", :locals => {:doctype => @doctype, :section => @doctype,  :list_mode => "standard", :expanded => false} #@doctype.expanded}
-
 -content_for :main do
-  #main-index
+  #summary-header{:class => @active_tab}
+    = render :partial => "summary_header", :locals => {:doctype => @doctype, :section => @doctype,  :list_mode => "standard", :expanded => false}
+  #main-index{:style=>"float:right;"}
     = yield :secondary_navigation
     .content
       .inner
@@ -48,7 +46,7 @@
 
           .clear
 
--content_for :sidebar do
+-content_for :sidebar_inner do
   #sidebar
     .sidebar
       .inner
@@ -60,25 +58,18 @@
 
 
 
--content_for :sidebar_inner do
+-content_for :sidebar do
 
   #sidebar-inner
     .sidebar
       .inner
         = render :partial => "shared/sidebar_actions", :locals =>  {:width=> "wide"}
-
-
-        .block
-          -#= render :partial => "item_topics", :object => @tag_cloud
-        .block
-          %h3
-            = "Related items"
-          .content
-            = "Shows a list of related items from other sections"
-
-        .block
-          %h3
-            = "Something"
-          .content
-            = "Something else"
+        = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
+        -if current_group.has_medium_rectangle
+          .label
+            = "Advertisment"
+          .medium-rectangle{:style=>"width:300px;height:250px; float:left; background-color:pink; border-bottom:1px solid white"}
+            = current_group.medium_rectangle_content
+          .clear
+        = render :partial => "shared/sponsored_links",  :locals => {:width => "wide"}
 

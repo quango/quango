@@ -15,6 +15,8 @@
     = render :partial => "shared/analytics"
     = @current_class
 
+
+
     #flash
       = show_flash_messages(:class => "flash", :markdown => true)
 
@@ -30,46 +32,48 @@
 
     #header-container
       #header-container-inner
-
         .navigation-container{:style=>"height:40px"}
           .navigation{:style=>"float:left; height:32px; line-height:32px"}
             = render :partial => "shared/contextual_navigation"
           .search{:style=>"float:right"}
             = render :partial => "shared/search"
 
-
-
     #container{:class => @current_class}
-      #announcement
-        = render :partial => "shared/announcements"
 
-      #wrapper
-        = render :partial => "shared/header"
+      #content{:class => @current_class}
+        #announcement
+          = render :partial => "shared/announcements"
 
-        = yield :summary_header
+        #wrapper
+          = render :partial => "shared/header"
 
-        #leaderboard{:style=>"border-bottom:1px solid white;height:90px"}
-          -if current_group.has_leaderboard
-            .leaderboard{:style=>"width:728px;height:90px; float:left;"}
-              = current_group.leaderboard_content
-          .signup{:style=>"width:300px;height:90px; float:right;"}
-            = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
+          = yield :summary_header
 
-
-        #content
-          = yield :sidebar
-          = yield :main
+          #leaderboard{:style=>"border-bottom:1px solid white;height:90px"}
+            -if current_group.has_leaderboard
+              .leaderboard{:style=>"width:728px;height:90px; float:left;"}
+                = current_group.leaderboard_content
+            .signup{:style=>"width:300px;height:90px; float:right;"}
+              = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
 
 
-        = yield :sidebar_inner
+          #content
+            = yield :sidebar
+            = yield :main
 
-    .clear
 
-    #footer
+          = yield :sidebar_inner
 
-      .block.content
-        = render :partial => "layouts/footer"
-        = render :partial => "shared/ads/footer_ads"
+
+
+
+      .clear
+
+      #footer
+
+        .block.content
+          = render :partial => "layouts/footer"
+          = render :partial => "shared/ads/footer_ads"
 
 
 
