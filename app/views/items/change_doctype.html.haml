@@ -1,0 +1,27 @@
+-content_for :main do
+  #main-index
+    %hr{:style=>"margin-top:20px;"}
+      - form_for(@item, :url => change_doctype_item_path(@doctype, @item), :html => {:class => "form"}) do |f|
+        = "the form"
+
+        -current_group.doctypes.each do |doctype|
+          -if !doctype.hidden?
+            -if @doctype == doctype
+              = "<span style='background-color:pink'>"
+              = f.radio_button :doctype, doctype.name, :class => "radio_button", :checked => true
+              = "#{doctype.name}" << "</span>"
+            -else
+              = f.radio_button :doctype, doctype.name, :class => "radio_button", :checked => false
+              = "#{doctype.name}"
+
+
+
+        .submit
+          = f.submit t("scaffold.update")
+          = t("global.or")
+          = link_to t('scaffold.cancel'), items_path, :class => "button cancel"
+    %hr
+
+
+
+

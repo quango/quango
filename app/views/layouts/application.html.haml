@@ -12,8 +12,8 @@
     = current_group.head_tag
 
   %body
-    = render :partial => "shared/analytics"
-    = @current_class
+    -#= render :partial => "shared/analytics"
+    -#= @current_class
 
 
 
@@ -49,9 +49,10 @@
 
           = yield :summary_header
 
-          #leaderboard{:style=>"border-bottom:1px solid white;height:90px"}
-            -if current_group.has_leaderboard
+          #leaderboard{:style=>"height:90px;border-bottom:1px solid white; display:none"}
+            -if current_group.has_leaderboard 
               .leaderboard{:style=>"width:728px;height:90px; float:left;"}
+                = "<!--/ Leaderboard /-->"
                 = current_group.leaderboard_content
             .signup{:style=>"width:300px;height:90px; float:right;"}
               = render :partial => "shared/signup_button",  :locals => {:width => "wide"}

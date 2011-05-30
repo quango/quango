@@ -7,7 +7,7 @@
 -if doctype
 
   .section-head-welcome
-    .secondary-navigation-sections{:style=>"width:728px"}
+    .secondary-navigation-sections{:style=>"width:728px; background-color:#{current_group.secondary};"}
       .navlabel.left
 
         - section_link = section.name.downcase
@@ -21,9 +21,9 @@
 
 
 
-    .section-listing-welcome{:class => section.name, :style => "width:821px;"}
+    .section-listing-welcome{:class => section.name, :style => "width:728px;"}
 
-      .listings-centre{:style => "width:563px; float:left;"}
+      .listings-centre{:style => "width:300px; float:left;"}
         .title
           = h("Headlines")
         .content
@@ -34,13 +34,13 @@
                 = t(".empty")
             -else
               - items_array = Array.new
-              - @items.each do |item|
+              - @items[0..7].each do |item|
                 - if item.doctype.name == doctype.name
                   -#- items_array << item
                   -#- items_array.each do |item|
                   = render :partial => "/items/summary_list_headline", :locals => {:item => item, :sort=>"hot"}
 
-      .listings-right{:style => "width:255px; float:right;"}
+      .listings-right{:style => "width:420px; float:right;"}
         .title
           = h("Features")
         .content

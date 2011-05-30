@@ -187,7 +187,7 @@ class GroupsController < ApplicationController
                           display_name_ii display_name_ii_link
                           strapline legend 
                           description has_custom_channels custom_channels custom_channel_content default_tags subdomain 
-                          has_leaderboard leaderboard_content has_medium_rectangle medium_rectangle_content
+                          has_leaderboard leaderboard_content has_custom_leaderboard custom_leaderboard_content has_medium_rectangle medium_rectangle_content
                           logo logo_info logo_only
                           forum notification_from notification_email
                           custom_favicon language theme reputation_rewards reputation_constrains

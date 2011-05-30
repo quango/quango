@@ -41,6 +41,8 @@ class Group
 
   key :has_leaderboard, Boolean, :default => false
   key :leaderboard_content, String
+  key :has_custom_leaderboard, Boolean, :default => false
+  key :custom_leaderboard_content, String
 
   key :has_medium_rectangle, Boolean, :default => false
   key :medium_rectangle_content, String

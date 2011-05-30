@@ -1,6 +1,6 @@
 .block
   %h3{:style=>"background:#{current_group.primary}; color: white"}
-    = @item.user.first_name.capitalize << " " << @item.user.first_name.capitalize
+    = @item.user.first_name.capitalize << " " << @item.user.last_name.capitalize
   .content
     = render :partial => "users/user_mini", :locals => {:user => @item.user, :width => "wide"}
 

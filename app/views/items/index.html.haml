@@ -26,36 +26,54 @@
 
 /Items
 -content_for :main do
-  #summary-header{:class => @active_tab}
-    = render :partial => "summary_header", :locals => {:doctype => @doctype, :section => @doctype,  :list_mode => "standard", :expanded => false}
-  #main-index{:style=>"float:right;"}
-    = yield :secondary_navigation
-    .content
-      .inner
-        = @lang_conds.to_s
-        %ul.items#items
-          -if @items.empty?
-            %li.highlight
-              = t(".empty")
-          -@items.each do |item|
-            - if item.doctype.name == @active_section #TODO: scope to doctype
-              = render :partial => "item", :object => item, :section => @active_section
+  #main-index{:style => "float:left; width:729px;"}
 
-        #additional_info
-          -#=will_paginate @items
 
-          .clear
 
--content_for :sidebar_inner do
-  #sidebar
-    .sidebar
-      .inner
-        = render :partial => "shared/current_tags"
-        -#= render :partial => "shared/tag_list", :object => @tag_cloud, :section => @active_section
-        -current_group.widgets.each do |widget|
-          .widget.block{:id => widget.name}
-            = render :partial => widget.partial_name, :locals => {:widget => widget, :width=> "narrow"}
+    .main
+      -if current_group.has_leaderboard 
 
+        .leaderboard{:style=>"width:728px;height:90px; float:left;border-bottom:1px solid white"}
+          = "<!--/ Leaderboard /-->"
+          = current_group.leaderboard_content
+        .clear
+
+
+      #summary-header{:class => @active_tab}
+        = render :partial => "summary_header", :locals => {:doctype => @doctype, :section => @doctype,  :list_mode => "standard", :expanded => false}
+
+
+
+
+
+
+      .content{:style=>"width:588px; float:right"}
+        = yield :secondary_navigation
+        .inner
+          = @lang_conds.to_s
+          %ul.items#items
+            -if @items.empty?
+              %li.highlight
+                = t(".empty")
+            -@items.each do |item|
+              - if item.doctype.name == @active_section #TODO: scope to doctype
+                = render :partial => "item", :object => item, :section => @active_section
+
+          #additional_info
+            -#=will_paginate @items
+
+            .clear
+
+
+
+    #sidebar{:style=>"width:140px"}
+      .sidebar
+        .inner
+          -#= render :partial => "shared/current_tags"
+          -#= render :partial => "shared/tag_list", :object => @tag_cloud, :section => @active_section
+          -current_group.widgets.each do |widget|
+            .widget.block{:id => widget.name}
+              = render :partial => widget.partial_name, :locals => {:widget => widget, :width=> "narrow"}
 
 
 -content_for :sidebar do
@@ -63,6 +81,9 @@
   #sidebar-inner
     .sidebar
       .inner
+        -#.signup{:style=>"width:300px;height:90px; float:right;"}
+        = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
+        -#.clear
         = render :partial => "shared/sidebar_actions", :locals =>  {:width=> "wide"}
         = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
         -if current_group.has_medium_rectangle

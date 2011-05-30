@@ -73,7 +73,8 @@
 
 
   #sidebar-inner{:style => "float:right; width:300px;"}
-
+    .block
+      = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
     .block
       = render :partial => "shared/sidebar_actions",  :locals => {:width => "wide"}
     .block{:style => "margin-bottom:4px"}
@@ -109,8 +110,25 @@
 
   #welcome-index{:style => "float:left; width:729px;"}
     .content
+      -if current_group.has_custom_leaderboard
+        .inner
+          .leaderboard
+            = "<!--/ Leaderboard /-->"
+            = current_group.custom_leaderboard_content
+        .clear
+
+      -elsif current_group.has_leaderboard || !current_group.has_custom_leaderboard
+        .inner
+          .leaderboard
+            = "<!--/ Leaderboard /-->"
+            = current_group.leaderboard_content
+        .clear
+
+
       .inner
         = render :partial => "homepage_content", :locals => {:expanded => true}
+
+
 
     .clear
 
@@ -121,6 +139,11 @@
         .clear
 
 
-
+      -if current_group.has_custom_leaderboard 
+        .inner
+          .leaderboard{:style=>"width:728px;height:90px; float:left;"}
+            = "<!--/ Leaderboard /-->"
+            = current_group.leaderboard_content
+        .clear
 
 

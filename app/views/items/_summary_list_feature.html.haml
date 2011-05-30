@@ -50,7 +50,7 @@
               -topics_array << topic
             -topics_array[0..1].each do |topic|
               %span.tag-list{:class => "tag_#{h(topic)}"}
-                = link_to "#{topic}", url_for(:controller => "search", :action => "index", :topics => "[#{topic}]"), :rel => "tag", :title => t("items.tags.tooltip", :tag => topic)
+                = link_to "#{topic}", url_for(:controller => "search", :action => "index", :q => "#{topic}"), :rel => "tag", :title => t("items.tags.tooltip", :tag => topic), :style=>"background-color:#{current_group.primary_dark}"
 
 
       -else

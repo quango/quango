@@ -14,6 +14,18 @@
     .description
       = t('.custom_channel_content')
 
+  = "You can override the homepage leaderboard, this slot appears instead of the standard leaderboard, the standard leader is moved down below the summary"
+
+  .group
+    = f.check_box :has_custom_leaderboard, :class => "checkbox"
+    = f.label :has_custom_leaderboard, "Show custom leaderboard on homepage", :class => "radio"
+
+  .group
+    = f.label :custom_leaderboard_content, "Show leaderboard on community homepage", :class => "label"
+    = f.text_area :custom_leaderboard_content, :class => "text_field"
+    .description
+      = t('.custom_channel_content')
+
 
 
   .clear
