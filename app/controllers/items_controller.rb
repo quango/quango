@@ -24,6 +24,30 @@ class ItemsController < ApplicationController
   helper :items
 
 
+  def change_doctype
+
+    @item = current_group.items.find_by_slug_or_id(params[:id])
+    @doctypes = current_group.doctypes
+    @doctype = Doctype.find_by_slug_or_id(params[:doctype_id])
+
+    respond_to do |format|
+      #@item.safe_update(%w[doctype_id], params[:item])
+
+      if @item.valid? && @item.save
+
+        flash[:notice] = t(:flash_notice, :scope => "items.update")
+
+        format.html { redirect_to(item_path(@doctype, @item)) }
+
+      else
+        format.html { render :action => "change_doctype" }
+      #format.html
+      end
+    end
+  end
+
+
+
   def get_video_info
     respond_to do |format|
       format.js do

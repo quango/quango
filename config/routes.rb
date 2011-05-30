@@ -68,7 +68,7 @@ ActionController::Routing::Routes.draw do |map|
         doctypes.resources :items, 
                            :collection => {:get_video_info => :get, :tags => :get,:tags_for_autocomplete => :get,:unanswered => :get,:related_items => :get},
                            :member     => {:bump => :any,:solve => :get,:unsolve => :get,:favorite => :any,:unfavorite => :any,:watch => :any,:unwatch => :any,
-                                                 :history => :get,:revert => :get,:diff => :get,
+                                                 :history => :get,:revert => :get,:diff => :get, :change_doctype => :get,
                                                  :move => :get,:move_to => :put, :retag => :get,:retag_to => :put,
                                             :close => :put,:open => :put}, :name_prefix => nil, :as => 'index'  do |items| #:name_prefix => nil,
 

@@ -5,7 +5,7 @@
   .actions
 
     = link_to "Feature this item", new_item_flag_path(@doctype, @item), :class => "flag-link", :style => "float:left;", :id => "item_flag_link"
-
+    = link_to "Change", change_doctype_item_path(@doctype, @item), :class => "flag-link", :style => "float:left;", :id => "item_flag_link"
 
     - if !@flag.new?
       .flagged
