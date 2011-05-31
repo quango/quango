@@ -86,11 +86,22 @@
         -#.clear
         = render :partial => "shared/sidebar_actions", :locals =>  {:width=> "wide"}
         = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
+
         -if current_group.has_medium_rectangle
-          .label
-            = "Advertisment"
-          .medium-rectangle{:style=>"width:300px;height:250px; float:left; background-color:pink; border-bottom:1px solid white"}
+          .medium-rectangle{:style=>"background-color:white; width:300px;height:250px;margin:10px 0; padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
             = current_group.medium_rectangle_content
           .clear
+
         = render :partial => "shared/sponsored_links",  :locals => {:width => "wide"}
+
+        -if current_group.has_threeone_rectangle
+          .threeone-rectangle{:style=>"background-color:white; width:300px;height:100px;margin:10px 0; padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
+            = current_group.threeone_rectangle_content
+          .clear
+        .block{:style => "margin-bottom:4px"}
+          %h3{:style=>"background:#{current_group.primary_dark}"}
+            = "About this site"
+          .content
+            .markdown{:style => "padding:10px"}
+              = markdown(current_group.description)
 
