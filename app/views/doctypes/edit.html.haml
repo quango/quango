@@ -8,6 +8,14 @@
     %p
       - form_for @doctype, :html =>{ :method => :put } do |f| #, :url => doctype_path(@group)
         = f.error_messages
+
+        .group
+          = "Public Access? Uncheck this box if you do not want it to appear in the sidebar"
+          = f.check_box :public_access
+
+        %hr
+        %span
+          = "&nbsp;"
         .group
           = f.text_field :name, :value => @doctype.name
         .group

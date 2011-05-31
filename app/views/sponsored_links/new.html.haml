@@ -8,10 +8,25 @@
     %p
       - form_for @sponsored_link do |f|
         = f.error_messages
-        %p
-          = f.text_area :name, :value => @sponsored_link.name, :rows => "3", :style => "width:153px;"
+        .group{:style=>"display:none"}
+          = "A unique name for this link ( usually the sponsor )<br/>"
+          = f.text_field :name, :value => @sponsored_link.id, :readonly => true
+        .group
+          = "The short text for the link itself<br/>"
+          = f.text_field :sponsored_link, :value => @sponsored_link.sponsored_link
 
         .group
+          = "The URL that this link should point at (include http://)<br/>"
+          = f.text_field :sponsored_link_url, :value => @sponsored_link.sponsored_link_url
+        .group
+          = "The text description of this sponsor<br/>"
+          = f.text_area :sponsored_link_text, :value => @sponsored_link.sponsored_link_text, :rows => "3", :style => "width:172px;"
+        .group
+          = "Path to the image, must be 120x60. This will be deprecated for native upload in future releases<br/>"
+          = f.text_field :sponsored_link_image, :value => @sponsored_link.sponsored_link_image
+
+
+        .group{:style=>"display:none"}
           .box.left{:style => "width:50%"}
             = f.label :sponsored_link_image, t('Wide logo', :scope => "activerecord.attributes.group"), :class => "label"
             -unless @sponsored_link.new?

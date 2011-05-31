@@ -3,16 +3,18 @@ This is mainly a bugfix release, but also a few usability issues
 
 Changelog
 
-* X
+* Added custom leaderboard on welcome pages - when selected this occupies the top leaderboard slot, the standard leaderboard is moved to the bottom of the page
+* Added third advertising slot added to comly IAB 3:1 Rectangle
+* Added public flag to doctype - hide create buttons on the sidebar, this is a temporary fix until the UAC is implemented
 
 
 Bugfixes ( Spotted by )
 
-*
+* Changed leaderboard so if not present no blank space is seen
 
 Stylefixes
 
-* Changed width of page to accomodate current IAB banner sizes
+* Numerous fixes for IE Compatability
 
 Developers Notes
 

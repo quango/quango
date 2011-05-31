@@ -7,12 +7,15 @@
         = current_group.sponsors_label
       .content
         -if current_group.has_sponsors?
-          - current_group.sponsored_links.each do |sponsored_link|
+          - current_group.sponsored_links.each do |slink|
             .sponsored-link-wide
-              .thumbnail{:style => "width:140px; height:40px; float:left;background:#{current_group.supplementary};"}
+              .thumbnail{:style => "width:120px; height:60px; float:left;background:#{current_group.supplementary};"}
+                - if slink.sponsored_link_image
+                  = link_to "<img src='#{slink.sponsored_link_image}' height='60px' width='120px' border='0' title='#{slink.sponsored_link.to_s}' alt='#{slink.sponsored_link.to_s}'>", slink.sponsored_link_url
                 = "&nbsp;"
-              .text{:style => "width:152px; height:40px; line-height:13px;; float:right; overflow:hidden; padding:0 4px;"}
-                = sponsored_link.name.to_s
+              .text{:style => "width:172px; height:60px; line-height:13px;; float:right; overflow:hidden; padding:0 4px;"}
+                = link_to "#{slink.sponsored_link.to_s}", slink.sponsored_link_url, :style=>"font-weight:bold"
+                = "<br/>#{slink.sponsored_link_text.to_s}"
 
   -if width == "narrow"
     .block

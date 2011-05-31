@@ -47,6 +47,9 @@ class Group
   key :has_medium_rectangle, Boolean, :default => false
   key :medium_rectangle_content, String
 
+  key :has_threeone_rectangle, Boolean, :default => false
+  key :threeone_rectangle_content, String
+
   key :standard_leaderboard, Boolean, :default => false
   key :standard_leaderboard_content, String
 

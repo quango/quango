@@ -43,11 +43,11 @@
           - current_group.sponsored_links.each do |sponsored_link|
             %tr
               %td
-                -#= image_tag(image_sponsored_link_path(@sponsored_link.sponsored_link_image))
+                = "image"
               %td
-                = sponsored_link.name.to_s
+                = sponsored_link.sponsored_link.to_s
               %td
-                = link_to 'Show', sponsored_link_path(sponsored_link)
+
                 = link_to 'Edit', edit_sponsored_link_path(sponsored_link)
                 = link_to 'Destroy', sponsored_link_path(sponsored_link), :confirm => 'Are you sure?', :method => :delete
 

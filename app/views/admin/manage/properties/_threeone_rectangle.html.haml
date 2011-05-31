@@ -1,0 +1,23 @@
+#main
+  %h1
+    = "3:1 Rectangle"
+
+  = "You can choose to show or not to show"
+
+  .group
+    = f.check_box :has_threeone_rectangle, :class => "checkbox"
+    = f.label :has_threeone_rectangle, "Show 3:1 rectangles", :class => "radio"
+
+  .group
+    = f.label :threeone_rectangle_content, "Medium rectangle content", :class => "label"
+    = f.text_area :threeone_rectangle_content, :class => "text_field"
+
+  .clear
+
+  .group.navf
+    = f.submit t('scaffold.update'), :class => "action-button"
+
+
+
+
+

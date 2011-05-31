@@ -1,39 +1,40 @@
 -content_for :subtabs do
 
-  .secondary-navigation{:class => @active_subtab.to_s,:style => "background-color:#{current_group.secondary}"}
+  .secondary-navigation{:style => "background-color:#{current_group.secondary}"}
     %h3
       = t("layouts.manage.properties.#{@active_subtab}.title")
     .navcontrols
       %ul
-        %li.sponsor
+        %li
           = link_to t("layouts.manage.sponsor"), manage_properties_path(:tab => "sponsor"), :class=>"standard-button"
-        %li.sponsored_links
+        %li
           = link_to t("layouts.manage.sponsors"), manage_properties_path(:tab => "sponsored_links"), :class=>"standard-button"
-        %li.general
+        %li
           = link_to t("layouts.manage.general"), manage_properties_path(:tab => "general"), :class=>"standard-button"
-        %li.general
+        %li
           = link_to t("layouts.manage.channels"), manage_properties_path(:tab => "channels"), :class=>"standard-button"
-        %li.general
+        %li
           = link_to "LB", manage_properties_path(:tab => "leaderboard"), :class=>"standard-button"
-        %li.general
+        %li
           = link_to "MR", manage_properties_path(:tab => "medium_rectangle"), :class=>"standard-button"
-        %li.messaging
+        %li
+          = link_to "3:1", manage_properties_path(:tab => "threeone_rectangle"), :class=>"standard-button"
+        %li
           = link_to t("layouts.manage.messaging"), manage_properties_path(:tab => "messaging"), :class=>"standard-button"
-
-        %li.analytics
+        %li
           = link_to t("layouts.manage.analytics"), manage_properties_path(:tab => "analytics"), :class=>"standard-button"
-        %li.signup
-          = link_to t("layouts.manage.signup_button"), manage_properties_path(:tab => "signup_button"), :class=>"standard-button"
-        %li.share
+        %li
+          = link_to "Signup", manage_properties_path(:tab => "signup_button"), :class=>"standard-button"
+        %li
           = link_to t("global.share"), manage_properties_path(:tab => "share"), :class=>"standard-button"
-        %li.theme
+        %li
           = link_to t("layouts.manage.theme"), manage_properties_path(:tab => "theme"), :class=>"standard-button"
-        %li.theme
+        %li
           = link_to "CSS", manage_properties_path(:tab => "css"), :class=>"standard-button"
-        %li.constrains
+        %li
           = link_to t("layouts.manage.constrains"), manage_properties_path(:tab => "constrains"), :class=>"standard-button"
-        %li.rewards
+        %li
           = link_to t("layouts.manage.rewards"), manage_properties_path(:tab => "rewards"), :class=>"standard-button"
-        %li.domain
+        %li
           = link_to t("layouts.manage.domain"), manage_properties_path(:tab => "domain"), :class=>"standard-button"
   .clear

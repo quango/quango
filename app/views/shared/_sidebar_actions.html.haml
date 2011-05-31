@@ -7,7 +7,7 @@
     %ul
       - current_group.doctypes.each do |doctype|
 
-        - if !doctype.hidden
+        - if !doctype.hidden || doctype.public_access
           %li{:style=>"padding:2px 0; height:22px;"}
             = link_to "#{doctype.create_label}", new_item_path(doctype), :class => "contribute-button-narrow"
 
@@ -21,7 +21,7 @@
       %ul{:style=>"display:block"}
         - current_group.doctypes.each do |doctype|
 
-          - if !doctype.hidden
+          - if !doctype.hidden && doctype.public_access
             %li{:style=>"margin:0; height:28px;float:left"}
               = link_to "#{doctype.create_label}", new_item_path(doctype), :class => "contribute-button", :style => "width:118px;height:18px; line-height:18px;" 
 

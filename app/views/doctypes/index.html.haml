@@ -21,6 +21,8 @@
           %th
             = "#"
           %th
+            = "Public?"
+          %th
             = "Hide?"
           %th
             = "Expanded?"
@@ -46,6 +48,8 @@
                 = submit_tag("down", :name=>"move_to", :value => "down")
             %td
               = "#{doctype.items.count.to_i}"
+            %td
+              = "#{doctype.public_access}"
             %td
               = "#{doctype.hidden}"
             %td
