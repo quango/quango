@@ -6,6 +6,7 @@
 
 
 .answer-form-holder
+
   = f.hidden_field :doctype_id, :value => @doctype.id
 
   -if @doctype.has_video?

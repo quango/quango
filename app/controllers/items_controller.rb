@@ -187,6 +187,8 @@ class ItemsController < ApplicationController
 
   def revert
     @item.load_version(params[:version].to_i)
+    @doctypes = current_group.doctypes
+    @doctype = Doctype.find_by_slug_or_id(params[:doctype_id])
 
     respond_to do |format|
       format.html

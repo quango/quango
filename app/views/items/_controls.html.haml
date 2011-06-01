@@ -4,8 +4,8 @@
 .controls
   .actions
 
-    = link_to "Feature this item", new_item_flag_path(@doctype, @item), :class => "flag-link", :style => "float:left;", :id => "item_flag_link"
-    = link_to "Change", change_doctype_item_path(@doctype, @item), :class => "flag-link", :style => "float:left;", :id => "item_flag_link"
+    = link_to "Feature", new_item_flag_path(@doctype, @item), :class => "control-link", :style => "float:left;", :id => "item_flag_link"
+    = link_to "Change", change_doctype_item_path(@doctype, @item), :class => "control-link", :style => "float:left;", :id => "item_flag_link"
 
     - if !@flag.new?
       .flagged
@@ -37,7 +37,7 @@
           = link_to t(".request_opening"), new_item_open_request_path(@doctype, @item), :id => "request-open-link", :rel => 'nofollow', :title => t('.request_opening_details')
 
       - if @item.versions.count > 0
-        = link_to t(".history", :default => "history"), history_item_path(@doctype, @item)
+        = link_to t("History", :default => "History"), history_item_path(@doctype, @item), :class=>"control-link"
       - if (current_user.can_modify?(@item) || current_user.owner_of?(@item.group))
         = link_to t("scaffold.destroy"), item_path(@doctype, @item.id), :confirm => "are you sure?", :method => :delete
       - if current_user.mod_of?(@item.group)

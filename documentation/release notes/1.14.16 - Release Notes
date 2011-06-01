@@ -1,0 +1,27 @@
+
+This is mainly a bugfix release, but also a few usability issues
+
+Changelog
+
+* Optional Feature boxes on homepages - this allows you to highlight content sections eg. Events, People, Sponsors & Reviews ( or whatever )
+
+
+Bugfixes ( Spotted by )
+
+* Fixed history / diffs bug - editors can now rollback
+
+Stylefixes
+
+* 
+
+Developers Notes
+
+
+
+
+
+Pending for next release:
+
+* Rollovers for member lists ( mono -> colour )
+* Fix bumping to be a maximum of three times & fix the "bumped by" on show pages - consider a bumpkin marker?
+* Adapt bump into pin so posts can be made sticky as well as bumped
