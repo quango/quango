@@ -9,6 +9,9 @@ Changelog
 Bugfixes ( Spotted by )
 
 * Fixed history / diffs bug - editors can now rollback
+* Fixed hidden doctypes on welcome page bug
+* Fixed "admin" thing on display names ( now admins are shown with a small skull and crossbones )
+* Fixed time-ago {{count}} bug - basically needed to update locales with %{count} to override the {count} in Rails 2.3.8
 
 Stylefixes
 

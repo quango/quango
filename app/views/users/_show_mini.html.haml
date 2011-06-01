@@ -3,21 +3,21 @@
 .member{:style=>"float:left; margin:0 7px;"}
   -unless user.nil?
     =link_to h(user.display_name), user_path(user)
+    -if user.owner_of?(current_group)
+      %div.ownerflair
+        = "<img src='/images/owner-icon.png' height='16px' width='19px' title='Site Administrator' alt='Site Administrator'/>"
+
 
   .reputation{:title => t("activerecord.attributes.user.reputation"),:style=>"float:left; margin:0 7px;"}
     -unless user.nil?
-      -if user.owner_of?(current_group)
-        %span.ownerflair{:title => "This user is an admin"}
-          Admin
-      -elsif user.mod_of?(current_group)
-        %span.modflair{:title => "moderator", :style=>"background-color:bronze"}
-          Associate
+
+      -if user.mod_of?(current_group)
+        %span.modflair{:title => "moderator", :style=>"background-color:bronze; display:none"}
+          Moderator
       -elsif user.editor_of?(current_group)
         %span.editorflair{:title => "editor", :style=>"background-color:silver"}
           Editor
-      -elsif user.editor_of?(current_group)
-        %span.editorflair{:title => "editor", :style=>"background-color:#{current_group.tertiary}"}
-          Beta
+
     -else
       = t('users.deleted')
     -unless user.nil?

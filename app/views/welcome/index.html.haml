@@ -60,8 +60,9 @@
 
       - if doctypes_array.count > 3
         - doctypes_array[3..7].each do |doctype|
-          %li{:class => doctype.name }
-            = render :partial => "items/summary_header_welcome", :locals => {:doctype => doctype, :section => doctype, :tab=>"activity", :expanded => doctype.expanded}
+          - if !doctype.hidden
+            %li{:class => doctype.name }
+              = render :partial => "items/summary_header_welcome", :locals => {:doctype => doctype, :section => doctype, :tab=>"activity", :expanded => doctype.expanded}
 
 
 
