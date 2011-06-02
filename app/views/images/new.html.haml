@@ -27,12 +27,12 @@
             = f.label :copyright
             = f.text_field :copyright, :value => @image.copyright, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
             .small
-              = "The system will default to your name unless otherwise specified, this measn that the image will be licensed under the same creative commons"
+              = "The system default is public domain unless otherwise specified, this mean that the image will be licensed under creative commons"
 
         .answer-form
           .group
             = f.label :copyright_url
-            = f.text_field :copyright_url, :value => "#{domain_url(:custom => current_group.domain)}#{user_path(current_user)}", :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+            = f.text_field :copyright_url, :value => "#{domain_url(:custom => current_group.domain)}", :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
             .small
               = "Unless otherwise specified the system defaults your member profile. "
 
