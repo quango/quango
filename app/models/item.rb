@@ -19,7 +19,7 @@ class Item
   key :title, String, :required => true
   key :body, String
 
-  slug_key :title, :unique => true, :min_length => 8
+  slug_key :title, :unique => true, :min_length => 4
   key :slugs, Array, :index => true
 
   #video stuff (replace with model later)
@@ -289,8 +289,8 @@ class Item
         return
       end
 
-      if !self.title.blank? && (self.title.split.count < 4)
-        self.errors.add(:title, I18n.t("items.model.messages.too_short", :count => 4))
+      if !self.title.blank? && (self.title.split.count < 2)
+        self.errors.add(:title, I18n.t("items.model.messages.too_short", :count => 2))
       end
 
       if !self.body.blank? && (self.body.split.count < 4)
