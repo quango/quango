@@ -10,6 +10,13 @@
         = f.error_messages
 
         .group
+          = "Featured? Check this box if you want it in the features"
+          = f.check_box :featured
+
+        %hr
+        %span
+
+        .group
           = "Public Access? Uncheck this box if you do not want it to appear in the sidebar"
           = f.check_box :public_access
 

@@ -100,7 +100,7 @@ class ImagesController < ApplicationController
     respond_to do |format|
       if @image.save
         
-        format.html { redirect_to(item_images_path(@item.doctype, @item), :notice => 'Image was successfully updated so it claims.') }
+        format.html { redirect_to(item_path(@item.doctype, @item), :notice => 'Image was successfully updated so it claims.') }
         format.xml  { render :xml => @image, :status => :created, :location => @image }
       else
         format.html { render :action => "new" }

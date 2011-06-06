@@ -480,7 +480,7 @@ class ItemsController < ApplicationController
         current_group.on_activity(:ask_item)
         flash[:notice] = "Thanks, you have just " + @doctype.created_label.to_s
 
-        format.html { redirect_to item_path(@doctype, @item)}
+        format.html { redirect_to item_images_path(@doctype, @item)}
         #format.html { redirect_to("/#{@item.section}/#{@item.slug}") }
 
         format.json { render :json => @item.to_json(:except => %w[_keywords watchers]), :status => :created}

@@ -125,7 +125,8 @@
             = current_group.leaderboard_content
         .clear
 
-
+      .inner
+        = render :partial => "featured_sections", :locals => {:expanded => true}
       .inner
         = render :partial => "homepage_content", :locals => {:expanded => true}
 

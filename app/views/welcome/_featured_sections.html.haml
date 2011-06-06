@@ -1,0 +1,85 @@
+.section-head-welcome
+  .secondary-navigation-sections{:style=>"background-color:#{current_group.secondary}"}
+    .features{:style=>"font-family:georgia; font-weight:bold; font-size:18px;padding-left:10px;"}
+      = "Todays features...."  
+      .navcontrols{:style => "width:96px; height:32px; float:right"}
+        %a.show_features{:class => "features navlinks showhide left", :style=>"color:#{current_group.primary}"}
+          = "show features"
+        %a.hide_features{:class => "features navlinks showhide left", :style=>"color:#{current_group.primary}"}
+          = "hide features"
+
+ 
+      
+  .section-listing-welcome{:class => "features"}
+    - slideshow_delay = 0
+    -current_group.doctypes.reverse.each do |doctype|
+      -if doctype.featured
+        -slideshow_delay = slideshow_delay + 1200
+        -#  = slideshow_delay.to_s
+        %div{:style=>"width:181px;float:right;border-left:1px solid white", :class=>"feature-box"}
+          -#= "#{slideshow_delay}"
+          %h4{:style=>"height:24px;line-height:26px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color: white; background-color:#{current_group.tertiary}; border-bottom:4px solid #{current_group.primary};margin:0; font-size:16px; letter-spacing:0;font-weight:bold;"}
+            %div{:style=>"padding:2px 0 2px 4px; height:18px; width:18px; float:left;"}
+              = "<img src='/images/logos/star_16.png' height='16px' width='16px'/>"
+            = "#{doctype.name}"
+          .feature-slideshow
+            - items_array = Array.new
+            - doctype.items.each do |item|
+              - items_array << item 
+
+            .slideshow{:class=>"#{doctype.name}"}    
+              - items_array[0..2].each do |item|
+
+                = render :partial => "/items/welcome_features", :locals => {:item => item, :sort=>"hot"}
+
+        %script{:type => "text/javascript"}
+          = "$(document).ready(function() {"
+          = "    $('.slideshow.#{doctype.name}').delay('#{slideshow_delay}').cycle({"
+          = "		fx: 'fade' // choose your transition type, ex: fade, scrollUp, shuffle, etc..."
+
+          = "	});"
+          = "});"
+
+
+    %script{:type => "text/javascript"}
+      = "// collapse:"
+      = "$('.hide_features.features').click(function() {"
+      = "$('.hide_features.features').css('display','none');"
+      = "$('.show_features.features').css('display','block');"
+      = "$('.features.section-listing-welcome').hide('fast');"
+      -#= "$.cookie('summary.index.summary', 'collapsed', { expires: 2 });"
+      = "});"
+      = "// expand:"
+      = "$('.show_features.features').click(function() {"
+      = "$('.show_features.features').css('display','none');"
+      = "$('.hide_features.features').css('display','block');"
+      = "$('.features.section-listing-welcome').show('slow');"
+      -#= "$.cookie('summary.index.summary', 'expanded', { expires: 2 });"
+      = "});"
+      = "// ok so far"
+      -#= "// COOKIES"
+      -#= "var summary = $.cookie('summary.index.summary');"
+      -#= "	// Set the user's selection for the left column"
+      -#= "if (summary == 'collapsed') {"
+      -#= "$('.hide_summary.summary').css('display','none');"
+      -#= "$('.show_summary.summary').css('display','block');"
+      -#= "$('.summary.section-listing-welcome').hide();"
+      -#= "};"
+      -#= "if (summary == 'expanded') {"
+      -#= "$('.hide_summary.summary').css('display','block');"
+      -#= "$('.show_summary.summary').css('display','none');"
+      -#= "$('summary.summary.section-listing-welcome').show();"
+      -#= "};"
+      - if expanded == false
+        -#= "if (summary == null) {"
+        = "$('.show_features.features').css('display','block');"
+        = "$('.hide_features.features').css('display','none');"
+        = "$('.features.section-listing-welcome').hide();"
+        -#= "};"
+      - else
+        -#= "if (summary == null) {"
+        = "$('.hide_features.features').css('display','block');"
+        = "$('.show_features.features').css('display','none');"
+        = "$('.features.section-listing-welcome').show();"
+        -#= "};"
+      -#= "};"

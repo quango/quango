@@ -3,8 +3,8 @@
 
   -if width == "wide"
     .block
-      %div{:style => "width:300px;height:90px; border-bottom: 1px solid white; background-color:#{current_group.primary}"}
-        %div{:style => "font-size:13px; padding:4px 8px 0 8px; font-weight:bold; color:white; "}
+      %div{:style => "width:300px;height:90px; border-bottom: 1px solid white; background-color:#{current_group.secondary}"}
+        %div{:style => "font-size:13px; padding:4px 8px 0 8px; font-weight:bold; color:black; "}
           = current_group.signup_button_title
         %div{:style => "font-size:11px; margin-bottom:8px "}
           = current_group.signup_button_description
@@ -13,9 +13,9 @@
           = link_to current_group.signup_button_label, new_user_path, :class => "create-button", :style => "height:28px; line-height:28px ;margin:0 8px; width:250px;"
           = link_to current_group.signup_button_label, new_user_path, :class => "create-button-glow", :style => "height:28px; line-height:28px ;margin:0 8px; width:250px;"
 
-        %div{:style => "font-size:12px; padding:0 8px; float:right; color: white "}
+        %div{:style => "font-size:12px; padding:0 8px; float:right; color: black "}
           = current_group.signup_button_footnote
-          = "Already a member? <a href='/users/login' style='color:white; font-weight:bold;'><span style='text-decoration:underline'>Lo</span>g<span style='text-decoration:underline'>in here</span></a>"
+          = "Already a member? <a href='/users/login' style='color:black; font-weight:bold;'><span style='text-decoration:underline'>Lo</span>g<span style='text-decoration:underline'>in here</span></a>"
       .clear
 
       %script{:type=>"text/javascript"}
@@ -31,7 +31,7 @@
     %h3
       = "Join!"
     .block
-      .group-button{:style => "width:124px;height:169px; border-bottom: 1px solid white"}
+      .group-button{:style => "border-bottom: 1px solid white"}
         %div{:style => "font-size:14px; margin:4px; font-weight:bold;color:white "}
           = current_group.signup_button_title
         %div{:style => "font-size:12px; margin-bottom:8px "}
@@ -48,9 +48,7 @@
       .clear
 
   -if width == "narrow"
-    .block
-      %div{:style => "width:124px;height:169px; border-bottom: 1px solid white"}
-      .clear
+
 
 
 

@@ -5,8 +5,15 @@
       = "Editing &quot;#{@item.title}'s&quot; Images"
       = link_to "Back to page", item_path(@item.doctype, @item), :style => "float: right; color:white"
 
+
+
+    -if @item.images.empty? 
+      %p
+        = "No images"
+
     .toolbox
       = link_to 'Add an image to this post', new_item_image_path(@item.doctype, @item), :class => "button", :style => "float:right"
+
 
     %p
       %table{:class => "image-table"}

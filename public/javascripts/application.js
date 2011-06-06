@@ -23,6 +23,13 @@ $(".user-mini").hover(
 });
 
 $(document).ready(function(){
+$(".feature").hover(
+    function() {$(".feature").children('.a').stop().animate({"opacity": "0"}, "slow");},
+    function() {$(".feature").children('.a').stop().animate({"opacity": "1"}, "fast");}
+);
+});
+
+$(document).ready(function(){
 $(".avatar-narrow").hover(
     function() {$(this).children('.a').stop().animate({"opacity": "0"}, "slow");},
     function() {$(this).children('.a').stop().animate({"opacity": "1"}, "fast");}
@@ -44,6 +51,14 @@ $(".fade-thumbnails a").hover(
     function() {$(this).children('.a').stop().animate({"opacity": "1"}, "fast");}
 );
 });
+
+$(document).ready(function(){
+$(".features-thumbnail").hover(
+    function() {$(this).children('.a').stop().animate({"opacity": "0"}, "slow");},
+    function() {$(this).children('.a').stop().animate({"opacity": "1"}, "fast");}
+);
+});
+
 
 $(function() {	// setup ul.tabs to work as tabs for each div directly under div.panes	
   $("#member-tabs ul.member-tabs").tabs("div.panes > div.pane", { history: true, effect: 'fade', fadeOutSpeed: 400 });
