@@ -123,7 +123,7 @@
         = render :partial => "featured_sections", :locals => {:expanded => true}
       -if current_group.has_custom_leaderboard
         .inner
-          .leaderboard
+          .leaderboard{:style=>"border-top: 10px solid gainsboro; border-bottom:10px solid gainsboro;"}
             = "<!--/ Leaderboard /-->"
             = current_group.custom_leaderboard_content
         .clear
