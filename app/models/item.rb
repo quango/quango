@@ -104,7 +104,7 @@ class Item
   validates_presence_of :user_id
   validates_uniqueness_of :slug, :scope => :group_id, :allow_blank => true
 
-  validates_length_of       :title,    :within => 5..100, :message => lambda { I18n.t("items.model.messages.title_too_long") }
+  validates_length_of       :title,    :within => 3..100, :message => lambda { I18n.t("items.model.messages.title_too_long") }
   validates_length_of       :body,     :minimum => 5, :allow_blank => true, :allow_nil => true, :if => lambda { |q| !q.disable_limits? }
   validates_true_for :tags, :logic => lambda { tags.size <= 9},
                      :message => lambda { I18n.t("items.model.messages.too_many_tags") if tags.size > 9 }
@@ -289,8 +289,8 @@ class Item
         return
       end
 
-      if !self.title.blank? && (self.title.split.count < 2)
-        self.errors.add(:title, I18n.t("items.model.messages.too_short", :count => 2))
+      if !self.title.blank? && (self.title.split.count < 0)
+        self.errors.add(:title, I18n.t("items.model.messages.too_short", :count => 1))
       end
 
       if !self.body.blank? && (self.body.split.count < 4)
