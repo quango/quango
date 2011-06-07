@@ -27,10 +27,10 @@
     %div{:style=>"float:right"}
       - if (@item.wiki && current_user.can_edit_wiki_post_on?(@item.group)) || current_user.can_edit_others_posts_on?(@item.group) || current_user.can_modify?(@item)
         - if current_user.can_edit_others_posts_on?(@item.group)
-          = link_to "Bump", bump_item_path(@doctype, @item), :style => "text-shadow:orange;border: 2px solid orange;background-color:orange; color:white", :class => "toolbar-button"
-        = link_to "Edit", edit_item_path(@doctype, @item), :style => "text-shadow:red;border: 2px solid red;background-color:red; color:white", :class => "toolbar-button"
+          = link_to "Bump", bump_item_path(@doctype, @item), :style => "color:white", :class => "toolbar-button"
+        = link_to "Edit", edit_item_path(@doctype, @item), :style => "", :class => "toolbar-button red"
 
-        = link_to "Edit images", item_images_path(@doctype, @item), :style => "text-shadow:green;border: 2px solid green;background-color:green; color:white", :class => "toolbar-button" 
+        = link_to "Images", item_images_path(@doctype, @item), :style => "", :class => "toolbar-button green" 
 
 
   -# if current_user.can_modify?(@item.group)

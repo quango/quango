@@ -312,22 +312,35 @@ a.buy-button
 
 
 .toolbar-button
+  font-family: "Arial Narrow", sans-serif
   font-weight: bold
-  font-size: 12px
-  //text-transform: uppercase
+  font-size: 14px
+  letter-spacing: -1px
+  text-transform: uppercase
   height: 24px
   color: white
   margin: 4px
-  padding: 4px 8px 4px 8px
-  background-image: url(/images/white_25_bg.png)
-  background-repeat: repeat
+  padding: 4px 4px 4px 4px
+  //background-image: url(/images/white_25_bg.png)
+  //background-repeat: repeat
 
-  height: 16px
-  line-height: 16px
+  height: 14px
+  line-height: 14px
   margin: 0px
-  +rounded(4px,4px,4px,4px)
+  //+rounded(4px,4px,4px,4px)
   //border: 2px solid white
 
+  &.red
+    +fancy-button(#9a0000)
+    +fancy-button-structure(14px, 4px, 1px)
+    +fancy-button-colors(#9a0000, adjust-hue(#9a0000, -3), darken(adjust-hue(#9a0000, -3), 1))
+    border: black
+
+  &.green
+    +fancy-button(#0a850a)
+    +fancy-button-structure(14px, 4px, 1px)
+    +fancy-button-colors(#0a850a, adjust-hue(#0a850a, -3), darken(adjust-hue(#0a850a, -3), 1))
+    border: black
 
   &:hover
     background-image: url(/images/white_50_bg.png)

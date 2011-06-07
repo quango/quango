@@ -43,10 +43,19 @@
 
 
   #sidebar{:style=>"float:left;border-right:1px solid white"}
+
+
+
+    .sidebar-heading{:style => "line-height:32px;width:136px;height:32px;background-color:#{current_group.primary_dark}; color:white;font-family:'Arial Narrow',sans-serif; font-weight:bold;font-size:14px; letter-spacing:-1px;padding-left:4px;"}
+      = "#{@doctype.name.capitalize}"
+
+    -if @doctype.product_format
+      = "product format"
+
     = render :partial => "author", :locals => {:width => "narrow"}
     = render :partial => "participants", :locals=> {:item => @item}
 
-    = render :partial => "shared/sidebar_actions",  :locals => {:width => "narrow"}
+
 
     = render :partial => "shared/current_tags"
     = render :partial => "shared/tag_list", :object => @tag_cloud
@@ -89,7 +98,7 @@
   #main-index
     .content
       .inner
-        .toolbox
+        .toolbox{:style=>"background-color:#{current_group.primary_dark}"}
           = render :partial => "toolbox"
         -if logged_in?
           -if current_user.owner_of?(current_group) | current_user.mod_of?(current_group)
@@ -102,6 +111,17 @@
             %div
               = @item.title
             = render :partial => "video_player", :object=>@item
+
+        -if @doctype.product_format
+          = "This page is a product format"
+          #product
+
+            .product-image
+              .product-description{:style => "position:relative; color:white; background-color: black; padding:10px; font-size:14px;width:33%; z-index:10;"}
+                = @item.body
+            = render :partial => "product_image", :object=>@item
+
+
 
         #item-body-col.commentable.markdown
           %a{:name => @item.id}
@@ -194,9 +214,10 @@
     -if @doctype.has_video?
       = render :partial => "video_info", :locals => {:item => @item}
 
-
+    = render :partial => "shared/sidebar_actions",  :locals => {:width => "wide"}
     -#= render :partial => "author"
-    = render :partial => "default_image", :locals => {:item => @item}
+    -if !@doctype.product_format
+      = render :partial => "default_image", :locals => {:item => @item}
     = render :partial => "images", :locals => {:item => @item}
     = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
     -if current_group.has_medium_rectangle

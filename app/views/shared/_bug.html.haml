@@ -12,7 +12,7 @@
 - feature_url = "http://think.it/community/features/!/new?"
 - feature_url << "&item[title]=Feature Request: "
 - feature_url << "&item[tags]=feature-request,#{AppConfig.version.to_s},#{current_group.name}-#{current_group.name_highlight}"
-- feature_url << "&item[body]=This is what happened..."
+- feature_url << "&item[body]=This is what we need..."
 
 
 .bug-report{:style => "margin-left: 16px"}
@@ -25,5 +25,5 @@
       =link_to "discuss usability ", usability_url, :rel => "nofollow"
     |    
     %li
-      =link_to "change request ", feature_url, :rel => "nofollow"
+      =link_to "request something... ", feature_url, :rel => "nofollow"
 

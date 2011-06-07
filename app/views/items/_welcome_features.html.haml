@@ -1,7 +1,7 @@
 -title = h(item.title)
 
 
-%div
+%div{:style => "float:left;"}
 
   -if item.closed
     -title += " [#{t("closed", :scope => "activerecord.attributes.item").upcase}]"
@@ -30,8 +30,8 @@
             - base_image = image.image.process(:thumb,image.image_cropping)
             - base_thumbnail = base_image.process(:thumb,"181x")
             - base_thumbnail_grey = base_thumbnail.process(:greyscale, "20")
-            = link_to image_tag(base_thumbnail_grey.url, :class => 'a', :alt => image.name, :title => image.name,:style => "position: absolute;width:181px;" ), item_path(item.doctype, item)
-            = link_to image_tag(base_thumbnail.url, :class => 'b', :alt => image.name, :title => image.name,:style => "position: absolute;width:181px;" ), item_path(item.doctype, item)
+            = link_to image_tag(base_thumbnail.url, :class => 'a', :alt => image.name, :title => image.name,:style => "position: absolute;width:181px;" ), item_path(item.doctype, item)
+            = link_to image_tag(base_thumbnail_grey.url, :class => 'b', :alt => image.name, :title => image.name,:style => "position: absolute;width:181px;" ), item_path(item.doctype, item)
 
             .inner-link{:style=>"margin-top:64px;opacity:0.6;width:181px;background-color:black; color:white;position:absolute:font-size:12px;height:32px; line-height:12px;padding:4px;letter-spacing:-1px;"}
               .text

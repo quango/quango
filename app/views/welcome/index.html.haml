@@ -111,22 +111,22 @@
 
   #welcome-index{:style => "float:left; width:729px;"}
     .content
+
+      -#if current_group.has_leaderboard || !current_group.has_custom_leaderboard
+        -#.inner
+          -#.leaderboard
+            -#= "<!--/ Leaderboard /-->"
+            -#= current_group.leaderboard_content
+        -#.clear
+
+      .inner
+        = render :partial => "featured_sections", :locals => {:expanded => true}
       -if current_group.has_custom_leaderboard
         .inner
           .leaderboard
             = "<!--/ Leaderboard /-->"
             = current_group.custom_leaderboard_content
         .clear
-
-      -elsif current_group.has_leaderboard || !current_group.has_custom_leaderboard
-        .inner
-          .leaderboard
-            = "<!--/ Leaderboard /-->"
-            = current_group.leaderboard_content
-        .clear
-
-      .inner
-        = render :partial => "featured_sections", :locals => {:expanded => true}
       .inner
         = render :partial => "homepage_content", :locals => {:expanded => true}
 

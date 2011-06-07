@@ -1,14 +1,14 @@
 - expanded = local_assigns[:expanded]
 
 .section-head-welcome
-  .secondary-navigation-sections{:style => "background: #dcdcdc"}
-    .features{:style=>"color:black;font-family:georgia;font-weight:bold; font-size:18px;padding-left:10px;"}
+  .secondary-navigation-sections{:style => "background: #{current_group.primary_dark}"}
+    .features{:style=>"color:white;font-family:'Arial Narrow',sans-serif;font-weight:bold; font-size:14px;padding-left:10px;letter-spacing:-1px;"}
       = "Hot today"
 
       .navcontrols{:style => "width:96px; height:32px; float:right"}
-        %a.show_summary{:class => "summary navlinks showhide left", :style=>"color:#{current_group.primary}"}
+        %a.show_summary{:class => "summary navlinks showhide left", :style=>"color:white; letter-spacing:-1px;"}
           = "show today"
-        %a.hide_summary{:class => "summary navlinks showhide left", :style=>"color:#{current_group.primary}"}
+        %a.hide_summary{:class => "summary navlinks showhide left", :style=>"color:white; letter-spacing:-1px;"}
           = "hide today"
 
 

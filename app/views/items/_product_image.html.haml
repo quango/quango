@@ -1,0 +1,28 @@
+- item = local_assigns[:item]
+
+-if @default_thumbnail
+
+  - image = @default_thumbnail
+  - base_image = image.image.process(:thumb,image.image_cropping)
+  - expanded_image = image.image.process(:resize,"590x")
+  - base_thumbnail = base_image.process(:thumb,"300x")
+
+
+
+  .product-image{:style=>"z-index:-1;"}
+    .expand
+      = link_to (image_tag expanded_image.url, :class => 'expand', :alt => "#{image.name}", :title => "#{image.name}"), expanded_image.url, :title => "#{image.caption}"
+
+
+  .clear
+
+-else
+  - if logged_in?
+
+    .block
+      %h3{:style=>"background-color: #525051; color: white"}
+        = "Main Image"
+    .content
+      ="No image added"
+      = link_to "Add images", item_images_path(@doctype, @item), :style => "text-shadow:green;border: 2px solid green;background-color:green; color:white", :class => "toolbar-button" 
+

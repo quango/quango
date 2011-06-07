@@ -11,6 +11,10 @@
       %p
         = "No images"
 
+    -if @item.doctype.has_video? 
+      %p
+        = "No images"
+        = "Video link:" + @item.video_link
     .toolbox
       = link_to 'Add an image to this post', new_item_image_path(@item.doctype, @item), :class => "button", :style => "float:right"
 
