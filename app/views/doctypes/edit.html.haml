@@ -14,6 +14,16 @@
           = f.check_box :featured
 
         %hr
+        .group
+          = "General settings"
+        .group
+          = "Does this section include video content?"
+          = f.check_box :has_video
+        .group
+          = "Use the alternate format (shows large image and cycles through images) ?"
+          = f.check_box :product_format
+
+
         %span
 
         .group

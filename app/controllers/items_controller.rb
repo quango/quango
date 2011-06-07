@@ -414,13 +414,13 @@ class ItemsController < ApplicationController
 
     if @item.video_link?
 
-      image = Image.new
-      image.item = @item
+      #image = Image.new
+      #image.item = @item
 
-      video = VideoInfo.new(@item.video_link)
-      video_thumbnail_small = video.thumbnail_small.to_s
+      #video = VideoInfo.new(@item.video_link)
+      #video_thumbnail_small = video.thumbnail_small.to_s
 
-      image.image = video_thumbnail_small
+      #image.image = video_thumbnail_small
 
     end
 

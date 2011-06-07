@@ -23,7 +23,7 @@ class Doctype
   key :created_label, String
   key :help_text, String
 
-
+  key :product_format, Boolean, :default => false
 
   key :custom_icon, String
 
