@@ -364,16 +364,8 @@ class ItemsController < ApplicationController
   def new
     @item = Item.new(params[:item])
 
-
     @doctypes = current_group.doctypes
     @doctype = @doctypes.find_by_slug_or_id(params[:doctype_id])
-
-
-
-
-    #target_section = Doctype.find_by_slug_or_id(params[:doctype_id])
-
-    #@section = target_section
 
     @item.doctype_id = @doctype.id
 
@@ -414,10 +406,10 @@ class ItemsController < ApplicationController
 
     if @item.video_link?
 
-      #image = Image.new
-      #image.item = @item
-
-      #video = VideoInfo.new(@item.video_link)
+      video = VideoInfo.new(@item.video_link)
+      @item.title = video.title
+      @item.body = video.description
+      @item.tags = video.provider
       #video_thumbnail_small = video.thumbnail_small.to_s
 
       #image.image = video_thumbnail_small
@@ -480,8 +472,15 @@ class ItemsController < ApplicationController
         current_group.on_activity(:ask_item)
         flash[:notice] = "Thanks, you have just " + @doctype.created_label.to_s
 
-        format.html { redirect_to item_images_path(@doctype, @item)}
-        #format.html { redirect_to("/#{@item.section}/#{@item.slug}") }
+
+        if @item.video_link?
+          format.html { redirect_to item_path(@doctype, @item)}
+        else
+          format.html { redirect_to item_images_path(@doctype, @item)}
+        end
+
+
+
 
         format.json { render :json => @item.to_json(:except => %w[_keywords watchers]), :status => :created}
       else

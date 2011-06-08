@@ -1,0 +1,93 @@
+= local_assigns[f]
+= f.error_messages
+= error_messages_for(:user)
+
+
+
+
+.answer-form-holder
+
+  = f.hidden_field :doctype_id, :value => @doctype.id
+
+  -#if @doctype.has_video?
+  - if @item.new?
+    #video-link-serialize
+      .answer-form
+        .group
+          = f.label :video_link, "#{t(:video_link, :scope => "activerecord.attributes")}", :class => "label", :style => "margin-left: 8px"
+          = f.text_field :video_link, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+         
+          .description
+            = link_to "Process","#", :class => "action-button"
+          -# observe_field :video_link,:update=>"video_response", :width => "Sausage", :on => "blur"#:url=>{:controller=>"video",:action=>"get_info"},:with=>"@get_info",:on=>"blur"
+
+    #spinner{:style => "display:none; width:100%; background-color:white"}
+      = image_tag "/images/indicator.gif"
+    #results{:style => "display:none; width:100%; background-color:white"}
+      = "done"
+
+
+    .clear
+
+  -else
+
+    .answer-form
+      .group
+        = f.label :title, "#{t(:title, :scope => "activerecord.attributes.item")}", :class => "label", :style=>"margin-top:16px"
+        = f.text_field :title, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+        = "."
+        = f.label :tags, "#{t(:tags, :scope => "activerecord.attributes.item")}", :class => "label"
+        .description{:style=>"margin-left:16px"}
+          = h("Start writing your tags - hit TAB to move to the next one")
+        = f.text_field :tags,:value => @item.tags.join(", "), :class => "text_field autocomplete_for_tags"
+        = f.label :body, t(:body, :scope => "activerecord.attributes.item"), :class => "label"
+        = f.label :video_link, "#{t(:video_link, :scope => "activerecord.attributes")}", :class => "label", :style => "margin-left: 8px"
+        = f.text_field :video_link, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+
+        -if current_group.wysiwyg_editor
+          = f.text_area :body, :class => "text_area", :id => "wysiwyg_editor", :value => markdown(@item.body)
+        -else
+          = f.text_area :body, :class => "text_area", :id => "markdown_editor", :style => "height:256px; width:496px; max-width:496px; margin:0 16px"
+
+        .clear{:style => "height:16px;"}
+
+  .answer-actions{:style => "line-height:32px; height: 32px; width: 512px; margin: 0 auto 16px auto; position:relative;"}
+    = submit_tag h(current_group.publish_label), :class => "create-button", :style => "width:256px; height:28px; float:right;"
+    = link_to t('scaffold.cancel'), items_path, :class => "button cancel", :style => "float:right;"
+
+    .openedit{:style => "float:right; margin-right: 16px; display:none"}
+      = f.label :wiki, "Anybody can edit? ", :class => "radio"
+      = check_box :wiki, :class => "checkbox right"
+
+      .clear
+
+    -#markdown_preview.markdown
+      -#=markdown(@item.body)
+      -#.clear
+    -#.clear
+  .clear
+
+  -if current_group.language.nil? && AppConfig.enable_i18n
+    .group
+      = f.label :language, t(:language, :scope => "activerecord.attributes.item"), :class => "label"
+      = language_select(f, @item)
+      .description
+        = t(".language_tip")
+  -else
+    = f.hidden_field :language, :value => (current_group.language || AppConfig.default_language)
+
+  -if !@item.new?
+    .group
+      = f.label :version_message, t("wiki.model.attributes.message"), :class => "label"
+      = f.text_field :version_message, :class => "text_field"
+
+.clear
+
+
+
+
+
+
+
+
+

@@ -9,27 +9,6 @@
 
   = f.hidden_field :doctype_id, :value => @doctype.id
 
-  -if @doctype.has_video?
-    #video-link-serialize
-      .answer-form
-        .group
-          = f.label :video_link, "#{t(:video_link, :scope => "activerecord.attributes")}", :class => "label", :style => "margin-left: 8px"
-          = f.text_field :video_link, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
-         
-          .description
-            = link_to "Process","#", :class => "action-button"
-          -# observe_field :video_link,:update=>"video_response", :width => "Sausage", :on => "blur"#:url=>{:controller=>"video",:action=>"get_info"},:with=>"@get_info",:on=>"blur"
-
-    #spinner{:style => "display:none; width:100%; background-color:white"}
-      = image_tag "/images/indicator.gif"
-    #results{:style => "display:none; width:100%; background-color:white"}
-      = "done"
-
-
-    .clear
-
-  -#else
-
   .answer-form
     .group
       = f.label :title, "#{t(:title, :scope => "activerecord.attributes.item")}", :class => "label", :style=>"margin-top:16px"

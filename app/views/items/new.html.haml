@@ -36,11 +36,12 @@
     .supplementary-navigation{:class => @active_subtab.to_s, :style => "height:35px; line-height:35px; padding:0 8px 0 8px"}
       = @doctype.create_label  
 
-    .steps
-      = "Step 1 of 3"
 
 
-    -if logged_in?
+    -if logged_in? || @item.doctype.has_video
+      - form_for(@item, :html=>{:class => "form mainAnswerForm", :id => "ask_item"}) do |f|
+        =render :partial => "form_for_video", :locals => {:f => f, :doctype => @doctype}
+    -elsif logged_in?
       - form_for(@item, :html=>{:class => "form mainAnswerForm", :id => "ask_item"}) do |f|
         =render :partial => "form", :locals => {:f => f, :doctype => @doctype}
 

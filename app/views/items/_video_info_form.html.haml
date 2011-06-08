@@ -1,0 +1,53 @@
+= local_assigns[f]
+= f.error_messages
+= error_messages_for(:user)
+
+
+
+
+.answer-form-holder
+
+  = f.hidden_field :doctype_id, :value => @doctype.id
+
+  #video-link-serialize
+    .form
+      .group
+        = f.label "Add a video to", "#{t(:video_link, :scope => "activerecord.attributes")}", :class => "label", :style => "margin-left: 8px"
+        = f.text_field :video_link, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+       
+      .group{:style => "width:520px; margin:0: auto;"}
+        .left{:style => "width:256px;"}
+          = "Please paste your Youtube link in the box above and click the process button"
+        .right{:style => "width:256px;"}
+          -#= link_to "Process","#", :class => "edit-button", :style => "padding:5px; width:256px; height:24px;"
+          .answer-actions{:style => "line-height:32px; height: 32px; width: 512px; margin: 0 auto 16px auto; position:relative;"}
+
+          
+            = submit_tag "Process!", :class => "create-button", :style => "width:256px; height:28px; float:right;"
+
+
+            = link_to t('scaffold.cancel'), items_path, :class => "button cancel", :style => "float:right;"
+
+        .description
+
+        -#- observe_field :video_link,:update=>"video_response", :width => "Sausage", :on => "blur", :url=>{:controller=>"video",:action=>"get_info"},:with=>"@get_info"
+
+  #spinner{:style => "display:none; width:100%; background-color:white"}
+    = image_tag "/images/indicator.gif"
+  #results{:style => "display:none; width:100%; background-color:white"}
+
+ 
+
+
+
+
+.clear
+
+
+
+
+
+
+
+
+
