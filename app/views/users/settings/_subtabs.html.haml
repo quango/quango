@@ -1,9 +1,9 @@
 -content_for :secondary_navigation do
   
-  .secondary-navigation
+  .secondary-navigation{:style => "background-color:#{current_group.secondary};"}
     %ul
       %li
-        = link_to h("Welcome"), settings_path(:tab => "welcome")
+        = link_to h("Welcome"), settings_path(:tab => "welcome"), :class => "tab"
       %li.account
         = link_to h("Settings"), settings_path(:tab => "account")
       %li.social
