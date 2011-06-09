@@ -410,7 +410,7 @@ class ItemsController < ApplicationController
       @item.title = video.title
       @item.body = video.description
       @item.tags = video.provider
-      #video_thumbnail_small = video.thumbnail_small.to_s
+      @item.video_thumbnail = video.thumbnail_small
 
       #image.image = video_thumbnail_small
 

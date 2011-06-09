@@ -25,6 +25,7 @@ class Item
   #video stuff (replace with model later)
 
   key :video_link, String
+  key :video_thumbnail, String
 
   #key :video_id, String
   #belongs_to :video

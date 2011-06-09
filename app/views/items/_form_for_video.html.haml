@@ -17,8 +17,8 @@
           = f.label :video_link, "#{t(:video_link, :scope => "activerecord.attributes")}", :class => "label", :style => "margin-left: 8px"
           = f.text_field :video_link, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
          
-          .description
-            = link_to "Process","#", :class => "action-button"
+          -#.description
+          -# = link_to "Process","#", :class => "action-button"
           -# observe_field :video_link,:update=>"video_response", :width => "Sausage", :on => "blur"#:url=>{:controller=>"video",:action=>"get_info"},:with=>"@get_info",:on=>"blur"
 
     #spinner{:style => "display:none; width:100%; background-color:white"}

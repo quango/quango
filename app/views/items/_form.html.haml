@@ -18,6 +18,15 @@
       .description{:style=>"margin-left:16px"}
         = h("Start writing your tags - hit TAB to move to the next one")
       = f.text_field :tags,:value => @item.tags.join(", "), :class => "text_field autocomplete_for_tags"
+
+      - if @doctype.has_video?
+        = f.label :video_link, "#{t(:video_link, :scope => "activerecord.attributes")}", :class => "label", :style => "margin-left: 8px"
+        = f.text_field :video_link, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+
+        = f.label :video_thumbnail, "#{t(:video_link, :scope => "activerecord.attributes")}", :class => "label", :style => "margin-left: 8px"
+        = f.text_field :video_thumbnail, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+
+
       = f.label :body, t(:body, :scope => "activerecord.attributes.item"), :class => "label"
 
 

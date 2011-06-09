@@ -38,7 +38,7 @@
 
 
 
-    -if logged_in? || @item.doctype.has_video
+    -if logged_in? && @item.doctype.has_video?
       - form_for(@item, :html=>{:class => "form mainAnswerForm", :id => "ask_item"}) do |f|
         =render :partial => "form_for_video", :locals => {:f => f, :doctype => @doctype}
     -elsif logged_in?
