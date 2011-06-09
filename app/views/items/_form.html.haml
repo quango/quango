@@ -9,6 +9,10 @@
 
   = f.hidden_field :doctype_id, :value => @doctype.id
 
+
+
+  -# else
+
   .answer-form
     .group
       = f.label :title, "#{t(:title, :scope => "activerecord.attributes.item")}", :class => "label", :style=>"margin-top:16px"
@@ -37,13 +41,15 @@
 
       .clear{:style => "height:16px;"}
 
-      .answer-actions{:style => "line-height:32px; height: 32px; width: 512px; margin: 0 auto 16px auto; position:relative;"}
-        = submit_tag h(current_group.publish_label), :class => "create-button", :style => "width:256px; height:28px; float:right;"
-        = link_to t('scaffold.cancel'), items_path, :class => "button cancel", :style => "float:right;"
+      %hr
+      - if @doctype.has_links?
+        = f.label :article_link, "This is the source link", :class => "label", :style => "margin-left: 8px"
+        = f.text_field :article_link, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
 
-        .openedit{:style => "float:right; margin-right: 16px; display:none"}
-          = f.label :wiki, "Anybody can edit? ", :class => "radio"
-          = check_box :wiki, :class => "checkbox right"
+
+      -#.openedit{:style => "float:right; margin-right: 16px; display:none"}
+        -#= f.label :wiki, "Anybody can edit? ", :class => "radio"
+        -#= check_box :wiki, :class => "checkbox right"
 
         .clear
 
@@ -53,19 +59,24 @@
       -#.clear
     .clear
 
-  -if current_group.language.nil? && AppConfig.enable_i18n
-    .group
-      = f.label :language, t(:language, :scope => "activerecord.attributes.item"), :class => "label"
-      = language_select(f, @item)
-      .description
-        = t(".language_tip")
-  -else
-    = f.hidden_field :language, :value => (current_group.language || AppConfig.default_language)
+    -if current_group.language.nil? && AppConfig.enable_i18n
+      .group
+        = f.label :language, t(:language, :scope => "activerecord.attributes.item"), :class => "label"
+        = language_select(f, @item)
+        .description
+          = t(".language_tip")
+    -else
+      = f.hidden_field :language, :value => (current_group.language || AppConfig.default_language)
 
-  -if !@item.new?
-    .group
-      = f.label :version_message, t("wiki.model.attributes.message"), :class => "label"
-      = f.text_field :version_message, :class => "text_field"
+    -if !@item.new?
+      .group
+        = f.label :version_message, t("wiki.model.attributes.message"), :class => "label"
+        = f.text_field :version_message, :class => "text_field"
+
+
+  .answer-actions{:style => "line-height:32px; height: 32px; width: 512px; margin: 0 auto 16px auto; position:relative;"}
+    = submit_tag h(current_group.publish_label), :class => "create-button", :style => "width:256px; height:28px; float:right;"
+    = link_to t('scaffold.cancel'), items_path, :class => "button cancel", :style => "float:right;"
 
 .clear
 

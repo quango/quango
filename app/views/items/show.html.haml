@@ -46,11 +46,17 @@
 
 
 
+
+
     .sidebar-heading{:style => "line-height:32px;width:136px;height:32px;background-color:#{current_group.primary_dark}; color:white;font-family:'Arial Narrow',sans-serif; font-weight:bold;font-size:14px; letter-spacing:-1px;padding-left:4px;"}
       = "#{@doctype.name.capitalize}"
 
-    -if @doctype.product_format
-      = "product format"
+    -#if @doctype.product_format
+
+      -#.product-description{:style => "position:relative; color:white; background-color: black; padding:10px; font-size:14px;width:33%; z-index:10;"}
+        -#= @item.body
+
+
 
     = render :partial => "author", :locals => {:width => "narrow"}
     = render :partial => "participants", :locals=> {:item => @item}
@@ -113,11 +119,12 @@
             = render :partial => "video_player", :object=>@item
 
         -if @doctype.product_format
-          = "This page is a product format"
-          #product
 
+          #product
             .product-image
-              .product-description{:style => "position:relative; color:white; background-color: black; padding:10px; font-size:14px;width:33%; z-index:10;"}
+              .product-description{:style => "opacity:0.7;position:absolute; color:white; background-color: black; padding:10px; font-size:14px;width:570px; z-index:10;height:auto"}
+                .product-title{:style=>"font-weight:bold;color:white; border-bottom: 1px solid white"}
+                  = @item.title
                 = @item.body
             = render :partial => "product_image", :object=>@item
 

@@ -395,7 +395,7 @@ class ItemsController < ApplicationController
   # POST /items.xml
   def create
     @item = Item.new
-    @item.safe_update(%w[doctype_id section node mode title bookmark video_link main_image main_thumbnail images body language tags wiki anonymous], params[:item])
+    @item.safe_update(%w[doctype_id section node mode title bookmark video_link article_link main_image main_thumbnail images body language tags wiki anonymous], params[:item])
     @item.group = current_group
     @item.user = current_user
 
@@ -411,6 +411,18 @@ class ItemsController < ApplicationController
       @item.body = video.description
       @item.tags = video.provider
       @item.video_thumbnail = video.thumbnail_small
+
+      #image.image = video_thumbnail_small
+
+    end
+
+    if @item.article_link?
+
+      video = VideoInfo.new(@item.video_link)
+      @item.title = @item.id
+      @item.body = "test"
+      #@item.tags = video.provider
+      #@item.video_thumbnail = video.thumbnail_small
 
       #image.image = video_thumbnail_small
 
@@ -474,6 +486,8 @@ class ItemsController < ApplicationController
 
 
         if @item.video_link?
+          format.html { redirect_to item_path(@doctype, @item)}
+        elsif @item.article_link?
           format.html { redirect_to item_path(@doctype, @item)}
         else
           format.html { redirect_to item_images_path(@doctype, @item)}
