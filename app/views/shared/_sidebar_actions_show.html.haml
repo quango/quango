@@ -1,0 +1,33 @@
+-if width == "narrow"
+
+  %h3{:style=>"background:#{current_group.primary}; color: white"}
+    = "Contribute"
+
+  %div{:style => "background-color:#{current_group.tertiary}; width:140px;padding:0 0 4px 0"}
+    %ul
+      - current_group.doctypes.each do |doctype|
+
+        - if !doctype.hidden || doctype.public_access
+          %li{:style=>"padding:2px 0; height:22px;"}
+            = link_to "#{doctype.create_label}", new_item_path(doctype), :class => "contribute-button-narrow"
+
+-if width == "wide"
+
+  %h3{:style=>"color:white; background-color:#{current_group.primary_dark}"}
+    = "Contribute..."
+
+  %div{:style => "float:left;width:300px;padding:0; margin:0; background-color:#{current_group.secondary};border-bottom:1px solid white"}
+    %div{:style => "float:left;width:150px;padding:10px 0 10px 10px;"}
+      %ul{:style=>"display:block"}
+        - current_group.doctypes.each do |doctype|
+
+          - if !doctype.hidden && doctype.public_access
+            %li{:style=>"margin:0; height:28px;float:left"}
+              = link_to "#{doctype.create_label}", new_item_path(doctype), :class => "contribute-button", :style => "border-color:black;width:118px;height:18px; line-height:18px;" 
+
+    %div{:style => "float:left;width:110px; padding:10px;color:white; font-weight:bold;"}
+      = "Become a member to post your stuff on our website, why not share your news, articles and links with the community ..? "
+
+  .clear
+
+
