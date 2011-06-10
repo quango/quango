@@ -32,7 +32,7 @@
 - content_for :main do
   = javascript_include_merged :show
 
-  -if current_group.has_leaderboard 
+  -if current_group.has_leaderboard && !@doctype.product_format?
     #leaderboard{:style=>"height:90px; width: 1032px"}
       .leaderboard
         = "<!--/ Leaderboard /-->"
@@ -41,171 +41,184 @@
         = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
 
 
-
-  #sidebar{:style=>"float:left;border-right:1px solid white"}
-
+    -if @doctype.product_format?
 
 
 
 
-    .sidebar-heading{:style => "line-height:32px;width:136px;height:32px;background-color:#{current_group.primary_dark}; color:white;font-family:'Arial',sans-serif; font-weight:bold;font-size:13px; letter-spacing:-1px;padding-left:4px;"}
-      = "#{@doctype.name.capitalize}"
 
-    -#if @doctype.product_format
+    -else
+      #sidebar{:style=>"float:left;border-right:1px solid white"}
+        .sidebar-heading{:style => "line-height:32px;width:136px;height:32px;background-color:#{current_group.primary_dark}; color:white;font-family:'Arial',sans-serif; font-weight:bold;font-size:13px; letter-spacing:-1px;padding-left:4px;"}
+          = "#{@doctype.name.capitalize}"
 
-      -#.product-description{:style => "position:relative; color:white; background-color: black; padding:10px; font-size:14px;width:33%; z-index:10;"}
-        -#= @item.body
+        -#if @doctype.product_format
 
-
-
-    = render :partial => "author", :locals => {:width => "narrow"}
-    = render :partial => "participants", :locals=> {:item => @item}
+          -#.product-description{:style => "position:relative; color:white; background-color: black; padding:10px; font-size:14px;width:33%; z-index:10;"}
+            -#= @item.body
 
 
 
-    = render :partial => "shared/current_tags"
-    = render :partial => "shared/tag_list", :object => @tag_cloud
-    = render :partial => "shared/community_sponsor", :locals => {:width => "narrow"}
-    -#= render :partial => "related_communities"
+        = render :partial => "author", :locals => {:width => "narrow"}
+        = render :partial => "participants", :locals=> {:item => @item}
 
 
-    - if logged_in? && (current_user.mod_of?(current_group) || current_user.can_view_offensive_counts_on?(current_group))
-      -unless @item.flags.count == 0
-        .block
-          %h3
-            = t(:flags, :scope => "activerecord.models")
-          .content
-            = render :partial => "flags/list", :locals => {:flaggeable => @item}
 
-      -unless @item.close_requests.size == 0
-        .block
-          %h3
-            = t(:prural_name, :scope => "close_requests.model")
-          .content
-            = render :partial => "close_requests/list", :locals => {:item => @item}
+        = render :partial => "shared/current_tags"
+        = render :partial => "shared/tag_list", :object => @tag_cloud
+        = render :partial => "shared/community_sponsor", :locals => {:width => "narrow"}
+        -#= render :partial => "related_communities"
 
-      -unless @item.open_requests.size == 0
-        .block
-          %h3
-            = t(:prural_name, :scope => "open_requests.model")
-          .content
-            = render :partial => "open_requests/list", :locals => {:item => @item}
 
-    - if @item.badges.size > 0
-      .block
-        %h3
-          = t('badges', :scope => "activerecord.models")
-        .content
-          %ul.list
-            -@item.badges.each do |badge|
-              %li
-                = render :partial => "badges/badge", :object => badge, :locals => {:hide_user => false}
+        - if logged_in? && (current_user.mod_of?(current_group) || current_user.can_view_offensive_counts_on?(current_group))
+          -unless @item.flags.count == 0
+            .block
+              %h3
+                = t(:flags, :scope => "activerecord.models")
+              .content
+                = render :partial => "flags/list", :locals => {:flaggeable => @item}
 
-  #main-index
-    .content
-      .inner
-        .toolbox{:style=>"background-color:#{current_group.primary_dark}"}
-          = render :partial => "toolbox"
-        -if logged_in?
-          -if current_user.owner_of?(current_group) | current_user.mod_of?(current_group)
-            %div
-              = render :partial => "controls", :object=>@item
+          -unless @item.close_requests.size == 0
+            .block
+              %h3
+                = t(:prural_name, :scope => "close_requests.model")
+              .content
+                = render :partial => "close_requests/list", :locals => {:item => @item}
 
-        -if @doctype.has_video?
+          -unless @item.open_requests.size == 0
+            .block
+              %h3
+                = t(:prural_name, :scope => "open_requests.model")
+              .content
+                = render :partial => "open_requests/list", :locals => {:item => @item}
 
-          #video-box
-            %div
-              = @item.title
-            = render :partial => "video_player", :object=>@item
+        - if @item.badges.size > 0
+          .block
+            %h3
+              = t('badges', :scope => "activerecord.models")
+            .content
+              %ul.list
+                -@item.badges.each do |badge|
+                  %li
+                    = render :partial => "badges/badge", :object => badge, :locals => {:hide_user => false}
 
-        -if @doctype.product_format
-
+  -if @doctype.product_format?
+    #main-index{:style=>"width:728px; float:left;"}
+      .content
+        .inner
           #product
             .product-image
-              .product-description{:style => "opacity:0.7;position:absolute; color:white; background-color: black; padding:10px; font-size:14px;width:570px; z-index:10;height:auto"}
+              .product-description{:style => "opacity:0.7;position:absolute; color:white; background-color: black; padding:10px; font-size:14px;width:233px; z-index:10;height:auto"}
                 .product-title{:style=>"font-weight:bold;color:white; border-bottom: 1px solid white"}
                   = @item.title
                 = @item.body
             = render :partial => "product_image", :object=>@item
+  -else
+    #main-index
+      .content
+        .inner
+          .toolbox{:style=>"background-color:#{current_group.primary_dark}"}
+            = render :partial => "toolbox"
+          -if logged_in?
+            -if current_user.owner_of?(current_group) | current_user.mod_of?(current_group)
+              %div
+                = render :partial => "controls", :object=>@item
 
+          -if @doctype.has_video?
 
-
-        #item-body-col.commentable.markdown
-          %a{:name => @item.id}
-          #body
-            - if @item.closed && @item.close_reason
-              #close_reason
-                = t(".close_reason")
-                = t(@item.close_reason.reason, :scope=>"close_requests.form")
-                - if !@item.close_reason.comment.empty?
-                  .comment
-                    =find_and_preserve(shapado_auto_link(@item.close_reason.comment))
-            -#.entry-publisher
-
-            .entry-details
-              .entry-title
+            #video-box
+              %div
                 = @item.title
-                - if @item.closed
-                  =" [#{t("closed", :scope => "activerecord.attributes.item").upcase}]"
+              = render :partial => "video_player", :object=>@item
 
-              .entry-authors{:style => "border-bottom:1px solid gainsboro;"}
-                = render :partial => "entry_authors"
+          -if @doctype.product_format
 
-              .tag-list
-                - @item.tags.each do |tag|
-                  %span.tag
-                    = link_to h(tag), url_for(:controller => "item", :action => "index", :tags => tag), :rel => "tag"
-                - if logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group)) #tofix
-                  %span.retag
-                    = link_to t('.retag'), retag_item_path(@doctype, @item), :id => 'retag',:style => "border:0; background:white", :class => "link"
-
-            .entry-content
-              = item_body
-
-
-        .clear
+            #product
+              .product-image
+                .product-description{:style => "opacity:0.7;position:absolute; color:white; background-color: black; padding:10px; font-size:14px;width:570px; z-index:10;height:auto"}
+                  .product-title{:style=>"font-weight:bold;color:white; border-bottom: 1px solid white"}
+                    = @item.title
+                  = @item.body
+              = render :partial => "product_image", :object=>@item
 
 
 
+          #item-body-col.commentable.markdown
+            %a{:name => @item.id}
+            #body
+              - if @item.closed && @item.close_reason
+                #close_reason
+                  = t(".close_reason")
+                  = t(@item.close_reason.reason, :scope=>"close_requests.form")
+                  - if !@item.close_reason.comment.empty?
+                    .comment
+                      =find_and_preserve(shapado_auto_link(@item.close_reason.comment))
+              -#.entry-publisher
 
-      %a{:name=>"answers"}
-      #answers
-        .clear
+              .entry-details
+                .entry-title
+                  = @item.title
+                  - if @item.closed
+                    =" [#{t("closed", :scope => "activerecord.attributes.item").upcase}]"
 
-        -unless @item.closed
-          %a{:name=>"to_answer"}
-          -form_for @answer, :url => item_answers_path(@doctype, @item), :html => {:class => "form mainAnswerForm"} do |f|
-            = render :partial => "answers/form", :locals => {:f => f, :markdown => true, :mode => "item"}
+                .entry-authors{:style => "border-bottom:1px solid gainsboro;"}
+                  = render :partial => "entry_authors"
+
+                .tag-list
+                  - @item.tags.each do |tag|
+                    %span.tag
+                      = link_to h(tag), url_for(:controller => "item", :action => "index", :tags => tag), :rel => "tag"
+                  - if logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group)) #tofix
+                    %span.retag
+                      = link_to t('.retag'), retag_item_path(@doctype, @item), :id => 'retag',:style => "border:0; background:white", :class => "link"
+
+              .entry-content
+                = item_body
+
+
           .clear
 
 
-        .answers
 
-          .entry-details
-            .entry-title
-              = h("What others think")
-          .secondary-navigation
-            .navcontrols
-              %ul
-                %li
-                  = "Sort by: "
-                %li.filter
-                  = link_to "Fresh", item_path(@doctype, @item, :sort=>"fresh", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
-                %li
-                  = link_to "Hot", item_path(@doctype, @item, :sort=>"hot", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
-                %li
-                  = link_to "Historical", item_path(@doctype, @item, :sort=>"sweaty", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
 
-        .clear
+        %a{:name=>"answers"}
+        #answers
+          .clear
 
-        .block
-          - if @item.accepted
-            -solution = @item.answer
-            =render :partial=> "answer", :locals=> {:item => @item, :answer => solution} unless solution.nil?
-          .hentry
-            -@answers.each do |answer|
-              =render :partial=> "answer", :locals=> {:item => @item, :answer => answer}
-          =will_paginate(@answers)
+          -unless @item.closed
+            %a{:name=>"to_answer"}
+            -form_for @answer, :url => item_answers_path(@doctype, @item), :html => {:class => "form mainAnswerForm"} do |f|
+              = render :partial => "answers/form", :locals => {:f => f, :markdown => true, :mode => "item"}
+            .clear
+
+
+          .answers
+
+            .entry-details
+              .entry-title
+                = h("What others think")
+            .secondary-navigation
+              .navcontrols
+                %ul
+                  %li
+                    = "Sort by: "
+                  %li.filter
+                    = link_to "Fresh", item_path(@doctype, @item, :sort=>"fresh", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
+                  %li
+                    = link_to "Hot", item_path(@doctype, @item, :sort=>"hot", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
+                  %li
+                    = link_to "Historical", item_path(@doctype, @item, :sort=>"sweaty", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
+
+          .clear
+
+          .block
+            - if @item.accepted
+              -solution = @item.answer
+              =render :partial=> "answer", :locals=> {:item => @item, :answer => solution} unless solution.nil?
+            .hentry
+              -@answers.each do |answer|
+                =render :partial=> "answer", :locals=> {:item => @item, :answer => answer}
+            =will_paginate(@answers)
 
 
 
