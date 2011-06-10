@@ -57,7 +57,15 @@
       = form.text_field :strapline, :class => "text_field"
     .description
       = "Unless this is left blank the strapline will appear next to the logo"
+%hr
 
+
+  .group
+    = form.check_box :has_welcome_features, :class => "checkbox"
+    = form.label :has_welcome_features, "Show Welcome Features", :class => "radio"
+  .group
+    = form.check_box :has_product_gallery, :class => "checkbox"
+    = form.label :has_product_gallery, "Show Product Gallery", :class => "radio"
 
 
 %hr

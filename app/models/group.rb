@@ -39,6 +39,9 @@ class Group
   key :custom_channels, Array #, :default => "something, something else"
   key :custom_channel_content, String
 
+  key :has_welcome_features, Boolean, :default => false
+  key :has_product_gallery, Boolean, :default => false
+
   key :has_leaderboard, Boolean, :default => false
   key :leaderboard_content, String
   key :has_custom_leaderboard, Boolean, :default => false

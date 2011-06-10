@@ -185,7 +185,7 @@ class GroupsController < ApplicationController
     @group.safe_update(%w[name name_highlight name_link name_highlight_link
                           display_name_i display_name_i_link
                           display_name_ii display_name_ii_link
-                          strapline legend 
+                          strapline legend has_welcome_features has_product_gallery
                           description has_custom_channels custom_channels custom_channel_content default_tags subdomain 
                           has_leaderboard leaderboard_content has_custom_leaderboard custom_leaderboard_content has_medium_rectangle medium_rectangle_content has_threeone_rectangle threeone_rectangle_content
                           logo logo_info logo_only

@@ -30,6 +30,13 @@ $(".feature").hover(
 });
 
 $(document).ready(function(){
+$(".product").hover(
+    function() {$(".product").children('.a').stop().animate({"opacity": "0"}, "slow");},
+    function() {$(".product").children('.a').stop().animate({"opacity": "1"}, "fast");}
+);
+});
+
+$(document).ready(function(){
 $(".avatar-narrow").hover(
     function() {$(this).children('.a').stop().animate({"opacity": "0"}, "slow");},
     function() {$(this).children('.a').stop().animate({"opacity": "1"}, "fast");}
@@ -39,6 +46,12 @@ $(".avatar-narrow").hover(
 $(document).ready(function() {
         $('#gallery a').lightBox();
 });
+
+
+$(document).ready(function() {
+        $('#products a').lightBox();
+});
+
 
 $(document).ready(function() {
         $('.expand a').lightBox();
