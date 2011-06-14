@@ -82,21 +82,22 @@
       =link_to h("My Settings"), settings_path(:tab => "welcome")
       |
 
-  -if current_user.mod_of?(current_group)
-    .entry
-      =link_to t("layouts.application.moderate"), moderate_path, :class => "moderate_link"
-      |
+  -if logged_in?
+    -if current_user.mod_of?(current_group)
+      .entry
+        =link_to t("layouts.application.moderate"), moderate_path, :class => "moderate_link"
+        |
 
-      - real_name = "#{current_user.first_name} #{current_user.last_name}"
-      %strong= link_to(h(real_name), user_path(current_user))
-      %span.reputation{:title => t("activerecord.attributes.user.reputation"), :style => "background-color:"+current_group.primary+""}=format_number(current_user.reputation_on(current_group))
-      |
+        - real_name = "#{current_user.first_name} #{current_user.last_name}"
+        %strong= link_to(h(real_name), user_path(current_user))
+        %span.reputation{:title => t("activerecord.attributes.user.reputation"), :style => "background-color:"+current_group.primary+""}=format_number(current_user.reputation_on(current_group))
+        |
 
 
-  -if current_user.owner_of?(current_group)
-    .entry
-      =link_to "&#x2620;", manage_properties_path, :class => "manage_link", :style => "font-size:1.5em;"
-      |
+    -if current_user.owner_of?(current_group)
+      .entry
+        =link_to "&#x2620;", manage_properties_path, :class => "manage_link", :style => "font-size:1.5em;"
+        |
 
 
   -if logged_in?
