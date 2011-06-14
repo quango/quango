@@ -48,6 +48,7 @@
 #toolbar{:style => "float:right;width:640px;"}
 
 
+
   -if !logged_in?
     .entry{:style => "margin-left:8px"}
       = link_to "Login", new_user_session_path
@@ -63,22 +64,11 @@
     .entry
       =link_to t("layouts.application.logout"), destroy_user_session_path
 
-    -if current_user.owner_of?(current_group)
-      .entry
-        =link_to "&#x2620;", manage_properties_path, :class => "manage_link", :style => "font-size:1.5em;"
-        |
-    -if current_user.mod_of?(current_group)
-      .entry
-        =link_to t("layouts.application.moderate"), moderate_path, :class => "moderate_link"
-        |
-    .entry
 
 
 
-      - real_name = "#{current_user.first_name} #{current_user.last_name}"
-      %strong= link_to(h(real_name), user_path(current_user))
-      %span.reputation{:title => t("activerecord.attributes.user.reputation"), :style => "background-color:"+current_group.primary+""}=format_number(current_user.reputation_on(current_group))
-      |
+
+
     -#.entry
       -#=link_to h("My Edition"), user_path(current_user)
       -#| 
@@ -90,16 +80,28 @@
       -#|
     .entry
       =link_to h("My Settings"), settings_path(:tab => "welcome")
+      |
+
+  -if current_user.mod_of?(current_group)
+    .entry
+      =link_to t("layouts.application.moderate"), moderate_path, :class => "moderate_link"
+      |
+
+      - real_name = "#{current_user.first_name} #{current_user.last_name}"
+      %strong= link_to(h(real_name), user_path(current_user))
+      %span.reputation{:title => t("activerecord.attributes.user.reputation"), :style => "background-color:"+current_group.primary+""}=format_number(current_user.reputation_on(current_group))
+      |
 
 
-
-
-
+  -if current_user.owner_of?(current_group)
+    .entry
+      =link_to "&#x2620;", manage_properties_path, :class => "manage_link", :style => "font-size:1.5em;"
+      |
 
 
   -if logged_in?
-    .edition
-      %ul.topbar.createbox.right
+    .entry
+      %ul.topbar.createbox.left
         %li
           =link_to "#{current_group.publish_label.capitalize}", "#", :rel => 'nofollow'
           %ul
