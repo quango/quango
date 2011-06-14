@@ -38,9 +38,9 @@
             -#= link_to image_tag(base_thumbnail.url, :class => 'a', :alt => image.name, :title => image.name,:style => "position: absolute;width:181px;" ), item_path(item.doctype, item)
             -#= link_to image_tag(base_thumbnail_grey.url, :class => 'b', :alt => image.name, :title => image.name,:style => "position: absolute;width:181px;" ), item_path(item.doctype, item)
 
-            .inner-link{:style=>"margin-top:66px;opacity:0.6;width:181px;background-color:black; color:white;position:absolute:font-size:12px;height:32px; line-height:12px;padding:4px;letter-spacing:-1px;filter: alpha(opacity = 60);zoom:1;"}
+            .inner-link{:style=>"font-family:arial;font-weight:normal;margin-top:66px;opacity:0.6;width:181px;background-color:black; color:white;position:absolute:font-size:12px;height:32px; line-height:12px;padding:4px;letter-spacing:0;filter: alpha(opacity = 60);zoom:1;"}
               .text
-                = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200), :style => "opacity:1;margin-top:-48px;color:white; font-weight:bold;"
+                = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200), :style => "opacity:1;margin-top:-48px;color:white; font-weight:normal;"
 
 
 
@@ -50,9 +50,9 @@
 
           .thumbnail-placeholder{:style => "background-color:#{current_group.secondary};width:181px;height:90px; overflow:hidden;"  }
 
-            .inner-link{:style=>"margin-top:66px;opacity:0.6;width:171px;overflow:hidden;background-color:black;position:absolute;font-size:12px;height:30px; line-height:12px;padding:4px;letter-spacing:-1px;color:white"}
+            .inner-link{:style=>"font-family:arial;font-weight:normal;margin-top:66px;opacity:0.6;width:173px;overflow:hidden;background-color:black;position:absolute;font-size:12px;height:32px; line-height:12px;padding:4px;letter-spacing:0;color:white;filter: alpha(opacity = 60);zoom:1;"}
 
-              = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 96), :style => "padding:4px 0 4px 0;color:white; font-weight:bold;"
+              = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 96), :style => "opacity:1;margin-top:-48px;color:white; font-weight:normal;"
 
             = link_to image_tag("/images/spacer.gif", :style => "background-color:#{current_group.secondary};width:181px;height:90px"), item_path(item.doctype, item)
 
