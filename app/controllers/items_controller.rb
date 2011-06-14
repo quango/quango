@@ -1,4 +1,13 @@
 class ItemsController < ApplicationController
+  
+  #require 'rubygems'
+
+  require 'open-uri'
+
+  #require 'nokogiri'
+  #require 'hpricot'
+
+
   before_filter :login_required, :except => [:new, :create, :index, :show, :tags, :unanswered, :related_items, :tags_for_autocomplete, :retag, :retag_to]
   before_filter :admin_required, :only => [:move, :move_to]
   before_filter :moderator_required, :only => [:close]
@@ -340,6 +349,9 @@ class ItemsController < ApplicationController
 
     @answer = Answer.new(params[:answer])
 
+
+
+
     if @item.user != current_user && !is_bot?
       @item.viewed!(request.remote_ip)
 
@@ -418,14 +430,66 @@ class ItemsController < ApplicationController
 
     if @item.article_link?
 
-      video = VideoInfo.new(@item.video_link)
-      @item.title = @item.id
-      @item.body = "test"
+
+      if current_group.has_alchemy?
+
+        #grab the stuff through alchemy
+
+      else
+
+      #uri = URI.parse(@item.article_link)
+
+      agent = Mechanize.new
+      the_page = agent.get(@item.article_link)
+      @response = the_page.content
+      doc = Hpricot(@response)
+
+
+      #remote_html = open_uri_original_open(@item.article_link)
+
+      #art = Nokogiri::HTML(open_uri_original_open(@item.article_link), "User-Agent" => "Ruby/#{RUBY_VERSION}")
+      html_doc = Nokogiri::HTML(@response) #, "User-Agent" => "Ruby/#{RUBY_VERSION}")
+
+
+      find_title = doc.search("//title").innerHTML
+      find_description = doc.search("//p").innerHTML
+      #pass_title = find_title[0..95]
+
+      #testing = doc
+      noko_title = html_doc.xpath("//title")
+
+
+      short_title = find_title[0..95]      
+      short_description = find_description[0..511] 
+
+
+      @item.title = short_title
+
+      #body = "Standard link body: #{pass_title}"
+
+      body = "#{short_description}"
+      body = body << "<div style='background-color:#dcdcdc;padding:10px;font-weight:bold'>["
+      body = body << short_title.to_s
+      body = body << "](#{@item.article_link})</div>"
+
+
+      @item.body = body << "-- # --"
+
+
+      #lets get some tags
+
+      
+
+
+
+
+
+  
       #@item.tags = video.provider
       #@item.video_thumbnail = video.thumbnail_small
 
       #image.image = video_thumbnail_small
-
+      end
     end
 
     if !logged_in?

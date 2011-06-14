@@ -35,6 +35,19 @@
     letter-spacing: -2px
     -webkit-font-smoothing:antialiased
 
+#logo-container
+  margin-top: 32px
+  min-height: 64px
+  clear: both
+
+
+.logo-container-inner
+  width: 1032px
+  margin: 0 auto 0 auto
+  padding: 0 8px
+  height: 64px
+  //background-image: url(/images/black_50_bg.png)
+
 
 .toolbar-container-inner
   width: 1032px
@@ -42,27 +55,39 @@
   padding: 0 8px
   border-left: 2px solid pink
   border-right: 2px solid #A9A5A7
-  height: 64px
+  height: 32px
   //background-image: url(/images/black_50_bg.png)
 
 #toolbar-container
-
-  height: 64px
-
-
-  -webkit-font-smoothing:antialiased
+  position: absolute
+  z-index: 100
+  height: 32px
+  margin-top: -32px
+  width: 100%
+  border-bottom: 1px solid #333
+  //width: 1032px
+  background-color: black
+  -moz-box-shadow: 0px 1px 5px #fff
+  -webkit-box-shadow: 0px 1px 5px #000
+  box-shadow: 0px 1px 5px #000
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=135, Color='#ffffff')
 
 #toolbar
-  padding: 0
-  margin-top: 32px
+  //background-color: black
+  //padding: 0 24px
+
 
   //font-size: 0.75em
   font-weight: normal
   float: right
+  text-shadow:  -1px -1px 2px #000
   color: white
-  width: auto
-  height: 24px
-  line-height: 26px
+  width: 984px
+  height: 32px
+  line-height: 32px
+  margin: 0 auto
+  //+rounded(0px,0px,8px,8px)
+
   a
     color: white
     &:hover
@@ -93,7 +118,7 @@
   .edition
     float: left
   .entry
-    float: left
+    float: right
     margin-left: 4px
     .gravatar
       line-height: 20px
@@ -113,6 +138,56 @@
       padding-left: 17px
       border: 1px solid gray
 
+  .createbox
+    font-weight: bold
+
+    padding: 0
+    margin: 0
+    list-style: none
+    list-style-position: outside
+    display: inline
+    &:hover
+      background-color: black
+    li
+      float: left
+      width: 160px
+      margin-right: 0
+      &:hover ul
+        left: auto
+        z-index: 2
+
+      ul
+        position: absolute
+        width: 160px
+        line-height: 26px
+        //background-color: red
+        display: block
+        //border: 1px solid #DCDCDC
+        left: -999em
+        list-style: none
+        +rounded(0,0,8px,8px)
+        li 
+          width: 100%
+          height: 26px
+          line-height: 26px
+          display: block
+          padding: 4px
+          clear: both
+          &:hover
+            background-color: #555051
+          a
+            //padding: 4px
+            color: #ffffff
+            text-decoration: none
+            text-shadow: none
+            display: block
+      img
+        margin: 4px
+        //height: 18px
+        //width: 18px
+        float: left
+
+
   .combobox
     font-weight: bold
     padding: 0
@@ -120,6 +195,8 @@
     list-style: none
     list-style-position: outside
     display: inline
+    &:hover
+      background-color: black
     li
       float: left
       width: 256px
@@ -130,24 +207,26 @@
 
       ul
         position: absolute
-        width: 185px
+        width: 256px
         line-height: 26px
         //background-color: red
         display: block
         //border: 1px solid #DCDCDC
         left: -999em
         list-style: none
+        +rounded(0,0,8px,8px)
         li 
           width: 100%
           height: 26px
-          //line-height: 26px
+          line-height: 26px
           display: block
+          padding: 4px
           clear: both
           &:hover
-            background-color: #000000
+            background-color: #555051
           a
             //padding: 4px
-            color: #666666
+            color: #ffffff
             text-decoration: none
             text-shadow: none
             display: block

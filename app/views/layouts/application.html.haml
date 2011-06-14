@@ -34,6 +34,29 @@
       .toolbar-container-inner    
         = render :partial => "shared/toolbar"
 
+    #logo-container
+      .logo-container-inner{:style => "height:#{current_group.logo_info['height']}px"}
+        -if current_group.logo_only?
+          .logo-text
+            .filling
+
+
+
+
+              .left
+                =link_to h(current_group.display_name_i), domain_url(:custom => current_group.domain), :style=>"color:white;margin:0;"
+              .left
+                =link_to h(current_group.display_name_ii), current_group.display_name_ii_link, :style=> "color:#{current_group.secondary};margin:0;"
+              -if current_group.strapline?
+                .strapline
+                  %p{:style => "color:white;margin:0;float:left;"}
+                    ="#{current_group.strapline}"
+
+        -else
+          .logo{:style => "height:#{current_group.logo_info['height']}px"}
+            = link_to image_tag(current_group.logo_path, :width => current_group.logo_info["width"], :height => current_group.logo_info["height"],  :style => "bottom:0px;"), domain_url(:custom => current_group.domain), :style=>"margin:0px;", :alt => "Home"
+
+
     -if current_group.has_custom_channels
       #channel-container
         .channel-container-inner
@@ -85,7 +108,6 @@
         .block.content
           = render :partial => "layouts/footer"
           = render :partial => "shared/ads/footer_ads"
-
 
 
 

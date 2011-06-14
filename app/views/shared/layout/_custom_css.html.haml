@@ -15,8 +15,10 @@
   \.navigation-container {height:40px;background:#{current_group.primary};border-bottom:1px solid #{current_group.tertiary};background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.primary}),to(#{current_group.tertiary}));background:-moz-linear-gradient(top,#{current_group.primary},#{current_group.tertiary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.primary}',endColorstr='#{current_group.tertiary}');}
 
   
+  \.logo-container-inner {background-color: #{group.secondary};border-left: 2px solid #{group.secondary};border-right: 2px solid #{group.secondary};background-color: #{current_group.secondary};background:-webkit-gradient(linear,left top,left bottom,from(#525051),to(#{current_group.secondary}));background:-moz-linear-gradient(top,#525051,#{current_group.secondary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#525051',endColorstr='#{current_group.secondary}');}
 
 
+  \#toolbar-container{background-color: #{current_group.secondary};background:-webkit-gradient(linear,left top,left bottom,from(#525051),to(#000000));background:-moz-linear-gradient(top,#525051,#000000);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#525051',endColorstr='#000000');}
 
 
   \#toolbar-container {   
@@ -32,16 +34,14 @@
 
   }
 
-  \.toolbar-container-inner {border-left: 2px solid #{current_group.secondary};border-right: 2px solid #{current_group.secondary};   
+  \.toolbar-container-inner {border:0;   
   -if group.toolbar_bg?
     background-color: #{group.toolbar_bg};
 
   -if group.toolbar_bg_image?
     background-image:url(#{group.toolbar_bg_image});
   -if !group.toolbar_bg? && !group.toolbar_bg_image?
-    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#323031',endColorstr='#{group.secondary}');
-    background:-webkit-gradient(linear,left top,left bottom,to(#{group.secondary}),from(#323031));
-    background:-moz-linear-gradient(top,#323031,#{group.secondary});
+    background-color: #{current_group.secondary};background:-webkit-gradient(linear,left top,left bottom,from(#525051),to(#000000));background:-moz-linear-gradient(top,#525051,#000000);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#525051',endColorstr='#000000');;
 
   }
 
@@ -58,6 +58,8 @@
 
   \.channel_listing_horizontal li.selected {border-bottom: 1px solid #{group.primary};background-color: #{group.primary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{group.primary_dark}',endColorstr='#{group.primary}');background:-webkit-gradient(linear,left top,left bottom,from((#{group.primary_dark}),to(#{group.secondary}));background:-moz-linear-gradient(top,#{group.primary_dark},#{group.secondary});}
 
+  \.secondary-navigation-sections {filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{group.primary_dark}',endColorstr='#{group.primary}');background:-webkit-gradient(linear,left top,left bottom,from((#dcdcdc),to(#{group.secondary}));background:-moz-linear-gradient(top,#dcdcdc,#{group.secondary});}
+
   \h2.form-header{ color: #{group.primary};}
 
   \.tag-list a{background:#{group.primary_dark};}
@@ -66,7 +68,7 @@
   \.tag-list .tag a:hover{ background:#{group.primary};}
 
   \.label-highlight a{ color: #{group.secondary};}
-  \.secondary-navigation-sections{ background-color: #{group.secondary};}
+  -#\.secondary-navigation-sections{ background-color: #{group.secondary};}
   \.secondary-navigation{ background-color: #{group.secondary};}
   \.tertiary-navigation{ background-color: #{group.tertiary};}
   \.trends{ background-color: #{group.secondary};}

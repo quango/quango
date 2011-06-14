@@ -1,6 +1,6 @@
 - if current_group.has_welcome_features
   .section-head-welcome
-    .secondary-navigation-sections{:style=>"background-color:white"}
+    .secondary-navigation-sections{:style=>"background-color:#{current_group.secondary}"}
       .features{:style=>"font-family:Arial,sans-serif; font-weight:bold; font-size:14px;padding-left:10px;color:#{current_group.primary_dark}; letter-spacing:-1px;"}
         = "Todays features...."  
         .navcontrols{:style => "width:96px; height:32px; float:right"}
@@ -11,7 +11,7 @@
 
    
         
-    .section-listing-welcome{:class => "features", :style => ""}
+    .section-listing-welcome{:class => "features", :style => "background-color:#{current_group.secondary}"}
       - slideshow_delay = 0
       -current_group.doctypes.each do |doctype|
         -if doctype.featured

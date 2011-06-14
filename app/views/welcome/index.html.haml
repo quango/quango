@@ -119,18 +119,21 @@
             -#= current_group.leaderboard_content
         -#.clear
 
+
+      -if current_group.has_custom_leaderboard
+        .inner
+          .leaderboard{:style=>"border:0"}
+            = "<!--/ Leaderboard /-->"
+            = current_group.custom_leaderboard_content
+        .clear
+
+
       .inner
 
 
         = render :partial => "product_gallery", :locals => {:expanded => true}
         = render :partial => "featured_sections", :locals => {:expanded => true}
 
-      -if current_group.has_custom_leaderboard
-        .inner
-          .leaderboard{:style=>"border-top: 10px solid gainsboro; border-bottom:10px solid gainsboro;"}
-            = "<!--/ Leaderboard /-->"
-            = current_group.custom_leaderboard_content
-        .clear
 
 
 

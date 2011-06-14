@@ -73,6 +73,10 @@ class Group
   key :notification_from, String, :default => "Your Community"
   key :notification_email, String, :default => "no-reply@yourcommunity.com"
 
+  #alchemy
+  key :has_alchemy, Boolean, :default => false
+  key :alchemy_key, String, :default => "my alchemy key"
+
 
   #analytics
   key :robots, Boolean, :default => true

@@ -46,7 +46,9 @@ Rails::Initializer.run do |config|
   config.gem 'dragonfly', :version => "0.7.7" #,  :lib => 'dragonfly/rails/images'
   config.gem 'hpricot', :version => "0.8.3"
   config.gem 'video_info', :version => "0.2.4"
-
+  config.gem 'nokogiri', :version => "1.4.4" , :lib => 'nokogiri'
+  #config.gem "scrapi"
+  config.gem "mechanize"
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
