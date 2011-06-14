@@ -63,7 +63,7 @@
   -if logged_in?
 
     .entry
-      =link_to "<img src='/images/logos/thinking_32.png' height='12px' width='12px'/>", "#",:class=>"reputation" ,:style=>"padding:3px;border:0; height:16px; width:16px;background-color:#555051"
+      =link_to "<img src='/images/logos/thinking_32.png' height='12px' width='12px' style='margin-top:4px'/>", "#" ,:style=>"padding:3px;border:0; height:16px; width:16px;"
 
 
   -if logged_in?
@@ -79,13 +79,13 @@
               - if !doctype.hidden && doctype.public_access
                 %li
                   = link_to "#{doctype.create_label}", new_item_path(doctype), :class => "something", :style => "height:18px; line-height:18px;" 
-        |
+        
 
   -if logged_in?
 
     .entry
       =link_to t("layouts.application.logout"), destroy_user_session_path
-      |
+      
 
 
 
