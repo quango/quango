@@ -127,7 +127,7 @@
           -if @doctype.has_video?
 
             #video-box
-              %div
+              %div{:style=>"padding:10px; font-weight:bold;color:white;"}
                 = @item.title
               = render :partial => "video_player", :object=>@item
 
@@ -231,16 +231,18 @@
     -if !current_group.has_leaderboard
       = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
 
-    -if @doctype.has_video?
-      = render :partial => "video_info", :locals => {:item => @item}
+    = render :partial => "shared/share_box", :locals => {:item => @item}
 
 
-    = render :partial => "shared/sidebar_actions_show",  :locals => {:width => "wide"}
+
     -#= render :partial => "author"
     -if !@doctype.product_format || !@doctype.has_video
       = render :partial => "default_image", :locals => {:item => @item}
+    -if @doctype.has_video?
+      = render :partial => "video_info", :locals => {:item => @item}
     = render :partial => "images", :locals => {:item => @item}
-    = render :partial => "shared/share_box", :locals => {:item => @item}
+
+    -#= render :partial => "shared/sidebar_actions_show",  :locals => {:width => "wide"}
     = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
     -if current_group.has_medium_rectangle
       .medium-rectangle{:style=>"background-color:white; width:300px;height:250px;margin:10px 0; padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}

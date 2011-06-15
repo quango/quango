@@ -1,5 +1,7 @@
+- expanded = local_assigns[:expanded]
+
 - if current_group.has_product_gallery
-  .section-head-welcome{:style=>"border-bottom:10px solid white;"}
+  .section-head-welcome{:style=>"border-bottom:10px solid white;border-top:4px solid #{current_group.secondary}"}
     .secondary-navigation-sections{:style=>"background-color:gainsboro;"}
       .products{:style=>"font-family:Arial,sans-serif; font-weight:normal; font-size:12px;padding-left:10px;color:#{current_group.primary_dark}; letter-spacing:-1px;"}
         = "Products...."  
@@ -11,11 +13,11 @@
 
    
         
-    .section-listing-welcome{:class => "products", :style => ""}
+    .section-listing-welcome{:class => "products", :style => "null:0;"}
 
-      %h4{:style=>"height:24px;line-height:26px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color: white; background-color:#{current_group.tertiary}; border-bottom:4px solid #{current_group.tertiary};margin:0; font-size:16px; letter-spacing:-1px;font-weight:bold;"}
-        %div{:style=>"padding:2px 0 2px 4px; height:18px; width:18px; float:left;"}
-          = "<img src='/images/logos/star_16.png' height='16px' width='16px'/>"
+      %h4{:style=>"height:24px;line-height:24px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color: white; background-color:#{current_group.tertiary}; border-bottom:4px solid #{current_group.tertiary};margin:0;font-size:15px; letter-spacing:-1px;font-weight:bold;border-bottom:1px solid white"}
+        %div{:style=>"padding:1px 0 3px 4px; height:18px; width:18px; float:left;"}
+          = "<img src='/images/logos/star_16.png' height='14px' width='14px'/>"
         = "Product Kaleidoscope"
 
       - slideshow_delay = 0
@@ -55,45 +57,45 @@
             = "});"
 
 
-    %script{:type => "text/javascript"}
-      = "// collapse:"
-      = "$('.hide_products.products').click(function() {"
-      = "$('.hide_products.products').css('display','none');"
-      = "$('.show_products.products').css('display','block');"
-      = "$('.products.section-listing-welcome').hide('fast');"
-      -#= "$.cookie('summary.index.summary', 'collapsed', { expires: 2 });"
-      = "});"
-      = "// expand:"
-      = "$('.show_products.products').click(function() {"
-      = "$('.show_products.products').css('display','none');"
-      = "$('.hide_products.products').css('display','block');"
-      = "$('.products.section-listing-welcome').show('slow');"
-      -#= "$.cookie('summary.index.summary', 'expanded', { expires: 2 });"
-      = "});"
-      = "// ok so far"
-      -#= "// COOKIES"
-      -#= "var summary = $.cookie('summary.index.summary');"
-      -#= "	// Set the user's selection for the left column"
-      -#= "if (summary == 'collapsed') {"
-      -#= "$('.hide_summary.summary').css('display','none');"
-      -#= "$('.show_summary.summary').css('display','block');"
-      -#= "$('.summary.section-listing-welcome').hide();"
-      -#= "};"
-      -#= "if (summary == 'expanded') {"
-      -#= "$('.hide_summary.summary').css('display','block');"
-      -#= "$('.show_summary.summary').css('display','none');"
-      -#= "$('summary.summary.section-listing-welcome').show();"
-      -#= "};"
-      - if expanded == true
-        -#= "if (summary == null) {"
-        = "$('.show_products.products').css('display','block');"
+      %script{:type => "text/javascript"}
+        = "// collapse:"
+        = "$('.hide_products.products').click(function() {"
         = "$('.hide_products.products').css('display','none');"
-        = "$('.products.section-listing-welcome').show();"
-        -#= "};"
-      - else
-        -#= "if (summary == null) {"
-        = "$('.hide_products.products').css('display','block');"
+        = "$('.show_products.products').css('display','block');"
+        = "$('.products.section-listing-welcome').hide('fast');"
+        -#= "$.cookie('summary.index.summary', 'collapsed', { expires: 2 });"
+        = "});"
+        = "// expand:"
+        = "$('.show_products.products').click(function() {"
         = "$('.show_products.products').css('display','none');"
-        = "$('.products.section-listing-welcome').hide();"
+        = "$('.hide_products.products').css('display','block');"
+        = "$('.products.section-listing-welcome').show('slow');"
+        -#= "$.cookie('summary.index.summary', 'expanded', { expires: 2 });"
+        = "});"
+        = "// ok so far"
+        -#= "// COOKIES"
+        -#= "var summary = $.cookie('summary.index.summary');"
+        -#= "	// Set the user's selection for the left column"
+        -#= "if (summary == 'collapsed') {"
+        -#= "$('.hide_summary.summary').css('display','none');"
+        -#= "$('.show_summary.summary').css('display','block');"
+        -#= "$('.summary.section-listing-welcome').hide();"
         -#= "};"
-      -#= "};"
+        -#= "if (summary == 'expanded') {"
+        -#= "$('.hide_summary.summary').css('display','block');"
+        -#= "$('.show_summary.summary').css('display','none');"
+        -#= "$('summary.summary.section-listing-welcome').show();"
+        -#= "};"
+        - if expanded == true
+          -#= "if (summary == null) {"
+          = "$('.hide_products.products').css('display','block');"
+          = "$('.show_products.products').css('display','none');"
+          = "$('.products.section-listing-welcome').show();"
+          -#= "};"
+        - else
+          -#= "if (summary == null) {"
+          = "$('.show_products.products').css('display','block');"
+          = "$('.hide_products.products').css('display','none');"
+          = "$('.products.section-listing-welcome').hide();"
+          -#= "};"
+        -#= "};"

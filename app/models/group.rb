@@ -41,6 +41,7 @@ class Group
 
   key :has_welcome_features, Boolean, :default => false
   key :has_product_gallery, Boolean, :default => false
+  key :has_video_on_homepage, Boolean, :default => false
 
   key :has_leaderboard, Boolean, :default => false
   key :leaderboard_content, String

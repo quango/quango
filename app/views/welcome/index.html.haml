@@ -76,6 +76,12 @@
   #sidebar-inner{:style => "float:right; width:300px;"}
     .block
       = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
+
+    -if current_group.has_video_on_homepage
+      = render :partial => "shared/sidebar_video",  :locals => {:width => "wide", :expanded => "false"}
+
+
+
     .block
       = render :partial => "shared/sidebar_actions",  :locals => {:width => "wide"}
 

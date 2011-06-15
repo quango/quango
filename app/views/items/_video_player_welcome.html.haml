@@ -1,8 +1,8 @@
 %script{:type=>"text/javascript", :src=>"/javascripts/mediaplayer/jwplayer.js"}
 
-#video-player
+#video-player{:style=>"padding:0"}
 
--if @item.video_link
+-if item.video_link
 
   %script{:type=>"text/javascript"}
     = "jwplayer('video-player').setup({"
@@ -10,9 +10,9 @@
     = "stretching: 'fill',"
     = "flashplayer: '/javascripts/mediaplayer/player.swf',"
     = "flashvars: 'file=playlist.xml',"
-    = "file: '"+@item.video_link+"',"
-    = "height: 304,"
-    = "width: 570"
+    = "file: '"+item.video_link+"',"
+    = "height: 200,"
+    = "width: 300"
     = "});"
 
 -else
