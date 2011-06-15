@@ -36,12 +36,13 @@
                 .features-thumbnail{:style => "background-image:url(#{item.video_thumbnail});width:300px;height:160px; overflow:hidden" }
                   = link_to image_tag("/images/spacer.gif", :class => 'a', :alt => item.title, :title => item.title,:style => "position: absolute;width:300px;height:160px" ), item_path(item.doctype, item)
                   -#= "<img src='#{item.video_thumbnail}' width='300px'/>"
-                  .inner-link{:style=>"position:relative;font-family:arial;font-weight:bold;margin-bottom:40px;opacity:0.6;width:300px;overflow:hidden;background-color:black; color:white;position:absolute:font-size:12px;height:24px; line-height:11px;padding:4px;letter-spacing:0;filter: alpha(opacity = 60);zoom:1;z-index:100"}
+                  .inner-link{:style=>"position:relative;font-family:arial;font-weight:bold;margin-bottom:80px;opacity:0.6;width:300px;overflow:hidden;background-color:black; color:white;position:absolute:font-size:12px;height:24px; line-height:24px;padding:4px ;letter-spacing:0;filter: alpha(opacity = 60);zoom:1;z-index:100"}
                     .text
                       = render :partial => "shared/activity_markers", :locals => {:item => item}
                       = link_to item.title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 48), :style => "opacity:1;margin-top:-50px;color:white; font-weight:bold;font-size:12px;overflow:hidden"
+                      
 
-                  .inner-link{:style=>"position:absolute;font-family:arial;font-weight:bold;margin-bottom:0px;opacity:0.6;width:300px;overflow:hidden;background-color:black; color:white;position:absolute:font-size:12px;height:48px;margin-top:64px line-height:11px;padding:4px;letter-spacing:0;filter: alpha(opacity = 60);zoom:1;z-index:100"}
+                  .inner-link{:style=>"position:absolute;font-family:arial;font-weight:bold;opacity:0.6;width:284px;overflow:hidden;background-color:black; color:white;position:absolute:font-size:12px;height:40px; line-height:12px;padding:4px 8px;letter-spacing:0;filter: alpha(opacity = 60);zoom:1;z-index:100"}
                     .text
                       = link_to h( truncate(strip_tags(item.body), :length => 160) ), item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 48), :style => "opacity:1;margin-top:-50px;color:white; font-weight:bold;font-size:12px;overflow:hidden"
 
