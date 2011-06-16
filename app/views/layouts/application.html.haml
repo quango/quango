@@ -6,14 +6,14 @@
     = render :partial => "shared/layout/meta"
 
 
-    = yield :custom_javascript
+
 
     <!--[if lt IE 8]><link type="text/css" rel="stylesheet" media="screen" href="/stylesheets/ie7.css"><![endif]-->
     = render :partial => "shared/layout/css"
     = render :partial => "shared/layout/custom_css"
  
     = render :partial => "shared/layout/javascript"
-
+    = yield :custom_javascript
 
     = "<script type='text/javascript' src='/javascripts/jquery.cycle.all.latest.js'></script>" 
     = "<script type='text/javascript' src='/javascripts/jcarousellite_1.0.1.js'></script>"    

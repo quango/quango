@@ -49,7 +49,7 @@
 
     -else
       #sidebar{:style=>"float:left;border-right:1px solid white"}
-        .sidebar-heading{:style => "line-height:32px;width:136px;height:32px;background-color:#{current_group.primary_dark}; color:white;font-family:'Arial',sans-serif; font-weight:bold;font-size:13px; letter-spacing:-1px;padding-left:4px;"}
+        .sidebar-heading{:style => "background-color:#{current_group.primary_dark}; color:white;"}
           = "#{@doctype.name.capitalize}"
 
         -#if @doctype.product_format
@@ -231,7 +231,7 @@
     -if !current_group.has_leaderboard
       = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
 
-    = render :partial => "shared/share_box", :locals => {:item => @item}
+
 
 
 
@@ -242,6 +242,8 @@
       = render :partial => "video_info", :locals => {:item => @item}
     = render :partial => "images", :locals => {:item => @item}
 
+
+    = render :partial => "shared/share_box", :locals => {:item => @item}
     -#= render :partial => "shared/sidebar_actions_show",  :locals => {:width => "wide"}
     = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
     -if current_group.has_medium_rectangle
