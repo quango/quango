@@ -65,7 +65,7 @@
 
 
                 - else
-                  .videobox-title{:style=>"position:relative;font-family:arial;font-weight:bold;margin-bottom:80px;opacity:0.6;width:300px;overflow:hidden;background-color:black; color:white;position:absolute:font-size:12px;height:24px; line-height:24px;padding:4px ;letter-spacing:0;filter: alpha(opacity = 60);zoom:1;z-index:100"}
+                  .videobox-title{:style=>"position:relative;font-family:arial;font-weight:bold;opacity:0.6;width:300px;overflow:hidden;background-color:black; color:white;position:absolute:font-size:12px;height:24px; line-height:24px;padding:4px ;letter-spacing:0;filter: alpha(opacity = 60);zoom:1;z-index:100"}
                     .text
                       = render :partial => "shared/activity_markers", :locals => {:item => item}
                       = link_to item.title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 48), :style => "opacity:1;margin-top:-50px;color:white; font-weight:bold;font-size:12px;overflow:hidden"
