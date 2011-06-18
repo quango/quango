@@ -1,0 +1,31 @@
+
+This is a major release so we have updated now to the 1.15.x series - there have been many many changes and improvements to the system in this release
+
+Changelog
+
+* Alchemy
+* Youtube
+
+
+Bugfixes ( Spotted by )
+
+*
+
+Stylefixes
+
+*
+
+Developers Notes
+
+
+
+
+
+Pending for next release:
+
+* Member profile pages
+* Update JW Player
+
+* Rollovers for member lists ( mono -> colour )
+* Fix bumping to be a maximum of three times & fix the "bumped by" on show pages - consider a bumpkin marker?
+* Adapt bump into pin so posts can be made sticky as well as bumped

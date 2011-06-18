@@ -1,27 +1,24 @@
 
-This is mainly a bugfix release, but also a few usability issues
+This is a major release so we have updated now to the 1.15.x series - there have been many many changes and improvements to the system in this release
 
 Changelog
 
-* X
+* Added the black toolbar at the top - this has yoyo-ed a bit over the project but following various discussions with clients it has become clear that we need to provide maximum screen real estate for the client ( TD is after all simply a service provider )
+** Toolbar - now features dropdown on left, when a member is logged in the groups they have participated in appear here
+** Toolbar - added the "Submissions" button so members can reach the various posting options direct from the toolbar
+
+
+* posting process improved - video's and links now much more automated - when you post a video it grabs the info direct from youtube. Links currently grab *some* of the info from the target page however this will be greatly improved in the next release with the addition of the ALchemy API - ( NLP/Text mining) Note ths functionality is also necessary later for the inbound feeds - When working properly these are in fact KILLER FEATURES
+
+* Feature Boxes fixed to work in all browsers
+* Product Gallery fixed to work in all browsers
+* Optional Video Widget
 
 
 Bugfixes ( Spotted by )
 
-*
+* Show/Hide default state fixed
 
 Stylefixes
 
-* Changed width of page to accomodate current IAB banner sizes
-
-Developers Notes
-
-
-
-
-
-Pending for next release:
-
-* Rollovers for member lists ( mono -> colour )
-* Fix bumping to be a maximum of three times & fix the "bumped by" on show pages - consider a bumpkin marker?
-* Adapt bump into pin so posts can be made sticky as well as bumped
+* Numerous style fixes to make system IE compatable

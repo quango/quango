@@ -1,0 +1,23 @@
+#main
+  %h1
+    = "Bumper"
+
+  = "You can choose to show or not to show, 300px x 90px"
+
+  .group
+    = f.check_box :has_bumper, :class => "checkbox"
+    = f.label :has_bumper, "Show Bumper", :class => "radio"
+
+  .group
+    = f.label :bumper_content, "Bumper Content", :class => "label"
+    = f.text_area :bumper_content, :class => "text_field"
+
+  .clear
+
+  .group.navf
+    = f.submit t('scaffold.update'), :class => "action-button"
+
+
+
+
+

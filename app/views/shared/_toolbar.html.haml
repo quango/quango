@@ -53,17 +53,24 @@
     .entry{:style => "margin-left:8px"}
       = link_to "Login", new_user_session_path
     .entry
-      = link_to h(current_group.about_label), "/about/community"
+      = link_to "Become a member", new_user_path, :style => "font-weight:bold;"
       |
     .entry
-      = link_to h("FAQ"), "/about/faq"
+      = link_to "Member benefits", "/about/benefits"
       |
 
 
   -if logged_in?
 
-    .entry
+    .entry{:style=>"display:none"}
       =link_to "<img src='/images/logos/thinking_32.png' height='12px' width='12px' style='margin-top:4px'/>", "#" ,:style=>"padding:3px;border:0; height:16px; width:16px;"
+
+
+  -if logged_in?
+
+    .entry
+      =link_to t("layouts.application.logout"), destroy_user_session_path
+
 
 
   -if logged_in?
@@ -81,10 +88,7 @@
                   = link_to "#{doctype.create_label}", new_item_path(doctype), :class => "something", :style => "height:18px; line-height:18px;" 
         
 
-  -if logged_in?
 
-    .entry
-      =link_to t("layouts.application.logout"), destroy_user_session_path
       
 
 
