@@ -18,7 +18,7 @@
       - slideshow_delay = 0
       -current_group.doctypes.each do |doctype|
         -if doctype.name == current_group.slideshow_content
-          -slideshow_delay = slideshow_delay + 15000
+          -slideshow_delay = slideshow_delay + 100
           -#  = slideshow_delay.to_s
           %div{:style=>"width:728px; height:200px;float:left;border-right:1px solid white", :class=>"feature-box"}
             -#= "#{slideshow_delay}"
