@@ -2,7 +2,7 @@
 - expanded = local_assigns[:expanded]
 
 - if current_group.has_slideshow
-  .section-head-welcome{:style=>"border-bottom:10px solid white;border-top:4px solid #{current_group.secondary}"}
+  .section-head-welcome{:style=>"border-bottom:10px solid white;border-top:4px solid white"}
     .secondary-navigation-sections{:style=>"background-color:gainsboro"}
       .features{:style=>"font-family:Arial,sans-serif; font-weight:normal; font-size:12px;padding-left:10px;color:#{current_group.primary_dark}; letter-spacing:-1px;"}
         = "Todays slides...."  
@@ -37,10 +37,10 @@
                   = render :partial => "/items/slide", :locals => {:item => item, :sort=>"hot"}
 
           %script{:type => "text/javascript"}
-            = "function slides#{doctype.name}(){"
+            = "function slideshow(){"
             = "$(document).ready(function(){$('.slideshow.#{doctype.name}').fadeIn('fast').cycle({fx: 'fade'});});"
             = "}"
-            = "setTimeout('slides#{doctype.name}()',#{slideshow_delay});"
+            = "setTimeout('slideshow()',#{slideshow_delay});"
 
 
       %script{:type => "text/javascript"}
