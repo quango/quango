@@ -15,16 +15,16 @@
           %a.hide_video{:class => "video navlinks showhide left", :style=>"color:#{current_group.primary_dark}"}
             = "hide video"
 
-    .section-listing-welcomev{:class => "video", :style => "height:200px;background-color:black;border-bottom:1px solid white"}
+    .section-listing-welcomev{:class => "video", :style => "height:150px;background-color:WHITE;border-bottom:1px solid white; margin-bottom:10px;"}
 
-      %h4{:style=>"height:24px;line-height:24px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color: white; background-color:#000; border-bottom:4px solid #{current_group.primary};margin:0; font-size:15px; letter-spacing:-1px;font-weight:bold;border-bottom:1px solid white"}
+      %h4{:style=>"height:24px;line-height:22px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:#{current_group.primary_dark}; background-color:#000; border-bottom:4px solid #{current_group.primary};margin:0; font-size:14px; letter-spacing:0px;font-weight:bold;border-bottom:1px solid white"}
         %div{:style=>"padding:1px 0 3px 4px; height:18px; width:18px; float:left;"}
           = "<img src='/images/logos/star_16.png' height='14px' width='14px'/>"
-        = "Video spotlight"
+        = "[] [] [] [] [] [] "
 
       -current_group.doctypes.reverse.each do |doctype|
         -if doctype.has_video?
-          .video{:style=>"height:200px;width:300px;float:right;border-left:1px solid white", :class=>"feature-box"}
+          .video{:style=>"height:140px;width:300px;float:right;border-left:1px solid white;border-bottom:10px solid white", :class=>"feature-box"}
 
             .videobox{:style=>"width:300px;height:200px;background-color:black;",:class=>"none"}
               - items_array = Array.new
@@ -47,7 +47,7 @@
                       = render :partial => "shared/activity_markers", :locals => {:item => item}
                       = link_to item.title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 48), :style => "opacity:1;margin-top:-50px;color:white; font-weight:bold;font-size:12px;overflow:hidden"
 
-                  .features-thumbnail{:style => "background-image:url(#{base_thumbnail.url});width:300px; height:160px;overflow:hidden" }
+                  .features-thumbnail{:style => "background-image:url(#{base_thumbnail.url});width:300px; height:150px;overflow:hidden" }
                     = link_to image_tag("/images/spacer.gif", :class => 'a', :alt => item.title, :title => item.title,:style => "position: absolute;width:300px;height:160px" ), item_path(item.doctype, item)
 
                         
@@ -57,9 +57,9 @@
                         = link_to h( truncate(strip_tags(item.body), :length => 146) ), item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 48), :style => "opacity:1;margin-top:-50px;color:white; font-weight:normal;font-size:12px;overflow:hidden"
 
 
-                  .inner-content{:style=>"padding:8px; margin-bottom:8px;background-color:black;color:white"}
+                  .inner-content{:style=>"padding:8px; margin-bottom:8px;background-color:black;color:white;border-bottom:10px solid white"}
 
-                    .inner-author{:style=>"height:16px;margin-bottom:4px;"}
+                    .inner-author
                       = "Shared by " 
                       = link_to h(item.user.display_name), user_path(item.user)
 
@@ -67,7 +67,7 @@
                 - else
 
 
-                  .features-thumbnail{:style => "background-image:url(#{item.video_thumbnail});width:300px;height:160px; overflow:hidden; background-position:-128px -128px;" }
+                  .features-thumbnail{:style => "background-image:url(#{item.video_thumbnail});width:300px;height:150px; overflow:hidden; background-position:-64px -128px;" }
                     = link_to image_tag("/images/spacer.gif", :class => 'a', :alt => item.title, :title => item.title,:style => "position: absolute;width:300px;height:160px" ), item_path(item.doctype, item)
 
 
@@ -76,18 +76,18 @@
                         = render :partial => "shared/activity_markers", :locals => {:item => item}           
                         = link_to item.title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 48), :style => "opacity:1;margin-top:-50px;color:white; font-weight:bold;font-size:12px;overflow:hidden"                    
 
-                    .inner-link{:style=>"position:absolute;font-family:arial;font-weight:bold;opacity:0.6;width:284px;overflow:hidden;background-color:black; color:white;position:absolute:font-size:12px;height:40px;margin-top:64px; line-height:12px;padding:4px 8px;letter-spacing:0;filter: alpha(opacity = 60);zoom:1;z-index:100"}
+                    .inner-link{:style=>"position:absolute;font-family:arial;font-weight:bold;opacity:0.6;width:284px;overflow:hidden;background-color:black; color:white;position:absolute:font-size:12px;height:32px;margin-top:64px; line-height:12px;padding:4px 8px;letter-spacing:0;filter: alpha(opacity = 60);zoom:1;z-index:100"}
                       .text
-                        = link_to h( truncate(strip_tags(item.body), :length => 146) ), item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 48), :style => "opacity:1;margin-top:-50px;color:white; font-weight:normal;font-size:12px;overflow:hidden"
+                        = link_to h( truncate(strip_tags(item.body), :length => 96) ), item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 48), :style => "opacity:1;margin-top:-50px;color:white; font-weight:normal;font-size:12px;overflow:hidden"
 
 
-                  .inner-content{:style=>"padding:8px; margin-bottom:8px;background-color:black;color:white"}
+                .inner-content{:style=>"background-color:black;color:white"}
 
-                    .inner-author{:style=>"height:16px;margin-bottom:4px;"}
-                      = "Shared by " 
-                      = link_to h(item.user.display_name), user_path(item.user)
+                  .inner-author{:style=>"height:16px;"}
+                    = "Shared by " 
+                    = link_to h(item.user.display_name), user_path(item.user)
 
-      .clear
+    .clear
 
     %script{:type => "text/javascript"}
       = "// collapse:"

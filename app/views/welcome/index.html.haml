@@ -75,20 +75,29 @@
 
   #sidebar-inner{:style => "float:right; width:300px;"}
     .block
-      %div{:style=>"width:300px;height:90px;background:black;border:1px solid white"}
+      %div{:style=>"width:300px;height:90px;background:black"}
         - if current_group.has_bumper
           = current_group.bumper_content
 
-    .inner
-      -if current_group.has_video_on_homepage
-        = render :partial => "shared/sidebar_video",  :locals => {:width => "wide", :expanded => true}
 
-    -if current_group.has_threeone_rectangle
-      .threeone-rectangle{:style=>"background-color:white; width:300px;height:100px;margin:10px 0;padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
-        = current_group.threeone_rectangle_content
+    -if current_group.has_video_on_homepage
+      .block
+        %div{:style=>"width:300px;height:248px;background:green;"}
+          = render :partial => "shared/sidebar_video",  :locals => {:width => "wide", :expanded => true}
       .clear
 
+    .block{:style => "margin-top:4px"}
+      -if current_group.has_threeone_rectangle
+        .threeone-rectangle{:style=>"background-color:white; width:300px;height:100px;margin:10px 0;padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
+          = current_group.threeone_rectangle_content
+    .clear
 
+    .block{:style => "margin-bottom:4px"}
+      %h3{:style=>"background:#{current_group.primary_dark}"}
+        = "About this site"
+      .content
+        .markdown{:style => "padding:8px"}
+          = markdown(current_group.description)
 
 
 
@@ -98,12 +107,7 @@
       .clear
 
 
-    .block{:style => "margin-bottom:4px"}
-      %h3{:style=>"background:#{current_group.primary_dark}"}
-        = "About this site"
-      .content
-        .markdown{:style => "padding:8px"}
-          = markdown(current_group.description)
+
 
     .block{:style=>"display:none"}
       = render :partial => "shared/sidebar_actions",  :locals => {:width => "wide"}

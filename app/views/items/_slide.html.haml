@@ -19,54 +19,60 @@
       -owner = item.user unless item.anonymous
 
 
-    .summary
 
-      .inner-content{:style=>"padding-bottom:8px; margin-bottom:8px;border-bottom:1px solid gainsboro; width:364px;height:200px; float:right; background:black; color:white"}
-
-        .inner-link{:style=>"font-size:14px;font-weight:bold;height:36px; line-height:18px;padding:8px 0 4px 0; margin-bottom:4px;letter-spacing:-1px;"}
-          = render :partial => "shared/activity_markers", :locals => {:item => item}
-          = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 96)
-
-        .inner-author{:style=>"height:16px;margin-bottom:4px;"}
-          = "By " 
-          = link_to h(item.user.display_name), user_path(item.user)
-
-        .inner-teaser{:style=>"height:80px;"}
-          = h(truncate(strip_tags(item.body), :length => 160) )
-
-
-
-        .inner-topics
-          -topics_array = Array.new
-          -item.first_tags.each do |topic|
-            -topics_array << topic
-          -topics_array[0..1].each do |topic|
-            %span.tag-list{:class => "tag_#{h(topic)}"}
-              = link_to h(topic), url_for(:controller => "items", :action => "index", :topics => topic), :rel => "tag", :title => t("items.tags.tooltip", :tag => topic)
 
 
 
 
     .thumbnail{:class => class_for_item(item)}
+
+      .summary
+
+        .inner-content{:style=>"padding:8px; margin-bottom:8px;border-bottom:1px solid gainsboro; width:328px;height:220px; float:right; background:black; color:white"}
+
+          .inner-link{:style=>"font-size:14px;font-weight:bold;height:36px; line-height:18px;padding:8px 0 4px 0; margin-bottom:4px;letter-spacing:-1px;"}
+            = render :partial => "shared/activity_markers", :locals => {:item => item}
+            = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 96)
+
+          .inner-author{:style=>"height:16px;margin-bottom:4px;"}
+            = "By " 
+            = link_to h(item.user.display_name), user_path(item.user)
+
+          .inner-teaser{:style=>"height:64px;width:300px;"}
+            = h(truncate(strip_tags(item.body), :length => 160) )
+
+
+
+          .inner-topics
+            -topics_array = Array.new
+            -item.first_tags.each do |topic|
+              -topics_array << topic
+            -topics_array[0..1].each do |topic|
+              %span.tag-list{:class => "tag_#{h(topic)}"}
+                = link_to h(topic), url_for(:controller => "items", :action => "index", :topics => topic), :rel => "tag", :title => t("items.tags.tooltip", :tag => topic), :style=>"background-color:#{current_group.primary_dark}"
+
+
+
+
       -cache("item_on_index_#{item.id}_#{I18n.locale}") do
         -if item.default_thumbnail?
 
 
           - image = Image.find(item.default_thumbnail)
           - base_image = image.image.process(:thumb,image.image_cropping)
-          - base_thumbnail = base_image.process(:thumb,"364x")
+          - base_thumbnail = base_image.process(:thumb,"380x")
           - base_thumbnail_grey = base_thumbnail.process(:greyscale, "20")
 
-          .features-thumbnail{:style => "background-image:url(#{base_thumbnail.url});width:364px;height:200px; overflow:hidden" }
+          .features-thumbnail{:style => "background-image:url(#{base_thumbnail.url});width:380px;height:224px; overflow:hidden" }
 
-            = link_to image_tag("/images/spacer.gif", :class => 'a', :alt => image.name, :title => image.name,:style => "position: absolute;width:364px;height:200px" ), item_path(item.doctype, item)
+            = link_to image_tag("/images/spacer.gif", :class => 'a', :alt => image.name, :title => image.name,:style => "position: absolute;width:380px;height:220px" ), item_path(item.doctype, item)
 
             -#= link_to image_tag(base_thumbnail.url, :class => 'a', :alt => image.name, :title => image.name,:style => "position: absolute;width:181px;" ), item_path(item.doctype, item)
             -#= link_to image_tag(base_thumbnail_grey.url, :class => 'b', :alt => image.name, :title => image.name,:style => "position: absolute;width:181px;" ), item_path(item.doctype, item)
 
-            .inner-link{:style=>"font-family:arial;font-weight:normal;margin-top:51px;opacity:0.6;width:181px;background-color:black; color:white;position:absolute:font-size:12px;height:40px; line-height:12px;padding:4px;letter-spacing:0;filter: alpha(opacity = 60);zoom:1;"}
+            .inner-link{:style=>"font-family:'Arial Narrow';font-weight:bold;margin-top:128px;opacity:0.6;width:348px;background-color:black; color:white;position:absolute;height:64px; line-height:16px;padding:4px;letter-spacing:0;filter: alpha(opacity = 60);zoom:1;"}
               .text
-                = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 256), :style => "opacity:1;margin-top:-48px;color:white; font-weight:normal;"
+                = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 256), :style => "opacity:1;margin-top:0;color:white; font-weight:bold;font-size:16px;"
 
 
 
@@ -74,11 +80,11 @@
 
         -else
 
-          .thumbnail-placeholder{:style => "background-color:#{current_group.secondary};width:364px;height:200px; overflow:hidden;"  }
-            = link_to image_tag("/images/spacer.gif", :class => 'a', :alt => "None", :title => "None",:style => "position: absolute;width:364px;height:200px" ), item_path(item.doctype, item)
-            .inner-link{:style=>"font-family:arial;font-weight:normal;;opacity:0.6;margin-top:128px;width:300px;overflow:hidden;background-color:black;position:absolute;font-size:12px;height:64px;min-height:32px; line-height:12px;padding:4px;letter-spacing:0;color:white;filter: alpha(opacity = 60);zoom:1;"}
+          .thumbnail-placeholder{:style => "background-color:#{current_group.secondary};width:380px;height:224px; overflow:hidden;"  }
+            = link_to image_tag("/images/spacer.gif", :class => 'a', :alt => "None", :title => "None",:style => "position:relative;width:364px;height:200px" ), item_path(item.doctype, item)
+            .inner-link{:style=>"font-family:arial;font-weight:normal;;opacity:0.6;margin-top:128px;width:348px;overflow:hidden;background-color:black;position:absolute;font-size:16px;height:64px;min-height:32px; line-height:16px;padding:4px;letter-spacing:0;color:white;filter: alpha(opacity = 60);zoom:1;"}
 
-              = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 256), :style => "opacity:1;margin-top:-48px;color:white; font-weight:normal;height:48px;"
+              = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 256), :style => "opacity:1;margin-top:0;color:white; font-weight:normal;height:48px;"
 
             -#= link_to image_tag("/images/spacer.gif", :style => "background-color:#{current_group.secondary};width:181px;height:90px"), item_path(item.doctype, item)
 
