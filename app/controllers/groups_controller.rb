@@ -187,7 +187,7 @@ class GroupsController < ApplicationController
                           display_name_ii display_name_ii_link
                           strapline legend has_welcome_features has_product_gallery has_video_on_homepage
                           description has_custom_channels custom_channels custom_channel_content default_tags subdomain 
-                          has_leaderboard leaderboard_content has_custom_leaderboard custom_leaderboard_content has_medium_rectangle medium_rectangle_content has_threeone_rectangle threeone_rectangle_content has_bumper bumper_content
+                          has_leaderboard leaderboard_content has_custom_leaderboard custom_leaderboard_content has_medium_rectangle medium_rectangle_content has_threeone_rectangle threeone_rectangle_content has_bumper bumper_content welcome_layout has_slideshow slideshow_content
                           logo logo_info logo_only
                           forum notification_from notification_email
                           custom_favicon language theme reputation_rewards reputation_constrains

@@ -4,13 +4,13 @@
   - form_for @user, :url => users_path, :html => {:class => "form"} do |f|
     =render :partial => "form", :locals => {:f => f}
     .form-footer
-      = submit_tag "Create account", :class => "create-button", :style => "width:312px; height:32px; padding: 0 32px; font-weight: bold; font-size:18px;"
+      = submit_tag "Create account", :class => "action-button", :style => "width:312px; height:32px; padding: 0 32px; font-weight: bold; font-size:18px;"
 
 - content_for :main do
 
   #main{:style => "width:898px; padding: 0 32px"}
-    %h1{:style => "color:#{current_group.primary}; font-weight:bold; padding: 8px 0 0 0;text-shadow: 1px 1px 0 rgba(255,255,255,255.25)"}
-      = "#{current_group.signup_heading}"
+    -#%h1{:style => "color:#{current_group.primary}; font-weight:bold; padding: 8px 0 0 0;text-shadow: 1px 1px 0 rgba(255,255,255,255.25)"}
+      -#= "#{current_group.signup_heading}"
 
     .left
       %h2

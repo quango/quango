@@ -39,15 +39,15 @@ class Group
   key :custom_channels, Array #, :default => "something, something else"
   key :custom_channel_content, String
 
-  key :has_welcome_features, Boolean, :default => false
-  key :has_product_gallery, Boolean, :default => false
-  key :has_video_on_homepage, Boolean, :default => false
 
+
+  #layouts
+  key :has_leaderboard, Boolean, :default => false
+  key :leaderboard_content, String
 
   key :has_bumper, Boolean, :default => false
   key :bumper_content, String
-  key :has_leaderboard, Boolean, :default => false
-  key :leaderboard_content, String
+
   key :has_custom_leaderboard, Boolean, :default => false
   key :custom_leaderboard_content, String
 
@@ -59,6 +59,14 @@ class Group
 
   key :standard_leaderboard, Boolean, :default => false
   key :standard_leaderboard_content, String
+
+  key :welcome_layout, String, :default => "homepage_content"
+  key :has_welcome_features, Boolean, :default => false
+  key :has_product_gallery, Boolean, :default => false
+  key :has_video_on_homepage, Boolean, :default => false
+
+  key :has_slideshow, Boolean,  :default => false
+  key :slideshow_content, String,  :default => "articles"
 
   key :default_tags, Array
   key :has_custom_ads, Boolean, :default => true

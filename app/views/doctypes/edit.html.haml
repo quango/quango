@@ -16,6 +16,12 @@
         %hr
         .group
           = "General settings"
+
+        .group
+          = "Slideshow"
+          = f.text_field :slideshow, :value => @doctype.slideshow
+
+
         .group
           = "Does this section include video content?"
           = f.check_box :has_video

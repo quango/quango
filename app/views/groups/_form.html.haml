@@ -17,10 +17,31 @@
 
 .clear
 
-%div{:style => "width:312px;float:left"}
+%div
+  %div{:style => "width:312px;float:left"}
+    .group
+      = form.label :welcome_layout, h('Welcome layout'), :class => "label"
+      = form.text_field :welcome_layout, :class => "text_field", :value => params[:name]
+
+    .group
+      = form.check_box :has_welcome_features, :class => "checkbox"
+      = form.label :has_welcome_features, "Show Welcome Features", :class => "radio"
+    .group
+      = form.check_box :has_product_gallery, :class => "checkbox"
+      = form.label :has_product_gallery, "Show Product Gallery", :class => "radio"
+    .group
+      = form.check_box :has_slideshow, :class => "checkbox"
+      = form.label :has_slideshow, "Show Slides", :class => "radio"
+
+    .group
+      = form.label :slideshow_content, h('Slideshow content'), :class => "label"
+      = form.text_field :slideshow_content, :class => "text_field", :value => params[:name]
 
 
-.clear
+    .group
+      = form.check_box :has_video_on_homepage, :class => "checkbox"
+      = form.label :has_video_on_homepage, "Show Video on Homepage", :class => "radio"
+
 
 %div
   %div{:style => "width:312px;float:left"}
@@ -60,15 +81,7 @@
 %hr
 
 
-  .group
-    = form.check_box :has_welcome_features, :class => "checkbox"
-    = form.label :has_welcome_features, "Show Welcome Features", :class => "radio"
-  .group
-    = form.check_box :has_product_gallery, :class => "checkbox"
-    = form.label :has_product_gallery, "Show Product Gallery", :class => "radio"
-  .group
-    = form.check_box :has_video_on_homepage, :class => "checkbox"
-    = form.label :has_video_on_homepage, "Show Video on Homepage", :class => "radio"
+
 
 %hr
 

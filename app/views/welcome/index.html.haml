@@ -79,13 +79,25 @@
         - if current_group.has_bumper
           = current_group.bumper_content
 
-    -if current_group.has_video_on_homepage
-      = render :partial => "shared/sidebar_video",  :locals => {:width => "wide", :expanded => true}
+    .inner
+      -if current_group.has_video_on_homepage
+        = render :partial => "shared/sidebar_video",  :locals => {:width => "wide", :expanded => true}
 
     -if current_group.has_threeone_rectangle
       .threeone-rectangle{:style=>"background-color:white; width:300px;height:100px;margin:10px 0;padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
         = current_group.threeone_rectangle_content
       .clear
+
+
+
+
+
+    -if current_group.has_medium_rectangle
+      .medium-rectangle{:style=>"background-color:white;margin:10px 0;padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
+        = current_group.medium_rectangle_content
+      .clear
+
+
     .block{:style => "margin-bottom:4px"}
       %h3{:style=>"background:#{current_group.primary_dark}"}
         = "About this site"
@@ -101,10 +113,7 @@
         -#= render :partial => widget.partial_name, :locals => {:widget => widget, :width => "wide"}
 
 
-    -if current_group.has_medium_rectangle
-      .medium-rectangle{:style=>"background-color:white;margin:10px 0;padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
-        = current_group.medium_rectangle_content
-      .clear
+
     = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
     = render :partial => "shared/sponsored_links",  :locals => {:width => "wide"}
 
@@ -140,7 +149,7 @@
 
       .inner
 
-
+        = render :partial => "slideshow", :locals => {:expanded => true}
         = render :partial => "product_gallery", :locals => {:expanded => true}
         = render :partial => "featured_sections", :locals => {:expanded => true}
 
@@ -148,8 +157,9 @@
 
 
 
+
       .inner
-        = render :partial => "homepage_content", :locals => {:expanded => true}
+        = render :partial => current_group.welcome_layout, :locals => {:expanded => true}
 
 
 

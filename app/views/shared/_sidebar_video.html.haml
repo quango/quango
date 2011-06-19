@@ -5,17 +5,17 @@
 
   %script{:type=>"text/javascript", :src=>"/javascripts/mediaplayer/jwplayer.js"}
 
-  .section-head-welcome{:style=>"border-bottom:10px solid white; width:300px;border-top:4px solid #{current_group.secondary}"}
-    .secondary-navigation-sections{:style=>"background-color:gainsboro; width:300px;"}
-      .video{:style=>"font-family:Arial,sans-serif; font-weight:normal; font-size:12px;padding-left:10px;color:#{current_group.primary_dark}; letter-spacing:-1px;width:300px;"}
-        = "Video...."  
-        .navcontrols{:style => "width:64px; height:24px; float:right; margin-right:10px;"}
+  .section-head-welcome{:style=>"border-bottom:10px solid white;border-top:4px solid white"}
+    .secondary-navigation-sections{:style=>"width:300px;background-color:gainsboro"}
+      .videos{:style=>"width:300px;font-family:Arial,sans-serif; font-weight:normal; font-size:12px;padding-left:10px;color:#{current_group.primary_dark};"}
+        = "Todays videos...."  
+        .navcontrols{:style => "width:96px; height:24px; float:right;"}
           %a.show_video{:class => "video navlinks showhide left", :style=>"color:#{current_group.primary_dark}"}
             = "show video"
           %a.hide_video{:class => "video navlinks showhide left", :style=>"color:#{current_group.primary_dark}"}
             = "hide video"
 
-    .section-listing-welcome{:class => "videos", :style => "/**/"}
+    .section-listing-welcomev{:class => "video", :style => "height:300px"}
 
       %h4{:style=>"height:24px;line-height:24px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color: white; background-color:#000; border-bottom:4px solid #{current_group.primary};margin:0; font-size:15px; letter-spacing:-1px;font-weight:bold;border-bottom:1px solid white"}
         %div{:style=>"padding:1px 0 3px 4px; height:18px; width:18px; float:left;"}
@@ -24,7 +24,7 @@
 
       -current_group.doctypes.reverse.each do |doctype|
         -if doctype.has_video?
-          .video{:style=>"width:300px;float:right;border-left:1px solid white", :class=>"feature-box"}
+          .video{:style=>"height:200px;width:300px;float:right;border-left:1px solid white", :class=>"feature-box"}
 
             .videobox{:style=>"width:300px",:class=>"none"}
               - items_array = Array.new
@@ -42,7 +42,7 @@
                   - base_thumbnail = base_image.process(:thumb,"300x")
                   - base_thumbnail_grey = base_thumbnail.process(:greyscale, "20")
 
-                  .videobox-title{:style=>"position:relative;font-family:arial;font-weight:bold;opacity:1;width:300px;overflow:hidden;background-color:black; color:white;position:absolute:font-size:12px;height:24px; line-height:24px;padding:4px ;letter-spacing:0;filter: alpha(opacity = 100);zoom:1;z-index:100"}
+                  .videobox-title{:style=>"position:relative;font-family:arial;font-weight:bold;opacity:1;width:292px;overflow:hidden;background-color:black; color:white;position:absolute:font-size:12px;height:24px; line-height:24px;padding:4px ;letter-spacing:0;filter: alpha(opacity = 100);zoom:1;z-index:100"}
                     .text
                       = render :partial => "shared/activity_markers", :locals => {:item => item}
                       = link_to item.title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 48), :style => "opacity:1;margin-top:-50px;color:white; font-weight:bold;font-size:12px;overflow:hidden"
@@ -87,47 +87,47 @@
                       = "Shared by " 
                       = link_to h(item.user.display_name), user_path(item.user)
 
-  .clear
+    .clear
 
-  %script{:type => "text/javascript"}
-    = "// collapse:"
-    = "$('.hide_video.video').click(function() {"
-    = "$('.hide_video.video').css('display','none');"
-    = "$('.show_video.video').css('display','block');"
-    = "$('.videos.section-listing-welcome').hide('fast');"
-    -#= "$.cookie('summary.index.summary', 'collapsed', { expires: 2 });"
-    = "});"
-    = "// expand:"
-    = "$('.show_video.video').click(function() {"
-    = "$('.show_video.video').css('display','none');"
-    = "$('.hide_video.video').css('display','block');"
-    = "$('.videos.section-listing-welcome').show('slow');"
-    -#= "$.cookie('summary.index.summary', 'expanded', { expires: 2 });"
-    = "});"
-    = "// ok so far"
-    -#= "// COOKIES"
-    -#= "var summary = $.cookie('summary.index.summary');"
-    -#= "	// Set the user's selection for the left column"
-    -#= "if (summary == 'collapsed') {"
-    -#= "$('.hide_summary.summary').css('display','none');"
-    -#= "$('.show_summary.summary').css('display','block');"
-    -#= "$('.summary.section-listing-welcome').hide();"
-    -#= "};"
-    -#= "if (summary == 'expanded') {"
-    -#= "$('.hide_summary.summary').css('display','block');"
-    -#= "$('.show_summary.summary').css('display','none');"
-    -#= "$('summary.summary.section-listing-welcome').show();"
-    -#= "};"
-    - if expanded == false
-      -#= "if (summary == null) {"
-      = "$('.show_video.video').css('display','block');"
+    %script{:type => "text/javascript"}
+      = "// collapse:"
+      = "$('.hide_video.video').click(function() {"
       = "$('.hide_video.video').css('display','none');"
-      = "$('.videos.section-listing-welcome').hide();"
-      -#= "};"
-    - else
-      -#= "if (summary == null) {"
-      = "$('.hide_video.video').css('display','block');"
+      = "$('.show_video.video').css('display','block');"
+      = "$('.video.section-listing-welcomev').hide('fast');"
+      -#= "$.cookie('summary.index.summary', 'collapsed', { expires: 2 });"
+      = "});"
+      = "// expand:"
+      = "$('.show_video.video').click(function() {"
       = "$('.show_video.video').css('display','none');"
-      = "$('.videos.section-listing-welcome').show();"
+      = "$('.hide_video.video').css('display','block');"
+      = "$('.video.section-listing-welcomev').show('slow');"
+      -#= "$.cookie('summary.index.summary', 'expanded', { expires: 2 });"
+      = "});"
+      = "// ok so far"
+      -#= "// COOKIES"
+      -#= "var summary = $.cookie('summary.index.summary');"
+      -#= "	// Set the user's selection for the left column"
+      -#= "if (summary == 'collapsed') {"
+      -#= "$('.hide_summary.summary').css('display','none');"
+      -#= "$('.show_summary.summary').css('display','block');"
+      -#= "$('.summary.section-listing-welcome').hide();"
       -#= "};"
-    -#= "};"
+      -#= "if (summary == 'expanded') {"
+      -#= "$('.hide_summary.summary').css('display','block');"
+      -#= "$('.show_summary.summary').css('display','none');"
+      -#= "$('summary.summary.section-listing-welcome').show();"
+      -#= "};"
+      - if expanded == false
+        -#= "if (summary == null) {"
+        = "$('.show_video.video').css('display','block');"
+        = "$('.hide_video.video').css('display','none');"
+        = "$('.video.section-listing-welcomev').hide();"
+        -#= "};"
+      - else
+        -#= "if (summary == null) {"
+        = "$('.hide_video.video').css('display','block');"
+        = "$('.show_video.video').css('display','none');"
+        = "$('.video.section-listing-welcomev').show();"
+        -#= "};"
+      -#= "};"

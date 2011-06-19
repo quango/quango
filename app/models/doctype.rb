@@ -16,6 +16,8 @@ class Doctype
   key :featured, Boolean, :default => false
   key :public_access, Boolean, :default => true
 
+  key :slideshow, String, :default => "articles"
+
   key :has_video, Boolean, :default => false
   key :has_links, Boolean, :default => false
 
