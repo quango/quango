@@ -26,7 +26,7 @@
         -if doctype.has_video?
           .video{:style=>"height:140px;width:300px;float:right;border-left:1px solid white;border-bottom:10px solid white", :class=>"feature-box"}
 
-            .videobox{:style=>"width:300px;height:200px;background-color:black;",:class=>"none"}
+            .videobox{:style=>"width:300px;height:196px;background-color:black;",:class=>"none"}
               - items_array = Array.new
               - doctype.items.reverse.each do |item|
                 - items_array << item 
@@ -52,7 +52,7 @@
 
                         
 
-                    .inner-link{:style=>"position:absolute;font-family:arial;font-weight:bold;opacity:1;width:284px;overflow:hidden;background-color:black; color:white;position:absolute:font-size:12px;height:40px;margin-top:112px; line-height:12px;padding:4px 8px;letter-spacing:0;filter: alpha(opacity = 100);zoom:1;z-index:100"}
+                    .inner-link{:style=>"position:absolute;font-family:arial;font-weight:bold;opacity:1;width:284px;overflow:hidden;background-color:black; color:white;position:absolute:font-size:12px;height:40px;margin-top:96px; line-height:12px;padding:4px 8px;letter-spacing:0;filter: alpha(opacity = 100);zoom:1;z-index:100"}
                       .text
                         = link_to h( truncate(strip_tags(item.body), :length => 146) ), item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 48), :style => "opacity:1;margin-top:-50px;color:white; font-weight:normal;font-size:12px;overflow:hidden"
 
@@ -76,16 +76,16 @@
                         = render :partial => "shared/activity_markers", :locals => {:item => item}           
                         = link_to item.title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 48), :style => "opacity:1;margin-top:-50px;color:white; font-weight:bold;font-size:12px;overflow:hidden"                    
 
-                    .inner-link{:style=>"position:absolute;font-family:arial;font-weight:bold;opacity:0.6;width:284px;overflow:hidden;background-color:black; color:white;position:absolute:font-size:12px;height:32px;margin-top:64px; line-height:12px;padding:4px 8px;letter-spacing:0;filter: alpha(opacity = 60);zoom:1;z-index:100"}
+                    .inner-link{:style=>"position:absolute;font-family:arial;font-weight:bold;opacity:1;width:284px;overflow:hidden;background-color:black; color:white;position:absolute:font-size:12px;height:40px;margin-top:96px; line-height:12px;padding:4px 8px;letter-spacing:0;filter: alpha(opacity = 100);zoom:1;z-index:100"}
                       .text
                         = link_to h( truncate(strip_tags(item.body), :length => 96) ), item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 48), :style => "opacity:1;margin-top:-50px;color:white; font-weight:normal;font-size:12px;overflow:hidden"
 
 
-                .inner-content{:style=>"background-color:black;color:white"}
+                  .inner-content{:style=>"background-color:black;color:white"}
 
-                  .inner-author{:style=>"height:16px;"}
-                    = "Shared by " 
-                    = link_to h(item.user.display_name), user_path(item.user)
+                    .inner-author{:style=>"height:16px;DIsPLAY:NONE"}
+                      = "Shared by " 
+                      = link_to h(item.user.display_name), user_path(item.user)
 
     .clear
 
