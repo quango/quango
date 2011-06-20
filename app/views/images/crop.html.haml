@@ -38,12 +38,12 @@
 
 
   - dragonfly_link = "/system/dragonfly/development/" << @image.image_uid.to_s
-  - cropped_image = @image.image.process!(:resize, '565x')
+  - cropped_image = @image.image.process!(:resize, 'x588')
 
   #main-index
     .secondary-navigation  
       %h3
-        = "Profile Image Cropping"
+        = "Image Cropping"
       .navcontrols  
         = link_to 'Back', item_images_path, :class => "standard-button right"
 
