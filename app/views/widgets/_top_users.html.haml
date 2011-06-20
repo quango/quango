@@ -5,7 +5,7 @@
     -widget.top_users(current_group).each do |user|
       -if user.login != "admin"
         -if width == "wide"
-          %li{:onclick => "document.location.href='#{user_path(user)}'", :style => "height:64px"}
+          %li{:onclick => "document.location.href='#{user_path(user)}'", :style => "height:32px"}
             = render :partial => "users/user_mini", :locals => {:user => user, :width => "wide"}
         -if width == "narrow"
           %li{:onclick => "document.location.href='#{user_path(user)}'", :style => "height:32px"}

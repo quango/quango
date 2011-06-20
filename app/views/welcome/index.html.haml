@@ -70,117 +70,141 @@
 /Layout
 -content_for :main do
 
-  
-
-
-  #sidebar-inner{:style => "float:right; width:300px;"}
-    .block
-      %div{:style=>"width:300px;height:90px;background:black"}
-        - if current_group.has_bumper
-          = current_group.bumper_content
-
-
-    -if current_group.has_video_on_homepage
-      .block
-        %div{:style=>"width:300px;height:248px;background:green;"}
-          = render :partial => "shared/sidebar_video",  :locals => {:width => "wide", :expanded => true}
-      .clear
-
-    .block{:style => "margin-top:4px"}
-      -if current_group.has_threeone_rectangle
-        .threeone-rectangle{:style=>"background-color:white; width:300px;height:100px;margin:10px 0;padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
-          = current_group.threeone_rectangle_content
-    .clear
-
-    .block{:style => "margin-bottom:4px"}
-      %h3{:style=>"background:#{current_group.primary_dark}"}
-        = "About this site"
+  #lead{:style=>"margin-top:10px; height:90px"}
+    .welcome-index{:style => "float:left; width:729px;"}
       .content
-        .markdown{:style => "padding:8px"}
-          = markdown(current_group.description)
+
+        -if current_group.has_custom_leaderboard
+          .inner
+            .leaderboard{:style=>"border-bottom:1px solid white"}
+              = "<!--/ Leaderboard /-->"
+              = current_group.custom_leaderboard_content
+          .clear
+
+    .sidebar-inner{:style => "float:right; width:300px;"}
+      .block
+        %div{:style=>"width:300px;height:90px;background:black"}
+          - if current_group.has_bumper
+            = current_group.bumper_content
+
+  .clear
+  #above-the-fold{:style=>"height:24px;line-height:22px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:white; background-color:#000; border-top:4px solid black;margin:10px 0 0 0; font-size:14px; letter-spacing:0px;font-weight:bold;border-bottom:1px solid white"}
+    .above-the-fold{:style=>"width:1032px; height:24px; background-color:#{current_group.tertiary}"}
+      %div{:style=>"padding:1px 0 3px 4px; height:18px; width:18px; float:left;"}
+        = "<img src='/images/logos/star_32_point.png' height='14px' width='14px'/>"
+      = "Hot Today"
+  
+  #upper
+
+    .welcome-index{:style => "float:left; width:729px;"}
+      .content
+
+        .inner
+
+          = render :partial => "slideshow", :locals => {:expanded => true}
+        .inner
+          = render :partial => "featured_sections", :locals => {:expanded => true}
+
+
+    .sidebar-inner{:style => "float:right; width:300px;"}
+
+      -if current_group.has_video_on_homepage
+        .block
+          %div{:style=>"width:300px;height:248px;background:green;"}
+            = render :partial => "shared/sidebar_video",  :locals => {:width => "wide", :expanded => true}
+        .clear
+
+      .block{:style => "margin-top:4px"}
+        %h4
+          = "Advertisment"
+        -if current_group.has_threeone_rectangle
+          .threeone-rectangle{:style=>"background-color:white; width:300px;height:100px;margin:10px 0;padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
+            = current_group.threeone_rectangle_content
+      .clear
+
+  .clear
+  #fold{:style=>"height:24px;line-height:22px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:#{current_group.primary_dark}; background-color:#000; border-top:4px solid black;margin:0; font-size:14px; letter-spacing:0px;font-weight:bold;border-bottom:1px solid white"}
+    .the-fold{:style=>"width:1032px; height:24px; background-color:#{current_group.tertiary}"}
+      %div{:style=>"padding:1px 0 3px 4px; height:18px; width:18px; float:left;"}
+        = "<img src='/images/spacer' height='14px' width='14px'/>"
+      ="The fold"
+
+  .clear
+  #middle
+
+
+    .welcome-index{:style => "float:left; width:729px;"}
+      .content
+
+        -if current_group.has_leaderboard 
+          .inner
+            .leaderboard{:style=>"width:728px;height:90px; float:left;"}
+              = "<!--/ Leaderboard /-->"
+              = current_group.leaderboard_content
+          .clear
+
+        .inner
+          = render :partial => "product_gallery", :locals => {:expanded => true}
+
+        .inner
+          = render :partial => current_group.welcome_layout, :locals => {:expanded => true}
 
 
 
-    -if current_group.has_medium_rectangle
-      .medium-rectangle{:style=>"background-color:white;margin:10px 0;padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
-        = current_group.medium_rectangle_content
       .clear
 
 
-
-
-    .block{:style=>"display:none"}
-      = render :partial => "shared/sidebar_actions",  :locals => {:width => "wide"}
-
-    -#- current_group.widgets.each do |widget|
-      -#.widget.block{:id => widget.name}
-        -#= render :partial => widget.partial_name, :locals => {:widget => widget, :width => "wide"}
-
-
-
-    = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
-    = render :partial => "shared/sponsored_links",  :locals => {:width => "wide"}
-
-
-
-    .block
-      = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
-
-
-    -if !current_group.isolate # this will be the group connect thing
-      -#= render :partial => "featured_groups", :locals => {:width => "wide"}
-
-
-
-  #welcome-index{:style => "float:left; width:729px;"}
-    .content
-
-      -#if current_group.has_leaderboard || !current_group.has_custom_leaderboard
-        -#.inner
-          -#.leaderboard
-            -#= "<!--/ Leaderboard /-->"
-            -#= current_group.leaderboard_content
-        -#.clear
-
-
-      -if current_group.has_custom_leaderboard
+      .content
         .inner
-          .leaderboard{:style=>"border-bottom:1px solid white"}
-            = "<!--/ Leaderboard /-->"
-            = current_group.custom_leaderboard_content
+          = yield :list
+          .clear
+
+
+
+
+    #sidebar-inner{:style => "float:right; width:300px;"}
+
+
+      .block{:style => "margin-bottom:4px"}
+        %h3{:style=>"background:#{current_group.primary_dark}"}
+          = "About this site"
+        .content
+          .markdown{:style => "padding:8px"}
+            = markdown(current_group.description)
+
+
+
+      -if current_group.has_medium_rectangle
+        .medium-rectangle{:style=>"background-color:white;margin:10px 0;padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
+          = current_group.medium_rectangle_content
         .clear
 
 
-      .inner
-
-        = render :partial => "slideshow", :locals => {:expanded => true}
-        = render :partial => "product_gallery", :locals => {:expanded => true}
-        = render :partial => "featured_sections", :locals => {:expanded => true}
 
 
+      .block{:style=>"display:none"}
+        = render :partial => "shared/sidebar_actions",  :locals => {:width => "wide"}
 
-
-
-
-      .inner
-        = render :partial => current_group.welcome_layout, :locals => {:expanded => true}
+      -#- current_group.widgets.each do |widget|
+        -#.widget.block{:id => widget.name}
+          -#= render :partial => widget.partial_name, :locals => {:widget => widget, :width => "wide"}
 
 
 
-    .clear
+      = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
+      = render :partial => "shared/sponsored_links",  :locals => {:width => "wide"}
 
 
-    .content
-      .inner
-        = yield :list
-        .clear
+
+      .block
+        = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
 
 
-      -if current_group.has_custom_leaderboard 
-        .inner
-          .leaderboard{:style=>"width:728px;height:90px; float:left;"}
-            = "<!--/ Leaderboard /-->"
-            = current_group.leaderboard_content
-        .clear
+      -if !current_group.isolate # this will be the group connect thing
+        -#= render :partial => "featured_groups", :locals => {:width => "wide"}
+
+
+
+
 
 

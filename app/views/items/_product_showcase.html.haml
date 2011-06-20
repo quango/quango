@@ -1,0 +1,31 @@
+- expanded = local_assigns[:expanded]
+
+
+
+- slideshow_delay = 0
+-current_group.doctypes.reverse.each do |doctype|
+  -if doctype.product_format
+    -slideshow_delay = slideshow_delay + 1200
+    -#  = slideshow_delay.to_s
+    %div{:style=>"width:1032px;float:right;", :class=>"feature-box"}
+      -#= "#{slideshow_delay}"
+
+      .product-gallery{:style=>"width:1032px",:class=>"auto jCarouselLite"}
+        - items_array = Array.new
+        - doctype.items.reverse.each do |item|
+          - items_array << item 
+        %ul{:class=>"#{doctype.name}",:style=>"width:1032px"}    
+          - items_array[0..9].each do |item|
+            = render :partial => "/items/product_showcase_item", :locals => {:item => item, :sort=>"hot"}
+
+
+
+
+    %script{:type => "text/javascript"}
+      = "$(document).ready(function() {"
+      = "    $('.Xslideshow.#{doctype.name}').delay('#{slideshow_delay}').cycle({"
+      = "		fx: 'fade' // choose your transition type, ex: fade, scrollUp, shuffle, etc..."
+
+      = "	});"
+      = "});"
+

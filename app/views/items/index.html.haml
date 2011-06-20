@@ -26,28 +26,56 @@
 
 /Items
 -content_for :main do
-  #main-index{:style => "float:left; width:729px;"}
 
 
+
+
+  #lead{:style=>"margin-top:10px; height:90px"}
+    .welcome-index{:style => "float:left; width:729px;"}
+      .content
+
+        -if current_group.has_leaderboard
+          .inner
+            .leaderboard{:style=>"border-bottom:1px solid white"}
+              = "<!--/ Leaderboard /-->"
+              = current_group.leaderboard_content
+          .clear
+
+    .sidebar-inner{:style => "float:right; width:300px;"}
+      .block
+        %div{:style=>"width:300px;height:90px;background:black"}
+          - if current_group.has_bumper
+            = current_group.bumper_content
+
+
+  .clear
+  #above-the-fold{:style=>"height:24px;line-height:22px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:white; background-color:#000; border-top:4px solid black;margin:10px 0 0 0; font-size:14px; letter-spacing:0px;font-weight:bold;border-bottom:1px solid white"}
+    .above-the-fold{:style=>"width:1032px; height:24px; background-color:#{current_group.tertiary}"}
+      %div{:style=>"padding:1px 0 3px 4px; height:18px; width:18px; float:left;"}
+        = "<img src='/images/logos/star_32_point.png' height='14px' width='14px'/>"
+      = @active_section.to_s
+
+
+  #upper
+
+
+  - if @active_section == "products"
+    = render :partial => "product_showcase", :locals => {:doctype => @doctype, :section => @doctype,  :list_mode => "standard", :expanded => false}
+
+  #fold{:style=>"height:24px;line-height:22px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:#{current_group.primary_dark}; background-color:#000; border-top:4px solid white;margin:0; font-size:14px; letter-spacing:0px;font-weight:bold;border-bottom:1px solid white"}
+    .the-fold{:style=>"width:1032px; height:32px; background-color:white"}
+      %div{:style=>"padding:0; height:32px; width:1032px; float:left;"}
+        = "<img src='http://www.fastthinking.com.au/media/382858/the-fold.gif' height='32px' width='1032px'/>"
+
+
+  #main-index{:style => "float:left;width:1032px;"}
 
     .main
-      -if current_group.has_leaderboard 
 
-        .leaderboard{:style=>"width:728px;height:90px; float:left;border-bottom:10px solid gainsboro"}
-          = "<!--/ Leaderboard /-->"
-          = current_group.leaderboard_content
-        .clear
-
-
-      #summary-header{:class => @active_tab}
+      #summary-header{:class => @active_tab, :style=>"display:none"}
         = render :partial => "summary_header", :locals => {:doctype => @doctype, :section => @doctype,  :list_mode => "standard", :expanded => false}
 
-
-
-
-
-
-      .content{:style=>"width:588px; float:right"}
+      .content{:style=>"width:728px; float:left"}
         = yield :secondary_navigation
         .inner
           = @lang_conds.to_s
@@ -66,42 +94,40 @@
 
 
 
-    #sidebar{:style=>"width:140px"}
-      .sidebar
-        .inner
-          -#= render :partial => "shared/current_tags"
-          -#= render :partial => "shared/tag_list", :object => @tag_cloud, :section => @active_section
-          -current_group.widgets.each do |widget|
-            .widget.block{:id => widget.name}
-              = render :partial => widget.partial_name, :locals => {:widget => widget, :width=> "narrow"}
 
 
--content_for :sidebar do
 
-  #sidebar-inner
-    .sidebar
-      .inner
-        -#.signup{:style=>"width:300px;height:90px; float:right;"}
-        = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
-        -#.clear
-        = render :partial => "shared/sidebar_actions", :locals =>  {:width=> "wide"}
-        = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
 
-        -if current_group.has_medium_rectangle
-          .medium-rectangle{:style=>"background-color:white; width:300px;height:250px;margin:10px 0; padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
-            = current_group.medium_rectangle_content
-          .clear
+    #sidebar-inner{:style=>"float:right:width:300px;"}
 
-        = render :partial => "shared/sponsored_links",  :locals => {:width => "wide"}
+      -#.signup{:style=>"width:300px;height:90px; float:right;"}
+      -if current_group.has_threeone_rectangle
+        .threeone-rectangle{:style=>"background-color:white; width:300px;height:100px;margin:10px 0; padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
+          = current_group.threeone_rectangle_content
+        .clear
 
-        -if current_group.has_threeone_rectangle
-          .threeone-rectangle{:style=>"background-color:white; width:300px;height:100px;margin:10px 0; padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
-            = current_group.threeone_rectangle_content
-          .clear
-        .block{:style => "margin-bottom:4px"}
-          %h3{:style=>"background:#{current_group.primary_dark}"}
-            = "About this site"
-          .content
-            .markdown{:style => "padding:10px"}
-              = markdown(current_group.description)
 
+      -current_group.widgets.each do |widget|
+        .widget.block{:id => widget.name}
+          = render :partial => widget.partial_name, :locals => {:widget => widget, :width=> "wide"}
+
+
+      .block{:style => "margin-bottom:4px"}
+        %h3{:style=>"height:24px;line-height:22px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:white; background-color:#000; border-top:4px solid black;margin:10px 0 0 0; font-size:14px; letter-spacing:0px;font-weight:bold;border-bottom:1px solid white"}
+          = "About this site"
+        .content
+          .markdown{:style => "padding:10px"}
+            = markdown(current_group.description)
+
+      -if current_group.has_medium_rectangle
+        .medium-rectangle{:style=>"background-color:white; width:300px;height:250px;margin:10px 0; padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
+          = current_group.medium_rectangle_content
+        .clear
+      = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
+      = render :partial => "shared/sponsored_links",  :locals => {:width => "wide"}
+
+
+
+      -#.clear
+      -#= render :partial => "shared/sidebar_actions", :locals =>  {:width=> "wide"}
+      = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
