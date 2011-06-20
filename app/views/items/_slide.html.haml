@@ -1,7 +1,7 @@
 -title = h(item.title)
 
 
-%div{:style => "float:left;"}
+%div{:style => "float:left; width:728px"}
 
   -if item.closed
     -title += " [#{t("closed", :scope => "activerecord.attributes.item").upcase}]"
@@ -65,12 +65,12 @@
 
           .features-thumbnail{:style => "background-image:url(#{base_thumbnail.url});width:380px;height:224px; overflow:hidden" }
 
-            = link_to image_tag("/images/spacer.gif", :class => 'a', :alt => image.name, :title => image.name,:style => "position: absolute;width:380px;height:220px" ), item_path(item.doctype, item)
+            = link_to image_tag("/images/spacer.gif", :class => 'a', :alt => image.name, :title => image.name,:style =>"float:left;width:380px;height:220px" ), item_path(item.doctype, item)
 
             -#= link_to image_tag(base_thumbnail.url, :class => 'a', :alt => image.name, :title => image.name,:style => "position: absolute;width:181px;" ), item_path(item.doctype, item)
             -#= link_to image_tag(base_thumbnail_grey.url, :class => 'b', :alt => image.name, :title => image.name,:style => "position: absolute;width:181px;" ), item_path(item.doctype, item)
 
-            .inner-link{:style=>"font-family:'Arial Narrow';font-weight:bold;margin-top:128px;opacity:0.6;width:348px;background-color:black; color:white;position:absolute;height:64px; line-height:16px;padding:4px;letter-spacing:0;filter: alpha(opacity = 60);zoom:1;"}
+            .inner-link{:style=>"font-family:'Arial Narrow';font-weight:bold;margin-top:128px;opacity:0.6;width:352px;background-color:black; color:white;position:absolute;height:64px; line-height:16px;padding:4px;letter-spacing:0;filter: alpha(opacity = 60);zoom:1;"}
               .text
                 = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 256), :style => "opacity:1;margin-top:0;color:white; font-weight:bold;font-size:16px;"
 
@@ -82,7 +82,7 @@
 
           .thumbnail-placeholder{:style => "background-color:#{current_group.secondary};width:380px;height:224px; overflow:hidden;"  }
             = link_to image_tag("/images/spacer.gif", :class => 'a', :alt => "None", :title => "None",:style => "position:relative;width:364px;height:200px" ), item_path(item.doctype, item)
-            .inner-link{:style=>"font-family:arial;font-weight:normal;;opacity:0.6;margin-top:128px;width:348px;overflow:hidden;background-color:black;position:absolute;font-size:16px;height:64px;min-height:32px; line-height:16px;padding:4px;letter-spacing:0;color:white;filter: alpha(opacity = 60);zoom:1;"}
+            .inner-link{:style=>"font-family:arial;font-weight:normal;;opacity:0.6;margin-top:128px;width:352px;overflow:hidden;background-color:black;position:absolute;font-size:16px;height:64px;min-height:32px; line-height:16px;padding:4px;letter-spacing:0;color:white;filter: alpha(opacity = 60);zoom:1;"}
 
               = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 256), :style => "opacity:1;margin-top:0;color:white; font-weight:normal;height:48px;"
 
