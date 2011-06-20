@@ -26,7 +26,7 @@
         -if doctype.has_video?
           .video{:style=>"height:140px;width:300px;float:right;border-left:1px solid white;border-bottom:10px solid white", :class=>"feature-box"}
 
-            .videobox{:style=>"width:300px;height:196px;background-color:black;",:class=>"none"}
+            .videobox{:style=>"width:300px;height:180px;background-color:black;",:class=>"none"}
               - items_array = Array.new
               - doctype.items.reverse.each do |item|
                 - items_array << item 
@@ -42,13 +42,17 @@
                   - base_thumbnail = base_image.process(:thumb,"300x")
                   - base_thumbnail_grey = base_thumbnail.process(:greyscale, "20")
 
-                  .videobox-title{:style=>"position:relative;font-family:arial;font-weight:bold;opacity:1;width:284px;overflow:hidden;background-color:black; color:white;position:absolute:font-size:12px;height:24px; line-height:24px;padding:4px ;letter-spacing:0;filter: alpha(opacity = 100);zoom:1;z-index:100"}
-                    .text
-                      = render :partial => "shared/activity_markers", :locals => {:item => item}
-                      = link_to item.title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 48), :style => "opacity:1;margin-top:-50px;color:white; font-weight:bold;font-size:12px;overflow:hidden"
 
-                  .features-thumbnail{:style => "background-image:url(#{base_thumbnail.url});width:300px; height:150px;overflow:hidden" }
+                  .features-thumbnail{:style => "background-image:url(#{base_thumbnail.url});width:300px; height:180px;overflow:hidden" }
                     = link_to image_tag("/images/spacer.gif", :class => 'a', :alt => item.title, :title => item.title,:style => "position: absolute;width:300px;height:160px" ), item_path(item.doctype, item)
+
+
+                    .videobox-title{:style=>"position:relative;font-family:arial;font-weight:bold;opacity:0.6;width:284px;overflow:hidden;background-color:black; color:white;position:absolute:font-size:12px;height:24px; line-height:24px;padding:4px ;letter-spacing:0;filter: alpha(opacity = 60);zoom:1;z-index:100"}
+                      .text
+                        = render :partial => "shared/activity_markers", :locals => {:item => item}
+                        = link_to item.title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 48), :style => "opacity:1;margin-top:-50px;color:white; font-weight:bold;font-size:12px;overflow:hidden"
+
+
 
                         
 
@@ -67,7 +71,7 @@
                 - else
 
 
-                  .features-thumbnail{:style => "background-image:url(#{item.video_thumbnail});width:300px;height:150px; overflow:hidden; background-position:-64px -128px;" }
+                  .features-thumbnail{:style => "background-image:url(#{item.video_thumbnail});width:300px;height:180px; overflow:hidden; background-position:-64px -128px;" }
                     = link_to image_tag("/images/spacer.gif", :class => 'a', :alt => item.title, :title => item.title,:style => "position: absolute;width:300px;height:160px" ), item_path(item.doctype, item)
 
 
@@ -76,7 +80,7 @@
                         = render :partial => "shared/activity_markers", :locals => {:item => item}           
                         = link_to item.title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 48), :style => "opacity:1;margin-top:-50px;color:white; font-weight:bold;font-size:12px;overflow:hidden"                    
 
-                    .inner-link{:style=>"position:absolute;font-family:arial;font-weight:bold;opacity:1;width:284px;overflow:hidden;background-color:black; color:white;position:absolute:font-size:12px;height:40px;margin-top:96px; line-height:12px;padding:4px 8px;letter-spacing:0;filter: alpha(opacity = 100);zoom:1;z-index:100"}
+                    .inner-link{:style=>"position:absolute;font-family:arial;font-weight:bold;opacity:0.6;width:284px;overflow:hidden;background-color:black; color:white;position:absolute:font-size:12px;height:50px;margin-top:96px; line-height:12px;padding:4px 8px;letter-spacing:0;filter: alpha(opacity = 60);zoom:1;z-index:100"}
                       .text
                         = link_to h( truncate(strip_tags(item.body), :length => 96) ), item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 48), :style => "opacity:1;margin-top:-50px;color:white; font-weight:normal;font-size:12px;overflow:hidden"
 
