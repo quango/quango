@@ -18,58 +18,38 @@
       -#= "hello"
       -current_group.doctypes.each do |doctype|
         -if !doctype.hidden?
-          -if doctype.name == @active_section
-            .div.left{:style=>"width:362px;background-color:#ffffff;border-right:1px solid white; display:block;"}
-              - section_link = doctype.name.capitalize
-              %h4{:style=>"height:24px;line-height:26px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color: white; background-color:#{current_group.tertiary}; border-bottom:4px solid #{current_group.primary};margin:0; font-size:14px; letter-spacing:-1px;font-weight:bold;"}
-                = link_to section_link, items_path(doctype), :style => "color: white; background-color:#{current_group.primary}"
-                %div{:style=>"padding:2px 0 2px 4px; height:18px; width:18px; float:left;"}
-                  = "<img src='/images/logos/star_16.png' height='16px' width='16px'/>"
-          -else
-            .div.left{:style=>"width:362px;background-color:#ffffff;border-right:1px solid white;border-bottom:1px solid gainsboro;padding-bottom:8px;margin-botton:8px display:block"}
-              - section_link = doctype.name.capitalize
-              .div.inner{:style=>"margin:0"}
-                %h4{:style=>"height:24px;line-height:24px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color: white; background-color:#{current_group.tertiary}; border-bottom:4px solid #{current_group.primary};margin:0; font-size:15px; letter-spacing:-1px;font-weight:bold;border-bottom:1px solid white"}
-                  %div{:style=>"padding:1px 0 3px 4px; height:18px; width:18px; float:left;"}
-                    = "<img src='/images/logos/star_16.png' height='14px' width='14px'/>"
-                  = link_to section_link, items_path(doctype), :style => "color: #{current_group.primary};", :object => doctype, :style => "color:white"
 
-                .content
+          .div.left{:style=>"width:362px;background-color:#ffffff;border-right:1px solid white;border-bottom:1px solid gainsboro;padding-bottom:8px;margin-botton:8px display:block"}
+            - section_link = doctype.name.capitalize
+            .div.inner{:style=>"margin:0"}
+              %h4{:style=>"height:24px;line-height:24px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color: white; background-color:#{current_group.tertiary}; border-bottom:4px solid #{current_group.primary};margin:0; font-size:15px; letter-spacing:-1px;font-weight:bold;border-bottom:1px solid white"}
+                %div{:style=>"padding:1px 0 3px 4px; height:18px; width:18px; float:left;"}
+                  = "<img src='/images/logos/star_16.png' height='14px' width='14px'/>"
+                = link_to section_link, items_path(doctype), :style => "color: #{current_group.primary};", :object => doctype, :style => "color:white"
 
-                  %ul.features
-                    -if doctype.items.empty?
-                      %li.highlight
-                        = t(".empty")
-                    -else
+              .content
 
-                      - items_array = Array.new
-                      - doctype.items.reverse.each do |item|
-                        - items_array << item
-                      - items_array[0..0].each do |item|
+                %ul.features
+                  -if doctype.items.empty?
+                    %li.highlight
+                      = t(".empty")
+                  -else
+
+                    - items_array = Array.new
+                    - doctype.items.reverse.each do |item|
+                      - items_array << item
+                    - items_array[0..0].each do |item|
+                      .summary-list-text
+                        = render :partial => "/items/two_column_leader", :locals => {:item => item, :sort=>"hot"}
+
+
+                    .content
+                      .more
+                        %h4{:style => "color: #{current_group.primary};font-weight:bold; border-bottom:4px solid #{current_group.primary};height:32px; line-height:40px; margin-bottom:1px"}
+                          = "More " + section_link.downcase
                         .summary-list-text
-                          = render :partial => "/items/two_column_leader", :locals => {:item => item, :sort=>"hot"}
-
-
-                      .content
-                        .more
-                          %h4{:style => "color: #{current_group.primary};font-weight:bold; border-bottom:4px solid #{current_group.primary};height:32px; line-height:40px; margin-bottom:1px"}
-                            = "More " + section_link.downcase
-                          .summary-list-text
-                          - items_array[1..4].each do |item|
-                            = render :partial => "/items/summary_list_text", :locals => {:item => item, :sort=>"hot"}
-
-                        .also{:style=>"display:none"}
-                          %h4{:style => "color: #{current_group.primary};font-weight:bold; border-bottom:4px solid #{current_group.primary};height:32px; line-height:40px; margin-bottom:1px"}
-                            = "See also..."
-                          .summary-list-text
-                          - if items_array.count > 3
-                            - items_array[4..7].each do |item|
-                              = render :partial => "/items/summary_list_text", :locals => {:item => item, :sort=>"hot"}
-
-
-
-
-
+                        - items_array[1..4].each do |item|
+                          = render :partial => "/items/summary_list_text", :locals => {:item => item, :sort=>"hot"}
 
 
 

@@ -1,13 +1,8 @@
 - if current_group.has_welcome_features
-  .section-head-welcome{:style=>"border-bottom:10px solid white;border-top:4px solid white"}
+  .section-head-welcome{:style=>"border-bottom:10px solid white;border-top:4px solid #{current_group.secondary}"}
     .secondary-navigation-sections{:style=>"background-color:gainsboro"}
       .features{:style=>"font-family:Arial,sans-serif; font-weight:normal; font-size:12px;padding-left:10px;color:#{current_group.primary_dark}; letter-spacing:-1px;"}
         = "Todays features...."  
-        .navcontrols{:style => "width:96px; height:24px; float:right"}
-          %a.show_features{:class => "features navlinks showhide left", :style=>"color:#{current_group.primary_dark}"}
-            = "show features"
-          %a.hide_features{:class => "features navlinks showhide left", :style=>"color:#{current_group.primary_dark}"}
-            = "hide features"
 
    
         
@@ -40,45 +35,9 @@
             = "setTimeout('slider#{doctype.name}()',#{slideshow_delay});"
 
 
-      %script{:type => "text/javascript"}
-        = "// collapse:"
-        = "$('.hide_features.features').click(function() {"
-        = "$('.hide_features.features').css('display','none');"
-        = "$('.show_features.features').css('display','block');"
-        = "$('.features.section-listing-welcome').hide('fast');"
-        -#= "$.cookie('summary.index.summary', 'collapsed', { expires: 2 });"
-        = "});"
-        = "// expand:"
-        = "$('.show_features.features').click(function() {"
-        = "$('.show_features.features').css('display','none');"
-        = "$('.hide_features.features').css('display','block');"
-        = "$('.features.section-listing-welcome').show('slow');"
-        -#= "$.cookie('summary.index.summary', 'expanded', { expires: 2 });"
-        = "});"
-        = "// ok so far"
-        -#= "// COOKIES"
-        -#= "var summary = $.cookie('summary.index.summary');"
-        -#= "	// Set the user's selection for the left column"
-        -#= "if (summary == 'collapsed') {"
-        -#= "$('.hide_summary.summary').css('display','none');"
-        -#= "$('.show_summary.summary').css('display','block');"
-        -#= "$('.summary.section-listing-welcome').hide();"
-        -#= "};"
-        -#= "if (summary == 'expanded') {"
-        -#= "$('.hide_summary.summary').css('display','block');"
-        -#= "$('.show_summary.summary').css('display','none');"
-        -#= "$('summary.summary.section-listing-welcome').show();"
-        -#= "};"
-        - if expanded == false
-          -#= "if (summary == null) {"
-          = "$('.show_features.features').css('display','block');"
-          = "$('.hide_features.features').css('display','none');"
-          = "$('.features.section-listing-welcome').hide();"
-          -#= "};"
-        - else
-          -#= "if (summary == null) {"
-          = "$('.hide_features.features').css('display','block');"
-          = "$('.show_features.features').css('display','none');"
-          = "$('.features.section-listing-welcome').show();"
-          -#= "};"
-        -#= "};"
+
+
+
+
+
+

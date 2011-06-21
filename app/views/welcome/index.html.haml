@@ -94,21 +94,21 @@
             = current_group.bumper_content
 
   .clear
-  #above-the-fold{:style=>"height:24px;line-height:22px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:white; background-color:#000; border-top:4px solid black;margin:10px 0 0 0; font-size:14px; letter-spacing:0px;font-weight:bold;border-bottom:1px solid white"}
-    .above-the-fold{:style=>"width:1032px; height:24px; background-color:#{current_group.secondary};font-family:Arial,sans-serif; font-weight:normal; font-size:12px;padding-left:10px;color:#{current_group.primary_dark}; letter-spacing:-1px;"}
+  #above-the-fold{:style=>"height:24px;line-height:22px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:white;background-color:#{current_group.secondary}; border-top:4px solid black;margin:10px 0 0 0; font-size:14px; letter-spacing:0px;font-weight:bold;border-bottom:1px solid white"}
+    .above-the-fold{:style=>"width:1022px; height:24px;font-family:Arial,sans-serif; font-weight:normal; font-size:12px;color:#{current_group.primary_dark}; letter-spacing:-1px;font-weight:bold"}
       %div{:style=>"padding:1px 0 3px 4px; height:18px; width:18px; float:left;"}
         = "<img src='/images/logos/star_32_point.png' height='14px' width='14px'/>"
-      = "Hot Today"
+      = "Above the fold"
 
-      .navcontrols{:style => "width:96px; height:24px; float:right"}
-        %a.show_summary{:class => "summary navlinks showhide left", :style=>"color:#{current_group.primary_dark}"}
-          = "unfold"
-        %a.hide_summary{:class => "summary navlinks showhide left", :style=>"color:#{current_group.primary_dark}"}
-          = "the fold"
+      .navcontrols{:style => "height:24px; float:right"}
+        %a.show_above{:class => "above-the-fold navlinks showhide left", :style=>"color:#{current_group.primary_dark}"}
+          = "show"
+        %a.hide_above{:class => "above-the-fold navlinks showhide left", :style=>"color:#{current_group.primary_dark}"}
+          = "hide"
 
-  #upper
+  .above{:style=>"height:440px"}
 
-    .welcome-index{:style => "float:left; width:1032px; border-bottom:1px solid gainsboro;"}
+    .welcome-index{:style => "float:left; width:1032px"}
       .content{:style=>"float:left; width:728px;"}
         .inner
           = render :partial => "slideshow", :locals => {:expanded => true}
@@ -120,20 +120,45 @@
               = render :partial => "shared/sidebar_video",  :locals => {:width => "wide", :expanded => true}
           .clear
         .clear
-    .welcome-index{:style => "float:left; width:1032px; border-bottom:1px solid gainsboro;"}
+    .welcome-index{:style => "float:left; width:1032px"}
       .content{:style=>"float:left; width:728px;"}
         .inner
           = render :partial => "featured_sections", :locals => {:expanded => true}
 
 
       .sidebar-inner{:style => "float:right; width:300px;"}
-        .block{:style => "margin-top:4px"}
-          %h4
-            = "Advertisment"
+        .block{:style => "margin-top:4px;position:bottom"}
+ 
           -if current_group.has_threeone_rectangle
             .threeone-rectangle{:style=>"background-color:white; width:300px;height:100px;margin:10px 0;padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
               = current_group.threeone_rectangle_content
+
+          = link_to "Advertising","/about/advertising",:style=>"float:right;"
+
         .clear
+
+  %script{:type => "text/javascript"}
+    = "// collapse:"
+    = "$('.hide_above.above-the-fold').click(function() {"
+    = "$('.hide_above.above-the-fold').css('display','none');"
+    = "$('.show_above.above-the-fold').css('display','block');"
+    = "$('.above').hide('fast');"
+    = "});"
+    = "// expand:"
+    = "$('.show_above.above-the-fold').click(function() {"
+    = "$('.show_above.above-the-fold').css('display','none');"
+    = "$('.hide_above.above-the-fold').css('display','block');"
+    = "$('.above').show('slow');"
+    = "});"
+    = "// ok so far"
+    = "$('.hide_above.above-the-fold').css('display','block');"
+    = "$('.show_above.above-the-fold').css('display','none');"
+    = "$('.above').show();"
+    -#= ")};"
+
+
+
+
   .clear
   #fold{:style=>"height:24px;line-height:22px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:#{current_group.primary_dark}; background-color:#000; border-top:4px solid white;margin:0; font-size:14px; letter-spacing:0px;font-weight:bold;border-bottom:1px solid white"}
     .the-fold{:style=>"width:1032px; height:32px; background-color:white"}
@@ -141,7 +166,22 @@
         = "<img src='http://www.fastthinking.com.au/media/382858/the-fold.gif' height='32px' width='1032px'/>"
 
   .clear
-  #middle
+  #below-the-fold{:style=>"height:24px;line-height:22px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:white; border-top:4px solid black;margin:10px 0 0 0; font-size:14px; letter-spacing:0px;font-weight:bold;border-bottom:1px solid white"}
+    .below-the-fold{:style=>"width:1022px; height:24px; background-color:#{current_group.secondary};font-family:Arial,sans-serif; font-weight:bold; font-size:12px;color:#{current_group.primary_dark}; letter-spacing:-1px;"}
+      %div{:style=>"padding:1px 0 3px 4px; height:18px; width:18px; float:left;"}
+        = "<img src='/images/logos/star_32_point.png' height='14px' width='14px'/>"
+      = "Below the fold"
+
+      .navcontrols{:style => "width:96px; height:24px; float:right"}
+        %a.show_below{:class => "below-the-fold navlinks showhide left", :style=>"color:#{current_group.primary_dark}"}
+          = "show"
+        %a.hide_below{:class => "below-the-fold navlinks showhide left", :style=>"color:#{current_group.primary_dark}"}
+          = "hide"
+
+
+
+  .clear
+  .below
 
 
     .welcome-index{:style => "float:left; width:729px;"}
@@ -167,7 +207,7 @@
 
       .content
         .inner
-          = yield :list
+          -#= yield :list
           .clear
 
 
@@ -216,6 +256,27 @@
 
       -if !current_group.isolate # this will be the group connect thing
         -#= render :partial => "featured_groups", :locals => {:width => "wide"}
+
+
+      %script{:type => "text/javascript"}
+        = "// collapse:"
+        = "$('.hide_below.below-the-fold').click(function() {"
+        = "$('.hide_below.below-the-fold').css('display','none');"
+        = "$('.show_below.below-the-fold').css('display','block');"
+        = "$('.below').hide('fast');"
+        = "});"
+        = "// expand:"
+        = "$('.show_below.below-the-fold').click(function() {"
+        = "$('.show_below.below-the-fold').css('display','none');"
+        = "$('.hide_below.below-the-fold').css('display','block');"
+        = "$('.below').show('slow');"
+        = "});"
+        = "// ok so far"
+        = "$('.hide_below.below-the-fold').css('display','block');"
+        = "$('.show_below.below-the-fold').css('display','none');"
+        = "$('.below').show();"
+
+
 
 
 
