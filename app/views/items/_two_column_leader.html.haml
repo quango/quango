@@ -1,0 +1,92 @@
+-title = h(item.title)
+
+
+
+
+-if item.closed
+  -title += " [#{t("closed", :scope => "activerecord.attributes.item").upcase}]"
+
+-if !local_assigns[:mini]
+  -owner = nil
+  -if item.last_target.present?
+    -last_target = item.last_target
+    -if last_target.respond_to?(:updated_by) && last_target.updated_by.present?
+      -owner= last_target.updated_by
+    -else
+      -owner= last_target.user
+  -else
+    -last_target = item
+    -owner = item.user unless item.anonymous
+
+
+
+
+  %li.thumbnail{:class => class_for_item(item)}
+    -cache("item_on_index_#{item.id}_#{I18n.locale}") do
+      -if item.default_thumbnail?
+        .inner
+          .thumbnail{:style => "width:140px;height:70px; overflow:hidden; float:left;" }
+            - image = Image.find(item.default_thumbnail)
+            - base_image = image.image.process(:thumb,image.image_cropping)
+            - base_thumbnail = base_image.process(:thumb,"140x")
+            = link_to image_tag(base_thumbnail.url, :class => 'none', :alt => image.name, :title => image.name,:style => "width:140px;min-height:70px" ), item_path(item.doctype, item)
+
+          .inner-content{:style=>"width:220px;padding-bottom:8px; margin-bottom:8px;float:right"}
+
+            .inner-link{:style=>"font-size:14px;font-weight:bold;height:36px; line-height:18px;padding:8px 0 4px 0; margin-bottom:4px;;letter-spacing:-1px;"}
+
+              = render :partial => "shared/activity_markers", :locals => {:item => item}
+              = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
+
+        .inner
+
+          .inner-teaser{:style=>"height:64px; width:362px;"}
+            = h( truncate(strip_tags(item.body), :length => 160) )
+
+          .inner-author{:style=>"height:16px;margin-bottom:4px;"}
+            = "Posted by " 
+            = link_to h(item.user.display_name), user_path(item.user)
+
+          .inner-topics{:style=>"height:16px;margin-bottom:4px;"}
+            -topics_array = Array.new
+            -item.first_tags.each do |topic|
+              -topics_array << topic
+            -topics_array[0..1].each do |topic|
+              %span.tag-list{:class => "tag_#{h(topic)}"}
+                = link_to "#{topic}", url_for(:controller => "search", :action => "index", :q => "#{topic}"), :rel => "tag", :title => t("items.tags.tooltip", :tag => topic), :style=>"background-color:#{current_group.primary_dark}"
+
+
+      -else
+        .inner
+          .thumbnail-placeholder{:style => "background-color:#{current_group.secondary};width:140px;height:70px; float:left"  }
+            = link_to image_tag("/images/spacer.gif", :style => "background-color:#{current_group.secondary};width:140px;height:70px"), item_path(item.doctype, item)
+
+
+          .inner-content{:style=>"width:220px;padding-bottom:8px; margin-bottom:8px;float:right;"}
+
+            .inner-link{:style=>"font-size:14px;font-weight:bold;height:36px; line-height:18px;padding:8px 0 4px 0; margin-bottom:4px;letter-spacing:-1px;"}
+              = render :partial => "shared/activity_markers", :locals => {:item => item}
+              = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 96)
+
+        .inner
+
+
+          .inner-teaser{:style=>"height:64px;width:362px;"}
+            = h(truncate(strip_tags(item.body), :length => 160) )
+
+          .inner-author{:style=>"height:16px;margin-bottom:4px;"}
+            = "Posted by " 
+            = link_to h(item.user.display_name), user_path(item.user)
+
+          .inner-topics{:style=>"height:16px;margin-bottom:4px;"}
+            -topics_array = Array.new
+            -item.first_tags.each do |topic|
+              -topics_array << topic
+            -topics_array[0..1].each do |topic|
+              %span.tag-list{:class => "tag_#{h(topic)}"}
+                = link_to h(topic), url_for(:controller => "items", :action => "index", :topics => topic), :rel => "tag", :title => t("items.tags.tooltip", :tag => topic)
+
+
+
+    .clear
+
