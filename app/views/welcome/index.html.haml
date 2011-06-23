@@ -106,7 +106,7 @@
         %a.hide_above{:class => "above-the-fold navlinks showhide left", :style=>"color:#{current_group.primary_dark}"}
           = "hide"
 
-  .above{:style=>"height:440px"}
+  .above{:style=>"height:392px"}
 
     .welcome-index{:style => "float:left; width:1032px"}
       .content{:style=>"float:left; width:728px;"}
@@ -162,17 +162,17 @@
   .clear
   #fold{:style=>"height:24px;line-height:22px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:#{current_group.primary_dark}; background-color:#000; border-top:4px solid white;margin:0; font-size:14px; letter-spacing:0px;font-weight:bold;border-bottom:1px solid white"}
     .the-fold{:style=>"width:1032px; height:32px; background-color:white"}
-      %div{:style=>"padding:0; height:32px; width:1032px; float:left;"}
+      %div{:style=>"padding:1px 0 3px 4px; height:18px; width:18px; float:left;"}
         = "<img src='http://www.fastthinking.com.au/media/382858/the-fold.gif' height='32px' width='1032px'/>"
 
   .clear
-  #below-the-fold{:style=>"height:24px;line-height:22px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:white; border-top:4px solid black;margin:10px 0 0 0; font-size:14px; letter-spacing:0px;font-weight:bold;border-bottom:1px solid white"}
+  #below-the-fold{:style=>"height:24px;line-height:22px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:white;background-color:#{current_group.secondary}; border-top:4px solid black;margin:10px 0 0 0; font-size:14px; letter-spacing:0px;font-weight:bold;border-bottom:1px solid white"}
     .below-the-fold{:style=>"width:1022px; height:24px; background-color:#{current_group.secondary};font-family:Arial,sans-serif; font-weight:bold; font-size:12px;color:#{current_group.primary_dark}; letter-spacing:-1px;"}
       %div{:style=>"padding:1px 0 3px 4px; height:18px; width:18px; float:left;"}
         = "<img src='/images/logos/star_32_point.png' height='14px' width='14px'/>"
       = "&nbsp;"
 
-      .navcontrols{:style => "width:96px; height:24px; float:right"}
+      .navcontrols{:style => "height:24px; float:right"}
         %a.show_below{:class => "below-the-fold navlinks showhide left", :style=>"color:#{current_group.primary_dark}"}
           = "show"
         %a.hide_below{:class => "below-the-fold navlinks showhide left", :style=>"color:#{current_group.primary_dark}"}
