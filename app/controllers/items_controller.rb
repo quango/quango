@@ -137,8 +137,8 @@ class ItemsController < ApplicationController
     @doctypes = current_group.doctypes
     @doctype = Doctype.find_by_slug_or_id(params[:doctype_id])
 
-    @items = @doctype.items.reverse #.merge(conditions)
-
+    @current_items = current_group.items.reverse #.merge(conditions)
+    @items = @current_items
  
 
 
