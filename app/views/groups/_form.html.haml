@@ -26,9 +26,7 @@
     .group
       = form.check_box :has_welcome_features, :class => "checkbox"
       = form.label :has_welcome_features, "Show Welcome Features", :class => "radio"
-    .group
-      = form.check_box :has_product_gallery, :class => "checkbox"
-      = form.label :has_product_gallery, "Show Product Gallery", :class => "radio"
+
     .group
       = form.check_box :has_slideshow, :class => "checkbox"
       = form.label :has_slideshow, "Show Slides", :class => "radio"
@@ -41,6 +39,15 @@
     .group
       = form.check_box :has_video_on_homepage, :class => "checkbox"
       = form.label :has_video_on_homepage, "Show Video on Homepage", :class => "radio"
+
+    .group
+      = form.check_box :above_the_fold, :class => "checkbox"
+      = form.label :above_the_fold, "Show above the fold", :class => "radio"
+
+    .group
+      = form.check_box :has_product_gallery, :class => "checkbox"
+      = form.label :has_product_gallery, "Show Product Gallery", :class => "radio"
+
 
 
 %div

@@ -82,9 +82,9 @@
             -if @items.empty?
               %li.highlight
                 = t(".empty")
-            -@items.each do |item|
-              - if item.doctype.name == @active_section #TODO: scope to doctype
-                = render :partial => "item", :object => item, :section => @active_section
+            -@doctype.items.reverse.each do |item|
+              -# if item.doctype.name == @active_section #TODO: scope to doctype
+              = render :partial => "item", :object => item, :section => @active_section
 
           #additional_info
             -#=will_paginate @items
