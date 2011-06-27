@@ -28,32 +28,34 @@
 -content_for :main do
 
 
+  -if current_group.has_leaderboard 
 
-
-  #lead{:style=>"margin-top:10px; height:90px"}
-    .welcome-index{:style => "float:left; width:729px;"}
-      .content
-
-        -if current_group.has_leaderboard
+    #lead{:style=>"margin-top:10px; height:90px"}
+      .welcome-index{:style => "float:left; width:729px;"}
+        .content
           .inner
-            .leaderboard{:style=>"border-bottom:1px solid white"}
+            .leaderboard{:style=>"width:728px;height:90px; float:left;"}
               = "<!--/ Leaderboard /-->"
               = current_group.leaderboard_content
-          .clear
+      .sidebar-inner{:style => "float:right; width:300px;"}
+        .block
+          %div{:style=>"width:300px;height:90px;background:black"}
+            - if current_group.has_bumper
+              = current_group.bumper_content
+      .clear
 
-    .sidebar-inner{:style => "float:right; width:300px;"}
-      .block
-        %div{:style=>"width:300px;height:90px;background:black"}
-          - if current_group.has_bumper
-            = current_group.bumper_content
 
-
-  .clear
-  #above-the-fold{:style=>"height:24px;line-height:22px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:white; background-color:#000; border-top:4px solid black;margin:10px 0 0 0; font-size:14px; letter-spacing:0px;font-weight:bold;border-bottom:1px solid white"}
-    .above-the-fold{:style=>"width:1032px; height:24px; background-color:#{current_group.tertiary}"}
+  #above-the-fold{:style=>"height:24px;line-height:22px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:white;background-color:#{current_group.secondary}; border-top:4px solid black;margin:10px 0 0 0; font-size:14px; letter-spacing:0px;font-weight:bold;border-bottom:1px solid white"}
+    .above-the-fold{:style=>"width:1022px; height:24px;font-family:Arial,sans-serif; font-weight:normal; font-size:12px;color:#{current_group.primary_dark}; letter-spacing:-1px;font-weight:bold"}
       %div{:style=>"padding:1px 0 3px 4px; height:18px; width:18px; float:left;"}
         = "<img src='/images/logos/star_32_point.png' height='14px' width='14px'/>"
-      = @active_section.to_s
+      = "&nbsp; #{@doctype.name}"
+
+      .navcontrols{:style => "height:24px; float:right"}
+        %a.show_above{:class => "above-the-fold navlinks showhide left", :style=>"color:#{current_group.primary_dark}"}
+          = "show"
+        %a.hide_above{:class => "above-the-fold navlinks showhide left", :style=>"color:#{current_group.primary_dark}"}
+          = "hide"
 
 
   #upper
@@ -62,10 +64,7 @@
   - if @active_section == "products"
     = render :partial => "product_showcase", :locals => {:doctype => @doctype, :section => @doctype,  :list_mode => "standard", :expanded => false}
 
-  #fold{:style=>"height:24px;line-height:22px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:#{current_group.primary_dark}; background-color:#000; border-top:4px solid white;margin:0; font-size:14px; letter-spacing:0px;font-weight:bold;border-bottom:1px solid white"}
-    .the-fold{:style=>"width:1032px; height:32px; background-color:white"}
-      %div{:style=>"padding:0; height:32px; width:1032px; float:left;"}
-        = "<img src='http://www.fastthinking.com.au/media/382858/the-fold.gif' height='32px' width='1032px'/>"
+
 
 
   #main-index{:style => "float:left;width:1032px;"}
@@ -131,3 +130,22 @@
       -#.clear
       -#= render :partial => "shared/sidebar_actions", :locals =>  {:width=> "wide"}
       = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
+
+
+
+
+  #fold{:style=>"height:24px;line-height:22px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:#{current_group.primary_dark}; background-color:#000; border-top:4px solid white;margin:0; font-size:14px; letter-spacing:0px;font-weight:bold;border-bottom:1px solid white"}
+    .the-fold{:style=>"width:1032px; height:32px; background-color:white"}
+      %div{:style=>"padding:0; height:32px; width:1032px; float:left;"}
+        = "<img src='http://www.fastthinking.com.au/media/382858/the-fold.gif' height='32px' width='1032px'/>"
+
+
+
+
+
+
+
+
+
+
+

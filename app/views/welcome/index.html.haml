@@ -70,30 +70,39 @@
 /Layout
 -content_for :main do
 
-  #lead{:style=>"margin-top:10px; height:90px"}
-    .welcome-index{:style => "float:left; width:729px;"}
-      .content
+  -if current_group.has_custom_leaderboard
 
-        -if current_group.has_custom_leaderboard
+    #lead{:style=>"margin-top:10px; height:90px"}
+      .welcome-index{:style => "float:left; width:729px;"}
+        .content
           .inner
             .leaderboard{:style=>"border-bottom:1px solid white"}
               = "<!--/ Leaderboard /-->"
               = current_group.custom_leaderboard_content
-          .clear
-        -elsif current_group.has_leaderboard 
+      .sidebar-inner{:style => "float:right; width:300px;"}
+        .block
+          %div{:style=>"width:300px;height:90px;background:black"}
+            - if current_group.has_bumper
+              = current_group.bumper_content
+      .clear
+
+  -elsif current_group.has_leaderboard 
+
+    #lead{:style=>"margin-top:10px; height:90px"}
+      .welcome-index{:style => "float:left; width:729px;"}
+        .content
           .inner
             .leaderboard{:style=>"width:728px;height:90px; float:left;"}
               = "<!--/ Leaderboard /-->"
               = current_group.leaderboard_content
-          .clear
+      .sidebar-inner{:style => "float:right; width:300px;"}
+        .block
+          %div{:style=>"width:300px;height:90px;background:black"}
+            - if current_group.has_bumper
+              = current_group.bumper_content
+      .clear
 
-    .sidebar-inner{:style => "float:right; width:300px;"}
-      .block
-        %div{:style=>"width:300px;height:90px;background:black"}
-          - if current_group.has_bumper
-            = current_group.bumper_content
 
-  .clear
   #above-the-fold{:style=>"height:24px;line-height:22px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:white;background-color:#{current_group.secondary}; border-top:4px solid black;margin:10px 0 0 0; font-size:14px; letter-spacing:0px;font-weight:bold;border-bottom:1px solid white"}
     .above-the-fold{:style=>"width:1022px; height:24px;font-family:Arial,sans-serif; font-weight:normal; font-size:12px;color:#{current_group.primary_dark}; letter-spacing:-1px;font-weight:bold"}
       %div{:style=>"padding:1px 0 3px 4px; height:18px; width:18px; float:left;"}
