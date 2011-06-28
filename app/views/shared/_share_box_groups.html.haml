@@ -1,0 +1,31 @@
+
+.group-share-box
+  = "Join our groups:" 
+ 
+  .inner{:style=>"float:right;width:150px;height:32px; "}
+
+    - if !current_group.other_groups_facebook.empty?
+      %div
+        = "<img src='/images/share/facebook_32.png' height='28px' width='28px' class='icon'/>"
+    - if !current_group.other_groups_linkedin.empty?
+      %div
+        = "<img src='/images/share/linkedin_32.png' height='28px' width='28px' class='icon'/>"
+      = "Linkedin: #{current_group.other_groups_linkedin} <br/>"
+    - if !current_group.other_groups_twitter.empty?
+      %div
+        = "<img src='/images/share/twitter_32.png' height='28px' width='28px' class='icon'/>"
+
+      -#="<a href='#{current_group.other_groups_twitter}' class='twitter-follow-button'>Follow us on Twitter!</a><script src='http://platform.twitter.com/widgets.js' type='text/javascript'></script>"
+
+    - if !current_group.other_groups_google.empty?
+      %div
+        = "<img src='/images/share/twitter_32.png' height='28px' width='28px' class='icon'/>"
+
+      = "google: #{current_group.other_groups_google} <br/>"
+
+
+.clear
+
+
+
+

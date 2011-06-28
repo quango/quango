@@ -19,7 +19,7 @@
       -current_group.doctypes.each do |doctype|
         -if !doctype.hidden?
 
-          .div.left{:style=>"width:362px;background-color:#ffffff;border-right:1px solid white;border-bottom:1px solid gainsboro;padding-bottom:8px;margin-botton:8px display:block"}
+          .div.left{:style=>"height:230px;width:362px;background-color:#ffffff;border-right:1px solid white;border-bottom:1px solid gainsboro;padding-bottom:8px;margin-botton:8px display:block"}
             - section_link = doctype.name.capitalize
             .div.inner{:style=>"margin:0"}
               %h4{:style=>"height:24px;line-height:24px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color: white; background-color:#{current_group.tertiary}; border-bottom:4px solid #{current_group.primary};margin:0; font-size:15px; letter-spacing:-1px;font-weight:bold;border-bottom:1px solid white"}
@@ -94,7 +94,6 @@
           -#= "};"
         -#= "};"
 
-      .clear
     .clear
 
 

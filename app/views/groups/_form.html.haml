@@ -17,6 +17,30 @@
 
 .clear
 
+%hr
+
+%div
+  .group
+    = form.label :other_groups_facebook, h('Other Groups - Facebook'), :class => "label"
+    = form.text_field :other_groups_facebook, :class => "text_field", :value => params[:name]
+
+  .group
+    = form.label :other_groups_linkedin, h('Other Groups - Linked In'), :class => "label"
+    = form.text_field :other_groups_linkedin, :class => "text_field", :value => params[:name]
+
+  .group
+    = form.label :other_groups_twitter, h('Other Groups - Twitter'), :class => "label"
+    = form.text_field :other_groups_twitter, :class => "text_field", :value => params[:name]
+
+  .group
+    = form.label :other_groups_google, h('Other Groups - Google'), :class => "label"
+    = form.text_field :other_groups_google, :class => "text_field", :value => params[:name]
+
+
+%hr
+
+
+
 %div
   %div{:style => "width:312px;float:left"}
     .group

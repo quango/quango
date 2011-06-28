@@ -1,0 +1,44 @@
+.section-head-welcome{:style=>"border-top:4px solid #{current_group.secondary}; width:300px"}
+  .secondary-navigation-sections{:style=>"background-color:gainsboro; width:300px"}
+    %div{:style=>"font-family:Arial,sans-serif; font-weight:normal; font-size:12px;padding-left:10px;color:#{current_group.primary_dark}; letter-spacing:-1px;; width:300px"}
+      = "Share this page"  
+
+
+  .article-share{:style=>"height:64px;width:233px;margin:0 auto 10px auto;padding:10px 20px;border-bottom:1px solid gainsboro"}
+
+
+    %div{:style=>"float:left;margin-right:4px;width:50px;"}
+      = "<div id='fb-root'></div><script src='http://connect.facebook.net/en_US/all.js#appId=172012769528574&amp;xfbml=1'></script><fb:like href='#' send='false' layout='box_count' width='50px' show_faces='false' font=''></fb:like>"
+
+
+
+    %div{:style=>"float:left;margin-right:4px;width:54px;"} 
+      %script{:type=>"text/javascript"} 
+        = "(function() {"
+        = "var s = document.createElement('SCRIPT'), s1 = document.getElementsByTagName('SCRIPT')[0];"
+        = "s.type = 'text/javascript';"
+        = "s.async = true;"
+        = "s.src = 'http://widgets.digg.com/buttons.js';"
+        = "s1.parentNode.insertBefore(s, s1);"
+        = "})();"
+      %a{:class=>"DiggThisButton DiggMedium"}
+        = "<!--Digg Placeholder-->" 
+
+    -#%div{:style=>"float:left;margin-right:4px;width:50px;"}
+      -#%script{:type=>"text/javascript",:src=>"http://www.stumbleupon.com/hostedbadge.php?s=5"}
+        -#= "<!--Stumbleupon Placeholder-->"
+
+    %div{:style=>"float:left;margin-right:4px;width:55px;"}
+      = "<a href='http://twitter.com/share' class='twitter-share-button' data-count='vertical' data-via='fast_thinking'}>.</a>"     
+      %script{:type=>"text/javascript",:src=>"http://platform.twitter.com/widgets.js"}
+        = "<!--Twitter Placeholder-->"
+
+    %div{:style=>"float:left;margin-right:3px;width:57px;"}
+      %script{:type=>"text/javascript",:src=>"http://platform.linkedin.com/in.js"}
+      = "<script type='in/share' data-counter='top'>.</script>"
+ 
+.clear
+
+
+
+
