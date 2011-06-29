@@ -76,10 +76,10 @@
 
       .content{:style=>"width:728px; float:left"}
         = yield :secondary_navigation
-        .test{:style=>"display.none"}
+        .test{:style=>"font-weight:bold; display:none"}
           = "test:"
-          = @doctype.name.to_s
-          = @doctype.id.to_s
+
+          = active_doctype = @doctype.id.to_s
     
         .inner
           = @lang_conds.to_s
@@ -87,13 +87,25 @@
             -if @items.empty?
               %li.highlight
                 = t(".empty")
-            - @items.reverse.each do |item|
+            -# @items.reverse.each do |item|
 
               -#= "#{item.title.to_s} #{item.doctype_id.to_s}"
+              -# did = item.doctype_id
+              -#= did
+              -# if active_doctype == did
+                -#= did << "match"
+                -#= render :partial => "item", :object => item, :section => @active_section
 
-              - if item.doctype_id == @doctype.id #TODO: scope to doctype
-                = item.doctype_id
-                = render :partial => "item", :object => item, :section => @active_section
+            - index_array = Array.new
+            - @doctype.items.reverse.each do |item|
+              - index_array << item
+            - index_array.each do |item|
+              .summary-list-text
+                = render :partial => "item", :locals => {:item => item, :sort=>"hot"}
+
+            -# if active_doctype == did #item.doctype_id == @doctype #@doctype.id #TODO: scope to doctype
+              -#= item.doctype_id
+              -#= render :partial => "item", :object => item, :section => @active_section
 
           #additional_info
             -#=will_paginate @items
