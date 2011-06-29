@@ -76,15 +76,19 @@
 
       .content{:style=>"width:728px; float:left"}
         = yield :secondary_navigation
+        .test
+          = "test:"
+          = @doctype.name.to_s
+    
         .inner
           = @lang_conds.to_s
           %ul.items#items
             -if @items.empty?
               %li.highlight
                 = t(".empty")
-            -@doctype.items.reverse.each do |item|
-              -# if item.doctype.name == @active_section #TODO: scope to doctype
-              = render :partial => "item", :object => item, :section => @active_section
+            - @items.reverse.each do |item|
+              - if @doctype == item.doctype #TODO: scope to doctype
+                = render :partial => "item", :object => item, :section => @active_section
 
           #additional_info
             -#=will_paginate @items
@@ -92,13 +96,31 @@
             .clear
 
 
-
-
+    %script{:type => "text/javascript"}
+      = "// collapse:"
+      = "$('.hide_above.above-the-fold').click(function() {"
+      = "$('.hide_above.above-the-fold').css('display','none');"
+      = "$('.show_above.above-the-fold').css('display','block');"
+      = "$('.content').hide('fast');"
+      = "});"
+      = "// expand:"
+      = "$('.show_above.above-the-fold').click(function() {"
+      = "$('.show_above.above-the-fold').css('display','none');"
+      = "$('.hide_above.above-the-fold').css('display','block');"
+      = "$('.content').show('slow');"
+      = "});"
+      = "// ok so far"
+      = "$('.hide_above.above-the-fold').css('display','block');"
+      = "$('.show_above.above-the-fold').css('display','none');"
+      = "$('.content').show();"
+      -#= ")};"
 
 
 
     #sidebar-inner{:style=>"float:right:width:300px;"}
-
+      -current_group.widgets.each do |widget|
+        .widget.block{:id => widget.name}
+          = render :partial => widget.partial_name, :locals => {:widget => widget, :width=> "wide"}
       -#.signup{:style=>"width:300px;height:90px; float:right;"}
       -if current_group.has_threeone_rectangle
         .threeone-rectangle{:style=>"background-color:white; width:300px;height:100px;margin:10px 0; padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
@@ -106,9 +128,7 @@
         .clear
 
 
-      -current_group.widgets.each do |widget|
-        .widget.block{:id => widget.name}
-          = render :partial => widget.partial_name, :locals => {:widget => widget, :width=> "wide"}
+
 
 
       .block{:style => "margin-bottom:4px"}
