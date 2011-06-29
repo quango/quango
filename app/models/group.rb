@@ -20,10 +20,10 @@ class Group
   key :name, String, :required => true
   key :name_link, String
 
-  key :other_groups_facebook, String
-  key :other_groups_linkedin, String
-  key :other_groups_twitter, String
-  key :other_groups_google, String
+  key :other_groups_facebook, String, :default => "http://www.facebook.com"
+  key :other_groups_linkedin, String, :default => "http://www.linkedin.com"
+  key :other_groups_twitter, String, :default => "http://www.twitter.com"
+  key :other_groups_google, String, :default => "http://www.google.com"
 
   key :display_name_i, String, :default => "start"
   key :display_name_i_link, String, :default => "/"
