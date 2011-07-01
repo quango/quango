@@ -35,10 +35,10 @@
                       = t(".empty")
                   -else
 
-                    - items_array = Array.new
+                    - doctype_items_array = Array.new
                     - doctype.items.reverse.each do |item|
-                      - items_array << item
-                    - items_array[0..0].each do |item|
+                      - doctype_items_array << item
+                    - doctype_items_array[0..0].each do |item|
                       .summary-list-text
                         = render :partial => "/items/two_column_leader", :locals => {:item => item, :sort=>"hot"}
 
@@ -46,9 +46,9 @@
                     .content
                       .more
                         .summary-list-text
-                        - items_array[1..4  ].each do |item|
+                        - doctype_items_array[1..4  ].each do |item|
                           = render :partial => "/items/summary_list_text", :locals => {:item => item, :sort=>"hot"}
-
+                    - doctype_items_array = nil
 
 
       %script{:type => "text/javascript"}

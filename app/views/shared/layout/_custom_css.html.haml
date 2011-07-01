@@ -2,54 +2,52 @@
 
 
 
-%style{:type => 'text/css'}
 
+- if current_group.theme != "ping"
+
+  %style{:type => 'text/css'}
+
+    \.logo-container-inner {background-color: white;border-left: 2px solid white;border-right: 4px solid white;background-color: #{current_group.secondary};background:-webkit-gradient(linear,left top,left bottom,to(#ffffff),from(#{current_group.secondary}));background:-moz-linear-gradient(top,#ffffff,#{current_group.secondary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ffffff',endColorstr='#{current_group.secondary}');}
+
+    \#header-container-inner { background:-webkit-gradient(linear,left top,left bottom,to(#{current_group.secondary}),from(#ffffff));background:-moz-linear-gradient(top,#{group.secondary},#ffffff);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{group.secondary}',endColorstr='#ffffff');border-left: 2px solid white;border-right: 4px solid white;}
+
+    \.display-name-i{color:#{current_group.primary_dark}; backgrond-image:url('/images/white_25_bg.png');}
+    \.display-name-ii{color:#555051}
+
+    \.navigation-container {height:40px;background:#{current_group.primary_dark};border-bottom:1px solid #{current_group.tertiary};}
+    \.channel-container-inner {background-color: #ffffff;border-left: 2px solid white;border-right: 4px solid white;}
+
+- else
+
+  %style{:type => 'text/css'}
+
+    \.logo-container-inner {background-color: white;border-left: 2px solid white;border-right: 4px solid white;background-color: #{current_group.secondary};background:-webkit-gradient(linear,left top,left bottom,from(#555051),to(#{current_group.secondary}));background:-moz-linear-gradient(top,#555051,#{current_group.secondary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#555051',endColorstr='#{current_group.secondary}');}
+
+
+    \#header-container-inner { background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#ffffff));background:-moz-linear-gradient(top,#{group.secondary},#ffffff);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{group.secondary}',endColorstr='#ffffff');border-left: 2px solid white;border-right: 4px solid white;}
+
+    \.navigation-container {height:40px;background:#{current_group.primary};border-bottom:1px solid #{current_group.tertiary};background:-webkit-gradient(linear,left top,left bottom,to(#{current_group.tertiary}),from(#{current_group.primary}));background:-moz-linear-gradient(top,#{current_group.primary},#{current_group.tertiary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.primary}',endColorstr='#{current_group.tertiary}');}
+
+
+    \.channel-container-inner {background-color: #{group.secondary};border-left: 2px solid white;border-right: 4px solid white;}
+
+
+
+%style{:type => 'text/css'}
   body {background:-webkit-gradient(linear,left top,left bottom,from(#cccccc),to(#ffffff));background:-moz-linear-gradient(top,#{group.secondary},#ffffff);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#cccccc',endColorstr='#ffffff');}
   \#container{border-left: 2px solid white;border-right: 4px solid white;}
+
+
+
+
 
   \#toolbar ul.createbox li:hover{background:#{current_group.primary}}
   \#toolbar ul.createbox li ul{background:#{current_group.primary}}
 
-
-  \#header-container-inner { background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#ffffff));background:-moz-linear-gradient(top,#{group.secondary},#ffffff);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{group.secondary}',endColorstr='#ffffff');border-left: 2px solid white;border-right: 4px solid white;}
-
-  \.navigation-container {height:40px;background:#{current_group.primary};border-bottom:1px solid #{current_group.tertiary};background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.primary}),to(#{current_group.tertiary}));background:-moz-linear-gradient(top,#{current_group.primary},#{current_group.tertiary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.primary}',endColorstr='#{current_group.tertiary}');}
-
-  
-  \.logo-container-inner {background-color: white;border-left: 2px solid white;border-right: 4px solid white;background-color: #{current_group.secondary};background:-webkit-gradient(linear,left top,left bottom,from(#525051),to(#{current_group.secondary}));background:-moz-linear-gradient(top,#525051,#{current_group.secondary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#525051',endColorstr='#{current_group.secondary}');}
-
-
-  \#toolbar-container{background-color: #{current_group.secondary};background:-webkit-gradient(linear,left top,left bottom,from(#525051),to(#000000));background:-moz-linear-gradient(top,#525051,#000000);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#525051',endColorstr='#000000');}
-
-
-  \#toolbar-container {   
-
-  -if group.toolbar_bg?
-    background-color: #{group.toolbar_bg};
-
-
-  -if group.toolbar_bg_image?
-    background-image:url(#{group.toolbar_bg_image});
-  -if !group.toolbar_bg? && !group.toolbar_bg_image?
-    -#background-image: url(/images/black_25_bg.png);
-
-  }
-
-  \.toolbar-container-inner {border:0;   
-  -if group.toolbar_bg?
-    background-color: #{group.toolbar_bg};
-
-  -if group.toolbar_bg_image?
-    background-image:url(#{group.toolbar_bg_image});
-  -if !group.toolbar_bg? && !group.toolbar_bg_image?
-    background-color: #{current_group.secondary};background:-webkit-gradient(linear,left top,left bottom,from(#525051),to(#000000));background:-moz-linear-gradient(top,#525051,#000000);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#525051',endColorstr='#000000');;
-
-  }
-
   \.entry-details{border-left:8px solid #{group.primary}}
   \.entry-title h3{color: #{group.primary}}
 
-  \.channel-container-inner {background-color: #{group.secondary};border-left: 2px solid white;border-right: 4px solid white;}
+
 
   \.channel_listing_horizontal li {background-color: #525051;background-color: #{current_group.tertiary};}
 
@@ -117,7 +115,7 @@
   \.create-button:hover{border-color: #{group.primary_dark}}
   \.contribute-button:hover{border-color: #{group.primary_dark}; font-weight:normal;}
 
-<!--//-->
+  <!--//-->
 
 
 

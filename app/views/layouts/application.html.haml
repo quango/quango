@@ -43,18 +43,13 @@
         -if current_group.logo_only?
           .logo-text
             .filling
-
-
-
-
               .left
-                =link_to h(current_group.display_name_i), domain_url(:custom => current_group.domain), :style=>"color:white;margin:0;"
+                =link_to h(current_group.display_name_i), domain_url(:custom => current_group.domain), :class=>"display-name-i"
               .left
-                =link_to h(current_group.display_name_ii), current_group.display_name_ii_link, :style=> "color:#{current_group.secondary};margin:0;"
+                =link_to h(current_group.display_name_ii), current_group.display_name_ii_link, :class=> "display-name-ii"
               -if current_group.strapline?
-                .strapline
-                  %p{:style => "color:white;margin:0;float:left;"}
-                    ="#{current_group.strapline}"
+                .strapline{:style => "height:40px;color:white;margin:12px 10px 0 10px;float:left; border-left:1px solid white"}
+                  ="#{current_group.strapline}"
 
         -else
           .logo{:style => "height:#{current_group.logo_info['height']}px"}

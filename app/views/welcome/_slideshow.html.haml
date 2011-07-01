@@ -11,7 +11,7 @@
         
     .section-listing-welcome{:class => "features", :style => "background-color:#ffffff; width:728px;height:220px; overflow:hidden"}
       - slideshow_delay = 0
-      -current_group.doctypes.each do |doctype|
+      -@doctypes.each do |doctype|
         -if doctype.name == current_group.slideshow_content
           -slideshow_delay = slideshow_delay + 100
           -#  = slideshow_delay.to_s
@@ -22,14 +22,16 @@
                 = "<img src='/images/logos/star_16.png' height='14px' width='14px'/>"
               = "#{doctype.name}"
             .feature-slideshow{:style => "height:200px;overflow:hidden;"}
-              - items_array = Array.new
+              - slideshow_items_array = Array.new
               - doctype.items.reverse.each do |item|
-                - items_array << item 
+                - slideshow_items_array << item 
 
               .slideshow{:class=>"#{doctype.name}", :style=>"display:none"}    
-                - items_array[0..5].each do |item|
+                - slideshow_items_array[0..5].each do |item|
 
                   = render :partial => "/items/slide", :locals => {:item => item, :sort=>"hot"}
+                -slideshow_items_array = nil
+
 
           %script{:type => "text/javascript"}
             = "function slideshow(){"

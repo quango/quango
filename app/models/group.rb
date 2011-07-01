@@ -92,7 +92,12 @@ class Group
   key :notification_from, String, :default => "Your Community"
   key :notification_email, String, :default => "no-reply@yourcommunity.com"
 
-  #alchemy
+  #api
+
+  key :api_linkedin, Boolean, :default => false
+  key :api_linkedin_key, String, :default => "my linkedin key"
+  key :api_linkedin_secret, String, :default => "my linked key"
+
   key :has_alchemy, Boolean, :default => false
   key :alchemy_key, String, :default => "my alchemy key"
 

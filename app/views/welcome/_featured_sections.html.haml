@@ -19,14 +19,16 @@
                 = "<img src='/images/logos/star_16.png' height='14px' width='14px'/>"
               = "#{doctype.name}"
             .feature-slideshow{:style => "height:124px;overflow:hidden;"}
-              - items_array = Array.new
+              - features_array = Array.new
               - doctype.items.reverse.each do |item|
-                - items_array << item 
+                - features_array << item 
 
               .slideshow{:class=>"#{doctype.name}", :style=>"display:none"}    
-                - items_array[0..2].each do |item|
-
+                - features_array[0..2].each do |item|
                   = render :partial => "/items/welcome_features", :locals => {:item => item, :sort=>"hot"}
+                -features_array = nil
+
+
 
           %script{:type => "text/javascript"}
             = "function slider#{doctype.name}(){"

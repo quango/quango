@@ -1,0 +1,77 @@
+.button-like
+  float: right
+  height: 28px
+  margin: 0 0 3px 3px
+  img
+    background-image: url('/images/voting_up.png')
+    margin: 4px
+  .novoted
+    background-position: 0px 0px
+  .voted
+    background-position: 0px 18px
+
+.button-dislike
+  float: right
+  height: 28px
+  margin: 0 0 3px 3px
+  img
+    background-image: url('/images/voting_down.png')
+    margin: 4px
+  .novoted
+    background-position: 0px 0px
+  .voted
+    background-position: 0px 19px
+
+
+
+.button-content
+  font-size: 0.77em
+  display: inline-block
+
+#vote-col
+  height: 32px
+  float: right
+  width: 100%
+  text-align: center
+
+  .favorites_count
+    color: #666
+    font-weight: bold
+    font-size: 15px
+
+
+.flagged
+  font-size: 13px
+  font-weight: bold
+
+.vote_box
+  .votes_average
+    display: block
+    font-weight: bold
+    line-height: 0.9em
+    color: #222
+
+    padding: 0
+    margin: 0
+
+  button
+
+    &.arrow
+      height: 18px
+
+      &.vote_up
+        img:hover
+          border-bottom: 1px solid #f00
+      &.vote_down
+        img:hover
+          border-top: 1px solid #f00
+
+
+  .arrow
+    border: 0px
+    background: transparent
+    display: block
+
+  a
+    font-size: 25px
+    text-decoration: none

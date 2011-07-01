@@ -1,0 +1,690 @@
+.flag-link
+  &a
+    color: #aaa
+  &a:hover
+    color: #aaa
+    text-decoration: underline
+
+.quick-create
+  ul
+    width: 100%
+    list-style-type: none
+    display: inline
+    li
+      display: inline
+
+.toolbar-button
+  height: 20px
+  font-size: 12px
+  font-weight: bold
+  padding: 2px 8px
+
+
+.navlinks
+  cursor: pointer
+
+.signup-button
+  display: inline-block
+  //width: 256px
+  padding: 4px 24px
+  margin: 4px
+  color: #fff
+  text-shadow: -1px -1px 0 rgba(0,0,0,0.25)
+  font-size: 12px
+  line-height: 22px
+
+  font-weight: bold
+  //background: #286da3
+
+  -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.3)
+  -moz-box-shadow: 0 1px 4px rgba(0,0,0,0.3)
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3)
+  -webkit-font-smoothing:antialiased
+  small
+    font-weight: normal
+  a
+    color: white
+  a:hover
+    color: #eee
+
+.group-button
+  display: inline-block
+  padding: 8px
+  margin: 0
+  color: #fff
+  font-size: 12px
+  font-weight: bold
+
+  -webkit-font-smoothing:antialiased
+  small
+    font-weight: normal
+  a
+    color: white
+  a:hover
+    color: #eee
+
+
+
+.contribute-button 
+  width: 128px
+  height: 21px
+  line-height: 21px
+  cursor: pointer  
+  overflow: visible
+  float: left
+  +rounded(8px,8px,8px,8px)
+
+  color: white
+  text-align: center
+
+  +fancy-button(#cf7200)
+  +fancy-button-structure(12px, 0.7em, 2px)
+  +fancy-button-colors(#cf7200, adjust-hue(#cf7200, -3), darken(adjust-hue(#cf7200, -3), 1))
+  border-color: black
+
+
+
+  &:hover
+    border-color: black
+
+.contribute-button-glow 
+  width: 128px
+  height: 21px
+  line-height: 21px
+  cursor: pointer  
+  overflow: visible
+  float: left
+  +rounded(8px,8px,8px,8px)
+
+  color: white
+  text-align: center
+
+  +fancy-button(#9a0000)
+  +fancy-button-structure(12px, 0.7em, 2px)
+  +fancy-button-colors(#9a0000, adjust-hue(#9a0000, +3), darken(adjust-hue(#9a0000, +3), 1))
+  border-color: black
+
+
+
+
+  &:hover
+    border-color: black
+
+
+.search-button 
+  width: 128px
+  height: 21px
+  line-height: 21px
+  cursor: pointer  
+  overflow: visible
+  float: left
+  +rounded(4px,4px,4px,4px)
+  font-weight: normal
+  color: white
+  text-align: center
+
+  +fancy-button(#525051)
+  +fancy-button-structure(12px, 0.7em, 1px)
+  +fancy-button-colors(#525051, adjust-hue(#525051, -3), darken(adjust-hue(#525051, -3), 1))
+
+
+.contribute-button-narrow
+  width: 128px
+  height: 16px
+  line-height: 16px
+  cursor: pointer  
+  overflow: hidden
+  float: left
+  +rounded(8px,8px,8px,8px)
+
+  color: white
+  text-align: center
+
+  +fancy-button(#cf7200)
+  +fancy-button-structure(12px, 0.7em, 2px)
+  +fancy-button-colors(#cf7200, adjust-hue(#cf7200, -3), darken(adjust-hue(#cf7200, -3), 1))
+
+.create-button 
+  width: 140px
+  height: 21px
+  line-height: 21px
+  cursor: pointer  
+  overflow: visible
+  float: left
+  +rounded(8px,8px,8px,8px)
+
+  color: white
+  text-align: center
+
+  +fancy-button(#cf7200)
+  +fancy-button-structure(14px, 0.7em, 3px)
+  +fancy-button-colors(#cf7200, adjust-hue(#cf7200, -3), darken(adjust-hue(#cf7200, -3), 1))
+  border-color: black
+
+  position: absolute
+  left: 0
+  top: 0
+  z-index: 10
+
+  &:hover
+    border-color: black
+
+
+.create-button-glow
+  width: 140px
+  height: 21px
+  line-height: 21px
+  cursor: pointer  
+  overflow: visible
+  float: left
+  +rounded(8px,8px,8px,8px)
+
+  color: white
+  text-align: center
+
+  +fancy-button(#9a0000)
+  +fancy-button-structure(14px, 0.7em, 3px)
+  +fancy-button-colors(#9a0000, adjust-hue(#9a0000, -3), darken(adjust-hue(#9a0000, -3), 1))
+  border-color: black
+
+  position: absolute
+  left: 0
+  top: 0
+  
+
+  &:hover
+    border-color: black
+
+.publish-button 
+
+  height: 17px
+  line-height: 15px
+  cursor: pointer  
+  overflow: visible
+
+  float: left
+  +rounded(4px,4px,4px,4px)
+
+  color: white
+  padding: 2px 8px 0px 4px
+  margin: 3px 0 0 0 
+  text-shadow: 0px 1px 1px rgba(255,255,255,0.75)
+  filter: Shadow(color=#000000, Direction=90, Strength=0.75)
+  font-size: 12px
+  font-weight: bold
+
+  -webkit-box-shadow: 1px 2px 2px rgba(0,0,0,0.5)
+  -moz-box-shadow: 1px 2px 2px rgba(0,0,0,0.5)
+  box-shadow: 1px 2px 2px rgba(0,0,0,0.5)
+  -webkit-font-smoothing:antialiased
+
+  &a:hover
+    text-decoration: none
+
+
+.section-button 
+
+  background-image: url(/images/buttons/section_bg.png)
+  background-repeat: repeat-x
+  height: 16px
+  line-height: 14px
+  margin: 4px 4px 4px 0
+  color: white
+  cursor: pointer
+  overflow: visible
+  float: left
+  font-weight: bold
+  font-size: 10px
+  text-align: center
+  text-spacing: -1px
+  padding: 0 13px 0 13px
+  +rounded(2px,2px,2px,2px)
+  &:hover
+    color: gainsboro
+
+  &.showhide
+    width: 80px
+  &.show
+    width: 80px
+  &.hide
+    width: 80px
+    cursor: n-resize
+
+a.standard-button
+  font-weight: bold
+  font-size: 11px
+  color: white
+
+
+.standard-button 
+  background-image: url(/images/white_25_bg.png)
+  backgroud-repeat: repeat
+  height: 16px
+  line-height: 16px
+  margin: 0
+  cursor: pointer
+  overflow: visible
+  float: left
+  background-color: orange
+  border: 2px solid orange
+  text-align: center
+
+  +rounded(4px,4px,4px,4px)
+  font-weight: bold
+  color: white
+
+  &:hover
+    background-image: url(/images/white_50_bg.png)
+    background-repeat: repeat
+    color: white
+
+
+a.standard-button
+  font-weight: bold
+  font-size: 11px
+  color: white
+
+
+a.buy-button 
+  background-image: url(/images/white_25_bg.png)
+  backgroud-repeat: repeat
+  height: 16px
+  line-height: 16px
+  margin: 3px 0 0 0
+  cursor: pointer
+  overflow: visible
+  float: left
+  background-color: green
+  border: 2px solid green
+  text-align: center
+  padding: 1px 8px
+  +rounded(4px,4px,4px,4px)
+  font-weight: bold
+  color: white
+  font-size: 11px
+
+  &:hover
+    background-image: url(/images/white_50_bg.png)
+    background-repeat: repeat
+    color: white
+
+
+
+
+.toolbar-button
+  font-family: "Arial Narrow", sans-serif
+  font-weight: bold
+  font-size: 14px
+  letter-spacing: -1px
+  text-transform: uppercase
+  height: 24px
+  color: white
+  margin: 4px
+  padding: 4px 4px 4px 4px
+  background-image: url(/images/white_25_bg.png)
+  background-repeat: repeat-x
+  background-position: 12px 0
+
+  height: 14px
+  line-height: 14px
+  margin: 0px
+  +rounded(4px,4px,4px,4px)
+  //border: 2px solid white
+
+  &.red
+    background-color: red
+    //+fancy-button(#9a0000)
+    //+fancy-button-structure(14px, 4px, 1px)
+    //+fancy-button-colors(#9a0000, adjust-hue(#9a0000, -3), darken(adjust-hue(#9a0000, -3), 1))
+    //border: black
+
+  &.green
+    background-color: green
+    //+fancy-button(#0a850a)
+    //+fancy-button-structure(14px, 4px, 1px)
+    //+fancy-button-colors(#0a850a, adjust-hue(#0a850a, -3), darken(adjust-hue(#0a850a, -3), 1))
+    //border: black
+
+  &:hover
+    background-image: url(/images/white_50_bg.png)
+    background-repeat: repeat
+    color: white
+
+a.toolbar-button
+  color: white
+  //text-shadow: #000000 0px -1px 1px
+  font-weight: bold
+
+
+.bug-button
+  font-weight: normal
+  font-size: 10px
+  text-transform: uppercase
+  color: white
+  padding: 2px 7px 2px 3px
+  background-image: url(/images/buttons/section_bg.png)
+  background-repeat: repeat-x
+  //background-position: -1px
+  height: 14px
+  line-height: 16px
+  margin: 3px 0 3px 3px
+  +rounded(2px,2px,2px,2px)
+
+  &a
+    color: black
+
+.ownerflair
+  float: left
+  display: inline
+
+.editorflair
+  font-family: impact
+  font-weight: normal
+  font-size: 8px
+  text-transform: uppercase
+  color: white
+  padding: 1px 0 1px 2px
+  background-image: url(/images/buttons/section_bg.png)
+  background-repeat: repeat-x
+  background-position: -1px
+  height: 12px
+  line-height: 14px
+  margin: 2px 4px 2px 0
+  +rounded(2px,2px,2px,2px)
+  a
+    color: white
+
+.edit-button
+  float: right
+  background-color: #990000
+  background-image: url(http://pegasus.one:3000/images/buttons/section_bg.png)
+  background-repeat: repeat-x
+  background-position: 3px
+  border: 1px solid #990000
+  color: white
+  font-size: 10px
+  font-weight: normal
+  height: 26px
+  line-height: 26px
+  margin: 0 3px 0 3px
+  padding: 0 8px
+  text-transform: uppercase
+  text-shadow: #990000 0px -1px 1px
+  +rounded(4px,4px,4px,4px)
+  &a:hover
+    color: white
+    text-decoration: underline
+
+
+.community
+
+  width: 256px
+  height: 20px
+  line-height: 20px
+  cursor: pointer  
+  overflow: visible
+
+  float: left
+  +rounded(4px,4px,4px,4px)
+
+  color: white
+  padding: 2px 4px 0px 4px
+  margin: 3px 0 0 0 
+  text-shadow: 0px 1px 1px rgba(255,255,255,0.75)
+
+  font-size: 12px
+  font-weight: bold
+
+  font-family: georgia
+  letter-spacing: -1px
+  text-transform: lowercase
+
+  -webkit-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+  -moz-box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+  box-shadow: 0px -1px 2px rgba(0,0,0,0.25)
+  -webkit-font-smoothing:antialiased
+
+  //+rounded(4px,4px,4px,4px)
+
+a.action-button
+
+  color: white
+  height: 24px
+  line-height: 24px
+
+  padding: 4px 16px 4px 16px
+  margin: 0 8px 0 0
+
+  font-size: 12px
+  font-weight: bold
+
+  text-transform: lowercase
+
+  border: 2px solid white
+
+  -webkit-font-smoothing:antialiased
+
+  +rounded(4px,4px,4px,4px)
+
+  &.inner
+    width: 256px  
+
+  &a
+    height: 27px
+
+
+  &a:hover
+    color: black
+
+
+.share
+  &.button
+    height: 20px
+    width: 96px
+    line-height: 20x
+    margin-right: 4px
+    background-color: gainsboro
+    cursor: pointer  
+    overflow: visible
+    text-shadow: white 0px 1px 1px
+    float: left
+    color: white
+    font-family: arial, sans
+    font-size: 8px
+    padding: 2px 7px
+    text-decoration: none
+    text-transform: uppercase
+    border: 1px solid #ababab
+    +rounded(1px,1px,1px,1px)
+
+    font-size: 0.75em
+    font-weight: normal
+    padding: 3px
+  img
+    border-top: 1px solid #ababab
+    border-left: 1px solid #ababab
+    border-bottom: 1px solid white
+    border-right: 1px solid white
+    //+rounded(2px,2px,2px,2px)
+
+a.button
+  height: 23px
+  line-height: 20px
+  margin-left: 4px
+  //background-image: url(/images/buttons/section_bg_32.png)
+  cursor: pointer  
+  color: #6D6D6D
+  overflow: visible
+  float: left
+  +rounded(4px,4px,4px,4px)
+  img
+    margin-left: 4px
+    border-top: black 1px 0px 1px
+    text-shadow: white 0px 1px 1px
+    //line-height: 66px
+
+  .watch
+    float: left
+    border: green
+
+  .unwatch
+    float: left
+    border: red
+
+  padding: 2px 4px 0px 4px
+  margin: 3px 4px 0 0px
+  text-shadow: 0px 1px 1px rgba(255,255,255,0.75)
+  font-size: 12px
+  font-weight: normal
+
+
+  border: 2px solid #dcdcdc
+
+  -webkit-box-shadow: 0px 1px 2px rgba(0,0,0,0.25)
+  -moz-box-shadow: 0px 1px 2px rgba(0,0,0,0.25)
+  box-shadow: 0px 1px 2px rgba(0,0,0,0.25)
+  -webkit-font-smoothing:antialiased
+  img
+    float: right
+    margin-left: 0px
+    //border: 1px solid blue
+
+
+button
+
+  height: 27px
+  line-height: 18px
+  cursor: pointer  
+  overflow: visible
+  float: left
+  +rounded(4px,4px,4px,4px)
+
+  color: #6D6D6D
+  padding: 2px 4px 0px 4px
+  margin: 3px 0 0 0 
+
+  font-size: 12px
+  font-weight: normal
+
+
+
+  -webkit-font-smoothing:antialiased
+  img
+    float: right
+    margin-left: 0px
+    //border: 1px solid blue
+
+
+  .watch
+    float: left
+    border: green
+  .unwatch
+    float: left
+    border: red
+
+  .vote-down
+
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#dcdcdc',endColorstr='#990000')
+    background: -webkit-gradient(linear,left top,left bottom,from(#dcdcdc),to(#990000))
+    background: -moz-linear-gradient(top,#dcdcdc,#990000)
+    border: 1px solid #990000
+a
+  &.create-button
+    img
+      float: left
+    .label
+      float: right
+  &.sidebar-button
+    width: 234px
+    height: 26px
+    line-height: 26px
+    margin-right: 3px
+    margin-bottom: 13px
+    background-image: url(/images/buttons/bar_bg_pink.gif)
+    border: 1px solid #ababab
+    color: #333
+    cursor: pointer  
+    overflow: visible
+    vertical-align: middle
+    float: left
+    font-weight: normal
+    font-size: 1em
+    text-shadow: white 0px 1px 1px
+    +rounded(4px,4px,4px,4px)
+    img
+      float: left
+    .label
+      float: right
+
+    .sidebar
+      width: 234px
+      background: #ababab -webkit-gradient(linear, 0% 0%, 0% 100%, from(gainsboro), to(#ababab))
+      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(gainsboro), to(#ababab))    
+      border: 1px solid #ababab
+      color: white
+      font-family: impact
+      
+      &:hover
+        background: #990000 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ababab), to(#990000))
+        background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ababab), to(#990000))    
+        border: 1px solid #ababab
+        color: black
+
+  .favourite
+    float: left
+    border: black
+
+.button-like
+  height: 20px
+  line-height: 20px
+  text-align: middle
+  font-weight: normal
+  font-size: 11px
+  border: 1px solid #ababab
+  text-shadow: white 0px 1px 1px
+  padding: 0
+  background-color: silver
+  background-image: url(/images/buttons/section_bg.png)
+  color: #333
+  +rounded(4px,4px,4px,4px)
+
+.button-dislike
+  height: 20px
+  line-height: 20px
+  font-weight: normal
+  font-size: 11px
+  border: 1px solid #ababab
+  text-shadow: white 0px 1px 1px
+  padding: 0
+  background-color: gainsboro
+  background-image: url(/images/buttons/section_bg.png)
+  color: #333
+  margin-right: 4px
+  +rounded(4px,4px,4px,4px)
+
+
+
+.submit-button 
+  width: 140px
+  height: 21px
+  line-height: 21px
+  cursor: pointer  
+  overflow: visible
+  float: left
+  +rounded(8px,8px,8px,8px)
+
+  color: white
+  text-align: center
+
+  +fancy-button(#cf7200)
+  +fancy-button-structure(14px, 0.7em, 3px)
+  +fancy-button-colors(#cf7200, adjust-hue(#cf7200, -3), darken(adjust-hue(#cf7200, -3), 1))
+  border-color: black
+
+  &:hover
+    border-color: black
+
+
+
+
+
