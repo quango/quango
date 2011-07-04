@@ -59,7 +59,7 @@
 
 
 -if width == "narrow"
-  .user_mini{:style=>"width:140px; overflow:hidden"}
+  .user_mini{:style=>"width:140px;height:50px; overflow:hidden"}
     %div.avatar-narrow
       - @avatar = Avatar.find(user.default_avatar)
       - if @avatar.present?

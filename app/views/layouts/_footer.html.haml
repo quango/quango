@@ -30,7 +30,9 @@
 
 .footer{:style => "border-top:1px solid #{current_group.secondary}; margin:8px 0 32px 0; padding-top:8px;line-height:24px"}
   .entry.left
-    = link_to "think", "http://think.it", :style=>"padding:4px;font-size:14px;font-family:georgia;font-weight:bold;color:#4183AF;"
+    = "Form a "
+  .entry.left
+    = link_to "quango", "https://github.com/quango/quango", :style=>"padding:4px;font-size:14px;font-family:georgia;font-weight:bold;color:#4183AF;"
   .entry.left
     = " v" + AppConfig.version.to_s + "<a style='border:1px solid #{current_group.supplementary};'>beta</a>"
     = " - open source"

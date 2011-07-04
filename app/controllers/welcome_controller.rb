@@ -17,12 +17,9 @@ class WelcomeController < ApplicationController
 
     @doctypes = current_group.doctypes
 
-    #@items = current_group.doctypes
+    @doctype = @doctypes.find_by_slug_or_id(params[:doctype_id])
 
-
-    @doctype = current_group.doctypes.find_by_slug_or_id(params[:doctype])
-
-    #@items = current_group.doctype.items.all
+    @items = current_group.items #.merge(conditions)
 
     
     

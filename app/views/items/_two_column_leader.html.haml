@@ -21,11 +21,11 @@
 
 
 
-  %li.thumbnail{:class => class_for_item(item)}
+  %div.thumbnail{:class => class_for_item(item)}
 
-    .inner-content{:style=>"width:360px;padding-bottom:8px; margin-bottom:8px;float:right"}
+    .inner-content{:style=>"width:360px;float:right"}
 
-      .inner-link{:style=>"font-size:14px;font-weight:bold;height:24px; line-height:24px;padding:8px 0 0 0; letter-spacing:-1px;"}
+      .inner-link{:style=>"width:360px; font-size:14px;font-weight:bold;height:24px; line-height:24px;padding:4px 0 4px 0; letter-spacing:-1px;overflow:hidden;"}
 
         = render :partial => "shared/activity_markers", :locals => {:item => item}
         = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 96)
@@ -80,10 +80,13 @@
               -topics_array[0..1].each do |topic|
                 %span.tag-list{:class => "tag_#{h(topic)}"}
                   = link_to h(topic), url_for(:controller => "items", :action => "index", :topics => topic), :rel => "tag", :title => t("items.tags.tooltip", :tag => topic)
-
-      .inner-author{:style=>"height:24px;margin:4px 0;"}
+      .clear
+      .inner-author{:style=>"width:360px; height:16px;margin:0 0 4px 0;padding-bottom:4px; border-bottom:2px dotted gainsboro"}
         = "Posted by " 
         = link_to h(item.user.display_name), user_path(item.user)
+        = "on"
+        = t("time.ago", :time => time_ago_in_words(item.created_at))
+
 
     .clear
 

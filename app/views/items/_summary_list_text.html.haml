@@ -16,7 +16,7 @@
 
     .summary-text-item{:style=>"height:18px; line-height:18px"}
       .inner-content      
-        .inner-link{:style=>"width:300;height:18px;overflow:hidden"}
+        .inner-link{:style=>"width:300px;height:18px;overflow:hidden"}
           %div{:style=>"padding:2px 0 3px 4px; height:18px; width:18px; float:left;"}
             = "<img src='/images/logos/star_32_point_inv.png' height='14px' width='14px'/>"
           = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 96)

@@ -16,6 +16,14 @@
 
   %li.entry.item{:class => class_for_item(item)}
 
+    - if item.default_thumbnail?
+      .thumbnail{:style => "width:140px;height:70px; overflow:hidden; float:left;" }
+        - image = Image.find(item.default_thumbnail)
+        - base_image = image.image.process(:thumb,image.image_cropping)
+        - base_thumbnail = base_image.process(:thumb,"140x")
+        = link_to image_tag(base_thumbnail.url, :class => 'none', :alt => image.caption, :title => image.caption,:style => "width:140px;min-height:70px" ), item_path(item.doctype, item)
+    
+  
     .summary{:style=>"width:400px"}
       %small
         =@active_section #.has_images
@@ -24,7 +32,10 @@
       -cache("item_on_index_#{item.id}_#{I18n.locale}") do
         %h3
           -#= image_tag("/images/icons/"+item.doctype.name+"_icon_16.png", :width => 16, :height => 16)
+
           = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
+
+          
         .tag-list
           -if item.tags.empty? && logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group))
             %span.retag

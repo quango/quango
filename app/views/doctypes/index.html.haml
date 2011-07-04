@@ -42,6 +42,8 @@
           %tr
             %td
               = doctype.name.to_s
+              .small
+                = "#{doctype.id}"
 
             -form_tag move_doctype_path(doctype) do
               %td.order

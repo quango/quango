@@ -28,7 +28,9 @@
     -#= render :partial => "shared/analytics"
     -#= @current_class
 
-
+    -if logged_in? && current_user.owner_of?(current_group)
+      .debug{:style => "display:none"}
+        = "Group: #{current_group.id} / #{current_group.name}"
 
     #flash
       = "<!--Placeholder for flash messaging-->"
