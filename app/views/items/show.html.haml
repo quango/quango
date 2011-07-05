@@ -25,9 +25,7 @@
 - source = item_path(@doctype, @item)
 = error_messages_for 'answer'
 
--content_for :summary_headerX do
-  #section-listing{:class => @active_section}
-    = render :partial => "items/summary_header", :locals => {:doctype => @doctype, :section => @doctype,  :list_mode => "standard"}
+
  
 - content_for :main do
   = javascript_include_merged :show
@@ -39,13 +37,6 @@
         = current_group.leaderboard_content
       .signup
         = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
-
-
-    -#if @doctype.product_format?
-
-
-
-
 
 
     #sidebar{:style=>"float:left;border-right:1px solid white"}
@@ -60,13 +51,14 @@
 
 
       = render :partial => "author", :locals => {:width => "narrow"}
-      = render :partial => "participants", :locals=> {:item => @item}
+      - if @answers.count > 0
+        = render :partial => "participants", :locals=> {:item => @item}
 
 
 
-      = render :partial => "shared/current_tags"
-      = render :partial => "shared/tag_list", :object => @tag_cloud
-      = render :partial => "shared/community_sponsor", :locals => {:width => "narrow"}
+      -#= render :partial => "shared/current_tags"
+      -#= render :partial => "shared/tag_list", :object => @tag_cloud
+      -#= render :partial => "shared/community_sponsor", :locals => {:width => "narrow"}
       -#= render :partial => "related_communities"
 
 
@@ -153,7 +145,7 @@
                   - if !@item.close_reason.comment.empty?
                     .comment
                       =find_and_preserve(shapado_auto_link(@item.close_reason.comment))
-              .debug
+              .debug{:style => "display:none"}
                 = "This item's doctype: #{@item.doctype_id}"
               .entry-details
                 .entry-title
@@ -225,7 +217,7 @@
 
 
 
--content_for :sidebar_inner do
+
   #sidebar-inner{:style=>"border:0; float:right"}
 
 

@@ -16,18 +16,9 @@
 
     .default_thumbnail
       .expand
-        = link_to (image_tag base_thumbnail.url, :class => 'expand', :alt => "#{image.name}", :title => "#{image.name}"), expanded_image.url, :title => "#{image.caption}"
+        = link_to image_tag(base_thumbnail.url,:class => 'expand',:alt => "#{image.caption.to_s}",:title => "#{image.caption.to_s}"),expanded_image.url,:title => "#{image.caption.to_s}"
 
 
   .clear
 
--else
-  - if logged_in?
-
-    .block
-      %h3{:style=>"background-color: #525051; color: white"}
-        = "Main Image"
-    .content
-      ="No image added"
-      = link_to "Add images", item_images_path(@doctype, @item), :style => "text-shadow:green;border: 2px solid green;background-color:green; color:white", :class => "toolbar-button" 
 
