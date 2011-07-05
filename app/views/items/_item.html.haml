@@ -23,26 +23,22 @@
         - base_thumbnail = base_image.process(:thumb,"140x")
         = link_to image_tag(base_thumbnail.url, :class => 'none', :alt => image.caption, :title => image.caption,:style => "width:140px;min-height:70px" ), item_path(item.doctype, item)
     
-  
-    .summary{:style=>"width:400px"}
+    .summary{:style=>"width:400px;height:70px;"}
       %small
         =@active_section #.has_images
         =render :partial => "/items/stats", :locals => {:item => item}
 
-    -#cache("item_on_index_#{item.id}_#{I18n.locale}") do
-    .entry-title
-      -#= image_tag("/images/icons/"+item.doctype.name+"_icon_16.png", :width => 16, :height => 16)
+      %h3{:style=>"width:400px;height:24px;line-height:24px;overflow:hidden;margin:0"}
+        = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
 
-      = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
-
-      
-    .tag-list
-      -if item.tags.empty? && logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group))
-        %span.retag
-          = link_to t('items.show.retag'), retag_item_path(item.doctype_id, item), :id => 'retag', :class => "important"
-      -item.first_tags.each do |tag|
-        %span.tag{:class => "tag_#{h(tag)}"}
-          = link_to h(tag), url_for(:controller => "items", :action => "index", :tags => tag), :rel => "tag", :title => t("items.tags.tooltip", :tag => tag)
+        
+      .tag-list
+        -if item.tags.empty? && logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group))
+          %span.retag
+            = link_to t('items.show.retag'), retag_item_path(item.doctype_id, item), :id => 'retag', :class => "important"
+        -item.first_tags.each do |tag|
+          %span.tag{:class => "tag_#{h(tag)}"}
+            = link_to h(tag), url_for(:controller => "items", :action => "index", :tags => tag), :rel => "tag", :title => t("items.tags.tooltip", :tag => tag), :style=>"background-color:#{current_group.primary_dark}"
 
     .owner-data
       -if owner
@@ -51,9 +47,7 @@
         =t("global.anonymous")
       %small.time_ago
         = link_to t("time.ago", :time => time_ago_in_words(last_target.updated_at)), items_path(item.doctype, item)+"##{last_target.id}"
-      -if item.wiki
-        %span.wiki_flag
-          wiki
+
     .clear
 -else
   -#cache("mini_item_on_index_#{item.id}_#{I18n.locale}") do
