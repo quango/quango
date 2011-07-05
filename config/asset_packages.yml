@@ -7,7 +7,7 @@ javascripts:
   - jquery.tools.min
   - jquery-ui
   - jquery.textarea
-  - jHtmlArea
+  #- jHtmlArea
   - jquery.autocomplete
   - jquery.autoSuggest
   - jquery.notifyBar
@@ -18,6 +18,9 @@ javascripts:
   - jquery.effects.core
   - jquery.effects.bounce
   - jquery.lightbox
+  - jcarousellite_1.0.1
+  - jquery.cycle.all.latest
+  - jquery.easing.1.1
   - showdown
   - highlight/prettify
   - components/search
@@ -34,6 +37,7 @@ javascripts:
   - modules/members
   - modules/move_group
   - modules/editor
+  - mediaplayer/jwplayer
 
 
 - show:
@@ -48,7 +52,7 @@ javascripts:
 
 stylesheets:
 - base:
-  - jquery-ui
+  #- jquery-ui
   - jquery-lightbox
   - compiled/application
   - prettify

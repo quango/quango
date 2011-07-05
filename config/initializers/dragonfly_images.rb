@@ -7,6 +7,9 @@ app = Dragonfly[:images]
 app.configure_with(:rmagick)
 app.configure_with(:rails)
 
+app.configure{|c| c.url_host = 'http://think.it' }
+
+
 app.define_macro_on_include(MongoMapper::Document, :image_accessor)
 app.define_macro_on_include(MongoMapper::EmbeddedDocument, :image_accessor)
 

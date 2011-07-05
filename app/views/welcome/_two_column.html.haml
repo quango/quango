@@ -12,7 +12,7 @@
 
     #welcome-content
       -#= "hello"
-      -current_group.doctypes.each do |doctype|
+      -@doctypes.each do |doctype|
         -if !doctype.hidden?
 
           .div.left{:style=>"height:256px;width:362px;background-color:#ffffff;border-right:1px solid white;border-bottom:1px solid gainsboro;padding-bottom:8px;margin-botton:8px display:block"}
@@ -31,11 +31,11 @@
                     = t(".empty")
                 -else
 
-                  - doctype_items_array = Array.new
-                  - @items.reverse.each do |item|
+                  -# doctype_items_array = Array.new
+                  -# doctype.items.reverse.each do |item|
 
-                    - if item.doctype_id == doctype.id
-                      - doctype_items_array << item
+                    -# if item.doctype_id == doctype.id
+                      -# doctype_items_array << item
 
 
                   -#= "array size: #{doctype_items_array.size}"
@@ -43,14 +43,18 @@
 
 
                   -# doctype_items_array[0] do |item|
-                  .summary-list-text
-                    = render :partial => "/items/two_column_leader", :locals => {:item => doctype_items_array.first} #, :sort=>"hot"}
+
+
+                  - doctype.items.reverse[0..0].each do |item|
+
+                    .summary-list-text
+                      = render :partial => "/items/two_column_leader", :locals => {:item => item} #, :sort=>"hot"}
 
 
 
                   .more{:style=>"height:230px"}
                     .summary-list-text
-                      - doctype_items_array[1..5].each do |item|
+                      - doctype.items.reverse[1..5].each do |item|
                         .summary-text-item{:style=>"height:18px; line-height:18px"}
    
                           .inner-link{:style=>"width:300px;height:18px;overflow:hidden"}

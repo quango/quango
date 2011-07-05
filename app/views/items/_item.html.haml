@@ -29,20 +29,20 @@
         =@active_section #.has_images
         =render :partial => "/items/stats", :locals => {:item => item}
 
-      -cache("item_on_index_#{item.id}_#{I18n.locale}") do
-        %h3
-          -#= image_tag("/images/icons/"+item.doctype.name+"_icon_16.png", :width => 16, :height => 16)
+    -#cache("item_on_index_#{item.id}_#{I18n.locale}") do
+    .entry-title
+      -#= image_tag("/images/icons/"+item.doctype.name+"_icon_16.png", :width => 16, :height => 16)
 
-          = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
+      = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
 
-          
-        .tag-list
-          -if item.tags.empty? && logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group))
-            %span.retag
-              = link_to t('items.show.retag'), retag_item_path(item.doctype_id, item), :id => 'retag', :class => "important"
-          -item.first_tags.each do |tag|
-            %span.tag{:class => "tag_#{h(tag)}"}
-              = link_to h(tag), url_for(:controller => "items", :action => "index", :tags => tag), :rel => "tag", :title => t("items.tags.tooltip", :tag => tag)
+      
+    .tag-list
+      -if item.tags.empty? && logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group))
+        %span.retag
+          = link_to t('items.show.retag'), retag_item_path(item.doctype_id, item), :id => 'retag', :class => "important"
+      -item.first_tags.each do |tag|
+        %span.tag{:class => "tag_#{h(tag)}"}
+          = link_to h(tag), url_for(:controller => "items", :action => "index", :tags => tag), :rel => "tag", :title => t("items.tags.tooltip", :tag => tag)
 
     .owner-data
       -if owner
@@ -56,15 +56,15 @@
           wiki
     .clear
 -else
-  -cache("mini_item_on_index_#{item.id}_#{I18n.locale}") do
-    %li.item{:class => "#{class_for_item(item)} #{local_assigns[:lite] ? 'lite' : ''}"}
-      .stats
-        .box.answers{:class => item.accepted ? "accepted" : "" }
-          .counter
-            =format_number(item.answers_count)
-          -if !local_assigns[:lite]
-            .text
-              =t(:answers, :scope => "activerecord.attributes.item")
-      .mini_item_link
-        = link_to title, item_path(item)
-      .clear
+  -#cache("mini_item_on_index_#{item.id}_#{I18n.locale}") do
+  %li.item{:class => "#{class_for_item(item)} #{local_assigns[:lite] ? 'lite' : ''}"}
+    .stats
+      .box.answers{:class => item.accepted ? "accepted" : "" }
+        .counter
+          =format_number(item.answers_count)
+        -if !local_assigns[:lite]
+          .text
+            =t(:answers, :scope => "activerecord.attributes.item")
+    .mini_item_link
+      = link_to title, item_path(item)
+    .clear

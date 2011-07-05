@@ -30,7 +30,8 @@
                 - slideshow_items_array[0..5].each do |item|
 
                   = render :partial => "/items/slide", :locals => {:item => item, :sort=>"hot"}
-                -slideshow_items_array = nil
+
+              -slideshow_items_array = ""
 
 
           %script{:type => "text/javascript"}
@@ -40,45 +41,3 @@
             = "setTimeout('slideshow()',#{slideshow_delay});"
 
 
-      %script{:type => "text/javascript"}
-        = "// collapse:"
-        = "$('.hide_features.features').click(function() {"
-        = "$('.hide_features.features').css('display','none');"
-        = "$('.show_features.features').css('display','block');"
-        = "$('.features.section-listing-welcome').hide('fast');"
-        -#= "$.cookie('summary.index.summary', 'collapsed', { expires: 2 });"
-        = "});"
-        = "// expand:"
-        = "$('.show_features.features').click(function() {"
-        = "$('.show_features.features').css('display','none');"
-        = "$('.hide_features.features').css('display','block');"
-        = "$('.features.section-listing-welcome').show('slow');"
-        -#= "$.cookie('summary.index.summary', 'expanded', { expires: 2 });"
-        = "});"
-        = "// ok so far"
-        -#= "// COOKIES"
-        -#= "var summary = $.cookie('summary.index.summary');"
-        -#= "	// Set the user's selection for the left column"
-        -#= "if (summary == 'collapsed') {"
-        -#= "$('.hide_summary.summary').css('display','none');"
-        -#= "$('.show_summary.summary').css('display','block');"
-        -#= "$('.summary.section-listing-welcome').hide();"
-        -#= "};"
-        -#= "if (summary == 'expanded') {"
-        -#= "$('.hide_summary.summary').css('display','block');"
-        -#= "$('.show_summary.summary').css('display','none');"
-        -#= "$('summary.summary.section-listing-welcome').show();"
-        -#= "};"
-        - if expanded == false
-          -#= "if (summary == null) {"
-          = "$('.show_features.features').css('display','block');"
-          = "$('.hide_features.features').css('display','none');"
-          = "$('.features.section-listing-welcome').hide();"
-          -#= "};"
-        - else
-          -#= "if (summary == null) {"
-          = "$('.hide_features.features').css('display','block');"
-          = "$('.show_features.features').css('display','none');"
-          = "$('.features.section-listing-welcome').show();"
-          -#= "};"
-        -#= "};"

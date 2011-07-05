@@ -1,0 +1,33 @@
+#main{:style => "width:702px; float:left"}
+  %h1
+    = "Slideshow"
+
+  = "You can choose to show or not to show"
+
+  .group
+    = f.check_box :has_slideshow, :class => "checkbox"
+    = f.label :has_slideshow, "Show Slides", :class => "radio"
+
+  .group
+    = f.label :slideshow_content, h('Slideshow content'), :class => "label"
+    = f.text_field :slideshow_content, :class => "text_field", :value => params[:name]
+
+  .group
+  
+  - @current_group.doctypes.each do |doctype|
+
+    = f.radio_button :slideshow_content, doctype.name
+    = "#{doctype.name}"
+
+
+
+
+  .clear
+
+  .group.navf
+    = f.submit t('scaffold.update'), :class => "action-button"
+
+
+
+
+
