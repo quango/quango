@@ -14,8 +14,10 @@
         %li
           = link_to t("layouts.manage.channels"), manage_properties_path(:tab => "channels"), :class=>"standard-button"
         %li
+          = link_to "Categories", manage_properties_path(:tab => "categories"), :class=>"standard-button"
+        %li
           = link_to "Bumper", manage_properties_path(:tab => "bumper"), :class=>"standard-button"
-
+        %li
           = link_to "LB", manage_properties_path(:tab => "leaderboard"), :class=>"standard-button"
         %li
           = link_to "MR", manage_properties_path(:tab => "medium_rectangle"), :class=>"standard-button"

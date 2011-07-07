@@ -1,0 +1,44 @@
+
+- categories = current_group.group_categories #.split(',')
+
+#contextual-navigation{:class => @active_section, :style=>"height:32px; line-height:32px;margin-top:8px"}
+  %ul
+
+    - categories.reverse.each do |category|
+      - category_link = category.split(" ").each{|word| word.capitalize!}.join(" ")
+
+
+      %li
+        = link_to category_link, search_path(:q => category), :style => "color: #{current_group.primary};", :style => "color:white"
+
+#small-navigation{:class => @active_section, :style=>"height:16px; font-size:10px;display:none"}
+  %ul
+    -current_group.doctypes.reverse.each do |doctype|
+      -if !doctype.hidden?
+        -if doctype.name == @active_section
+          %li{:class => doctype.name }
+            - section_link = doctype.name.capitalize
+            = link_to section_link, items_path(doctype), :style => "color: white; background-color:#{current_group.primary}"
+        -else
+          %li{:class => doctype.name }
+            - section_link = doctype.name.capitalize
+            -#= link_to section_link, nodes_path(section.name)
+            = link_to section_link, items_path(doctype), :style => "color: white;", :object => doctype
+
+
+    -if !current_group.isolate && AppConfig.enable_groups
+      %li{:style => "border-right:1px solid #ffffff"}
+        -if @active_section == "groups"
+          = link_to "Communities", groups_path, :style => "color: black;"
+        -else
+          = link_to "Communities", groups_path, :style => "margin-right:8px;"
+
+
+
+    %li{:style => "border-right:1px solid #ffffff"}
+      -if @active_section == "members"
+        = link_to "Members", users_path, :style => "color: black;"
+      -else
+        = link_to "Members", users_path, :style => "margin-right:8px;"
+
+.clear

@@ -1,0 +1,32 @@
+#main
+  %h1
+    = "Categories"
+
+    = "You can choose to show or not to show"
+
+
+
+
+  .group
+    = f.label :group_categories, t('default_tags', :scope => "activerecord.attributes.group"), :class => "label"
+    = f.text_field :group_categories, :value => @group.group_categories.join(", "), :class => "text_field"
+    .description
+      = t('.default_tags_legend')
+
+
+
+    .group
+      = f.check_box :show_category_navigation, :class => "checkbox"
+      = f.label :show_category_navigation, "Show category navigation instead of default navigation", :class => "radio"
+
+
+
+    .clear
+
+    .group.navf
+      = f.submit t('scaffold.update'), :class => "action-button"
+
+
+
+
+

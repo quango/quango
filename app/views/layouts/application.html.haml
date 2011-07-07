@@ -65,7 +65,10 @@
       #header-container-inner
         .navigation-container{:style=>"height:40px"}
           .navigation{:style=>"float:left; height:32px; line-height:32px"}
-            = render :partial => "shared/contextual_navigation"
+            - if current_group.show_category_navigation
+              = render :partial => "shared/category_navigation"
+            - else
+              = render :partial => "shared/contextual_navigation"
           .search{:style=>"float:right; margin-top:8px;"}
             = render :partial => "shared/search"
 

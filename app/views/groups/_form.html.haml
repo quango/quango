@@ -205,12 +205,6 @@
 
 
 .group
-  = form.label :default_tags, t('default_tags', :scope => "activerecord.attributes.group"), :class => "label"
-  = form.text_field :default_tags, :value => @group.default_tags.join(", "), :class => "text_field"
-  .description
-    = t('.default_tags_legend')
-
-.group
   = form.check_box :has_bunnies, :class => "checkbox"
   = form.label :has_bunnies, t('has_bunnies', :scope => "activerecord.attributes.group"), :class => "radio"
 

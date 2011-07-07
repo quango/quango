@@ -40,6 +40,10 @@ class Group
   key :domain, String
   key :legend, String
   key :description, String
+
+  key :group_categories, Array
+  key :show_category_navigation, Boolean, :default => false
+
   key :has_custom_channels, Boolean, :default => false
   key :custom_channels, Array #, :default => "something, something else"
   key :custom_channel_content, String
@@ -330,9 +334,18 @@ class Group
     TagList.first(:group_id => self.id) || TagList.create(:group_id => self.id)
   end
 
+  def group_categories=(gc)
+    if gc.kind_of?(String)
+      gc = gc.downcase.split(", ") #.join(" ").split(" ").flatten
+      #gc = gc.downcase.split(/\s*?(".*?")\s*?/).map{|x| x=~/^".*"$/ ? x : x.split}.flatten
+    end
+    self[:group_categories] = gc
+  end
+  alias :user :owner
+
   def default_tags=(c)
     if c.kind_of?(String)
-      c = c.downcase.split(",").join(" ").split(" ")
+      c = c.downcase.split(", ").join(" ").split(" ")
     end
     self[:default_tags] = c
   end
