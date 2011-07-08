@@ -31,12 +31,12 @@ Layout
 
           -if devise_mapping.rememberable?
             .group
-              .remember
+              .remember{:style=>"width:300px;float:right;"}
                 =f.label :remember_me, "Remember me?"
                 =f.check_box :remember_me
 
-        .form-footer
-          = submit_tag "Login now...", :class => "submit-button", :style => "width:312px; height:32px; padding: 0 32px; font-weight: bold; font-size:18px;"
+          .form-footer
+            = submit_tag "Login now...", :class => "submit-button", :style => "width:316px; height:32px; padding: 0 16px; font-weight: bold; font-size:18px;float:right"
 
         .clear
 

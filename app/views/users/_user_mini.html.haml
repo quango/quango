@@ -1,30 +1,28 @@
 -bronze, silver, gold = user.badges_count_on(current_group)
 
 -if width == "wide"
-  .user_mini{:style=>"width:300px; height:40px; overflow:hidden"}
-    %div{:style=>"float:left; overflow:hidden"}
+  .user_mini{:style=>"width:300px; height:64px;border-bottom:1px solid white;overflow:hidden"}
+    %div{:style=>"float:left; overflow:hidden;height:68px; width:68px;"}
       - @avatar = Avatar.find(user.default_avatar)
       - if @avatar.present?
         - cropped_avatar = @avatar.avatar.process(:thumb,@avatar.avatar_cropping)
-        - default_avatar = cropped_avatar.process(:thumb,"40x40")
+        - default_avatar = cropped_avatar.process(:thumb,"64x64")
         - default_avatar_grey = default_avatar.process(:greyscale,"20")
         -#= image_tag default_avatar.url, :class => 'b', :alt => user.first_name, :title => user.first_name
-        = image_tag default_avatar_grey.url, :class => 'a', :alt => user.first_name, :title => user.first_name, :height => "40px", :width => "40px" 
+        = image_tag default_avatar_grey.url, :class => 'a', :alt => user.first_name, :title => user.first_name, :height => "64px", :width => "64px", :style => "border:2px solid white" 
       - else
-        = image_tag "/images/anonymous_avatar.png", :height => "40px", :width => "40px" #, user_path(user)
-    %div.details{:style=>"float:left; overflow:hidden"}
+        = image_tag "/images/anonymous_avatar.png", :height => "64px", :width => "64px", :style => "border:2px solid white"
+    %div.details{:style=>"height:64px;float:left; overflow:hidden"}
 
-      %span.fn.nickname
+      %div.fn.nickname
         -unless user.nil?
           =link_to h(user.first_name.to_s + " " + user.last_name.to_s), user_path(user), :class => "user-link"
-      .clear
-
 
       %span.reputation{:title => t("activerecord.attributes.user.reputation")}
         -unless user.nil?
           -if user.owner_of?(current_group)
-            %span.ownerflair{:title => "Group Administrator", :style => "background-color:#{current_group.secondary};border: 1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px"}
-              Admin
+            %span.ownerflair{:title => "Group Administrator", :style => "margin-top:2px;"}
+              = "<img src='/images/owner-icon.png' height='12px' width='14px' title='Site Administrator' alt='Site Administrator'/>"
           -elsif user.mod_of?(current_group)
             %span.modflair{:title => "moderator"}
               Associate
@@ -56,6 +54,8 @@
             %span.bronze.badgeicon-small
             %span.badgecount
               =bronze
+
+  .clear
 
 
 -if width == "narrow"

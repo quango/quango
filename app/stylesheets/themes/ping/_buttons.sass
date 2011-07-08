@@ -48,9 +48,9 @@
 
 
 .search-button 
-  width: 128px
-  height: 21px
-  line-height: 21px
+  width: 64px
+  height: 20px
+  line-height: 20px
   cursor: pointer  
   overflow: visible
   float: left
@@ -58,65 +58,7 @@
   font-weight: normal
   color: white
   text-align: center
-
-  +fancy-button(#525051)
-  +fancy-button-structure(12px, 0.7em, 1px)
-  +fancy-button-colors(#525051, adjust-hue(#525051, -3), darken(adjust-hue(#525051, -3), 1))
-
-
-
-.create-button 
-  width: 140px
-  height: 21px
-  line-height: 21px
-  cursor: pointer  
-  overflow: visible
-  float: left
-  +rounded(8px,8px,8px,8px)
-
-  color: white
-  text-align: center
-
-  +fancy-button(#cf7200)
-  +fancy-button-structure(14px, 0.7em, 3px)
-  +fancy-button-colors(#cf7200, adjust-hue(#cf7200, -3), darken(adjust-hue(#cf7200, -3), 1))
-  border-color: black
-
-  position: absolute
-  left: 0
-  top: 0
-  z-index: 10
-
-  &:hover
-    border-color: black
-
-
-.create-button-glow
-  width: 140px
-  height: 21px
-  line-height: 21px
-  cursor: pointer  
-  overflow: visible
-  float: left
-  +rounded(8px,8px,8px,8px)
-
-  color: white
-  text-align: center
-
-  +fancy-button(#9a0000)
-  +fancy-button-structure(14px, 0.7em, 3px)
-  +fancy-button-colors(#9a0000, adjust-hue(#9a0000, -3), darken(adjust-hue(#9a0000, -3), 1))
-  border-color: black
-
-  position: absolute
-  left: 0
-  top: 0
-  
-
-  &:hover
-    border-color: black
-
-
+  background-color: black
 
 
 a.standard-button
@@ -305,13 +247,9 @@ button
   overflow: visible
   float: left
   +rounded(8px,8px,8px,8px)
-
   color: white
   text-align: center
-
-  +fancy-button(#cf7200)
-  +fancy-button-structure(14px, 0.7em, 3px)
-  +fancy-button-colors(#cf7200, adjust-hue(#cf7200, -3), darken(adjust-hue(#cf7200, -3), 1))
+  text-shadow: 0px 1px 1px rgba(0,0,0,0.75)
   border-color: black
 
   &:hover

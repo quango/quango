@@ -21,6 +21,8 @@
             = "<img src='/images/logos/star_32_point_inv.png' height='14px' width='14px'/>"
           = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 96)
           = "&nbsp;"
+          .small
+            = link_to @doctype, doctype_path(item.doctype), :title => truncate(strip_tags(item.body), :length => 24)
 
 
     .clear

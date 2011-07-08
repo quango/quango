@@ -42,7 +42,7 @@ class ImagesController < ApplicationController
     @item = Item.find_by_slug_or_id(params[:item_id])
     @image = Image.new(params[:image])
     @image.item = @item
-    @image.copyright = "Public Domain"
+    #@image.copyright = "Public Domain"
     #@image.name = @image.to_s
 
     respond_to do |format|

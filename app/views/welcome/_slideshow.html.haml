@@ -2,12 +2,12 @@
 - expanded = local_assigns[:expanded]
 
 - if current_group.has_slideshow
-  .section-head-welcome{:style=>"border-bottom:10px solid white;border-top:4px solid #{current_group.secondary}"}
-    .secondary-navigation-sections{:style=>"background-color:gainsboro"}
-      .features{:style=>"font-family:Arial,sans-serif; font-weight:normal; font-size:12px;padding-left:10px;color:#{current_group.primary_dark}; letter-spacing:-1px;"}
-        = "Todays " << current_group.slideshow_content.capitalize  
+  -#.section-head-welcome{:style=>"border-bottom:10px solid white;border-top:4px solid #{current_group.secondary}"}
+    -#.secondary-navigation-sections{:style=>"background-color:gainsboro"}
+      -#.features{:style=>"font-family:Arial,sans-serif; font-weight:normal; font-size:12px;padding-left:10px;color:#{current_group.primary_dark}; letter-spacing:-1px;"}
+        -#= "Todays " << current_group.slideshow_content.capitalize  
 
-   
+  .slideshow
         
     .section-listing-welcome{:class => "features", :style => "background-color:#ffffff; width:728px;height:220px; overflow:hidden"}
       - slideshow_delay = 0

@@ -4,7 +4,7 @@
   -unless user.nil?
     =link_to h(user.display_name), user_path(user)
     -if user.owner_of?(current_group)
-      %div.ownerflair
+      %div
         = "<img src='/images/owner-icon.png' height='16px' width='19px' title='Site Administrator' alt='Site Administrator'/>"
 
 

@@ -37,8 +37,14 @@
 
 
 
-  - dragonfly_link = "http://think.it/system/dragonfly/development/" << @image.image_uid.to_s
-  - cropped_image = @image.image.process!(:resize, 'x588')
+  - dragonfly_link = "http://think.it/media/" << @image.image_uid.to_s
+  - cropped_image = @image.image.process(:thumb, 'x588')
+
+  - @base_image = @default_thumbnail
+  -# base_image = @image.image.process(:thumb,image.image_cropping)
+  - expanded_image = @image.image.process(:thumb,"800x")
+  - base_thumbnail = @image.image.process(:thumb,"300x")
+
 
   #main-index
     .secondary-navigation  
@@ -92,7 +98,7 @@
       %h3
         = "Image preview"
       %div{:style => "width:#{Image::THUMB_W}px;height:#{Image::THUMB_H}px;overflow:hidden"}
-        = image_tag (dragonfly_link, :width => "256px", :id => 'preview')
+        = image_tag (cropped_image.url, :width => "256px", :id => 'preview')
     .block
       %h3
         = h("Tips")

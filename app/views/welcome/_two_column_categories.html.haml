@@ -1,10 +1,4 @@
-- expanded = local_assigns[:expanded]
-
-
-.section-head-welcome{:style=>"border-bottom:10px solid white;border-top:4px solid #{current_group.secondary}"}
-  .secondary-navigation-sections{:style=>"background-color:gainsboro;"}
-    .summary{:style=>"font-family:Arial,sans-serif; font-weight:normal; font-size:12px;padding-left:10px;color:#{current_group.primary_dark}; letter-spacing:-1px;"}
-      = "On the site...."  
+.two_column_categories
 
 
 
@@ -17,10 +11,10 @@
     - categories.each do |category|
 
 
-      .div.left{:style=>"height:256px;width:362px;background-color:#ffffff;border-right:1px solid white;border-bottom:1px solid gainsboro;padding-bottom:8px;margin-botton:8px display:block"}
+      .div.left{:style=>"height:260px;width:362px;background-color:#ffffff;border-right:1px solid white;border-bottom:1px solid gainsboro;padding-bottom:8px;margin-botton:8px display:block"}
         - category_link = category.capitalize
         .div.inner{:style=>"margin:0"}
-          %h4{:style=>"height:24px;line-height:24px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color: white; background-color:#{current_group.primary_dark}; border-bottom:4px solid #{current_group.primary};margin:0; font-size:15px; letter-spacing:-1px;font-weight:bold;border-bottom:1px solid white"}
+          %h4{:style=>"height:32px;line-height:32px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color: white; background-color:#{current_group.primary_dark}; border-bottom:4px solid #{current_group.primary};margin:0; font-size:15px; letter-spacing:-1px;font-weight:bold;border-bottom:1px solid white"}
             %div{:style=>"padding:1px 0 3px 4px; height:18px; width:18px; float:left;"}
               = "<img src='/images/logos/star_16.png' height='14px' width='14px'/>"
             = link_to category_link, search_path(:q => category), :style => "color: #{current_group.primary};", :style => "color:white"
@@ -56,7 +50,7 @@
                       %div{:style=>"padding:2px 0 3px 4px; height:18px; width:18px; float:left;"}
                         = "<img src='/images/logos/star_32_point_inv.png' height='14px' width='14px'/>"
                       = link_to item.title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 96)
-
+                      = link_to item.doctype.name, "/group/#{item.doctype.name}/index", :title => truncate(strip_tags(item.body), :length => 24),:style => "color:#{current_group.secondary}"
 
             .clear
 
