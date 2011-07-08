@@ -34,7 +34,7 @@
 
             - items = Item.filter(category, options)
 
-            - items.reverse[0..0].each do |item|
+            - items[0..0].each do |item|
 
               .summary-list-text
                 = render :partial => "/items/two_column_leader", :locals => {:item => item} #, :sort=>"hot"}
@@ -43,7 +43,7 @@
 
             .more{:style=>"height:230px"}
               .summary-list-text
-                - items.reverse[1..5].each do |item|
+                - items[1..5].each do |item|
                   .summary-text-item{:style=>"height:18px; line-height:18px"}
 
                     .inner-link{:style=>"width:300px;height:18px;overflow:hidden"}
