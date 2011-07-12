@@ -19,7 +19,14 @@
 
 - content_for :head do
   %meta{:name => "keywords", :content => clean_seo_keywords(@item.tags.dup, @item.title)}
-  %meta{:name => "description", :content => item_body.gsub(/<\/?[^>]*>/, "")[0, 255] }
+
+  - if @item.description
+    %meta{:name => "description", :content => @item.description.gsub(/<\/?[^>]*>/, "")[0, 255] }
+
+  - else
+    %meta{:name => "description", :content => item_body.gsub(/<\/?[^>]*>/, "")[0, 255] }
+
+
   %link{:rel => "canonical", :href => item_url(@doctype, @item) }
 
 - source = item_path(@doctype, @item)
@@ -39,7 +46,202 @@
         = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
 
 
-    #sidebar{:style=>"float:left;border-right:1px solid white"}
+  #sidebar-inner{:style=>"border:0; float:right"}
+    -#= render :partial => "author"
+    -if !@doctype.product_format || !@doctype.has_video
+      = render :partial => "default_image", :locals => {:item => @item}
+    -if @doctype.has_video?
+      = render :partial => "video_info", :locals => {:item => @item}
+    = render :partial => "images", :locals => {:item => @item}
+
+
+    = render :partial => "shared/share_box", :locals => {:item => @item}
+    -#= render :partial => "shared/sidebar_actions_show",  :locals => {:width => "wide"}
+    = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
+    -if current_group.has_medium_rectangle
+      .medium-rectangle{:style=>"background-color:white; width:300px;height:250px;margin:10px 0; padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
+        = current_group.medium_rectangle_content
+      .clear
+
+    = render :partial => "shared/sponsored_links",  :locals => {:width => "wide"}
+
+    -if current_group.has_threeone_rectangle
+      .threeone-rectangle{:style=>"background-color:white; width:300px;height:100px;margin:10px 0; padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
+        = current_group.threeone_rectangle_content
+      .clear
+    .block{:style => "margin-bottom:4px"}
+      %h3{:style=>"background:#{current_group.primary_dark}"}
+        = "About this site"
+      .content
+        .markdown{:style => "padding:10px"}
+          = markdown(current_group.description)
+
+    -related_items = Item.related_items(@item, :language => find_languages)
+    - if related_items
+      .block{:style=>"display:none;"}
+        %h3
+          =t(".related_items")
+        .content
+          -#%ul.list
+            -#-related_items.each do |rq|
+              -#%li
+                -#= link_to h(rq.title), items_path(rq.doctype, rq.slug.to_s), :title => truncate(strip_tags(rq.body), :length => 200)
+
+    -if !current_group.isolate
+      -#= render :partial => "related_communities"
+
+    -if logged_in? && current_group.has_bunnies?
+      -if current_user.owner_of?(current_group)
+        = render :partial => "bunnies", :locals => {:item => @item}
+
+
+    -if !current_group.has_leaderboard
+      = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
+
+
+
+
+  -if @doctype.product_format?
+    #main-index{:style=>"width:728px; float:left;"}
+      .content
+        .inner
+          #product
+            .product-image
+              .product-description{:style => "opacity:0.7;position:absolute; color:white; background-color: black; padding:10px; font-size:14px;width:233px; z-index:10;height:auto"}
+                .product-title{:style=>"font-weight:bold;color:white; border-bottom: 1px solid white"}
+                  = @item.title
+                = @item.body
+            = render :partial => "product_image", :object=>@item
+  -else
+
+    -if @doctype.has_video?
+      #main-index{:style=>"width:728px"}
+        .content
+          .inner
+            .toolbox{:style=>"background-color:#{current_group.primary_dark}; width:712px;"}
+              = render :partial => "toolbox"
+
+          #video-box
+            %div{:style=>"padding:10px 10px 0 10px; font-weight:bold;color:white;"}
+              = @item.title
+            = render :partial => "video_player", :object=>@item
+
+          .clear
+            -if logged_in?
+              -if current_user.owner_of?(current_group) | current_user.mod_of?(current_group)
+                %div
+                  = render :partial => "controls", :object=>@item
+
+            .clear
+
+
+    -else
+      #main-index
+        .content
+          .inner
+            .toolbox{:style=>"background-color:#{current_group.primary_dark}"}
+              = render :partial => "toolbox"
+            -if logged_in?
+              -if current_user.owner_of?(current_group) | current_user.mod_of?(current_group)
+                %div
+                  = render :partial => "controls", :object=>@item
+
+
+
+
+      -if @doctype.product_format
+
+        #product
+          .product-image
+            .product-description{:style => "opacity:0.7;position:absolute; color:white; background-color: black; padding:10px; font-size:14px;width:570px; z-index:10;height:auto"}
+              .product-title{:style=>"font-weight:bold;color:white; border-bottom: 1px solid white"}
+                = @item.title
+              = @item.body
+          = render :partial => "product_image", :object=>@item
+
+
+    #main
+      #item-body-col.commentable.markdown
+        %a{:name => @item.id}
+        #body
+          - if @item.closed && @item.close_reason
+            #close_reason
+              = t(".close_reason")
+              = t(@item.close_reason.reason, :scope=>"close_requests.form")
+              - if !@item.close_reason.comment.empty?
+                .comment
+                  =find_and_preserve(shapado_auto_link(@item.close_reason.comment))
+          .debug{:style => "display:none"}
+            = "This item's doctype: #{@item.doctype_id}"
+
+
+
+        .entry{:style=>"width:520px;float:left; border:1px solid red"}
+          .entry-details
+            .entry-title
+              = @item.title
+              - if @item.closed
+                =" [#{t("closed", :scope => "activerecord.attributes.item").upcase}]"
+
+            .entry-authors{:style => "border-bottom:1px solid gainsboro;"}
+              = render :partial => "entry_authors"
+
+            .tag-list
+              - @item.tags.each do |tag|
+                %span.tag
+                  = link_to h(tag), url_for(:controller => "item", :action => "index", :tags => tag), :rel => "tag", :style => "background-color:#{current_group.primary}"
+              - if logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group)) #tofix
+                %span.retag
+                  = link_to t('.retag'), retag_item_path(@doctype, @item), :id => 'retag',:style => "border:0; color:gainsboro;", :class => "link"
+
+          .entry-content
+            = item_body
+
+
+
+
+
+
+      %a{:name=>"answers"}
+      #answers
+        -unless @item.closed
+          %a{:name=>"to_answer"}
+          -form_for @answer, :url => item_answers_path(@doctype, @item), :html => {:class => "form mainAnswerForm"} do |f|
+            = render :partial => "answers/form", :locals => {:f => f, :markdown => true, :mode => "item"}
+          .clear
+
+
+        .answers
+
+          .entry-details
+            .entry-title
+              = h("What others think")
+          .secondary-navigation
+            .navcontrols
+              %ul
+                %li
+                  = "Sort by: "
+                %li.filter
+                  = link_to "Fresh", item_path(@doctype, @item, :sort=>"fresh", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
+                %li
+                  = link_to "Hot", item_path(@doctype, @item, :sort=>"hot", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
+                %li
+                  = link_to "Historical", item_path(@doctype, @item, :sort=>"sweaty", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
+
+        .clear
+
+        .block
+          - if @item.accepted
+            -solution = @item.answer
+            =render :partial=> "answer", :locals=> {:item => @item, :answer => solution} unless solution.nil?
+          .hentry
+            -@answers.each do |answer|
+              =render :partial=> "answer", :locals=> {:item => @item, :answer => answer}
+          =will_paginate(@answers)
+
+
+
+    .sidebar-inner{:style=>"float:left;border-right:1px solid white; width:140px;"}
       .sidebar-heading{:style => "background-color:#{current_group.primary_dark}; color:white;"}
         = "#{@doctype.name.capitalize}"
 
@@ -94,187 +296,9 @@
                 %li
                   = render :partial => "badges/badge", :object => badge, :locals => {:hide_user => false}
 
-  -if @doctype.product_format?
-    #main-index{:style=>"width:728px; float:left;"}
-      .content
-        .inner
-          #product
-            .product-image
-              .product-description{:style => "opacity:0.7;position:absolute; color:white; background-color: black; padding:10px; font-size:14px;width:233px; z-index:10;height:auto"}
-                .product-title{:style=>"font-weight:bold;color:white; border-bottom: 1px solid white"}
-                  = @item.title
-                = @item.body
-            = render :partial => "product_image", :object=>@item
-  -else
-    #main-index
-      .content
-        .inner
-          .toolbox{:style=>"background-color:#{current_group.primary_dark}"}
-            = render :partial => "toolbox"
-          -if logged_in?
-            -if current_user.owner_of?(current_group) | current_user.mod_of?(current_group)
-              %div
-                = render :partial => "controls", :object=>@item
-
-          -if @doctype.has_video?
-
-            #video-box
-              %div{:style=>"padding:10px; font-weight:bold;color:white;"}
-                = @item.title
-              = render :partial => "video_player", :object=>@item
-
-          -if @doctype.product_format
-
-            #product
-              .product-image
-                .product-description{:style => "opacity:0.7;position:absolute; color:white; background-color: black; padding:10px; font-size:14px;width:570px; z-index:10;height:auto"}
-                  .product-title{:style=>"font-weight:bold;color:white; border-bottom: 1px solid white"}
-                    = @item.title
-                  = @item.body
-              = render :partial => "product_image", :object=>@item
 
 
 
-          #item-body-col.commentable.markdown
-            %a{:name => @item.id}
-            #body
-              - if @item.closed && @item.close_reason
-                #close_reason
-                  = t(".close_reason")
-                  = t(@item.close_reason.reason, :scope=>"close_requests.form")
-                  - if !@item.close_reason.comment.empty?
-                    .comment
-                      =find_and_preserve(shapado_auto_link(@item.close_reason.comment))
-              .debug{:style => "display:none"}
-                = "This item's doctype: #{@item.doctype_id}"
-              .entry-details
-                .entry-title
-                  = @item.title
-                  - if @item.closed
-                    =" [#{t("closed", :scope => "activerecord.attributes.item").upcase}]"
-
-                .entry-authors{:style => "border-bottom:1px solid gainsboro;"}
-                  = render :partial => "entry_authors"
-
-                .tag-list
-                  - @item.tags.each do |tag|
-                    %span.tag
-                      = link_to h(tag), url_for(:controller => "item", :action => "index", :tags => tag), :rel => "tag", :style => "background-color:#{current_group.primary}"
-                  - if logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group)) #tofix
-                    %span.retag
-                      = link_to t('.retag'), retag_item_path(@doctype, @item), :id => 'retag',:style => "border:0; color:gainsboro;", :class => "link"
-
-              .entry-content
-                = item_body
-
-
-          .clear
-
-
-
-
-        %a{:name=>"answers"}
-        #answers
-          .clear
-
-          -unless @item.closed
-            %a{:name=>"to_answer"}
-            -form_for @answer, :url => item_answers_path(@doctype, @item), :html => {:class => "form mainAnswerForm"} do |f|
-              = render :partial => "answers/form", :locals => {:f => f, :markdown => true, :mode => "item"}
-            .clear
-
-
-          .answers
-
-            .entry-details
-              .entry-title
-                = h("What others think")
-            .secondary-navigation
-              .navcontrols
-                %ul
-                  %li
-                    = "Sort by: "
-                  %li.filter
-                    = link_to "Fresh", item_path(@doctype, @item, :sort=>"fresh", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
-                  %li
-                    = link_to "Hot", item_path(@doctype, @item, :sort=>"hot", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
-                  %li
-                    = link_to "Historical", item_path(@doctype, @item, :sort=>"sweaty", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
-
-          .clear
-
-          .block
-            - if @item.accepted
-              -solution = @item.answer
-              =render :partial=> "answer", :locals=> {:item => @item, :answer => solution} unless solution.nil?
-            .hentry
-              -@answers.each do |answer|
-                =render :partial=> "answer", :locals=> {:item => @item, :answer => answer}
-            =will_paginate(@answers)
-
-
-
-
-
-
-
-  #sidebar-inner{:style=>"border:0; float:right"}
-
-
-
-
-
-
-    -#= render :partial => "author"
-    -if !@doctype.product_format || !@doctype.has_video
-      = render :partial => "default_image", :locals => {:item => @item}
-    -if @doctype.has_video?
-      = render :partial => "video_info", :locals => {:item => @item}
-    = render :partial => "images", :locals => {:item => @item}
-
-
-    = render :partial => "shared/share_box", :locals => {:item => @item}
-    -#= render :partial => "shared/sidebar_actions_show",  :locals => {:width => "wide"}
-    = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
-    -if current_group.has_medium_rectangle
-      .medium-rectangle{:style=>"background-color:white; width:300px;height:250px;margin:10px 0; padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
-        = current_group.medium_rectangle_content
-      .clear
-
-    = render :partial => "shared/sponsored_links",  :locals => {:width => "wide"}
-
-    -if current_group.has_threeone_rectangle
-      .threeone-rectangle{:style=>"background-color:white; width:300px;height:100px;margin:10px 0; padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
-        = current_group.threeone_rectangle_content
-      .clear
-    .block{:style => "margin-bottom:4px"}
-      %h3{:style=>"background:#{current_group.primary_dark}"}
-        = "About this site"
-      .content
-        .markdown{:style => "padding:10px"}
-          = markdown(current_group.description)
-
-    -related_items = Item.related_items(@item, :language => find_languages)
-    - if related_items
-      .block{:style=>"display:none;"}
-        %h3
-          =t(".related_items")
-        .content
-          -#%ul.list
-            -#-related_items.each do |rq|
-              -#%li
-                -#= link_to h(rq.title), items_path(rq.doctype, rq.slug.to_s), :title => truncate(strip_tags(rq.body), :length => 200)
-
-    -if !current_group.isolate
-      -#= render :partial => "related_communities"
-
-    -if logged_in? && current_group.has_bunnies?
-      -if current_user.owner_of?(current_group)
-        = render :partial => "bunnies", :locals => {:item => @item}
-
-
-    -if !current_group.has_leaderboard
-      = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
 
 
 -#content_for :sidebar do

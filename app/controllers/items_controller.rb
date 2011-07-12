@@ -409,7 +409,7 @@ class ItemsController < ApplicationController
   # POST /items.xml
   def create
     @item = Item.new
-    @item.safe_update(%w[doctype_id section node mode title bookmark video_link article_link main_image main_thumbnail images body language tags wiki anonymous], params[:item])
+    @item.safe_update(%w[doctype_id section node mode title description bookmark video_link article_link main_image main_thumbnail images body language tags wiki anonymous], params[:item])
     @item.group = current_group
     @item.user = current_user
 

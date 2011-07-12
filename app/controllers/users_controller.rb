@@ -109,6 +109,9 @@ class UsersController < ApplicationController
                                           :group_id => current_group.id,
                                           :banned => false)
 
+  
+
+
     @a_sort, order = active_subtab(:sort)
     @answers = @user.answers.paginate(:page=>params[:answers_page],
                                       :order => order,

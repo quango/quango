@@ -83,15 +83,6 @@
 
           = yield :summary_header
 
-          #leaderboard{:style=>"height:90px;border-bottom:4px solid white;border-bottom:4px solid white; display:none"}
-            -if current_group.has_leaderboard 
-              .leaderboard{:style=>"width:728px;height:90px; float:left;"}
-                = "<!--/ Leaderboard /-->"
-                = current_group.leaderboard_content
-            .signup{:style=>"width:300px;height:90px; float:right;"}
-              = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
-
-
           #content
             = yield :sidebar
             = yield :main

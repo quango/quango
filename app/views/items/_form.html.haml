@@ -18,6 +18,13 @@
       = f.label :title, "#{t(:title, :scope => "activerecord.attributes.item")}", :class => "label", :style=>"margin-top:16px"
       = f.text_field :title, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
       = "."
+
+    .group
+      = f.label :description, "Short description", :class => "label", :style=>"margin-top:16px"
+      = f.text_area :description, :class => "text_are", :style => "height:48px;width:496px; max-width:496px; margin:0 16px"
+      .description{:style=>"margin-left:16px"}
+        = h("If you do not fill this it the system will use the first paragraph")
+
       = f.label :tags, "#{t(:tags, :scope => "activerecord.attributes.item")}", :class => "label"
       .description{:style=>"margin-left:16px"}
         = h("Start writing your tags - hit TAB to move to the next one")

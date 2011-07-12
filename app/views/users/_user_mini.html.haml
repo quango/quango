@@ -12,48 +12,61 @@
         = image_tag default_avatar_grey.url, :class => 'a', :alt => user.first_name, :title => user.first_name, :height => "64px", :width => "64px", :style => "border:2px solid white" 
       - else
         = image_tag "/images/anonymous_avatar.png", :height => "64px", :width => "64px", :style => "border:2px solid white"
-    %div.details{:style=>"height:64px;float:left; overflow:hidden"}
 
-      %div.fn.nickname
-        -unless user.nil?
-          =link_to h(user.first_name.to_s + " " + user.last_name.to_s), user_path(user), :class => "user-link"
+    %div{:style=>"height:64px"}
+      %div.latest{:style=>"height:48px;width:232px;float:left; overflow:hidden"}
+        = "<img src='/images/open_quote.png' height='12px' width='12px' />"
 
-      %span.reputation{:title => t("activerecord.attributes.user.reputation")}
-        -unless user.nil?
-          -if user.owner_of?(current_group)
-            %span.ownerflair{:title => "Group Administrator", :style => "margin-top:2px;"}
-              = "<img src='/images/owner-icon.png' height='12px' width='14px' title='Site Administrator' alt='Site Administrator'/>"
-          -elsif user.mod_of?(current_group)
-            %span.modflair{:title => "moderator"}
-              Associate
-          -elsif user.editor_of?(current_group)
-            %span.editorflair{:title => "Group Editor", :style => "background-color:#{current_group.secondary};border: 1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px"}
-              Editor
+        - user.items.reverse.each do |item|
+          -if item.group_id == current_group.id
+            .quote_box{:style=>"height:32px;line-height:16px;"}
+              = link_to truncate(strip_tags(item.title), :length => 40), "#", :style => "font-weight:normal;color:#{current_group.primary_dark}"
+            = "|"
 
-        -else
-          = t('users.deleted')
-        -unless user.nil?
-          %span.label
-            =user.reputation_on(current_group)
+        = "<img src='/images/close_quote.png' height='12px' width='12px' />"
 
-      -if local_assigns[:with_badges] != false
-        -if gold.to_i > 0
-          %span{:title => "#{gold} gold badges"}
-            %span.gold.badgeicon-small
-            %span.badgecount
-              =gold
+      %div.details{:style=>"height:16px;float:left; overflow:hidden"}
 
-        -if silver.to_i > 0
-          %span{:title => "#{silver} silver badges"}
-            %span.silver.badgeicon-small
-            %span.badgecount
-              =silver
+        %div.fn.nickname
+          -unless user.nil?
+            =link_to h(user.first_name.to_s + " " + user.last_name.to_s), user_path(user), :class => "user-link"
 
-        -if bronze.to_i > 0
-          %span{:title => "#{bronze} bronze badges"}
-            %span.bronze.badgeicon-small
-            %span.badgecount
-              =bronze
+          %span.reputation{:title => t("activerecord.attributes.user.reputation")}
+            -unless user.nil?
+              -if user.owner_of?(current_group)
+                %span.ownerflair{:title => "Group Administrator", :style => "margin-top:2px;"}
+                  = "<img src='/images/owner-icon.png' height='12px' width='14px' title='Site Administrator' alt='Site Administrator'/>"
+              -elsif user.mod_of?(current_group)
+                %span.modflair{:title => "moderator"}
+                  Associate
+              -elsif user.editor_of?(current_group)
+                %span.editorflair{:title => "Group Editor", :style => "background-color:#{current_group.secondary};border: 1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px"}
+                  Editor
+
+            -else
+              = t('users.deleted')
+            -unless user.nil?
+              %span.label
+                =user.reputation_on(current_group)
+
+          -if local_assigns[:with_badges] != false
+            -if gold.to_i > 0
+              %span{:title => "#{gold} gold badges"}
+                %span.gold.badgeicon-small
+                %span.badgecount
+                  =gold
+
+            -if silver.to_i > 0
+              %span{:title => "#{silver} silver badges"}
+                %span.silver.badgeicon-small
+                %span.badgecount
+                  =silver
+
+            -if bronze.to_i > 0
+              %span{:title => "#{bronze} bronze badges"}
+                %span.bronze.badgeicon-small
+                %span.badgecount
+                  =bronze
 
   .clear
 

@@ -17,6 +17,7 @@ class Item
   key :type, String
   key :bookmark, String
   key :title, String, :required => true
+  key :description, String
   key :body, String
 
   slug_key :title, :unique => true, :min_length => 4

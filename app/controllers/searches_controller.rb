@@ -1,6 +1,6 @@
 class SearchesController < ApplicationController
   def index
-    options = {:per_page => 25, :page => params[:page] || 1}
+    options = {:per_page => 11, :page => params[:page] || 1}
     unless params[:q].blank?
       pharse = params[:q].downcase
       @search_tags = pharse.scan(/\[(\w+)\]/).flatten
