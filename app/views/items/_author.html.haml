@@ -1,7 +1,7 @@
 .block
-  %h3{:style=>"background:#{current_group.primary}; color: white"}
-    = @item.user.first_name.capitalize << " " << @item.user.last_name.capitalize
+  .heading{:style=>"background:#{current_group.primary}; color: white; height:20px; line-height:20px"}
+    = "Posted by"
   .content
-    = render :partial => "users/user_mini", :locals => {:user => @item.user, :width => "wide"}
+    = render :partial => "users/user_mini", :locals => {:user => @item.user, :width => "square"}
 
 

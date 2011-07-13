@@ -575,7 +575,7 @@ class ItemsController < ApplicationController
   # PUT /items/1.xml
   def update
     respond_to do |format|
-      @item.safe_update(%w[node mode title bookmark video_link main_thumbnail images body language tags wiki adult_content version_message  anonymous], params[:item])
+      @item.safe_update(%w[node mode title description bookmark video_link main_thumbnail images body language tags wiki adult_content version_message  anonymous], params[:item])
       @item.updated_by = current_user
       @item.last_target = @item
       #@item.section = @active_section

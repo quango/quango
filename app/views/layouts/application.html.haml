@@ -51,8 +51,11 @@
                   ="#{current_group.strapline}"
 
         -else
-          .logo{:style => "height:#{current_group.logo_info['height']}px"}
+          .logo{:style => "height:#{current_group.logo_info['height']}px;width:#{current_group.logo_info['width']}px; float:left"}
             = link_to image_tag(current_group.logo_path, :width => current_group.logo_info["width"], :height => current_group.logo_info["height"],  :style => "bottom:0px;"), domain_url(:custom => current_group.domain), :style=>"margin:0px;", :alt => "Home"
+
+          %div{:style=>"height:#{current_group.logo_info['height']}px;line-height:#{current_group.logo_info['height']}px;float:right;"}
+            = render :partial => "shared/share_box_groups", :locals => {:item => @item}
 
 
     -if current_group.has_custom_channels

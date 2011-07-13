@@ -1,0 +1,13 @@
+
+
+
+#main-index{:style=>"width:728px; float:left;"}
+  .content
+    .inner
+      #product
+        .product-image
+          .product-description{:style => "opacity:0.7;position:absolute; color:white; background-color: black; padding:10px; font-size:14px;width:233px; z-index:10;height:auto"}
+            .product-title{:style=>"font-weight:bold;color:white; border-bottom: 1px solid white"}
+              = @item.title
+            = @item.body
+        = render :partial => "product_image", :object=>@item

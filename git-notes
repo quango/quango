@@ -1,6 +1,8 @@
 git pull git://github.com/quango/quango.git dev
 
 
-  <li> 
-    <a href="http://yef.org.au/community/projects/!/new?&item[title]=Project%20Ideas:%20&item[tags]=sustainable-thinking&item[body]=I%20think..." class="buy-button" style="background-color:#007500;border:2px solid #007500; float:right">Share your idea for a project...</a> 
-  </li>
+Tunneling 80
+
+sudo ssh -L 80:canada2:22 qq-admin@canada3
+
+
