@@ -64,10 +64,10 @@
   -if current_group.above_the_fold
 
     #above-the-fold{:style=>"height:24px;line-height:22px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:white;background-color:#{current_group.primary}; border-top:4px solid #{current_group.tertiary};margin:10px 0 0 0; font-size:18x; letter-spacing:0px;font-weight:bold;border-bottom:1px solid white"}
-      .above-the-fold{:style=>"width:1022px; height:24px; background-color:#{current_group.primary};font-family:Arial,sans-serif; font-weight:bold; font-size:12px;color:white; letter-spacing:-1px;"}
+      .above-the-fold{:style=>"width:1022px; height:24px; background-color:#{current_group.primary};font-family:Arial,sans-serif; font-weight:bold; font-size:14px;color:white; letter-spacing:-1px;"}
         %div{:style=>"padding:1px 0 3px 4px; height:18px; width:30px; float:left;"}
           = "<img src='/images/logos/star_32_point.png' height='14px' width='14px'/>"
-        %div{:style=>"padding:1px 0 3px 4px; height:18px; width:200px; float:left;"}       
+        %div{:style=>"float:left;"}       
           = "Today's Edition"
 
         .navcontrols{:style => "height:24px; float:right"}
@@ -76,7 +76,7 @@
           %a.hide_above{:class => "above-the-fold navlinks showhide left", :style=>"color:white"}
             = "hide"
 
-    .above{:style=>"height:384px"}
+    .above{:style=>"height:360px"}
 
       .welcome-index{:style => "float:left; width:1032px; margin:3px 0"}
         .content{:style=>"float:left; width:728px;"}
@@ -96,7 +96,7 @@
             = render :partial => "featured_sections", :locals => {:expanded => true}
 
 
-        .sidebar-inner{:style => "float:right; width:300px;"}
+        .sidebar-inner{:style => "float:right; width:300px;height:100px;margin-top:11px;padding-top:11px;border-top:2px solid gainsboro;"}
           .block
    
             -if current_group.has_threeone_rectangle

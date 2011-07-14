@@ -46,20 +46,43 @@
   &:hover
     border-color: black
 
-
-.search-button 
+.search-button-outer 
+  margin: 6px 0 6px 6px
   width: 64px
   height: 20px
-  line-height: 20px
+  line-height: 18px
   cursor: pointer  
   overflow: visible
+  float: right
+  +rounded(4px,4px,4px,4px)
+  padding: 0
   float: left
+  -webkit-box-shadow: -1px -1px 1px rgba(0,0,0,0.25)
+  -moz-box-shadow: -1px -1px 1px rgba(0,0,0,0.25)
+  box-shadow: -1px -1px 1px rgba(0,0,0,0.25)
+  //text-shadow: -1px -1px 1px rgba(0,0,0,0.75)
+
+
+button.search-button 
+  margin: 0
+  width: 64px
+  height: 20px
+  line-height: 18px
+  cursor: pointer  
+  overflow: visible
+  float: right
   +rounded(4px,4px,4px,4px)
   font-weight: normal
   color: white
   text-align: center
-  background-color: black
-
+  border: 1px solid #a9a5a7
+  background-color: gainsboro
+  padding: 0
+  float: left
+  -webkit-box-shadow: 1px 1px 1px rgba(255,255,255,0.25)
+  -moz-box-shadow: 1px 1px 1px rgba(255,255,255,0.25)
+  box-shadow: 1px 1px 1px rgba(255,255,255,0.25)
+  //text-shadow: -1px -1px 1px rgba(0,0,0,0.5)
 
 a.standard-button
   font-weight: bold

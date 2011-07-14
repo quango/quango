@@ -1,6 +1,7 @@
-.search-box{:style=>"margin:1px 8px;"}
+.search-box
   - form_tag search_path, :method => :get, :style => "display: inline" do
     = text_field_tag :q, params[:q], :id => "search-field", :style=>"float:left"
-    %button.search-button
-      = "Search"
+    .search-button-outer
+      %button.search-button
+        = " search "
 

@@ -44,11 +44,11 @@
     -if logged_in? && @item.doctype.has_links?
       - form_for(@item, :html=>{:class => "form mainAnswerForm", :id => "ask_item"}) do |f|
         =render :partial => "form_for_links", :locals => {:f => f, :doctype => @doctype}
-    -elsif logged_in?
+    -elsif logged_in? && !@item.doctype.has_video?
       - form_for(@item, :html=>{:class => "form mainAnswerForm", :id => "ask_item"}) do |f|
         =render :partial => "form", :locals => {:f => f, :doctype => @doctype}
 
-    -else
+    -elsif !logged_in?
       %p
         = "You must be logged in to " + @doctype.create_label.downcase
       %p

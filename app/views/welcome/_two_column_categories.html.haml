@@ -34,7 +34,7 @@
 
             - items = Item.filter(category, options)
 
-            - items.reverse[0..0].each do |item|
+            - items.reverse[6..6].each do |item|
 
               .summary-list-text
                 = render :partial => "/items/two_column_leader", :locals => {:item => item} #, :sort=>"hot"}
