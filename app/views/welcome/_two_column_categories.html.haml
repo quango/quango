@@ -24,17 +24,18 @@
 
             - options = {:per_page => 9, :page => params[:page] || 1}
             - pharse = category.downcase
+            -# pharse_tags = "[" << category.downcase << "]"
             - @search_tags = pharse.scan(/\[(\w+)\]/).flatten
             - @search_text = pharse.gsub(/\[(\w+)\]/, "")
             - options[:tags] = {:$all => @search_tags} unless @search_tags.empty?
             - options[:group_id] = current_group.id
-            - options[:order] = "fresh" #params[:sort_by] if params[:sort_by]
+            - options[:order] = params[:last_target_date] #params[:sort_by] if params[:sort_by]
             - options[:banned] = false
 
 
             - items = Item.filter(category, options)
 
-            - items.reverse[6..6].each do |item|
+            - items.reverse[1..1].each do |item|
 
               .summary-list-text
                 = render :partial => "/items/two_column_leader", :locals => {:item => item} #, :sort=>"hot"}
@@ -43,14 +44,15 @@
 
             .more{:style=>"height:230px"}
               .summary-list-text
-                - items.reverse[1..5].each do |item|
-                  .summary-text-item{:style=>"height:18px; line-height:18px"}
+                - items.reverse[2..6].each do |item|
+                  - if item
+                    .summary-text-item{:style=>"height:18px; line-height:18px"}
 
-                    .inner-link{:style=>"width:300px;height:18px;overflow:hidden"}
-                      %div{:style=>"padding:2px 0 3px 4px; height:18px; width:18px; float:left;"}
-                        = "<img src='/images/logos/star_32_point_inv.png' height='14px' width='14px'/>"
-                      = link_to item.title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 96)
-                      = link_to item.doctype.name, "/group/#{item.doctype.name}/index", :title => truncate(strip_tags(item.body), :length => 24),:style => "color:#{current_group.secondary}"
+                      .inner-link{:style=>"width:300px;height:18px;overflow:hidden"}
+                        %div{:style=>"padding:2px 0 3px 4px; height:18px; width:18px; float:left;"}
+                          = "<img src='/images/logos/star_32_point_inv.png' height='14px' width='14px'/>"
+                        = link_to item.title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 96)
+                        = link_to item.doctype.name, "/group/#{item.doctype.name}/index", :title => truncate(strip_tags(item.body), :length => 24),:style => "color:#{current_group.secondary}"
 
             .clear
 
