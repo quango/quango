@@ -34,7 +34,7 @@
 
 
 %style{:type => 'text/css'}
-  body {background:-webkit-gradient(linear,left top,left bottom,from(#cccccc),to(#ffffff));background:-moz-linear-gradient(top,#{group.secondary},#ffffff);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#cccccc',endColorstr='#ffffff');}
+
   \#container{border-left: 2px solid white;border-right: 4px solid white;}
 
   button.search-button{border: 1px solid #{current_group.primary_dark};background-color:#{current_group.primary};background:#{current_group.primary_dark};background:-webkit-gradient(linear,left top,left bottom,to(#{current_group.secondary}),from(#{current_group.primary_dark}));background:-moz-linear-gradient(top,#{current_group.primary_dark},#{current_group.secondary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.primary_dark}',endColorstr='#{current_group.secondary}');}
@@ -44,11 +44,11 @@
   \#toolbar ul.createbox li:hover{background:#{current_group.primary}}
   \#toolbar ul.createbox li ul{background:#{current_group.primary}}
 
-  \.channel_listing_horizontal li {background-color: #525051;background-color: #{current_group.tertiary};}
+  -#\.channel_listing_horizontal li {background-color: #{current_group.tertiary};}
 
-  \.channel_listing_horizontal li {background-color: #525051;
-  border-bottom: 1px;
-  }
+  -#\.channel_listing_horizontal li {background-color: #525051;
+  -#border-bottom: 1px;
+  -#}
 
   \.channel_listing_horizontal li.selected {border-bottom: 1px solid #{group.primary};background-color: #{group.primary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{group.primary_dark}',endColorstr='#{group.primary}');background:-webkit-gradient(linear,left top,left bottom,from((#{group.primary_dark}),to(#{group.secondary}));background:-moz-linear-gradient(top,#{group.primary_dark},#{group.secondary});}
 
@@ -102,7 +102,7 @@
   \.contribute-button:hover{border-color: #{group.primary_dark}; font-weight:normal;}
 
   a{color:#{current_group.tertiary};text-decoration: none;}
-  a:hover{color:#{current_group.tertiary};border-bottom: 1px solid #{current_group.tertiary}} 
+  a:hover{color:#{current_group.primary};text-decoration:none;} 
 
   <!--//-->
 
