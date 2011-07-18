@@ -59,6 +59,13 @@ class WelcomeController < ApplicationController
     add_feeds_url(url_for({:controller => 'items', :action => 'index',
                             :format => "atom"}.merge(feed_params)), t("feeds.items"))
 
+    respond_to do |format|
+      format.html # index.html.erb
+      format.atom
+    end
+
+
+
     #rstrict
 
       #options[:tags] = {:$all => @search_tags} unless @search_tags.empty?

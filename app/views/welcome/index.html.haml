@@ -81,9 +81,9 @@
       .welcome-index{:style => "float:left; width:1032px; margin:3px 0"}
         .content{:style=>"float:left; width:728px;"}
           .inner
-
-            = render :partial => "feature", :locals => {:expanded => true, :doctype_id => "news"}
             = render :partial => "slideshow", :locals => {:expanded => true}
+            = render :partial => "feature", :locals => {:expanded => true, :doctype_id => "news"}
+
 
         .sidebar-inner{:style => "float:right; width:300px;"}
           -if current_group.has_video_on_homepage
