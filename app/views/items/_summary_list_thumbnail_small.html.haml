@@ -16,7 +16,7 @@
     -last_target = item
     -owner = item.user unless item.anonymous
 
-  %div.image-link-wide{:style => "border-bottom:1px solid gainsboro; height:45px",:onclick=>"window.location.href='#{item_url(item.doctype, item)}'"}
+  %div.image-link-wide{:style => "border-bottom:1px dotted gainsboro; height:45px",:onclick=>"window.location.href='#{item_url(item.doctype, item)}'"}
 
     -if item.default_thumbnail?
       .thumbnail{:style => "width:80px;height:45px; float:left; margin-right:4px solid white"}

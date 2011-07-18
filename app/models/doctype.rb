@@ -13,6 +13,7 @@ class Doctype
 
   key :hidden, Boolean, :default => false
   key :expanded, Boolean, :default => false
+  key :top_dog, Boolean, :default => false
   key :featured, Boolean, :default => false
   key :public_access, Boolean, :default => true
 

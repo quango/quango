@@ -1,29 +1,51 @@
-- item = local_assigns[:item]
+- doctype = local_assigns[:doctype]
+
+-@doctypes.each do |doctype|
+  -if doctype.top_dog
+
+    .div{:style=>"width:728px;"}
+      %h4{:style=>"line-height:32px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:white; background-color:#{current_group.primary_dark}; border-top:4px solid black;margin:0; font-size:14px; letter-spacing:0px;font-weight:bold;border-bottom:1px solid white"}
+        %div{:style=>"padding:1px 0 3px 4px; height:18px; width:18px; float:left;"}
+          = "<img src='/images/logos/star_16.png' height='14px' width='14px'/>"
+        = "CURRENT AFFAIRS"
 
 
-- if item.present?
+
+    .div{:style=>"width:728px; height:274px;margin:4px 0"}
+
+      - doctype.items.reverse[0..0].each do |item|
+
+        .div.left{:style=>"width:242px;height:274px; background-color:#ffffff;border-right:2px solid gainsboro;padding-right:4px;margin-right:4px; display:block;"}
+          .summary-list-text
+            = render :partial => "/items/summary_list_feature", :locals => {:item => item, :sort=>"hot"}
+
+        .div.left{:style=>"width:242px;background-color:#ffffff;border-right:2px solid gainsboro;padding-right:4px;margin-right:4px; display:block;"}
+          .summary-list-text
+            - doctype.items.reverse[1..5].each do |item|
+
+              = render :partial => "/items/summary_list_thumbnail_small", :locals => {:item => item, :sort=>"hot"}
 
 
-  .block
-    .toolbox-inner
-      %span.right
-        - if current_user
-          - if (item.wiki && current_user.can_edit_wiki_post_on?(item.group)) || current_user.can_edit_others_posts_on?(item.group) || current_user.can_modify?(item.group)
-            = link_to "Change", item_images_path(item), :class => "button left"        
-      %span.left
-        = "Featured..."
-    .description
-      = item.title.to_s
-      = "(" 
-      = item.section.to_s
-      = ")"
-    .content
-      -# @image = Image.find(hot_item.default_thumbnail)
-      = item.default_thumbnail.to_s
-      -# base_image = @image.image.process(:thumb,image.image_cropping)
-      -# base_thumbnail = base_image.process(:thumb,"256x")
-      -#= image_tag base_thumbnail.url, :class => 'none', :alt => image.name, :title => image.name
+
+        .div.left{:style=>"width:208px;background-color:#ffffff;display:block;"}
+          .summary-list-text
+            %h5{:style=>"margin-bottom:10px"}
+              = "See also"
+            .div{:style=>"border-bottom:1px dotted gainsboro"}
+              - doctype.items.reverse[6..17].each do |item|
+                - if item
+                  .summary-text-item{:style=>"height:18px; line-height:18px"}
+
+                    .inner-link{:style=>"width:208px;height:18px;overflow:hidden"}
+                      %div{:style=>"padding:2px 0 3px 4px; height:18px; width:18px; float:left;"}
+                        = "<img src='/images/logos/star_32_point_inv.png' height='14px' width='14px'/>"
+                      = link_to item.title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 96)
+                      = link_to item.doctype.name, "/group/#{item.doctype.name}/index", :title => truncate(strip_tags(item.body), :length => 24),:style => "color:#{current_group.secondary}"
+            .div.right{:style=>"margin-top:10px"}
+              = link_to "More #{doctype.name}...", "/group/#{doctype.name}/index"
 
 
-  .clear
+
+
+
 

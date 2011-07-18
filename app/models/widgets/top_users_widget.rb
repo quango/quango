@@ -4,7 +4,7 @@ class TopUsersWidget < Widget
 
   def top_users(group)
     group.users(:order => "membership_list.#{group.id}.reputation desc",
-                :per_page => 5,
+                :per_page => 4,
                 :page => 1)
   end
 

@@ -4,6 +4,11 @@
  
   .inner{:style=>"float:right;width:96px;height:16px; "}
 
+    -# if !current_group.other_groups_facebook.empty?
+    %div
+      = link_to "<img src='/images/application-rss-xml.png' height='16px' width='16px' class='icon'/>", "/items?format=atom"
+
+
     - if !current_group.other_groups_facebook.empty?
       %div
         = link_to "<img src='/images/share/facebook_32.png' height='16px' width='16px' class='icon'/>", current_group.other_groups_facebook.to_s

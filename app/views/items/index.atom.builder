@@ -1,5 +1,5 @@
 atom_feed do |feed|
-  title = "#{current_group.name} - #{t("activerecord.models.items").capitalize} #{t("feeds.feed")}"
+  title = "#{current_group.display_name_i} - #{t("feeds.feed")}"
 
   tags = params[:tags]
   if tags && !tags.empty?
@@ -19,11 +19,18 @@ atom_feed do |feed|
 
   for item in @items
     next if item.nil? || item.updated_at.blank?
-    feed.entry(item, :url => item_url(item)) do |entry|
+    feed.entry(item, :url => item_url(item.doctype_id, item)) do |entry|
       entry.title(item.title)
-      entry.content(markdown(item.body), :type => 'html')
+
+      if item.description?
+        entry.content(markdown(item.description), :type => 'html')
+      else  
+        entry.content(markdown(item.body), :type => 'html')
+      end
+
+
       entry.author do |author|
-        author.name(item.user.login)
+        author.name(item.user.display_name)
       end
     end
   end

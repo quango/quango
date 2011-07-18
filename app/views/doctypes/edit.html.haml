@@ -21,6 +21,9 @@
           = "Slideshow"
           = f.text_field :slideshow, :value => @doctype.slideshow
 
+        .group
+          = "Top dog"
+          = f.check_box :top_dog, :value => @doctype.top_dog
 
         .group
           = "Does this section include video content?"

@@ -21,6 +21,7 @@ class WelcomeController < ApplicationController
 
     @items = current_group.items #.merge(conditions)
 
+
     
     
    # @doctype = doctype

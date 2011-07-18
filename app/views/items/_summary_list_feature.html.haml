@@ -21,7 +21,7 @@
 
 
 
-  %li.thumbnail{:class => class_for_item(item)}
+  %div.thumbnail{:class => class_for_item(item), :style=>"height:270px"}
     -cache("item_on_index_#{item.id}_#{I18n.locale}") do
       -if item.default_thumbnail?
         .thumbnail{:style => "width:241px;height:136px; overflow:hidden" }
@@ -32,12 +32,12 @@
 
         .inner-content{:style=>"padding-bottom:4px; margin-bottom:4px"}
 
-          .inner-link{:style=>"font-size:14px;font-weight:bold;height:36px; line-height:18px;padding:8px 0 4px 0; margin-bottom:4px;;letter-spacing:-1px;"}
+          .inner-link{:style=>"font-size:14px;font-weight:bold;height:24px; line-height:14px;padding:8px 0 4px 0; margin-bottom:4px;;letter-spacing:-1px;overflow:hidden;"}
 
             = render :partial => "shared/activity_markers", :locals => {:item => item}
             = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 88)
 
-          .inner-teaser{:style=>"height:76px;"}
+          .inner-teaser{:style=>"height:70px;"}
             = h( truncate(strip_tags(item.body), :length => 160) )
           .inner-author{:style=>"height:16px;margin-bottom:4px;"}
             = "Posted by " 

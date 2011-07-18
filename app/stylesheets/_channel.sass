@@ -4,7 +4,7 @@
 
 .channel-container-inner
   width: 1032px
-  //height: 28px
+  //height: 25px
   line-height: 16px
   //margin: 0 auto
   padding: 0 8px
@@ -13,20 +13,30 @@
 
 
 ul.channel_listing-horizontal
-  width: 1028px
+  width: 1025px
 
 .channel_listing_horizontal
   height: 25px
-  
-  //margin: 4px auto 0 auto
-  //padding: 2px 0
   -webkit-padding-start: 0px
-  //float: left
-  line-height: 20px
+  line-height: 25px
 
 .channel_listing_horizontal li
   display: inline
-  height: 20px
+  height: 23px
+  margin: 0
+  +rounded(8px,8px,0,0)
+  padding: 3px 2px 7px 0
+  //background-color: #111111
+  //border-bottom: 1px solid #111111
+  //behavior: url(/PIE.htc)
+  &:hover
+
+    background-image: url(/images/white_25_bg.png)
+    background-repeat: repeat
+
+.channel_listing_horizontal li.selected
+  display: inline
+  height: 23px
   margin: 0
   +rounded(8px,8px,0,0)
   padding: 0px 2px 4px 0
@@ -38,13 +48,11 @@ ul.channel_listing-horizontal
     background-image: url(/images/white_25_bg.png)
     background-repeat: repeat
 
-
-
 .channel_listing_horizontal a
   font-weight: bold
   color: #ffffff
   font-size: 12px
-  padding: 4px 8px
+  padding: 2px 15px
   //margin: 8px
 
   &:hover

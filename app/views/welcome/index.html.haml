@@ -81,15 +81,24 @@
       .welcome-index{:style => "float:left; width:1032px; margin:3px 0"}
         .content{:style=>"float:left; width:728px;"}
           .inner
-            = render :partial => "slideshow", :locals => {:expanded => true}
-        .sidebar-inner{:style => "float:right; width:300px;"}
 
+            = render :partial => "feature", :locals => {:expanded => true, :doctype_id => "news"}
+            = render :partial => "slideshow", :locals => {:expanded => true}
+
+        .sidebar-inner{:style => "float:right; width:300px;"}
           -if current_group.has_video_on_homepage
             .block
               %div{:style=>"width:300px;height:220px;background:black;"}
                 = render :partial => "shared/sidebar_video",  :locals => {:width => "wide", :expanded => true}
             .clear
+
+
+          -current_group.widgets.each do |widget|
+            .widget.block{:id => widget.name}
+              = render :partial => widget.partial_name, :locals => {:widget => widget, :width=> "wide"}
+            .clear
           .clear
+
       .welcome-index{:style => "float:left; width:1032px;margin:3px 0"}
         .content{:style=>"float:left; width:728px;"}
           .inner
@@ -206,9 +215,7 @@
 
     #sidebar-inner{:style => "float:right; width:300px;"}
 
-      -current_group.widgets.each do |widget|
-        .widget.block{:id => widget.name}
-          = render :partial => widget.partial_name, :locals => {:widget => widget, :width=> "wide"}
+
 
       .block{:style => "margin-bottom:4px"}
         %h3{:style=>"background:#{current_group.primary_dark}"}
