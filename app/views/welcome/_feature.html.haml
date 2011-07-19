@@ -4,11 +4,11 @@
   -if doctype.top_dog
 
     .div{:style=>"width:728px;"}
-      %h4{:style=>"line-height:32px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:white; background-color:#{current_group.primary_dark}; border-top:4px solid black;margin:0; font-size:14px; letter-spacing:0px;font-weight:bold;border-bottom:1px solid white"}
+      %h4{:style=>"line-height:32px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:white; background-color:#{current_group.primary_dark}; border-top:4px solid white;margin:0; font-size:14px; letter-spacing:0px;font-weight:bold;border-bottom:1px solid white"}
         %div{:style=>"padding:1px 0 3px 4px; height:18px; width:18px; float:left;"}
           = "<img src='/images/logos/star_16.png' height='14px' width='14px'/>"
-        = "CURRENT AFFAIRS"
-
+        = "#{doctype.name}"
+        = link_to "more", "/group/#{doctype.name}/index", :style=>"float:right;margin-right:10px;color:#{current_group.secondary};"
 
 
     .div{:style=>"width:728px; height:274px;margin:4px 0"}

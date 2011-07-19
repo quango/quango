@@ -47,6 +47,8 @@ module ItemsHelper
     url
   end
 
+
+
   protected
   def escape_url(url)
     URI.escape(url, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))

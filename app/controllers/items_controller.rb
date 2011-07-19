@@ -168,6 +168,31 @@ class ItemsController < ApplicationController
     end
   end
 
+  def feed
+
+    @doctypes = current_group.doctypes
+    @doctype = @doctypes.find_by_slug_or_id(params[:doctype_id])
+    @items = current_group.items #.merge(conditions)
+
+    if logged_in?
+      feed_params = { :feed_token => current_user.feed_token }
+    else
+      feed_params = {}
+    end
+
+    add_feeds_url(url_for({:format => "atom"}.merge(feed_params)), t("feeds.items"))
+
+    if params[:tags]
+      add_feeds_url(url_for({:format => "atom", :tags => params[:tags]}.merge(feed_params)),
+                    "#{t("feeds.tag")} #{params[:tags].inspect}")
+    end
+
+    @tag_cloud = Item.tag_cloud(scoped_conditions, 25)
+
+    respond_to do |format|
+      format.atom
+    end
+  end
 
   def history
     @item = current_group.items.find_by_slug_or_id(params[:id])
@@ -439,44 +464,44 @@ class ItemsController < ApplicationController
 
       else
 
-      #uri = URI.parse(@item.article_link)
 
-      agent = Mechanize.new
-      the_page = agent.get(@item.article_link)
-      @response = the_page.content
-      doc = Hpricot(@response)
+require 'pismo'
 
-
-      #remote_html = open_uri_original_open(@item.article_link)
-
-      #art = Nokogiri::HTML(open_uri_original_open(@item.article_link), "User-Agent" => "Ruby/#{RUBY_VERSION}")
-      html_doc = Nokogiri::HTML(@response) #, "User-Agent" => "Ruby/#{RUBY_VERSION}")
+# Load a Web page (you could pass an IO object or a string with existing HTML data along, as you prefer)
+      doc = Pismo::Document.new(@item.article_link, :reader => :cluster)
 
 
-      find_title = doc.search("//title").innerHTML
-      find_description = doc.search("//p").innerHTML
-      #pass_title = find_title[0..95]
 
-      #testing = doc
-      noko_title = html_doc.xpath("//title")
+      @item.title = doc.title
+      @item.description = doc.description
+      #@item.tags = doc.keywords.to_s
+
+      tag_array = Array.new
+
+      doc.keywords[0..4].each do |tag|
+      
+      temp_tag = tag[0]
 
 
-      short_title = find_title[0..95]      
-      short_description = find_description[0..511] 
+      tag_array << temp_tag
 
+      end
 
-      @item.title = short_title
+      #tag_array.each do |clean_tag|
+
+      @item.tags = tag_array
+
+      #end
+
+      #@item.tags = tag_array
 
       #body = "Standard link body: #{pass_title}"
 
-      body = "#{short_description}"
-      body = body << "<div style='background-color:#dcdcdc;padding:10px;font-weight:bold'>["
-      body = body << short_title.to_s
-      body = body << "](#{@item.article_link})</div>"
+      quote_body = doc.body.to_s
 
 
-      @item.body = body << "-- # --"
-
+      @item.body = shorten(quote_body, 256)
+      #@item.body << doc.body
 
       #lets get some tags
 
@@ -924,6 +949,19 @@ class ItemsController < ApplicationController
       }
     end
   end
+
+  def shorten(string, count = 30)
+	  if string.length >= count 
+		  shortened = string[0, count]
+		  splitted = shortened.split(/\s/)
+		  words = splitted.length
+		  splitted[0, words-1].join(" ") + ' ...'
+	  else 
+		  string
+	  end
+  end
+
+
 
   protected
 

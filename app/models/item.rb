@@ -29,6 +29,7 @@ class Item
   key :video_thumbnail, String
 
   key :article_link, String
+  key :article_link_author, String
 
   #key :video_id, String
   #belongs_to :video

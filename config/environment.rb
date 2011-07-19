@@ -23,7 +23,6 @@ Rails::Initializer.run do |config|
   config.gem "jnunemaker-validatable", :version => "1.8.4", :lib => "validatable"
   config.gem "mongo_mapper", :version => "0.8.6", :source => "http://gemcutter.org"
   config.gem "compass", :version => "0.10.4", :lib => "compass", :source => "http://gemcutter.org"
-  config.gem "fancy-buttons", :version => "0.5.5", :source => "http://gemcutter.org"
   config.gem "compass-colors", :version => "0.3.1", :source => "http://gemcutter.org"
   config.gem "ruby-stemmer", :version => ">=0.8.2", :lib => "lingua/stemmer"
   config.gem "mongomapper_ext", :version => "0.5.1", :source => "http://gemcutter.org"
@@ -49,6 +48,7 @@ Rails::Initializer.run do |config|
   config.gem 'nokogiri', :version => "1.4.4" , :lib => 'nokogiri'
   #config.gem "scrapi"
   config.gem "mechanize"
+  config.gem "pismo",:version => "~> 0.7.2", :lib => 'pismo'
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named

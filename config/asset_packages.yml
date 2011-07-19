@@ -7,43 +7,65 @@ javascripts:
   - jquery.tools.min
   - jquery-ui
   - jquery.textarea
-  #- jHtmlArea
-  - jquery.autocomplete
-  - jquery.autoSuggest
+  #- jquery.autocomplete
+  #- jquery.autoSuggest
   - jquery.notifyBar
-  - jquery.marquee
-  - jquery.scroll
+
+
   - jquery.ui.sortable
   - jquery.cookie
-  - jquery.effects.core
-  - jquery.effects.bounce
-  - jquery.lightbox
+
+
+
+
+
+
+
+
+
+
+
+- welcome:
   - jcarousellite_1.0.1
   - jquery.cycle.all.latest
   - jquery.easing.1.1
+  #- jquery.effects.core
+  #- jquery.effects.bounce
+  #- jquery.marquee
+  #- jquery.scroll
+
+- show:
   - showdown
   - highlight/prettify
   - components/search
   - application
   - modules/sessions
   - modules/index_item
-  - modules/retag
+  - jquery.autocomplete
+  - jquery.autoSuggest
+  - modules/members
+  - modules/move_group
+  - modules/single/item
+  - modules/show_item
+
+  #- jHtmlArea
+
+
+
+
+  - jquery.autovideo
+
   - modules/new_item
   - modules/index_welcome
   - modules/show_user
   - modules/index_group
   - modules/index_user
+  - modules/retag
   - modules/tags_item
-  - modules/members
-  - modules/move_group
-  - modules/editor
+  - jquery.lightbox
   - mediaplayer/jwplayer
+  - modules/editor
 
-
-- show:
-  - modules/single/item
-  - jquery.autovideo
-  - modules/show_item
 
 - login:
   - openid/js/jquery.openid.min

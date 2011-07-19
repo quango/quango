@@ -1,3 +1,7 @@
+-#content_for :custom_javascript do
+
+
+
 - show_close_request_form = !@item.closed && logged_in? && @item.can_be_requested_to_close_by?(current_user)
 - show_open_request_form = @item.closed && logged_in? && @item.can_be_requested_to_open_by?(current_user)
 
@@ -35,6 +39,7 @@
 
  
 - content_for :main do
+
   = javascript_include_merged :show
 
   -if current_group.has_leaderboard && !@doctype.product_format?
@@ -116,8 +121,8 @@
     = render :partial => "show_video", :object=>@item
 
 
-
-  #main-index{:style=>"float:right; width:572px;"}
+  -#show-container{:style=>"width:728px;"}
+  #main-index{:style=>"width:572px;float:right;"}
     .content
       .inner
         .toolbox{:style=>"background-color:#{current_group.secondary}"}
@@ -142,73 +147,78 @@
 
 
 
-      .entry{:style=>"float:left"}
-        .entry-details
-          %h1.entry-title
-            = @item.title
-            - if @item.closed
-              =" [#{t("closed", :scope => "activerecord.attributes.item").upcase}]"
+        .entry{:style=>"float:left"}
+          .entry-details
+            %h1.entry-title
+              = @item.title
+              - if @item.closed
+                =" [#{t("closed", :scope => "activerecord.attributes.item").upcase}]"
 
-          .entry-authors{:style => "border-bottom:1px solid gainsboro;"}
-            = render :partial => "entry_authors"
+            .entry-authors{:style => "border-bottom:1px solid gainsboro;"}
+              = render :partial => "entry_authors"
 
-          .tag-list
-            - @item.tags.each do |tag|
-              %span.tag
-                = link_to h(tag), url_for(:controller => "item", :action => "index", :tags => tag), :rel => "tag", :style => "background-color:#{current_group.primary}"
-            - if logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group)) #tofix
-              %span.retag
-                = link_to t('.retag'), retag_item_path(@doctype, @item), :id => 'retag',:style => "border:0; color:gainsboro;", :class => "link"
+            .tag-list
+              - @item.tags.each do |tag|
+                %span.tag
+                  = link_to h(tag), url_for(:controller => "item", :action => "index", :tags => tag), :rel => "tag", :style => "background-color:#{current_group.primary}"
+              - if logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group)) #tofix
+                .retag
+                  = link_to t('.retag'), retag_item_path(@doctype, @item), :id => 'retag',:style => "border:0; color:gainsboro;", :class => "link"
 
-        -if @item.description?
-          .description
-            = "description"
+          -#if @item.description?
+            -#.description
+              -#= "description"
 
-        .entry-content
-          = item_body
-        .clear
-
-
-
-
-
-
-        %a{:name=>"answers"}
-        #answers
-          -unless @item.closed
-            %a{:name=>"to_answer"}
-            -form_for @answer, :url => item_answers_path(@doctype, @item), :html => {:class => "form mainAnswerForm"} do |f|
-              = render :partial => "answers/form", :locals => {:f => f, :markdown => true, :mode => "item"}
-            .clear
-
-
-          .answers
-
-            .entry-details
-              .entry-title
-                = h("What others think")
-            .secondary-navigation
-              .navcontrols
-                %ul{:style=>"list-style-type:none"}
-                  %li
-                    = "Sort by: "
-                  %li
-                    = link_to "Fresh", item_path(@doctype, @item, :sort=>"fresh", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
-                  %li
-                    = link_to "Hot", item_path(@doctype, @item, :sort=>"hot", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
-                  %li
-                    = link_to "Historical", item_path(@doctype, @item, :sort=>"sweaty", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
-
+          .entry-content
+            = item_body
           .clear
 
-          .block
-            - if @item.accepted
-              -solution = @item.answer
-              =render :partial=> "answer", :locals=> {:item => @item, :answer => solution} unless solution.nil?
-            .hentry
-              -@answers.each do |answer|
-                =render :partial=> "answer", :locals=> {:item => @item, :answer => answer}
-            =will_paginate(@answers)
+          -if @item.article_link?
+            .article_link
+              = "Read the full article..."
+              %p            
+                = link_to "#{@item.title}",@item.article_link.to_s
+
+
+
+
+
+          %a{:name=>"answers"}
+          #answers
+            -unless @item.closed
+              %a{:name=>"to_answer"}
+              -form_for @answer, :url => item_answers_path(@doctype, @item), :html => {:class => "form mainAnswerForm"} do |f|
+                = render :partial => "answers/form", :locals => {:f => f, :markdown => true, :mode => "item"}
+              .clear
+
+
+            .answers
+
+              .entry-details
+                .entry-title
+                  = h("What others think")
+              .secondary-navigation
+                .navcontrols
+                  %ul{:style=>"list-style-type:none"}
+                    %li
+                      = "Sort by: "
+                    %li
+                      = link_to "Fresh", item_path(@doctype, @item, :sort=>"fresh", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
+                    %li
+                      = link_to "Hot", item_path(@doctype, @item, :sort=>"hot", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
+                    %li
+                      = link_to "Historical", item_path(@doctype, @item, :sort=>"sweaty", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
+
+            .clear
+
+            .block
+              - if @item.accepted
+                -solution = @item.answer
+                =render :partial=> "answer", :locals=> {:item => @item, :answer => solution} unless solution.nil?
+              .hentry
+                -@answers.each do |answer|
+                  =render :partial=> "answer", :locals=> {:item => @item, :answer => answer}
+              =will_paginate(@answers)
 
 
 

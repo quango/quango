@@ -25,7 +25,10 @@ atom_feed do |feed|
       if item.description?
         entry.content(markdown(item.description), :type => 'html')
       else  
-        entry.content(markdown(item.body), :type => 'html')
+        entry.content(truncate(strip_tags(item.body), :length => 160), :type => 'html')
+ 
+  
+
       end
 
 

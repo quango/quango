@@ -1,0 +1,4 @@
+.error-dialog { text-align: center; width: 60%; margin: auto; }
+.error-dialog #dialog-content img { float: left; }
+.error-dialog .error-options { text-align: left; }
+.error-dialog .error-options ul { line-height: 20px; list-style: disc inside; padding: 4px; }

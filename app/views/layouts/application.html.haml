@@ -7,14 +7,16 @@
 
     %meta{"http-equiv"=>"Cache-control", :content=>"public"}
 
+    -#%link{:rel=>"alternate",:type=>"application/rss+xml",:title=>"RSS",:href=>"/items?format=atom"}
 
     <!--[if lt IE 8]><link type="text/css" rel="stylesheet" media="screen" href="/stylesheets/ie7.css"><![endif]-->
     = render :partial => "shared/layout/css"
     = render :partial => "shared/layout/custom_css"
  
-    = render :partial => "shared/layout/javascript"
+    -#= render :partial => "shared/layout/javascript"
+    = javascript_include_merged :base
     = yield :custom_javascript
-
+    = yield :js
 
  
     = current_group.head_tag

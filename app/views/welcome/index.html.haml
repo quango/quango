@@ -3,6 +3,8 @@
     %meta{:name => "keywords", :content => current_group.default_tags.join(", ")}
   %meta{:name => "description", :content => markdown(current_group.description).gsub(/<\/?[^>]*>/, "")[0, 255] }
 
+-content_for :custom_javascript do
+  = javascript_include_merged :welcome
 
 
 
