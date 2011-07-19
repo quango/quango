@@ -5,15 +5,15 @@ javascripts:
 - base:
   - jquery
   - jquery.tools.min
-  - jquery-ui
+  #- jquery-ui
   - jquery.textarea
   #- jquery.autocomplete
   #- jquery.autoSuggest
-  - jquery.notifyBar
+  #- jquery.notifyBar
 
 
-  - jquery.ui.sortable
-  - jquery.cookie
+  #- jquery.ui.sortable
+  #- jquery.cookie
 
 
 
