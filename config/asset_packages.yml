@@ -35,6 +35,7 @@ javascripts:
   #- jquery.scroll
 
 - show:
+  - jquery-ui
   - showdown
   - highlight/prettify
   - components/search
