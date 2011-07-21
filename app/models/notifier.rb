@@ -42,10 +42,10 @@ class Notifier < ActionMailer::Base
 
       recipients user.email
       domain = group ? group.domain : AppConfig.domain
-      from "#{group ? group.name : AppConfig.application_name} <#{AppConfig.notification_email}>"
+      from "#{group.notification_from} <#{group.notification_email}>"
       subject @subject
       sent_on Time.now
-      body   :user => user, :answer => answer, :item => answer.item,
+      body   :user => user.first_name, :answer => answer, :item => answer.item,
              :group => group, :domain => domain
 
       content_type  "text/html"
@@ -55,7 +55,7 @@ class Notifier < ActionMailer::Base
   def new_comment(group, comment, user, item)
     recipients user.email
     template_for user do
-      from "Shapado <#{AppConfig.notification_email}>"
+      from "#{group.notification_from} <#{group.notification_email}>"
       subject I18n.t("mailers.notifications.new_comment.subject", :login => comment.user.login, :group => group.name)
       sent_on Time.now
       content_type    "multipart/alternative"
@@ -66,7 +66,7 @@ class Notifier < ActionMailer::Base
 
   def new_feedback(user, subject, content, email, ip)
     recipients AppConfig.exception_notification["exception_recipients"]
-    from "Shapado[feedback] <#{AppConfig.notification_email}>"
+    from "#{group.notification_from} <#{group.notification_email}>"
     subject "feedback: #{subject}"
     sent_on Time.now
     body   :user => user, :subject => subject, :content => content, :email => email, :ip => ip
@@ -76,7 +76,7 @@ class Notifier < ActionMailer::Base
   def follow(user, followed)
     recipients followed.email
     template_for followed do
-      from "Shapado <#{AppConfig.notification_email}>"
+      from "#{group.notification_from} <#{group.notification_email}>"
       subject I18n.t("mailers.notifications.follow.subject", :login => user.login, :app => AppConfig.application_name)
       sent_on Time.now
       body :user => user, :followed => followed
@@ -99,7 +99,7 @@ class Notifier < ActionMailer::Base
     recipients item.user.email
     template_for item.user do
 
-      from "Shapado <#{AppConfig.notification_email}>"
+      from "#{group.notification_from} <#{group.notification_email}>"
       subject I18n.t("mailers.notifications.favorited.subject", :login => user.login)
       sent_on Time.now
       body :user => user, :group => group, :item => item
@@ -110,7 +110,7 @@ class Notifier < ActionMailer::Base
   def report(user, report)
     recipients user.email
     template_for user do
-      from "Shapado <#{AppConfig.notification_email}>"
+      from "#{group.notification_from} <#{group.notification_email}>"
       subject I18n.t("mailers.notifications.report.subject", :group => report.group.name, :app => AppConfig.application_name)
       sent_on Time.now
 
