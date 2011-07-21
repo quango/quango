@@ -73,9 +73,9 @@ $(".features-thumbnail").hover(
 });
 
 
-/*$(function() {	// setup ul.tabs to work as tabs for each div directly under div.panes	
+$(function() {	// setup ul.tabs to work as tabs for each div directly under div.panes	
   $("#member-tabs ul.member-tabs").tabs("div.panes > div.pane", { history: true, effect: 'fade', fadeOutSpeed: 400 });
-});*/
+});
 
 $(document).ready(function() {
 $(".answer").hover(

@@ -23,7 +23,7 @@ en:
       message3: "You can enhance your reputation by participating in this community."
       message_footer: "You have received this message because you have chosen to do so - if you change your mind, you can modify your message settings in your %{profile}"
     new_answer:
-      message: "%{user} commented %{new_answer} on %{item}"
+      message: "%{user} commented on %{item}:  %{new_answer}"
     new_comment:
       message: "%{user} commented %{new_comment} on the item %{item}"
     new_feedback:

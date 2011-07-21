@@ -2,7 +2,7 @@ en:
   mailers:
     notifications:
       new_answer:
-        subject_owner: "%{login} answered your item %{title}"
+        subject_owner: "%{login} commented on %{title}"
         subject_friend: "Your friend %{login} answered the item %{title}"
         subject_other: "%{login} answered the item %{title}"
       new_comment:
