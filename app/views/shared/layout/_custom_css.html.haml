@@ -7,9 +7,9 @@
 
   %style{:type => 'text/css'}
 
-    \.logo-container-inner {background-color: white;border-left: 2px solid white;border-right: 4px solid white;background-color: #{current_group.secondary};background:-webkit-gradient(linear,left top,left bottom,to(#ffffff),from(#{current_group.secondary}));background:-moz-linear-gradient(top,#ffffff,#{current_group.secondary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ffffff',endColorstr='#{current_group.secondary}');}
+    \.logo-container-inner {background-color: white;border-left: 2px solid white;border-right: 4px solid white;background-color: #{current_group.secondary};background:-webkit-gradient(linear,left top,left bottom,to(#ffffff),from(#{current_group.secondary}));background:-moz-linear-gradient(top,#ffffff,#{current_group.secondary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.secondary}',endColorstr='#ffffff');}
 
-    \#header-container-inner { background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#ffffff));background:-moz-linear-gradient(bottom,#{group.secondary},#ffffff);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ffffff',endColorstr='#{group.secondary}');border-left: 2px solid white;border-right: 4px solid white;}
+    \#header-container-inner { background:-webkit-gradient(linear,left top,left bottom,to(#{current_group.secondary}),from(#ffffff));background:-moz-linear-gradient(bottom,#{group.secondary},#ffffff);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ffffff',endColorstr='#{group.secondary}');border-left: 2px solid white;border-right: 4px solid white;}
 
     \.display-name-i{color:#{current_group.primary_dark}; backgrond-image:url('/images/white_25_bg.png');}
     \.display-name-ii{color:#555051}
@@ -21,12 +21,12 @@
 
   %style{:type => 'text/css'}
 
-    \.logo-container-inner {background-color: white;border-left: 2px solid white;border-right: 4px solid white;background-color: #{current_group.secondary};background:-webkit-gradient(linear,left top,left bottom,from(#555051),to(#{current_group.secondary}));background:-moz-linear-gradient(top,#555051,#{current_group.secondary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#555051',endColorstr='#{current_group.secondary}');}
+    \.logo-container-inner {background-color: white;border-left: 2px solid white;border-right: 4px solid white;background-color: #{current_group.secondary};background:-webkit-gradient(linear,left top,left bottom,from(#555051),to(#{current_group.secondary}));background:-moz-linear-gradient(top,#555051,#{current_group.secondary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,endColorstr='#{current_group.secondary}',startColorstr='#555051');}
 
 
-    \#header-container-inner { background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#ffffff));background:-moz-linear-gradient(top,#{group.secondary},#ffffff);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{group.secondary}',endColorstr='#ffffff');border-left: 2px solid white;border-right: 4px solid white;}
+    \#header-container-inner { background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#ffffff));background:-moz-linear-gradient(top,#{group.secondary},#ffffff);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,endColorstr='#ffffff',startColorstr='#{current_group.secondary}');border-left: 2px solid white;border-right: 4px solid white;}
 
-    \.navigation-container {height:40px;background:#{current_group.primary};border-bottom:1px solid #{current_group.tertiary};background:-webkit-gradient(linear,left top,left bottom,to(#{current_group.tertiary}),from(#{current_group.primary}));background:-moz-linear-gradient(top,#{current_group.primary},#{current_group.tertiary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.primary}',endColorstr='#{current_group.tertiary}');}
+    \.navigation-container {height:40px;background:#{current_group.primary};border-bottom:1px solid #{current_group.tertiary};background:-webkit-gradient(linear,left top,left bottom,to(#{current_group.tertiary}),from(#{current_group.primary}));background:-moz-linear-gradient(top,#{current_group.primary},#{current_group.tertiary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,endColorstr='#{current_group.primary}',startColorstr='#{current_group.tertiary}');}
 
 
     \.channel-container-inner {background-color: #{group.secondary};border-left: 2px solid white;border-right: 4px solid white;}
@@ -50,7 +50,7 @@
   -#border-bottom: 1px;
   -#}
 
-  \.channel_listing_horizontal li.selected {border-bottom: 1px solid #{group.primary};background-color: #{group.primary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{group.primary_dark}',endColorstr='#{group.primary}');background:-webkit-gradient(linear,left top,left bottom,from((#{group.primary_dark}),to(#{group.secondary}));background:-moz-linear-gradient(top,#{group.primary_dark},#{group.secondary});}
+  \.channel_listing_horizontal li.selected {border-bottom: 1px solid #{group.primary};background-color: #{group.secondary};}
 
   \.secondary-navigation-sections {filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{group.primary_dark}',endColorstr='#{group.primary}');background:-webkit-gradient(linear,left top,left bottom,from((#dcdcdc),to(#{group.secondary}));background:-moz-linear-gradient(top,#dcdcdc,#{group.secondary});}
 

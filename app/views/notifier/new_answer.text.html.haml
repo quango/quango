@@ -1,7 +1,13 @@
+- user = @user.first_name.capitalize
+- poster = @item.user.first_name + " " + @item.user.last_name
+- doctype = @item.doctype.name
+- referral_link = link_to "#{h(@item.title)}", "http://" + @domain + item_path(@item.doctype, @item)
 - new_answer = find_and_preserve("<pre style='font-size:20px'>"+ shapado_auto_link(markdown(@answer.body, :group => @group))+"</pre>")
 - item = link_to h(@item.title), url_for(:host => @domain, :controller => "items", :action => "show", :id => @item.slug)
 
 %p
-  = t('notifier.global.hi', :user => h(@user.login))
+  = t('notifier.global.hi', :user => h(user))
   %br
     = t('.message', :user => h(@answer.user.login), :new_answer => new_answer, :item => item)
+  %br
+    = t('#{referral_link}')

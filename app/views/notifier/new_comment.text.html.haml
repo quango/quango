@@ -1,7 +1,8 @@
+- user = @user.first_name.capitalize
 - new_comment = find_and_preserve("<pre style='font-size:20px'>"+ shapado_auto_link(markdown(@comment.body, :group => @group))+"</pre>")
 - item = link_to h(@item.title), url_for(:host => @group.domain, :controller => "items", :action => "show", :id => @item.slug)
 %p
-  = t('notifier.global.hi', :user => h(@user.login))
+  = t('notifier.global.hi', :user => h(user))
   %br
   %br
-  = t('.message', :user => h(@comment.user.login), :comment => new_comment, :item => item)
+  = t('.message', :user => h(user), :comment => new_comment, :item => item)

@@ -1,5 +1,5 @@
 -link = url_for(:host => AppConfig.domain, :controller => "users", :action => "show", :id => @user.to_param)
-= t('notifier.global.hi', :user => @followed.login)
+= t('notifier.global.hi', :user => @followed.display_name)
 %br
 %br
 
