@@ -29,15 +29,15 @@ class Notifier < ActionMailer::Base
       if user == answer.item.user
         @subject = I18n.t("subject_owner", :scope => scope,
                                            :title => answer.item.title,
-                                           :login => answer.user.login)
+                                           :login => answer.user.display_name)
       elsif following
         @subject = I18n.t("subject_friend", :scope => scope,
                                             :title => answer.item.title,
-                                            :login => answer.user.login)
+                                            :login => answer.user.display_name)
       else
         @subject = I18n.t("subject_other", :scope => scope,
                                            :title => answer.item.title,
-                                           :login => answer.user.login)
+                                           :login => answer.user.display_name)
       end
 
       recipients user.email
