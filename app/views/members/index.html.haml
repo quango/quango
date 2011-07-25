@@ -21,7 +21,7 @@
     -@members.each do |member|
       %li
         = member.email.to_s
-      = render :partial => "member", :object => member
+        = render :partial => "member", :object => member
 
   %ul.members-list-index#users
     -@users.each do |user|

@@ -21,8 +21,8 @@
           %span.ownerflair{:title => "Group Administrator", :style => "background-color:#{current_group.secondary};border: 1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px"}
             Admin
         -elsif user.mod_of?(current_group)
-          %span.modflair{:title => "moderator"}
-            Associate
+          %span.modflair{:title => "moderator", :style => "background-color:#{current_group.secondary};border: 1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px}
+            Editor
         -elsif user.editor_of?(current_group)
           %span.editorflair{:title => "Group Editor", :style => "background-color:#{current_group.secondary};border: 1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px"}
             Editor
