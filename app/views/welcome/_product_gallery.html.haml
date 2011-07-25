@@ -1,17 +1,7 @@
 - expanded = local_assigns[:expanded]
 
 - if current_group.has_product_gallery
-  .section-head-welcome{:style=>"border-bottom:10px solid white;border-top:4px solid #{current_group.secondary}"}
-    .secondary-navigation-sections{:style=>"background-color:gainsboro;"}
-      .products{:style=>"font-family:Arial,sans-serif; font-weight:normal; font-size:12px;padding-left:10px;color:#{current_group.primary_dark}; letter-spacing:-1px;"}
-        = "Products...."  
-        .navcontrols{:style => "width:96px; height:24px; float:right"}
-          %a.show_products{:class => "products navlinks showhide left", :style=>"color:#{current_group.primary_dark}"}
-            = "show products"
-          %a.hide_products{:class => "products navlinks showhide left", :style=>"color:#{current_group.primary_dark}"}
-            = "hide products"
-
-   
+  .section-head-welcome{:style=>"border-bottom:10px solid white;border-top:4px solid #{current_group.tertiary}"}
         
     .section-listing-welcome{:class => "products", :style => "width:728px;"}
 
@@ -57,45 +47,4 @@
             = "});"
 
 
-      %script{:type => "text/javascript"}
-        = "// collapse:"
-        = "$('.hide_products.products').click(function() {"
-        = "$('.hide_products.products').css('display','none');"
-        = "$('.show_products.products').css('display','block');"
-        = "$('.products.section-listing-welcome').hide('fast');"
-        -#= "$.cookie('summary.index.summary', 'collapsed', { expires: 2 });"
-        = "});"
-        = "// expand:"
-        = "$('.show_products.products').click(function() {"
-        = "$('.show_products.products').css('display','none');"
-        = "$('.hide_products.products').css('display','block');"
-        = "$('.products.section-listing-welcome').show('slow');"
-        -#= "$.cookie('summary.index.summary', 'expanded', { expires: 2 });"
-        = "});"
-        = "// ok so far"
-        -#= "// COOKIES"
-        -#= "var summary = $.cookie('summary.index.summary');"
-        -#= "	// Set the user's selection for the left column"
-        -#= "if (summary == 'collapsed') {"
-        -#= "$('.hide_summary.summary').css('display','none');"
-        -#= "$('.show_summary.summary').css('display','block');"
-        -#= "$('.summary.section-listing-welcome').hide();"
-        -#= "};"
-        -#= "if (summary == 'expanded') {"
-        -#= "$('.hide_summary.summary').css('display','block');"
-        -#= "$('.show_summary.summary').css('display','none');"
-        -#= "$('summary.summary.section-listing-welcome').show();"
-        -#= "};"
-        - if expanded == true
-          -#= "if (summary == null) {"
-          = "$('.hide_products.products').css('display','block');"
-          = "$('.show_products.products').css('display','none');"
-          = "$('.products.section-listing-welcome').show();"
-          -#= "};"
-        - else
-          -#= "if (summary == null) {"
-          = "$('.show_products.products').css('display','block');"
-          = "$('.hide_products.products').css('display','none');"
-          = "$('.products.section-listing-welcome').hide();"
-          -#= "};"
-        -#= "};"
+
