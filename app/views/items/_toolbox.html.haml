@@ -4,10 +4,10 @@
 
   %div{:style=>"float:left"}
     - if current_user && @item.watch_for?(current_user)
-      = link_to "no follow", unwatch_item_path(@doctype, @item),:style =>"border: 2px solid #555;background-color:#555;", :class => 'toolbar-button', "data-undo" =>  watch_item_path(@doctype, @item), "data-title" => t(".watch_tooltip"), :title => t(".unwatch_tooltip"), :id => "watch-item"
+      = link_to "unwatch", unwatch_item_path(@doctype, @item),:class => 'toolbar-button', "data-undo" =>  watch_item_path(@doctype, @item), "data-title" => t(".watch_tooltip"), :title => t(".unwatch_tooltip"), :id => "watch-item"
 
     - else
-      = link_to "follow this discussion", watch_item_path(@doctype, @item),:style =>"border: 2px solid #555;background-color:#555;", :class => 'toolbar-button', "data-undo" =>  unwatch_item_path(@doctype, @item), "data-title" => t(".unwatch_tooltip"), :title => t(".watch_tooltip"), :id => "watch-item"
+      = link_to "watch", watch_item_path(@doctype, @item),:class => 'toolbar-button', "data-undo" =>  unwatch_item_path(@doctype, @item), "data-title" => t(".unwatch_tooltip"), :title => t(".watch_tooltip"), :id => "watch-item"
 
     -# if logged_in? && favorite = current_user.favorite(@item)
       -#= link_to "unsave", unfavorite_item_path(@doctype, @item),:style =>"border: 2px solid #555;background-color:#555;", :id => "unfavorite-link", :title => t(".unfavorite_tooltip"), :class => 'toolbar-button watch', "data-undo" =>  favorite_item_path(@doctype, @item), "data-title" => t(".favorite_tooltip"), 'data-counter' => '.favorites_count'
@@ -27,9 +27,9 @@
     %div{:style=>"float:right"}
       - if (@item.wiki && current_user.can_edit_wiki_post_on?(@item.group)) || current_user.can_edit_others_posts_on?(@item.group) || current_user.can_modify?(@item)
         - if current_user.can_edit_others_posts_on?(@item.group)
-          = link_to "Bump", bump_item_path(@doctype, @item), :style => "color:white", :class => "toolbar-button"
-        = link_to "Edit", edit_item_path(@doctype, @item), :style => "", :class => "toolbar-button red"
-
+          = link_to "Bump", bump_item_path(@doctype, @item), :style => "color:white", :class => "toolbar-button orange"
+        = link_to "Quick Edit", edit_item_path(@doctype, @item), :style => "", :class => "toolbar-button red"
+        = link_to "Meta", edit_item_path(@doctype, @item), :style => "", :class => "toolbar-button red"
         = link_to "Images", item_images_path(@doctype, @item), :style => "", :class => "toolbar-button green" 
 
 

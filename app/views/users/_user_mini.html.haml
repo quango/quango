@@ -13,32 +13,22 @@
       - else
         = image_tag "/images/anonymous_avatar.png", :height => "64px", :width => "64px", :style => "border:2px solid white"
 
+
     %div{:style=>"height:64px"}
-      %div.latest{:style=>"height:48px;width:232px;float:left; overflow:hidden"}
-        = "<img src='/images/open_quote.png' height='12px' width='12px' />"
 
-        - user.items.reverse.each do |item|
-          -if item.group_id == current_group.id
-            .quote_box{:style=>"height:32px;line-height:16px;"}
-
-              = link_to truncate(strip_tags(item.title), :length => 40), item_path(item.doctype_id, item), :style => "font-weight:normal;color:#{current_group.primary_dark}"
-            = "|"
-
-        = "<img src='/images/close_quote.png' height='12px' width='12px' />"
-
-      %div.details{:style=>"height:16px;float:left; overflow:hidden"}
+      %div.details{:style=>"float:left; overflow:hidden"}
 
         %div.fn.nickname
           -unless user.nil?
-            =link_to h(user.first_name.to_s + " " + user.last_name.to_s), user_path(user), :class => "user-link"
+            =link_to h(user.first_name.to_s + " " + user.last_name.to_s), user_path(user), :style => "font-weight:bold"
 
           %span.reputation{:title => t("activerecord.attributes.user.reputation")}
             -unless user.nil?
               -if user.owner_of?(current_group)
-                %span.ownerflair{:title => "Group Administrator", :style => "margin-top:2px;"}
+                %span.ownerflair{:title => "Group Administrator", :style => "margin-top:2px;float:right;"}
                   = "<img src='/images/owner-icon.png' height='12px' width='14px' title='Site Administrator' alt='Site Administrator'/>"
               -elsif user.mod_of?(current_group)
-                %span.modflair{:title => "moderator", :style => "color:white;background-color:#{current_group.primary};border: 1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px"}
+                %div.modflair{:title => "moderator"}
                   Editor
               -elsif user.editor_of?(current_group)
                 %span.editorflair{:title => "Group Editor", :style => "background-color:#{current_group.secondary};border: 1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px"}
@@ -68,6 +58,21 @@
                 %span.bronze.badgeicon-small
                 %span.badgecount
                   =bronze
+
+      %div.latest{:style=>"width:232px;float:left; overflow:hidden"}
+
+        %ol{:style=>"list-style-type: default"}
+          - counter = 0
+          - user.items.reverse[0..2].each do |item|
+            -if item.group_id == current_group.id
+              %li{:style=>"border:0; width:216px; height:12px; overflow:hidden"}
+                - counter = counter + 1
+                = counter.to_s
+                = link_to truncate(strip_tags(item.title), :length => 96), item_path(item.doctype_id, item), :style => "letter-spacing:-1px;font-weight:normal; color: #{current_group.link_colour}"
+
+
+
+
 
   .clear
 
@@ -101,7 +106,7 @@
             %span.ownerflair{:title => "Group Administrator", :style => "background-color:#{current_group.secondary};border: 1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px"}
               Admin
           -elsif user.mod_of?(current_group)
-            %span.modflair{:title => "moderator", :style => "background-color:#{current_group.secondary};border: 1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px"}
+            %div.modflair{:title => "moderator"}
               Editor
           -elsif user.editor_of?(current_group)
             %span.editorflair{:title => "Group Editor", :style => "background-color:#{current_group.secondary};border: 1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px"}
@@ -165,7 +170,7 @@
             %span.ownerflair{:title => "Group Administrator", :style => "background-color:#{current_group.secondary};border: 1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px"}
               Admin
           -elsif user.mod_of?(current_group)
-            %span.modflair{:title => "moderator", :style => "background-color:#{current_group.secondary};border: 1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px"}
+            %div.modflair{:title => "moderator"}
               Editor
           -elsif user.editor_of?(current_group)
             %span.editorflair{:title => "Group Editor", :style => "background-color:#{current_group.secondary};border: 1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px"}

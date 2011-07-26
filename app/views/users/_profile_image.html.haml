@@ -1,7 +1,7 @@
 .block
   %h3
     = "#{@user.display_name}"
-  - if current_user.can_modify?(@user)
+  -# if current_user.can_modify?(@user)
     = "edit"
 
   .content

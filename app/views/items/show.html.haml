@@ -122,10 +122,10 @@
 
 
   -#show-container{:style=>"width:728px;"}
-  #main-index{:style=>"width:572px;float:right;"}
+  #main-index{:style=>"width:572px;float:right; margin:0 8px"}
     .content
       .inner
-        .toolbox{:style=>"background-color:#{current_group.secondary}"}
+        .toolbox
           = render :partial => "toolbox"
         -if logged_in?
           -if current_user.owner_of?(current_group) | current_user.mod_of?(current_group)
@@ -163,7 +163,7 @@
                   = link_to h(tag), url_for(:controller => "item", :action => "index", :tags => tag), :rel => "tag", :style => "background-color:#{current_group.primary}"
               - if logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group)) #tofix
                 .retag
-                  = link_to t('.retag'), retag_item_path(@doctype, @item), :id => 'retag',:style => "border:0; color:gainsboro;", :class => "link"
+                  = link_to t('.retag'), retag_item_path(@doctype, @item), :id => 'retag',:style => "background-color:white;border:0; color:#{current_group.primary};", :class => "link"
 
           -#if @item.description?
             -#.description
