@@ -64,11 +64,11 @@
         %ol{:style=>"list-style-type: default"}
           - counter = 0
           - user.items.reverse[0..2].each do |item|
-            -if item.group_id == current_group.id
+            -if item.group == current_group
               %li{:style=>"border:0; width:216px; height:12px; overflow:hidden"}
                 - counter = counter + 1
                 = counter.to_s
-                = link_to truncate(strip_tags(item.title), :length => 96), item_path(item.doctype_id, item), :style => "letter-spacing:-1px;font-weight:normal; color: #{current_group.link_colour}"
+                = link_to truncate(strip_tags(item.title), :length => 96), domain_url(:custom => item.group.domain) + item_path(item.doctype_id, item), :style => "letter-spacing:-1px;font-weight:normal; color: #{current_group.link_colour}"
 
 
 

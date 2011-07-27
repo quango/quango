@@ -22,16 +22,7 @@
 - item_body = find_and_preserve(shapado_auto_link(markdown(@item.body.present? ? @item.body : @item.title)))
 
 - content_for :head do
-  %meta{:name => "keywords", :content => clean_seo_keywords(@item.tags.dup, @item.title)}
-
-  - if @item.description
-    %meta{:name => "description", :content => @item.description.gsub(/<\/?[^>]*>/, "")[0, 255] }
-
-  - else
-    %meta{:name => "description", :content => item_body.gsub(/<\/?[^>]*>/, "")[0, 255] }
-
-
-  %link{:rel => "canonical", :href => item_url(@doctype, @item) }
+  = render :partial => "meta_include", :locals => {:item => @item}
 
 - source = item_path(@doctype, @item)
 = error_messages_for 'answer'

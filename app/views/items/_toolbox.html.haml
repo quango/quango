@@ -29,7 +29,7 @@
         - if current_user.can_edit_others_posts_on?(@item.group)
           = link_to "Bump", bump_item_path(@doctype, @item), :style => "color:white", :class => "toolbar-button orange"
         = link_to "Quick Edit", edit_item_path(@doctype, @item), :style => "", :class => "toolbar-button red"
-        = link_to "Meta", edit_item_path(@doctype, @item), :style => "", :class => "toolbar-button red"
+        = link_to "Meta", meta_item_path(@doctype, @item), :style => "", :class => "toolbar-button red"
         = link_to "Images", item_images_path(@doctype, @item), :style => "", :class => "toolbar-button green" 
 
 

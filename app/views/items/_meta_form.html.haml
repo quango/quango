@@ -1,0 +1,85 @@
+= local_assigns[f]
+= f.error_messages
+= error_messages_for(:user)
+
+
+
+
+.answer-form-holder
+
+  = f.hidden_field :doctype_id, :value => @doctype.id
+  = f.hidden_field :title, :value => @item.title
+
+
+  -# else
+
+  
+
+  .answer-form
+    .group
+      = f.label :meta_author
+      = f.text_field :meta_author, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+      = "The default value is the poster unless author data is available from the source"
+
+    .group
+      = f.label :meta_title
+      = f.text_field :meta_title, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+      = "Default"
+
+    .group
+      = f.label :meta_description
+      = f.text_field :meta_description, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+      = "Default"
+
+    .group
+      = "Current keywords:"
+      - @item.tags.each do |tag|
+        .tag{:style=>"display:inline; border:1px solid black;padding:2px;margin:1px"}
+          = tag.to_s
+    .clear
+
+    .group
+      = f.label :meta_keywords
+      = f.text_field :meta_keywords, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+      = "Append additional keywords to the existing ones"
+
+    .group
+      = f.label :meta_publisher
+      = f.text_field :meta_publisher, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+      = "."
+
+    %hr
+    .group
+      = f.label :meta_robots
+      = f.text_field :meta_robots, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+      = "."
+    
+    .group
+      = f.label :meta_googlebot
+      = f.text_field :meta_googlebot, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+      = "."
+
+    .group
+      = f.label :meta_rating
+      = f.text_field :meta_rating, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+      = "."
+
+    .group
+      = f.label :meta_revisit_after
+      = f.text_field :meta_revisit_after, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+      = "."
+
+  .answer-actions{:style => "line-height:32px; height: 32px; width: 512px; margin: 0 auto 16px auto; position:relative;"}
+    = submit_tag h(current_group.publish_label), :class => "submit-button", :style => "width:256px; height:28px; float:right;"
+    = link_to t('scaffold.cancel'), items_path, :class => "button cancel", :style => "float:right;"
+
+.clear
+
+
+
+
+
+
+
+
+

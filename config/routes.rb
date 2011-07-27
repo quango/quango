@@ -70,9 +70,10 @@ ActionController::Routing::Routes.draw do |map|
                            :member     => {:bump => :any,:solve => :get,:unsolve => :get,:favorite => :any,:unfavorite => :any,:watch => :any,:unwatch => :any,
                                                  :history => :get,:revert => :get,:diff => :get, :change_doctype => :get,
                                                  :move => :get,:move_to => :put, :retag => :get,:retag_to => :put,
-                                            :close => :put,:open => :put}, :name_prefix => nil, :as => 'index'  do |items| #:name_prefix => nil,
+                                            :close => :put,:open => :put,:meta => :get}, :name_prefix => nil, :as => 'index'  do |items| #:name_prefix => nil,
 
         items.resources :comments
+
 
         items.resources :images, :member => { :crop => :get, 
                                               :pull => :get, 

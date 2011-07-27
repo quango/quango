@@ -434,7 +434,7 @@ class ItemsController < ApplicationController
   # POST /items.xml
   def create
     @item = Item.new
-    @item.safe_update(%w[doctype_id section node mode title description bookmark video_link article_link main_image main_thumbnail images body language tags wiki anonymous], params[:item])
+    @item.safe_update(%w[doctype_id section node mode title description bookmark video_link article_link main_image main_thumbnail images body language tags wiki anonymous meta_author], params[:item])
     @item.group = current_group
     @item.user = current_user
 
@@ -443,14 +443,26 @@ class ItemsController < ApplicationController
 
     @item.doctype_id = @doctype.id
 
+    @item.meta_author = current_user.display_name
+    @item.meta_title = @item.title
+    @item.meta_description = @item.description
+    @item.meta_publisher = current_group.domain
+    @item.meta_abstract = @item.abstract
+    @item.meta_keywords = @item.tags
+
     if @item.video_link?
 
       video = VideoInfo.new(@item.video_link)
       @item.title = video.title
       @item.body = video.description
-      @item.tags = video.provider
+      @item.tags = video.provider << ", " << video.keywords
       @item.video_thumbnail = video.thumbnail_small
-
+      @item.meta_author = video.author
+      @item.meta_title = video.title
+      @item.meta_description = @item.description
+      @item.meta_publisher = video.provider
+      @item.meta_abstract = @item.abstract
+      @item.meta_keywords = video.keywords
       #image.image = video_thumbnail_small
 
     end
@@ -501,21 +513,14 @@ require 'pismo'
 
 
       @item.body = shorten(quote_body, 256)
-      #@item.body << doc.body
 
-      #lets get some tags
+      @item.meta_author = current_user.display_name
+      @item.meta_title = @item.title
+      @item.meta_description = @item.description
+      @item.meta_publisher = current_group.domain
+      @item.meta_abstract = @item.abstract
+      @item.meta_keywords = doc.keywords
 
-      
-
-
-
-
-
-  
-      #@item.tags = video.provider
-      #@item.video_thumbnail = video.thumbnail_small
-
-      #image.image = video_thumbnail_small
       end
     end
 
@@ -547,6 +552,10 @@ require 'pismo'
         sweep_item_views
 
         current_group.tag_list.add_tags(*@item.tags)
+
+  
+        
+
 
         unless @item.anonymous
           @item.user.stats.add_item_tags(*@item.tags)
@@ -600,7 +609,7 @@ require 'pismo'
   # PUT /items/1.xml
   def update
     respond_to do |format|
-      @item.safe_update(%w[node mode title description bookmark video_link main_thumbnail images body language tags wiki adult_content version_message  anonymous], params[:item])
+      @item.safe_update(%w[meta_author node mode title description bookmark video_link main_thumbnail images body language tags wiki adult_content version_message  anonymous], params[:item])
       @item.updated_by = current_user
       @item.last_target = @item
       #@item.section = @active_section
@@ -615,8 +624,23 @@ require 'pismo'
       @doctypes = current_group.doctypes
       @doctype = @doctypes.find_by_slug_or_id(params[:doctype_id])
 
+     #quote_body = doc.body.to_s
 
 
+     # @item.body = shorten(quote_body, 256)
+
+      if @item.meta_author == "Null"
+        @item.meta_author = @item.user.display_name
+      end
+
+      #@item.meta_title = @item.title
+
+
+      #@item.meta_description = @item.description
+
+      #@item.meta_publisher = current_group.domain
+      #@item.meta_abstract = @item.abstract
+      #@item.meta_keywords = doc.keywords
 
 
       if @item.valid? && @item.save
@@ -629,6 +653,45 @@ require 'pismo'
         format.json  { head :ok }
       else
         format.html { render :action => "edit" }
+        format.json  { render :json => @item.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  def meta
+    respond_to do |format|
+     # @item = Item.find_by_slug_or_id(params[:id])
+     @doctypes = current_group.doctypes
+     @doctype = @doctypes.find_by_slug_or_id(params[:doctype_id])
+
+     # @item.safe_update(%w[meta_author], params[:item])
+
+      if @item.meta_author == "Null"
+        @item.meta_author = @item.user.display_name
+      end
+
+      if @item.meta_title == "Null"
+        @item.meta_title = @item.title
+      end
+
+      if @item.meta_description == "Null"
+        @item.meta_description = @item.description
+      end
+
+      if @item.meta_keywords == "Null"
+        @item.meta_keywords = @item.tags
+      end
+
+      unless @item.valid? && @item.save
+        sweep_item_views
+        sweep_item(@item)
+
+        flash[:notice] = t(:flash_notice, :scope => "items.update")
+
+        format.html { redirect_to(item_path(@doctype, @item)) }
+        format.json  { head :ok }
+      else
+        format.html { render :action => "meta" }
         format.json  { render :json => @item.errors, :status => :unprocessable_entity }
       end
     end

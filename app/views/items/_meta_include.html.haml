@@ -1,0 +1,72 @@
+- if @item.description
+  = "<meta name=\"description\" content=\"#{@item.description.gsub(/<\/?[^>]*>/, "")[0, 255] }\" />"
+
+- else
+  - short_description = @item.body.gsub(/<\/?[^>]*>/, "")[0, 255]  
+  = "<meta name=\"description\" content=\"#{short_description.split.join(' ')}\" />"
+
+= "<meta name=\"keywords\" content=\"#{clean_seo_keywords(@item.tags.dup, @item.title)}\" />"
+
+= "<meta name=\"Robots\" content=\"#{@item.meta_robots}\" />"
+= "<meta name=\"GOOGLEBOT\" content=\"#{@item.meta_googlebot}\" />"
+= "<meta name=\"RATING\" content=\"#{@item.meta_rating}\" />"
+= "<meta name=\"REVISIT-AFTER\" content=\"#{@item.meta_revisit_after}\" />"
+
+= "<meta name=\"author\" content=\"#{@item.meta_author}\" />"
+
+= "<meta name=\"copyright\" content=\"#{current_group.display_name_i} #{current_group.display_name_ii}\" />"
+= "<!--Unless otherwise indicated the content in this resource is considered creative commons (CC BY 3.0) http://creativecommons.org/licenses/by/3.0/ -->"
+
+= "<meta name=\"classification\" content=\"#{@item.tags.first}\" />"
+= "<meta name=\"distribution\" content=\"Global\" />"
+= "<meta name=\"Page-Topic\" content=\"#{clean_seo_keywords(@item.tags.dup, @item.title)}\" /> "
+
+= "<meta name=\"language\" content=\"EN\" />"
+= "<meta name=\"document-classification\" content=\"Internet\" />"
+= "<meta name=\"document-type\" content=\"Public\" />"
+
+= "<meta name=\"Audience\" content=\"ALL\" />"
+= "<meta name=\"abstract\" content=\"#{@item.meta_description}\" />"
+
+
+= "<meta name=\"GENERATOR\" content=\"Quango\" />"
+= "<!--visit http://quangoquango.org for open source project-->"
+
+
+= "<!--opengraph-->"
+= "<meta property=\"og:language\" content=\"en\" />"
+= "<meta property=\"og:section\" content=\"#{@item.tags.first}\" />"
+= "<meta property=\"og:title\" content=\"#{@item.meta_title}\" />"
+
+- if @item.video_link?
+  = "<meta property=\"og:type\" content=\"video\" />"
+  = "<meta property=\"og:video\" content=\"#{@item.video_link}\" />" 
+  = "<meta property=\"og:video:type\" content=\"application/x-shockwave-flash\" />" 
+- else  
+  = "<meta property=\"og:type\" content=\"article\" />"
+
+-if @item.default_thumbnail?
+
+
+  - image = Image.find(@item.default_thumbnail)
+  - base_image = image.image.process(:thumb,image.image_cropping)
+  - base_thumbnail = base_image.process(:thumb,"380x")
+  - base_thumbnail_grey = base_thumbnail.process(:greyscale, "20")
+  =  "<meta property=\"og:image\" content=\"http://#{current_group.domain}#{base_thumbnail.url}\" />"
+
+= "<meta property=\"og:url\" content=\"#{item_url(@doctype, @item)}\" />"
+
+= "<meta property=\"og:description\" content=\"#{@item.meta_description}\" />"
+= "<meta property=\"og:site_name\" content=\"#{current_group.display_name_i} #{current_group.display_name_ii}\" />"
+
+= "<meta property=\"og:author\" content=\"#{@item.meta_author}\" />"
+= "<meta property=\"og:publisher\" content=\"#{@item.meta_publisher}\" />"
+= "<meta property=\"og:abstract\" content=\"#{@item.meta_abstract}\" />"
+= "<meta property=\"og:tags\" content=\"#{@item.meta_keywords}\" />"
+
+
+-if @item.default_thumbnail?
+  = "<!--default image-->"
+  = "<link rel='image_src' href='http://#{current_group.domain}#{base_thumbnail.url}' />"
+
+%link{:rel => "canonical", :href => item_url(@doctype, @item) }

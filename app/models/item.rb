@@ -17,6 +17,7 @@ class Item
   key :type, String
   key :bookmark, String
   key :title, String, :required => true
+  key :abstract, String
   key :description, String
   key :body, String
 
@@ -35,6 +36,21 @@ class Item
   #belongs_to :video
 
   key :default_thumbnail, String
+
+  #meta
+  
+  key :meta_author, String, :default => "Null"
+  key :meta_publisher, String, :default => "Null"
+  key :meta_reference_link, String, :default => "Null"
+  key :meta_title, String, :default => "Null"
+  key :meta_abstract, String, :default => "Null"
+  key :meta_description, String, :default => "Null"
+  key :meta_keywords, String, :default => "Null"
+
+  key :meta_robots, String, :default => "index,follow"
+  key :meta_googlebot, String, :default => "INDEX,FOLLOW"
+  key :meta_rating, String, :default => "General"
+  key :meta_revisit_after, String, :default => "2 Days"
 
   key :answers_count, Integer, :default => 0, :required => true
   key :views_count, Integer, :default => 0
