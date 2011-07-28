@@ -3,7 +3,7 @@
 .member{:style=>"float:left; margin:0 7px;"}
   -unless user.nil?
     =link_to h(user.display_name), user_path(user)
-    -if user.owner_of?(current_group)
+    -if logged_in? && current_user.owner_of?(current_group)
       %span{:style=>"float:right; display:inline"}
         = "☠"
 
