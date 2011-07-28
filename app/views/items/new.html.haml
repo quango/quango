@@ -38,14 +38,57 @@
 
 
 
+
     -if logged_in? && @item.doctype.has_video?
+
       - form_for(@item, :html=>{:class => "form mainAnswerForm", :id => "ask_item"}) do |f|
-        =render :partial => "form_for_video", :locals => {:f => f, :doctype => @doctype}
+        .group
+          = "What category best describes your content - you can add more in the tags ( currently set to:<b> #{@item.category} </b>)"
+          = f.select(:category, current_group.group_categories.reverse)
+
+          -# current_group.group_categories.each do |category|
+
+
+
+            -#%div.standard-button
+              -#= f.radio_button(:category, category, :value => "#{category} #{@item.doctype.name}")
+              -#= "#{category}"
+
+        .clear
+
+          =render :partial => "form_for_video", :locals => {:f => f, :doctype => @doctype}
     -if logged_in? && @item.doctype.has_links?
       - form_for(@item, :html=>{:class => "form mainAnswerForm", :id => "ask_item"}) do |f|
+        .group
+          = "What category best describes your content - you can add more in the tags ( currently set to:<b> #{@item.category} </b>)"
+          = f.select(:category, current_group.group_categories.reverse)
+
+          -# current_group.group_categories.each do |category|
+
+
+
+            -#%div.standard-button
+              -#= f.radio_button(:category, category, :value => "#{category} #{@item.doctype.name}")
+              -#= "#{category}"
+
+        .clear
+
         =render :partial => "form_for_links", :locals => {:f => f, :doctype => @doctype}
     -elsif logged_in? && !@item.doctype.has_video?
       - form_for(@item, :html=>{:class => "form mainAnswerForm", :id => "ask_item"}) do |f|
+        .group
+          = "What category best describes your content - you can add more in the tags ( currently set to:<b> #{@item.category} </b>)"
+          = f.select(:category, current_group.group_categories.reverse)
+
+          -# current_group.group_categories.each do |category|
+
+
+
+            -#%div.standard-button
+              -#= f.radio_button(:category, category, :value => "#{category} #{@item.doctype.name}")
+              -#= "#{category}"
+
+          .clear
         =render :partial => "form", :locals => {:f => f, :doctype => @doctype}
 
     -elsif !logged_in?

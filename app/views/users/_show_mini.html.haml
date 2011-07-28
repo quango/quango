@@ -4,42 +4,41 @@
   -unless user.nil?
     =link_to h(user.display_name), user_path(user)
     -if user.owner_of?(current_group)
-      %div{:style=>"float:left"}
+      %span{:style=>"float:right; display:inline"}
         = "☠"
 
 
-  .reputation{:title => t("activerecord.attributes.user.reputation"),:style=>"float:left; margin:0 7px;"}
-    -unless user.nil?
+    %span.reputation{:title => t("activerecord.attributes.user.reputation"),:style=>"float:left; margin:0 7px;display:none;"}
+      -unless user.nil?
 
-      -if user.mod_of?(current_group)
-        %span.modflair{:title => "moderator", :style=>"background-color:bronze; display:none"}
-          Moderator
-      -elsif user.editor_of?(current_group)
-        %span.editorflair{:title => "editor", :style=>"background-color:silver"}
-          Editor
+        -if user.mod_of?(current_group)
+          %span.modflair{:title => "moderator", :style=>"background-color:bronze; display:none"}
+            Moderator
+        -elsif user.editor_of?(current_group)
+          %span.editorflair{:title => "editor", :style=>"background-color:silver"}
+            Editor
 
-    -else
-      = t('users.deleted')
-    -unless user.nil?
-      %span.label{:style=>"display:none;"}
+      -else
+        = t('users.deleted')
+      -unless user.nil?
         =user.reputation_on(current_group)
 
-  -if local_assigns[:with_badges] != false
-    -if gold.to_i > 0
-      %span{:title => "#{gold} gold badges"}
-        %span.gold.badgeicon
-        %span.badgecount
-          =gold
+    -if local_assigns[:with_badges] != false
+      -if gold.to_i > 0
+        %span{:title => "#{gold} gold badges"}
+          %span.gold.badgeicon
+          %span.badgecount
+            =gold
 
-    -if silver.to_i > 0
-      %span{:title => "#{silver} silver badges"}
-        %span.silver.badgeicon
-        %span.badgecount
-          =silver
+      -if silver.to_i > 0
+        %span{:title => "#{silver} silver badges"}
+          %span.silver.badgeicon
+          %span.badgecount
+            =silver
 
-    -if bronze.to_i > 0
-      %span{:title => "#{bronze} bronze badges"}
-        %span.bronze.badgeicon
-        %span.badgecount
-          =bronze
+      -if bronze.to_i > 0
+        %span{:title => "#{bronze} bronze badges"}
+          %span.bronze.badgeicon
+          %span.badgecount
+            =bronze
 

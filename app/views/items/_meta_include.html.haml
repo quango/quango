@@ -14,8 +14,8 @@
 
 = "<meta name=\"author\" content=\"#{@item.meta_author}\" />"
 
-= "<meta name=\"copyright\" content=\"#{current_group.display_name_i} #{current_group.display_name_ii}\" />"
-= "<!--Unless otherwise indicated the content in this resource is considered creative commons (CC BY 3.0) http://creativecommons.org/licenses/by/3.0/ -->"
+= "<meta name=\"copyright\" content=\"Unless indicated http://creativecommons.org/licenses/by/3.0/ #{current_group.display_name_i} #{current_group.display_name_ii}\" />"
+= "<!-- -->"
 
 = "<meta name=\"classification\" content=\"#{@item.tags.first}\" />"
 = "<meta name=\"distribution\" content=\"Global\" />"
@@ -28,12 +28,14 @@
 = "<meta name=\"Audience\" content=\"ALL\" />"
 = "<meta name=\"abstract\" content=\"#{@item.meta_description}\" />"
 
+= "<!----------------------------------------------------------->"
+= "<!-- http://quangoquango.org for open source project home  -->"
+= "<!----------------------------------------------------------->"
 
-= "<meta name=\"GENERATOR\" content=\"Quango\" />"
-= "<!--visit http://quangoquango.org for open source project-->"
+= "<meta name=\"GENERATOR\" content=\"Quango #{h(AppConfig.version.to_s.split.join(' '))}\" />"
 
+= "<!--OpenGraph Proprties - http://ogp.me/ns# -->"
 
-= "<!--opengraph-->"
 = "<meta property=\"og:language\" content=\"en\" />"
 = "<meta property=\"og:section\" content=\"#{@item.tags.first}\" />"
 = "<meta property=\"og:title\" content=\"#{@item.meta_title}\" />"

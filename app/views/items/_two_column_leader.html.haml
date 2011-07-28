@@ -71,8 +71,9 @@
   .inner-author{:style=>"width:360px; height:16px;margin:0 0 4px 0;padding-bottom:4px; border-bottom:2px dotted gainsboro"}
     = "Posted by " 
     = link_to h(item.user.display_name), user_path(item.user)
-    = "on"
-    = t("time.ago", :time => time_ago_in_words(item.created_at))
+    -#= "on"
+    - if current_user.owner_of?(current_group)
+      = t("time.ago", :time => time_ago_in_words(item.created_at))
 
 
 .clear

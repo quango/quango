@@ -16,12 +16,13 @@ class Item
   key :mode, String
   key :type, String
   key :bookmark, String
+  key :category, String, :required => false
   key :title, String, :required => true
   key :abstract, String
   key :description, String
   key :body, String
 
-  slug_key :title, :unique => true, :min_length => 4
+  slug_key :title, :unique => false, :min_length => 4
   key :slugs, Array, :index => true
 
   #video stuff (replace with model later)
@@ -31,6 +32,7 @@ class Item
 
   key :article_link, String
   key :article_link_author, String
+  key :article_link_publisher, String #basically the stripped url
 
   #key :video_id, String
   #belongs_to :video

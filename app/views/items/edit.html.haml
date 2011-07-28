@@ -24,6 +24,14 @@
     .supplementary-navigation{:class => @active_subtab.to_s, :style => "height:35px; line-height:35px; padding:0 8px 0 8px"}
       = current_group.publish_label.capitalize + " " + @doctype.name  
     - form_for(@item, :url => item_path(@doctype, @item), :html => {:class => "form"}) do |f|
+
+      .group
+        = "What category best describes your content - you can add more in the tags ( currently set to:<b> #{@item.category} </b>)"
+        = f.select(:category, current_group.group_categories.reverse)
+      .clear
+
+ 
+
       =render :partial => "form", :locals => {:f => f}
 
 

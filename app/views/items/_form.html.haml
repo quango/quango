@@ -14,6 +14,9 @@
   -# else
 
   .answer-form
+
+
+
     .group
       = f.label :title, "#{t(:title, :scope => "activerecord.attributes.item")}", :class => "label", :style=>"margin-top:16px"
       = f.text_field :title, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
@@ -28,7 +31,12 @@
       = f.label :tags, "#{t(:tags, :scope => "activerecord.attributes.item")}", :class => "label"
       .description{:style=>"margin-left:16px"}
         = h("Start writing your tags - hit TAB to move to the next one")
-      = f.text_field :tags,:value => @item.tags.join(", "), :class => "text_field autocomplete_for_tags"
+      - unless @item.tags[0] = @item.category
+        - appended_category = @item.category.to_s << ", " <<  @item.tags.join(", ")
+        = f.text_field :tags,:value => appended_category, :class => "text_field autocomplete_for_tags"
+      - else
+        = f.text_field :tags,:value => @item.tags.join(", "), :class => "text_field autocomplete_for_tags"
+
 
       - if @doctype.has_video?
         = f.label :video_link, "#{t(:video_link, :scope => "activerecord.attributes")}", :class => "label", :style => "margin-left: 8px"
@@ -79,6 +87,19 @@
       .group
         = f.label :version_message, t("wiki.model.attributes.message"), :class => "label"
         = f.text_field :version_message, :class => "text_field"
+
+    .group
+      = "What doctype ( currently set to:<b> #{@item.category} </b>)"
+      - current_group.doctypes.each do |doctype|
+        - if @item.doctype == doctype
+          %div.radio
+            = f.radio_button(:doctype_id, doctype.id, :value => "#{@item.category} #{@item.doctype.name}", :checked => true)
+            = "#{doctype.name}"
+        - else
+          %div.radio
+            = f.radio_button(:doctype_id, doctype.id, :value => "#{@item.category} #{@item.doctype.name}")
+            = "#{doctype.name}"
+
 
 
   .answer-actions{:style => "line-height:32px; height: 32px; width: 512px; margin: 0 auto 16px auto; position:relative;"}

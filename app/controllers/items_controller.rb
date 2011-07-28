@@ -351,6 +351,9 @@ class ItemsController < ApplicationController
       return
     end
 
+    if @item.meta_author = "Null"
+      @item.meta_author = @item.user.display_name
+    end
 
     #@section = Section.find(@item.section.id)
 
@@ -449,6 +452,7 @@ class ItemsController < ApplicationController
     @item.meta_publisher = current_group.domain
     @item.meta_abstract = @item.abstract
     @item.meta_keywords = @item.tags
+    
 
     if @item.video_link?
 
@@ -486,6 +490,13 @@ require 'pismo'
 
       @item.title = doc.title
       @item.description = doc.description
+
+      if doc.author
+        @item.article_link_author = doc.author
+      else
+        @item.article_link_author = ""
+      end
+
       #@item.tags = doc.keywords.to_s
 
       tag_array = Array.new
@@ -514,7 +525,7 @@ require 'pismo'
 
       @item.body = shorten(quote_body, 256)
 
-      @item.meta_author = current_user.display_name
+      #@item.meta_author = doc.author
       @item.meta_title = @item.title
       @item.meta_description = @item.description
       @item.meta_publisher = current_group.domain
@@ -609,20 +620,22 @@ require 'pismo'
   # PUT /items/1.xml
   def update
     respond_to do |format|
-      @item.safe_update(%w[meta_author node mode title description bookmark video_link main_thumbnail images body language tags wiki adult_content version_message  anonymous], params[:item])
+      @item.safe_update(%w[meta_author category doctype_id node mode title description bookmark video_link main_thumbnail images body language tags wiki adult_content version_message  anonymous], params[:item])
       @item.updated_by = current_user
       @item.last_target = @item
       #@item.section = @active_section
-      @item.slugs << @item.slug
-      @item.send(:generate_slug)
+      #@item.slugs << @item.slug
+      #@item.send(:generate_slug)
 
       #sane_title = params[:item][:title]
       #sane_title_down = sane_title.downcase
       #sane_title_capitals = sane_title_down.capitalize
       @item.title = params[:item][:title]
+      @item.category = params[:item][:category]
+      @item.doctype_id = params[:item][:doctype_id]
 
       @doctypes = current_group.doctypes
-      @doctype = @doctypes.find_by_slug_or_id(params[:doctype_id])
+      @doctype = @doctypes.find_by_slug_or_id(params[:item][:doctype_id])
 
      #quote_body = doc.body.to_s
 

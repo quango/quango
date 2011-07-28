@@ -3,7 +3,11 @@
     %span.asked_by{:style=>"float:left"}
       = "#{current_group.publish_label_past.capitalize} by"
     = render :partial => "users/show_mini", :locals => {:user => @item.user}
-    = t("time.ago", :time => time_ago_in_words(@item.created_at))
+    - if current_user.owner_of?(current_group)
+      = t("time.ago", :time => time_ago_in_words(@item.created_at))
+    = "in"
+    %span.category{:style=>"color:#{current_group.tertiary};"}
+      = @item.category.to_s
 .clear
 
 - if @item.updated_by.present?

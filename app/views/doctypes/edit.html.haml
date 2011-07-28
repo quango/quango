@@ -76,7 +76,9 @@
         .group
           = "Expand this section?"
           = f.check_box :expanded
-
+        .group
+          = "Path to custom icon"
+          = f.text_field :custom_icon
 
         .group
           = f.submit 'Update'
