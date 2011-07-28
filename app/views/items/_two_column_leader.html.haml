@@ -72,7 +72,7 @@
     = "Posted by " 
     = link_to h(item.user.display_name), user_path(item.user)
     -#= "on"
-    - if current_user.owner_of?(current_group)
+    - if logged_in? && current_user.owner_of?(current_group)
       = t("time.ago", :time => time_ago_in_words(item.created_at))
 
 
