@@ -1,4 +1,4 @@
-= javascript_include_merged :show
+
 
 -content_for :sidebar do
   #sidebar
@@ -19,6 +19,7 @@
       %ul.items#related_items
 
 -content_for :main do
+  = javascript_include_merged :show
   #main-index
     .supplementary-navigation{:class => @active_subtab.to_s, :style => "height:35px; line-height:35px; padding:0 8px 0 8px"}
       = current_group.publish_label.capitalize + " " + @doctype.name  
