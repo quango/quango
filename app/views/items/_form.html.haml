@@ -13,30 +13,63 @@
 
   -# else
 
+
+
+
   .answer-form
 
+    .group
+      .category{:style=>"float:left; width:728px;"}
+        = f.label :category, "Category", :class => "label", :style=>"margin-top:16px"
+        %ol
+        -#= f.select(:category, current_group.group_categories.reverse)
+        - current_group.group_categories.each do |category|
+          - if @item.category == category
+            %li.category-button{:style=>"background-color:black; color: red; float:left;"}
+              = "#{category}"
+              = f.radio_button(:category, category, :checked => true, :style=>"display:none")
 
+          - else
+            %li.category-button{:style=>"background-color:white; color: #666; float:left;"}
+              = "#{category}"
+              = f.radio_button(:category, category, :style=>"display:none")
+      .description{:style=>"margin-left:16px"}
+        = "The category is currently set to: <b>#{@item.category}</b>"
+
+
+    .clear
+
+
+    - if @doctype.has_links?
+      .something
+        = "If you are re-posting from another, all you have to do is put the link here and click submit, this will grab the text from the link and then you can edit from there - otherwise just start writing below"
 
     .group
       = f.label :title, "#{t(:title, :scope => "activerecord.attributes.item")}", :class => "label", :style=>"margin-top:16px"
-      = f.text_field :title, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+      = f.text_field :title, :class => "text_field", :style => "width:540px; max-width:540px; margin:0 16px"
       = "."
 
     .group
       = f.label :description, "Short description", :class => "label", :style=>"margin-top:16px"
-      = f.text_area :description, :class => "text_are", :style => "height:48px;width:496px; max-width:496px; margin:0 16px"
+      = f.text_area :description, :class => "text_area", :style => "height:56px; max-height:56px;width:540px; max-width:540px; margin:0 16px; overflow:hidden; padding: 8px"
       .description{:style=>"margin-left:16px"}
-        = h("If you do not fill this it the system will use the first paragraph")
+        = h("If you do not fill this it the system will use the first paragraph - but remember search engines prefer unique descriptions")
 
-      = f.label :tags, "#{t(:tags, :scope => "activerecord.attributes.item")}", :class => "label"
-      .description{:style=>"margin-left:16px"}
-        = h("Start writing your tags - hit TAB to move to the next one")
-      - unless @item.tags[0] = @item.category
-        - appended_category = @item.category.to_s << ", " <<  @item.tags.join(", ")
-        = f.text_field :tags,:value => appended_category, :class => "text_field autocomplete_for_tags"
-      - else
-        = f.text_field :tags,:value => @item.tags.join(", "), :class => "text_field autocomplete_for_tags"
+    .group
 
+
+      .tags{:style=>"float:left"}
+        = f.label :tags, "#{t(:tags, :scope => "activerecord.attributes.item")}", :class => "label"
+        .description{:style=>"margin-left:16px"}
+          = "Start writing your tags - hit <span class='keyboard'>TAB</span> to move to the next one"
+        - unless @item.tags[0] = @item.category
+          - appended_category = @item.category.to_s << ", " <<  @item.tags.join(", ")
+          = f.text_field :tags,:value => appended_category, :class => "text_field autocomplete_for_tags"
+        - else
+          = f.text_field :tags,:value => @item.tags.join(", "), :class => "text_field autocomplete_for_tags"
+
+    .clear
+    .group
 
       - if @doctype.has_video?
         = f.label :video_link, "#{t(:video_link, :scope => "activerecord.attributes")}", :class => "label", :style => "margin-left: 8px"
@@ -52,7 +85,7 @@
       -if current_group.wysiwyg_editor
         = f.text_area :body, :class => "text_area", :id => "wysiwyg_editor", :value => markdown(@item.body)
       -else
-        = f.text_area :body, :class => "text_area", :id => "markdown_editor", :style => "height:256px; width:496px; max-width:496px; margin:0 16px"
+        = f.text_area :body, :class => "text_area", :id => "markdown_editor", :style => "height:256px; width:540px; max-width:540x; margin:0 16px"
 
       .clear{:style => "height:16px;"}
 

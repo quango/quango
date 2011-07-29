@@ -1,0 +1,35 @@
+
+This is a major release so we have updated now to the 1.15.x series - there have been many many changes and improvements to the system in this release
+
+Changelog
+
+* Added categories and document types to the edit page, category is automatically pre-pended to the topics=
+* Editor role enabled, editors can now be assigned that can edit others posts
+* Metadata Can now be edited at page level - there is a button marked "meta" next to quick edit
+* Opengraph adopted for better operability with Facebook and other og: apps
+* Outbound atom/rss feed now available 
+* Added "find me on" linked in, twitter, website/blog and description added to author profile 
+* Updated JW Player
+
+Bugfixes ( Spotted by )
+
+* Member profile pages now show listings again (SF)
+* Various issues with sorting in two column category view ( DJ, SF )
+
+Stylefixes
+
+*
+
+Developers Notes
+
+* Various changes of the order of all the 
+
+
+
+Pending for next release:
+
+
+
+* Rollovers for member lists ( mono -> colour )
+* Fix bumping to be a maximum of three times & fix the "bumped by" on show pages - consider a bumpkin marker?
+* Adapt bump into pin so posts can be made sticky as well as bumped

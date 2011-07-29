@@ -451,8 +451,19 @@ class ItemsController < ApplicationController
     @item.meta_description = @item.description
     @item.meta_publisher = current_group.domain
     @item.meta_abstract = @item.abstract
-    @item.meta_keywords = @item.tags
-    
+
+    keywords_array = Array.new
+
+    keywords_array = keywords_array << @item.category   
+    @item.tags.each do |tag|
+      keywords_array = keywords_array << tag
+    end
+
+    @item.meta_keywords = keywords_array
+
+
+
+
 
     if @item.video_link?
 
@@ -563,7 +574,7 @@ require 'pismo'
         sweep_item_views
 
         current_group.tag_list.add_tags(*@item.tags)
-
+        #@item.meta_keywords = @item.category << ", " << @item.tags
   
         
 
