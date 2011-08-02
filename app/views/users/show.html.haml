@@ -75,29 +75,31 @@
 
       .content{:style=>"margin-bottom:10px"}
         = render :partial => "/users/profile_sidebar", :object => @user
-        = markdown(@user.bio)
+      .content{:style=>"padding-bottom:10px;margin-bottom:10px; border-bottom:1px solid gainsboro"}
+        = @item.user.bio
 
-        - if @user.website_url?
-          .user-links
-            = "My website:"
-            = link_to "#{@user.website}","#{@user.website_url}" 
-        
-        - if @user.twitter?
-          .user-links
-            %span{:style=>"float:left"}
-              = "Follow me on Twitter:"
+      - if @item.user.website_url?
+        .user-links
+          = "My website:"
+          = link_to "#{@item.user.website}","#{@item.user.website_url}" 
+      
+      - if @item.user.twitter?
+        .user-links
+          %span{:style=>"float:left"}
+            = "Follow me on:"
+          = link_to "#{@item.user.twitter_url}", "Twitter" 
 
-            = "<a href=\"https://twitter.com/#{@user.twitter_url}\" class=\"twitter-follow-button\">Follow #{@user.twitter_url}</a>"
-            = "<script src=\"http://platform.twitter.com/widgets.js\" type=\"text/javascript\"></script>"
+          -#= "<a href=\"https://twitter.com/#{@item.user.twitter_url}\" class=\"twitter-follow-button\">Follow #{@item.user.twitter_url}</a>"
+          -#= "<script src=\"http://platform.twitter.com/widgets.js\" type=\"text/javascript\"></script>"
 
 
-        - if @user.linkedin?
-          .user-links
-            %span{:style=>"float:left"}
-              = image_tag "/images/logos/linkedin.png", :height=>"16px"
+      - if @item.user.linkedin?
+        .user-links
+          -#%span{:style=>"float:left"}
+            -#= image_tag "/images/logos/linkedin.png", :height=>"16px"
 
-            = "<script src=\"http://platform.linkedin.com/in.js\" type=\"text/javascript\"></script>"
-            = "<script type=\"IN/MemberProfile\" data-id=\"#{@user.linkedin_url}\" data-format=\"click\" data-text=\"#{@user.display_name}\"></script>"
+          = "<script src=\"http://platform.linkedin.com/in.js\" type=\"text/javascript\"></script>"
+          = "<script type=\"IN/MemberProfile\" data-id=\"#{@item.user.linkedin_url}\" data-format=\"click\" data-text=\"View my proile\"></script>"
 
 
     .block
