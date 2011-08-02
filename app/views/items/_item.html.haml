@@ -22,7 +22,7 @@
     %li.entry.item{:class => class_for_item(item)}
 
       - if item.default_thumbnail?
-        .thumbnail{:style => "width:140px;height:70px; overflow:hidden; float:left;" }
+        .thumbnail{:style => "width:140px;height:70px; overflow:hidden; float:left;margin-right:10px;" }
           - image = Image.find(item.default_thumbnail)
           - base_image = image.image.process(:thumb,image.image_cropping)
           - base_thumbnail = base_image.process(:thumb,"140x")

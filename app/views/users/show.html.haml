@@ -5,44 +5,41 @@
 
 -content_for :show_user do
 
-  .supplementary-navigation
-    %h3
-      = @user.display_name
-
-    .navcontrols
-
-
-
-  .clear
+  = javascript_include_merged :show
 
   #member-tabs
-    %ul.member-tabs
+    %ul.member-tabs{:style=>"width:50%; float:left"}
       %li
         = link_to "Posts", "#posts"
       %li
         = link_to "Comments", "#answers"
       %li
         = link_to "Favourites",  "#favourites"
-  .filter{:style=>""}
-    %ul
-      %li.newest
-        = link_to "newest", user_path(@user, params.merge(:sort=>"newest")), :rel => "nofollow"
-      %li.oldest
-        = link_to "oldest", user_path(@user, params.merge(:sort=>"oldest")), :rel => "nofollow"
-      %li.views
-        = link_to "views ", user_path(@user, params.merge(:sort=>"views")), :rel => "nofollow"
-      %li.votes
-        = link_to "votes ", user_path(@user, params.merge(:sort=>"votes")), :rel => "nofollow"
+
+    .filter{:style=>"height:32px;float:right; width:50%; border-bottom: 1px solid gainsboro"}
+      %div{:style=>"display:inline;float:right"}
+        %label.category-button
+          = link_to "newest", user_path(@user, params.merge(:sort=>"newest")), :rel => "nofollow"
+        %label.category-button
+          = link_to "oldest", user_path(@user, params.merge(:sort=>"oldest")), :rel => "nofollow"
+        %label.category-button
+          = link_to "views ", user_path(@user, params.merge(:sort=>"views")), :rel => "nofollow"
+        %label.category-button
+          = link_to "votes ", user_path(@user, params.merge(:sort=>"votes")), :rel => "nofollow"
+
+  .clear
 
 
-    %div.panes
+
+
+    %div.panes{:style=>"border-right:1px solid gainsboro;"}
       %div.pane
         %ul.items#posts
           -@items.each do |item|
             = render :partial => "items/item", :object => item
         .additional_info
-          = will_paginate @items, :param_name => "items_page"
-          .clear
+          = will_paginate @items, :param_name => "items_page", :per_page => 7
+      .clear
 
       %div.pane
         %ul.items#answers
@@ -51,7 +48,7 @@
             = render :partial => "answers/answer", :object => answer
         .additional_info
           = will_paginate @answers, :param_name => "answers_page"
-          .clear
+      .clear
 
       %div.pane
         %ul.items#favourites
@@ -59,27 +56,49 @@
             = render :partial => "items/item", :object => item
         .additional_info
           = will_paginate @favorites, :param_name => "favorites_page"
-          .clear
+      .clear
 
 
--content_for :sidebar do
-  #sidebar
-    = render :partial => "profile_mini", :object => @user
-    = render :partial => "profile_achievements", :object => @user
-    = render :partial => "profile_statistics", :object => @user
+
 
 -content_for :sidebar_inner do
-  #sidebar-inner
-    .block
+  #sidebar-inner{:style=>"float:left"}
+
+
+    .block{:style=>"border-bottom:1px solid gainsboro; height:32px"}
+      -#%div
+        -#= @user.display_name
       = render :partial => "follow_button", :locals => {:object => @user, :width => "wide"}
 
-    = render :partial => "/users/profile_image", :object => @user
+
     .block
-      %h3
-        = "info"
-      .content
-        = render :partial => "/users/profile_mini", :object => @user
+
+      .content{:style=>"margin-bottom:10px"}
+        = render :partial => "/users/profile_sidebar", :object => @user
         = markdown(@user.bio)
+
+        - if @user.website_url?
+          .user-links
+            = "My website:"
+            = link_to "#{@user.website}","#{@user.website_url}" 
+        
+        - if @user.twitter?
+          .user-links
+            %span{:style=>"float:left"}
+              = "Follow me on Twitter:"
+
+            = "<a href=\"https://twitter.com/#{@user.twitter_url}\" class=\"twitter-follow-button\">Follow #{@user.twitter_url}</a>"
+            = "<script src=\"http://platform.twitter.com/widgets.js\" type=\"text/javascript\"></script>"
+
+
+        - if @user.linkedin?
+          .user-links
+            %span{:style=>"float:left"}
+              = image_tag "/images/logos/linkedin.png", :height=>"16px"
+
+            = "<script src=\"http://platform.linkedin.com/in.js\" type=\"text/javascript\"></script>"
+            = "<script type=\"IN/MemberProfile\" data-id=\"#{@user.linkedin_url}\" data-format=\"click\" data-text=\"#{@user.display_name}\"></script>"
+
 
     .block
       %h3
@@ -92,7 +111,13 @@
           .friend_list
             -@user.followers.each do |follower|
               %span
-                =link_to gravatar(follower.email.to_s, :size => 24), user_path(follower)
+              - @avatar = Avatar.find(follower.default_avatar)
+              - if @avatar.present?
+                - cropped_avatar = @avatar.avatar.process(:thumb,@avatar.avatar_cropping)
+                - default_avatar = cropped_avatar.process(:thumb,"32x32").url
+                = image_tag default_avatar, :style => "height:32px;width:32px;"
+              - else
+                = image_tag "/images/anonymous_avatar.png", :style => "height:32px;width:32px;" #, user_path(user)
 
     .block
       %h3
@@ -106,12 +131,18 @@
             .friend_list
               -@user.following.each do |follower|
                 %span
-                  = link_to gravatar(follower.email.to_s, :size => 24), user_path(follower)
+                - @avatar = Avatar.find(follower.default_avatar)
+                - if @avatar.present?
+                  - cropped_avatar = @avatar.avatar.process(:thumb,@avatar.avatar_cropping)
+                  - default_avatar = cropped_avatar.process(:thumb,"32x32").url
+                  = image_tag default_avatar, :style => "height:32px;width:32px;"
+                - else
+                  = image_tag "/images/anonymous_avatar.png", :style => "height:32px;width:32px;" #, user_path(user)
 
 
 
 - content_for :main do
-  #main-index
+  #main-index{:style=>"width:728px;float:right;"}
     .content
       .inner
         = yield :show_user

@@ -470,9 +470,9 @@ class ItemsController < ApplicationController
       video = VideoInfo.new(@item.video_link)
       @item.title = video.title
       @item.body = video.description
-      @item.tags = video.provider << ", " << video.keywords
+      @item.tags = video.provider << ", " << video.keywords[0..7]
       @item.video_thumbnail = video.thumbnail_small
-      @item.meta_author = video.author
+      #@item.meta_author = video.author.to_s
       @item.meta_title = video.title
       @item.meta_description = @item.description
       @item.meta_publisher = video.provider
@@ -508,6 +508,15 @@ require 'pismo'
         @item.article_link_author = ""
       end
 
+
+      publisher = URI.parse(@item.article_link).to_s
+
+      @item.article_link_publisher = get_host_without_www(@item.article_link)
+
+
+
+
+
       #@item.tags = doc.keywords.to_s
 
       tag_array = Array.new
@@ -536,7 +545,7 @@ require 'pismo'
 
       @item.body = shorten(quote_body, 256)
 
-      #@item.meta_author = doc.author
+      @item.meta_author = @item.user
       @item.meta_title = @item.title
       @item.meta_description = @item.description
       @item.meta_publisher = current_group.domain
@@ -929,9 +938,9 @@ require 'pismo'
   def watch
     @item = Item.find_by_slug_or_id(params[:id])
     @item.add_watcher(current_user)
-    flash[:notice] = t("items.watch.success")
+    flash[:notice] = "You are now watching this item - any new comments will be emailed to you"
     respond_to do |format|
-      format.html {redirect_to item_path(@item)}
+      format.html {redirect_to item_path(@item.doctype, @item)}
       format.js {
         render(:json => {:success => true,
                  :message => flash[:notice] }.to_json)
@@ -1051,6 +1060,14 @@ require 'pismo'
 
 
   protected
+
+
+  def get_host_without_www(url)
+    uri = URI.parse(url)
+    uri = URI.parse("http://#{url}") if uri.scheme.nil?
+    host = uri.host.downcase
+    host.start_with?('www.') ? host[4..-1] : host
+  end
 
   def check_mode
 

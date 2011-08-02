@@ -31,8 +31,8 @@ class Item
   key :video_thumbnail, String
 
   key :article_link, String
-  key :article_link_author, String
-  key :article_link_publisher, String #basically the stripped url
+  key :article_link_author, String, :default => "Null"
+  key :article_link_publisher, String, :default => "Null"
 
   #key :video_id, String
   #belongs_to :video

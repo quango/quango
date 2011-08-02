@@ -20,7 +20,7 @@
 
         %div.fn.nickname
           -unless user.nil?
-            =link_to h(user.first_name.to_s + " " + user.last_name.to_s), user_path(user), :style => "font-weight:bold"
+            =link_to "#{user.display_name}", user_path(user), :style => "font-weight:bold"
 
           %span.reputation{:title => t("activerecord.attributes.user.reputation")}
             -unless user.nil?
@@ -94,10 +94,9 @@
 
     %div.details{:style=>"width:92px;float:left; overflow:hidden"}
 
-      %span.fn.nickname
+      %div.fn.nickname
         -unless user.nil?
-          =link_to h(user.first_name.to_s + " " + user.last_name.to_s), user_path(user), :class => "user-link"
-      .clear
+          =link_to "#{user.display_name}", user_path(user), :style => "font-weight:bold"
 
 
       %span.reputation{:title => t("activerecord.attributes.user.reputation")}
@@ -158,10 +157,9 @@
 
     .details{:style=>"width:140px; overflow:hidden"}
 
-      %span.fn.nickname
+      %div.fn.nickname
         -unless user.nil?
-          =link_to h(user.first_name.to_s + " " + user.last_name.to_s), user_path(user), :class => "user-link"
-      .clear
+          =link_to "#{user.display_name}", user_path(user)
 
 
       %span.reputation{:title => t("activerecord.attributes.user.reputation")}

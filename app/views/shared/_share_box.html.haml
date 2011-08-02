@@ -25,8 +25,16 @@
           = "<!--Digg Placeholder-->" 
 
       %div{:style=>"float:left;margin-right:4px;width:50px;"}
-        %script{:type=>"text/javascript",:src=>"http://www.stumbleupon.com/hostedbadge.php?s=5"}
-          = "<!--Stumbleupon Placeholder-->"
+
+        = "<g:plusone size=\"tall\"></g:plusone>"
+
+        %script{:type=>"text/javascript"}
+          = "(function() {"
+          = "var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;"
+          = "po.src = 'https://apis.google.com/js/plusone.js';"
+          = "var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);"
+          = "})();"
+
 
       %div{:style=>"float:left;margin-right:4px;width:55px;"}
         = "<a href='http://twitter.com/share' class='twitter-share-button' data-count='vertical' data-via='fast_thinking'}>.</a>"     

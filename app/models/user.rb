@@ -19,17 +19,25 @@ class User
   key :first_name,                String, :limit => 40
   key :last_name,                 String, :limit => 40
   key :display_name,              String
-  key :display_slug,                 String
+  key :display_slug,              String
   key :terms,                Boolean, :default => false
 
 
 
-  slug_key :display_name, :unique => true, :min_length => 8
+  slug_key :display_name, :unique => false, :min_length => 8
   key :slugs, Array, :index => true
 
-  key :bio,                       String, :limit => 200
+  key :bio,                       String, :limit => 256
+
   key :website,                   String, :limit => 200
+  key :website_url,               String, :limit => 200
+  key :twitter,                   Boolean, :default => false
+  key :twitter_url,               String, :limit => 200
+  key :linkedin,                  Boolean, :default => false
+  key :linkedin_url,              String, :limit => 200
+
   key :location,                  String, :limit => 200
+
   key :birthday,                  Time
 
   #key :profile_image, String

@@ -1,18 +1,18 @@
 -bronze, silver, gold = @user.badges_count_on(current_group)
 
-.user_mini{:style=>"height:32px;width:128px; overflow:hidden"}
+.user_mini{:style=>"margin:10px 0;height:64px;width:300px; overflow:hidden"}
 
-  %div.gravatar{:style=>"width:32px;float:left; margin-right:4px;"}
+  %div.gravatar{:style=>"width:64px;float:left; margin-right:4px;"}
 
     - @avatar = Avatar.find(@user.default_avatar)
     - if @avatar.present?
       - cropped_avatar = @avatar.avatar.process(:thumb,@avatar.avatar_cropping)
-      - default_avatar = cropped_avatar.process(:thumb,"32x32").url
-      = image_tag default_avatar #, user_path(user) 
+      - default_avatar = cropped_avatar.process(:thumb,"64x64").url
+      = image_tag default_avatar, :style => "height:64px;width:64px;"
     - else
-      = image_tag "/images/anonymous_avatar.png", :height => "32px", :width => "32px" #, user_path(user)
+      = image_tag "/images/anonymous_avatar.png", :style => "height:64px;width:64px;" #, user_path(user)
 
-  %div.details{:style=>"width:92px;float:right; overflow:hidden"}
+  %div.details{:style=>"width:224px;float:right; overflow:hidden"}
 
     %span.fn.nickname
       -unless @user.nil?

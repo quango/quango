@@ -174,15 +174,10 @@ class UsersController < ApplicationController
       @user.password_confirmation = params[:user][:password_confirmation]
     end
 
-    @user.safe_update(%w[login email first_name last_name default_avatar language timezone preferred_languages 
-                         notification_opts bio hide_country website], params[:user])
+    @user.safe_update(%w[slug login email display_name first_name last_name default_avatar language timezone preferred_languages 
+                         notification_opts bio hide_country website website_url twitter twitter_url linkedin linkedin_url], params[:user])
 
-    first_name = params[:user][:first_name]
-    last_name = params[:user][:last_name]
-    display_slug = first_name.downcase + "-" + last_name.downcase
-    display_name = first_name.capitalize + " " + last_name.capitalize
-    @user.display_slug = display_slug
-    @user.display_name = display_name
+
 
     if params[:user]["birthday(1i)"]
       @user.birthday = build_date(params[:user], "birthday")

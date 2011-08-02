@@ -101,6 +101,7 @@ en:
         avatar: Profile image
         hide_country: Do not display my country
         language_filter: Filter by language
-        website: Website
+        website: Website/Blog Text
+        website_url: Website Link
         birthday: Birthday
         age: Age

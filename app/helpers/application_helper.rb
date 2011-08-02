@@ -1,5 +1,9 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+
+
+
+
   def with_facebook?
     return true if current_group.share.fb_active
 

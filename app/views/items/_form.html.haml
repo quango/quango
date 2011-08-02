@@ -21,20 +21,25 @@
     .group
       .category{:style=>"float:left; width:728px;"}
         = f.label :category, "Category", :class => "label", :style=>"margin-top:16px"
-        %ol
+        %div
         -#= f.select(:category, current_group.group_categories.reverse)
         - current_group.group_categories.each do |category|
           - if @item.category == category
-            %li.category-button{:style=>"background-color:black; color: red; float:left;"}
+            %label.category-button{:style=>"background-color:black; color: red; float:left;"}
+              = f.radio_button(:category, category, :checked => true, :style=>"float:left")
               = "#{category}"
-              = f.radio_button(:category, category, :checked => true, :style=>"display:none")
+
 
           - else
-            %li.category-button{:style=>"background-color:white; color: #666; float:left;"}
+            %label.category-button{:style=>"background-color:white; color: #666; float:left;line-height:16px"}
+              = f.radio_button(:category, category, :style=>"float:left;")
               = "#{category}"
-              = f.radio_button(:category, category, :style=>"display:none")
+
       .description{:style=>"margin-left:16px"}
         = "The category is currently set to: <b>#{@item.category}</b>"
+
+
+
 
 
     .clear
@@ -93,6 +98,12 @@
       - if @doctype.has_links?
         = f.label :article_link, "This is the source link", :class => "label", :style => "margin-left: 8px"
         = f.text_field :article_link, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+
+        = f.label :article_link_author, "This is the source link", :class => "label", :style => "margin-left: 8px"
+        = f.text_field :article_link_author, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+
+        = f.label :article_link_publisher, "This is the source link", :class => "label", :style => "margin-left: 8px"
+        = f.text_field :article_link_publisher, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
 
 
       -#.openedit{:style => "float:right; margin-right: 16px; display:none"}

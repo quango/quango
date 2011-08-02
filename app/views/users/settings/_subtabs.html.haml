@@ -5,15 +5,15 @@
       %li
         = link_to h("Welcome"), settings_path(:tab => "welcome"), :class => "tab"
       %li.account
-        = link_to h("Settings"), settings_path(:tab => "account")
-      %li.social
-        = link_to h("Social Networks"), settings_path(:tab => "social")
+        = link_to h("Account Details"), settings_path(:tab => "account")
       %li.details
-        = link_to h("Profile Info"), settings_path(:tab => "details")
+        = link_to h("Public Profile"), settings_path(:tab => "details")
       %li.avatar
-        = link_to h("Images"), avatars_path
+        = link_to h("Profile Images"), avatars_path
       %li.messaging
         = link_to h("Messages"), settings_path(:tab => "messaging")
+      %li.social
+        = link_to h("Social Networks"), settings_path(:tab => "social")
   .clear
 
 

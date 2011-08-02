@@ -8,22 +8,17 @@
 
   = yield :after_form
 
-
-
--content_for :sidebar do
-  #sidebar
-    = render :partial => "profile_statistics", :object => @user
-    = render :partial => "profile_achievements", :object => @user
-
 -content_for :sidebar_inner do
   #sidebar-inner
     = render :partial => "profile_image", :object => @user
     = render :partial => "profile_details", :object => @user
     = render :partial => "profile_biography", :object => @user
+    = render :partial => "profile_statistics", :object => @user
+    = render :partial => "profile_achievements", :object => @user
 
 /Layout
 - content_for :main do
-  #main-index
+  #main-index{:style=>"float:left; width:728px;"}
     .content
       .inner
         .supplementary-navigation

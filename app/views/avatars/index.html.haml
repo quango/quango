@@ -3,7 +3,7 @@
 
 - content_for :main do
 
-  #main-index
+  #main-index{:style=>"float:left; width:728px;"}
     .supplementary-navigation
       ="My Profile Images"
     
@@ -74,19 +74,15 @@
           .instruction-box{:style=>"float:right;"}
             = link_to 'Add a new image', new_avatar_path, :class => "action-button", :style=>"width:256px; height:24px" 
 
- 
--content_for :sidebar do
-  #sidebar
-    = render :partial => "/users/profile_mini", :object => @user
-    = render :partial => "/users/profile_statistics", :object => @user
-    = render :partial => "/users/profile_achievements", :object => @user
 
 -content_for :sidebar_inner do
   #sidebar-inner
     = render :partial => "/users/profile_image", :object => @user
     = render :partial => "/users/profile_biography", :object => @user
     = render :partial => "/users/profile_details", :object => @user
-
+    = render :partial => "/users/profile_mini", :object => @user
+    = render :partial => "/users/profile_statistics", :object => @user
+    = render :partial => "/users/profile_achievements", :object => @user
 
 
        

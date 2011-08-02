@@ -8,7 +8,7 @@
     - @avatar = Avatar.find(@user.profile_image)
     - if @avatar.present?
       - cropped_avatar = @avatar.avatar.process(:thumb,@avatar.avatar_cropping)
-      - profile_image = cropped_avatar.process(:thumb,"256x256").url
-      = image_tag profile_image 
+      - profile_image = cropped_avatar.process(:thumb,"300x300").url
+      = image_tag profile_image, :style=>"width:300px;height:300px;"
     - else
-      = image_tag "/images/anonymous_avatar.png"
+      = image_tag "/images/anonymous_avatar.png", :style=>"width:300px;height:300px;"

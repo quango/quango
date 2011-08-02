@@ -161,8 +161,8 @@
               -#= "description"
 
           .entry-content
-            - if @item.article_link_author
-              = "<b>#{@item.article_link_author}</b> writes;"
+            - if @item.article_link
+              = "<b>#{@item.article_link_author}</b> writes for #{@item.article_link_publisher};"
 
 
             = item_body
