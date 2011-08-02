@@ -81,7 +81,7 @@
       - if @user.website_url?
         .user-links
           = "My website:"
-          = link_to "#{@item.user.website}","#{@user.website_url}" 
+          = link_to "#{@user.website}","#{@user.website_url}" 
       
       - if @user.twitter?
         .user-links
