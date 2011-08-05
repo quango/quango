@@ -1,11 +1,11 @@
 .group
-  = f.label :display_name, t(:first_name, :scope => "activerecord.attributes.user"), :class => "label"
+  = f.label :display_name, "Display name", :class => "label"
   = f.text_field :display_name, :class => "text_field"
   = "Your display name is used on posts and comments - it is how others see you"
 
-  = f.label :slug, t(:first_name, :scope => "activerecord.attributes.user"), :class => "label"
+  = f.label :slug, "Member Profile URL", :class => "label"
   = f.text_field :slug, :class => "text_field"
-  = "Your display name is used on posts and comments - it is how others see you"
+  = "By default this is a number, but you can have a custom one if desired and available - simply fill in here to check"
 
   .group
     = f.label :bio, t(:bio, :scope => "activerecord.attributes.user", :default => "Bio"), :class => "label"

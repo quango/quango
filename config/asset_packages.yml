@@ -4,8 +4,7 @@
 javascripts:
 - base:
   - jquery
-  - jquery.tools.min
-  - jquery-ui
+
   #- jquery-ui
   - jquery.textarea
   #- jquery.autocomplete
@@ -36,7 +35,8 @@ javascripts:
   #- jquery.scroll
 
 - show:
-
+  - jquery.tools.min
+  - jquery-ui
   - showdown
   - highlight/prettify
   - components/search

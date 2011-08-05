@@ -1,5 +1,27 @@
 -bronze, silver, gold = user.badges_count_on(current_group)
 
+-if width == "follower"
+
+  - @avatar = Avatar.find(user.default_avatar)
+  - if @avatar.present?
+    - cropped_avatar = @avatar.avatar.process(:thumb,@avatar.avatar_cropping)
+    - default_avatar = cropped_avatar.process(:thumb,"32x32")
+    - default_avatar_grey = default_avatar.process(:greyscale,"20")
+ 
+    %div{:style=>"float:left;display:inline; border:1px solid gainsboro; margin:1px"}
+      .thumb{:style=>"background-image:url(\"#{default_avatar_grey.url}\");height:32px; width:32px;"}
+        %a{:href=>"#{user_path(user)}"}
+          = image_tag "/images/spacer.gif", :height => "32px", :width => "32px", :border=>"0"
+
+  - else
+    %div{:style=>"float:left;display:inline; border:1px solid gainsboro; margin:1px"}
+      .thumb{:style=>"height:32px; width:32px;"}
+        %a{:href=>"#{user_path(user)}"}
+          = image_tag "/images/anonymous_avatar.png", :height => "32px", :width => "32px", :border=>"0"
+
+
+
+
 -if width == "wide"
   .user_mini{:style=>"width:300px; height:64px;border-bottom:1px solid white;overflow:hidden"}
     %div{:style=>"float:left; overflow:hidden;height:68px; width:68px;"}
@@ -135,7 +157,7 @@
             %span.bronze.badgeicon-small
             %span.badgecount
               =bronze
-.clear
+  .clear
 
 
 -if width == "square"
@@ -198,7 +220,7 @@
             %span.bronze.badgeicon-small
             %span.badgecount
               =bronze
-.clear
+  .clear
 
 
 

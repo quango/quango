@@ -21,9 +21,8 @@
   #main-index{:style=>"float:left; width:728px;"}
     .content
       .inner
-        .supplementary-navigation
-          = "#{@user.first_name.to_s}'s "
-          = "#{@active_subtab}"
+        %h1
+          = "My Settings"
         .clear
         = yield :secondary_navigation
         = yield :form

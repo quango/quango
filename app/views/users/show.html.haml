@@ -62,21 +62,30 @@
 
 
 -content_for :sidebar_inner do
-  #sidebar-inner{:style=>"float:left"}
+  .sidebar-inner{:style=>"float:left; width:300px;"}
 
 
     .block{:style=>"border-bottom:1px solid gainsboro; height:32px"}
-      -#%div
-        -#= @user.display_name
-      = render :partial => "follow_button", :locals => {:object => @user, :width => "wide"}
+      .heading
+        = "Member profile"
 
 
-    .block
+
+    .block{:style=>"margin-bottom:10px"}
 
       .content{:style=>"margin-bottom:10px"}
         = render :partial => "/users/profile_sidebar", :object => @user
+
+
+
+
       .content{:style=>"padding-bottom:10px;margin-bottom:10px; border-bottom:1px solid gainsboro"}
         = @user.bio
+
+
+
+
+
 
       - if @user.website_url?
         .user-links
@@ -103,44 +112,22 @@
 
 
     .block
-      %h3
+      .heading
         = "Followers"
       .content
-        -if @user.followers.count > 0
-          .counter
-            = number_with_delimiter(@user.followers.count)
-            Followers
-          .friend_list
-            -@user.followers.each do |follower|
-              %span
-              - @avatar = Avatar.find(follower.default_avatar)
-              - if @avatar.present?
-                - cropped_avatar = @avatar.avatar.process(:thumb,@avatar.avatar_cropping)
-                - default_avatar = cropped_avatar.process(:thumb,"32x32").url
-                = image_tag default_avatar, :style => "height:32px;width:32px;"
-              - else
-                = image_tag "/images/anonymous_avatar.png", :style => "height:32px;width:32px;" #, user_path(user)
+        .friend_list{:style=>"width:300px;"}
+          -@user.followers.each do |follower|
+            = render :partial => "users/user_mini", :locals => {:user => follower, :width => "follower"}
+    .clear
 
     .block
-      %h3
+      .heading
         = "Following"
       .content
-        -if current_user = @user
-          -if @user.following.count > 0
-            .counter
-              = number_with_delimiter(@user.following.count)
-              Following
-            .friend_list
-              -@user.following.each do |follower|
-                %span
-                - @avatar = Avatar.find(follower.default_avatar)
-                - if @avatar.present?
-                  - cropped_avatar = @avatar.avatar.process(:thumb,@avatar.avatar_cropping)
-                  - default_avatar = cropped_avatar.process(:thumb,"32x32").url
-                  = image_tag default_avatar, :style => "height:32px;width:32px;"
-                - else
-                  = image_tag "/images/anonymous_avatar.png", :style => "height:32px;width:32px;" #, user_path(user)
-
+        .friend_list{:style=>"width:300px"}
+          -@user.following.each do |follower|
+            = render :partial => "users/user_mini", :locals => {:user => follower, :width => "follower"}
+    .clear
 
 
 - content_for :main do

@@ -8,7 +8,7 @@
     - if @avatar.present?
       - cropped_avatar = @avatar.avatar.process(:thumb,@avatar.avatar_cropping)
       - default_avatar = cropped_avatar.process(:thumb,"64x64").url
-      = image_tag default_avatar, :style => "height:64px;width:64px;"
+      = image_tag default_avatar, :style => "height:64px;width:64px;", :height => "64", :width => "64", :title => "#{@user.display_name}", :alt => "#{@user.display_name}"
     - else
       = image_tag "/images/anonymous_avatar.png", :style => "height:64px;width:64px;" #, user_path(user)
 
@@ -56,4 +56,10 @@
           %span.bronze.badgeicon-small
           %span.badgecount
             =bronze
+
+
+    .action{:style=>"margin-top:10px;"}
+      = render :partial => "follow_button", :locals => {:object => @user, :width => "wide"}
+
+
 .clear

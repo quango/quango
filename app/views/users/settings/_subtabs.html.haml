@@ -3,17 +3,17 @@
   .secondary-navigation{:style => "background-color:#{current_group.secondary};"}
     %ul
       %li
-        = link_to h("Welcome"), settings_path(:tab => "welcome"), :class => "tab"
+        = link_to h("Welcome"), settings_path(:tab => "welcome"), :class => "category-button", :style=>"color:black;"
       %li.account
-        = link_to h("Account Details"), settings_path(:tab => "account")
+        = link_to h("Account Details"), settings_path(:tab => "account"), :class => "category-button", :style=>"color:black;"
       %li.details
-        = link_to h("Public Profile"), settings_path(:tab => "details")
+        = link_to h("Public Profile"), settings_path(:tab => "details"), :class => "category-button", :style=>"color:black;"
       %li.avatar
-        = link_to h("Profile Images"), avatars_path
+        = link_to h("Profile Images"), avatars_path, :class => "category-button", :style=>"color:black;"
       %li.messaging
-        = link_to h("Messages"), settings_path(:tab => "messaging")
+        = link_to h("Messages"), settings_path(:tab => "messaging"), :class => "category-button", :style=>"color:black;"
       %li.social
-        = link_to h("Social Networks"), settings_path(:tab => "social")
+        = link_to h("Social Networks"), settings_path(:tab => "social"), :class => "category-button", :style=>"color:black;"
   .clear
 
 
