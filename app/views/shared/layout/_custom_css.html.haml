@@ -7,26 +7,45 @@
 
   %style{:type => 'text/css'}
 
-    \.logo-container-inner {background-color: white;border-left: 2px solid white;border-right: 4px solid white;background-color: #{current_group.secondary};background:-webkit-gradient(linear,left top,left bottom,to(#ffffff),from(#{current_group.secondary}));background:-moz-linear-gradient(top,#{current_group.secondary},#ffffff);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.secondary}',endColorstr='#ffffff');}
+    - if current_group.header_bg
+
+      \.logo-container-inner {background-color: white;border-left: 2px solid white;border-right: 4px solid white;background-color: #{current_group.header_bg};}
+    - else
+
+      \.logo-container-inner {background-color: white;border-left: 2px solid white;border-right: 4px solid white;background-color: #{current_group.secondary};background:-webkit-gradient(linear,left top,left bottom,to(#ffffff),from(#{current_group.secondary}));background:-moz-linear-gradient(top,#{current_group.secondary},#ffffff);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.secondary}',endColorstr='#ffffff');}
 
     \#header-container-inner { background:-webkit-gradient(linear,left top,left bottom,to(#{current_group.secondary}),from(#ffffff));background:-moz-linear-gradient(bottom,#{group.secondary},#ffffff);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ffffff',endColorstr='#{group.secondary}');border-left: 2px solid white;border-right: 4px solid white;}
 
     \.display-name-i{color:#{current_group.primary_dark}; backgrond-image:url('/images/white_25_bg.png');}
     \.display-name-ii{color:#555051}
+    - if current_group.toolbar_bg
 
-    \.navigation-container {height:40px;background:#{current_group.primary_dark};border-bottom:1px solid #{current_group.tertiary};}
+      \.navigation-container {height:40px;background:#{current_group.toolbar_bg};border-bottom:1px solid #{current_group.tertiary};}
+      \.navigation-container-inner {height:40px;background:#{current_group.toolbar_bg};border-bottom:1px solid #{current_group.tertiary};}
+
+    - else
+      \.navigation-container {height:40px;background:#{current_group.primary_dark};border-bottom:1px solid #{current_group.tertiary};}
     \.channel-container-inner {background-color: #ffffff;border-left: 2px solid white;border-right: 4px solid white;}
 
 - else
 
   %style{:type => 'text/css'}
 
-    \.logo-container-inner {background-color: white;border-left: 2px solid white;border-right: 4px solid white;background-color: #{current_group.secondary};background:-webkit-gradient(linear,left top,left bottom,from(#555051),to(#{current_group.secondary}));background:-moz-linear-gradient(top,#555051,#{current_group.secondary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,endColorstr='#{current_group.secondary}',startColorstr='#555051');}
+    - if current_group.header_bg
+      \.logo-container-inner {background-color: white;border-left: 2px solid white;border-right: 4px solid white;background-color: #{current_group.header_bg};}
+    - else
+      \.logo-container-inner {background-color: white;border-left: 2px solid white;border-right: 4px solid white;background-color: #{current_group.secondary};background:-webkit-gradient(linear,left top,left bottom,from(#555051),to(#{current_group.secondary}));background:-moz-linear-gradient(top,#555051,#{current_group.secondary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,endColorstr='#{current_group.secondary}',startColorstr='#555051');}
 
 
     \#header-container-inner { background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.secondary}),to(#ffffff));background:-moz-linear-gradient(top,#{group.secondary},#ffffff);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,endColorstr='#ffffff',startColorstr='#{current_group.secondary}');border-left: 2px solid white;border-right: 4px solid white;}
 
-    \.navigation-container {height:40px;background:#{current_group.primary};border-bottom:1px solid #{current_group.tertiary};background:-webkit-gradient(linear,left top,left bottom,to(#{current_group.tertiary}),from(#{current_group.primary}));background:-moz-linear-gradient(top,#{current_group.primary},#{current_group.tertiary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,endColorstr='#{current_group.primary}',startColorstr='#{current_group.tertiary}');}
+    - if current_group.toolbar_bg
+
+      \.navigation-container {height:40px;background:#{current_group.toolbar_bg};border-bottom:1px solid #{current_group.tertiary};}
+
+    - else
+
+      \.navigation-container {height:40px;background:#{current_group.primary};border-bottom:1px solid #{current_group.tertiary};background:-webkit-gradient(linear,left top,left bottom,to(#{current_group.tertiary}),from(#{current_group.primary}));background:-moz-linear-gradient(top,#{current_group.primary},#{current_group.tertiary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,endColorstr='#{current_group.primary}',startColorstr='#{current_group.tertiary}');}
 
 
     \.channel-container-inner {background-color: #{group.secondary};border-left: 2px solid white;border-right: 4px solid white;}
@@ -106,6 +125,9 @@
 
   a{color:#{current_group.tertiary};text-decoration: none;}
   a:hover{color:#{current_group.primary};text-decoration:none;} 
+
+
+
 
   <!--//-->
 
