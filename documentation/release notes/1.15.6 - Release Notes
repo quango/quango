@@ -1,8 +1,11 @@
 
-This is a major release so we have updated now to the 1.15.x series - there have been many many changes and improvements to the system in this release
+This release has some major changes and modifications - we have tried to simplify the format of the header and major improvements to the member profiles. The less complex header is designed to make the end user experience more straightforward as before we had mutiple levels of navigation. Channel tabs are still available however these will be deprecated by the drop down in the toolbar
+
+
 
 Changelog
 
+* "Active USers" Widget to show recent activity rather than high scores - this means that new contributors should appear on the homepage
 * Added categories and document types to the edit page, category is automatically pre-pended to the topics=
 * Editor role enabled, editors can now be assigned that can edit others posts
 * Metadata Can now be edited at page level - there is a button marked "meta" next to quick edit
@@ -10,6 +13,7 @@ Changelog
 * Outbound atom/rss feed now available 
 * Added "find me on" linked in, twitter, website/blog and description added to author profile 
 * Updated JW Player
+* Added Vanilla theme for white sites
 
 Bugfixes ( Spotted by )
 
@@ -18,7 +22,9 @@ Bugfixes ( Spotted by )
 
 Stylefixes
 
-*
+* Various enhancements to the member profile pages
+* Modified the headers to be simpler and more logical
+* fixed video box on homepage to line up properly
 
 Developers Notes
 

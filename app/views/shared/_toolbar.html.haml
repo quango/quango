@@ -10,8 +10,8 @@
         %ul.topbar.combobox.left
           %li
             = image_tag("#{current_group.favicon_path}",:height=>"16px",:width=>"16px",  :style => "margin:6px 4px 4px 4px", :class => "main-icon")
-            =link_to h(current_group.display_name_i), domain_url(:custom => current_group.domain), :style=>"height:24px; line-height:24px;padding:4px 0 4px 0px"
-            =link_to h(current_group.display_name_ii), domain_url(:custom => current_group.domain), :style=> "height:24px; line-height:24px;padding:4px 0 4px -4px"
+            =link_to "Home", :style=>"height:24px; line-height:24px;padding:4px 0 4px 0px"
+            -#=link_to h(current_group.display_name_ii), domain_url(:custom => current_group.domain), :style=> "height:24px; line-height:24px;padding:4px 0 4px -4px"
 
             %ul
               -current_user.groups(:select => [:name, :domain]).each do |group|
@@ -28,8 +28,8 @@
         %ul.topbar.combobox.left
           %li
             = image_tag("#{current_group.favicon_path}",:height=>"16px",:width=>"16px",  :style => "margin:6px 4px 4px 4px", :class => "main-icon")
-            =link_to h(current_group.display_name_i), domain_url(:custom => current_group.domain), :style=>"height:16px: width:16px; padding:4px 0"
-            =link_to h(current_group.display_name_ii), domain_url(:custom => current_group.domain), :style=> "height:16px: width:16px; margin:4px 0 4px -4px"
+            =link_to "Home", domain_url(:custom => current_group.domain), :style=>"height:16px: width:16px; padding:4px 0"
+            -#=link_to h(current_group.display_name_ii), domain_url(:custom => current_group.domain), :style=> "height:16px: width:16px; margin:4px 0 4px -4px"
 
 
   -else
@@ -54,9 +54,6 @@
       = link_to "Login", new_user_session_path
     .entry
       = link_to "Become a member", new_user_path, :style => "font-weight:bold;"
-      |
-    .entry
-      = link_to "Member benefits", "/about/benefits"
       |
 
 
@@ -105,8 +102,8 @@
       -#=link_to h("My Community"), user_path(current_user)
       -#|
     .entry
-      =link_to h("My Settings"), settings_path(:tab => "welcome")
-      |
+      =link_to "<img src=\"/images/icons/settings.png\" height=\"16px\" width=\"16px\" style=\"margin:8px 2px;\">", settings_path(:tab => "welcome")
+
 
   -if logged_in?
 

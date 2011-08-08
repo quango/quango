@@ -56,8 +56,11 @@
               .left
                 =link_to h(current_group.display_name_ii), current_group.display_name_ii_link, :class=> "display-name-ii"
               -if current_group.strapline?
-                .strapline{:style => "height:40px;color:white;margin:12px 10px 0 10px;float:left; border-left:1px solid white"}
+                .strapline{:style => "height:40px;color:#{current_group.primary};margin:12px 10px 0 10px;float:left; border-left:1px solid color:#{current_group.primary}"}
                   ="#{current_group.strapline}"
+            .search{:style=>"height:#{current_group.logo_info['height']}px;line-height:#{current_group.logo_info['height']}px;float:right;"}
+
+              = render :partial => "shared/search"
 
         -else
           .logo{:style => "height:#{current_group.logo_info['height']}px;width:#{current_group.logo_info['width']}px; float:left"}
@@ -75,15 +78,16 @@
 
     #header-container
       #header-container-inner
-        .navigation-container{:style=>"height:40px"}
+        .navigation-container{:style=>"width:1032px; height:32px;"}
+
           .navigation{:style=>"float:left; height:32px; line-height:32px"}
             - if current_group.show_category_navigation
               = render :partial => "shared/category_navigation"
             - else
               = render :partial => "shared/contextual_navigation"
-          %div{:style=>"float:right;"}
 
-            = render :partial => "shared/share_box_groups", :locals => {:item => @item}
+          = render :partial => "shared/share_box_groups", :locals => {:item => @item}
+
 
     #container{:class => @current_class}
 

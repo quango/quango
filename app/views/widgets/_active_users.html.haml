@@ -1,0 +1,20 @@
+%h4{:style=>"line-height:32px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:white; background-color:#{current_group.primary_dark}; border-top:4px solid black;margin:0; font-size:14px; letter-spacing:0px;font-weight:bold;border-bottom:1px solid white; border-top:4px solid white"}
+  %div{:style=>"padding:1px 0 3px 4px; height:18px; width:18px; float:left;"}
+    = "<img src='/images/logos/star_16.png' height='14px' width='14px'/>"
+  =h("#{current_group.leaders_label}")
+.content
+  %ul.members-list
+    -widget.active_users(current_group).each do |user|
+      -#if user.login != "admin"
+      -if width == "wide"
+        %li{:style => "height:64px"}
+          = render :partial => "users/user_mini", :locals => {:user => user, :width => "wide"}
+      -if width == "narrow"
+        %li{:style => "height:32px"}
+          = render :partial => "users/user_mini", :locals => {:user => user, :width => "narrow"}
+  .more
+    =link_to t("scaffold.more"), users_path
+  .clear
+.clear
+
+
