@@ -9,10 +9,10 @@
 
     - if current_group.header_bg
 
-      \.logo-container-inner {border-left: 2px solid white;border-right: 4px solid white;background:-webkit-gradient(linear,left top,left bottom,to(#ffffff),from(#{current_group.secondary}));background:-moz-linear-gradient(top,#{current_group.secondary},#ffffff);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.secondary}',endColorstr='#ffffff');}
+      \.logo-container-inner {border-left: 2px solid white;border-right: 4px solid white;background:-webkit-gradient(linear,left top,left bottom,to(#ffffff),from(#dcdcdc));background:-moz-linear-gradient(top,#dcdcdc,#ffffff);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#dcdcdc',endColorstr='#ffffff');}
     - else
 
-      \.logo-container-inner {border-left: 2px solid white;border-right: 4px solid white;background:-webkit-gradient(linear,left top,left bottom,to(#ffffff),from(#{current_group.header_bg}));background:-moz-linear-gradient(top,#dcdcdc,#ffffff);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#dcdcdc',endColorstr='#ffffff');}
+      \.logo-container-inner {border-left: 2px solid white;border-right: 4px solid white;background:-webkit-gradient(linear,left top,left bottom,to(#ffffff),from(#dcdcdc));background:-moz-linear-gradient(top,#dcdcdc,#ffffff);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#dcdcdc',endColorstr='#ffffff');}
 
     \#header-container-inner { background-color:'#{current_group.secondary}';border-left: 2px solid white;border-right: 4px solid white;}
 
@@ -20,12 +20,15 @@
     \.display-name-ii{color:#555051}
     - if current_group.toolbar_bg
 
-      \.navigation-container {height:32px;background:#{current_group.toolbar_bg};border-bottom:1px solid #{current_group.tertiary};}
-      \.navigation-container-inner {height:32px;background:#{current_group.toolbar_bg};border-bottom:1px solid #{current_group.tertiary};}
+      \.navigation-container {height:40px;background:#{current_group.toolbar_bg};border-bottom:1px solid #{current_group.tertiary};border-top:4px solid #dcdcdc;}
+      \.navigation-container-inner {height:40px;background:#{current_group.toolbar_bg};border-bottom:1px solid #{current_group.tertiary};}
 
     - else
       \.navigation-container {height:32px;border-top:1px solid #{current_group.primary_dark};}
     \.channel-container-inner {background-color: #ffffff;border-left: 2px solid white;border-right: 4px solid white;}
+    \.navigation-container {background:#{current_group.primary};background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.primary}),to(#{current_group.tertiary}));background:-moz-linear-gradient(top,#{current_group.primary},#{current_group.tertiary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,endColorstr='#{current_group.primary}',startColorstr='#{current_group.tertiary}');}
+
+    \#header-container-inner {background:#ffffff;border-left: 2px solid white;border-right: 4px solid white;}
 
 - else
 
@@ -34,18 +37,23 @@
     \.display-name-i{color:white; background-image:url('/images/white_25_bg.png');}
     \.display-name-ii{color:#{current_group.secondary}}
 
-    \.logo-container-inner {border-left: 2px solid white;border-right: 4px solid white;background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.primary}),to(#{current_group.tertiary}));background:-moz-linear-gradient(top,#{current_group.primary},#{current_group.tertiary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,endColorstr='#{current_group.tertiary}',startColorstr='#{current_group.primary}');}
+    \.logo-container-inner {border-left: 2px solid white;border-right: 4px solid white;background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.primary_dark}),to(#{current_group.secondary}));background:-moz-linear-gradient(top,#{current_group.primary_dark},#{current_group.secondary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,endColorstr='#{current_group.secondary}',startColorstr='#{current_group.primary_dark}');}
 
 
-    \#header-container-inner { background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.primary}),to(#{current_group.tertiary}));background:-moz-linear-gradient(top,#{group.primary},#{current_group.tertiary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,endColorstr='#{current_group.primary}',startColorstr='#{current_group.tertiary}');border-left: 2px solid white;border-right: 4px solid white;}
+    -# \#header-container {}
+
+    \.navigation-container {background:#{current_group.primary};background:-webkit-gradient(linear,left top,left bottom,to(#{current_group.tertiary}),from(#{current_group.primary}));background:-moz-linear-gradient(top,#{current_group.primary},#{current_group.tertiary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,endColorstr='#{current_group.primary}',startColorstr='#{current_group.tertiary}');}
+
+    \#header-container-inner {background:#{current_group.secondary};background:-webkit-gradient(linear,left top,left bottom,to(#ffffff),from(#{current_group.secondary}));background:-moz-linear-gradient(top,#{current_group.secondary},#ffffff);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,endColorstr='#ffffff',startColorstr='#{current_group.secondary}');;border-left: 2px solid white;border-right: 4px solid white;}
 
     - if current_group.toolbar_bg
 
+      \.navigation-container {height:40px;background:#{current_group.toolbar_bg};border-bottom:1px solid #{current_group.tertiary};border-top:4px solid #dcdcdc;}
       \.navigation-container {background:#{current_group.toolbar_bg};border-bottom:1px solid #{current_group.tertiary};}
 
     - else
 
-      \.navigation-container {background:#{current_group.primary};background:-webkit-gradient(linear,left top,left bottom,to(#{current_group.primary}),from(#{current_group.tertiary}));background:-moz-linear-gradient(top,#{current_group.primary},#{current_group.tertiary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,endColorstr='#{current_group.primary}',startColorstr='#{current_group.tertiary}');}
+      \.navigation-container { background-color:#{current_group.secondary};}
 
 
     \.channel-container-inner {background-color: #{group.secondary};border-left: 2px solid white;border-right: 4px solid white;}
@@ -66,13 +74,13 @@
   \#toolbar ul.createbox li:hover{background:#{current_group.primary}}
   \#toolbar ul.createbox li ul{background:#{current_group.primary}}
 
-  \.channel_listing_horizontal li {background-color: #{current_group.primary_dark};}
+  \.channel_listing_horizontal li {background-color: #{current_group.secondary};}
 
   -#\.channel_listing_horizontal li {background-color: #525051;
   -#border-bottom: 1px;
   -#}
 
-  \.channel_listing_horizontal li.selected {border-bottom: 1px solid #{group.primary_dark};background-color: #{group.primary_dark};}
+  \.channel_listing_horizontal li.selected {background-color: #{current_group.secondary};}
 
   \.secondary-navigation-sections {filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{group.primary_dark}',endColorstr='#{group.primary}');background:-webkit-gradient(linear,left top,left bottom,from((#dcdcdc),to(#{group.secondary}));background:-moz-linear-gradient(top,#dcdcdc,#{group.secondary});}
 
