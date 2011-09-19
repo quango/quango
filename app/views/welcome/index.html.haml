@@ -48,7 +48,7 @@
 
   -elsif current_group.has_leaderboard 
 
-    #lead{:style=>"margin-top:10px; height:90px"}
+    #lead{:style=>"margin-top:10px;margin-bottom:10px; height:90px"}
       .welcome-index{:style => "float:left; width:729px;"}
         .content
           .inner
@@ -60,7 +60,7 @@
           %div{:style=>"width:300px;height:90px;background:black"}
             - if current_group.has_bumper
               = current_group.bumper_content
-      .clear
+    .clear
 
 
   -if current_group.above_the_fold
@@ -83,11 +83,22 @@
       .welcome-index{:style => "float:left; width:1032px; margin:3px 0"}
         .content{:style=>"float:left; width:728px;"}
           .inner
-            = render :partial => "slideshow", :locals => {:expanded => true}
-            = render :partial => "feature", :locals => {:expanded => true, :doctype_id => "news"}
+            - if current_group.has_slideshow
+              = render :partial => "slideshow", :locals => {:expanded => true}
+              = render :partial => "feature", :locals => {:expanded => true, :doctype_id => "news"}
+            - else
+              = render :partial => "three_columns"
+
 
 
         .sidebar-inner{:style => "float:right; width:300px;"}
+
+          -current_group.widgets.each do |widget|
+            .widget.block{:id => widget.name}
+              = render :partial => widget.partial_name, :locals => {:widget => widget, :width=> "wide"}
+            .clear
+          .clear
+
           -if current_group.has_video_on_homepage
             .block
               %div{:style=>"width:300px;height:220px;background:black;"}
@@ -95,11 +106,7 @@
             .clear
 
 
-          -current_group.widgets.each do |widget|
-            .widget.block{:id => widget.name}
-              = render :partial => widget.partial_name, :locals => {:widget => widget, :width=> "wide"}
-            .clear
-          .clear
+
 
       .welcome-index{:style => "float:left; width:1032px;margin:3px 0"}
         .content{:style=>"float:left; width:728px;"}

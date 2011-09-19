@@ -7,7 +7,7 @@
 
     #welcome-content
       -#= "hello"
-      -@doctypes.each do |doctype|
+      -@doctypes[3..100].each do |doctype|
         -if !doctype.hidden?
 
           .div.left{:style=>"height:256px;width:362px;background-color:#ffffff;border-right:1px solid white;border-bottom:1px solid gainsboro;padding-bottom:8px;margin-botton:8px display:block"}

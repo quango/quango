@@ -14,6 +14,7 @@
       %h3
         = "Hints"
       = @doctype.help_text
+      = "test"
 
     %h3
       = "Similar content"
@@ -23,6 +24,9 @@
 
 
 -content_for :main do
+
+
+
   #main-index{:style=>"width:728px"}
     .supplementary-navigation{:class => @active_subtab.to_s, :style => "height:35px; line-height:35px; padding:0 8px 0 8px"}
       = @doctype.create_label  

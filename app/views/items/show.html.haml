@@ -33,21 +33,21 @@
 
   = javascript_include_merged :show
 
-  -if current_group.has_leaderboard && !@doctype.product_format?
+  -#if current_group.has_leaderboard && !@doctype.product_format?
 
-    #lead{:style=>"margin:10px 0; height:90px"}
-      .welcome-index{:style => "float:left; width:729px;"}
-        .content
-          .inner
-            .leaderboard{:style=>"width:728px;height:90px; float:left;"}
-              = "<!--/ Leaderboard /-->"
-              = current_group.leaderboard_content
-      .sidebar-inner{:style => "float:right; width:300px;"}
-        .block
-          %div{:style=>"width:300px;height:90px;background:black"}
-            - if current_group.has_bumper
-              = current_group.bumper_content
-      .clear
+    -#lead{:style=>"margin:10px 0; height:90px"}
+      -#.welcome-index{:style => "float:left; width:729px;"}
+        -#.content
+          -#.inner
+            -#.leaderboard{:style=>"width:728px;height:90px; float:left;"}
+              -#= "<!--/ Leaderboard /-->"
+              -#= current_group.leaderboard_content
+      -#.sidebar-inner{:style => "float:right; width:300px;"}
+        -#.block
+          -#%div{:style=>"width:300px;height:90px;background:black"}
+            -#- if current_group.has_bumper
+              -#= current_group.bumper_content
+      -#.clear
 
 
   #sidebar-inner{:style=>"float:right"}
@@ -60,25 +60,33 @@
 
 
     = render :partial => "shared/share_box", :locals => {:item => @item}
+
+    -current_group.widgets.each do |widget|
+      .widget.block{:id => widget.name}
+        = render :partial => widget.partial_name, :locals => {:widget => widget, :width=> "wide"}
+      .clear
+    .clear
+
+
     -#= render :partial => "shared/sidebar_actions_show",  :locals => {:width => "wide"}
     = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
-    -if current_group.has_medium_rectangle
-      .medium-rectangle{:style=>"background-color:white; width:300px;height:250px;margin:10px 0; padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
-        = current_group.medium_rectangle_content
-      .clear
+    -#if current_group.has_medium_rectangle
+      -#.medium-rectangle{:style=>"background-color:white; width:300px;height:250px;margin:10px 0; padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
+        -#= current_group.medium_rectangle_content
+      -#.clear
 
     = render :partial => "shared/sponsored_links",  :locals => {:width => "wide"}
 
-    -if current_group.has_threeone_rectangle
-      .threeone-rectangle{:style=>"background-color:white; width:300px;height:100px;margin:10px 0; padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
-        = current_group.threeone_rectangle_content
-      .clear
-    .block{:style => "margin-bottom:4px"}
-      %h3{:style=>"background:#{current_group.primary_dark}"}
-        = "About this site"
-      .content
-        .markdown{:style => "padding:10px"}
-          = markdown(current_group.description)
+    -#if current_group.has_threeone_rectangle
+      -#.threeone-rectangle{:style=>"background-color:white; width:300px;height:100px;margin:10px 0; padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
+        -#= current_group.threeone_rectangle_content
+      -#.clear
+    -#.block{:style => "margin-bottom:4px"}
+      -#%h3{:style=>"background:#{current_group.primary_dark}"}
+        -#= "About this site"
+      -#.content
+        -#.markdown{:style => "padding:10px"}
+          -#= markdown(current_group.description)
 
     -related_items = Item.related_items(@item, :language => find_languages)
     - if related_items
@@ -162,8 +170,10 @@
 
           .entry-content
             - if @item.article_link
-              = "<b>#{@item.article_link_author}</b> writes for #{@item.article_link_publisher};"
-
+              - if @item.article_link_author?
+                = "<b>#{@item.article_link_author}</b> writes for #{@item.article_link_publisher};"
+              - else
+                = "<span style='font-weight:bold;color:#{current_group.primary}'>#{@item.article_link_publisher}</span> reports;"
 
             = item_body
           .clear
@@ -229,6 +239,8 @@
 
 
     = render :partial => "author", :locals => {:width => "narrow"}
+    .clear
+
     - if @answers.count > 0
       = render :partial => "participants", :locals=> {:item => @item}
 

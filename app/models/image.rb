@@ -11,7 +11,7 @@ class Image
 
 
   key :caption, String
-  key :copyright, String, :default => "link"
+  key :copyright, String, :default => "cc-by-3.0"
   key :copyright_url, String
   key :image_uid, String
   key :image_width, Integer, :default => 256

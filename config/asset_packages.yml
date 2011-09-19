@@ -37,6 +37,7 @@ javascripts:
 - show:
   - jquery.tools.min
   - jquery-ui
+  - jquery.textarea
   - showdown
   - highlight/prettify
   - components/search
