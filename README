@@ -1,5 +1,18 @@
-Quango is a fork of the Shapado project ( http://github.com/patcito/shapado )
-It adds a bunch of stuff that is highly relevant to Quango, but not terribly relevant to Shapado
+Quango is a fork of the Shapado project ( http://github.com/ricodigo/shapado )
+
+Shapado is a great project and if you are specifically looking for a knowledge exchange Q&A site then that is a great choice for you - additionally it has been updated to support Rails 3.0 . The main differences between Shapado and Quango are as follows:
+
+* Quango supports multiple content types, not just questions - for example news, articles, links, videos etc
+* Quango supports images and image uploading via the very excellent dragonfly
+* Quango pulls video information straight from YouTube using Nokogiri
+* Quango pulls information from links
+
+
+In essence Quango is similar to a multi-user blog, however with Quango any member of the site can post we call this approach Social Publishing.
+
+Coming Soon
+
+* Quango introduces the concept of GroupConnect, which allows seperate groups to share content where relevant
 
 
 == Dependencies
@@ -8,19 +21,19 @@ It adds a bunch of stuff that is highly relevant to Quango, but not terribly rel
 - ruby >= 1.8.6 <1.9
 - rubygems >= 1.3.5
 - mongodb >= 1.4
-- ruby on rails =2.3.5
+- ruby on rails =2.3.8
 
 == Install Ruby On Rails
 
-sudo gem install -v=2.3.5 rails
+sudo gem install -v=2.3.8 rails
 
 == Getting Started
 
 1. Download the sources:
 
-    git clone git://gitorious.org/shapado/shapado.git
+    git clone git://github.com/quango/quango.git
 
-    cd shapado/
+    cd quango/
 
 2. Configure the application
 
@@ -48,24 +61,10 @@ sudo gem install -v=2.3.5 rails
 
     script/server
 
+Note: Yes there is alot more to it than that, but this should get you started :)
 
-Follow us on:
 
-* http://twitter.com/shapado
-
-* http://identi.ca/shapado
-
-* http://blog.ricodigo.com/shapado
-
-Talk to us at:
-
-* irc://irc.freenode.org/shapado
-
-* http://shapado.com/chat
-
-* contact \aT/ shapado d0t com
-
-Report bugs at http://shapado.com and use the tags "bug" or "feature-request"
+Please report bugs at http://quangoquango.org and use the tags "bug" or "feature-request"
 
 
 

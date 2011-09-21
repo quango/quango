@@ -6,6 +6,7 @@ class WelcomeController < ApplicationController
   subtabs :index => [[:fresh, "created_at desc"], [:heat, "hotness desc, views_count desc"], [:relevance, "votes_average desc"], [:activity, "activity_at desc"], [:expert, "created_at desc"]]
 
   def index
+    @render_start = Time.now
     @active_subtab = params.fetch(:tab, "activity")
     conditions = scoped_conditions({:banned => false})
 

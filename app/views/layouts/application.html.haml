@@ -1,3 +1,6 @@
+- rendering_start = Time.now
+
+
 !!! Strict
 %html{"xml:lang" => I18n.locale, :lang => I18n.locale, :xmlns => "http://www.w3.org/1999/xhtml",  "xmlns:og" => "http://ogp.me/ns#"  }
   %head
@@ -117,6 +120,15 @@
         .block.content
           = render :partial => "layouts/footer"
           = render :partial => "shared/ads/footer_ads"
+
+
+      - if @render_start
+        .rendering
+          - rendering_stop = Time.now
+          - rendering_time = rendering_stop - @render_start
+          = "#{rendering_time}"
+
+
 
 
 

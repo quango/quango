@@ -45,6 +45,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :recaptcha_tag
 
+
+
   protected
 
   def check_group_access
@@ -290,6 +292,9 @@ class ApplicationController < ActionController::Base
   def build_datetime(params, name)
     Time.zone.parse("#{params["#{name}(1i)"]}-#{params["#{name}(2i)"]}-#{params["#{name}(3i)"]} #{params["#{name}(4i)"]}:#{params["#{name}(5i)"]}") rescue nil
   end
+
+
+
 end
 
 
