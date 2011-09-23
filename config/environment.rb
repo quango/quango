@@ -39,7 +39,7 @@ Rails::Initializer.run do |config|
   config.gem "twitter_oauth", :version => "0.4.3"
   config.gem "sanitize", :version => "1.2.1"
   #config.gem "rack-recaptcha", :lib => "rack/recaptcha"
-  config.gem "tabs_on_rails"
+  config.gem "tabs_on_rails", :version => "1.3.2"
   config.gem 'rmagick',    :lib => 'RMagick'
   config.gem 'rack-cache', :lib => 'rack/cache'
   config.gem 'dragonfly', :version => "0.7.7" #,  :lib => 'dragonfly/rails/images'
