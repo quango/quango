@@ -4,8 +4,8 @@ require 'watermark'
 
 app = Dragonfly[:images]
 
-app.configure.convert_command = "/usr/local/bin/convert"          # defaults to "convert"
-app.configure.identify_command = "/usr/local/bin/identify"         # defaults to "convert"
+app.convert_command = "/usr/local/bin/convert"          # defaults to "convert"
+app.identify_command = "/usr/local/bin/identify"         # defaults to "convert"
 
 
 app.configure_with(:rmagick)
