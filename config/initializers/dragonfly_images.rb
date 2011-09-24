@@ -6,11 +6,11 @@ app = Dragonfly[:images]
 
 app.configure_with(:rmagick)
 app.configure_with(:rails)
-app.configure do |c|
-  c.convert_command = "/usr/local/bin/convert"          # defaults to "convert"
-  c.identify_command = "/usr/local/bin/convert"         # defaults to "convert"
-  c.log_commands = false                                 # defaults to false
-end
+#app.configure do |c|
+#  c.convert_command = "/usr/local/bin/convert"          # defaults to "convert"
+#  c.identify_command = "/usr/local/bin/convert"         # defaults to "convert"
+#  c.log_commands = false                                 # defaults to false
+#end
 
 
 
