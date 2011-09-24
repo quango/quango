@@ -1,4 +1,4 @@
-#require 'dragonfly'
+require 'dragonfly'
 require 'rack/cache'
 require 'watermark' 
 
