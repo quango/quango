@@ -1,4 +1,4 @@
-require 'dragonfly'
+require 'dragonfly/rails/images'
 require 'rack/cache'
 require 'watermark' 
 
