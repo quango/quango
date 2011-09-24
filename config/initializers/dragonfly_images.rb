@@ -1,4 +1,4 @@
-require 'dragonfly'
+#require 'dragonfly'
 require 'rack/cache'
 require 'watermark' 
 
@@ -8,7 +8,7 @@ app = Dragonfly[:images]
 
 
 app.configure_with(:rmagick)
-#app.configure_with(:rails)
+app.configure_with(:rails)
 
 
 app.convert_command = "/usr/local/bin/convert"          # defaults to "convert"
