@@ -42,7 +42,7 @@ Rails::Initializer.run do |config|
   config.gem "tabs_on_rails", :version => "1.3.2"
   config.gem 'rmagick',    :lib => 'RMagick'
   config.gem 'rack-cache', :lib => 'rack/cache'
-  config.gem 'dragonfly', :version => "0.9.8",  :lib => 'dragonfly'
+  config.gem 'dragonfly', :version => "0.9.8" #,  :lib => 'dragonfly'
   config.gem 'hpricot', :version => "0.8.3"
   config.gem 'video_info', :version => "0.2.4"
   config.gem 'nokogiri', :version => "1.4.4" , :lib => 'nokogiri'

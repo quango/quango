@@ -11,8 +11,8 @@ app.configure_with(:rmagick)
 app.configure_with(:rails)
 
 
-app.convert_command = "/usr/local/bin/convert"          # defaults to "convert"
-app.identify_command = "/usr/local/bin/identify"         # defaults to "convert"
+#app.convert_command = "/usr/local/bin/convert"          # defaults to "convert"
+#app.identify_command = "/usr/local/bin/identify"         # defaults to "convert"
 
 
 app.configure{|c| c.url_host = ''} # 'http://think.it' }
