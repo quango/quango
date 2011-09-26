@@ -1,4 +1,4 @@
-require 'dragonfly/rails/images'
+require 'dragonfly'
 require 'rack/cache'
 require 'watermark' 
 
@@ -7,7 +7,7 @@ app = Dragonfly[:images]
 
 
 
-app.configure_with(:rmagick)
+app.configure_with(:imagemagick)
 app.configure_with(:rails)
 
 

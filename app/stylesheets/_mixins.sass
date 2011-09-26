@@ -3,3 +3,8 @@
   :-webkit-border-radius= $topleft $topright $bottomright $bottomleft
   :-khtml-border-radius= $topleft $topright $bottomright $bottomleft
   :border-radius= $topleft $topright $bottomright $bottomleft
+
+=gradient($top, $bottom)
+  :background = -webkit-gradient(linear,left top,left bottom,from($top),to($bottom))
+  :background = -moz-linear-gradient(top,$top,$bottom)
+  :filter = progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='$top',endColorstr='$bottom')

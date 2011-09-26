@@ -1,0 +1,72 @@
+= javascript_include_merged :login
+= stylesheet_link_tag '/javascripts/openid/css/style.css', :media => 'screen, projection'
+-session["return_to"] = request.referrer unless request.referrer.blank?
+
+-if current_group.registered_only
+  %h1
+    IMPORTANT: You must be logged in to see this site
+
+
+Layout
+-content_for :main do
+
+  #main{:style => "width:898px; padding: 0 32px"}
+    %h1{:style => "color:#{current_group.primary}; font-weight:bold; padding: 8px 0 0 0;text-shadow: 1px 1px 0 rgba(255,255,255,255.25)"}
+      = "Login to your account..."
+
+    .left
+      %h2.form-header
+        = "Enter your details"
+      -form_for :user, resource, :url => session_path(resource_name), :html => {:class => "form"} do |f|
+        %div.signup-form
+          .group
+            = f.text_field :email, :class => "text_field right", :style => "width:300px; margin-bottom:4px"
+            = f.label :email, "Email", :class => "label right", :style => "margin-top:4px; margin-right: 16px"
+          .clear
+
+          .group
+            = f.password_field :password, :class => "text_field right", :style => "width:300px;"
+            = f.label :password, t("password", :scope => "activerecord.attributes.user"), :class => "label right", :style => "margin-top:4px; margin-right: 16px"
+          .clear
+
+          -if devise_mapping.rememberable?
+            .group
+              .remember{:style=>"width:300px;float:right;"}
+                =f.label :remember_me, "Remember me?"
+                =f.check_box :remember_me
+
+          .form-footer
+            = submit_tag "Login now...", :class => "submit-button", :style => "width:316px; height:32px; padding: 0 16px; font-weight: bold; font-size:18px;float:right"
+
+        .clear
+
+        .devise{:style => "margin-left:32px; width:312px; float:right"}
+          = render :partial => "shared/devise_links"
+
+        .clear
+
+        .group{:style => "margin-left:32px"}
+
+
+          %h3
+            = "I don't have an account!"
+          .clear
+          = link_to "Sign up now!", new_user_path, :class => "", :style => "border: 1px solid white"
+
+
+
+    .left{:style => "width:240px;padding: 0 32px 32px 32px"}
+      %h3{:style => "margin-top:32px"}
+        = "or login with your existing account..."
+      = render :partial => "sessions/openid"
+      .clear
+      %h3
+        = "Note..."
+      = "Using an existing login will create a new account which you access using your ogin from another site"
+
+
+.clear
+
+
+
+

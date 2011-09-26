@@ -28,6 +28,15 @@
 
 
 /Layout
+
+-#if !logged_in?
+
+  -#content_for :main do
+    -#= "not logged"
+
+-#else
+
+
 -content_for :main do
 
   -if current_group.has_custom_leaderboard
@@ -114,7 +123,7 @@
             = render :partial => "featured_sections", :locals => {:expanded => true}
 
 
-        .sidebar-inner{:style => "float:right; width:300px;height:100px;margin-top:11px;padding-top:11px;border-top:2px solid gainsboro;"}
+        .sidebar-inner{:style => "float:right; width:300px;margin-top:11px;padding-top:11px;border-top:2px solid gainsboro;"}
           .block
    
             -if current_group.has_threeone_rectangle
@@ -122,12 +131,11 @@
                 = current_group.threeone_rectangle_content
 
               .clear
-              .block
+
                 -#="<a href='http://twitter.com/fast_thinking'><img src='http://twitter-badges.s3.amazonaws.com/follow_us-b.png' alt='Follow thinkingdaily on Twitter'/></a>"
 
 
-            - else
-              = render :partial => "shared/share_box_welcome", :locals => {:item => @item}
+
 
 
 
@@ -259,6 +267,11 @@
 
       .block
         = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
+
+
+      .block
+        = render :partial => "shared/share_box_welcome", :locals => {:item => @item}
+
 
 
       -if !current_group.isolate # this will be the group connect thing
