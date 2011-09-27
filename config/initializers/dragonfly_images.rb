@@ -11,6 +11,10 @@ app.configure_with(:imagemagick)
 app.configure_with(:rails)
 
 
+app.configure{|c|Dragonfly::ImageMagickUtils.convert_command = '/usr/local/bin/convert'}
+app.configure{|c|Dragonfly::ImageMagickUtils.identify_command = '/usr/local/bin/identify'}
+
+
 #app.convert_command = "/usr/local/bin/convert"          # defaults to "convert"
 #app.identify_command = "/usr/local/bin/identify"         # defaults to "convert"
 
