@@ -7,7 +7,7 @@
       - if @avatar.present?
         - cropped_avatar = @avatar.avatar.process(:thumb,@avatar.avatar_cropping)
         - default_avatar = cropped_avatar.process(:thumb,"32x32")
-        - default_avatar_grey = default_avatar.process(:greyscale,"20")
+        - default_avatar_grey = default_avatar.process(:greyscale, :depth => 20)
 
         -#= image_tag default_avatar.url, :class => 'b', :alt => user.first_name, :title => user.first_name
         = image_tag default_avatar_grey.url, :class => 'a', :alt => user.first_name, :title => user.first_name, :height => "32px", :width => "32px"

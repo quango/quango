@@ -53,7 +53,7 @@
   - image = Image.find(@item.default_thumbnail)
   - base_image = image.image.process(:thumb,image.image_cropping)
   - base_thumbnail = base_image.process(:thumb,"380x")
-  - base_thumbnail_grey = base_thumbnail.process(:greyscale, "20")
+  - base_thumbnail_grey = base_thumbnail.process(:greyscale, :depth => 20)
   =  "<meta property=\"og:image\" content=\"http://#{current_group.domain}#{base_thumbnail.url}\" />"
 
 = "<meta property=\"og:url\" content=\"#{item_url(@doctype, @item)}\" />"

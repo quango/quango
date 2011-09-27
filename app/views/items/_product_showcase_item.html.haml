@@ -29,7 +29,7 @@
           - image = Image.find(item.default_thumbnail)
           - base_image = image.image.process(:thumb,image.image_cropping)
           - base_thumbnail = base_image.process(:thumb,"300x")
-          - base_thumbnail_grey = base_thumbnail.process(:greyscale, "20")
+          - base_thumbnail_grey = base_thumbnail.process(:greyscale, :depth => 20)
 
           .features-thumbnail{:style => "background-image:url(#{base_thumbnail.url});width:146px;height:146px; overflow:hidden" }
             = link_to image_tag("/images/spacer.gif", :class => 'a', :alt => image.name, :title => image.name,:style => "position: absolute;width:145px;height:145px" ), item_path(item.doctype, item)

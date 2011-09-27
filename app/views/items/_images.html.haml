@@ -11,7 +11,7 @@
           - base_image = image.image.process(:thumb,image.image_cropping)
           - expanded_image = base_image.process(:thumb,"800x").encode(:jpeg){self.quality = 75}
           - base_thumbnail = base_image.process(:thumb,"140x")
-          - base_thumbnail_grey = base_thumbnail.process(:greyscale, "20")
+          - base_thumbnail_grey = base_thumbnail.process(:greyscale, :depth => 20)
           %ul.image-link-wide
             %div.fade-thumbnails
               = link_to image_tag(base_thumbnail.url, :class => 'b', :alt => "#{image.caption.to_s}", :title => "#{image.caption.to_s}"), expanded_image.url, :title => "#{image.caption.to_s}", :class=>"expand"
