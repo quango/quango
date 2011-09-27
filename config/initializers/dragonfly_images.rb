@@ -1,6 +1,6 @@
 #require 'dragonfly/rails/images'
 require 'rack/cache'
-require 'watermark' 
+#require 'watermark' 
 
 app = Dragonfly[:images]
 
