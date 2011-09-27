@@ -15,17 +15,23 @@ app.configure_with(:rails)
 
   task :fiximages => :environment do
     count = 0
+    processed = 0
 
     Image.find_each do |image|
       count = count + 1 
-      old_image = app.fetch(image.image_uid)
-      image.file = old_image.file 
-      image.file.meta.merge!(old_image.meta) 
-      image.file = image.file 
-      image.save! 
-    end 
+        if FileTest.exist?("#{image.image_uid}")
+ 
+          old_image = app.fetch(image.image_uid)
 
-    puts "#{count} images processed"
+          image.file = old_image.file 
+          image.image_uid.meta.merge!(old_image.meta) 
+          image.image_uid = image.image_uid 
+          image.save! 
+          processed = processed + 1
+        end
+ 
+    end
+    puts "#{processed} of #{count} images processed"
 
   end
 
