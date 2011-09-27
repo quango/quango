@@ -6,7 +6,7 @@
   - if @avatar.present?
     - cropped_avatar = @avatar.avatar.process(:thumb,@avatar.avatar_cropping)
     - default_avatar = cropped_avatar.process(:thumb,"32x32")
-    - default_avatar_grey = default_avatar.process(:greyscale,"20")
+    - default_avatar_grey = default_avatar.process(:greyscale, :depth => 20)
  
     %div{:style=>"float:left;display:inline; border:1px solid gainsboro; margin:1px"}
       .thumb{:style=>"background-image:url(\"#{default_avatar_grey.url}\");height:32px; width:32px;"}
