@@ -1,3 +1,7 @@
+class Watermark
+end
+
+
 #require 'RMagick' 
 
 #module Dragonfly 
