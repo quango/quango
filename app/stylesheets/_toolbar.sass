@@ -1,8 +1,4 @@
-#toolbar-container
-  background-color: #525051
-  background: -webkit-gradient(linear,left top,left bottom,from(#525051),to(#000000))
-  background: -moz-linear-gradient(top,#525051,#000000)
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#525051',endColorstr='#000000')
+
 
 
 .strapline
@@ -29,13 +25,14 @@
 
   font-family: georgia
   margin-left: 8px  
-  height: 40px
+  height: 64px
   line-height: 64px
 
   a
     //padding: 4px 0 4px 0
     font-family: arial
     font-size: 40px
+    height: 64px
     font-weight: bold
     text-transform: lowercase
     letter-spacing: -2px
@@ -72,7 +69,7 @@
   height: 32px
   //margin-top: -32px
   width: 100%
-  border-bottom: 1px solid #333
+
   //width: 1032px
   background-color: black
 
@@ -124,12 +121,11 @@
     float: left
   .entry
     float: right
-    margin-left: 4px
-    .gravatar
-      line-height: 20px
-      display: inline
-      margin-bottom: -5px
-      width: 18px
+    padding: 0 4px
+    margin: 0px
+    &:hover
+      background-color: #525051
+      //border-top: 2px solid #525051
     .reputation
       font-weight: bold
       font-size: 10px
@@ -143,7 +139,58 @@
       padding-left: 17px
       border: 1px solid gray
 
-  .createbox
+  .settings
+    font-weight: bold
+
+    padding: 0
+    margin: 0
+    list-style: none
+    list-style-position: outside
+    display: inline
+    &:hover
+      background-color: black
+    li
+      float: right
+      //width: 176px
+      margin-right: 0
+      &:hover ul
+        left: auto
+        z-index: 2
+
+      ul
+        position: absolute
+        width: 176px
+        line-height: 26px
+        //background-color: red
+        display: block
+        //border: 1px solid #DCDCDC
+        left: -999em
+        list-style: none
+        +rounded(0,0,8px,8px)
+        -moz-box-shadow: 0px 1px 2px #fff
+        -webkit-box-shadow: 0px 1px 2px #555
+        box-shadow: 0px 1px 2px #555
+        overflow: hidden
+        li 
+          width: 100%
+          height: 20px
+          line-height: 20px
+          display: block
+          padding: 2px
+          clear: both
+          &:hover
+            background-color: #555051
+          a
+            //padding: 4px
+            color: #ffffff
+            text-decoration: none
+            text-shadow: none
+            display: block
+
+  .something
+    margin-left: 4px
+
+  .submissions
     font-weight: bold
 
     padding: 0

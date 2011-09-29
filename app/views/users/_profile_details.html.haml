@@ -3,14 +3,10 @@
     = "Details"
   .content
     %table
+
       %tr
         %td.user-field
-          =t(:name, :scope => "activerecord.attributes.user")
-        %td.user-field-value
-          =h(@user.name)
-      %tr
-        %td.user-field
-          =t(:website, :scope => "activerecord.attributes.user")
+          = "Web:"
         %td.user-field-value
           -if @user.website
             =link_to h(@user.website), h(@user.website), :rel => "nofollow"
@@ -18,9 +14,9 @@
       - if !@user.hide_country
         %tr
           %td.user-field
-            = "Location"
+            = "Loc:"
           %td.user-field-value
             %span.adr
               %span.country-name
-                = t("global.from", :site => @user.country_name)
+                = h(@user.country_name)
                 = country_flag(@user.country_code, @user.country_name)

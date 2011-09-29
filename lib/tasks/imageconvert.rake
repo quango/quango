@@ -20,18 +20,18 @@ app.configure_with(:rails)
     Image.all.each do |image|
       count = count + 1 
       #temp_path = "/home/sp/projects/edge/quango/public/system/dragonfly/development/"
-      temp_path = "/home/sp/projects/edge/quango/public/system/dragonfly/production/"
+      #temp_path = "/home/sp/projects/edge/quango/public/system/dragonfly/production/"
       
-      if FileTest.exist?(temp_path << image.image_uid)
+      #if FileTest.exist?(temp_path << image.image_uid)
  
-          puts "image exists at #{temp_path}"
-          old_image = app.fetch(image.image_uid)
-          image.id = old_image.id
+          #puts "image exists at #{temp_path}"
+          #old_image = app.fetch(image.image_uid)
+          #image.id = old_image.id
           #image.id.meta.merge!(old_image.meta) 
-          image.image = image.image 
+          image = image 
           image.save! 
           processed = processed + 1
-      end
+      #end
  
     end
     puts "#{processed} of #{count} images processed"

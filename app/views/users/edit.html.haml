@@ -9,8 +9,12 @@
   = yield :after_form
 
 -content_for :sidebar_inner do
-  #sidebar-inner
-    = render :partial => "profile_image", :object => @user
+  .sidebar-inner{:style=>"float:left;width:140px;"}
+    .sidebar-heading{:style => "background-color:#{current_group.primary_dark}; color:white;"}
+      = "Member"
+
+
+    = render :partial => "users/user_mini", :locals => {:user => @user, :width => "square"}
     = render :partial => "profile_details", :object => @user
     = render :partial => "profile_biography", :object => @user
     = render :partial => "profile_statistics", :object => @user
@@ -18,7 +22,7 @@
 
 /Layout
 - content_for :main do
-  #main-index{:style=>"float:left; width:728px;"}
+  #main-index{:style=>"float:right; width:728px;"}
     .content
       .inner
         %h1

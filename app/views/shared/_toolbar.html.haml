@@ -26,14 +26,14 @@
     -else
       .edition
         = image_tag("/images/logos/star_32.png",:height=>"16px",:width=>"16px",  :style => "margin:6px 4px 4px 4px", :class => "main-icon")
-        =link_to "thinkingdaily", domain_url(:custom => current_group.domain), :style=>"height:16px: width:16px; padding:4px 0;font-family:georgia;line-height:32px;font-weigt:bold;"
+        -#=link_to "thinkingdaily", domain_url(:custom => current_group.domain), :style=>"font-family:georgia;line-height:32px;font-weight:bold;"
         -#=link_to h(current_group.display_name_ii), domain_url(:custom => current_group.domain), :style=> "height:16px: width:16px; margin:4px 0 4px -4px"
 
 
   -else
     .edition
       = image_tag("/images/logos/star_32.png",:height=>"16px",:width=>"16px",  :style => "margin:6px 4px 4px 4px", :class => "main-icon")
-      =link_to "thinkingdaily", domain_url(:custom => current_group.domain), :style=>"height:16px: width:16px; padding:4px 0;font-family:georgia;line-height:32px;font-weigt:bold;"
+      -#=link_to "thinkingdaily", domain_url(:custom => current_group.domain), :style=>"font-family:georgia;line-height:32px;font-weight:bold;"
       -#=link_to h(current_group.display_name_ii), domain_url(:custom => current_group.domain), :style=> "height:16px: width:16px; margin:4px 0 4px -4px"
 
 
@@ -57,16 +57,13 @@
       =link_to "<img src='/images/logos/thinking_32.png' height='12px' width='12px' style='margin-top:4px'/>", "#" ,:style=>"padding:3px;border:0; height:16px; width:16px;"
 
 
-  -if logged_in?
 
-    .entry
-      =link_to t("layouts.application.logout"), destroy_user_session_path
 
 
 
   -if logged_in?
     .entry
-      %ul.topbar.createbox.right
+      %ul.topbar.submissions.right
         %li
           =link_to "#{current_group.publish_label.capitalize}", "#", :rel => 'nofollow', :style=>"padding:3px 12px 3px 6px;background-color:#{current_group.primary}; border:0px solid #{current_group.primary};text-shadow:0"
           -#%span.reputation{:title => t("activerecord.attributes.user.reputation"), :style => "font-family:'Arial Narrow',arial;background-color:"+current_group.primary+";text-transform:uppercase;letter-spacing:0"}
@@ -89,14 +86,23 @@
     -#.entry
       -#=link_to h("My Edition"), user_path(current_user)
       -#| 
-    .entry
-      =link_to h("My Profile"), user_path(current_user)
+    -#.entry
+      -#=link_to h("My Profile"), user_path(current_user)
       | 
     -#.entry
       -#=link_to h("My Community"), user_path(current_user)
       -#|
     .entry
-      =link_to "<img src=\"/images/icons/settings.png\" height=\"16px\" width=\"16px\" style=\"margin:8px 2px;\">", settings_path(:tab => "welcome")
+      %ul.topbar.settings.right
+        %li
+          -#=link_to "Account", "#", :rel => 'nofollow', :style=>"height:32px;"
+          = link_to "<img src=\"images/icons/features_icon_16.png\" style=\"border-top:4px;\"/>", "#", :rel => 'nofollow', :style=>"height:32px;"
+
+          %ul
+            %li
+              =  link_to "My settings", settings_path(:tab => "welcome")
+            %li
+              =link_to t("layouts.application.logout"), destroy_user_session_path
 
 
   -if logged_in?

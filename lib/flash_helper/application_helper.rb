@@ -93,7 +93,8 @@
             elsif options[:textilize]
               text = textilize(msg)
             end
-            flash_text = content_tag('p', text)
+            #flash_text = content_tag('p', text)
+            flash_text = text
             messages << content_tag('li', flash_text, :class => key)
           end
 
