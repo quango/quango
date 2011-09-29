@@ -71,8 +71,8 @@
   width: 100%
 
   //width: 1032px
-  background-color: black
-
+  //background-color: black
+  +gradient(#525051,#000000)
 
 #toolbar
   //background-color: black
@@ -123,7 +123,7 @@
     float: right
     padding: 0 8px 0 8px
     margin: 0 0 0 0
-    border-right: 1px solid #121051
+    border-right: 1px solid black
     &:hover
       background-color: #525051
       //border-top: 2px solid #525051
@@ -141,7 +141,7 @@
       border: 1px solid gray
 
   .settings
-    width: 40px
+    width: 96px
     font-weight: bold
 
     padding: 0
@@ -153,15 +153,16 @@
       background-color: #525051
     li
       float: right
-      //width: 176px
-      margin-right: 0
+      width: 96px
+      //margin-right: -48px
       &:hover ul
         left: auto
         z-index: 2
 
       ul
         position: absolute
-        width: 176px
+        width: 96px
+        margin-right: -48px
         line-height: 26px
         //background-color: red
         display: block
@@ -190,7 +191,7 @@
             display: block
 
   .something
-    margin-left: 4px
+    margin-left: 8px
 
   .submissions
     font-weight: bold
@@ -204,7 +205,7 @@
       background-color: black
     li
       float: right
-      width: 144px
+      width: 160px
       margin-right: 0
       &:hover ul
         left: auto
@@ -213,24 +214,22 @@
       ul
         position: absolute
         width: 160px
-        margin-right: -160px
+        margin-right: -80px
         line-height: 26px
         //background-color: red
         display: block
-        border-left: 1px solid #000000
-        border-right: 1px solid #000000
-        border-bottom: 1px solid #000000
+        text-align: left
         left: -999em
         list-style: none
         +rounded(0,0,8px,8px)
         -moz-box-shadow: 0px 1px 2px #fff
-        -webkit-box-shadow: 0px 1px 2px #555
-        box-shadow: 0px 1px 2px #555
+        -webkit-box-shadow: 0px 1px 3px #000
+        box-shadow: 0px 1px 3px #000
         overflow: hidden
         li 
           width: 100%
-          height: 20px
-          line-height: 20px
+          height: 24px
+          line-height: 24px
           display: block
           padding: 2px
           clear: both

@@ -54,9 +54,23 @@
       =link_to "<img src='/images/logos/thinking_32.png' height='12px' width='12px' style='margin-top:4px'/>", "#" ,:style=>"padding:3px;border:0; height:16px; width:16px;"
 
   -if logged_in?
+
+    .entry{:style=>"padding:0"}
+      %ul.topbar.settings.right
+        %li{:style=>"background-image: url('images/icons/settings.png');padding:0;width:96px;height:32px"}
+          -#=link_to "Account", "#", :rel => 'nofollow', :style=>"height:32px;"
+          = link_to "&nbsp;", "#", :rel => 'nofollow', :style=>"height:32px;width:96px;color:black"
+
+          %ul
+            %li
+              =  link_to "My settings", settings_path(:tab => "welcome"), :class => "something"
+            %li
+              =link_to t("layouts.application.logout"), destroy_user_session_path, :class => "something"
+
     .entry{:style=>"padding:0"}
       %ul.topbar.submissions.right
-        %li{:style=>"padding:0 8px;background-color:#{current_group.primary}; border:0px solid #{current_group.primary};text-shadow:0"}
+        %li{:style=>"text-align:center;padding:0; border:0px solid #{current_group.primary};text-shadow:0"}
+          -#%span{:style=>"margin-left:8px"}
           = "Submissions"
           -#%span.reputation{:title => t("activerecord.attributes.user.reputation"), :style => "font-family:'Arial Narrow',arial;background-color:"+current_group.primary+";text-transform:uppercase;letter-spacing:0"}
             ="#{current_group.publish_label.capitalize}"
@@ -67,17 +81,7 @@
                 %li
                   = link_to "#{doctype.create_label}", new_item_path(doctype), :class => "something", :style => "height:18px; line-height:18px;" 
         
-    .entry{:style=>"padding:0"}
-      %ul.topbar.settings.right
-        %li{:style=>"background-image: url('images/icons/settings.png');padding:0;width:40px;height:32px"}
-          -#=link_to "Account", "#", :rel => 'nofollow', :style=>"height:32px;"
-          = link_to "&nbsp;", "#", :rel => 'nofollow', :style=>"height:32px;width:40px;color:black"
 
-          %ul
-            %li
-              =  link_to "My settings", settings_path(:tab => "welcome"), :class => "something"
-            %li
-              =link_to t("layouts.application.logout"), destroy_user_session_path, :class => "something"
 
 
   -if logged_in?
