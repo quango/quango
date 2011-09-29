@@ -121,8 +121,9 @@
     float: left
   .entry
     float: right
-    padding: 0 4px
-    margin: 0px
+    padding: 0 8px 0 8px
+    margin: 0 0 0 0
+    border-right: 1px solid #121051
     &:hover
       background-color: #525051
       //border-top: 2px solid #525051
@@ -140,6 +141,7 @@
       border: 1px solid gray
 
   .settings
+    width: 40px
     font-weight: bold
 
     padding: 0
@@ -148,7 +150,7 @@
     list-style-position: outside
     display: inline
     &:hover
-      background-color: black
+      background-color: #525051
     li
       float: right
       //width: 176px
@@ -202,7 +204,7 @@
       background-color: black
     li
       float: right
-      //width: 176px
+      width: 144px
       margin-right: 0
       &:hover ul
         left: auto
@@ -210,11 +212,14 @@
 
       ul
         position: absolute
-        width: 176px
+        width: 160px
+        margin-right: -160px
         line-height: 26px
         //background-color: red
         display: block
-        //border: 1px solid #DCDCDC
+        border-left: 1px solid #000000
+        border-right: 1px solid #000000
+        border-bottom: 1px solid #000000
         left: -999em
         list-style: none
         +rounded(0,0,8px,8px)

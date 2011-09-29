@@ -48,24 +48,16 @@
       = link_to "Login", new_user_session_path
     .entry
       = link_to "Become a member", new_user_path, :style => "font-weight:bold;"
-      |
-
 
   -if logged_in?
-
     .entry{:style=>"display:none"}
       =link_to "<img src='/images/logos/thinking_32.png' height='12px' width='12px' style='margin-top:4px'/>", "#" ,:style=>"padding:3px;border:0; height:16px; width:16px;"
 
-
-
-
-
-
   -if logged_in?
-    .entry
+    .entry{:style=>"padding:0"}
       %ul.topbar.submissions.right
-        %li
-          =link_to "#{current_group.publish_label.capitalize}", "#", :rel => 'nofollow', :style=>"padding:3px 12px 3px 6px;background-color:#{current_group.primary}; border:0px solid #{current_group.primary};text-shadow:0"
+        %li{:style=>"padding:0 8px;background-color:#{current_group.primary}; border:0px solid #{current_group.primary};text-shadow:0"}
+          = "Submissions"
           -#%span.reputation{:title => t("activerecord.attributes.user.reputation"), :style => "font-family:'Arial Narrow',arial;background-color:"+current_group.primary+";text-transform:uppercase;letter-spacing:0"}
             ="#{current_group.publish_label.capitalize}"
           %ul
@@ -75,53 +67,32 @@
                 %li
                   = link_to "#{doctype.create_label}", new_item_path(doctype), :class => "something", :style => "height:18px; line-height:18px;" 
         
-
-
-      
-
-
-
-
-
-    -#.entry
-      -#=link_to h("My Edition"), user_path(current_user)
-      -#| 
-    -#.entry
-      -#=link_to h("My Profile"), user_path(current_user)
-      | 
-    -#.entry
-      -#=link_to h("My Community"), user_path(current_user)
-      -#|
-    .entry
+    .entry{:style=>"padding:0"}
       %ul.topbar.settings.right
-        %li
+        %li{:style=>"background-image: url('images/icons/settings.png');padding:0;width:40px;height:32px"}
           -#=link_to "Account", "#", :rel => 'nofollow', :style=>"height:32px;"
-          = link_to "<img src=\"images/icons/features_icon_16.png\" style=\"border-top:4px;\"/>", "#", :rel => 'nofollow', :style=>"height:32px;"
+          = link_to "&nbsp;", "#", :rel => 'nofollow', :style=>"height:32px;width:40px;color:black"
 
           %ul
             %li
-              =  link_to "My settings", settings_path(:tab => "welcome")
+              =  link_to "My settings", settings_path(:tab => "welcome"), :class => "something"
             %li
-              =link_to t("layouts.application.logout"), destroy_user_session_path
+              =link_to t("layouts.application.logout"), destroy_user_session_path, :class => "something"
 
 
   -if logged_in?
-
     .entry
       - real_name = "#{current_user.first_name} #{current_user.last_name}"
       %strong= link_to(h(real_name), user_path(current_user))
       %span.reputation{:title => t("activerecord.attributes.user.reputation"), :style => "background-color:"+current_group.primary+""}=format_number(current_user.reputation_on(current_group))
-      |
 
     -if current_user.mod_of?(current_group)
       .entry
         =link_to t("layouts.application.moderate"), moderate_path, :class => "moderate_link"
-        |
 
     -if current_user.owner_of?(current_group)
       .entry
         =link_to "&#x2620;", manage_properties_path, :class => "manage_link", :style => "font-size:1.5em;"
-        |
 
 
 
