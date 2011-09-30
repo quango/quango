@@ -139,8 +139,8 @@ class Group
   key :signup_heading, String, :default => "Thinking is free, so naturally it free to share your thoughts..."  
 
   # theme
-  key :logo_path, String, :default => "/images/logos/star_32.png"
-  key :logo_info, Hash, :default => {"width" => 32, "height" => 32}
+  key :logo_path, String, :default => "/images/logos/default-logo.png"
+  key :logo_info, Hash, :default => {"width" => 64, "height" => 64}
   key :logo_only, Boolean, :default => false
 
   key :favicon_path, String, :default => "/images/logos/star_32.png"
@@ -151,16 +151,16 @@ class Group
   key :header_bg_image, String
   key :toolbar_bg, String
   key :toolbar_bg_image, String
-  key :primary, String, :default => "#9a0000" #tabs, 
-  key :primary_dark, String, :default => "#000000" #tabs, 
+  key :primary, String, :default => "#456b83" #tabs, 
+  key :primary_dark, String, :default => "#3f5562" #tabs, 
   key :primary_hover, String, :default => "#E1A970" #header_bg and edit buttons
   key :primary_selected, String, :default => "#990000"
 
-  key :secondary, String, :default => "#a9a5a7" #tabs,
+  key :secondary, String, :default => "#7ca6c1" #tabs,
   key :secondary_hover, String, :default => "orange"
   key :secondary_selected, String, :default => "#E1A970"
   key :secondary_active, String, :default => "#990000"
-  key :tertiary, String, :default => "#cd3333" #tabs, 
+  key :tertiary, String, :default => "#8fadc1" #tabs, 
   key :complementary, String, :default => "#007500" #tabs, 
 
   key :secondary_navigation_bg, String, :default => "gainsboro"
