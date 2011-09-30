@@ -62,9 +62,7 @@
 
     #sidebar-inner{:style=>"float:right:width:300px;"}
 
-      -if current_group.has_threeone_rectangle
-        .threeone-rectangle{:style=>"border-top:10px solid white; background-color:#{current_group.primary_dark}; width:300px;height:100px;overflow:hidden"}
-          = current_group.threeone_rectangle_content
+
 
 
       -if @search_text
@@ -84,7 +82,9 @@
                   %span.tag{:class => "tag_#{h(tag)}"}
                     =link_to h(tag), url_for(:controller => "items", :action => "index", :tags => tag), :rel => "tag"
 
-
+      -if current_group.has_threeone_rectangle
+        .threeone-rectangle{:style=>"border-top:10px solid white; background-color:#{current_group.primary_dark}; width:300px;height:100px;overflow:hidden"}
+          = current_group.threeone_rectangle_content
 
       -current_group.widgets.each do |widget|
         .widget.block{:id => widget.name}

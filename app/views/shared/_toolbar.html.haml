@@ -95,8 +95,8 @@
         =link_to t("layouts.application.moderate"), moderate_path, :class => "moderate_link"
 
     -if current_user.owner_of?(current_group)
-      .entry{:style=>"background-image: url('images/icons/administrator.png');padding:0;width:32px;height:32px"}
-        =link_to ".", manage_properties_path, :class => "manage_link", :style => "height:32px;width:32px;"
+      .entry{:style=>"background-image: url('images/icons/administrator.png');padding:0;width:48px;height:32px;cursor:pointer;",:onclick=>"window.location.href=\'#{manage_properties_path}\'"}
+        =link_to "&nbsp;", manage_properties_path, :class => "manage_link", :style => "height:48px;width:32px;"
 
 
 
