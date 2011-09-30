@@ -73,7 +73,11 @@
   overflow: visible
   float: right
   +rounded(4px,4px,4px,4px)
-  +gradient(#525051,#a9a5a7)
+
+  background: -webkit-gradient(linear,left top,left bottom,from(#525051),to(#A9A5A7))
+  background: -moz-linear-gradient(top,#525051,#A9A5A7)
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,endColorstr='#A9A5A7',startColorstr='#525051')
+
   border: 1px solid #a9a5a7
   font-family: "Arial Narrow", sans-serif
   font-weight: bold
