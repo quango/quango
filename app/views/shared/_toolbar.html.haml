@@ -70,8 +70,8 @@
     .entry{:style=>"padding:0"}
       %ul.topbar.submissions.right
         %li{:style=>"text-align:center;padding:0; border:0px solid #{current_group.primary};text-shadow:0"}
-          -#%span{:style=>"margin-left:8px"}
-          = "Member submissions"
+          %span{:style=>"padding-left:12px;padding-right:12px;"}
+            = "Submissions"
           -#%span.reputation{:title => t("activerecord.attributes.user.reputation"), :style => "font-family:'Arial Narrow',arial;background-color:"+current_group.primary+";text-transform:uppercase;letter-spacing:0"}
             ="#{current_group.publish_label.capitalize}"
           %ul

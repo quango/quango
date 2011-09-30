@@ -1,24 +1,13 @@
 - expanded = local_assigns[:expanded]
 
-
 - if current_group.has_video_on_homepage?
-
-  -#.section-head-welcome{:style=>"border-bottom:10px solid white;border-top:4px solid #{current_group.secondary}"}
-    -#.secondary-navigation-sections{:style=>"width:300px;background-color:gainsboro"}
-      -#.videos{:style=>"width:300px;font-family:Arial,sans-serif; font-weight:normal;letter-spacing:-1px;font-size:12px;padding-left:10px;color:#{current_group.primary_dark};"}
-        -#= "Todays videos...."  
-        -#.navcontrols{:style => "width:96px; height:24px; float:right;padding-right:10px;display:none"}
-          -#%a.show_video{:class => "video navlinks showhide left", :style=>"color:#{current_group.primary_dark}"}
-            -#= "show video"
-          -#%a.hide_video{:class => "video navlinks showhide left", :style=>"color:#{current_group.primary_dark}"}
-            -#= "hide video"
 
   .sidebar_video
     .section-listing-welcomev{:class => "video", :style => "height:150px;background-color:WHITE;border-bottom:1px solid white; margin-bottom:10px;"}
 
-      %h4{:style=>"line-height:32px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:white; background-color:#{current_group.primary_dark}; border-top:4px solid #{current_group.primary_dark};margin:0; font-size:14px; letter-spacing:0px;font-weight:bold;border-bottom:1px solid white"}
+      %h4{:style=>"line-height:32px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:white; background-color:#{current_group.primary_dark}; border-top:4px solid #{current_group.primary};margin:0; font-size:14px; letter-spacing:0px;font-weight:bold;border-bottom:1px solid white"}
         %div{:style=>"padding:1px 0 3px 4px; height:18px; width:18px; float:left;"}
-          = "<img src='/images/logos/star_16.png' height='14px' width='14px'/>"
+          = "<img src='/images/icons/film.png' height='14px' width='14px'/>"
         = "Video"
         = link_to "more", "/group/videos/index", :style=>"float:right;margin-right:10px;color:#{current_group.secondary};"
 

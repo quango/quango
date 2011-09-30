@@ -17,8 +17,8 @@
               .column-header{:style=>"margin-bottom:2px;line-height:26px;font-weight:bold;font-size:12px;color:#{current_group.secondary};letter-spacing:-1px"}
                 = link_to section_link, items_path(doctype)
                 %div{:style=>"float:right;"}
-                  %a{:style=>"float:right; ", :class => "submission-button", :href => new_item_path(doctype)}
-                    = "add +"
+                  %a{:style=>"float:right;padding:0 12px;", :class => "submission-button", :href => new_item_path(doctype)}
+                    = "add #{doctype.name}"
 
 
           -else
@@ -28,8 +28,8 @@
                 .column-header{:style=>"margin-bottom:2px;line-height:26px;font-weight:bold;font-size:13px;color:#{current_group.secondary};letter-spacing:-1px"}
                   = link_to section_link, items_path(doctype)
                   %div{:style=>"float:right;"}
-                    %a{:style=>"float:right; ", :class => "submission-button", :href => new_item_path(doctype)}
-                      = "add +"
+                    %a{:style=>"float:right; padding:0 12px;", :class => "submission-button", :href => new_item_path(doctype)}
+                      = "add #{doctype.name}"
 
                 .content
 

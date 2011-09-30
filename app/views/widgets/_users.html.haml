@@ -1,16 +1,16 @@
--cache("new_users_#{current_group.id}") do
-  %h3
-    =h("Recently joined")
-  .content
-    %ul.members-list
-      -widget.recent_users(current_group).each do |user|
-        -if user.login != "admin"
-          -if width == "wide"
-            %li{:onclick => "document.location.href='#{user_path(user)}'", :style => "height:64px"}
-              = render :partial => "users/user_mini", :locals => {:user => user, :width => "wide"}
-          -if width == "narrow"
-            %li{:onclick => "document.location.href='#{user_path(user)}'", :style => "height:32px"}
-              = render :partial => "users/user_mini", :locals => {:user => user, :width => "narrow"}
-      .more
-        =link_to t("scaffold.more"), users_path
-  .clear
+-#cache("new_users_#{current_group.id}") do
+%h4
+  =h("Recently joined")
+.content
+  %ul.members-list
+    -widget.recent_users(current_group).each do |user|
+      -if user.login != "admin"
+        -if width == "wide"
+          %li{:onclick => "document.location.href='#{user_path(user)}'", :style => "height:64px"}
+            = render :partial => "users/user_mini", :locals => {:user => user, :width => "wide"}
+        -if width == "narrow"
+          %li{:onclick => "document.location.href='#{user_path(user)}'", :style => "height:32px"}
+            = render :partial => "users/user_mini", :locals => {:user => user, :width => "narrow"}
+    .more
+      =link_to t("scaffold.more"), users_path
+.clear
