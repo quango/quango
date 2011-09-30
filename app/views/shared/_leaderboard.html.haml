@@ -1,0 +1,32 @@
+
+-if current_group.has_custom_leaderboard
+
+  #lead{:style=>"margin-top:10px; height:90px"}
+    .welcome-index{:style => "float:left; width:729px;"}
+      .content
+        .inner
+          .leaderboard{:style=>"border-bottom:1px solid white"}
+            = "<!--/ Leaderboard /-->"
+            = current_group.custom_leaderboard_content
+    .sidebar-inner{:style => "float:right; width:300px;"}
+      .block
+        %div{:style=>"width:300px;height:90px;background:black"}
+          - if current_group.has_bumper
+            = current_group.bumper_content
+    .clear
+
+-elsif current_group.has_leaderboard 
+
+  #lead{:style=>"margin-top:10px;margin-bottom:10px; height:90px"}
+    .welcome-index{:style => "float:left; width:729px;"}
+      .content
+        .inner
+          .leaderboard{:style=>"width:728px;height:90px; float:left;"}
+            = "<!--/ Leaderboard /-->"
+            = current_group.leaderboard_content
+    .sidebar-inner{:style => "float:right; width:300px;"}
+      .block
+        %div{:style=>"width:300px;height:90px;background:black"}
+          - if current_group.has_bumper
+            = current_group.bumper_content
+  .clear

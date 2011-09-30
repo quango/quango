@@ -57,9 +57,9 @@
 
     .entry{:style=>"padding:0"}
       %ul.topbar.settings.right
-        %li{:style=>"background-image: url('images/icons/settings.png');padding:0;width:96px;height:32px"}
+        %li{:style=>"background-image: url('images/icons/settings.png');padding:0;width:48px;height:32px"}
           -#=link_to "Account", "#", :rel => 'nofollow', :style=>"height:32px;"
-          = link_to "&nbsp;", "#", :rel => 'nofollow', :style=>"height:32px;width:96px;color:black"
+          = link_to "&nbsp;", "#", :rel => 'nofollow', :style=>"height:32px;width:48px;color:black"
 
           %ul
             %li
@@ -71,7 +71,7 @@
       %ul.topbar.submissions.right
         %li{:style=>"text-align:center;padding:0; border:0px solid #{current_group.primary};text-shadow:0"}
           -#%span{:style=>"margin-left:8px"}
-          = "Submissions"
+          = "Member submissions"
           -#%span.reputation{:title => t("activerecord.attributes.user.reputation"), :style => "font-family:'Arial Narrow',arial;background-color:"+current_group.primary+";text-transform:uppercase;letter-spacing:0"}
             ="#{current_group.publish_label.capitalize}"
           %ul
@@ -95,8 +95,8 @@
         =link_to t("layouts.application.moderate"), moderate_path, :class => "moderate_link"
 
     -if current_user.owner_of?(current_group)
-      .entry
-        =link_to "&#x2620;", manage_properties_path, :class => "manage_link", :style => "font-size:1.5em;"
+      .entry{:style=>"background-image: url('images/icons/administrator.png');padding:0;width:32px;height:32px"}
+        =link_to ".", manage_properties_path, :class => "manage_link", :style => "height:32px;width:32px;"
 
 
 
