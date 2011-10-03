@@ -38,9 +38,10 @@
             - doctype.items.reverse.each do |item|
               - items_array << item
               - return if items_array.nil? || items_array.empty?
-            - items_array[2..8].each do |item|
-              = render :partial => "/items/summary_list_headline", :locals => {:item => item, :sort=>"hot"}
-              - return if items_array.nil? || items_array.empty?
+            - if items_array.count > 2 #&& items_array.count < 3
+              - items_array[2..8].each do |item|
+                = render :partial => "/items/summary_list_headline", :locals => {:item => item, :sort=>"hot"}
+                - return if items_array.nil? || items_array.empty?
 
     .listings-right{:style => "width:280px; float:right;"}
       .title
