@@ -71,6 +71,7 @@ class Group
 
   key :welcome_layout, String, :default => "homepage_content"
   key :above_the_fold, Boolean, :default => false
+  key :below_the_fold, Boolean, :default => true
   key :has_welcome_features, Boolean, :default => false
   key :has_product_gallery, Boolean, :default => false
   key :has_video_on_homepage, Boolean, :default => false

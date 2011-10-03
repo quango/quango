@@ -183,7 +183,7 @@ class GroupsController < ApplicationController
     @group.safe_update(%w[name name_highlight name_link name_highlight_link
                           other_groups_facebook other_groups_linkedin other_groups_twitter other_groups_google
                           display_name_i display_name_i_link display_name_ii display_name_ii_link
-                          strapline legend has_welcome_features has_product_gallery has_video_on_homepage above_the_fold
+                          strapline legend has_welcome_features has_product_gallery has_video_on_homepage above_the_fold below_the_fold
                           description has_custom_channels custom_channels custom_channel_content default_tags subdomain 
                           has_leaderboard leaderboard_content has_custom_leaderboard custom_leaderboard_content 
                           has_medium_rectangle medium_rectangle_content group_categories show_category_navigation
