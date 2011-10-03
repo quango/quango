@@ -8,9 +8,10 @@
     -if !current_group.isolate && AppConfig.enable_groups
       .edition
         %ul.topbar.combobox.left
-          %li
+          %li{:style=>"height:24px;"}
             = image_tag("/images/logos/star_32.png",:height=>"16px",:width=>"16px",  :style => "margin:6px 4px 4px 4px", :class => "main-icon")
-            =link_to "My groups", :style=>"height:24px; line-height:24px;padding:4px 0 4px 0px"
+            %span{:style=>"height:24px; line-height:24px;padding:4px 0 4px 0px; float:left;"}
+              = "My groups"
             -#=link_to h(current_group.display_name_ii), domain_url(:custom => current_group.domain), :style=> "height:24px; line-height:24px;padding:4px 0 4px -4px"
 
             %ul
@@ -57,7 +58,7 @@
 
     .entry{:style=>"padding:0"}
       %ul.topbar.settings.right
-        %li{:style=>"background-image: url('images/icons/settings.png');padding:0;width:48px;height:32px"}
+        %li{:style=>"background-image: url('/images/icons/settings.png');padding:0;width:48px;height:32px"}
           -#=link_to "Account", "#", :rel => 'nofollow', :style=>"height:32px;"
           = link_to "&nbsp;", "#", :rel => 'nofollow', :style=>"height:32px;width:48px;color:black"
 
@@ -79,7 +80,7 @@
 
               - if !doctype.hidden && doctype.public_access
                 %li
-                  = link_to "#{doctype.create_label}", new_item_path(doctype), :class => "something", :style => "height:18px; line-height:18px;" 
+                  = link_to "#{doctype.create_label}", new_item_path(doctype), :class => "something"
         
 
 
@@ -95,7 +96,7 @@
         =link_to t("layouts.application.moderate"), moderate_path, :class => "moderate_link"
 
     -if current_user.owner_of?(current_group)
-      .entry{:style=>"background-image: url('images/icons/administrator.png');padding:0;width:48px;height:32px;cursor:pointer;",:onclick=>"window.location.href=\'#{manage_properties_path}\'"}
+      .entry{:style=>"background-image: url('/images/icons/administrator.png');padding:0;width:48px;height:32px;cursor:pointer;",:onclick=>"window.location.href=\'#{manage_properties_path}\'"}
         =link_to "&nbsp;", manage_properties_path, :class => "manage_link", :style => "height:48px;width:32px;"
 
 

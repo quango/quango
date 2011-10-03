@@ -45,14 +45,14 @@
 
   -if current_group.above_the_fold
 
-    #above-the-fold{:style=>"height:24px;line-height:22px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:white;font-size:18px; letter-spacing:0px;font-weight:bold;border-bottom:1px solid white; background-color:#{current_group.primary};border-top:4px solid #{current_group.tertiary}"}
-      .above-the-fold{:style=>"width:1022px; height:24px;font-family:Arial,sans-serif; font-weight:bold; font-size:13px;color:white; letter-spacing:-1px;"}
+    #above-the-fold{:style=>"width:1032px; height:24px;line-height:22px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:white;font-size:18px; letter-spacing:0px;font-weight:bold;border-bottom:1px solid white; background-color:#{current_group.primary};border-top:4px solid #{current_group.tertiary}"}
+      .above-the-fold{:style=>"height:24px;font-family:Arial,sans-serif; font-weight:bold; font-size:13px;color:white; letter-spacing:-1px;"}
         -#%div{:style=>"padding:1px 0 3px 4px; height:18px; width:14px; float:left;"}
           -#= "<img src='/images/logos/star_32_point.png' height='14px' width='14px'/>"
         %div{:style=>"float:left;margin-left:8px;"}       
           = "Today's Edition"
 
-        .navcontrols{:style => "height:24px; float:right"}
+        .navcontrols{:style => "height:24px; float:right; margin-right:12px;"}
           %a.show_above{:class => "above-the-fold navlinks showhide left", :style=>"color:white"}
             = "show"
           %a.hide_above{:class => "above-the-fold navlinks showhide left", :style=>"color:white"}

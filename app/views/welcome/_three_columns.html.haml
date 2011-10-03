@@ -14,7 +14,7 @@
           -if doctype.name == @active_section
             .left{:style=>"width:238px;background-color:#ffffff;border-right:2px solid white; display:block;"}
               - section_link = doctype.name.capitalize
-              .column-header{:style=>"margin-bottom:2px;line-height:26px;font-weight:bold;font-size:12px;color:#{current_group.secondary};letter-spacing:-1px"}
+              .column-header{:style=>"margin-bottom:6px;line-height:26px;font-weight:bold;font-size:12px;color:#{current_group.secondary};letter-spacing:-1px"}
                 = link_to section_link, items_path(doctype)
                 %div{:style=>"float:right;"}
                   %a{:style=>"float:right;padding:0 12px;", :class => "submission-button", :href => new_item_path(doctype)}
@@ -43,7 +43,7 @@
                       - doctype.items.reverse.each do |item|
                         - items_array << item
                       - items_array[0..0].each do |item|
-                        .summary-list-text
+                        .summary-list-text{:style => "border-top: 4px solid white"}
                           = render :partial => "/items/summary_list_feature", :locals => {:item => item, :sort=>"hot"}
 
 

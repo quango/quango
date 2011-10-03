@@ -1,22 +1,10 @@
 
 -# Video
 
+.block
+  #video-box{:style=>"margin-bottom:10px"}
+    = render :partial => "video_player", :object=>@item
 
-#main-index
-  .content
-    .inner
-      .toolbox{:style=>"background-color:#{current_group.secondary}; width:712px;"}
-        = render :partial => "toolbox"
 
-    #video-box{:style=>"margin-bottom:10px"}
-      %div{:style=>"padding:10px 10px 0 10px; font-weight:bold;color:white;"}
-        = @item.title
-      = render :partial => "video_player", :object=>@item
 
-    .clear
-      -if logged_in?
-        -if current_user.owner_of?(current_group) | current_user.mod_of?(current_group)
-          %div
-            = render :partial => "controls", :object=>@item
 
-      .clear

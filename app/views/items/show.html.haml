@@ -1,6 +1,6 @@
--#content_for :custom_javascript do
+-content_for :custom_javascript do
 
-
+  = javascript_include_merged :show
 
 - show_close_request_form = !@item.closed && logged_in? && @item.can_be_requested_to_close_by?(current_user)
 - show_open_request_form = @item.closed && logged_in? && @item.can_be_requested_to_open_by?(current_user)
@@ -31,7 +31,8 @@
  
 - content_for :main do
 
-  = javascript_include_merged :show
+  %div
+    = "&nbsp;"
 
   -#if current_group.has_leaderboard && !@doctype.product_format?
 
@@ -49,6 +50,56 @@
               -#= current_group.bumper_content
       -#.clear
 
+  .sidebar-inner{:style=>"float:left;width:140px;"}
+    %h4
+      = "#{@doctype.created_label.to_s}"
+    = render :partial => "author", :locals => {:width => "narrow"}
+    .clear
+
+    - if @answers.count > 0
+      = render :partial => "participants", :locals=> {:item => @item}
+
+
+
+    -#= render :partial => "shared/current_tags"
+    -#= render :partial => "shared/tag_list", :object => @tag_cloud
+    -#= render :partial => "shared/community_sponsor", :locals => {:width => "narrow"}
+    -#= render :partial => "related_communities"
+
+
+    - if logged_in? && (current_user.mod_of?(current_group) || current_user.can_view_offensive_counts_on?(current_group))
+      -unless @item.flags.count == 0
+        .block
+          %h3
+            = t(:flags, :scope => "activerecord.models")
+          .content
+            = render :partial => "flags/list", :locals => {:flaggeable => @item}
+
+      -unless @item.close_requests.size == 0
+        .block
+          %h3
+            = t(:prural_name, :scope => "close_requests.model")
+          .content
+            = render :partial => "close_requests/list", :locals => {:item => @item}
+
+      -unless @item.open_requests.size == 0
+        .block
+          %h3
+            = t(:prural_name, :scope => "open_requests.model")
+          .content
+            = render :partial => "open_requests/list", :locals => {:item => @item}
+
+    - if @item.badges.size > 0
+      .block
+        %h3
+          = t('badges', :scope => "activerecord.models")
+        .content
+          %ul.list
+            -@item.badges.each do |badge|
+              %li
+                = render :partial => "badges/badge", :object => badge, :locals => {:hide_user => false}
+
+
 
   #sidebar-inner{:style=>"float:right"}
     -#= render :partial => "author"
@@ -59,7 +110,6 @@
     = render :partial => "images", :locals => {:item => @item}
 
 
-    = render :partial => "shared/share_box", :locals => {:item => @item}
 
     -current_group.widgets.each do |widget|
       .widget.block{:id => widget.name}
@@ -109,6 +159,7 @@
 
     -if !current_group.has_leaderboard
       = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
+    = render :partial => "shared/share_box", :locals => {:item => @item}
 
 
 
@@ -116,8 +167,7 @@
   -if @doctype.product_format?
     = render :partial => "show_product", :object=>@item
 
-  -if @doctype.has_video?
-    = render :partial => "show_video", :object=>@item
+
 
 
   -#show-container{:style=>"width:728px;"}
@@ -130,6 +180,10 @@
           -if current_user.owner_of?(current_group) | current_user.mod_of?(current_group)
             %div
               = render :partial => "controls", :object=>@item
+
+    -if @doctype.has_video?
+      = render :partial => "show_video", :object=>@item
+
 
     #item-body-col.commentable.markdown
       %a{:name => @item.id}
@@ -227,62 +281,7 @@
 
 
 
-  .sidebar-inner{:style=>"float:left;width:140px;"}
-    .sidebar-heading{:style => "background-color:#{current_group.primary_dark}; color:white;"}
-      = "#{@doctype.name.capitalize}"
 
-    -#if @doctype.product_format
-
-      -#.product-description{:style => "position:relative; color:white; background-color: black; padding:10px; font-size:14px;width:33%; z-index:10;"}
-        -#= @item.body
-
-
-
-    = render :partial => "author", :locals => {:width => "narrow"}
-    .clear
-
-    - if @answers.count > 0
-      = render :partial => "participants", :locals=> {:item => @item}
-
-
-
-    -#= render :partial => "shared/current_tags"
-    -#= render :partial => "shared/tag_list", :object => @tag_cloud
-    -#= render :partial => "shared/community_sponsor", :locals => {:width => "narrow"}
-    -#= render :partial => "related_communities"
-
-
-    - if logged_in? && (current_user.mod_of?(current_group) || current_user.can_view_offensive_counts_on?(current_group))
-      -unless @item.flags.count == 0
-        .block
-          %h3
-            = t(:flags, :scope => "activerecord.models")
-          .content
-            = render :partial => "flags/list", :locals => {:flaggeable => @item}
-
-      -unless @item.close_requests.size == 0
-        .block
-          %h3
-            = t(:prural_name, :scope => "close_requests.model")
-          .content
-            = render :partial => "close_requests/list", :locals => {:item => @item}
-
-      -unless @item.open_requests.size == 0
-        .block
-          %h3
-            = t(:prural_name, :scope => "open_requests.model")
-          .content
-            = render :partial => "open_requests/list", :locals => {:item => @item}
-
-    - if @item.badges.size > 0
-      .block
-        %h3
-          = t('badges', :scope => "activerecord.models")
-        .content
-          %ul.list
-            -@item.badges.each do |badge|
-              %li
-                = render :partial => "badges/badge", :object => badge, :locals => {:hide_user => false}
 
 
 

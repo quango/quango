@@ -8,7 +8,6 @@
 
 
 
-
 - if current_group.theme != "ping"
 
   %style{:type => 'text/css'}
@@ -34,7 +33,7 @@
     \.channel-container-inner {background-color: #ffffff;border-left: 2px solid white;border-right: 4px solid white;}
     \.navigation-container {background:#{current_group.primary};background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.primary}),to(#{current_group.tertiary}));background:-moz-linear-gradient(top,#{current_group.primary},#{current_group.tertiary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,endColorstr='#{current_group.primary}',startColorstr='#{current_group.tertiary}');}
 
-    \#header-container-inner {background:#ffffff;border-left: 2px solid white;border-right: 4px solid white;}
+
 
 - else
 
@@ -67,9 +66,6 @@
 
 
 %style{:type => 'text/css'}
-
-  \.submission-button { background-color:#{current_group.primary}; border: 1px solid #{current_group.primary_dark};}
-
   \#container{border-left: 2px solid white;border-right: 4px solid white;}
 
   button.search-button{border: 1px solid black;background-color:#{current_group.primary};background:#{current_group.primary_dark};background:-webkit-gradient(linear,left top,left bottom,to(#{current_group.secondary}),from(#{current_group.primary_dark}));background:-moz-linear-gradient(top,#{current_group.primary_dark},#{current_group.secondary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.primary_dark}',endColorstr='#{current_group.secondary}');}
@@ -80,7 +76,7 @@
 
 
   \#toolbar ul.submissions li:hover{background:#{current_group.primary}}
-  \#toolbar ul.submissions li ul{background:#{current_group.tertiary}}
+  \#toolbar ul.submissions li ul{background:#{current_group.primary}}
 
   \#toolbar ul.settings li:hover{background:#{current_group.secondary}}
   \#toolbar ul.settings li ul{background:#{current_group.secondary}}
@@ -150,7 +146,7 @@
   a{color:#{current_group.tertiary};text-decoration: none;}
   a:hover{color:#{current_group.primary};text-decoration:none;} 
 
-  \h4{background-color:#{current_group.tertiary};border-color:#{current_group.primary};}
+  \h4{background:#{current_group.tertiary};background-color:#{current_group.tertiary};border-bottom: 4px solid #{current_group.primary};}
 
 
   <!--//-->
