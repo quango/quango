@@ -54,7 +54,7 @@
     %h4
       = "#{@doctype.created_label.to_s}"
     = render :partial => "author", :locals => {:width => "narrow"}
-    .clear
+
 
     - if @answers.count > 0
       = render :partial => "participants", :locals=> {:item => @item}
