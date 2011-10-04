@@ -63,7 +63,7 @@ ActionController::Routing::Routes.draw do |map|
   def build_items_routes(router, options ={})
     router.with_options(options) do |route|
       route.se_url "/:doctype/:id/:slug", :controller => "items", :action => "show", :section => /\d+/, :id => /\d+/, :conditions => { :method => :get }
-      route.resources :doctypes, :as => 'group' do |doctypes|
+      route.resources :doctypes, :as => 'member' do |doctypes|
 
         doctypes.resources :items, 
                            :collection => {:get_video_info => :get, :tags => :get,:tags_for_autocomplete => :get,:unanswered => :get,:related_items => :get},

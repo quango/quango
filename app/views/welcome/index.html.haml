@@ -90,28 +90,21 @@
 
 
 
-
-      .welcome-index{:style => "float:left; width:1032px;margin:3px 0"}
-        .content{:style=>"float:left; width:728px;"}
-          .inner
-            = render :partial => "featured_sections", :locals => {:expanded => true}
-
-
-        .sidebar-inner{:style => "float:right; width:300px;margin-top:11px;padding-top:11px;border-top:2px solid gainsboro;"}
-          .block
-   
-            -if current_group.has_threeone_rectangle
-              .threeone-rectangle{:style=>"background-color:white; width:300px;height:100px;overflow:hidden"}
-                = current_group.threeone_rectangle_content
-
-              .clear
-
-                -#="<a href='http://twitter.com/fast_thinking'><img src='http://twitter-badges.s3.amazonaws.com/follow_us-b.png' alt='Follow thinkingdaily on Twitter'/></a>"
+      -if current_group.has_welcome_features
+        .welcome-index{:style => "float:left; width:1032px;margin:3px 0"}
+          .content{:style=>"float:left; width:728px;"}
+            .inner
+              = render :partial => "featured_sections", :locals => {:expanded => true}
 
 
+          .sidebar-inner{:style => "float:right; width:300px;margin-top:11px;padding-top:11px;border-top:2px solid gainsboro;"}
+            .block
+     
+              -if current_group.has_threeone_rectangle
+                .threeone-rectangle{:style=>"background-color:white; width:300px;height:100px;overflow:hidden"}
+                  = current_group.threeone_rectangle_content
 
-
-
+                .clear
 
           .clear
 
@@ -181,7 +174,7 @@
     .below
 
 
-      .welcome-index{:style => "float:left; width:729px;"}
+      .welcome-index-below{:style => "float:left; width:729px;"}
         .content
 
           - if current_group.has_product_gallery
@@ -204,52 +197,52 @@
 
 
 
-    #sidebar-inner{:style => "float:right; width:300px;"}
+      #sidebar-inner{:style => "float:right; width:300px;"}
 
 
 
-      .block{:style => "margin-bottom:4px"}
-        %h3{:style=>"background:#{current_group.primary_dark}"}
-          = "About this site"
-        .content
-          .markdown{:style => "padding:8px"}
-            = markdown(current_group.description)
+        .block{:style => "margin-bottom:4px"}
+          %h3{:style=>"background:#{current_group.primary_dark}"}
+            = "About this site"
+          .content
+            .markdown{:style => "padding:8px"}
+              = markdown(current_group.description)
 
 
 
-      -if current_group.has_medium_rectangle
-        .medium-rectangle{:style=>"background-color:white;margin:10px 0;padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
-          = current_group.medium_rectangle_content
-        .clear
+        -if current_group.has_medium_rectangle
+          .medium-rectangle{:style=>"background-color:white;margin:10px 0;padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
+            = current_group.medium_rectangle_content
+          .clear
 
 
 
 
-      .block{:style=>"display:none"}
-        = render :partial => "shared/sidebar_actions",  :locals => {:width => "wide"}
+        .block{:style=>"display:none"}
+          = render :partial => "shared/sidebar_actions",  :locals => {:width => "wide"}
 
-      -#- current_group.widgets.each do |widget|
-        -#.widget.block{:id => widget.name}
-          -#= render :partial => widget.partial_name, :locals => {:widget => widget, :width => "wide"}
-
-
-
-      = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
-      = render :partial => "shared/sponsored_links",  :locals => {:width => "wide"}
+        -#- current_group.widgets.each do |widget|
+          -#.widget.block{:id => widget.name}
+            -#= render :partial => widget.partial_name, :locals => {:widget => widget, :width => "wide"}
 
 
 
-      .block
-        = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
-
-
-      .block
-        = render :partial => "shared/share_box_welcome", :locals => {:item => @item}
+        = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
+        = render :partial => "shared/sponsored_links",  :locals => {:width => "wide"}
 
 
 
-      -if !current_group.isolate # this will be the group connect thing
-        -#= render :partial => "featured_groups", :locals => {:width => "wide"}
+        .block
+          = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
+
+
+        .block
+          = render :partial => "shared/share_box_welcome", :locals => {:item => @item}
+
+
+
+        -if !current_group.isolate # this will be the group connect thing
+          -#= render :partial => "featured_groups", :locals => {:width => "wide"}
 
 
       %script{:type => "text/javascript"}

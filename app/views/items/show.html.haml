@@ -51,8 +51,8 @@
       -#.clear
 
   .sidebar-inner{:style=>"float:left;width:140px;"}
-    %h4
-      = "#{@doctype.created_label.to_s}"
+    .sidebar-headings{:style=>"width:140px; line-height:32px;"}
+      = "Member"
     = render :partial => "author", :locals => {:width => "narrow"}
 
 

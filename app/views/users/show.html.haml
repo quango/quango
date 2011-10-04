@@ -7,6 +7,10 @@
 
   = javascript_include_merged :show
 
+  %div
+    = "&nbsp;"
+
+
   #member-tabs
     %ul.member-tabs{:style=>"width:50%; float:left"}
       %li
@@ -19,13 +23,13 @@
     .filter{:style=>"height:32px;float:right; width:50%; border-bottom: 1px solid gainsboro"}
       %div{:style=>"display:inline;float:right"}
         %label.category-button
-          = link_to "newest", user_path(@user, params.merge(:sort=>"newest")), :rel => "nofollow"
+          = link_to "newest", user_path(@user.slug, params.merge(:sort=>"newest")), :rel => "nofollow"
         %label.category-button
-          = link_to "oldest", user_path(@user, params.merge(:sort=>"oldest")), :rel => "nofollow"
+          = link_to "oldest", user_path(@user.slug, params.merge(:sort=>"oldest")), :rel => "nofollow"
         %label.category-button
-          = link_to "views ", user_path(@user, params.merge(:sort=>"views")), :rel => "nofollow"
+          = link_to "views ", user_path(@user.slug, params.merge(:sort=>"views")), :rel => "nofollow"
         %label.category-button
-          = link_to "votes ", user_path(@user, params.merge(:sort=>"votes")), :rel => "nofollow"
+          = link_to "votes ", user_path(@user.slug, params.merge(:sort=>"votes")), :rel => "nofollow"
 
   .clear
 

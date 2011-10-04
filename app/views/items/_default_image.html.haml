@@ -8,8 +8,8 @@
   - base_thumbnail = base_image.process(:thumb,"300x")
 
   .block
-    %h3{:style=>"background-color: #525051; color: white"}
-      = "Main Image"
+    %h4
+      = "Image"
       .expand
         = link_to  "Expand image", expanded_image.url, :title => "#{image.caption}"
 

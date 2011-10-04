@@ -42,24 +42,24 @@
 
         %div.fn.nickname
           -unless user.nil?
-            =link_to "#{user.display_name}", "/members/#{user.slug}", :style => "font-weight:bold"
+            =link_to "#{user.display_name}", "/members/#{user.slug}", :style => "font-weight:bold, color:#{current_group.primary};"
 
           %span.reputation{:title => t("activerecord.attributes.user.reputation")}
             -unless user.nil?
-              -if user.owner_of?(current_group)
-                %span.ownerflair{:title => "Group Administrator", :style => "margin-top:2px;float:right;"}
-                  = "<img src='/images/owner-icon.png' height='12px' width='14px' title='Site Administrator' alt='Site Administrator'/>"
-              -elsif user.mod_of?(current_group)
+              -#if user.owner_of?(current_group)
+                -#%span.ownerflair{:title => "Group Administrator", :style => "margin-top:2px;float:right;"}
+                  -#= "<img src='/images/owner-icon.png' height='12px' width='14px' title='Site Administrator' alt='Site Administrator'/>"
+              -if user.mod_of?(current_group)
                 %div.modflair{:title => "moderator"}
-                  Editor
+                  mod.
               -elsif user.editor_of?(current_group)
                 %span.editorflair{:title => "Group Editor", :style => "background-color:#{current_group.secondary};border: 1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px"}
-                  Editor
+                  ed.
 
             -else
               = t('users.deleted')
             -unless user.nil?
-              %span.label
+              %span.reputation
                 =user.reputation_on(current_group)
 
           -if local_assigns[:with_badges] != false
@@ -81,25 +81,8 @@
                 %span.badgecount
                   =bronze
 
-      %div.latest{:style=>"width:232px;float:left; overflow:hidden"}
 
-        %ol{:style=>"list-style-type: default"}
-          - counter = 0
-          - items_array = Array.new
-          - user.items.reverse.each do |item|
-            -if item.group == current_group
-              - items_array = items_array << item
-
-          -# items_array.sort { |b,a| a.activity_at <=> b.activity_at }
-
-          - items_array[0..2].each do |item|
-
-
-            %li{:style=>"border:0; width:216px; height:12px; overflow:hidden"}
-              - counter = counter + 1
-              = counter.to_s
-              = link_to truncate(strip_tags(item.title), :length => 96), domain_url(:custom => item.group.domain) + item_path(item.doctype_id, item), :style => "letter-spacing:-1px;font-weight:normal; color: #{current_group.link_colour}"
-
+      = render :partial => "users/user_latest", :locals => {:user => user}
 
 
 

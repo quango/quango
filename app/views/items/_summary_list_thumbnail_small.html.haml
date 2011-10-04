@@ -19,19 +19,19 @@
   %div.image-link-wide{:style => "border-bottom:1px dotted gainsboro; height:45px",:onclick=>"window.location.href='#{item_url(item.doctype, item)}'"}
 
     -if item.default_thumbnail?
-      .thumbnail{:style => "width:80px;height:45px; float:left; margin-right:4px solid white"}
+      .thumbnail{:style => "width:80px;height:45px; float:left; margin-right:4px"}
         - image = Image.find(item.default_thumbnail)
         - base_image = image.image.process(:thumb,image.image_cropping)
         - base_thumbnail = base_image.process(:thumb,"80x")
         = link_to image_tag(base_thumbnail.url, :height => '45px', :alt => image.name, :title => image.name), item_path(item.doctype, item)
 
-      .inner-link{:style => "float:right;width:156px;height:45px;overflow:hidden"}
+      .inner-link{:style => "float:right;width:150px;height:45px;overflow:hidden"}
         = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
 
     -else
       .thumbnail{:style => "width:80px;height:45px;float:left; margin-right:4px"}
         = link_to image_tag("/images/spacer.gif", :class => 'none', :style => "background-color:#{current_group.secondary};width:80px;height:45px"), item_path(item.doctype, item)        
-      .inner-link{:style => "float:right;width:156px;height:45px;overflow:hidden"}
+      .inner-link{:style => "float:right;width:150px;height:45px;overflow:hidden"}
         = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
 
 

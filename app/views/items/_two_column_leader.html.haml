@@ -29,7 +29,7 @@
           = link_to image_tag(base_thumbnail.url, :class => 'none', :alt => image.name, :title => image.name,:style => "width:140px;min-height:70px", :height => "70px", :width => "140px" ), item_path(item.doctype, item)
 
         .inner-teaser{:style=>"height:80px;width:210px;float:right;padding-right:4px;overflow:hidden"}
-          = link_to h(truncate(strip_tags(item.body), :length => 160) ), item_path(item.doctype, item), :style=>"color:black"
+          = link_to h(truncate(strip_tags(item.body), :length => 160) ), item_path(item.doctype, item), :style=>"color:#333333"
 
 
 
@@ -51,7 +51,7 @@
 
         .inner-teaser{:style=>"width:210px;height:80px;float:right;padding-right:4px;overflow:hidden"}
 
-          = link_to h(truncate(strip_tags(item.body), :length => 160) ), item_path(item.doctype, item), :style=>"color:black"
+          = link_to h(truncate(strip_tags(item.body), :length => 160) ), item_path(item.doctype, item), :style=>"color:#333333"
 
       .inner
 

@@ -1,0 +1,22 @@
+
+
+
+
+%div.latest{:style=>"width:232px;float:left; overflow:hidden"}
+
+  %ol{:style=>"list-style-type: default"}
+    - counter = 0
+    - user_items_array = Array.new
+    - current_group.items.each do |item|
+
+      - if item.user == user
+        -# if item.group == current_group
+        - user_items_array = user_items_array << item
+
+    - user_items_array.sort! { |b,a| a.activity_at <=> b.activity_at }
+    - user_items_array[0..2].each do |item|
+
+      %li{:style=>"border:0; width:216px; height:12px; overflow:hidden"}
+        - counter = counter + 1
+        = counter.to_s
+        = link_to truncate(strip_tags(item.title), :length => 96), item_path(item.doctype,item), :style => "letter-spacing:-1px;font-weight:normal; color: #{current_group.link_colour}"
