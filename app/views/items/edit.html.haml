@@ -1,11 +1,23 @@
+-content_for :main do
+  = javascript_include_merged :show
+  #main-index{:style=>"margin-top:16px;width:576px; float:left; margin-left:8px;"}
+    .supplementary-navigation{:class => @active_subtab.to_s, :style => "height:35px; line-height:35px; padding:0 8px 0 8px"}
+      = current_group.publish_label.capitalize + " " + @doctype.name  
+    - form_for(@item, :url => item_path(@doctype, @item), :html => {:class => "form"}) do |f|
 
+
+
+ 
+
+      =render :partial => "form", :locals => {:f => f}
 
 -content_for :sidebar do
-  #sidebar
-    = render :partial => "shared/community_sponsor", :locals => {:width => "narrow"}
+  #sidebar{:style=>"margin-top:16px;"}
+    = render :partial => "shared/member_profile", :locals => {:user => @user}
+
 
 -content_for :sidebar_inner do
-  #sidebar-inner{:style=>"width:300px; float:right"}
+  #sidebar-inner{:style=>"margin-top:16px;width:300px; float:right"}
 
     -if !current_group.item_help.empty?
       .help
@@ -18,18 +30,7 @@
     .related-item
       %ul.items#related_items
 
--content_for :main do
-  = javascript_include_merged :show
-  #main-index{:style=>"width:728px; float:left"}
-    .supplementary-navigation{:class => @active_subtab.to_s, :style => "height:35px; line-height:35px; padding:0 8px 0 8px"}
-      = current_group.publish_label.capitalize + " " + @doctype.name  
-    - form_for(@item, :url => item_path(@doctype, @item), :html => {:class => "form"}) do |f|
 
-
-
- 
-
-      =render :partial => "form", :locals => {:f => f}
 
 
 

@@ -57,5 +57,8 @@
         = link_to "become a member", new_user_path 
 
 
+  -content_for :sidebar do
+    #sidebar
+      = render :partial => "shared/member_profile", :locals => {:user => @user}
 
 

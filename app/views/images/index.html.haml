@@ -1,6 +1,7 @@
 
 - content_for :main do
-  #main-index
+
+  #main-index{:style=>"margin-top:16px;"}
     .supplementary-navigation{:class => @active_subtab.to_s, :style => "height:35px; line-height:35px; padding:0 8px;"}
       = "Editing &quot;#{@item.title}'s&quot; Images"
       = link_to "Back to page", item_path(@item.doctype, @item), :style => "float: right; color:white"
@@ -60,21 +61,14 @@
 
 
 -content_for :sidebar_inner do
-  #sidebar-inner
-    .block
-      %h3
-        = h("Preview images")
+  #sidebar-inner{:style=>"margin-top:16px;"}
     = render :partial => "items/default_image", :locals => {:item => @item}
     = render :partial => "items/images", :locals => {:item => @item}
 
 
 -content_for :sidebar do
-  #sidebar
-    .block
-      %h3
-        = h("Image data")
-      .content
-        = h("Something else")
+  #sidebar{:style=>"margin-top:16px;"}
+    = render :partial => "shared/member_profile", :locals => {:user => @user}
 
 
 

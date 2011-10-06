@@ -87,8 +87,12 @@
 
   -if logged_in?
     .entry
-      - real_name = "#{current_user.first_name} #{current_user.last_name}"
-      %strong= link_to(h(real_name), user_path(current_user))
+      - if current_user.display_name?
+        - real_name = "#{current_user.display_name}"
+      - else
+        - real_name = "#{current_user.first_name} #{current_user.last_name}"
+
+      %strong= link_to(h(real_name), "/members/#{current_user.slug}")
       %span.reputation{:title => t("activerecord.attributes.user.reputation"), :style => "background-color:"+current_group.primary+""}=format_number(current_user.reputation_on(current_group))
 
     -if current_user.mod_of?(current_group)

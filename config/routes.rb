@@ -137,8 +137,9 @@ ActionController::Routing::Routes.draw do |map|
                                      :check => :any,
                                      :favicon => :get,
                                      :background => :get,
+                                     :group_style => :get,
                                      :css => :get},
-                          :collection => { :autocomplete_for_group_slug => :get}, :as => "communities"
+                          :collection => { :autocomplete_for_group_slug => :get}, :as => "groups"
 
   #map.groups '/check',:controller => "groups", :action => "post", :as => "communities"
 
