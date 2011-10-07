@@ -1,7 +1,7 @@
 - user = current_user
 
 .block
-  %sidebar-inner.heading{:style=>"width:140px;border-bottom:1px solid gainsboro"}
+  %sidebar-inner.sidebar-headings{:style=>"width:140px;"}
     = "My profile"
   .content
     = render :partial => "users/user_mini", :locals => {:user => user, :width => "square"}

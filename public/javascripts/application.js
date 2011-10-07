@@ -44,10 +44,10 @@ $(".avatar-narrow").hover(
 });
 
 $(document).ready(function() {
-        $('#gallery a').lightBox();
+        $('.b').lightBox();
 });
 
-
+/*
 $(document).ready(function() {
         $('#products a').lightBox();
 });
@@ -56,19 +56,19 @@ $(document).ready(function() {
 $(document).ready(function() {
         $('.expand a').lightBox();
 });
-
+*/
 
 $(document).ready(function(){
-$(".fade-thumbnails a").hover(
-    function() {$(this).children('.a').stop().animate({"opacity": "0"}, "slow");},
-    function() {$(this).children('.a').stop().animate({"opacity": "1"}, "fast");}
+$(".fade-thumbnails a.expanded").hover(
+    function() {$(this).stop().animate({"opacity": "0"}, "slow");},
+    function() {$(this).stop().animate({"opacity": "1"}, "fast");}
 );
 });
 
 $(document).ready(function(){
 $(".features-thumbnail").hover(
-    function() {$(this).children('.a').stop().animate({"opacity": "0"}, "slow");},
-    function() {$(this).children('.a').stop().animate({"opacity": "1"}, "fast");}
+    function() {$('.a').stop().animate({"opacity": "0"}, "slow");},
+    function() {$('.a').stop().animate({"opacity": "1"}, "fast");}
 );
 });
 

@@ -11,11 +11,11 @@
           - base_image = image.image.process(:thumb,image.image_cropping)
           - expanded_image = base_image.process(:thumb,"800x").encode(:jpeg){self.quality = 75}
           - base_thumbnail = base_image.process(:thumb,"140x")
-          - base_thumbnail_grey = base_thumbnail.process(:greyscale)
-          %ul.image-link-wide
-            %div.fade-thumbnails
-              = link_to image_tag(base_thumbnail.url, :class => 'b', :alt => "#{image.caption.to_s}", :title => "#{image.caption.to_s}"), expanded_image.url, :title => "#{image.caption.to_s}", :class=>"expand"
-              = link_to image_tag(base_thumbnail_grey.url, :class => 'a', :alt => "#{image.caption.to_s}", :title => "#{image.caption.to_s}"), expanded_image.url, :title => "#{image.caption.to_s}", :class=>"expand"
+          -# base_thumbnail_grey = base_thumbnail.process(:greyscale)
+          %li.image-link-wide
+            %div.fade-thumbnail
+              = link_to image_tag(base_thumbnail.url, :alt => "#{image.caption.to_s}", :title => "#{image.caption.to_s}"), expanded_image.url, :title => "#{image.caption.to_s}", :class=>"b"
+              -#= link_to image_tag(base_thumbnail_grey.url, :class => 'a', :alt => "#{image.caption.to_s}", :title => "#{image.caption.to_s}"), expanded_image.url, :title => "#{image.caption.to_s}", :class=>"expand"
               -#= image_tag base_thumbnail.url, :class => 'b', :alt => image.name, :title => image.name
               -#= image_tag base_thumbnail_grey.url, :class => 'a', :alt => image.name, :title => image.name  
               %div{:style => "width:152px; height:80px; line-height:13px;float:right; overflow:hidden; padding:0 4px;"} 

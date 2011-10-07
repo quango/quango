@@ -31,10 +31,13 @@
 #jquery-lightbox a img { border: none; }
 #lightbox-container-image-box {
 	position: relative;
-	background-color: #fff;
-	width: 250px;
-	height: 250px;
+	background-color: #000000;
+	/*width: 250px;
+	height: 250px;*/
 	margin: 0 auto;
+  -moz-box-shadow: 5px 5px 10px #111;
+  -webkit-box-shadow: 5px 5px 10px #111;
+  box-shadow: 5px 5px 10px #111;
 }
 #lightbox-container-image { padding: 10px; }
 #lightbox-loading {
@@ -72,12 +75,16 @@
 }
 #lightbox-container-image-data-box {
 	font: 10px Verdana, Helvetica, sans-serif;
-	background-color: #fff;
+	background-color: #000;
 	margin: 0 auto;
 	line-height: 1.4em;
 	overflow: auto;
 	width: 100%;
 	padding: 0 10px 0;
+  -moz-box-shadow: 5px 5px 10px rgba(255,255,255,0.6);
+  -webkit-box-shadow: 5px 5px 10px #111;
+  box-shadow: 5px 5px 10px #111;
+  z-index: 1;
 }
 #lightbox-container-image-data {
 	padding: 0 10px; 
