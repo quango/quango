@@ -38,11 +38,21 @@
         = f.label :tags, "#{t(:tags, :scope => "activerecord.attributes.item")}", :class => "label"
         .description{:style=>"margin-left:16px"}
           = "Start writing your tags - hit <span class='keyboard'>TAB</span> to move to the next one"
-        - unless @item.tags[0] = @item.category
-          - appended_category = @item.category.to_s << ", " <<  @item.tags.join(", ")
-          = f.text_field :tags,:value => appended_category, :class => "text_field autocomplete_for_tags"
-        - else
+        -# unless @item.tags[0] = @item.category
+          -# appended_category = @item.category.to_s << ", " <<  @item.tags.join(", ")
+          -#= f.text_field :tags,:value => appended_category, :class => "text_field autocomplete_for_tags"
+        -# else
           = f.text_field :tags,:value => @item.tags.join(", "), :class => "text_field autocomplete_for_tags"
+
+        .tag-list
+          - @item.tags.each do |tag|
+            %span.tag
+              = link_to h(tag), url_for(:controller => "item", :action => "index", :tags => tag), :rel => "tag", :style => "background-color:#{current_group.primary}"
+          - if logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group)) #tofix
+            .retag
+              = link_to t('.retag'), retag_item_path(@doctype, @item), :id => 'retag',:style => "background-color:white;border:0; color:#{current_group.primary};", :class => "link"
+
+
 
     .clear
     .group

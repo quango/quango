@@ -1,44 +1,47 @@
-.footer
+%div{:style=>"float:right; width:300px;"}
+  = render :partial => "shared/share_box"
+
+%div{:style=>"float:left; width:728px;"}
   #{current_group.footer}
 
-.footer
+  .footer
 
-  .footer-links
-    .entry
-      %ul
-        %li
-          = link_to "about this community","/about/community"
-        |
-        %li
-          = link_to "copyright","/about/copyright"
-        |
-        %li
-          = link_to "advertising", "/about/advertising"
-        |
-        %li
-          =  link_to "credits","/about/credits"
-        |
-        %li
-          =  link_to "legals","/about/legals"
-        |
-        %li
-          =  link_to "help!","/about/help"
+    .footer-links
+      .entry
+        %ul
+          %li
+            = link_to "about this community","/about/community"
+          |
+          %li
+            = link_to "copyright","/about/copyright"
+          |
+          %li
+            = link_to "advertising", "/about/advertising"
+          |
+          %li
+            =  link_to "credits","/about/credits"
+          |
+          %li
+            =  link_to "legals","/about/legals"
+          |
+          %li
+            =  link_to "help!","/about/help"
+      .clear
+
+
+
+
+  .footer{:style => "border-top:1px solid #{current_group.secondary}; margin:8px 0 32px 0; padding-top:8px;line-height:24px"}
+    .entry.left{:style=>"padding:4px;font-size:14px;font-family:georgia;font-weight:bold;color:#4183AF;"}
+      = "Are you thinking daily?"
     .clear
+    .entry.left
+      = link_to "quango", "http://quangoquango.org", :style=>"padding:4px;font-size:14px;font-family:georgia;font-weight:bold;color:#4183AF;"
+    .entry.left
+      = " v" + AppConfig.version.to_s + "<a style='border:1px solid #{current_group.supplementary};'>beta</a>"
+      = " - open source"
+    .entry.left
+      = render :partial => "shared/bug"
 
-
-
-
-.footer{:style => "border-top:1px solid #{current_group.secondary}; margin:8px 0 32px 0; padding-top:8px;line-height:24px"}
-  .entry.left{:style=>"padding:4px;font-size:14px;font-family:georgia;font-weight:bold;color:#4183AF;"}
-    = "Are you thinking daily?"
-  .clear
-  .entry.left
-    = link_to "quango", "http://quangoquango.org", :style=>"padding:4px;font-size:14px;font-family:georgia;font-weight:bold;color:#4183AF;"
-  .entry.left
-    = " v" + AppConfig.version.to_s + "<a style='border:1px solid #{current_group.supplementary};'>beta</a>"
-    = " - open source"
-  .entry.left
-    = render :partial => "shared/bug"
-
-  .entry
-    = "<a rel='license' href='http://creativecommons.org/licenses/by/3.0/'><img alt='Creative Commons License' style='border-width:0; float:right;' src='http://i.creativecommons.org/l/by/3.0/80x15.png' height='15px' width='80px' /></a>Unless indicated this work is <a rel='license' href='http://creativecommons.org/licenses/by/3.0/'>creative commons</a>."
+    .entry
+      = "<a rel='license' href='http://creativecommons.org/licenses/by/3.0/'><img alt='Creative Commons License' style='border-width:0; float:right;' src='http://i.creativecommons.org/l/by/3.0/80x15.png' height='15px' width='80px' /></a>Unless indicated this work is <a rel='license' href='http://creativecommons.org/licenses/by/3.0/'>creative commons</a>."

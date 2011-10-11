@@ -175,6 +175,9 @@
           =link_to "#{user.display_name}", user_path(user)
 
 
+      .action{:style=>"margin-top:10px;"}
+        = render :partial => "users/follow_button", :locals => {:user => user, :width => "narrow"}
+
       %span.reputation{:title => t("activerecord.attributes.user.reputation")}
         -unless user.nil?
           -if user.owner_of?(current_group)

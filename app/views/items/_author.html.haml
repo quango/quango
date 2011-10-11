@@ -4,7 +4,8 @@
   .content
     = render :partial => "users/user_mini", :locals => {:user => @item.user, :width => "square"}
   .content{:style=>"padding-bottom:10px;margin-bottom:10px; border-bottom:1px solid gainsboro"}
-    = @item.user.bio
+    = h(truncate(strip_tags(@item.user.bio), :length => 512) )
+    -#= @item.user.bio
 
   - if @item.user.website_url?
     .user-links

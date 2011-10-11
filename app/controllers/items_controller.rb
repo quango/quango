@@ -454,7 +454,7 @@ class ItemsController < ApplicationController
 
     keywords_array = Array.new
 
-    keywords_array = keywords_array << @item.category   
+    #keywords_array = keywords_array << @item.category   
     @item.tags.each do |tag|
       keywords_array = keywords_array << tag
     end
@@ -519,20 +519,20 @@ require 'pismo'
 
       #@item.tags = doc.keywords.to_s
 
-      tag_array = Array.new
+      #tag_array = Array.new
 
-      doc.keywords[0..4].each do |tag|
+      #doc.keywords[0..4].each do |tag|
       
-      temp_tag = tag[0]
+      #temp_tag = tag[0]
 
 
-      tag_array << temp_tag
+      #tag_array << temp_tag
 
-      end
+      #end
 
       #tag_array.each do |clean_tag|
 
-      @item.tags = tag_array
+      #@item.tags = tag_array
 
       #end
 
