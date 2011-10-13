@@ -51,7 +51,7 @@
       -#.clear
 
   .sidebar-inner{:style=>"float:left;width:140px;"}
-    .sidebar-headings{:style=>"width:140px; line-height:32px;"}
+    .sidebar-headings{:style=>"width:136px; line-height:32px;padding-left:4px;"}
       = "Member"
     = render :partial => "author", :locals => {:width => "narrow"}
 
@@ -174,7 +174,7 @@
   #main-index{:style=>"float:right; margin:0 8px"}
     .content
       .inner
-        .toolbox
+        .toolbox{:style=>"border-bottom:4px solid #b6b6b6"}
           = render :partial => "toolbox"
         -if logged_in?
           -if current_user.owner_of?(current_group) | current_user.mod_of?(current_group)
