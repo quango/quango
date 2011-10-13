@@ -17,7 +17,7 @@ class ItemsController < ApplicationController
   before_filter :set_active_tag
   before_filter :set_active_section
   before_filter :set_default_thumbnail
-  before_filter :check_mode
+  #before_filter :check_mode
   before_filter :check_age, :only => [:show]
   before_filter :check_retag_permissions, :only => [:retag, :retag_to]
 
