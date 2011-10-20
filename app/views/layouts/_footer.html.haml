@@ -1,47 +1,65 @@
-%div{:style=>"float:right; width:300px;"}
+
+- if !true
+
+
+
+  %div{:style=>"border:4px solid green"}
+
+    .block
+      = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
+
+
+
+
+
+%div.share_bg{:style=>"float:right; width:300px; border-left:4px solid white"}
   = render :partial => "shared/share_box"
 
-%div{:style=>"float:left; width:728px;"}
-  #{current_group.footer}
+%div.share_bg{:style=>"float:left; width:728px;"}
+  .footer{:style => "margin:4px 0 32px 0; padding-top:4px;line-height:18px; height:128px"}
+    .custom
+      = "#{current_group.custom_html.footer.to_s}"
+    .notice{:style=>"border-top:1px solid white; margin:4px"}
+      .entry.left{:style=>"float:left; width:724px;height:18px;margin-left:4px;line-height:16px"}
+        = "Unless indicated this work is <a rel='license' href='http://creativecommons.org/licenses/by/3.0/'>creative commons</a>."
+        = "<a rel='license' href='http://creativecommons.org/licenses/by/3.0/'><img alt='Creative Commons License' src='/images/ccby80x15.png' height='20px' width='80px' style='margin-bottom:-4px;' /></a>"
+        = "|"
+        = link_to "terms of usage","/about/legals"
 
-  .footer
+      .entry.left{:style=>"float:left; width:724px;height:18px;margin-left:4px"}
+        = link_to "thinkingdaily", "http://quangoquango.org", :style=>"font-size:12px;font-family:georgia;font-weight:bold;color:#525051;"
+        = " v" + AppConfig.version.to_s + "<a style='background-color: #{current_group.primary};color:white;padding:0 4px;letter-spacing:-1px;font-size:10px;font-weight:normal;'>BETA</a>"
+        = "|"
+        =  link_to "credits","/about/credits"
+        .clear
 
-    .footer-links
-      .entry
-        %ul
-          %li
-            = link_to "about this community","/about/community"
-          |
-          %li
-            = link_to "copyright","/about/copyright"
-          |
-          %li
-            = link_to "advertising", "/about/advertising"
-          |
-          %li
-            =  link_to "credits","/about/credits"
-          |
-          %li
-            =  link_to "legals","/about/legals"
-          |
-          %li
-            =  link_to "help!","/about/help"
-      .clear
+      .entry.left{:style=>"float:left; width:728px;"}
+        = render :partial => "shared/bug"
+        .clear
 
+      - if @render_start
+        .entry.left
+          .rendering{:style=>"margin-left:4px"}
+            - rendering_stop = Time.now
+            - rendering_time = rendering_stop - @render_start
+            = "#{rendering_time}"
 
+      -if logged_in? && current_user.owner_of?(current_group)
+        .debug
+          = "Group: #{current_group.id} / #{current_group.name}"
+      -else
+        = "&nbsp;"
 
 
-  .footer{:style => "border-top:1px solid #{current_group.secondary}; margin:8px 0 32px 0; padding-top:8px;line-height:24px"}
-    .entry.left{:style=>"padding:4px;font-size:14px;font-family:georgia;font-weight:bold;color:#4183AF;"}
-      = "Are you thinking daily?"
-    .clear
-    .entry.left
-      = link_to "quango", "http://quangoquango.org", :style=>"padding:4px;font-size:14px;font-family:georgia;font-weight:bold;color:#4183AF;"
-    .entry.left
-      = " v" + AppConfig.version.to_s + "<a style='border:1px solid #{current_group.supplementary};'>beta</a>"
-      = " - open source"
-    .entry.left
-      = render :partial => "shared/bug"
 
-    .entry
-      = "<a rel='license' href='http://creativecommons.org/licenses/by/3.0/'><img alt='Creative Commons License' style='border-width:0; float:right;' src='http://i.creativecommons.org/l/by/3.0/80x15.png' height='15px' width='80px' /></a>Unless indicated this work is <a rel='license' href='http://creativecommons.org/licenses/by/3.0/'>creative commons</a>."
+
+
+
+
+
+
+
+
+
+
+

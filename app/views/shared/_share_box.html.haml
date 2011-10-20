@@ -1,28 +1,10 @@
 
-%style{:type => 'text/css'}
-
-  \.share-bg{background:-webkit-gradient(linear,left top,left bottom,from(#cccccc),to(#ffffff));background:-moz-linear-gradient(top,#{current_group.secondary},#ffffff);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#cccccc',endColorstr='#ffffff');}
-  \.facebook-like{background-color:white;}
-
-
-
 .box
-  %div{:class=>"share-bg",:style=>"float:right;width:300px;"} 
-    %h3
-      = "SHARE THIS ARTICLE" 
+  %div{:class=>"footer",:style=>"float:right;width:300px;margin-top:4px;"} 
+
     .article-share{:style=>"height:64px;width:233px;margin:0 auto 10px auto;padding:10px 20px;border-bottom:1px solid gainsboro"}
 
-      %div{:style=>"float:left;margin-right:4px;width:54px;"} 
-        %script{:type=>"text/javascript"} 
-          = "(function() {"
-          = "var s = document.createElement('SCRIPT'), s1 = document.getElementsByTagName('SCRIPT')[0];"
-          = "s.type = 'text/javascript';"
-          = "s.async = true;"
-          = "s.src = 'http://widgets.digg.com/buttons.js';"
-          = "s1.parentNode.insertBefore(s, s1);"
-          = "})();"
-        %a{:class=>"DiggThisButton DiggMedium"}
-          = "<!--Digg Placeholder-->" 
+
 
       %div{:style=>"float:left;margin-right:4px;width:50px;"}
 
@@ -44,6 +26,20 @@
       %div{:style=>"float:left;margin-right:3px;width:57px;"}
         %script{:type=>"text/javascript",:src=>"http://platform.linkedin.com/in.js"}
         = "<script type='in/share' data-counter='top'>.</script>"
+
+
+      %div{:style=>"float:left;margin-right:4px;width:54px;"} 
+        %script{:type=>"text/javascript"} 
+          = "(function() {"
+          = "var s = document.createElement('SCRIPT'), s1 = document.getElementsByTagName('SCRIPT')[0];"
+          = "s.type = 'text/javascript';"
+          = "s.async = true;"
+          = "s.src = 'http://widgets.digg.com/buttons.js';"
+          = "s1.parentNode.insertBefore(s, s1);"
+          = "})();"
+        %a{:class=>"DiggThisButton DiggMedium"}
+          = "<!--Digg Placeholder-->" 
+
 
   .clear
   .facebook-like{:style=>"width:233px;height:40px;margin:0;padding:0 33px;border-top:2px solid white"}	

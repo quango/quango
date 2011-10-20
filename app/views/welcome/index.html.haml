@@ -9,6 +9,46 @@
 
 
 
+
+
+
+
+/Layout
+
+-is_guest = params[:guest]
+
+
+-if !logged_in? && !is_guest
+  -content_for :main do
+    = render :partial => "landing"
+    -#= "params" << is_guest.to_s
+
+
+
+
+-else
+  -content_for :main do
+
+    -if current_group.has_leaderboard
+      = render :partial => "shared/leaderboard"
+
+
+    -if current_group.above_the_fold
+
+      = render :partial => "above_the_fold", :locals => {:expanded => true}
+
+    .clear
+
+    -if current_group.has_custom_leaderboard? 
+
+      = render :partial => "custom_leaderboard", :locals => {:expanded => true}
+
+    -if current_group.below_the_fold
+
+      = render :partial => "below_the_fold", :locals => {:expanded => true}
+
+
+
 -content_for :list do
  
   #summary-header-welcome{:class => @active_tab}
@@ -23,248 +63,5 @@
           - if !doctype.hidden
             %li{:class => doctype.name }
               = render :partial => "items/summary_header_welcome", :locals => {:doctype => doctype, :section => doctype, :tab=>"activity", :expanded => doctype.expanded}
-
-
-
-
-/Layout
-
--#if !logged_in?
-
-  -#content_for :main do
-    -#= "not logged"
-
--#else
-
-
--content_for :main do
-
-  -if current_group.has_leaderboard
-    = render :partial => "shared/leaderboard"
-
-
-  -if current_group.above_the_fold
-
-    #above-the-fold{:style=>"width:1032px; height:24px;line-height:22px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:white;font-size:18px; letter-spacing:0px;font-weight:bold;border-bottom:1px solid white; background-color:#{current_group.primary};border-top:4px solid #{current_group.tertiary}"}
-      .above-the-fold{:style=>"height:24px;font-family:Arial,sans-serif; font-weight:bold; font-size:13px;color:white; letter-spacing:-1px;"}
-        -#%div{:style=>"padding:1px 0 3px 4px; height:18px; width:14px; float:left;"}
-          -#= "<img src='/images/logos/star_32_point.png' height='14px' width='14px'/>"
-        %div{:style=>"float:left;margin-left:8px;"}       
-          = "Today's Edition"
-
-        .navcontrols{:style => "height:24px; float:right; margin-right:12px;"}
-          %a.show_above{:class => "above-the-fold navlinks showhide left", :style=>"color:white"}
-            = "show"
-          %a.hide_above{:class => "above-the-fold navlinks showhide left", :style=>"color:white"}
-            = "hide"
-
-    .above{:style=>"height:360px"}
-
-      .welcome-index{:style => "float:left; width:1032px; margin:3px 0"}
-        .content{:style=>"float:left; width:728px;"}
-          .inner
-            - if current_group.has_slideshow
-              = render :partial => "slideshow", :locals => {:expanded => true}
-              = render :partial => "feature", :locals => {:expanded => true, :doctype_id => "news"}
-
-
-            - else
-              -#= render :partial => "featured_sections", :locals => {:expanded => true}
-              = render :partial => "three_columns"
-
-
-
-        .sidebar-inner{:style => "float:right; width:300px;"}
-
-          -current_group.widgets.each do |widget|
-            .widget.block{:id => widget.name}
-              = render :partial => widget.partial_name, :locals => {:widget => widget, :width=> "wide"}
-            .clear
-          .clear
-
-          -if current_group.has_video_on_homepage
-            .block
-              %div{:style=>"width:300px;height:220px;background:black;"}
-                = render :partial => "shared/sidebar_video",  :locals => {:width => "wide", :expanded => true}
-            .clear
-
-
-
-      -if current_group.has_welcome_features
-        .welcome-index{:style => "float:left; width:1032px;margin:3px 0"}
-          .content{:style=>"float:left; width:728px;"}
-            .inner
-              = render :partial => "featured_sections", :locals => {:expanded => true}
-
-
-          .sidebar-inner{:style => "float:right; width:300px;margin-top:11px;padding-top:11px;border-top:2px solid gainsboro;"}
-            .block
-     
-              -if current_group.has_threeone_rectangle
-                .threeone-rectangle{:style=>"background-color:white; width:300px;height:100px;overflow:hidden"}
-                  = current_group.threeone_rectangle_content
-
-                .clear
-
-          .clear
-
-
-
-
-    -##fold{:style=>"height:24px;line-height:22px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:#{current_group.primary_dark}; background-color:#000; border-top:4px solid white;margin:0; font-size:14px; letter-spacing:0px;font-weight:bold;border-bottom:1px solid white"}
-      -#.the-fold{:style=>"width:1032px; height:32px; background-color:white"}
-        -#%div{:style=>"padding:1px 0 3px 4px; height:18px; width:18px; float:left;"}
-          -#= "<img src='http://www.fastthinking.com.au/media/382858/the-fold.gif' height='32px' width='1032px'/>"
-
-
-    %script{:type => "text/javascript"}
-      = "// collapse:"
-      = "$('.hide_above.above-the-fold').click(function() {"
-      = "$('.hide_above.above-the-fold').css('display','none');"
-      = "$('.show_above.above-the-fold').css('display','block');"
-      = "$('.above').hide('fast');"
-      = "});"
-      = "// expand:"
-      = "$('.show_above.above-the-fold').click(function() {"
-      = "$('.show_above.above-the-fold').css('display','none');"
-      = "$('.hide_above.above-the-fold').css('display','block');"
-      = "$('.above').show('slow');"
-      = "});"
-      = "// ok so far"
-      = "$('.hide_above.above-the-fold').css('display','block');"
-      = "$('.show_above.above-the-fold').css('display','none');"
-      = "$('.above').show();"
-      -#= ")};"
-
-
-  .clear
-
-  -if current_group.has_custom_leaderboard? 
-
-    #lead{:style=>"margin-top:10px; height:90px"}
-      .welcome-index{:style => "float:left; width:729px;"}
-        .content
-          .inner
-            .leaderboard{:style=>"width:728px;height:90px; float:left;"}
-              = "<!--/ Leaderboard /-->"
-              = current_group.leaderboard_content
-      .sidebar-inner{:style => "float:right; width:300px;"}
-        .block
-          %div{:style=>"width:300px;height:90px; overflow:hidden; background-color:gainsboro;"}
-            = "&nbsp;"
-      .clear
-
-  -if current_group.below_the_fold
-
-    #below-the-fold{:style=>"height:24px;line-height:22px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:white;background-color:#{current_group.primary}; border-top:4px solid #{current_group.tertiary};margin: 0; font-size:14px; letter-spacing:0px;font-weight:bold;border-bottom:4px solid white"}
-      .below-the-fold{:style=>"width:1022px; height:24px;font-family:Arial,sans-serif; font-weight:bold; font-size:14px;color:white; letter-spacing:-1px;"}
-        %div{:style=>"padding:1px 0 3px 4px; height:18px; width:18px; float:left;"}
-          = "<img src='/images/logos/star_32_point.png' height='14px' width='14px'/>"
-        = "&nbsp;"
-
-        .navcontrols{:style => "height:24px; float:right"}
-          %a.show_below{:class => "below-the-fold navlinks showhide left", :style=>"color:white"}
-            = "show"
-          %a.hide_below{:class => "below-the-fold navlinks showhide left", :style=>"color:white"}
-            = "hide"
-
-
-
-    .clear
-    .below
-
-
-      .welcome-index-below{:style => "float:left; width:729px;"}
-        .content
-
-          - if current_group.has_product_gallery
-            .inner
-              = render :partial => "product_gallery", :locals => {:expanded => true}
-
-          .inner
-            = render :partial => current_group.welcome_layout, :locals => {:expanded => true}
-
-
-
-        .clear
-
-
-        .content
-          .inner
-            -#= yield :list
-            .clear
-
-
-
-
-      #sidebar-inner{:style => "float:right; width:300px;"}
-
-
-
-        .block{:style => "margin-bottom:4px"}
-          %h3{:style=>"background:#{current_group.primary_dark}"}
-            = "About this site"
-          .content
-            .markdown{:style => "padding:8px"}
-              = markdown(current_group.description)
-
-
-
-        -if current_group.has_medium_rectangle
-          .medium-rectangle{:style=>"background-color:white;margin:10px 0;padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
-            = current_group.medium_rectangle_content
-          .clear
-
-
-
-
-        .block{:style=>"display:none"}
-          = render :partial => "shared/sidebar_actions",  :locals => {:width => "wide"}
-
-        -#- current_group.widgets.each do |widget|
-          -#.widget.block{:id => widget.name}
-            -#= render :partial => widget.partial_name, :locals => {:widget => widget, :width => "wide"}
-
-
-
-        = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
-        = render :partial => "shared/sponsored_links",  :locals => {:width => "wide"}
-
-
-
-        .block
-          = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
-
-
-        .block
-          = render :partial => "shared/share_box_welcome", :locals => {:item => @item}
-
-
-
-        -if !current_group.isolate # this will be the group connect thing
-          -#= render :partial => "featured_groups", :locals => {:width => "wide"}
-
-
-      %script{:type => "text/javascript"}
-        = "// collapse:"
-        = "$('.hide_below.below-the-fold').click(function() {"
-        = "$('.hide_below.below-the-fold').css('display','none');"
-        = "$('.show_below.below-the-fold').css('display','block');"
-        = "$('.below').hide('fast');"
-        = "});"
-        = "// expand:"
-        = "$('.show_below.below-the-fold').click(function() {"
-        = "$('.show_below.below-the-fold').css('display','none');"
-        = "$('.hide_below.below-the-fold').css('display','block');"
-        = "$('.below').show('slow');"
-        = "});"
-        = "// ok so far"
-        = "$('.hide_below.below-the-fold').css('display','block');"
-        = "$('.show_below.below-the-fold').css('display','none');"
-        = "$('.below').show();"
-
-
-
-
 
 

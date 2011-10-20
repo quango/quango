@@ -4,37 +4,61 @@
   - form_for @user, :url => users_path, :html => {:class => "form"} do |f|
     =render :partial => "form", :locals => {:f => f}
     .form-footer
-      = submit_tag "Create account", :class => "action-button", :style => "width:312px; height:32px; padding: 0 32px; font-weight: bold; font-size:18px;"
+      = submit_tag "Create account", :class => "submit-button inner", :style => "width:312px; height:32px; padding: 0 32px; font-weight: bold; font-size:18px;"
+
 
 - content_for :main do
 
-  #main{:style => "width:898px; padding: 0 32px"}
-    -#%h1{:style => "color:#{current_group.primary}; font-weight:bold; padding: 8px 0 0 0;text-shadow: 1px 1px 0 rgba(255,255,255,255.25)"}
-      -#= "#{current_group.signup_heading}"
-
-    .left
-      %h2
-        = "Create a free account"
-
-      = yield :form
-
-      .clear
-      .group{:style => "margin-left:32px;"}
-        %h3
-          = "Existing members..."
-        %p
-          = link_to "I already have an account and want to login normally", new_user_session_path
+  #landing{:style=>"width:1032px;height:488px;"}
 
 
+    .content{:style=>"margin:0 auto;"}
+      .left{:style=>"padding:32px;width:664px; height:356px;"}
+        .holder{:style=>"padding:16px 32px 32px 32px;background-image:url(/images/landing_bg.png);background-repeat:repeat-x; margin:0 auto;"}
 
-    .left{:style => "width:240px;padding: 0 32px 32px 32px"}
-      %h3{:style => "margin-top:32px"}
-        = "or login with another account..."
-      = render :partial => "sessions/openid"
-      .clear
-      %h3
-        = "Note..."
-      = "Using an existing login will create a new account which you access using your login from another site"
+          %h1{:style => "color:#ffffff; font-weight:bold; padding: 0)"}
+            = "Create a free account..."
+
+          = yield :form
+          .clear
+
+
+      .right{:style=>"padding:32px 0;width:264px;float:left"}
+  
+
+
+        .holder{:style=>"padding:16px 32px 32px 32px; margin:0 auto;"}
+        
+          %h1{:style=>"font-weight:bold;letter-spacing:-1px; color:white;margin:0"}
+            = "Not a member?"
+          %h4{:style=>"margin:0 0 8px 0;background:0;border:0;"}
+            = "Click here to..."
+
+
+          .center{:style=>"width:300px;float:left;"}
+
+            %a.standard-button{:style=>"margin-bottom:16px;width:194px;height:32px;font-size:14px;margin:0 auto;", :href=>"/?guest=true"}
+              .inner{:style=>"width:186px; height:16px;padding:8px;"}
+                = "View site as guest"
+          .note{:style=>"margin-top:8px;width:200px;color:white; font-size:12px; line-height:12px; float:left "}
+            = "Guests cannot post content and/or comments"
+
+          .clear
+
+          %h4{:style=>"margin-top:8px;margin-bottom:8px;background:0;border:0"}
+            = "Already a member..?"
+          .center{:style=>"width:388px; float:left;"}
+            %a.submit-button{:style=>"margin-bottom:16px;width:194px;height:32px;font-size:14px;margin:0 auto;", :href=>"/users/login"}
+              .inner{:style=>"width:186px; height:16px;padding:8px;"}
+                = "Login Now"
+          .note{:style=>"margin-top:8px;width:200px;color:white; font-size:12px; line-height:12px;float:left "}
+            = "Members can post content and/or comments. Membership is free."
+          .clear
+
+ 
+
+
+
 
 
   .clear

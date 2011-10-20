@@ -43,6 +43,16 @@
 
     \.navigation-container {background:#{current_group.primary};background:-webkit-gradient(linear,left top,left bottom,to(#{current_group.tertiary}),from(#{current_group.primary}));background:-moz-linear-gradient(top,#{current_group.primary},#{current_group.tertiary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.primary}',endColorstr='#{current_group.tertiary}');}
 
+    -if current_group.landing_bg == "false"
+      \#landing{background:#{current_group.primary};background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.tertiary}),to(#{current_group.primary}));background:-moz-linear-gradient(top,#{current_group.tertiary},#{current_group.primary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,endColorstr='#{current_group.primary}',startColorstr='#{current_group.tertiary}');}
+
+    -else
+      \#landing{background:#{current_group.primary};background-image:url('#current_group.landing_bg.to_s');}
+
+
+    \.landing-drop {background:#{current_group.tertiary};}
+    \.landing-dropX {background:#{current_group.primary};background:-webkit-gradient(linear,left top,left bottom,from(#{current_group.tertiary}),to(#{current_group.primary}));background:-moz-linear-gradient(top,#{current_group.tertiary},#{current_group.primary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,endColorstr='#{current_group.primary}',startColorstr='#{current_group.tertiary}');}
+
     \#header-container-inner {background:#{current_group.tertiary};background:-webkit-gradient(linear,left top,left bottom,to(#ffffff),from(#{current_group.tertiary}));background:-moz-linear-gradient(top,#{current_group.tertiary},#ffffff);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,endColorstr='#ffffff',startColorstr='#{current_group.tertiary}');border:0}
 
     - if current_group.toolbar_bg
@@ -117,9 +127,6 @@
   \.action-button:hover {background:#{group.primary_dark}}
   \a.action-button:hover {color:pink}
 
- 
-  \.submit-button{background:#{group.primary};filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{group.primary_dark}',endColorstr='#{group.secondary}');background:-webkit-gradient(linear,left top,left bottom,from(#{group.primary_dark}),to(#{group.secondary}));background:-moz-linear-gradient(top,#{group.primary_dark},#{group.secondary});border:3px solid #{group.primary_dark};}
-
   \.input-holder{background:#{group.tertiary}}
   \.input-holder-password{background:#{group.tertiary}}
 
@@ -142,6 +149,23 @@
 
   \h4{background:#{current_group.tertiary};background-color:#{current_group.tertiary};border-top: 4px solid #{current_group.primary};}
   \.sidebar-headings{color:#B6B6B6;background:#{current_group.tertiary};background-color:#{current_group.tertiary};border-bottom: 4px solid #B6B6B6;filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ffffff',endColorstr='#{group.primary}');background:-webkit-gradient(linear,left top,left bottom,from(#ffffff),to(#dcdcdc));background:-moz-linear-gradient(top,#ffffff,#DCDCDC); border-top:1px solid white;text-shadow: white 1px 1px 2px; margin-bottom: 2px;}
+
+  -#\#footer{border-top:4px solid #ffffff;}
+
+  \.facebook-like{background-color:white;}
+
+  \.standard-button-alternate .inner{filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.tertiary}',endColorstr='#{current_group.primary}');background:-webkit-gradient(linear,left top,left bottom,from(#{group.primary}),to(#{group.tertiary}));background:-moz-linear-gradient(top,#{current_group.primary},#{current_group.tertiary})}
+
+  -#\.standard-button-alternate .inner:hover{background:#{group.tertiary};}
+
+  -#\.holder{border:1px solid #{current_group.primary_dark}; }
+
+
+ 
+
+
+
+
 
 
 

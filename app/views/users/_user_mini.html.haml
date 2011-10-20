@@ -50,8 +50,8 @@
                 -#%span.ownerflair{:title => "Group Administrator", :style => "margin-top:2px;float:right;"}
                   -#= "<img src='/images/owner-icon.png' height='12px' width='14px' title='Site Administrator' alt='Site Administrator'/>"
               -if user.mod_of?(current_group)
-                %div.modflair{:title => "moderator"}
-                  mod.
+                %span{:title => "moderator",:style=>"color:gainsboro"}
+                  ed.
               -elsif user.editor_of?(current_group)
                 %span.editorflair{:title => "Group Editor", :style => "background-color:#{current_group.secondary};border: 1px solid #{current_group.secondary};text-shadow: #{current_group.secondary} 0px -1px 1px"}
                   ed.

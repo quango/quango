@@ -39,7 +39,7 @@ class Group
   key :subdomain, String
   key :domain, String
   key :legend, String
-  key :description, String
+  key :description, :default => "This website allows members to share their news, articles and links. Here you can engage in an open debate with experts in their fields and share your knowledge with others."
 
   key :group_categories, Array
   key :show_category_navigation, Boolean, :default => false
@@ -174,6 +174,7 @@ class Group
   key :supplementary, String, :default => "#FFB455" #action buttons and anything requiring high visibility
   key :supplementary_lite, String, :default => "#FFD6A2" #action buttons and anything requiring high visibility
 
+  key :landing_bg, String, :default => "false"
 
   key :share, Share, :default => Share.new
 

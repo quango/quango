@@ -125,7 +125,47 @@ a.standard-button
 
 
 .standard-button 
-  background-image: url(/images/white_25_bg.png)
+  //background-image: url(/images/white_25_bg.png)
+  //backgroud-repeat: repeat
+  //background-position: 50% 0
+  height: 16px
+  line-height: 16px
+  margin: 0
+  cursor: pointer
+  overflow: visible
+  float: left
+  background-color: orange
+  //border: 2px solid white
+  text-align: center
+  text-shadow: -1px -1px 2px rgba(0,0,0,0.33)
+  +rounded(8px,8px,8px,8px)
+  //-moz-box-shadow: 1px 1px 6px rgba(255,255,255,0.5)
+  //-webkit-box-shadow: 1px 1px 6px rgba(255,255,255,0.5)
+  //box-shadow: 1px 1px 6px rgba(255,255,255,0.5)
+  font-weight: bold
+  color: black
+
+
+  .inner
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#A6691C',endColorstr='#FFB455')
+    background: -webkit-gradient(linear,left top,left bottom,from(#A6691C),to(#FFB455))
+    background: -moz-linear-gradient(top,#A6691C,#FFB455)
+    //border: 2px solid #ffffff
+    +rounded(8px,8px,8px,8px)
+    -moz-box-shadow: 0px 0px 8px #000
+    -webkit-box-shadow: 0px 0px 8px rgba(255,255,255,0.75)
+    box-shadow: 0px 0px 8px rgba(0,0,0,0.75)
+
+
+    &:hover
+      //background-image: url(/images/white_50_bg.png)
+      //background-repeat: repeat
+      //background: #ffb455
+      color: white
+
+
+.standard-button-alternate 
+  //background-image: url(/images/white_25_bg.png)
   backgroud-repeat: repeat
   background-position: 50% 0
   height: 16px
@@ -134,18 +174,70 @@ a.standard-button
   cursor: pointer
   overflow: visible
   float: left
-  background-color: orange
-  border: 2px solid orange
+
   text-align: center
-  text-shadow: -1px -1px 1px rgba(0,0,0,0.25)
-  +rounded(4px,4px,4px,4px)
+  text-shadow: -1px -1px 2px rgba(0,0,0,0.33)
+  +rounded(8px,8px,8px,8px)
+  //-moz-box-shadow: 1px 1px 6px rgba(255,255,255,0.5)
+  //-webkit-box-shadow: 1px 1px 6px rgba(255,255,255,0.5)
+  //box-shadow: 1px 1px 6px rgba(255,255,255,0.5)
   font-weight: bold
   color: white
 
-  &:hover
-    background-image: url(/images/white_50_bg.png)
-    background-repeat: repeat
-    color: white
+
+  .inner
+
+    //border: 2px solid #ffffff
+    +rounded(8px,8px,8px,8px)
+    -moz-box-shadow: 0px 0px 8px #000
+    -webkit-box-shadow: 0px 0px 8px rgba(255,255,255,0.75)
+    box-shadow: 0px 0px 8px rgba(0,0,0,0.75)
+
+    &:hover
+      color: white
+
+.submit-button 
+
+  height: 16px
+  line-height: 16px
+  margin: 0
+  cursor: pointer
+  overflow: visible
+  float: left
+
+  text-align: center
+  text-shadow: -1px -1px 2px rgba(0,0,0,0.33)
+  +rounded(8px,8px,8px,8px)
+
+  font-weight: bold
+  color: white
+
+  .inner
+    //border: 2px solid #ffffff
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#525051',endColorstr='#cbcbcb')
+    background: -webkit-gradient(linear,left top,left bottom,from(#525051),to(#cbcbcb))
+    background: -moz-linear-gradient(top,#525051,#cbcbcb)
+    +rounded(8px,8px,8px,8px)
+    -moz-box-shadow: 0px 0px 8px #000
+    -webkit-box-shadow: 0px 0px 8px rgba(255,255,255,0.75)
+    box-shadow: 0px 0px 8px rgba(0,0,0,0.75)
+
+    &:hover
+      color: white
+
+  input
+    //border: 2px solid #ffffff
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#525051',endColorstr='#cbcbcb')
+    background: -webkit-gradient(linear,left top,left bottom,from(#525051),to(#cbcbcb))
+    background: -moz-linear-gradient(top,#525051,#cbcbcb)
+    +rounded(8px,8px,8px,8px)
+    -moz-box-shadow: 0px 0px 8px #000
+    -webkit-box-shadow: 0px 0px 8px rgba(255,255,255,0.75)
+    box-shadow: 0px 0px 8px rgba(0,0,0,0.75)
+
+    &:hover
+      color: white
+
 
 
 a.standard-button
@@ -253,21 +345,7 @@ button
 
 
 
-.submit-button 
-  width: 140px
-  height: 21px
-  line-height: 21px
-  cursor: pointer  
-  overflow: visible
-  float: left
-  +rounded(8px,8px,8px,8px)
-  color: white
-  text-align: center
-  text-shadow: 0px 1px 1px rgba(0,0,0,0.75)
-  border-color: black
 
-  &:hover
-    border-color: black
 
 
 
