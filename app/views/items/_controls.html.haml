@@ -4,18 +4,17 @@
 .controls
   .actions
 
-    = link_to "Feature", new_item_flag_path(@doctype, @item), :class => "control-link", :style => "float:left;", :id => "item_flag_link"
-    = link_to "Change", change_doctype_item_path(@doctype, @item), :class => "control-link", :style => "float:left;", :id => "item_flag_link"
+    - if false
+      - if !@flag.new?
+        .flagged
+          = "#{t('.flagged_as')} #{t(@flag.reason, :scope=>'flags.form')}"
+          = link_to t("scaffold.edit"), edit_item_flag_path(@doctype, @item, @flag,:mode=>@item.mode), :class => "flag-link", :id => "edit_item_flag_link", :rel => 'nofollow'
+          = link_to t("scaffold.destroy"), item_flag_path(@doctype, @item, @flag), :id => "destroy_item_flag_link", :rel => 'nofollow', :confirm => "are you sure?", :method => :delete
+      - elsif logged_in? && current_user != @item.user
+        = link_to t(".flag"), new_item_flag_path(@doctype, @item), :class => "flag-link", :id => "item_flag_link", :rel => 'nofollow'
 
-    - if !@flag.new?
-      .flagged
-        = "#{t('.flagged_as')} #{t(@flag.reason, :scope=>'flags.form')}"
-        = link_to t("scaffold.edit"), edit_item_flag_path(@doctype, @item, @flag,:mode=>@item.mode), :class => "flag-link", :id => "edit_item_flag_link", :rel => 'nofollow'
-        = link_to t("scaffold.destroy"), item_flag_path(@doctype, @item, @flag), :id => "destroy_item_flag_link", :rel => 'nofollow', :confirm => "are you sure?", :method => :delete
-    - elsif logged_in? && current_user != @item.user
-      = link_to t(".flag"), new_item_flag_path(@doctype, @item), :class => "flag-link", :id => "item_flag_link", :rel => 'nofollow'
-
-    - if logged_in?
+    -# if logged_in?
+    - if false
       - if show_close_request_form
         -if !@close_request.new?
           .flagged

@@ -70,7 +70,7 @@ ActionController::Routing::Routes.draw do |map|
                            :member     => {:bump => :any,:solve => :get,:unsolve => :get,:favorite => :any,:unfavorite => :any,:watch => :any,:unwatch => :any,
                                                  :history => :get,:revert => :get,:diff => :get, :change_doctype => :get,
                                                  :move => :get,:move_to => :put, :retag => :get,:retag_to => :put,
-                                            :close => :put,:open => :put,:meta => :get}, :name_prefix => nil, :as => 'index'  do |items| #:name_prefix => nil,
+                                            :close => :put,:open => :put,:meta => :get,:distribute => :get,:describe => :get,:tag => :get, :advanced => :get, :link => :any}, :name_prefix => nil, :as => 'index'  do |items| #:name_prefix => nil,
 
         items.resources :comments
 

@@ -1,0 +1,47 @@
+#main{:style => "width:702px; float:left"}
+  %h1
+    = "Custom toolbar"
+
+
+  .group
+    = f.label :has_custom_toolbar, "Does this group have a custom toolbar?", :class => "label"
+    = f.check_box :has_custom_toolbar, :class => "text_field"
+    = "If you check this box, the sponsorship settings below will be available"
+
+
+  %hr{:style =>"margin:8px 0"}
+
+
+
+  .group
+    = f.label :custom_toolbar_link, "Custom Toolbar Link", :class => "label"
+    = f.text_field :custom_toolbar_link, :class => "text_field"
+
+
+  .group
+    = f.label :custom_toolbar_image, "Custome Toolbar Image Path", :class => "label"
+    = f.text_field :custom_toolbar_image, :class => "text_field"
+
+  .group
+    = f.label :sponsor_link, "Sponsor link (main)", :class => "label"
+
+
+  = text_field_tag "width", current_group.custom_toolbar_image_info["width"] || 215
+  x
+  = text_field_tag "height", current_group.custom_toolbar_image_info["height"] || 60
+
+
+
+
+  .clear
+
+  .group.navform
+    = f.submit t('scaffold.update'), :class => "action-button"
+
+
+
+
+
+
+
+

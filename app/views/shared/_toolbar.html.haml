@@ -25,17 +25,25 @@
                   =link_to h(gname), domain_url(:custom => group.domain), :style=>"height:24px; line-height:24px;padding:4px"
 
     -else
+      - if !current_group.has_custom_toolbar?
+        .edition
+          = image_tag("/images/logos/star_32.png",:height=>"16px",:width=>"16px",  :style => "margin:6px 4px 4px 4px", :class => "main-icon")
+          -#=link_to "thinkingdaily", domain_url(:custom => current_group.domain), :style=>"font-family:georgia;line-height:32px;font-weight:bold;"
+          -#=link_to h(current_group.display_name_ii), domain_url(:custom => current_group.domain), :style=> "height:16px: width:16px; margin:4px 0 4px -4px"
+      - elsif current_group.has_custom_toolbar?
+        .edition
+          = link_to image_tag("#{current_group.custom_toolbar_image}",:height=>"32px",:width=>"128px",  :style => "margin:0", :class => "main-icon")         
+
+  -else
+    - if !current_group.has_custom_toolbar?
       .edition
         = image_tag("/images/logos/star_32.png",:height=>"16px",:width=>"16px",  :style => "margin:6px 4px 4px 4px", :class => "main-icon")
         -#=link_to "thinkingdaily", domain_url(:custom => current_group.domain), :style=>"font-family:georgia;line-height:32px;font-weight:bold;"
         -#=link_to h(current_group.display_name_ii), domain_url(:custom => current_group.domain), :style=> "height:16px: width:16px; margin:4px 0 4px -4px"
+    - elsif current_group.has_custom_toolbar?
+      .edition
+        = link_to image_tag("#{current_group.custom_toolbar_image}",:height=>"32px",:width=>"128px",  :style => "margin:0px", :class => "main-icon")         
 
-
-  -else
-    .edition
-      = image_tag("/images/logos/star_32.png",:height=>"16px",:width=>"16px",  :style => "margin:6px 4px 4px 4px", :class => "main-icon")
-      -#=link_to "thinkingdaily", domain_url(:custom => current_group.domain), :style=>"font-family:georgia;line-height:32px;font-weight:bold;"
-      -#=link_to h(current_group.display_name_ii), domain_url(:custom => current_group.domain), :style=> "height:16px: width:16px; margin:4px 0 4px -4px"
 
 
 
@@ -71,17 +79,22 @@
     .entry{:style=>"padding:0"}
       %ul.topbar.submissions.right
         %li{:style=>"text-align:center;padding:0; border:0px solid #{current_group.primary};text-shadow:0"}
+
           %span{:style=>"padding-left:12px;padding-right:12px;"}
             = "Submissions"
-          -#%span.reputation{:title => t("activerecord.attributes.user.reputation"), :style => "font-family:'Arial Narrow',arial;background-color:"+current_group.primary+";text-transform:uppercase;letter-spacing:0"}
-            ="#{current_group.publish_label.capitalize}"
-          %ul
+
+          %ul{:style=>"z-index:999;"}
             - current_group.doctypes.each do |doctype|
 
               - if !doctype.hidden && doctype.public_access
                 %li
                   = link_to "#{doctype.create_label}", new_item_path(doctype), :class => "something"
         
+              - if  current_user.can_modify?(current_group)
+                - if !doctype.hidden && !doctype.public_access
+                  %li{:style=>"background-color:#{current_group.primary_dark};border-top:1px inset black"}
+                    = link_to "#{doctype.create_label}", new_item_path(doctype), :class => "something"
+
 
 
 

@@ -1,18 +1,38 @@
+
+.edit-title
+  +rounded(4px,4px,4px,4px)
+  //border: 2px solid #7e7e7e
+  background: #cbcbcb
+  //-moz-box-shadow: 0px 0px 8px #000
+  //-webkit-box-shadow: 0px 0px 8px rgba(255,255,255,0.75)
+  //box-shadow: 0px 0px 8px rgba(0,0,0,0.75)
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#cbcbcb',endColorstr='#7e7e7e')
+  background: -webkit-gradient(linear,left top,left bottom,from(#cbcbcb),to(#7e7e7e))
+  background: -moz-linear-gradient(top,#cbcbcb,#7e7e7e)
+  padding: 2px
+
 .markdown_toolbar
   position: relative
   list-style: none
   padding: 0
-  height: 26px
+  height: 32px
 
-  padding: 4px 8px
-  margin: 0
+  padding: 4px
+  margin: 0 
   color: #fff
 
   font-size: 12px
   font-weight: bold
 
-  width: 549px
-  //background-color: #dcdcdc
+  //border: 2px solid #7e7e7e
+  border: 0
+
+  width: 560px
+  background-color: #cdcdcd
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#cbcbcb',endColorstr='#7e7e7e')
+  background: -webkit-gradient(linear,left top,left bottom,from(#cbcbcb),to(#7e7e7e))
+  background: -moz-linear-gradient(top,#cbcbcb,#7e7e7e)
+  +rounded(4px,4px,0px,0px)
 
 
   li

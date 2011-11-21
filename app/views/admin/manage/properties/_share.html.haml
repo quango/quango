@@ -5,6 +5,12 @@
 
 
 
+  .group
+    %h3
+      = "Show share box in footer"
+    = check_box_tag :share_box, @group.share_box, :class => "checkbox"
+    %label.radio
+      =t("global.active")
 
 
 

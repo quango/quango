@@ -49,6 +49,8 @@ Rails::Initializer.run do |config|
   #config.gem "scrapi"
   config.gem "mechanize"
   config.gem "pismo",:version => "~> 0.7.2", :lib => 'pismo'
+  config.gem "term-extract"
+  config.gem "semantic_extraction"
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named

@@ -1,30 +1,35 @@
 -content_for :main do
   = javascript_include_merged :show
-  #main-index{:style=>"margin-top:16px;width:576px; float:left; margin-left:8px;"}
-    .supplementary-navigation{:class => @active_subtab.to_s, :style => "height:35px; line-height:35px; padding:0 8px 0 8px"}
-      = current_group.publish_label.capitalize + " " + @doctype.name  
+  #main-index{:style=>"width:728px;float:left;"}
+    .supplementary-navigation{:class => @active_subtab.to_s, :style => "color:#{current_group.primary};background-color:#ffffff;height:35px; line-height:35px; padding:0 8px 0 8px"}
+      = "<img src=\'/images/icons/pencil.png\' style='height:16px, width:16px; border:0;' >"
+      = "EDIT: <b style=\'color:#7a7a7a\'>" + @item.title + "</b>"  
+   
+      = link_to "Cancel", item_path(@item.doctype, @item), :style => "color:red"
+
+    .toolbox{:style=>"border-bottom:4px solid #b6b6b6"}
+      = render :partial => "toolbox_edit", :locals => {:page => "edit"}
+    -if logged_in?
+      -if current_user.owner_of?(current_group) | current_user.mod_of?(current_group)
+        %div
+          = render :partial => "controls", :object=>@item
+
     - form_for(@item, :url => item_path(@doctype, @item), :html => {:class => "form"}) do |f|
-
-
-
- 
-
       =render :partial => "form", :locals => {:f => f}
-
--content_for :sidebar do
-  #sidebar{:style=>"margin-top:16px;"}
-    = render :partial => "shared/member_profile", :locals => {:user => @user}
 
 
 -content_for :sidebar_inner do
-  #sidebar-inner{:style=>"margin-top:16px;width:300px; float:right"}
+  #sidebar-inner{:style=>"width:300px;float:right"}
+    .supplementary-navigation{:class => @active_subtab.to_s, :style => "color:#{current_group.primary};background-color:#ffffff;height:35px; line-height:35px; padding:0 8px 0 8px"}
+      = "Tips"
+
 
     -if !current_group.item_help.empty?
       .help
-        %h3
+        %h4
           = t(".how_to_ask")
         =current_group.item_help
-    %h3
+    %h4
       = "Similar"
 
     .related-item

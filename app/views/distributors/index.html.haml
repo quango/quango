@@ -1,0 +1,33 @@
+-content_for :main do
+
+  #main-index
+
+    %h1
+      = "Listing bunnies for"
+      = @item.id
+    %small
+      = link_to @item.title, item_path(@item.doctype_id, @item)
+
+    %p
+      = link_to 'New bunny', new_item_bunny_path(@item.doctype_id, @item)
+
+    %p
+      %table
+        %tr
+          %th
+            = "name"
+          %th
+            = "actions"
+        - @item.bunnies.each do |bunny|
+          %tr
+            %td
+              = bunny.name.to_s
+            %td
+              = link_to 'Show', item_bunny_path(@item.doctype_id, @item, bunny)
+              = link_to 'Edit', edit_item_bunny_path(@item.doctype_id, @item, bunny)
+              = link_to 'Destroy', item_bunny_path(@item.doctype_id, @item, bunny), :confirm => 'Are you sure?', :method => :delete
+
+
+
+
+

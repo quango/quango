@@ -1,54 +1,55 @@
 
-.box
-  %div{:class=>"footer",:style=>"float:right;width:300px;margin-top:4px;"} 
+- if current_group.share_box == false
+  .box
+    %div{:class=>"footer",:style=>"float:right;width:300px;margin-top:4px;"} 
 
-    .article-share{:style=>"height:64px;width:233px;margin:0 auto 10px auto;padding:10px 20px;border-bottom:1px solid gainsboro"}
-
-
-
-      %div{:style=>"float:left;margin-right:4px;width:50px;"}
-
-        = "<g:plusone size=\"tall\"></g:plusone>"
-
-        %script{:type=>"text/javascript"}
-          = "(function() {"
-          = "var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;"
-          = "po.src = 'https://apis.google.com/js/plusone.js';"
-          = "var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);"
-          = "})();"
+      .article-share{:style=>"height:64px;width:233px;margin:0 auto 10px auto;padding:10px 20px;border-bottom:1px solid gainsboro"}
 
 
-      %div{:style=>"float:left;margin-right:4px;width:55px;"}
-        = "<a href='http://twitter.com/share' class='twitter-share-button' data-count='vertical' data-via='fast_thinking'}>.</a>"     
-        %script{:type=>"text/javascript",:src=>"http://platform.twitter.com/widgets.js"}
-          = "<!--Twitter Placeholder-->"
 
-      %div{:style=>"float:left;margin-right:3px;width:57px;"}
-        %script{:type=>"text/javascript",:src=>"http://platform.linkedin.com/in.js"}
-        = "<script type='in/share' data-counter='top'>.</script>"
+        %div{:style=>"float:left;margin-right:4px;width:50px;"}
 
+          = "<g:plusone size=\"tall\"></g:plusone>"
 
-      %div{:style=>"float:left;margin-right:4px;width:54px;"} 
-        %script{:type=>"text/javascript"} 
-          = "(function() {"
-          = "var s = document.createElement('SCRIPT'), s1 = document.getElementsByTagName('SCRIPT')[0];"
-          = "s.type = 'text/javascript';"
-          = "s.async = true;"
-          = "s.src = 'http://widgets.digg.com/buttons.js';"
-          = "s1.parentNode.insertBefore(s, s1);"
-          = "})();"
-        %a{:class=>"DiggThisButton DiggMedium"}
-          = "<!--Digg Placeholder-->" 
+          %script{:type=>"text/javascript"}
+            = "(function() {"
+            = "var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;"
+            = "po.src = 'https://apis.google.com/js/plusone.js';"
+            = "var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);"
+            = "})();"
 
 
+        %div{:style=>"float:left;margin-right:4px;width:55px;"}
+          = "<a href='http://twitter.com/share' class='twitter-share-button' data-count='vertical' data-via='fast_thinking'}>.</a>"     
+          %script{:type=>"text/javascript",:src=>"http://platform.twitter.com/widgets.js"}
+            = "<!--Twitter Placeholder-->"
+
+        %div{:style=>"float:left;margin-right:3px;width:57px;"}
+          %script{:type=>"text/javascript",:src=>"http://platform.linkedin.com/in.js"}
+          = "<script type='in/share' data-counter='top'>.</script>"
+
+
+        %div{:style=>"float:left;margin-right:4px;width:54px;"} 
+          %script{:type=>"text/javascript"} 
+            = "(function() {"
+            = "var s = document.createElement('SCRIPT'), s1 = document.getElementsByTagName('SCRIPT')[0];"
+            = "s.type = 'text/javascript';"
+            = "s.async = true;"
+            = "s.src = 'http://widgets.digg.com/buttons.js';"
+            = "s1.parentNode.insertBefore(s, s1);"
+            = "})();"
+          %a{:class=>"DiggThisButton DiggMedium"}
+            = "<!--Digg Placeholder-->" 
+
+
+    .clear
+    .facebook-like{:style=>"width:233px;height:40px;margin:0;padding:0 33px;border-top:2px solid white"}	
+
+      %script{:src=>"http://connect.facebook.net/en_US/all.js#xfbml=1"}
+        = "<!--FB//-->"
+      = "<fb:like show_faces='false' width='220'></fb:like>"
+   
   .clear
-  .facebook-like{:style=>"width:233px;height:40px;margin:0;padding:0 33px;border-top:2px solid white"}	
-
-    %script{:src=>"http://connect.facebook.net/en_US/all.js#xfbml=1"}
-      = "<!--FB//-->"
-    = "<fb:like show_faces='false' width='220'></fb:like>"
- 
-.clear
 
 
 

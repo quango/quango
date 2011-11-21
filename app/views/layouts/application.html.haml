@@ -28,8 +28,12 @@
     = current_group.head_tag
 
 
+    - if current_group.theme == "vanilla"
+      %body{:style=>"background:white"}
+    - else
+      %body
 
-  %body
+
     -#= render :partial => "shared/analytics"
     -#= @current_class
 
@@ -46,29 +50,60 @@
       .toolbar-container-inner    
         = render :partial => "shared/toolbar"
 
-    #logo-container
-      .logo-container-inner{:style => "height:#{current_group.logo_info['height']}px"}
-        -if current_group.logo_only?
-          .logo-text
-            .filling
-              .left
-                =link_to h(current_group.display_name_i), domain_url(:custom => current_group.domain), :class=>"display-name-i"
-              .left
-                =link_to h(current_group.display_name_ii), current_group.display_name_ii_link, :class=> "display-name-ii"
-              -if current_group.strapline?
-                .strapline{:style => "height:40px;color:#{current_group.primary};margin:12px 10px 0 10px;float:left; border-left:1px solid color:#{current_group.primary}"}
-                  ="#{current_group.strapline}"
+    -if current_group.header_bg_image?
+      #logo-container{:style=>"background-image:url(\'#{current_group.header_bg_image}\');background-repeat:repeat-x;"}
+
+        .logo-container-inner{:style => "height:#{current_group.logo_info['height']}px"}
+          -if current_group.logo_only?
+            .logo-text
+              .filling
+                .left
+                  =link_to h(current_group.display_name_i), domain_url(:custom => current_group.domain), :class=>"display-name-i"
+                .left
+                  =link_to h(current_group.display_name_ii), current_group.display_name_ii_link, :class=> "display-name-ii"
+                -if current_group.strapline?
+                  .strapline{:style => "height:40px;color:#{current_group.primary};margin:12px 10px 0 10px;float:left; border-left:1px solid color:#{current_group.primary}"}
+                    ="#{current_group.strapline}"
+              .search{:style=>"height:#{current_group.logo_info['height']}px;line-height:#{current_group.logo_info['height']}px;float:right;"}
+
+                = render :partial => "shared/search"
+
+          -else
+            .logo{:style => "height:#{current_group.logo_info['height']}px;width:#{current_group.logo_info['width']}px; float:left"}
+              = link_to image_tag(current_group.logo_path, :width => current_group.logo_info["width"], :height => current_group.logo_info["height"],  :style => "bottom:0px;"), domain_url(:custom => current_group.domain), :style=>"margin:0px;", :alt => "Home"
+
             .search{:style=>"height:#{current_group.logo_info['height']}px;line-height:#{current_group.logo_info['height']}px;float:right;"}
 
               = render :partial => "shared/search"
 
-        -else
-          .logo{:style => "height:#{current_group.logo_info['height']}px;width:#{current_group.logo_info['width']}px; float:left"}
-            = link_to image_tag(current_group.logo_path, :width => current_group.logo_info["width"], :height => current_group.logo_info["height"],  :style => "bottom:0px;"), domain_url(:custom => current_group.domain), :style=>"margin:0px;", :alt => "Home"
 
-          .search{:style=>"height:#{current_group.logo_info['height']}px;line-height:#{current_group.logo_info['height']}px;float:right;"}
+    -else
 
-            = render :partial => "shared/search"
+
+      #logo-container
+
+        .logo-container-inner{:style => "height:#{current_group.logo_info['height']}px"}
+          -if current_group.logo_only?
+            .logo-text
+              .filling
+                .left
+                  =link_to h(current_group.display_name_i), domain_url(:custom => current_group.domain), :class=>"display-name-i"
+                .left
+                  =link_to h(current_group.display_name_ii), current_group.display_name_ii_link, :class=> "display-name-ii"
+                -if current_group.strapline?
+                  .strapline{:style => "height:40px;color:#{current_group.primary};margin:12px 10px 0 10px;float:left; border-left:1px solid color:#{current_group.primary}"}
+                    ="#{current_group.strapline}"
+              .search{:style=>"height:#{current_group.logo_info['height']}px;line-height:#{current_group.logo_info['height']}px;float:right;"}
+
+                = render :partial => "shared/search"
+
+          -else
+            .logo{:style => "height:#{current_group.logo_info['height']}px;width:#{current_group.logo_info['width']}px; float:left"}
+              = link_to image_tag(current_group.logo_path, :width => current_group.logo_info["width"], :height => current_group.logo_info["height"],  :style => "bottom:0px;"), domain_url(:custom => current_group.domain), :style=>"margin:0px;", :alt => "Home"
+
+            .search{:style=>"height:#{current_group.logo_info['height']}px;line-height:#{current_group.logo_info['height']}px;float:right;"}
+
+              = render :partial => "shared/search"
 
     -if current_group.has_custom_channels
       #channel-container

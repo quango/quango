@@ -20,9 +20,8 @@
 
 -if !logged_in? && !is_guest
   -content_for :main do
-    = render :partial => "landing"
-    -#= "params" << is_guest.to_s
-
+    #landing{:style=>"width:1032px;height:364px"}
+      = render :partial => "landing"
 
 
 

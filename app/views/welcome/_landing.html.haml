@@ -1,52 +1,46 @@
 
+.content{:style=>"margin:0 auto;height:640px;"}
+  .right{:style=>"padding:32px;width:664px; height:300px;"}
+    .holder{:style=>"padding:16px 32px 32px 32px;background-image:url(/images/landing_bg.png);background-repeat:repeat-x; margin:0 auto;"}
+    
+      %h3{:style=>"color:white;margin-bottom:8px;background:0;border:0;"}
+        = "View site as a guest"
 
 
-#landing{:style=>"width:1032px;height:364px"}
-  -# if current_group.has_adult_content?
-    -#.warning
-      -#= "Adult warnign"
+      .center{:style=>"width:388px;float:left;"}
 
-  .content{:style=>"margin:0 auto;"}
-    .right{:style=>"padding:32px;width:664px; height:300px;"}
-      .holder{:style=>"padding:16px 32px 32px 32px;background-image:url(/images/landing_bg.png);background-repeat:repeat-x; margin:0 auto;"}
-      
-        %h4{:style=>"margin-bottom:8px;background:0;border:0;"}
-          = "View site as a guest"
+        %a.standard-button-alternate{:style=>"margin-bottom:16px;width:388px;height:32px;font-size:18px;margin:0 auto;", :href=>"/?guest=true"}
+          .inner{:style=>"width:372px; height:16px;padding:8px;"}
+            = "View site as guest"
+      .note{:style=>"width:128px;color:white; font-size:12px; line-height:12px; margin-left:16px; float:left "}
+        = "Guests cannot post content and/or comments"
 
-
-        .center{:style=>"width:388px;float:left;"}
-
-          %a.standard-button-alternate{:style=>"margin-bottom:16px;width:388px;height:32px;font-size:18px;margin:0 auto;", :href=>"/?guest=true"}
-            .inner{:style=>"width:372px; height:16px;padding:8px;"}
-              = "View site as guest"
-        .note{:style=>"width:128px;color:white; font-size:12px; line-height:12px; margin-left:16px; float:left "}
-          = "Guests cannot post content and/or comments"
-
-        .clear
+      .clear
 
 
 
-        %h4{:style=>"margin-top:8px;margin-bottom:8px;background:0;border:0"}
-          = "Become a member - It's free & easy"
-        .center{:style=>"width:388px; float:left;"}
-          %a.standard-button{:style=>"margin-bottom:16px;width:388px;height:32px;font-size:18px;margin:0 auto;", :href=>"/members/new"}
-            .inner{:style=>"width:372px; height:16px;padding:8px;"}
-              = ">> Become a member <<"
-        .note{:style=>"width:128px;color:white; font-size:12px; line-height:12px; margin-left:16px; float:left "}
-          = "All members can post content and/or comments"
-        .clear
+      %h3{:style=>"color:white;margin-top:8px;margin-bottom:8px;background:0;border:0"}
+        = "Become a member - It's free & easy"
+      .center{:style=>"width:388px; float:left;"}
+        %a.standard-button{:style=>"margin-bottom:16px;width:388px;height:32px;font-size:18px;margin:0 auto;", :href=>"/members/new"}
+          .inner{:style=>"width:372px; height:16px;padding:8px;"}
+            = ">> Become a member <<"
+      .note{:style=>"width:128px;color:white; font-size:12px; line-height:12px; margin-left:16px; float:left "}
+        = "All members can post content and/or comments"
+      .clear
 
-        %h4{:style=>"margin-top:8px;margin-bottom:8px;background:0;border:0"}
-          = "Already a member?"
-        .center{:style=>"width:388px;float:left"}
-          %a.submit-button{:style=>"margin-bottom:16px;width:388px;height:32px;font-size:18px;margin:0 auto;", :href=>"/users/login"}
-            .inner{:style=>"width:372px; height:16px;padding:8px;"}
-              = "Login now >>"
+      %h3{:style=>"color:white;margin-top:8px;margin-bottom:8px;background:0;border:0"}
+        = "Already a member?"
+      .center{:style=>"width:388px;float:left"}
+        %a.submit-button{:style=>"margin-bottom:16px;width:388px;height:32px;font-size:18px;margin:0 auto;", :href=>"/users/login"}
+          .inner{:style=>"width:372px; height:16px;padding:8px;"}
+            = "Login now >>"
 
-        .clear{:style=>"margin-bottom:16px;"}
+      .clear{:style=>"margin-bottom:16px;"}
 
 
-    .left{:style=>"padding:32px 0 0 32px;width:268px;"}
+  .left{:style=>"padding:32px 0 0 32px;width:268px;"}
+    .holder{:style=>"padding:16px 32px 32px 32px;background-image:url(/images/landing_bg.png);background-repeat:repeat-x; margin:0 auto;"}
       %h1{:style=>"font-weight:bold;letter-spacing:-1px; color:white"}
         = "About this site"
       %p{:style=>"color:white"}
@@ -55,8 +49,8 @@
         = "Did you know?"
       %p{:style=>"color:white"}
         = "<b>#{current_group.display_name_i.upcase} #{current_group.display_name_ii.upcase}</b> is a new type of website where any member can post content. Why not become a member and contribute to our community"
-    
+  
 
-      -# = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
+    -# = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
 
 

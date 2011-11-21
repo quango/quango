@@ -8,25 +8,31 @@
     .block
       = render :partial => "shared/signup_button",  :locals => {:width => "wide"}
 
+- if current_group.toolbar_bg?
+  .footer-drop{:style=>"height:40px; width:1032px; background-color:#{current_group.toolbar_bg}"}
+    = "&nbsp;"
 
-
-
+- else
+  .footer-drop{:style=>"height:40px; width:1032px; background-color:#{current_group.secondary}"}
+    = "&nbsp;"
 
 %div.share_bg{:style=>"float:right; width:300px; border-left:4px solid white"}
   = render :partial => "shared/share_box"
 
 %div.share_bg{:style=>"float:left; width:728px;"}
+  -if current_group.custom_html.footer
+    .custom_footer
+      = current_group.custom_html.footer
+
   .footer{:style => "margin:4px 0 32px 0; padding-top:4px;line-height:18px; height:128px"}
-    .custom
-      = "#{current_group.custom_html.footer.to_s}"
-    .notice{:style=>"border-top:1px solid white; margin:4px"}
-      .entry.left{:style=>"float:left; width:724px;height:18px;margin-left:4px;line-height:16px"}
+    .notice{:style=>"margin:0"}
+      .entry.left{:style=>"float:left; width:724px;height:18px;line-height:16px"}
         = "Unless indicated this work is <a rel='license' href='http://creativecommons.org/licenses/by/3.0/'>creative commons</a>."
         = "<a rel='license' href='http://creativecommons.org/licenses/by/3.0/'><img alt='Creative Commons License' src='/images/ccby80x15.png' height='20px' width='80px' style='margin-bottom:-4px;' /></a>"
         = "|"
         = link_to "terms of usage","/about/legals"
 
-      .entry.left{:style=>"float:left; width:724px;height:18px;margin-left:4px"}
+      .entry.left{:style=>"float:left; width:724px;height:18px;"}
         = link_to "thinkingdaily", "http://quangoquango.org", :style=>"font-size:12px;font-family:georgia;font-weight:bold;color:#525051;"
         = " v" + AppConfig.version.to_s + "<a style='background-color: #{current_group.primary};color:white;padding:0 4px;letter-spacing:-1px;font-size:10px;font-weight:normal;'>BETA</a>"
         = "|"

@@ -1,22 +1,28 @@
-.author{:style => "font-size:14px;height: 14px"}
-  .user_data
-    %span.asked_by{:style=>"float:left"}
-      = "#{current_group.publish_label_past.capitalize} by"
-    = render :partial => "users/show_mini", :locals => {:user => @item.user}
-    - if logged_in? && current_user.owner_of?(current_group)
-      = t("time.ago", :time => time_ago_in_words(@item.created_at))
-    = "in"
-    %span.category{:style=>"color:#{current_group.tertiary};"}
-      = @item.category.to_s
+.block
+  .inner{:style=>"float:left;"}
+    .author{:style => "font-size:14px;height: 14px"}
+      .user_data
+        %span.asked_by{:style=>"float:left"}
+          = "#{current_group.publish_label_past.capitalize} by"
+        = render :partial => "users/show_mini", :locals => {:user => @item.user}
+        - if logged_in? && current_user.owner_of?(current_group)
+          = t("time.ago", :time => time_ago_in_words(@item.created_at))
+        = "in"
+        %span.category{:style=>"color:#{current_group.tertiary};"}
+          = @item.category.to_s
+
+    - if @item.updated_by.present?
+
+      .author{:style => "font-size:10px;height: 14px;"}
+        .user_data
+          %span.asked_by{:style=>"float:left;"}
+            = "Edited by "
+          = render :partial => "users/show_mini", :locals => {:user => @item.updated_by}
+          = t("time.ago", :time => time_ago_in_words(@item.updated_at))
+          -#= t("time.ago", :time => @item.updated_at.to_s)
+      .clear
+
+  .inner{:style=>"float:right"}
+    = vote_box(@item, item_path(@doctype, @item), @item.closed)
+
 .clear
-
-- if @item.updated_by.present?
-
-  .author{:style => "font-size:10px;height: 14px;"}
-    .user_data
-      %span.asked_by{:style=>"float:left;"}
-        = "Edited by "
-      = render :partial => "users/show_mini", :locals => {:user => @item.updated_by}
-      = t("time.ago", :time => time_ago_in_words(@item.updated_at))
-      -#= t("time.ago", :time => @item.updated_at.to_s)
-  .clear

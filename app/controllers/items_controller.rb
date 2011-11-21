@@ -31,6 +31,7 @@ class ItemsController < ApplicationController
   helper :votes
   helper :channels
   helper :items
+  helper :meta
 
 
   def change_doctype
@@ -121,6 +122,8 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.xml
   def index
+    @render_start = Time.now
+
     if params[:language] || request.query_string =~ /tags=/
       params.delete(:language)
       head :moved_permanently, :location => url_for(params)
@@ -135,14 +138,8 @@ class ItemsController < ApplicationController
     end
 
     @doctypes = current_group.doctypes
-
     @doctype = @doctypes.find_by_slug_or_id(params[:doctype_id])
-
     @items = current_group.items #.merge(conditions)
-
-    #@doctype_items = @current_items
- 
-
 
     @langs_conds = scoped_conditions[:language][:$in]
 
@@ -433,6 +430,13 @@ class ItemsController < ApplicationController
 
   end
 
+  def get_terms(item)
+
+    terms = "Hello world"
+    terms
+
+  end
+
   # POST /items
   # POST /items.xml
   def create
@@ -446,22 +450,65 @@ class ItemsController < ApplicationController
 
     @item.doctype_id = @doctype.id
 
+
+
+
+
+
+
+
+
+    @item.description = @item.body #.concat(256)
+
     @item.meta_author = current_user.display_name
     @item.meta_title = @item.title
     @item.meta_description = @item.description
     @item.meta_publisher = current_group.domain
     @item.meta_abstract = @item.abstract
 
+
+    # here we do some tag extraction magic, if alchemy is enabled it will pull the data from there otherwise fallback to term extract
+    # AlchemyAPI is the best text extraction service I have found so far, mainly becuase it is very easy to use 
+
     keywords_array = Array.new
 
-    #keywords_array = keywords_array << @item.category
+    #if current_group.has_alchemy
+      #require 'semantic_extraction'
+      #SemanticExtraction.alchemy_api_key = current_group.alchemy_key
+      #terms = SemanticExtraction.find_keywords(@item.body)
 
-   
-    #doc.keywords.each do |tag|
-      #keywords_array = keywords_array << tag
+      #terms.each do |term|
+      #  keyword = "<li>" 
+      #  keyword = keyword << term.to_s << "</li>"
+      #  keywords_array << keyword
+      #end
+
+
+     # terms = get_terms(@item.body)
+
+
+
+     # @item.body << terms
+
+
+    #else
+
+      #require 'term-extract'    
+      #terms = TermExtract.extract(@item.body)
+
+      #terms.each do |term|
+        #keyword = "<li>" 
+        #keyword = keyword << term[0].to_s << "</li>"
+        #keywords_array = keywords_array << keyword
+      #end
+
+      #@item.body << terms.to_s
+
     #end
 
-    #@item.tags = keywords_array
+
+
+
 
 
 
@@ -494,20 +541,21 @@ class ItemsController < ApplicationController
       else
 
 
-require 'pismo'
+      require 'pismo'
 
-# Load a Web page (you could pass an IO object or a string with existing HTML data along, as you prefer)
+      # Load a Web page (you could pass an IO object or a string with existing HTML data along, as you prefer)
       doc = Pismo::Document.new(@item.article_link, :reader => :cluster)
 
 
 
-      @item.title = doc.title
+      @item.title = shorten(doc.title, 99)
+
       @item.description = doc.description
 
       if doc.author
         @item.article_link_author = doc.author
       else
-        @item.article_link_author = ""
+        @item.article_link_author = @item.user
       end
 
 
@@ -621,7 +669,7 @@ require 'pismo'
         if @item.video_link?
           format.html { redirect_to item_path(@doctype, @item)}
         elsif @item.article_link?
-          format.html { redirect_to item_path(@doctype, @item)}
+          format.html { redirect_to tag_item_path(@doctype, @item), :new=>true}
         else
           format.html { redirect_to item_images_path(@doctype, @item)}
         end
@@ -642,7 +690,7 @@ require 'pismo'
   # PUT /items/1.xml
   def update
     respond_to do |format|
-      @item.safe_update(%w[meta_author category doctype_id node mode title description bookmark video_link main_thumbnail images body language tags wiki adult_content version_message  anonymous], params[:item])
+      @item.safe_update(%w[meta_author category doctype_id node mode title description bookmark video_link main_thumbnail images body language tags wiki adult_content version_message anonymous article_link article_link_author article_link_publisher], params[:item])
       @item.updated_by = current_user
       @item.last_target = @item
       #@item.section = @active_section
@@ -693,9 +741,82 @@ require 'pismo'
     end
   end
 
+  def distribute
+    respond_to do |format|
+     @item = Item.find_by_slug_or_id(params[:id])
+     @doctypes = current_group.doctypes
+     @doctype = @doctypes.find_by_slug_or_id(params[:doctype_id])
+     @groups = Group.all
+     # @item.safe_update(%w[meta_author], params[:item])
+
+
+      unless @item.valid? && @item.save
+        sweep_item_views
+        sweep_item(@item)
+
+        flash[:notice] = t(:flash_notice, :scope => "items.update")
+
+        format.html { redirect_to(item_path(@doctype, @item)) }
+        format.json  { head :ok }
+      else
+        format.html { render :action => "distribute" }
+        format.json  { render :json => @item.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+
+  def describe
+    respond_to do |format|
+     @item = Item.find_by_slug_or_id(params[:id])
+     @doctypes = current_group.doctypes
+     @doctype = @doctypes.find_by_slug_or_id(params[:doctype_id])
+     # @groups = Group.all
+     # @item.safe_update(%w[meta_author], params[:item])
+
+
+      unless @item.valid? && @item.save
+        sweep_item_views
+        sweep_item(@item)
+
+        flash[:notice] = t(:flash_notice, :scope => "items.update")
+
+        format.html { redirect_to(item_path(@doctype, @item)) }
+        format.json  { head :ok }
+      else
+        format.html { render :action => "describe" }
+        format.json  { render :json => @item.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  def tag
+    respond_to do |format|
+     @item = Item.find_by_slug_or_id(params[:id])
+     @doctypes = current_group.doctypes
+     @doctype = @doctypes.find_by_slug_or_id(params[:doctype_id])
+     # @groups = Group.all
+     # @item.safe_update(%w[meta_author], params[:item])
+
+
+      unless @item.valid? && @item.save
+        sweep_item_views
+        sweep_item(@item)
+
+        flash[:notice] = t(:flash_notice, :scope => "items.update")
+
+        format.html { redirect_to(item_path(@doctype, @item)) }
+        format.json  { head :ok }
+      else
+        format.html { render :action => "tag" }
+        format.json  { render :json => @item.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
   def meta
     respond_to do |format|
-     # @item = Item.find_by_slug_or_id(params[:id])
+     @item = Item.find_by_slug_or_id(params[:id])
      @doctypes = current_group.doctypes
      @doctype = @doctypes.find_by_slug_or_id(params[:doctype_id])
 
@@ -727,6 +848,51 @@ require 'pismo'
         format.json  { head :ok }
       else
         format.html { render :action => "meta" }
+        format.json  { render :json => @item.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  def advanced
+    respond_to do |format|
+     @item = Item.find_by_slug_or_id(params[:id])
+     @doctypes = current_group.doctypes
+     @doctype = @doctypes.find_by_slug_or_id(params[:doctype_id])
+
+
+      unless @item.valid? && @item.save
+        sweep_item_views
+        sweep_item(@item)
+
+        flash[:notice] = t(:flash_notice, :scope => "items.update")
+
+        format.html { redirect_to(item_path(@doctype, @item)) }
+        format.json  { head :ok }
+      else
+        format.html { render :action => "advanced" }
+        format.json  { render :json => @item.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  def link
+    respond_to do |format|
+     @item = Item.find_by_slug_or_id(params[:id])
+     @doctypes = current_group.doctypes
+     @doctype = @doctypes.find_by_slug_or_id(params[:doctype_id])
+
+     @item.safe_update(%w[article_link article_link_author article_link_publisher], params[:item])
+
+      unless @item.valid? && @item.save
+        sweep_item_views
+        sweep_item(@item)
+
+        flash[:notice] = t(:flash_notice, :scope => "items.update")
+
+        format.html { redirect_to(item_path(@doctype, @item)) }
+        format.json  { head :ok }
+      else
+        format.html { render :action => "link" }
         format.json  { render :json => @item.errors, :status => :unprocessable_entity }
       end
     end

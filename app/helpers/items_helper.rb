@@ -1,5 +1,8 @@
 module ItemsHelper
 
+
+
+
   def has_images(item)
     if item.images
       return true

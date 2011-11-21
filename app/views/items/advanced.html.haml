@@ -1,0 +1,42 @@
+-#= javascript_include_merged :show
+
+-#content_for :sidebar do
+  -#sidebar
+    -#= render :partial => "shared/community_sponsor", :locals => {:width => "narrow"}
+
+-content_for :sidebar_inner do
+  #sidebar-inner
+
+    -if !current_group.item_help.empty?
+      .help
+        %h3
+          = t(".how_to_ask")
+        =current_group.item_help
+    %h3
+      = "Similar"
+
+    .related-item
+      %ul.items#related_items
+
+-content_for :main do
+  = javascript_include_merged :show
+  #main{:style=>"width:728px; float:left;"}
+    .supplementary-navigation{:class => @active_subtab.to_s, :style => "height:35px; line-height:35px; padding:0 8px 0 8px"}
+      = "EDIT MODE: " + @item.title  
+      .submission-button{:style=>"float:right"}    
+        = link_to "Back to page", item_path(@item.doctype, @item), :style => "font-size:10px;font-weight:bold;letter-spacing:-1px; color:white;padding:2px 4px;line-height:20px;float:right"
+
+    .toolbox{:style=>"border-bottom:4px solid #b6b6b6"}
+      = render :partial => "toolbox_edit", :locals => {:page => "edit"}
+    -if logged_in?
+      -if current_user.owner_of?(current_group) | current_user.mod_of?(current_group)
+        %div
+          = render :partial => "controls", :object=>@item 
+    - form_for(@item, :url => item_path(@doctype, @item), :html => {:class => "form"}) do |f|
+      =render :partial => "advanced_form", :locals => {:f => f}
+
+
+
+
+
+

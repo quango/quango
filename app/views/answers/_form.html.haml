@@ -1,7 +1,7 @@
 -if logged_in?
 
   .entry-details
-    .entry-title{:style=>"height:32px; line-height:32px; margin-bottom:4px;"}
+    .entry-title{:style=>"width:568px;height:32px; line-height:32px; margin-bottom:4px;"}
       = "Share your thoughts..."
   .clear
 
@@ -53,7 +53,7 @@
 
       .clear
         .answer-actions{:style => "background-color: #dcdcdc;line-height:32px; height: 32px; width: 565px; margin: 0 0 16px 0; padding 4px"}
-          = submit_tag t('answers.form.submit'), :class => "standard-button", :style => "width:256px; height:24px; float:right; margin: 4px 8px; padding: 8px"
+          = submit_tag t('answers.form.submit'), :class => "submit-button", :style => "width:256px; height:24px; float:right;"
           .openedit{:style => "float:right; margin-right: 16px; display:none"}
             = f.label :wiki, "Anybody can edit? ", :class => "radio"
             = check_box :wiki, :class => "checkbox right"
@@ -72,7 +72,7 @@
       = f.text_field :version_message, :class => "text_field"
 
 -elsif !logged_in?
-  .answer-form-holder
+  .answer-form-holder{:style=>"width:568px"}
     .entry-details
       .entry-title{:style=>"height:32px; line-height:32px; margin-bottom:4px;"}
         = "Share your thoughts..."

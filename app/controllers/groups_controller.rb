@@ -111,14 +111,8 @@ class GroupsController < ApplicationController
     puts "Starting doctype creation /n"
 
     doctypes = Array.new
-
-    doctypes << Doctype.new(:name => "news", :doctype => "standard",:create_label => "Add some news",:created_label => "added some news", :group_id => @group.id)
-    doctypes << Doctype.new(:name => "articles", :doctype => "standard", :create_label => "Write an article", :created_label => "wrote an article", :group_id => @group.id)
-    doctypes << Doctype.new(:name => "links",:has_links => "true", :doctype => "bookmark", :create_label => "Share a link", :created_label => "shared a link", :group_id => @group.id)
     doctypes << Doctype.new(:name => "questions", :doctype => "standard", :create_label => "Ask a question", :created_label => "asked a question", :group_id => @group.id)
-
-    doctypes << Doctype.new(:name => "videos",:has_video => "true", :doctype => "video", :create_label => "Suggest a video", :create_label => "suggested a video", :group_id => @group.id)
-
+    doctypes << Doctype.new(:name => "links",:has_links => "true", :doctype => "bookmark", :create_label => "Share a link", :created_label => "shared a link", :group_id => @group.id)
 
 
     doctypes.each do |doctype| 
@@ -189,10 +183,11 @@ class GroupsController < ApplicationController
                           has_medium_rectangle medium_rectangle_content group_categories show_category_navigation
                           has_threeone_rectangle threeone_rectangle_content has_bumper bumper_content welcome_layout has_slideshow slideshow_content
                           logo logo_info logo_only
+                          has_custom_toolbar custom_toolbar_link custom_toolbar_image custom_toolbar_image_info
                           forum notification_from notification_email
-                          custom_favicon language theme reputation_rewards reputation_constrains
+                          custom_favicon language theme reputation_rewards reputation_constrains share_box
                           hidden has_adult_content registered_only openid_only custom_css wysiwyg_editor fb_button share show_beta_tools
-                          publish_label signup_heading leaders_label about_label landing_bg
+                          publish_label signup_heading leaders_label about_label has_landing_bg landing_bg
                           primary primary_dark secondary tertiary supplementary supplementary_dark supplementary_lite header_bg_image background toolbar_bg toolbar_bg_image header_bg
                           robots logo_path favicon_path link_colour  sponsor_logo_wide_info sponsor_logo_narrow_info
                           has_sponsor has_sponsors sponsor_label sponsors_label sponsor_name sponsor_link sponsor_logo_wide sponsor_logo_narrow show_sponsor_description show_sponsor_description_boxheader sponsor_description sponsor_description_boxheader

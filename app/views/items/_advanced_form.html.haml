@@ -1,0 +1,47 @@
+= local_assigns[f]
+= f.error_messages
+= error_messages_for(:user)
+
+
+
+
+.answer-form-holder
+
+  = f.hidden_field :doctype_id, :value => @doctype.id
+  = f.hidden_field :title, :value => @item.title
+
+
+  -if current_user.can_modify?(@item)
+    .group
+      = "What doctype ( currently set to:<b> #{@item.category} </b>)"
+      - current_group.doctypes.each do |doctype|
+        - if @item.doctype == doctype
+          %div.radio
+            = f.radio_button(:doctype_id, doctype.id, :value => "#{@item.category} #{@item.doctype.name}", :checked => true)
+            = "#{doctype.name}"
+        - else
+          %div.radio
+            = f.radio_button(:doctype_id, doctype.id, :value => "#{@item.category} #{@item.doctype.name}")
+            = "#{doctype.name}"
+
+  -if !@item.new?
+  .group
+    = f.label :version_message, "Change summary", :class => "label"
+    = f.text_field :version_message, :class => "text_field"
+
+
+
+  .answer-actions{:style => "line-height:32px; height: 32px; width: 512px; margin: 0 auto 16px auto; position:relative;"}
+    = submit_tag h(current_group.publish_label), :class => "submit-button", :style => "width:256px; height:28px; float:right;"
+    = link_to t('scaffold.cancel'), items_path, :class => "button cancel", :style => "float:right;"
+
+.clear
+
+
+
+
+
+
+
+
+

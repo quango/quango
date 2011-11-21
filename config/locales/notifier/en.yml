@@ -17,13 +17,13 @@ en:
       message2: 'You may follow him back by clicking on the button "Follow" on his %{user_page}'
     give_advice:
       hi: "Hi %{user},"
-      message1: "%{poster} just posted a %{doctype} you may have an interest in:"
+      message1: "%{poster} just posted %{doctype} you may be interest in:"
       message2: "To share your thoughts on this subject simply follow this link::"
       message4: "This message will self destruct in 10 seconds..."
       message3: "You can enhance your reputation by participating in this community."
       message_footer: "You have received this message because you have chosen to do so - if you change your mind, you can modify your message settings in your %{profile}"
     new_answer:
-      message: "%{poster} commented on %{item}:  %{new_answer}"
+      message: "%{user} commented on %{item}:  %{new_answer}"
     new_comment:
       message: "%{user} commented %{new_comment} on the item %{item}"
     new_feedback:

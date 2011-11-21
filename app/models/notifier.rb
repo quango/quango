@@ -29,7 +29,7 @@ class Notifier < ActionMailer::Base
       if user == answer.item.user
         @subject = I18n.t("subject_owner", :scope => scope,
                                            :title => answer.item.title,
-                                           :login => answer.user.display_name)
+                                           :poster => answer.user.display_name)
       elsif following
         @subject = I18n.t("subject_friend", :scope => scope,
                                             :title => answer.item.title,
@@ -37,7 +37,7 @@ class Notifier < ActionMailer::Base
       else
         @subject = I18n.t("subject_other", :scope => scope,
                                            :title => answer.item.title,
-                                           :login => answer.user.display_name)
+                                           :poster => answer.user.display_name)
       end
 
       recipients user.email
@@ -56,7 +56,7 @@ class Notifier < ActionMailer::Base
     recipients user.email
     template_for user do
       from "#{group.notification_from} <#{group.notification_email}>"
-      subject I18n.t("mailers.notifications.new_comment.subject", :login => comment.user.login, :group => group.name)
+      subject t("mailers.notifications.new_comment.subject", :login => comment.user.display_name, :group => group.name)
       sent_on Time.now
       content_type    "multipart/alternative"
 

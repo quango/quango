@@ -1,0 +1,37 @@
+= local_assigns[f]
+= f.error_messages
+= error_messages_for(:user)
+
+
+
+
+.answer-form-holder
+
+  = f.hidden_field :doctype_id, :value => @doctype.id
+  = f.hidden_field :title, :value => @item.title
+
+
+
+
+  .group
+    = f.label :description, "Short description", :class => "label", :style=>"margin-top:16px"
+    = f.text_area :description, :class => "text_area2", :style => "height:56px; max-height:56px;width:540px; max-width:540px; margin:0 16px; overflow:hidden; padding: 8px"
+    .description{:style=>"margin-left:16px"}
+      = h("If you do not fill this it the system will use the first paragraph - but remember search engines prefer unique descriptions")
+
+
+
+  .answer-actions{:style => "line-height:32px; height: 32px; width: 512px; margin: 0 auto 16px auto; position:relative;"}
+    = submit_tag "Distribute", :class => "submit-button", :style => "width:256px; height:28px; float:right;"
+    = link_to t('scaffold.cancel'), items_path, :class => "button cancel", :style => "float:right;"
+
+.clear
+
+
+
+
+
+
+
+
+

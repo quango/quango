@@ -1,13 +1,17 @@
 //base
 
+
+
+
 .footer
-  +rounded(4px,4px,0,0)
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#cbcbcb',endColorstr='#ffffff')
-  background: -webkit-gradient(linear,left top,left bottom,from(#cbcbcb),to(#ffffff))
-  background: -moz-linear-gradient(top,#cbcbcb,#ffffff)
+  border-top: 1px solid gainsboro
+  //+rounded(4px,4px,0,0)
+  //filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#cbcbcb',endColorstr='#ffffff')
+  //background: -webkit-gradient(linear,left top,left bottom,from(#cbcbcb),to(#ffffff))
+  //background: -moz-linear-gradient(top,#cbcbcb,#ffffff)
 
 #landing
-  +rounded(0px,0px,4px,4px)
+  
 
 .holder
   border: 0
@@ -121,13 +125,13 @@
   //border-top: 4px solid gainsboro
   border-bottom: 4px solid
 
-  width: 568px
+  //width: 568px
   height: 32px
   line-height: 32px
   margin: 0
   display: inline-block
 
-  padding: 0 4px 0 4px
+  //padding: 0 4px 0 4px
   //margin:  0
   color: #fff
 
@@ -197,6 +201,10 @@
   height: 14px
   line-height: 14px
   margin: 0px
+  -webkit-box-shadow: 1px 1px 1px rgba(255,255,255,0.25)
+  -moz-box-shadow: 1px 1px 1px rgba(255,255,255,0.25)
+  box-shadow: 1px 1px 1px rgba(255,255,255,0.25)
+  text-shadow: -1px -1px 1px rgba(0,0,0,0.25)
   +rounded(4px,4px,4px,4px)
 
 
@@ -244,6 +252,26 @@ a.category-button
   color: white
   //text-shadow: #000000 0px -1px 1px
   font-weight: bold
+
+
+.toolbar-tab
+  //font-family: "Arial Narrow", sans-serif
+  font-weight: bold
+  font-size: 12px
+  letter-spacing: -1px
+  text-transform: uppercase
+  height: 20px
+  color: white
+  text-shadow: -1px -1px 1px rgba(0,0,0,0.25)
+  margin-top: 4px
+  padding: 4px 8px 4px 8px
+  line-height: 24px
+
+  +rounded(8px,8px,0px,0px)
+  border: 0
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#cccccc',endColorstr='#bbbbbb')
+  background: -webkit-gradient(linear,left top,left bottom,from(#cccccc),to(#bbbbbb))
+  background: -moz-linear-gradient(top,#555051,#bbbbbb)
 
 
 .toolbar-button
@@ -366,7 +394,7 @@ h3
 
 
 h4
-  color: white
+  //color: white
   font-family: Arial
   font-size: 14px
   font-weight: bold
@@ -377,7 +405,17 @@ h4
   height: 28px
   line-height: 28px
   font-weight: bold
-  //border-bottom: 4px solid gainsboro
+
+  color: #B6B6B6
+  background: gainsboro
+
+  background-color: gainsboro
+  border-top: 1px solid white
+  border-bottom: 4px solid #B6B6B6
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ffffff',endColorstr='#DCDCDC')
+  background: -webkit-gradient(linear,left top,left bottom,from(#ffffff),to(#dcdcdc))
+  background: -moz-linear-gradient(top,#ffffff,#DCDCDC)
+  text-shadow: white 1px 1px 2px
 
   .note
     color: black
@@ -388,6 +426,19 @@ h4
 
   .sidebar
     +gradient(#525051,#dcdcdc)
+
+button
+  color: white
+  background: gainsboro
+
+  background-color: gainsboro
+  //border-top: 1px solid white
+  //border-bottom: 4px solid #B6B6B6
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#B6B6B6',endColorstr='#DCDCDC')
+  background: -webkit-gradient(linear,left top,left bottom,from(#B6B6B6),to(#dcdcdc))
+  background: -moz-linear-gradient(top,#B6B6B6,#DCDCDC)
+  text-shadow: white 1px 1px 2px
+
 
 hr
   height: 1px
@@ -490,6 +541,13 @@ body
   .main p.first
     margin-top: 0
 
+#footer
+  border-top: 1px solid white
+  background-color: white
+  height: 128px
+
+.footer-drop
+  +rounded(0px,0px,4px,4px)
 
 #user-navigation
   position: absolute
@@ -613,7 +671,7 @@ input.checkbox
 
 .form
   .group
-    margin-bottom: 15px
+    margin: 0
 
   div
     &.left
@@ -642,7 +700,7 @@ input.checkbox
   label.label, input.text_field, textarea.text_area
     font-size: 1.3em
     padding: 0
-    margin: 0 16px
+    margin: 0 auto
 
   label.right
     text-align: right

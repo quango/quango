@@ -103,8 +103,9 @@ class Group
   key :api_linkedin_key, String, :default => "my linkedin key"
   key :api_linkedin_secret, String, :default => "my linked key"
 
-  key :has_alchemy, Boolean, :default => false
-  key :alchemy_key, String, :default => "my alchemy key"
+  key :has_alchemy, Boolean, :default => true
+  key :alchemy_key, String, :default => "bf05bde28c9947946ac1e4481c3eac4350c1a546"
+  key :yahoo_key, String, :default => "aLKN_v_V34HCd5jrNE_yrxFHExpd_AWLESH8KyD5zPLh7qc7nHsM54xn3P7H9lFquWtmRyHsvbjCB76uCWM-"
 
 
   #analytics
@@ -132,6 +133,8 @@ class Group
   key :has_custom_js, Boolean, :default => true
   key :fb_button, Boolean, :default => true
 
+  key :share_box, Boolean, :default => true
+
   #labels
   key :publish_label, String, :default => "post"
   key :publish_label_past, String, :default => "posted"
@@ -157,6 +160,12 @@ class Group
   key :primary_hover, String, :default => "#E1A970" #header_bg and edit buttons
   key :primary_selected, String, :default => "#990000"
 
+  # to override the default
+  key :has_custom_toolbar, Boolean, :default => false
+  key :custom_toolbar_link, String
+  key :custom_toolbar_image, String
+  key :custom_toolbar_image_info, Hash, :default => {"width" => 64, "height" => 32}
+
   key :secondary, String, :default => "#7ca6c1" #tabs,
   key :secondary_hover, String, :default => "orange"
   key :secondary_selected, String, :default => "#E1A970"
@@ -174,7 +183,8 @@ class Group
   key :supplementary, String, :default => "#FFB455" #action buttons and anything requiring high visibility
   key :supplementary_lite, String, :default => "#FFD6A2" #action buttons and anything requiring high visibility
 
-  key :landing_bg, String, :default => "false"
+  key :has_landing_bg, Boolean, :default => false
+  key :landing_bg, String, :default => "/path/to/image"
 
   key :share, Share, :default => Share.new
 
@@ -309,7 +319,7 @@ class Group
   end
 
   def footer
-    self.custom_html.footer[I18n.locale.to_s.split("-").first] || ""
+    self.custom_html.footer #[I18n.locale.to_s.split("-").first] || ""
   end
 
   def item_prompt=(value)
@@ -329,7 +339,7 @@ class Group
   end
 
   def footer=(value)
-    self.custom_html.footer[I18n.locale.to_s.split("-").first] = value
+    self.custom_html.footer #[I18n.locale.to_s.split("-").first] = value
   end
 
   def tag_list

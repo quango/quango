@@ -1,0 +1,47 @@
+= local_assigns[f]
+= f.error_messages
+= error_messages_for(:user)
+
+
+
+
+.answer-form-holder
+
+  = f.hidden_field :doctype_id, :value => @doctype.id
+  = f.hidden_field :title, :value => @item.title
+
+
+
+
+  .group
+
+
+    .tags{:style=>"float:left"}
+      = f.label :tags, "#{t(:tags, :scope => "activerecord.attributes.item")}", :class => "label"
+      .description{:style=>"margin-left:16px"}
+        = "Start writing your tags - hit <span class='keyboard'>TAB</span> to move to the next one"
+      -# unless @item.tags[0] = @item.category
+        -# appended_category = @item.category.to_s << ", " <<  @item.tags.join(", ")
+        -#= f.text_field :tags,:value => appended_category, :class => "text_field autocomplete_for_tags"
+      -# else
+      -#.field{:style=>"border:0px solid red"}
+      = f.text_field :tags,:value => @item.tags.join(", "), :class => "text_field autocomplete_for_tags"
+
+  .clear
+
+
+
+  .answer-actions{:style => "line-height:32px; height: 32px; width: 512px; margin: 0 auto 16px auto; position:relative;"}
+    = submit_tag "Save changes", :class => "submit-button", :style => "width:256px; height:28px; float:right;"
+    = link_to t('scaffold.cancel'), items_path, :class => "button cancel", :style => "float:right;"
+
+.clear
+
+
+
+
+
+
+
+
+

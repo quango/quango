@@ -1,0 +1,23 @@
+
+
+
+- if logged_in?
+
+  %ul{:style=>"width:728px; height:24px"}
+    - if (@item.wiki && current_user.can_edit_wiki_post_on?(@item.group)) || current_user.can_edit_others_posts_on?(@item.group) || current_user.can_modify?(@item)
+      %li
+        = link_to "Title & Content", edit_item_path(@doctype, @item), :style => "float:left;color:white; margin-right:2px;", :class => "toolbar-tab red"
+      %li
+        = link_to "3rd Party Links", link_item_path(@doctype, @item), :style => "float:left;color:white;margin-right:2px;", :class => "toolbar-tab red"
+      %li
+        = link_to "Tags", tag_item_path(@doctype, @item), :style => "float:left;color:white; margin-right:2px;", :class => "toolbar-tab red"
+      %li
+        = link_to "Description", describe_item_path(@doctype, @item), :style => "float:left;color:white; margin-right:2px;", :class => "toolbar-tab red"
+      %li
+        = link_to "Distribution", distribute_item_path(@doctype, @item), :style => "float:left;color:white;margin-right:2px;", :class => "toolbar-tab red"
+      %li
+        = link_to "Meta", meta_item_path(@doctype, @item), :style => "float:left;color:white; margin-right:2px;", :class => "toolbar-tab red"
+      %li
+        = link_to "+", advanced_item_path(@doctype, @item), :style => "float:left;color:white", :class => "toolbar-tab red"
+      %li
+        = link_to "Edit Images", item_images_path(@doctype, @item), :style => "float:right;color:white", :class => "submission-button" 

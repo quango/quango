@@ -96,6 +96,7 @@ class Item
   key :group_id, String, :index => true
   belongs_to :group
 
+
   key :doctype_id, String, :index => true
   belongs_to :doctype
 
@@ -112,6 +113,7 @@ class Item
 
   belongs_to :last_target, :polymorphic => true
 
+  has_many :distributors, :dependent => :destroy
   has_many :bunnies, :dependent => :destroy
   has_many :images, :dependent => :destroy
   has_many :answers, :dependent => :destroy

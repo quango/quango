@@ -25,8 +25,8 @@
 
   %ul.members-list-index#users
     -@users.each do |user|
-      -if user.login != "admin"
-        = render :partial => "member", :object => user
+      -#if user.login != "admin"
+      = render :partial => "member", :object => user
 
 
   =will_paginate @members

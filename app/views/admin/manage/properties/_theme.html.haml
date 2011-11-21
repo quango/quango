@@ -24,12 +24,15 @@
   = f.label :theme, t(:theme, :scope => "activerecord.attributes.group", :default => "Theme" ), :class => "label"
   = f.select :theme, AVAILABLE_THEMES, {}, :class => "choose_theme"
 
+
+.group
+  = f.label :has_landing_bg, "Check here if you want an image for the landing page", :class => "label"
+  = f.check_box :has_landing_bg, :class => "text_field"
+
 .group
   = f.label :landing_bg, "Landing Page Background image", :class => "label"
   = f.text_field :landing_bg, :class => "text_field"
-  .swatch{:style => "background: #{current_group.toolbar_bg}"}
-  .description
-    = "Remove this if you just want a colour"
+
 
 
 .group

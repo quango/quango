@@ -2,7 +2,7 @@
 = f.error_messages
 = error_messages_for(:user)
 
-= javascript_include_merged :show
+-#= javascript_include_merged :show
 
 
 .answer-form-holder
@@ -16,36 +16,17 @@
 
 
 
-  .answer-form
+  .answer-form{:style=>"padding:0 32px 16px 32px;border-radius:4px"}
 
-
-
-    - if @doctype.has_links?
-      .something
-        = "If you are re-posting from another, all you have to do is put the link here and click submit, this will grab the text from the link and then you can edit from there - otherwise just start writing below"
-
-    .group
-      = f.label :title, "#{t(:title, :scope => "activerecord.attributes.item")}", :class => "label", :style=>"margin-top:16px"
-      = f.text_field :title, :class => "text_field", :style => "width:540px; max-width:540px; margin:0 16px"
-      = "."
-
-
-
-    .group
-
-
-      .tags{:style=>"float:left"}
-        = f.label :tags, "#{t(:tags, :scope => "activerecord.attributes.item")}", :class => "label"
-        .description{:style=>"margin-left:16px"}
-          = "Start writing your tags - hit <span class='keyboard'>TAB</span> to move to the next one"
-        -# unless @item.tags[0] = @item.category
-          -# appended_category = @item.category.to_s << ", " <<  @item.tags.join(", ")
-          -#= f.text_field :tags,:value => appended_category, :class => "text_field autocomplete_for_tags"
-        -# else
-        -#.field{:style=>"border:0px solid red"}
-        = f.text_field :tags,:value => @item.tags.join(", "), :class => "text_field autocomplete_for_tags"
-
+    = f.label :title, "#{t(:title, :scope => "activerecord.attributes.item")}", :class => "label"
+    .group{:style=>"width:584px;padding:8px; background:#bcbcbc;border-radius:4px;"}
+      = f.text_field :title, :class => "text_field", :style => "width:556px; max-width:556px; margin:0 ;"
+    .note
+      = "If your title is longer than this text box, then chances are your title is too long..!"
     .clear
+
+
+
     .group
 
       - if @doctype.has_video?
@@ -55,23 +36,27 @@
         = f.label :video_thumbnail, "#{t(:video_link, :scope => "activerecord.attributes")}", :class => "label", :style => "margin-left: 8px"
         = f.text_field :video_thumbnail, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
 
-    .group
-      = f.label :body, t(:body, :scope => "activerecord.attributes.item"), :class => "label"
-      = f.text_area :body, :class => "text_area", :id => "markdown_editor", :style => "height:256px; width:540px; max-width:540x; margin:0 16px"
+    = f.label :body, t(:body, :scope => "activerecord.attributes.item"), :class => "label", :style=>"margin:16px 0 0 0"
 
-    .clear{:style => "height:16px;"}
+    .group{:style=>"width:584px;padding:8px; background:#bcbcbc;border-radius:4px 4px 0 0;"}
 
-    .group
-      %hr
-      - if @doctype.has_links?
-        = f.label :article_link, "This is the source link", :class => "label", :style => "margin-left: 8px"
-        = f.text_field :article_link, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+      = f.text_area :body, :class => "text_area", :id => "markdown_editor", :style => "height:auto;min-height:128px; width:560px; max-width:560px;"
 
-        = f.label :article_link_author, "Author", :class => "label", :style => "margin-left: 8px"
-        = f.text_field :article_link_author, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+    .clear
+  
+    - if false
 
-        = f.label :article_link_publisher, "Publisher", :class => "label", :style => "margin-left: 8px"
-        = f.text_field :article_link_publisher, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+      .group
+        %hr
+
+          = f.label :article_link, "This is the source link", :class => "label", :style => "margin-left: 8px"
+          = f.text_field :article_link, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+
+          = f.label :article_link_author, "Author", :class => "label", :style => "margin-left: 8px"
+          = f.text_field :article_link_author, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+
+          = f.label :article_link_publisher, "Publisher", :class => "label", :style => "margin-left: 8px"
+          = f.text_field :article_link_publisher, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
 
 
       -#.openedit{:style => "float:right; margin-right: 16px; display:none"}
@@ -86,11 +71,7 @@
       -#.clear
     .clear
 
-    .group
-      = f.label :description, "Short description", :class => "label", :style=>"margin-top:16px"
-      = f.text_area :description, :class => "text_area2", :style => "height:56px; max-height:56px;width:540px; max-width:540px; margin:0 16px; overflow:hidden; padding: 8px"
-      .description{:style=>"margin-left:16px"}
-        = h("If you do not fill this it the system will use the first paragraph - but remember search engines prefer unique descriptions")
+
 
     -if current_group.language.nil? && AppConfig.enable_i18n
       .group
@@ -101,31 +82,30 @@
     -else
       = f.hidden_field :language, :value => (current_group.language || AppConfig.default_language)
 
-    -if !@item.new?
-      .group
-        = f.label :version_message, t("wiki.model.attributes.message"), :class => "label"
-        = f.text_field :version_message, :class => "text_field"
 
-    -if current_user.owner_of?(current_group)
-      .group
-        = "What doctype ( currently set to:<b> #{@item.category} </b>)"
-        - current_group.doctypes.each do |doctype|
-          - if @item.doctype == doctype
-            %div.radio
-              = f.radio_button(:doctype_id, doctype.id, :value => "#{@item.category} #{@item.doctype.name}", :checked => true)
-              = "#{doctype.name}"
-          - else
-            %div.radio
-              = f.radio_button(:doctype_id, doctype.id, :value => "#{@item.category} #{@item.doctype.name}")
-              = "#{doctype.name}"
 
-  .answer-actions{:style => "line-height:32px; height: 32px; width: 512px; margin: 0 auto 16px auto; position:relative;"}
-    = submit_tag h(current_group.publish_label), :class => "submit-button", :style => "width:256px; height:28px; float:right;"
-    = link_to t('scaffold.cancel'), items_path, :class => "button cancel", :style => "float:right;"
+
+
+    .answer-actions{:style => "padding:0 16px 16px 16px; width:568px;"}
+      = submit_tag "Save changes", :class => "submit-button", :style => "width:256px; height:28px; float:right;"
+      = link_to t('scaffold.cancel'), items_path, :class => "submit-button cancel", :style => "background:red"
 
 .clear
 
+-content_for :sidebar_inner do
+  #sidebar-inner{:style=>"width:300px;float:right"}
+    = "SB"
+    - if false
+      -if !current_group.item_help.empty?
+        .help
+          %h3
+            = t(".how_to_ask")
+          =current_group.item_help
+      %h3
+        = "Similar"
 
+      .related-item
+        %ul.items#related_items
 
 
 

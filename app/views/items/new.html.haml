@@ -1,4 +1,4 @@
-= javascript_include_merged :show
+
 
 -content_for :subtabs do
   .navtitle
@@ -7,43 +7,116 @@
     -#= local_params
 
 
--content_for :sidebar_inner do
-  #sidebar-inner
 
-    .help
-      %h3
-        = "Hints"
-      = @doctype.help_text
-      = "test"
-
-    %h3
-      = "Similar content"
-
-    .related-item
-      %ul.items#related_items
 
 
 -content_for :main do
 
+  = javascript_include_merged :show
+
+  %div
+    = "&nbsp;"
+  #main-index{:style=>"width:728px;"}
+    %h4
+      - if @doctype.custom_icon?
+        = "<img src=\'#{@doctype.custom_icon}\' style='height:16px, width:16px; border:0;' >"
+      - else
+        = "<img src=\'/images/icons/pencil.png\' style='height:16px, width:16px; border:0;' >"
+
+      = @doctype.create_label
+
+    -if @item.doctype.has_links? && !@item.doctype.is_link?
+      .answer-form-holder{:style=>"margin:0px auto; "}
+        .call-to-action{:style=>"font-size:18px;color:white; font-weight:bold: letter-spacing:-1px; margin:16px 32px"}
+          = "Please choose one of the options below to get started"
+
+        = "&nbsp;"
+
+        .selection-panel{:style=>"width:300px;float:left; padding-left:32px;margin-right:32px; border-left:1px solid gainsboro;"}
+          %button.content{:style=>"width:256px;margin:8px 16px"}
+            = link_to "I am adding original #{@item.doctype.name} content","#", :style => "color:white;font-weight:bold;padding:8px 32px", :class=>"show-content-form"
+          .clear
+          .details
+            = "If you are creating original #{@item.doctype.name} content, choose this button - dont forget you can always edit your post later"
+        .selection-panel{:style=>"width:300px;float:left; padding-left:32px; border-left:1px solid gainsboro;"}
+          %button{:style=>"width:256px;margin:8px 0 16px"}
+            = link_to "I am adding a link to another webpage","#", :style => "color:white;font-weight:bold;padding:8px 32px", :class=>"show-link-form"
+          .clear
+          .details
+            = "Choose this option if you want to share a link from another website, we will gather as much information we can about your link and share it on the site."
+        .selection-panels-holder{:style=>"display:none"}
+          .selection-panels{:style=>"background:gainsboro;width:300px;float:left; padding-left:32px;margin-right:32px; border-left:1px solid gainsboro;"}
+            %button.content{:style=>"width:256px;margin:8px 16px"}
+              = link_to "I am adding original #{@item.doctype.name} content","#", :style => "color:white;font-weight:bold;padding:8px 32px", :class=>"show-content-form"
+            .clear
+
+          .selection-panels{:style=>"width:300px;float:left; padding-left:32px; border-left:1px solid gainsboro;"}
+            %button{:style=>"width:256px;margin:8px 0 16px"}
+              = link_to "I am adding a link to another webpage","#", :style => "color:white;font-weight:bold;padding:8px 32px", :class=>"show-link-form"
+            .clear
+
+      .clear
+
+      .form-for-content{:style=>"display:none"}
+        - form_for(@item, :html=>{:class => "form mainAnswerForm", :id => "ask_item"}) do |f|
+          =render :partial => "form", :locals => {:f => f, :doctype => @doctype}
+
+      .form-for-link{:style=>"display:none"}
+        - form_for(@item, :html=>{:class => "form mainAnswerForm", :id => "ask_item"}) do |f|
+          =render :partial => "form_for_links", :locals => {:f => f, :doctype => @doctype}
+
+      - # a bit of show/hide shenanigans
+      %script{:type=>"text/javascript"}
+        = "//something"
+        = "$(document).ready(function() {"
+        = "$('.show-content-form').click(function(){"
+        = "$('.form-for-content').show();"
+        = "if($.browser.msie){"
+        = "$('.form-for-content').css({\"visibility\":\"visible\"});"
+        = "};"
+        = "$('.form-for-link').hide();"
+        = "$('.call-to-action').hide();"
+        = "$('.selection-panel').hide();"
+        = "$('.details').hide();"
+        = "$('.selection-panels-holder').show();"
+        -#= "$('.selection-panels').show();"
+        -#= "$('.answer-form-holder').css({\"background\":\"white\"});"
+        = "});"
+        = "$('.show-link-form').click(function(){"
+        = "$('.form-for-content').hide();"
+        = "$('.form-for-link').show();"
+        = "$('.content-buttons').hide();"
+        = "});"
+        = "});"
+
+    -if @item.doctype.is_link
+
+      .form-for-link
+        - form_for(@item, :html=>{:class => "form mainAnswerForm", :id => "ask_item"}) do |f|
+          =render :partial => "form_for_links", :locals => {:f => f, :doctype => @doctype}
 
 
-  #main-index{:style=>"width:728px"}
-    .supplementary-navigation{:class => @active_subtab.to_s, :style => "height:35px; line-height:35px; padding:0 8px 0 8px"}
-      = @doctype.create_label  
+    .clear
+
+      
 
 
 
+
+
+
+
+
+
+
+    -# Determine content creation paths
 
     -if logged_in? && @item.doctype.has_video?
       - form_for(@item, :html=>{:class => "form mainAnswerForm", :id => "ask_item"}) do |f|
         =render :partial => "form_for_video", :locals => {:f => f, :doctype => @doctype}
 
 
-    -if logged_in? && @item.doctype.has_links?
-      - form_for(@item, :html=>{:class => "form mainAnswerForm", :id => "ask_item"}) do |f|
-        =render :partial => "form_for_links", :locals => {:f => f, :doctype => @doctype}
-
-    -elsif logged_in? && !@item.doctype.has_video?
+    -elsif !@item.doctype.has_links? && !@item.doctype.has_video?
       - form_for(@item, :html=>{:class => "form mainAnswerForm", :id => "ask_item"}) do |f|
         =render :partial => "form", :locals => {:f => f, :doctype => @doctype}
 
@@ -56,9 +129,25 @@
         = " or "
         = link_to "become a member", new_user_path 
 
+    .clear{:style=>"height:64px"}
 
-  -content_for :sidebar do
-    #sidebar
-      = render :partial => "shared/member_profile", :locals => {:user => @user}
+
+-content_for :sidebar_inner do
+  #sidebar-inner{:style=>"width:300px;float:right"}
+    = "&nbsp;"
+    - if false
+      -if !current_group.item_help.empty?
+        .help
+          %h3
+            = t(".how_to_ask")
+          =current_group.item_help
+      %h3
+        = "Similar"
+
+      .related-item
+        %ul.items#related_items
+
+
+
 
 
