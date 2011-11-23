@@ -14,7 +14,7 @@
         = link_to t(".flag"), new_item_flag_path(@doctype, @item), :class => "flag-link", :id => "item_flag_link", :rel => 'nofollow'
 
     -# if logged_in?
-    - if false
+    - if !false
       - if show_close_request_form
         -if !@close_request.new?
           .flagged
