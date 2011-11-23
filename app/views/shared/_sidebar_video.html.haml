@@ -5,11 +5,9 @@
   .sidebar_video
     .section-listing-welcomev{:class => "video", :style => "height:150px;background-color:black;border-bottom:10px solid white; margin-bottom:10px;"}
 
-      %h4{:style=>"line-height:32px;text-transform:uppercase;font-family:'Arial Narrow',sans-serif;color:white; background-color:#{current_group.tertiary}; border-bottom:4px solid #{current_group.primary};margin:0; font-size:14px; letter-spacing:0px;font-weight:bold"}
-        %div{:style=>"padding:0; height:18px; width:18px; float:left;"}
-          = "<img src='/images/icons/film.png' height='16px' width='16px'/>"
+      %h4
         = "Video"
-        = link_to "more", "/group/videos/index", :style=>"float:right;margin-right:10px;color:#FFFFFF;"
+        = link_to "more", "/member/videos/index", :style=>"float:right;margin-right:10px;color:#{current_group.secondary};"
 
       -current_group.doctypes.reverse.each do |doctype|
         -if doctype.has_video?
@@ -81,46 +79,3 @@
                       = link_to h(item.user.display_name), user_path(item.user)
 
     .clear
-
-    %script{:type => "text/javascript"}
-      = "// collapse:"
-      = "$('.hide_video.video').click(function() {"
-      = "$('.hide_video.video').css('display','none');"
-      = "$('.show_video.video').css('display','block');"
-      = "$('.video.section-listing-welcomev').hide('fast');"
-      -#= "$.cookie('summary.index.summary', 'collapsed', { expires: 2 });"
-      = "});"
-      = "// expand:"
-      = "$('.show_video.video').click(function() {"
-      = "$('.show_video.video').css('display','none');"
-      = "$('.hide_video.video').css('display','block');"
-      = "$('.video.section-listing-welcomev').show('slow');"
-      -#= "$.cookie('summary.index.summary', 'expanded', { expires: 2 });"
-      = "});"
-      = "// ok so far"
-      -#= "// COOKIES"
-      -#= "var summary = $.cookie('summary.index.summary');"
-      -#= "	// Set the user's selection for the left column"
-      -#= "if (summary == 'collapsed') {"
-      -#= "$('.hide_summary.summary').css('display','none');"
-      -#= "$('.show_summary.summary').css('display','block');"
-      -#= "$('.summary.section-listing-welcome').hide();"
-      -#= "};"
-      -#= "if (summary == 'expanded') {"
-      -#= "$('.hide_summary.summary').css('display','block');"
-      -#= "$('.show_summary.summary').css('display','none');"
-      -#= "$('summary.summary.section-listing-welcome').show();"
-      -#= "};"
-      - if expanded == false
-        -#= "if (summary == null) {"
-        = "$('.show_video.video').css('display','block');"
-        = "$('.hide_video.video').css('display','none');"
-        = "$('.video.section-listing-welcomev').hide();"
-        -#= "};"
-      - else
-        -#= "if (summary == null) {"
-        = "$('.hide_video.video').css('display','block');"
-        = "$('.show_video.video').css('display','none');"
-        = "$('.video.section-listing-welcomev').show();"
-        -#= "};"
-      -#= "};"
