@@ -21,7 +21,7 @@
               %div{:style=>"padding:1px 0 3px 4px; height:18px; width:18px; float:left;"}
                 = "<img src='/images/logos/star_16.png' height='14px' width='14px'/>"
               = "#{doctype.name}"
-              = link_to "more", "/group/#{doctype.name}/index", :style=>"float:right;margin-right:10px;color:#{current_group.secondary};"
+              = link_to "more", "/member/#{doctype.name}/index", :style=>"float:right;margin-right:10px;color:#{current_group.secondary};"
 
             .feature-slideshow{:style => "height:200px;overflow:hidden;"}
               - slideshow_items_array = Array.new

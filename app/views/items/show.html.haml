@@ -177,7 +177,7 @@
         .toolbox{:style=>"width:576px;"}
           = render :partial => "toolbox_show"
         -if logged_in?
-          -if current_user.owner_of?(current_group) | current_user.mod_of?(current_group)
+          -if current_user.owner_of?(current_group)
             %div
               = render :partial => "controls", :object=>@item
 
