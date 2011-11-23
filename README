@@ -32,6 +32,9 @@ sudo gem install -v=2.3.8 rails
 
 == Getting Started
 
+IMPORTANT NOTE: Quango is currently very dependent on specific versions of gems - if you have multiple gems it may not work
+
+
 1. Download the sources:
 
     git clone git://github.com/quango/quango.git
@@ -52,7 +55,12 @@ sudo gem install -v=2.3.8 rails
 
     script/update_geoip
 
-5. Load default data
+5. Start database & load default data
+
+    cp config/database.sample.yml config/database.yml
+    edit shapado.yml
+
+    Start DB ( usually just type mongod -d )
 
     rake bootstrap
 

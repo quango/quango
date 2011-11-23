@@ -174,7 +174,7 @@ class GroupsController < ApplicationController
   # PUT /groups/1
   # PUT /groups/1.json
   def update
-    @group.safe_update(%w[name name_highlight name_link name_highlight_link
+    @group.safe_update(%w[name name_highlight name_link name_highlight_link disable_signups
                           other_groups_facebook other_groups_linkedin other_groups_twitter other_groups_google
                           display_name_i display_name_i_link display_name_ii display_name_ii_link
                           strapline legend has_welcome_features has_product_gallery has_video_on_homepage above_the_fold below_the_fold
@@ -187,7 +187,7 @@ class GroupsController < ApplicationController
                           forum notification_from notification_email
                           custom_favicon language theme reputation_rewards reputation_constrains share_box
                           hidden has_adult_content registered_only openid_only custom_css wysiwyg_editor fb_button share show_beta_tools
-                          publish_label signup_heading leaders_label about_label has_landing_bg landing_bg
+                          publish_label signup_heading leaders_label about_label has_landing landing_labels has_landing_bg landing_bg
                           primary primary_dark secondary tertiary supplementary supplementary_dark supplementary_lite header_bg_image background toolbar_bg toolbar_bg_image header_bg
                           robots logo_path favicon_path link_colour  sponsor_logo_wide_info sponsor_logo_narrow_info
                           has_sponsor has_sponsors sponsor_label sponsors_label sponsor_name sponsor_link sponsor_logo_wide sponsor_logo_narrow show_sponsor_description show_sponsor_description_boxheader sponsor_description sponsor_description_boxheader

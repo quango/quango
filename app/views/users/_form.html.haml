@@ -1,4 +1,5 @@
-%div.signup-form
+%div.signup-form{:style=>"background-image:url(/images/black_25_bg.png);background-repeat:repeat-both;"}
+
   .group
     = f.text_field :first_name, :class => "text_field right", :style => "width:300px; margin-bottom:4px;"
     = f.label :first_name, "First name", :class => "label right", :style => "margin-top:10px;color:white"
@@ -48,7 +49,10 @@
   .group{:style => "margin-bottom:4px; border: 0; float: right; width: 300px"}
     = f.check_box :terms
     = f.label :terms, "I agree to your <a href='/about/legal'>terms and conditions</a>", :class => "label right", :style => "font-size:12px;margin-top:10px;color:white"
-  .clear
+
+
+    .group
+      = submit_tag "Create account", :class => "submit-button inner", :style => "width:312px; height:32px; padding: 0 32px; font-weight: bold; font-size:18px;"
 
 
   -unless @user.new_record?

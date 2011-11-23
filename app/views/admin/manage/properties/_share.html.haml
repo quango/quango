@@ -13,7 +13,26 @@
       =t("global.active")
 
 
+  %hr
 
+    = "These just set the buttons"
+
+  %div
+    .group
+      = "Other Groups - Facebook"
+      = text_field :other_groups_facebook, :class => "text_field", :value => params[:name]
+
+    .group
+      = "Linked In"
+      = text_field :other_groups_linkedin, :class => "text_field", :value => params[:name]
+
+    .group
+      = "Twitter"
+      = text_field :other_groups_twitter, :class => "text_field", :value => params[:name]
+
+    .group
+      = "Goog"
+      = text_field :other_groups_google, :class => "text_field", :value => params[:name]
 
 
   %hr

@@ -8,7 +8,7 @@ class Group
 
   BLACKLIST_GROUP_NAME = ["demo", "nigger", "wank", "cunt", "fuck", "www", "net", "org", "admin", "ftp", "mail", "test", "blog",
                  "bug", "bugs", "dev", "ftp", "forum", "community", "mail", "email",
-                 "webmail", "pop", "pop3", "imap", "smtp", "stage", "stats", "status",
+                 "webmail", "pop", "pop3", "imap", "secure", "smtp", "stage", "stats", "status",
                  "support", "survey", "download", "downloads", "faqs", "wiki",
                  "assets1", "assets2", "assets3", "assets4", "staging"]
 
@@ -25,10 +25,10 @@ class Group
   key :other_groups_twitter, String, :default => "http://www.twitter.com"
   key :other_groups_google, String, :default => "http://www.google.com"
 
-  key :display_name_i, String, :default => "start"
+  key :display_name_i, String, :default => "Quango"
   key :display_name_i_link, String, :default => "/"
 
-  key :display_name_ii, String, :default => "thinking"
+  key :display_name_ii, String, :default => "Quango"
   key :display_name_ii_link, String, :default => "/"
 
   key :name_highlight, String, :default => "daily"
@@ -48,7 +48,7 @@ class Group
   key :custom_channels, Array #, :default => "something, something else"
   key :custom_channel_content, String
 
-
+  key :disable_signups, Boolean, :default => false
 
   #layouts
   key :has_leaderboard, Boolean, :default => false
@@ -183,8 +183,14 @@ class Group
   key :supplementary, String, :default => "#FFB455" #action buttons and anything requiring high visibility
   key :supplementary_lite, String, :default => "#FFD6A2" #action buttons and anything requiring high visibility
 
+  key :has_landing, Boolean, :default => true
   key :has_landing_bg, Boolean, :default => false
   key :landing_bg, String, :default => "/path/to/image"
+  key :landing_labels, Hash, :default => {"heading" => "About this website","description" => "This website allows members to share information. Here you can engage in an open debate with experts in their fields and share your knowledge with others. ",
+    "guest_heading" => "View site as guest", "guest_button" => "View site as guest", "guest_note" => "Guests cannot post content and/or comments",
+    "signup_heading" => "Become a member - It's free & easy ", "signup_button" => ">> Become a member <<", "signup_note" => "All members can post content and/or comments",
+    "login_heading" => "Already a member?", "login_button" => "Login now >>", "login_note" => ""
+  }
 
   key :share, Share, :default => Share.new
 

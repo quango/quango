@@ -3,8 +3,7 @@
   = error_messages_for :user
   - form_for @user, :url => users_path, :html => {:class => "form"} do |f|
     =render :partial => "form", :locals => {:f => f}
-    .form-footer
-      = submit_tag "Create account", :class => "submit-button inner", :style => "width:312px; height:32px; padding: 0 32px; font-weight: bold; font-size:18px;"
+
 
 
 - content_for :main do
@@ -31,7 +30,7 @@
         
           %h1{:style=>"font-weight:bold;letter-spacing:-1px; color:white;margin:0"}
             = "Not a member?"
-          %h4{:style=>"margin:0 0 8px 0;background:0;border:0;"}
+          %h2{:style=>"margin:0 0 8px 0;background:0;border:0;color:white"}
             = "Click here to..."
 
 
@@ -45,7 +44,7 @@
 
           .clear
 
-          %h4{:style=>"margin-top:8px;margin-bottom:8px;background:0;border:0"}
+          %h2{:style=>"margin-top:8px;margin-bottom:8px;background:0;border:0; color:white"}
             = "Already a member..?"
           .center{:style=>"width:388px; float:left;"}
             %a.submit-button{:style=>"margin-bottom:16px;width:194px;height:32px;font-size:14px;margin:0 auto;", :href=>"/users/login"}

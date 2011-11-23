@@ -1,0 +1,79 @@
+.form
+  %h1
+    = "Landing page"
+
+  = "You can choose to show or not to show, 300px x 90px"
+
+  .group
+    = f.check_box :has_landing, :class => "checkbox"
+    = f.label :has_landing, "Show lanidng page", :class => "radio"
+
+  %hr
+
+  %h2
+    = "Landing page labels"
+
+  .group
+    = "heading"
+    = text_field_tag "group[landing_labels][heading]", @group.landing_labels["heading"],:style=>"width:50%;"
+
+  .group
+    = "description"
+    = text_field_tag "group[landing_labels][description]", @group.landing_labels["description"],:style=>"width:50%;"
+
+
+  %table
+    %th
+      = "&nbsp;"
+    %th{:width=>"25%"}
+      = "Heading"
+    %th{:width=>"25%"}
+      = "Button"
+    %th{:width=>"50%"}
+      = "note"
+    %tr
+      %td
+        = "Guest"
+      %td  
+        = text_field_tag "group[landing_labels][guest_heading]", @group.landing_labels["guest_heading"],:style=>"width:100%;"
+      %td  
+        = text_field_tag "group[landing_labels][guest_button]", @group.landing_labels["guest_button"],:style=>"width:100%;"
+      %td  
+        = text_field_tag "group[landing_labels][guest_note]", @group.landing_labels["guest_note"],:style=>"width:100%;"
+    %tr
+      %td
+        = "Signup"
+      %td  
+        = text_field_tag "group[landing_labels][signup_heading]", @group.landing_labels["signup_heading"],:style=>"width:100%;"
+      %td  
+        = text_field_tag "group[landing_labels][signup_button]", @group.landing_labels["signup_button"],:style=>"width:100%;"
+      %td  
+        = text_field_tag "group[landing_labels][signup_note]", @group.landing_labels["signup_note"],:style=>"width:100%;"
+    %tr
+      %td
+        = "Login"
+      %td  
+        = text_field_tag "group[landing_labels][login_heading]", @group.landing_labels["login_heading"],:style=>"width:100%;"
+      %td  
+        = text_field_tag "group[landing_labels][login_button]", @group.landing_labels["login_button"],:style=>"width:100%;"
+      %td  
+        = text_field_tag "group[landing_labels][login_note]", @group.landing_labels["login_note"],:style=>"width:100%;"
+
+  %hr
+
+
+  .group
+    = f.label :has_landing_bg, "Check here if you want an image for the landing page", :class => "label"
+    = f.check_box :has_landing_bg, :class => "text_field"
+
+  .group
+    = f.label :landing_bg, "Landing Page Background image", :class => "label"
+    = f.text_field :landing_bg, :class => "text_field"
+
+  .group.navf
+    = f.submit t('scaffold.update'), :class => "action-button"
+
+
+
+
+

@@ -55,8 +55,8 @@
     #container{:class => @active_tab}
       #wrapper
         #main{:style=>"width: 100%"}
-          .content
-            = yield :subtabs
+          = yield :admin_navigation
+          #content{:style=>"float:right:width:728px;"}
             = yield
         .clear
       #footer

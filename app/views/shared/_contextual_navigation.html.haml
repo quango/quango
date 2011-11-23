@@ -21,11 +21,11 @@
           = link_to "Groups", groups_path, :style => "margin-right:8px;"
 
 
-
-    %li{:style => "border-right:1px solid #ffffff"}
-      -if @active_section == "members"
-        = link_to "Members", users_path, :style => "color: black;"
-      -else
-        = link_to "Members", users_path, :style => "margin-right:8px;"
+    - if !current_group.disable_signups?
+      %li{:style => "border-right:1px solid #ffffff"}
+        -if @active_section == "members"
+          = link_to "Members", users_path, :style => "color: black;"
+        -else
+          = link_to "Members", users_path, :style => "margin-right:8px;"
 
 .clear

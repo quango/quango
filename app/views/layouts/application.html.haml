@@ -70,7 +70,7 @@
 
           -else
             .logo{:style => "height:#{current_group.logo_info['height']}px;width:#{current_group.logo_info['width']}px; float:left"}
-              = link_to image_tag(current_group.logo_path, :width => current_group.logo_info["width"], :height => current_group.logo_info["height"],  :style => "bottom:0px;"), domain_url(:custom => current_group.domain), :style=>"margin:0px;", :alt => "Home"
+              = link_to image_tag(current_group.logo_path, :width => current_group.logo_info["width"], :height => current_group.logo_info["height"],  :style => "bottom:0px;"), domain_url(:custom => current_group.domain), :style=>"margin:0px;height:#{current_group.logo_info['height']}px;width:#{current_group.logo_info['width']}px", :alt => "Home"
 
             .search{:style=>"height:#{current_group.logo_info['height']}px;line-height:#{current_group.logo_info['height']}px;float:right;"}
 
@@ -99,7 +99,7 @@
 
           -else
             .logo{:style => "height:#{current_group.logo_info['height']}px;width:#{current_group.logo_info['width']}px; float:left"}
-              = link_to image_tag(current_group.logo_path, :width => current_group.logo_info["width"], :height => current_group.logo_info["height"],  :style => "bottom:0px;"), domain_url(:custom => current_group.domain), :style=>"margin:0px;", :alt => "Home"
+              = link_to image_tag(current_group.logo_path, :width => current_group.logo_info["width"], :height => current_group.logo_info["height"],  :style => "bottom:0px;"), domain_url(:custom => current_group.domain), :style=>"margin:0px;height:#{current_group.logo_info['height']}px;width:#{current_group.logo_info['width']}px", :alt => "Home"
 
             .search{:style=>"height:#{current_group.logo_info['height']}px;line-height:#{current_group.logo_info['height']}px;float:right;"}
 
@@ -114,15 +114,16 @@
     #header-container
       #header-container-inner
         .navigation-container{:style=>"width:1032px; height:40px;"}
-          .home{:style=>"float:left; height:40px; line-height:40px;"}
-            = link_to "<img src=\'/images/icons/house.png\' style=\'margin:12px\'>", "/"
+          -if !current_group.disable_signups? && logged_in?
+            .home{:style=>"float:left; height:40px; line-height:40px;"}
+              = link_to "<img src=\'/images/icons/house.png\' style=\'margin:12px\'>", "/"
 
-          .navigation{:style=>"float:left; height:40px; line-height:40px"}
+            .navigation{:style=>"float:left; height:40px; line-height:40px"}
 
-            - if current_group.show_category_navigation
-              = render :partial => "shared/category_navigation"
-            - else
-              = render :partial => "shared/contextual_navigation"
+              - if current_group.show_category_navigation
+                = render :partial => "shared/category_navigation"
+              - else
+                = render :partial => "shared/contextual_navigation"
 
           = render :partial => "shared/share_box_groups", :locals => {:item => @item}
 
@@ -152,8 +153,8 @@
 
       .clear
 
-      #footer
-        = render :partial => "layouts/footer"
+    #footer
+      = render :partial => "layouts/footer"
 
 
 

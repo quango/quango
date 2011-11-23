@@ -1,4 +1,4 @@
-#main
+.form
   %h1
     = "CSS"
 
@@ -10,10 +10,9 @@
     -@group.has_custom_css? ? custom_css = @group.custom_css.read : custom_css = ""
     = f.text_area :custom_css, :value => custom_css, :class => "text_area"
 
-  .clear
 
-  .group.nav
-    = f.submit t('scaffold.update'), :class => "action-button"
+    .group.nav
+      = f.submit t('scaffold.update'), :class => "action-button"
 
 
 

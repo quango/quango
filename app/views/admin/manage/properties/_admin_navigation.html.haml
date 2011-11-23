@@ -2,59 +2,44 @@
 
   .sidebar-inner{:style=>"width:140px; float:left;padding:0 0 0 16px; margin:0 0 0 16px; border-right:1px solid gainsboro"}
     %ul
-      %li.clickable
-        = link_to "Landing", manage_properties_path(:tab => "landing"), :onclick => "javascript:window.location.href(\'#{manage_properties_path(:tab => "landing")}\')"
-      %li.clickable
+      %li
         = link_to t("layouts.manage.sponsor"), manage_properties_path(:tab => "sponsor")
-      %li.clickable
+      %li
         = link_to t("layouts.manage.sponsors"), manage_properties_path(:tab => "sponsored_links")
-      %li.clickable
+      %li
         = link_to t("layouts.manage.general"), manage_properties_path(:tab => "general")
-      %li.clickable
+      %li
         = link_to t("layouts.manage.channels"), manage_properties_path(:tab => "channels")
-      %li.clickable
+      %li
         = link_to "Cats", manage_properties_path(:tab => "categories")
-      %li.clickable
+      %li
         = link_to "Toolbar", manage_properties_path(:tab => "toolbar")
-      %li.clickable
+      %li
         = link_to "Bumper", manage_properties_path(:tab => "bumper")
-      %li.clickable
+      %li
         = link_to "LB", manage_properties_path(:tab => "leaderboard")
-      %li.clickable
+      %li
         = link_to "MR", manage_properties_path(:tab => "medium_rectangle")
-      %li.clickable
+      %li
         = link_to "3:1", manage_properties_path(:tab => "threeone_rectangle")
-      %li.clickable
+      %li
         = link_to "Slides", manage_properties_path(:tab => "slideshow")
-      %li.clickable
+      %li
         = link_to t("layouts.manage.messaging"), manage_properties_path(:tab => "messaging")
-      %li.clickable
+      %li
         = link_to t("layouts.manage.analytics"), manage_properties_path(:tab => "analytics")
-      %li.clickable
+      %li
         = link_to "Signup", manage_properties_path(:tab => "signup_button")
-      %li.clickable
+      %li
         = link_to t("global.share"), manage_properties_path(:tab => "share")
-      %li.clickable
+      %li
         = link_to t("layouts.manage.theme"), manage_properties_path(:tab => "theme")
-      %li.clickable
+      %li
         = link_to "CSS", manage_properties_path(:tab => "css")
-      %li.clickable
+      %li
         = link_to t("layouts.manage.constrains"), manage_properties_path(:tab => "constrains")
-      %li.clickable
+      %li
         = link_to t("layouts.manage.rewards"), manage_properties_path(:tab => "rewards")
-      %li.clickable
+      %li
         = link_to t("layouts.manage.domain"), manage_properties_path(:tab => "domain")
-
-
-
-
-    %script
-      = "$(function() {"
-      = "$('li.clickable').css('cursor', 'pointer')"
-      = ".click(function() {"
-      = "window.location = $('a', this).attr('href');"
-      = "});"
-      = "});"
-
-
-
+  .clear

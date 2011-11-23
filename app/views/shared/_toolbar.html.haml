@@ -55,8 +55,10 @@
   -if !logged_in?
     .entry{:style => "margin-left:8px"}
       = link_to "Login", new_user_session_path
-    .entry
-      = link_to "Become a member", new_user_path, :style => "font-weight:bold;"
+
+    - if !current_group.disable_signups?
+      .entry
+        = link_to "Become a member", new_user_path, :style => "font-weight:bold;"
 
   -if logged_in?
     .entry{:style=>"display:none"}

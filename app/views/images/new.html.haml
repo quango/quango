@@ -4,9 +4,9 @@
     = "&nbsp;"
 
 
-  #main-index
+  #main{:style=>"float:left"}
 
-    .supplementary-navigation
+    %h4
       = "Add a new image"
 
 
@@ -15,56 +15,57 @@
       .answer-form-holder
         .answer-form
           .group
-            = f.label :image
-            = f.file_field :image, :value => @image.image, :style => "width:496px; max-width:496px; margin:0 16px"
-            = f.hidden_field :name, :value => @image.name, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
+            .label{:style => "width:140px;float:left;"}
+              = "Image file"
+            = f.file_field :image, :value => @image.image, :style => "width:312px; max-width:312px;"
+            = f.hidden_field :name, :value => @image.name, :class => "text_field"
+            .description{:style => "margin-left:140px;float:left;"}
+              = "Browse your computer to find the image"
+            .clear
 
-        .answer-form
           .group
-            = f.label :caption
-            = f.text_field :caption, :value => @image.caption, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
-            .description
-              = "Say something interesting abou this ( max 40 chars ) "
+            .label{:style => "width:140px;float:left;"}
+              = "Caption"
+            = f.text_field :caption, :value => @image.caption, :class => "text_field", :style => "width:312px; max-width:312px; margin:0"
+            .description{:style => "margin-left:140px;float:left;"}
+              = "Add a short caption to this image"
+            .clear
 
-        .answer-form
           .group
-            = f.label :copyright
-            = f.text_field :copyright, :value => @image.copyright, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
-            .small
-              = "The system default is public domain unless otherwise specified, this mean that the image will be licensed under creative commons"
+            .label{:style => "width:140px;float:left;"}
+              = "Copyright"
+            = f.text_field :copyright, :value => @image.copyright, :class => "text_field", :style => "width:312px; max-width:312px; margin:0"
+            .description{:style => "margin-left:140px;float:left;"}
+              = "The system defaults to the group name"
+            .clear
 
-        .answer-form
           .group
-            = f.label :copyright_url
-            = f.text_field :copyright_url, :value => "#{domain_url(:custom => current_group.domain)}", :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"
-            .small
-              = "Unless otherwise specified the system defaults your member profile. "
+            .label{:style => "width:140px;float:left;"}
+              = "Source Link"
+            = f.text_field :copyright_url, :value => "#{domain_url(:custom => current_group.domain)}", :class => "text_field", :style => "width:312px; max-width:312px; margin:0"
+            .description{:style => "margin-left:140px;float:left;"}
+              = "If this image is from another source online, please add the original link"
+            .clear
 
-          %p
-            = f.submit 'Create'
-
-
-          .notice
-            = "If you have gotten your image from another site please ensure you fill in the copyright and copyright_url correctly - coorect attribution is your responsibility, Thinking Daily will not be liable for copyright infringements - YOU WILL BE"
-
+          .group{:style=>"margin-bottom:32px;margin-left:140px;"}
+            = f.submit 'Add this image to post', :class=>"submit-button", :style=>"width:312px; height:32px"
+            = link_to 'cancel', item_images_path(@item.doctype, @item)
 
 
 
-    %p
-      = link_to 'Back', item_images_path(@item.doctype, @item)
+
 
 
   -content_for :sidebar_inner do
-    #sidebar-inner
-      = render :partial => "shared/community_sponsor", :locals => {:width => "wide"}
-      -if !current_group.item_help.empty?
-        .help
-          %h4
-            = "Tips for uploading images"
-          = "Some useful help text here"
+  
+    #sidebar-inner{:style=>"float:right"}
+      %h4
+        = "Tips for uploading images"
+      = "Any size of image is supported as the system will automatically resize and optimize the image. Once you have uploaded your source image you will then have the option to crop the image further for thumbnail use"
+      .notice
+        %h5
+          = "Polite notice"
+        = "If you have gotten your image from another site please ensure you fill in the copyright and copyright_url correctly - correct attribution is your responsibility, #{current_group.name} will not be liable for copyright infringements - YOU WILL BE"
 
-  -content_for :sidebar do
-    #sidebar
-      = render :partial => "shared/member_profile", :locals => {:user => @user}
 
 
