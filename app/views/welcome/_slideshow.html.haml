@@ -2,21 +2,16 @@
 - expanded = local_assigns[:expanded]
 
 - if current_group.has_slideshow
-  -#.section-head-welcome{:style=>"border-bottom:10px solid white;border-top:4px solid #{current_group.secondary}"}
-    -#.secondary-navigation-sections{:style=>"background-color:gainsboro"}
-      -#.features{:style=>"font-family:Arial,sans-serif; font-weight:normal; font-size:12px;padding-left:10px;color:#{current_group.primary_dark}; letter-spacing:-1px;"}
-        -#= "Todays " << current_group.slideshow_content.capitalize  
 
-  .slideshow
-        
+  .slideshow        
     .section-listing-welcome{:class => "features", :style => "background-color:#ffffff; width:728px;height:220px; overflow:hidden"}
       - slideshow_delay = 0
-      -@doctypes.each do |doctype|
-        -if doctype.name == current_group.slideshow_content
-          -slideshow_delay = slideshow_delay + 100
-          -#  = slideshow_delay.to_s
+      - @doctypes.each do |doctype|
+        - if doctype.name == current_group.slideshow_content
+          - slideshow_delay = slideshow_delay + 100
+
           %div{:style=>"width:728px; height:200px;float:left;border-right:1px solid white", :class=>"feature-box"}
-            -#= "#{slideshow_delay}"
+
             %h4
               = "#{doctype.name}"
               = link_to "more", "/member/#{doctype.name}/index", :style=>"float:right;margin-right:10px;color:#{current_group.secondary};"
