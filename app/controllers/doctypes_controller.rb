@@ -101,7 +101,7 @@ class DoctypesController < ApplicationController
     @group = current_group
     @doctypes = current_group.doctypes
     @doctype = @doctypes.find_by_slug_or_id(params[:id])
-    @doctype.safe_update(%w[name public_access top_dog custom_icon featured hidden slideshow has_video is_video has_links is_link product_format expanded create_label created_label help_text], params[:doctype])
+    @doctype.safe_update(%w[name display_name public_access top_dog custom_icon featured hidden slideshow has_video is_video has_links is_link product_format expanded create_label created_label help_text], params[:doctype])
 
     respond_to do |format|
       if @doctype.save
@@ -116,11 +116,11 @@ class DoctypesController < ApplicationController
 
   def destroy
     @group = current_group
-    doctype = Doctype.find_by_slug_or_id(params[:id])
-    doctype_name = doctype.name
+    doctype = Doctype.find(params[:id])
+    doctype_name = doctype
     doctype.destroy
     respond_to do |format|
-      format.html { redirect_to(doctypes_path, :notice => doctype_name + ' was successfully deleted so it claims.') }
+      format.html { redirect_to(doctypes_path, :notice => ' The doctype was successfully deleted so it claims.') }
       format.xml  { head :ok }
     end
   end

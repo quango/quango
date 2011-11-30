@@ -25,6 +25,11 @@
         .inner
           = render :partial => "product_gallery", :locals => {:expanded => true}
 
+      - if current_group.has_quick_create?
+        .inner
+          = render :partial => "shared/quick_create"
+        -#= render :partial => "below_the_fold", :locals => {:expanded => true}
+
       .inner
         = render :partial => current_group.welcome_layout, :locals => {:expanded => true}
 
@@ -42,6 +47,8 @@
 
 
   #sidebar-inner{:style => "float:right; width:300px;"}
+
+
 
 
 

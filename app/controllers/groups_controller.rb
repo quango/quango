@@ -179,6 +179,7 @@ class GroupsController < ApplicationController
                           display_name_i display_name_i_link display_name_ii display_name_ii_link
                           strapline legend has_welcome_features has_product_gallery has_video_on_homepage above_the_fold below_the_fold
                           description has_custom_channels custom_channels custom_channel_content default_tags subdomain 
+                          has_quick_create quick_create quick_create_label quick_create_heading
                           has_leaderboard leaderboard_content has_custom_leaderboard custom_leaderboard_content 
                           has_medium_rectangle medium_rectangle_content group_categories show_category_navigation
                           has_threeone_rectangle threeone_rectangle_content has_bumper bumper_content welcome_layout has_slideshow slideshow_content
@@ -299,6 +300,13 @@ class GroupsController < ApplicationController
 
   end
 
+  def quick_create
+    @doctype = Doctype.find_by_slug_or_id(params[:doctype_id])
+    @quick_create = @doctype
+
+
+
+  end
 
   def favicon
   end

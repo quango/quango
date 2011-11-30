@@ -42,9 +42,6 @@
       = form.check_box :has_welcome_features, :class => "checkbox"
       = form.label :has_welcome_features, "Show Welcome Features", :class => "radio"
 
-
-
-
     .group
       = form.check_box :has_video_on_homepage, :class => "checkbox"
       = form.label :has_video_on_homepage, "Show Video on Homepage", :class => "radio"
@@ -61,7 +58,9 @@
       = form.check_box :has_product_gallery, :class => "checkbox"
       = form.label :has_product_gallery, "Show Product Gallery", :class => "radio"
 
-
+    .group
+      = form.check_box :has_quick_create, :class => "checkbox"
+      = form.label :has_quick_create, "Show quick create", :class => "radio"
 
 %div
   %div{:style => "width:312px;float:left"}

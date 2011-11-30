@@ -340,6 +340,7 @@ class ItemsController < ApplicationController
 
 
     @doctypes = current_group.doctypes
+
     @doctype = current_group.doctypes.find_by_slug_or_id(params[:doctype_id])
 
     if params[:language]
@@ -459,8 +460,11 @@ class ItemsController < ApplicationController
 
 
     @item.description = @item.body #.concat(256)
-
-    @item.meta_author = current_user.display_name
+    #if current_user?
+      #@item.meta_author = current_user.display_name
+    #else
+      #@item.meta_author = "Guest"
+    #end
     @item.meta_title = @item.title
     @item.meta_description = @item.description
     @item.meta_publisher = current_group.domain
@@ -606,25 +610,27 @@ class ItemsController < ApplicationController
     end
 
     if !logged_in?
-      if recaptcha_valid? && params[:user]
-        @user = User.first(:email => params[:user][:email])
-        if @user.present?
-          if !@user.anonymous
-            flash[:notice] = "The user is already registered, please log in"
-            return create_draft!
-          else
-            @item.user = @user
-          end
-        else
-          @user = User.new(:anonymous => true, :login => "Anonymous")
-          @user.safe_update(%w[name email website], params[:user])
-          @user.login = @user.name if @user.name.present?
-          @user.save!
-          @item.user = @user
+      #if recaptcha_valid? && params[:user]
+        #@user = User.first(:email => params[:user][:email])
+        #if @user.present?
+          #if !@user.anonymous
+            #flash[:notice] = "The user is already registered, please log in"
+            #return create_draft!
+          #else
+            #@item.user = @user
+          #end
+        #else
+        if current_group.has_quick_create?
+          #@user = User.new(:anonymous => true, :login => "Anonymous")
+          #@user.safe_update(%w[name email website], params[:user])
+          #@user.login = @user.name if @user.name.present?
+          #@user.save!
+          #@item.user = @user
+          return create_draft!
         end
-      elsif !AppConfig.recaptcha["activate"]
-        return create_draft!
-      end
+      #elsif !AppConfig.recaptcha["activate"]
+        #return create_draft!
+      #end
     end
 
     respond_to do |format|

@@ -56,7 +56,7 @@
   - base_thumbnail_grey = base_thumbnail.process(:greyscale, :depth => 20)
   =  "<meta property=\"og:image\" content=\"http://#{current_group.domain}#{base_thumbnail.url}\" />"
 
-= "<meta property=\"og:url\" content=\"#{item_url(@doctype, @item)}\" />"
+= "<meta property=\"og:url\" content=\"#{item_url(@item.doctype_id, @item)}\" />"
 
 = "<meta property=\"og:description\" content=\"#{@item.meta_description}\" />"
 = "<meta property=\"og:site_name\" content=\"#{current_group.display_name_i} #{current_group.display_name_ii}\" />"
@@ -71,4 +71,4 @@
   = "<!--default image-->"
   = "<link rel='image_src' href='http://#{current_group.domain}#{base_thumbnail.url}' />"
 
-%link{:rel => "canonical", :href => item_url(@doctype, @item) }
+%link{:rel => "canonical", :href => item_url(@item.doctype_id, @item) }

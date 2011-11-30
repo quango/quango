@@ -55,7 +55,11 @@
         %span
           = "&nbsp;"
         .group
+          = "Name"
           = f.text_field :name, :value => @doctype.name
+        .group
+          = "Display Name - Sometimes you may want other things in the context nav"
+          = f.text_field :display_name, :value => @doctype.display_name
         .group
           = "Create label, used for buttons in show and shortcuts in indexes"
           = f.text_field :create_label, :value => @doctype.create_label

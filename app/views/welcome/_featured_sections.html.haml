@@ -9,7 +9,7 @@
         %div{:style=>"width:181px; height:124px;float:right;border-right:1px solid white", :class=>"feature-box"}
           -#= "#{slideshow_delay}"
           %h4
-            = link_to "#{doctype.name}", "/group/#{doctype.name}/index", :style=>"float:left;margin-right:10px;color:white;"
+            = link_to "#{doctype.name}", "/group/#{doctype.name}/index", :style=>"float:left;margin-right:10px;"
 
           .feature-slideshow{:style => "height:124px;overflow:hidden;"}
             - features_array = Array.new

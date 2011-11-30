@@ -4,12 +4,18 @@
       -if !doctype.hidden?
         -if doctype.name == @active_section
           %li{:class => doctype.name }
-            - section_link = doctype.name.capitalize
+            - if doctype.display_name?
+              - section_link = doctype.display_name
+            - else
+              - section_link = doctype.name.capitalize
+
             = link_to section_link, items_path(doctype), :style => "color: white; background-color:#{current_group.primary}"
         -else
           %li{:class => doctype.name }
-            - section_link = doctype.name.capitalize
-            -#= link_to section_link, nodes_path(section.name)
+            - if doctype.display_name?
+              - section_link = doctype.display_name
+            - else
+              - section_link = doctype.name.capitalize
             = link_to section_link, items_path(doctype), :style => "color: white;", :object => doctype
 
 

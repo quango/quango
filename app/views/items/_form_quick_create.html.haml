@@ -1,0 +1,51 @@
+
+
+
+= local_assigns[f]
+= f.error_messages
+= error_messages_for(:user)
+
+-#= javascript_include_merged :show
+
+
+.answer-form-holder
+
+  .answer-form{:style=>"padding:0 16px 8px 16px;border-radius:4px"}
+
+    = f.label :title, "#{t(:title, :scope => "activerecord.attributes.item")}", :class => "label"
+    .group{:style=>"width:256px;padding:8px; background:#bcbcbc;border-radius:4px;"}
+      = f.text_field :title, :class => "text_field", :style => "width:256px; max-width:256px; margin:0 ;"
+    .note
+      = "If your #{@doctype} is longer than this text box, then chances are your title is too long..!"
+    .clear
+
+
+      - if doctype.has_video?
+        = f.label :video_link, "#{t(:video_link, :scope => "activerecord.attributes")}", :class => "label", :style => "margin-left: 8px"
+        = f.text_field :video_link, :class => "text_field", :style => "width:256px; max-width:256px; margin:0 16px"
+
+        = f.label :video_thumbnail, "#{t(:video_link, :scope => "activerecord.attributes")}", :class => "label", :style => "margin-left: 8px"
+        = f.text_field :video_thumbnail, :class => "text_field", :style => "width:256px; max-width:256px; margin:0 16px"
+
+    -if false
+      = f.label :body, t(:body, :scope => "activerecord.attributes.item"), :class => "label", :style=>"margin:16px 0 0 0"
+
+      .group{:style=>"width:256px;padding:8px; background:#bcbcbc;border-radius:4px 4px 0 0;"}
+
+        = f.text_area :body, :class => "text_area", :id => "markdown_editor", :style => "height:128px;min-height:128px; width:256px; max-width:256px;"
+
+
+    .answer-actions{:style => "padding:0 16px 16px 16px; width:256px;"}
+      = submit_tag "Save changes", :class => "submit-button", :style => "width:128px; height:28px; float:right;"
+      -#= link_to t('scaffold.cancel'), items_path, :class => "submit-button cancel", :style => "background:red"
+
+.clear
+
+
+
+
+
+
+
+
+

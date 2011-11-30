@@ -27,6 +27,13 @@
 %div.system-footer{:style=>"float:left; width:728px;"}
   .footer
     .notice{:style=>"margin:0"}
+      .entry.left
+        = "Parent:"
+        - if current_group.parent_id
+          = "#{current_group.parent_id}"
+        - else
+          = "Not set"
+
       .entry.left{:style=>"float:left; width:724px;height:18px;line-height:16px"}
         = "Unless indicated this work is <a rel='license' href='http://creativecommons.org/licenses/by/3.0/'>creative commons</a>."
         = "<a rel='license' href='http://creativecommons.org/licenses/by/3.0/'><img alt='Creative Commons License' src='/images/ccby80x15.png' height='20px' width='80px' style='margin-bottom:-4px;' /></a>"

@@ -5,6 +5,8 @@
       %li.clickable
         = link_to "Landing", manage_properties_path(:tab => "landing"), :onclick => "javascript:window.location.href(\'#{manage_properties_path(:tab => "landing")}\')"
       %li.clickable
+        = link_to "Quick create", manage_properties_path(:tab => "quick_create"), :onclick => "javascript:window.location.href(\'#{manage_properties_path(:tab => "quick_create")}\')"
+      %li.clickable
         = link_to t("layouts.manage.sponsor"), manage_properties_path(:tab => "sponsor")
       %li.clickable
         = link_to t("layouts.manage.sponsors"), manage_properties_path(:tab => "sponsored_links")

@@ -1,6 +1,17 @@
-%div.quick-create{:style => "background-color:#b6b6b6; padding:0 8px;"}
-  - current_group.doctypes.each do |doctype|
-    %ul
-      - if !doctype.hidden
-        %li
-          = link_to "#{doctype.create_label}", new_item_path(doctype), :class => "action-button"
+
+%h4
+  = "#{current_group.quick_create_heading}"
+
+
+
+
+%div
+  - quick_create = current_group.quick_create
+  - doctype = Doctype.find(quick_create)
+  - item = Item.new 
+
+  = "doctype: #{doctype.name}"
+
+
+  - form_for(item, :url => new_item_path(doctype), :html => {:class => "form",:method => "get"}) do |f|
+    = render :partial => "items/form_quick_create", :locals => {:f => f, :doctype => doctype}
