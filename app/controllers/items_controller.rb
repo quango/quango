@@ -441,8 +441,8 @@ class ItemsController < ApplicationController
   # POST /items
   # POST /items.xml
   def create
-    @item = Item.new
-    @item.safe_update(%w[doctype_id section node mode title description bookmark video_link article_link main_image main_thumbnail images body language tags wiki anonymous meta_author], params[:item])
+    @item = Item.new(params[:item])
+    @item.safe_update(%w[doctype_id section node mode title description bookmark video_link article_link main_image main_thumbnail images body language tags wiki anonymous anonymous_email anonymous_display_name meta_author], params[:item])
     @item.group = current_group
     @item.user = current_user
 
@@ -621,12 +621,12 @@ class ItemsController < ApplicationController
           #end
         #else
         if current_group.has_quick_create?
-          #@user = User.new(:anonymous => true, :login => "Anonymous")
-          #@user.safe_update(%w[name email website], params[:user])
+          @user = User.new(:anonymous => true, :display_name =>@item.anonymous_display_name, :login => @item.anonymous_email, :first_name => "Anonymous", :last_name => "User", :email => @item.anonymous_email )
+          #@user.safe_update(%w[email], params[:user_id])
           #@user.login = @user.name if @user.name.present?
-          #@user.save!
-          #@item.user = @user
-          return create_draft!
+          @user.save!
+          @item.user = @user
+          #return create_draft!
         end
       #elsif !AppConfig.recaptcha["activate"]
         #return create_draft!
@@ -676,8 +676,10 @@ class ItemsController < ApplicationController
           format.html { redirect_to item_path(@doctype, @item)}
         elsif @item.article_link?
           format.html { redirect_to tag_item_path(@doctype, @item), :new=>true}
-        else
+        elsif !@doctype.has_images? 
           format.html { redirect_to item_images_path(@doctype, @item)}
+        else
+          format.html { redirect_to item_path(@doctype, @item)}
         end
 
 

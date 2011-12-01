@@ -1,17 +1,43 @@
 
-%h4
-  = "#{current_group.quick_create_heading}"
+.quick_create_block
+  %h4
+    = "#{current_group.quick_create_heading}"
+
+    .navcontrols{:style => "height:24px; float:right"}
+      %a.show_below{:class => "quick_create showhide left", :style=>"/**/"}
+        = "show"
+      %a.hide_below{:class => "quick_create showhide left", :style=>"/**/"}
+        = "hide"
+
+  .quick_create_form
+
+    - quick_create = current_group.quick_create
+    - doctype = Doctype.find(quick_create)
+    - item = Item.new 
+
+
+
+    - form_for(item, :url => new_item_path(doctype), :html => {:class => "form",:method => "get"}) do |f|
+      = render :partial => "items/form_quick_create", :locals => {:f => f, :doctype => doctype}
+
+  %script{:type => "text/javascript"}
+    = "// collapse:"
+    = "$('.hide_below.quick_create').click(function() {"
+    = "$('.hide_below.quick_create').css('display','none');"
+    = "$('.show_below.quick_create').css('display','block');"
+    = "$('.quick_create_form').hide('fast');"
+    = "});"
+    = "// expand:"
+    = "$('.show_below.quick_create').click(function() {"
+    = "$('.show_below.quick_create').css('display','none');"
+    = "$('.hide_below.quick_create').css('display','block');"
+    = "$('.quick_create_form').show('slow');"
+    = "});"
+    = "// ok so far"
+    = "$('.hide_below.quick_create').css('display','block');"
+    = "$('.show_below.quick_create').css('display','none');"
+    = "$('.quick_create_form').show();"
 
 
 
 
-%div
-  - quick_create = current_group.quick_create
-  - doctype = Doctype.find(quick_create)
-  - item = Item.new 
-
-  = "doctype: #{doctype.name}"
-
-
-  - form_for(item, :url => new_item_path(doctype), :html => {:class => "form",:method => "get"}) do |f|
-    = render :partial => "items/form_quick_create", :locals => {:f => f, :doctype => doctype}

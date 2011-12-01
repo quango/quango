@@ -27,12 +27,7 @@
 %div.system-footer{:style=>"float:left; width:728px;"}
   .footer
     .notice{:style=>"margin:0"}
-      .entry.left
-        = "Parent:"
-        - if current_group.parent_id
-          = "#{current_group.parent_id}"
-        - else
-          = "Not set"
+
 
       .entry.left{:style=>"float:left; width:724px;height:18px;line-height:16px"}
         = "Unless indicated this work is <a rel='license' href='http://creativecommons.org/licenses/by/3.0/'>creative commons</a>."
@@ -61,6 +56,13 @@
       -if logged_in? && current_user.owner_of?(current_group)
         .debug
           = "Group: #{current_group.id} / #{current_group.name}"
+        .entry.left
+          = "Parent:"
+          - if current_group.parent_id
+            = "#{current_group.parent_id}"
+          - else
+            = "Not set"
+
       -else
         = "&nbsp;"
 

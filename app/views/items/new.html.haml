@@ -14,12 +14,17 @@
 
   = javascript_include_merged :show
 
+  .debug
+    = "Is anonymous?"
+    = params[:anonymous].to_s
+
+
   %div
     = "&nbsp;"
   #main-index{:style=>"width:728px;"}
     %h4
       - if @doctype.custom_icon?
-        = "<img src=\'#{@doctype.custom_icon}\' style='height:16px, width:16px; border:0;' >"
+        = "<img src=\'#{@doctype.custom_icon}\' style='height:16px, width:16px; border:0;' height=\"16px\"  width=\"16px\" >"
       - else
         = "<img src=\'/images/icons/pencil.png\' style='height:16px, width:16px; border:0;' >"
 

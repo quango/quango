@@ -1,5 +1,11 @@
--title = h(item.title)
 
+-# 
+
+- title = h(item.title)
+
+-# This sets up the doctype extracted from the item's doctype_id, it means you can access the properties in doctype eg. "doctype.name"
+
+- doctype = Doctype.find(item.doctype_id)
 
 
 
@@ -21,54 +27,37 @@
 
 
 
-  %div.thumbnail{:class => class_for_item(item), :style=>"height80px"}
+  %div.thumbnail{:class => class_for_item(item), :style=>"height:80px"}
     -#cache("item_on_index_#{item.id}_#{I18n.locale}") do
     -if item.default_thumbnail?
-      .thumbnail{:style => "width:238px;height:136px; overflow:hidden" }
+      .thumbnail{:style => "width:140px;height:80px; overflow:hidden; float:left" }
         - image = Image.find(item.default_thumbnail)
         - base_image = image.image.process(:thumb,image.image_cropping)
-        - base_thumbnail = base_image.process(:thumb,"238x")
-        = link_to image_tag(base_thumbnail.url, :class => 'none', :alt => image.name, :title => image.name,:style => "width:238px;min-height:137px" ), item_path(item.doctype, item)
-
-      .inner-content{:style=>"padding-bottom:4px; margin-bottom:4px"}
-
-        .inner-link{:style=>"font-size:14px;font-weight:bold;height:24px; line-height:14px;padding:8px 0 4px 0; margin-bottom:4px;;letter-spacing:-1px;overflow:hidden;"}
-
-          = render :partial => "shared/activity_markers", :locals => {:item => item}
-          = link_to title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 88), :style => "color:#{current_group.primary};"
-
-        .inner-teaser{:style=>"height:70px;"}
-          = h( truncate(strip_tags(item.body), :length => 160) )
-        .inner-author{:style=>"height:16px;margin-bottom:4px;"}
-          = "Posted by " 
-          = link_to h(item.user.display_name), user_path(item.user)
-
+        - base_thumbnail = base_image.process(:thumb,"140x")
+        = link_to image_tag(base_thumbnail.url, :class => 'none', :alt => image.name, :title => image.name,:style => "width:140px;min-height:80px" ), item_path(item.doctype, item)
 
     -else
-      .inner-content{:style=>"padding-bottom:4px; margin-bottom:4px;"}
-        .thumbnail-placeholder{:style => "background-color:#{current_group.secondary};width:80px;height:80px; float:left"  }
 
-        - doctype = Doctype.find_by_id(params[item.doctype_id])
-        -#= link_to image_tag("/images/spacer.gif", :style => "background-color:#{current_group.secondary};width:238px;height:137px"), item_path(doctype.id, item)
-        .doctype
-          = "Doctype: #{item.doctype_id}" 
+      .thumbnail-placeholder{:style => "background-color:#{current_group.secondary};width:140px;height:70px; float:left"  }
+        -#= "<b>#{doctype.name}</b>"
+        - if doctype.custom_icon?
+          = link_to image_tag(doctype.custom_icon, :style => "background-color:#{current_group.secondary};float:right;"), item_path(doctype.slug, item)
+        - else
+          = link_to image_tag("/images/spacer.gif", :style => "background-color:#{current_group.secondary};width:140px;height:70px"), item_path(doctype.id, item)
 
+    .summary{:style=>"float:right; width:580px;padding:0 0 0 8px"}
 
+      .inner-link{:style=>"font-size:14px;font-weight:bold;height:24px; line-height:18px;letter-spacing:-1px;float:left"}
+        = render :partial => "shared/activity_markers", :locals => {:item => item}
+        = link_to title, item_path(item.doctype_id, item), :title => truncate(strip_tags(item.body), :length => 88), :style => "color:#{current_group.primary};"
 
-        .inner-link{:style=>"font-size:14px;font-weight:bold;height:24px; line-height:18px;padding:8px 0 4px 0; margin-bottom:4px;letter-spacing:-1px;float:left"}
-          = render :partial => "shared/activity_markers", :locals => {:item => item}
-          = link_to title, item_path(item.doctype_id, item), :title => truncate(strip_tags(item.body), :length => 88), :style => "color:#{current_group.primary};"
-
-
-        
-
-        .inner-teaser{:style=>"height:70px;float:left"}
-          = h(truncate(strip_tags(item.body), :length => 160) )
+      .inner-teaser{:style=>"float:left"}
+        = h(truncate(strip_tags(item.body), :length => 160) )
 
 
-        .inner-author{:style=>"height:16px;margin-bottom:4px;float:left"}
-          = "Posted by " 
-          = link_to h(item.user.display_name), user_path(item.user)
+      .inner-author{:style=>"height:16px;margin-bottom:4px;float:right"}
+        = "#{doctype.created_by_label}" 
+        = link_to h(item.user.display_name), user_path(item.user)
 
   .clear
 

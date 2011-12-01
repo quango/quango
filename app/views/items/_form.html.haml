@@ -8,8 +8,9 @@
 .answer-form-holder
 
   = f.hidden_field :doctype_id, :value => @doctype.id
-
-
+  = f.hidden_field :anonymous, :value => params[:anonymous]
+  = f.hidden_field :anonymous_display_name, :value => params[:anonymous_display_name]
+  = f.hidden_field :anonymous_email, :value => params[:anonymous_email]
 
   -# else
 

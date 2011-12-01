@@ -1,22 +1,20 @@
 
-
-
 = local_assigns[f]
 = f.error_messages
 = error_messages_for(:user)
 
 -#= javascript_include_merged :show
 
-
 .answer-form-holder
 
   .answer-form{:style=>"padding:0 16px 8px 16px;border-radius:4px"}
 
-    = f.label :title, "#{t(:title, :scope => "activerecord.attributes.item")}", :class => "label"
-    .group{:style=>"width:256px;padding:8px; background:#bcbcbc;border-radius:4px;"}
-      = f.text_field :title, :class => "text_field", :style => "width:256px; max-width:256px; margin:0 ;"
+    = "#{doctype.create_label}"
+
+    .group{:style=>"width:728px;background:#bcbcbc;border-radius:4px;"}
+      = f.text_field :title, :class => "text_field", :style => "/*width:256px; max-width:256px; margin:0 ;*/"
     .note
-      = "If your #{@doctype} is longer than this text box, then chances are your title is too long..!"
+      = "note: you can add more information in the next step if necessary"
     .clear
 
 
@@ -34,6 +32,14 @@
 
         = f.text_area :body, :class => "text_area", :id => "markdown_editor", :style => "height:128px;min-height:128px; width:256px; max-width:256px;"
 
+    - if !logged_in?
+      .group
+        = f.hidden_field :anonymous, :value => "true"
+        = "Please provide your name or nickname"
+        = f.text_field :anonymous_display_name
+        = "Please provide your email address so we can notify you when your question is answered"
+        = f.text_field :anonymous_email
+        = "We will not share your prvate information"
 
     .answer-actions{:style => "padding:0 16px 16px 16px; width:256px;"}
       = submit_tag "Save changes", :class => "submit-button", :style => "width:128px; height:28px; float:right;"

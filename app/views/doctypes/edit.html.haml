@@ -17,13 +17,18 @@
         .group
           = "General settings"
 
-        .group
-          = "Slideshow"
-          = f.text_field :slideshow, :value => @doctype.slideshow
+        -#.group
+          -#= "Slideshow"
+          -#= f.text_field :slideshow, :value => @doctype.slideshow
 
         .group
           = "Top dog"
           = f.check_box :top_dog, :value => @doctype.top_dog
+
+
+        .group
+          = "Does this section have images?"
+          = f.check_box :has_images
 
         .group
           = "Does this section include video content?"
@@ -60,6 +65,11 @@
         .group
           = "Display Name - Sometimes you may want other things in the context nav"
           = f.text_field :display_name, :value => @doctype.display_name
+
+        .group
+          = "Created by label, used for show and lists"
+          = f.text_field :created_by_label, :value => @doctype.created_by_label
+
         .group
           = "Create label, used for buttons in show and shortcuts in indexes"
           = f.text_field :create_label, :value => @doctype.create_label

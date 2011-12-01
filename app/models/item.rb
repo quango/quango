@@ -69,6 +69,8 @@ class Item
   key :closed_at, Time
 
   key :anonymous, Boolean, :default => false, :index => true
+  key :anonymous_display_name, String    #used to pass email to user
+  key :anonymous_email, String    #used to pass email to user
 
   key :answered_with_id, String
   belongs_to :answered_with, :class_name => "Answer"

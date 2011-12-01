@@ -19,12 +19,15 @@ class Doctype
 
   key :slideshow, String, :default => "articles"
 
+  key :has_images, String, :default => true
+
   key :has_video, Boolean, :default => false
   key :is_video, Boolean, :default => false
 
   key :has_links, Boolean, :default => false
   key :is_link, Boolean, :default => false
 
+  key :created_by_label, String, :default => "Posted by"
   key :create_label, String
   key :created_label, String
   key :help_text, String
