@@ -5,11 +5,11 @@ javascripts:
 - base:
   - jquery
 
-  #- jquery-ui
+  - jquery-ui
   - jquery.textarea
-  #- jquery.autocomplete
-  #- jquery.autoSuggest
-  #- jquery.notifyBar
+  - jquery.autocomplete
+  - jquery.autoSuggest
+  - jquery.notifyBar
 
 
   #- jquery.ui.sortable
@@ -26,9 +26,13 @@ javascripts:
 
 
 - welcome:
+  - application
   - jcarousellite_1.0.1
   - jquery.cycle.all.latest
   - jquery.easing.1.1
+  - modules/new_item
+  - jquery-ui
+  - jquery.tools.min
   #- jquery.effects.core
   #- jquery.effects.bounce
   #- jquery.marquee

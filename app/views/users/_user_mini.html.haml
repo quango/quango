@@ -1,3 +1,4 @@
+
 -bronze, silver, gold = user.badges_count_on(current_group)
 
 -if width == "follower"
@@ -91,6 +92,7 @@
 
 
 -if width == "narrow"
+
   .user_mini{:style=>"width:140px;height:50px; overflow:hidden"}
     %div.avatar-narrow
       - @avatar = Avatar.find(user.default_avatar)
@@ -148,6 +150,8 @@
             %span.bronze.badgeicon-small
             %span.badgecount
               =bronze
+
+
   .clear
 
 
@@ -174,9 +178,9 @@
         -unless user.nil?
           =link_to "#{user.display_name}", user_path(user)
 
-
-      .action{:style=>"margin-top:10px;"}
-        = render :partial => "users/follow_button", :locals => {:user => user, :width => "narrow"}
+      - unless user.anonymous
+        .action{:style=>"margin-top:10px;"}
+          = render :partial => "users/follow_button", :locals => {:user => user, :width => "narrow"}
 
       %span.reputation{:title => t("activerecord.attributes.user.reputation")}
         -unless user.nil?

@@ -1,5 +1,12 @@
 - group = current_group
 
+\.quick-create-form{background: -webkit-gradient(linear,left top,left bottom,to(#{current_group.supplementary_dark}),from(#{current_group.supplementary}));background: -moz-linear-gradient(top,#{current_group.supplementary},#{current_group.supplementary_dark});filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,endColorstr='#{current_group.supplementary_dark}',startColorstr='#{current_group.supplementary}')}
+
+\.quick-create-header{background: -webkit-gradient(linear,left top,left bottom,to(#{current_group.supplementary_dark}),from(#{current_group.supplementary}));background: -moz-linear-gradient(top,#{current_group.supplementary},#{current_group.supplementary_dark});filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,endColorstr='#{current_group.supplementary_dark}',startColorstr='#{current_group.supplementary}')}
+
+
+\input.submit-button{background: -webkit-gradient(linear,left top,left bottom,from(#{current_group.supplementary_dark}),to(#{current_group.supplementary}));background: -moz-linear-gradient(bottom,#{current_group.supplementary},#{current_group.supplementary_dark});filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{current_group.supplementary_dark}',endColorstr='#{current_group.supplementary}')}
+
 
 -if current_group.has_landing_bg?
   \#landing{background-image:url(#{current_group.landing_bg});background-repeat:no-repeat}

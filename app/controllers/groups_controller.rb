@@ -181,7 +181,7 @@ class GroupsController < ApplicationController
                           description has_custom_channels custom_channels custom_channel_content default_tags subdomain 
                           has_quick_create quick_create quick_create_label quick_create_heading
                           has_leaderboard leaderboard_content has_custom_leaderboard custom_leaderboard_content 
-                          has_medium_rectangle medium_rectangle_content group_categories show_category_navigation
+                          has_medium_rectangle medium_rectangle_content group_categories show_category_navigation show_context_navigation
                           has_threeone_rectangle threeone_rectangle_content has_bumper bumper_content welcome_layout has_slideshow slideshow_content
                           logo logo_info logo_only
                           has_custom_toolbar custom_toolbar_link custom_toolbar_image custom_toolbar_image_info

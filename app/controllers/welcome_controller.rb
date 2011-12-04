@@ -142,6 +142,35 @@ class WelcomeController < ApplicationController
     redirect_to params[:source].to_s[0,1]=="/" ? params[:source] : root_path
   end
 
+  #related items only relevant of quick create enabled
+
+  def related_items
+    if params[:id]
+      @item = Item.find(params[:id])
+    elsif params[:item]
+      @item = Item.new(params[:item])
+      @item.group_id = current_group.id
+    end
+
+    @item.tags += @item.title.downcase.split(",").join(" ").split(" ") if @item.title
+
+    @items = Item.related_items(@item, :page => params[:page],
+                                                       :per_page => params[:per_page],
+                                                       :order => "answers_count desc",
+                                                       :fields => {:_keywords => 0, :watchers => 0, :flags => 0,
+                                                                  :close_requests => 0, :open_requests => 0,
+                                                                  :versions => 0})
+
+    respond_to do |format|
+      format.js do
+        render :json => {:html => render_to_string(:partial => "items/item",
+                                                   :collection  => @items,
+                                                   :locals => {:mini => true, :lite => true})}.to_json
+      end
+    end
+  end
+
+
 
   protected
 

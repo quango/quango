@@ -1,8 +1,9 @@
 
 .quick_create_block
-  %h4
+  %h4.quick_create_header
     = "#{current_group.quick_create_heading}"
 
+  - if false
     .navcontrols{:style => "height:24px; float:right"}
       %a.show_below{:class => "quick_create showhide left", :style=>"/**/"}
         = "show"
@@ -20,6 +21,7 @@
     - form_for(item, :url => new_item_path(doctype), :html => {:class => "form",:method => "get"}) do |f|
       = render :partial => "items/form_quick_create", :locals => {:f => f, :doctype => doctype}
 
+- if false
   %script{:type => "text/javascript"}
     = "// collapse:"
     = "$('.hide_below.quick_create').click(function() {"

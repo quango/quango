@@ -43,11 +43,13 @@ $(".avatar-narrow").hover(
 );
 });
 
+
+/*
 $(document).ready(function() {
         $('.b').lightBox();
 });
 
-/*
+
 $(document).ready(function() {
         $('#products a').lightBox();
 });

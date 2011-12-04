@@ -62,6 +62,10 @@
       = form.check_box :has_quick_create, :class => "checkbox"
       = form.label :has_quick_create, "Show quick create", :class => "radio"
 
+    .group
+      = form.check_box :show_context_navigation, :class => "checkbox"
+      = form.label :show_context_navigation, "Show the contextual navigation, usually only off for small groups (SiGs)", :class => "radio"
+
 %div
   %div{:style => "width:312px;float:left"}
     .group

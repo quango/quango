@@ -43,6 +43,7 @@ class Group
 
   key :group_categories, Array
   key :show_category_navigation, Boolean, :default => false
+  key :show_context_navigation, Boolean, :default => true
 
   key :has_custom_channels, Boolean, :default => false
   key :custom_channels, Array #, :default => "something, something else"
@@ -76,7 +77,7 @@ class Group
   key :has_quick_create, Boolean, :default => false
   key :quick_create, String
   key :quick_create_heading, String, :default => "Quick Create"
-  key :quick_create_label, String
+  key :quick_create_label, String, :default => "Quick Create" #submit button
 
   key :has_welcome_features, Boolean, :default => false
   key :has_product_gallery, Boolean, :default => false

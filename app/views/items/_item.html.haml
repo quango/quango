@@ -50,7 +50,8 @@
         -if owner
           =render :partial => "users/user_mini", :locals => {:user => owner, :width => "narrow"}
         -else
-          =t("global.anonymous")
+          =render :partial => "users/user_anonymous", :locals => {:anonymous => true, :width => "narrow"}
+
         %small.time_ago
           = link_to t("time.ago", :time => time_ago_in_words(last_target.updated_at)), items_path(item.doctype, item)+"##{last_target.id}"
 
@@ -66,5 +67,5 @@
             .text
               =t(:answers, :scope => "activerecord.attributes.item")
       .mini_item_link
-        = link_to title, item_path(item)
+        = link_to title, item_path(item.doctype, item)
       .clear
