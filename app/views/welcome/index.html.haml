@@ -1,3 +1,8 @@
+
+- is_mobile = params[:mobile]
+
+
+
 -content_for :head do
   -if !current_group.default_tags.empty?
     %meta{:name => "keywords", :content => current_group.default_tags.join(", ")}
@@ -15,41 +20,34 @@
 
 /Layout
 
+
 -is_guest = params[:guest]
 
+- if !is_mobile
+  -if !logged_in? && !is_guest && current_group.has_landing?
+    -content_for :main do
+      #landing{:style=>"width:1032px"}
+        = render :partial => "landing"
+  - else
+    -content_for :main do
 
--if !logged_in? && !is_guest && current_group.has_landing?
+      -if current_group.has_leaderboard
+        = render :partial => "shared/leaderboard"
+
+      -if current_group.above_the_fold
+        = render :partial => "above_the_fold", :locals => {:expanded => true}
+
+      .clear
+
+      -if current_group.has_custom_leaderboard? 
+        = render :partial => "custom_leaderboard", :locals => {:expanded => true}
+
+      -if current_group.below_the_fold
+        = render :partial => "below_the_fold", :locals => {:expanded => true}
+
+- else
   -content_for :main do
-    #landing{:style=>"width:1032px"}
-      = render :partial => "landing"
-
-
-
--else
-  -content_for :main do
-
-    -if current_group.has_leaderboard
-      = render :partial => "shared/leaderboard"
-
-
-    -if current_group.above_the_fold
-
-      = render :partial => "above_the_fold", :locals => {:expanded => true}
-
-    .clear
-
-    -if current_group.has_custom_leaderboard? 
-
-      = render :partial => "custom_leaderboard", :locals => {:expanded => true}
-
-
-
-
-    -if current_group.below_the_fold
-
-      = render :partial => "below_the_fold", :locals => {:expanded => true}
-
-
+    = render:partial => "mobile"
 
 -content_for :list do
  

@@ -1,0 +1,86 @@
+
+!!! Strict
+%html{"xml:lang" => I18n.locale, :lang => I18n.locale, :xmlns => "http://www.w3.org/1999/xhtml",  "xmlns:og" => "http://ogp.me/ns#"  }
+  %head
+    = "<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />"
+    = "<meta http-equiv=\"cache-control\" content=\"public\" />"
+    = "<meta http-equiv=\"content-language\" content=\"en\" />"
+
+    %title
+      &= page_title
+
+    = render :partial => "shared/layout/css_mobile"
+    = javascript_include_merged :mobile
+    = yield :custom_javascript
+    = yield :js
+
+    = current_group.head_tag
+
+    %body{:style=>"background:#{current_group.primary};font-family:sans-serif"}
+
+
+      #toolbar-container-mobile{:style=>"border-bottom:1px solid #333"}
+        .toolbar-container-mobile{:style=>""}    
+          = render :partial => "shared/toolbar_mobile"
+
+
+      #flash-mobile
+        = "<!--Placeholder for flash messaging-->"
+        = show_flash_messages(:class => "flash", :markdown => true)
+
+
+      #logo-container-mobile{:style=>"border-top:1px solid #555"}
+        - logo_height = current_group.logo_info['height'].to_i
+        - logo_height_mobile = (logo_height * 2)
+        - logo_width = current_group.logo_info['width'].to_i
+        - logo_width_mobile = (logo_width * 2)
+
+        .logo-container-mobile{:style => "width:512px;border-left:1px solid #222;border-right:1px solid #222;margin:0 auto;height:#{logo_height_mobile}px"}
+
+          .logo-mobile{:style => "height:#{logo_height_mobile}px;width:#{logo_width_mobile}px; float:left; margin-left:16px"}
+            = link_to image_tag(current_group.logo_path, :width => logo_width_mobile, :height => logo_height_mobile,  :style => "bottom:0px;"), domain_url(:custom => current_group.domain), :style=>"margin:0px;height:#{logo_height_mobile}px;width:#{logo_width_mobile}px", :alt => "Home"
+
+
+
+
+
+
+
+      #container-mobile{:class => @current_class}
+
+        #content{:class => @current_class, :style=>"width:512px;min-width:512px;margin:0 auto;"}
+          #announcement
+            = render :partial => "shared/announcements"
+
+          #wrapper
+            = render :partial => "shared/header"
+
+            = yield :summary_header
+
+            #content
+
+              .snapable{:style=>"border-top:1px solid #{current_group.secondary};border-bottom:1px solid #{current_group.primary_dark};"}
+                = "<img src=\'http://www.dropmocks.com/ilnXe\'/>"
+
+
+              -#= yield :sidebar
+              = yield :main
+
+
+            -#= yield :sidebar_inner
+
+
+
+
+        .clear
+
+      #footer-mobile{:style=>"border-top:1px solid #555"}
+        = render :partial => "layouts/footer_mobile"
+
+
+
+
+
+
+
+

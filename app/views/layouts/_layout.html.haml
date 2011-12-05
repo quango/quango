@@ -1,0 +1,161 @@
+
+
+!!! Strict
+%html{"xml:lang" => I18n.locale, :lang => I18n.locale, :xmlns => "http://www.w3.org/1999/xhtml",  "xmlns:og" => "http://ogp.me/ns#"  }
+  %head
+    = "<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />"
+    = "<meta http-equiv=\"cache-control\" content=\"public\" />"
+    = "<meta http-equiv=\"content-language\" content=\"en\" />"
+
+    %title
+      &= page_title
+
+    = render :partial => "shared/layout/meta"
+
+    -#%link{:rel=>"alternate",:type=>"application/rss+xml",:title=>"RSS",:href=>"/items?format=atom"}
+
+    <!--[if lt IE 8]><link type="text/css" rel="stylesheet" media="screen" href="/stylesheets/ie7.css"><![endif]-->
+    = render :partial => "shared/layout/css"
+    %style{:type => 'text/css'}
+      \a{color:#{current_group.primary}}
+
+    = javascript_include_merged :base
+    = yield :custom_javascript
+    = yield :js
+
+ 
+    = current_group.head_tag
+
+
+    - if current_group.theme == "vanilla"
+      %body{:style=>"background:white"}
+    - else
+      %body
+
+
+    -#= render :partial => "shared/analytics"
+    -#= @current_class
+
+
+
+    #flash
+      = "<!--Placeholder for flash messaging-->"
+      = show_flash_messages(:class => "flash", :markdown => true)
+
+    #toolbar-container
+      .toolbar-container-inner    
+        = render :partial => "shared/toolbar"
+
+    -if current_group.header_bg_image?
+      #logo-container{:style=>"background-image:url(\'#{current_group.header_bg_image}\');background-repeat:repeat-x;"}
+
+        .logo-container-inner{:style => "height:#{current_group.logo_info['height']}px"}
+          -if current_group.logo_only?
+            .logo-text
+              .filling
+                .left
+                  =link_to h(current_group.display_name_i), domain_url(:custom => current_group.domain), :class=>"display-name-i"
+                .left
+                  =link_to h(current_group.display_name_ii), current_group.display_name_ii_link, :class=> "display-name-ii"
+                -if current_group.strapline?
+                  .strapline{:style => "height:40px;color:#{current_group.primary};margin:12px 10px 0 10px;float:left; border-left:1px solid color:#{current_group.primary}"}
+                    ="#{current_group.strapline}"
+              .search{:style=>"height:#{current_group.logo_info['height']}px;line-height:#{current_group.logo_info['height']}px;float:right;"}
+
+                = render :partial => "shared/search"
+
+          -else
+            .logo{:style => "height:#{current_group.logo_info['height']}px;width:#{current_group.logo_info['width']}px; float:left"}
+              = link_to image_tag(current_group.logo_path, :width => current_group.logo_info["width"], :height => current_group.logo_info["height"],  :style => "bottom:0px;"), domain_url(:custom => current_group.domain), :style=>"margin:0px;height:#{current_group.logo_info['height']}px;width:#{current_group.logo_info['width']}px", :alt => "Home"
+
+            .search{:style=>"height:#{current_group.logo_info['height']}px;line-height:#{current_group.logo_info['height']}px;float:right;"}
+
+              = render :partial => "shared/search"
+
+
+    -else
+
+
+      #logo-container
+
+        .logo-container-inner{:style => "height:#{current_group.logo_info['height']}px"}
+          -if current_group.logo_only?
+            .logo-text
+              .filling
+                .left
+                  =link_to h(current_group.display_name_i), domain_url(:custom => current_group.domain), :class=>"display-name-i"
+                .left
+                  =link_to h(current_group.display_name_ii), current_group.display_name_ii_link, :class=> "display-name-ii"
+                -if current_group.strapline?
+                  .strapline{:style => "height:40px;color:#{current_group.primary};margin:12px 10px 0 10px;float:left; border-left:1px solid color:#{current_group.primary}"}
+                    ="#{current_group.strapline}"
+              .search{:style=>"height:#{current_group.logo_info['height']}px;line-height:#{current_group.logo_info['height']}px;float:right;"}
+
+                = render :partial => "shared/search"
+
+          -else
+            .logo{:style => "height:#{current_group.logo_info['height']}px;width:#{current_group.logo_info['width']}px; float:left"}
+              = link_to image_tag(current_group.logo_path, :width => current_group.logo_info["width"], :height => current_group.logo_info["height"],  :style => "bottom:0px;"), domain_url(:custom => current_group.domain), :style=>"margin:0px;height:#{current_group.logo_info['height']}px;width:#{current_group.logo_info['width']}px", :alt => "Home"
+
+            .search{:style=>"height:#{current_group.logo_info['height']}px;line-height:#{current_group.logo_info['height']}px;float:right;"}
+
+              = render :partial => "shared/search"
+
+    -if current_group.has_custom_channels
+      #channel-container
+        .channel-container-inner
+          = render :partial => "shared/channels"
+      .clear
+    -if current_group.show_context_navigation
+      #header-container
+        #header-container-inner
+          .navigation-container{:style=>"width:1032px; height:40px;"}
+            -#if !current_group.disable_signups? && logged_in?
+            .home{:style=>"float:left; height:40px; line-height:40px;"}
+              = link_to "<img src=\'/images/icons/house.png\' style=\'margin:12px\'>", "/"
+
+            .navigation{:style=>"float:left; height:40px; line-height:40px"}
+
+              - if current_group.show_category_navigation
+                = render :partial => "shared/category_navigation"
+              - else
+                = render :partial => "shared/contextual_navigation"
+
+            = render :partial => "shared/share_box_groups", :locals => {:item => @item}
+
+
+
+
+    #container{:class => @current_class}
+
+      #content{:class => @current_class}
+        #announcement
+          = render :partial => "shared/announcements"
+
+        #wrapper
+          = render :partial => "shared/header"
+
+          = yield :summary_header
+
+          #content
+            = yield :sidebar
+            = yield :main
+
+
+          = yield :sidebar_inner
+
+
+
+
+      .clear
+
+    #footer
+      = render :partial => "layouts/footer"
+
+
+
+
+
+
+
+

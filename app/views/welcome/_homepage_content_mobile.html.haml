@@ -1,0 +1,35 @@
+- expanded = local_assigns[:expanded]
+
+.contain
+
+  .section-listing-welcome{:class => "summary"}
+
+    #welcome-content
+
+      %h4
+        = "The list"
+
+      .content{:style=>"margin-top:8px"}
+
+        %ul.features
+          -if current_group.items.empty?
+            %li.highlight
+              = t(".empty")
+          -else
+
+
+            - @items.reverse.each do |item|
+              .summary-list-text
+                = render :partial => "/items/single_list_mobile", :locals => {:item => item, :sort=>"hot"}
+
+
+
+
+      .clear
+    .clear
+
+
+
+
+
+

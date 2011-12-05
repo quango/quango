@@ -1,0 +1,13 @@
+
+%style
+  = "<!--"
+  = ".toolbar-mobile{background:black}"
+  = "-->"
+
+%link{:href => "#{group_style_group_path(current_group)}.css",  :rel => "stylesheet", :media => "screen", :type => "text/css"}
+
+-if current_group.has_custom_css?
+  %link{:href => "#{css_group_path(current_group)}",  :rel => "stylesheet", :media => "screen", :type => "text/css"}
+
+= yield :css
+
