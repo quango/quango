@@ -4,7 +4,6 @@
 javascripts:
 - base:
   - jquery
-
   - jquery-ui
   - jquery.textarea
   - jquery.autocomplete
@@ -26,17 +25,18 @@ javascripts:
 
 
 - welcome:
+  - jquery-ui
+  - jquery.tools.min
   - application
   - jcarousellite_1.0.1
   - jquery.cycle.all.latest
   - jquery.easing.1.1
   - modules/new_item
-  - jquery-ui
-  - jquery.tools.min
-  #- jquery.effects.core
-  #- jquery.effects.bounce
-  #- jquery.marquee
-  #- jquery.scroll
+
+  - jquery.effects.core
+  - jquery.effects.bounce
+  - jquery.marquee
+  - jquery.scroll
 
 - show:
   - jquery.tools.min
