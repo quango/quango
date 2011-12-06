@@ -36,7 +36,7 @@
         - logo_width_mobile = (logo_width * 2)
 
         - if current_group.logo_only?
-          .logo-container-mobile{:style => "height:80px"}
+          .logo-container-mobile{:style => "height:#{logo_height_mobile}px"}
 
             .logo-mobile{:style => "height:#{logo_height_mobile}px;width:#{logo_width_mobile}px; float:left; margin-left:16px"}
               = link_to image_tag(current_group.logo_path, :width => logo_width_mobile, :height => logo_height_mobile,  :style => "bottom:0px;"), "#{domain_url(:custom => current_group.domain)}/?mobile=true", :style=>"margin:0px;height:#{logo_height_mobile}px;width:#{logo_width_mobile}px", :alt => "Home"
