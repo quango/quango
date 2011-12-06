@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
   skip_before_filter :check_group_access, :only => [:logo, :css, :favicon, :background]
-  before_filter :login_required, :except => [:pages, :index, :show, :logo,:sponsor_logo_wide,:sponsor_logo_narrow,:group_style, :css, :signup_button_css, :favicon, :background]
+  before_filter :login_required, :except => [:pages, :index, :show, :logo,:sponsor_logo_wide,:sponsor_logo_narrow,:group_style,:group_style_mobile, :css, :signup_button_css, :favicon, :background]
   before_filter :check_permissions, :only => [:edit, :update, :close]
   before_filter :moderator_required , :only => [:accept, :destroy]
   subtabs :index => [ [:most_active, "activity_rate desc"], [:newest, "created_at desc"],
@@ -102,17 +102,18 @@ class GroupsController < ApplicationController
 
     @group.safe_update(%w[isolate domain private], params[:group]) if current_user.admin?
 
+    @group.parent_id = current_group
     @group.owner = current_user
     @group.state = "active"
 
-    @group.widgets << TopUsersWidget.new
-    @group.widgets << UsersWidget.new
+    #@group.widgets << TopUsersWidget.new
+    #@group.widgets << UsersWidget.new
 
     puts "Starting doctype creation /n"
 
     doctypes = Array.new
     doctypes << Doctype.new(:name => "questions", :doctype => "standard", :create_label => "Ask a question", :created_label => "asked a question", :group_id => @group.id)
-    doctypes << Doctype.new(:name => "links",:has_links => "true", :doctype => "bookmark", :create_label => "Share a link", :created_label => "shared a link", :group_id => @group.id)
+    #doctypes << Doctype.new(:name => "links",:has_links => "true", :doctype => "bookmark", :create_label => "Share a link", :created_label => "shared a link", :group_id => @group.id)
 
 
     doctypes.each do |doctype| 
@@ -126,11 +127,14 @@ class GroupsController < ApplicationController
 
     doctypes.each do |doctype| 
      doctype.hidden = false
+     @group.quick_create = doctype
      doctype.save!
      puts "saved #{doctype}"
     end
 
     puts "Finished doctype creation /n"
+
+    
 
     #Create standard pages
 
@@ -292,6 +296,15 @@ class GroupsController < ApplicationController
   end
 
   def group_style
+    @group = Group.find_by_slug_or_id(params[:id])
+
+    respond_to do |format|
+      format.css
+    end
+
+  end
+
+  def group_style_mobile
     @group = Group.find_by_slug_or_id(params[:id])
 
     respond_to do |format|

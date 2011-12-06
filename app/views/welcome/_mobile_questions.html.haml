@@ -15,7 +15,7 @@
 
   .clear
   .below
-    .contain{:style=>"width:512px;margin:0 auto;"}
+    .contain{:style=>"width:480px;margin:0 auto;padding:0 16px;"}
 
       %ul.features
         -if current_group.items.empty?
@@ -46,9 +46,9 @@
     = "$('.below').show('fast');"
     = "});"
     = "// ok so far"
-    = "$('.hide_below.fold').css('display','block');"
-    = "$('.show_below.fold').css('display','none');"
-    = "$('.below').show();"
+    = "$('.hide_below.fold').css('display','none');"
+    = "$('.show_below.fold').css('display','block');"
+    = "$('.below').hide();"
 
 .clear
 

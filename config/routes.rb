@@ -138,6 +138,7 @@ ActionController::Routing::Routes.draw do |map|
                                      :favicon => :get,
                                      :background => :get,
                                      :group_style => :get,
+                                     :group_style_mobile => :get,
                                      :css => :get},
                           :collection => { :autocomplete_for_group_slug => :get}, :as => "groups"
 

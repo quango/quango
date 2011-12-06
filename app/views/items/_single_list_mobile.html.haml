@@ -2,12 +2,7 @@
 -# 
 
 - title = h(item.title)
-
--# This sets up the doctype extracted from the item's doctype_id, it means you can access the properties in doctype eg. "doctype.name"
-
 - doctype = Doctype.find(item.doctype_id)
-
-
 
 -if item.closed
   -title += " [#{t("closed", :scope => "activerecord.attributes.item").upcase}]"
@@ -26,22 +21,14 @@
 
 
 
+  %p
+    = render :partial => "shared/activity_markers", :locals => {:item => item}
+    = link_to title, "#{item_path(item.doctype_id, item)}/?mobile=true", :title => truncate(strip_tags(item.body), :length => 88), :style => "color:#{current_group.supplementary};font-weight:bold;"
 
-  %div
-
-    .summary
-
-      .inner-link{:style=>"font-size:14px;font-weight:bold;height:24px; line-height:18px;letter-spacing:-1px;float:left"}
-        = render :partial => "shared/activity_markers", :locals => {:item => item}
-        = link_to title, item_path(item.doctype_id, item), :title => truncate(strip_tags(item.body), :length => 88), :style => "color:#{current_group.primary};"
-
-      .inner-teaser{:style=>"float:left"}
-        = h(truncate(strip_tags(item.body), :length => 160) )
+  %p
+    = h(truncate(strip_tags(item.body), :length => 160) )
 
 
-      .inner-author{:style=>"height:16px;margin-bottom:4px;float:right"}
-        = "#{doctype.created_by_label}" 
-        = link_to h(item.user.display_name), user_path(item.user)
 
   .clear
 

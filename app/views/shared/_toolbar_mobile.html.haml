@@ -1,64 +1,19 @@
-#toolbar-mobile{:style => "float:left;"}
 
-  -if logged_in?
-    -if !current_group.isolate && AppConfig.enable_groups
-      .edition
-        %ul.topbar.combobox.left
-          %li{:style=>"height:24px;"}
-            = image_tag("/images/logos/star_32.png",:height=>"32px",:width=>"32px",  :style => "margin:6px 4px 4px 4px", :class => "main-icon")
-            %span{:style=>"height:24px; line-height:24px;padding:4px 0 4px 0px; float:left;"}
-              = "My groups"
-            -#=link_to h(current_group.display_name_ii), domain_url(:custom => current_group.domain), :style=> "height:24px; line-height:24px;padding:4px 0 4px -4px"
+.left{:style=>"margin-right:16px;"}
 
-            %ul
-              -current_user.groups(:select => [:name, :domain]).each do |group|
-                %li
-                  -if group.favicon_path?
-                    = image_tag( "#{group.favicon_path}",:height=>"16px",:width=>"16px", :style => "height:16px: width:16px; margin:4px 0")
-                  -else
-                    = image_tag("#{group.favicon_path}",:height=>"16px",:width=>"16px",  :style => "height:16px: width:16px; margin:4px 0 4px -4px")
-                  - gname = group.display_name_i + " " + group.display_name_ii.to_s
-                  =link_to h(gname), domain_url(:custom => group.domain), :style=>"height:24px; line-height:24px;padding:4px"
+  - if !current_group.has_custom_toolbar?
+    .edition
+      = image_tag("/images/logos/star_32.png",:height=>"32px",:width=>"32px",  :style => "margin:14px;", :class => "main-icon")
+      -#=link_to "thinkingdaily", domain_url(:custom => current_group.domain), :style=>"font-family:georgia;line-height:32px;font-weight:bold;"
+      -#=link_to h(current_group.display_name_ii), domain_url(:custom => current_group.domain), :style=> "height:16px: width:16px; margin:4px 0 4px -4px"
+  - elsif current_group.has_custom_toolbar?
+    .edition
+      = link_to image_tag("#{current_group.custom_toolbar_image}",:height=>"32px",:width=>"128px",  :style => "margin:0px", :class => "main-icon")         
 
-    -else
-      - if !current_group.has_custom_toolbar?
-        .edition
-          = image_tag("/images/logos/star_32.png",:height=>"32px",:width=>"32px",  :style => "margin:16px", :class => "main-icon")
-          -#=link_to "thinkingdaily", domain_url(:custom => current_group.domain), :style=>"font-family:georgia;line-height:32px;font-weight:bold;"
-          -#=link_to h(current_group.display_name_ii), domain_url(:custom => current_group.domain), :style=> "height:16px: width:16px; margin:4px 0 4px -4px"
-      - elsif current_group.has_custom_toolbar?
-        .edition
-          = link_to image_tag("#{current_group.custom_toolbar_image}",:height=>"32px",:width=>"128px",  :style => "margin:0", :class => "main-icon")         
-
-  -else
-    - if !current_group.has_custom_toolbar?
-      .edition
-        = image_tag("/images/logos/star_32.png",:height=>"32px",:width=>"32px",  :style => "margin:14px;", :class => "main-icon")
-        -#=link_to "thinkingdaily", domain_url(:custom => current_group.domain), :style=>"font-family:georgia;line-height:32px;font-weight:bold;"
-        -#=link_to h(current_group.display_name_ii), domain_url(:custom => current_group.domain), :style=> "height:16px: width:16px; margin:4px 0 4px -4px"
-    - elsif current_group.has_custom_toolbar?
-      .edition
-        = link_to image_tag("#{current_group.custom_toolbar_image}",:height=>"32px",:width=>"128px",  :style => "margin:0px", :class => "main-icon")         
-
-
-
-
-
-#toolbar-mobile{:style => "float:right;"}
-
-
-
+.right{:style=>"margin-right:16px;"}
   -if !logged_in?
-    .entry{:style => "margin-left:8px; font-size:2em"}
-      = link_to "Login", new_user_session_path
-
-    - if !current_group.disable_signups?
-      .entry
-        = link_to "Become a member", new_user_path, :style => "font-weight:bold;"
-
-  -if logged_in?
-    .entry{:style=>"display:none"}
-      =link_to "<img src='/images/logos/thinking_32.png' height='12px' width='12px' style='margin-top:4px'/>", "#" ,:style=>"padding:3px;border:0; height:16px; width:16px;"
+    .entry{:style => "margin-left:8px; font-size:1.5em; line-height:64px;text-shadow:-1px -1px 2px black"}
+      = link_to "Login", new_user_session_path, :style => "font-weight:bold;color:white;text-decoration:none", :title => "You do not need to login just to ask a question"
 
   -if logged_in?
 

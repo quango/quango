@@ -70,7 +70,7 @@ class Group
   key :standard_leaderboard, Boolean, :default => false
   key :standard_leaderboard_content, String
 
-  key :welcome_layout, String, :default => "homepage_content"
+  key :welcome_layout, String, :default => "homepage_content_single"
   key :above_the_fold, Boolean, :default => false
   key :below_the_fold, Boolean, :default => true
 

@@ -52,6 +52,9 @@
             - rendering_stop = Time.now
             - rendering_time = rendering_stop - @render_start
             = "#{rendering_time}"
+        .clear
+        .entry.left
+          = "view: classic | <a href=\'?mobile=true\'>mobile</a>"
 
       -if logged_in? && current_user.owner_of?(current_group)
         .entry.left
@@ -60,12 +63,15 @@
           - ua = request.env['HTTP_USER_AGENT'].downcase
           = "#{ua}"
 
-        .debug
+        .entry.left
           = "Group: #{current_group.id} / #{current_group.name}"
         .entry.left
           = "Parent:"
           - if current_group.parent_id
-            = "#{current_group.parent_id}"
+
+            - parent = current_group.parent_id
+
+            = "#{parent}"
           - else
             = "Not set"
 

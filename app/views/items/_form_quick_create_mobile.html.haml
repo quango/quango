@@ -1,0 +1,60 @@
+
+= local_assigns[f]
+= f.error_messages
+= error_messages_for(:user)
+
+-#= javascript_include_merged :show
+
+.quick-create-form
+
+  .quick-create-inner
+
+    .group
+      = f.text_area :title, :class => "text_field", :style => "border-radius:16px;font-family:sans-serif;font-size:1.5em;width:472px;margin:0 16px; height:64px;border:3px inset white",:value=>"Please click here to start typing your question...",:onclick=>"this.value='';"
+
+      .related-item
+        %ul.items#related_items
+    .clear
+
+
+
+    - if !logged_in?
+      .group
+        = f.hidden_field :anonymous, :value => "true"
+        -#= "Please provide your name or nickname"
+        = f.hidden_field :anonymous_display_name,:value=>"Please provide your name or nickname",:onclick=>"this.value='';",:style=>"width:256px;border:2px inset #{current_group.supplementary};font-weight:bold;color:#{current_group.supplementary};margin:2px 0"
+
+      .group
+        -#= "Please provide your email address so we can notify you when your question is answered"
+        = f.hidden_field :anonymous_email,:value=>"me@mycompany.com",:onclick=>"this.value='';",:style=>"width:256px;border:2px inset #{current_group.supplementary};font-weight:bold;color:#{current_group.supplementary};margin:2px 0"
+
+    .group
+      = submit_tag "#{current_group.quick_create_label}", :class => "submit-button", :style => "/**/"
+    .clear
+    .note{:style=>"font-size:11px;font-weight:bold;text-align:center;margin-top:4px"}
+      = "We will not share your private information"
+  .clear
+.clear
+
+-if false
+  - if doctype.has_video?
+    = f.label :video_link, "#{t(:video_link, :scope => "activerecord.attributes")}", :class => "label", :style => "margin-left: 8px"
+    = f.text_field :video_link, :class => "text_field", :style => "width:256px; max-width:256px; margin:0 16px"
+
+    = f.label :video_thumbnail, "#{t(:video_link, :scope => "activerecord.attributes")}", :class => "label", :style => "margin-left: 8px"
+    = f.text_field :video_thumbnail, :class => "text_field", :style => "width:256px; max-width:256px; margin:0 16px"
+
+
+  = f.label :body, t(:body, :scope => "activerecord.attributes.item"), :class => "label", :style=>"margin:16px 0 0 0"
+
+  .group{:style=>"width:256px;padding:8px; background:#bcbcbc;border-radius:4px 4px 0 0;"}
+
+    = f.text_area :body, :class => "text_area", :id => "markdown_editor", :style => "height:128px;min-height:128px; width:256px; max-width:256px;"
+
+
+
+
+
+
+
+

@@ -1,24 +1,26 @@
 
 
-%div.system-footer{:style=>"float:left; width:512px;margin:0 auto;"}
+.footer-mobile{:style=>"width:480px;padding:8px 16px;margin:0 auto;font-size:0.7em;"}
   .footer
     .notice{:style=>"margin:0"}
-      .entry.left{:style=>"float:left; width:724px;height:18px;"}
-        = link_to "Quango", "http://quangoquango.org", :style=>"font-size:12px;font-family:georgia;font-weight:bold;color:#525051;"
-        = " v" + AppConfig.version.to_s + "<a style='background-color: #{current_group.primary};color:white;padding:0 4px;letter-spacing:-1px;font-size:10px;font-weight:normal;'>BETA</a>"
+      .entry.left
+        = link_to "moFAQ", "http://moFAQ.com", :title => "Every business needs a mobile FAQ", :style=>"font-weight:bold;letter-spacing:-1px;"
+        = " v" + AppConfig.version.to_s
+        - if @render_start
+          - rendering_stop = Time.now
+          - rendering_time = rendering_stop - @render_start
+          = "#{rendering_time}"
+        = "<a style='border-radius:2px;background-color: #{current_group.secondary};color:white;padding:0 4px;letter-spacing:-1px;font-size:10px;font-weight:normal;'>BETA</a>"
         = "|"
         =  link_to "credits","/about/credits"
         .clear
 
 
 
-      - if @render_start
-        .entry.left
-          .rendering{:style=>"margin-left:4px"}
-            - rendering_stop = Time.now
-            - rendering_time = rendering_stop - @render_start
-            = "#{rendering_time}"
 
+        .clear
+        .entry.left
+          = "view: <a href=\'/\'>classic</a> | mobile"
       -if logged_in? && current_user.owner_of?(current_group)
         .entry.left
           = "<a href=\'#\' onclick=\'javascript:open(location,\'/\',\'innerWidth=\'+(320+15)+\',innerHeight=\'+(480+15)+\',scrollbars=yes\');\'>mobile test</a>"
