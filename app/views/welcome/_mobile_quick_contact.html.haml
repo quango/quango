@@ -1,0 +1,43 @@
+- expanded = local_assigns[:expanded]
+#fold
+  .fold
+    .left{:style=>"margin-left:16px;"}
+      %h2
+        = "Contact & How to find"
+
+    .right{:style=>"width:64px;margin-right:16px;"}
+      %a.show_contact{:class => "fold navlinks showhide left", :style=>"color:white"}
+        = "<img src='/images/blank_icon.png' height='64px' width='64px'/>"
+      %a.hide_contact{:class => "fold navlinks showhide left", :style=>"color:white"}
+        = "<img src='/images/blank_icon_o.png' height='64px' width='64px'/>"
+
+
+
+  .clear
+  .contact
+    .contain{:style=>"width:512px;margin:0 auto;"}
+      = "Contact details"
+
+  %script{:type => "text/javascript"}
+    = "// collapse:"
+    = "$('.hide_contact.fold').click(function() {"
+    = "$('.hide_contact.fold').css('display','none');"
+    = "$('.show_contact.fold').css('display','block');"
+    = "$('.contact').hide('fast');"
+    = "});"
+    = "// expand:"
+    = "$('.show_contact.fold').click(function() {"
+    = "$('.show_contact.fold').css('display','none');"
+    = "$('.hide_contact.fold').css('display','block');"
+    = "$('.contact').show('fast');"
+    = "});"
+    = "// ok so far"
+    = "$('.hide_contact.fold').css('display','none');"
+    = "$('.show_contact.fold').css('display','block');"
+    = "$('.contact').hide();"
+
+.clear
+
+
+
+

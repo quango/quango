@@ -10,7 +10,7 @@
   .quick-create-inner
 
     .group
-      = f.text_area :title, :class => "text_field", :style => "border-radius:16px;font-family:sans-serif;font-size:1.5em;width:472px;margin:0 16px; height:64px;border:3px inset white",:value=>"Please click here to start typing your question...",:onclick=>"this.value='';"
+      = f.text_area :title, :class => "text_field", :style => "border-radius:16px;font-family:sans-serif;font-size:1.5em;width:472px;margin:8 16px; height:64px;border:3px inset white",:value=>"Please click here to start typing your question...",:onclick=>"this.value='';"
 
       .related-item
         %ul.items#related_items
@@ -22,16 +22,16 @@
       .group
         = f.hidden_field :anonymous, :value => "true"
         -#= "Please provide your name or nickname"
-        = f.hidden_field :anonymous_display_name,:value=>"Please provide your name or nickname",:onclick=>"this.value='';",:style=>"width:256px;border:2px inset #{current_group.supplementary};font-weight:bold;color:#{current_group.supplementary};margin:2px 0"
+        = f.hidden_field :anonymous_display_name,:value=>"Please provide your name or nickname",:onclick=>"this.value='';",:style=>"width:256px;border:2px inset #{current_group.supplementary};font-weight:bold;color:#{current_group.supplementary};margin:16px"
 
       .group
         -#= "Please provide your email address so we can notify you when your question is answered"
-        = f.hidden_field :anonymous_email,:value=>"me@mycompany.com",:onclick=>"this.value='';",:style=>"width:256px;border:2px inset #{current_group.supplementary};font-weight:bold;color:#{current_group.supplementary};margin:2px 0"
+        = f.hidden_field :anonymous_email,:value=>"me@mycompany.com",:onclick=>"this.value='';",:style=>"width:256px;border:2px inset #{current_group.supplementary};font-weight:bold;color:#{current_group.supplementary};margin:16px"
 
     .group
       = submit_tag "#{current_group.quick_create_label}", :class => "submit-button", :style => "/**/"
     .clear
-    .note{:style=>"font-size:11px;font-weight:bold;text-align:center;margin-top:4px"}
+    .note{:style=>"font-size:11px;font-weight:bold;text-align:center;margin:16px"}
       = "We will not share your private information"
   .clear
 .clear

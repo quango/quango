@@ -3,7 +3,7 @@
 
 
 
-\.submit-button{border-radius:16px;text-transform:uppercase;letter-spacing:-1px;width:480px;height:64px:font-weight:bold;font-size:1.5em;margin-top:16px;margin-bottom:4px; float:right;line-height:64px;}
+\.submit-button{border-radius:16px;text-transform:uppercase;letter-spacing:-1px;width:480px;height:56px:font-weight:bold;font-size:1.5em;margin-top:8px;margin-bottom:4px;margin:16px;line-height:56px;color:white}
 
 \ul{list-style-type:none;padding:0}
 \body{margin:0;padding:0;color:white}
@@ -14,23 +14,25 @@
 
 \#toolbar-mobile{z-index: 100;height: 64px; width: 100%;background: -webkit-gradient(linear,left top,left bottom,from(#525051),to(#000000));background: -moz-linear-gradient(top,#525051,#000000);filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,endColorstr='#000000',startColorstr='#525051');}
 
-\.toolbar-container-mobile{width:512px;margin:0 auto; border-right:1px solid #{grp.primary_dark};}
+\.toolbar-container-mobile{width:512px;margin:0 auto;}
 
 
 \#logo-mobile {margin:0;}
 
 \#logo-mobile {background:-webkit-gradient(linear,left top,left bottom,from(#{grp.primary_dark}),to(#{grp.secondary}));background:-moz-linear-gradient(top,#{grp.primary_dark},#{grp.tertiary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,endColorstr='#{grp.tertiary}',startColorstr='#{grp.primary_dark}');}
 
-\.logo-container-mobile{width:512px;margin:0 auto; border-right:1px solid #{grp.primary_dark};}
+\.logo-container-mobile{width:512px;margin:0 auto;}
 
 \#fold{margin:0;}
 
 
 -#\#fold{background:-webkit-gradient(linear,left top,left bottom,from(#{grp.primary_dark}),to(#{grp.tertiary}));background:-moz-linear-gradient(top,#{grp.primary_dark},#{grp.tertiary});filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,endColorstr='#{grp.tertiary}',startColorstr='#{grp.primary_dark}');}
 
+\#fold.a{cursor:pointer}
+
 \#fold{
 border-top: 1px solid #222222;
-border-bottom: 1px solid #111111;
+-#border-bottom: 1px solid #111111;
 background: #{grp.primary_dark}; /* Old browsers */
 background: -moz-linear-gradient(top, #111111 0%, #{grp.primary_dark} 40%, #{grp.primary_dark} 60%, #{grp.primary} 100%); /* FF3.6+ */
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#{grp.primary}), color-stop(24%,#{grp.primary_dark}), color-stop(76%,#{grp.primary}), color-stop(100%,#{grp.primary_dark})); /* Chrome,Safari4+ */
@@ -41,7 +43,36 @@ background: linear-gradient(top, #{grp.primary} 0%,#{grp.primary_dark} 50%,#{grp
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{grp.primary_dark}', endColorstr='#{grp.primary_dark}',GradientType=0 ); /* IE6-9 */
 }
 
-\.fold{width:512px;height:64px;margin:0 auto; border-right:1px solid #{grp.primary_dark};
+
+\.footer-mobile{
+border-top: 1px solid #{grp.primary};
+}
+
+\button.create-button{
+border-radius: 8px;
+color:white;
+font-weight:bold;
+font-size:1.5em;
+
+border: 2px outset #{grp.tertiary};
+text-shadow: -1px -1px 1px black;
+height:32px;
+width:240px;
+-#border-bottom: 1px solid #111111;
+background: #{grp.primary_dark}; /* Old browsers */
+background: -moz-linear-gradient(top, #111111 0%, #{grp.primary_dark} 40%, #{grp.primary_dark} 60%, #{grp.primary} 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#{grp.primary}), color-stop(24%,#{grp.primary_dark}), color-stop(76%,#{grp.primary}), color-stop(100%,#{grp.primary_dark})); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #{grp.primary} 0%,#{grp.primary_dark} 50%,#{grp.primary_dark} 60%,#{grp.primary_dark} 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #{grp.primary} 0%,#{grp.primary_dark} 50%,#{grp.secondary} 51%,#{grp.primary_dark} 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #{grp.primary} 0%,#{grp.primary_dark} 50%,#{grp.secondary} 51%,#{grp.primary_dark} 100%); /* IE10+ */
+background: linear-gradient(top, #{grp.primary} 0%,#{grp.primary_dark} 50%,#{grp.secondary} 51%,#{grp.primary_dark} 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{grp.primary_dark}', endColorstr='#{grp.primary_dark}',GradientType=0 ); /* IE6-9 */
+}
+
+
+\button.create-button:hover{border: 2px outset #{grp.tertiary};cursor:pointer;}
+
+\.fold{width:512px;height:64px;margin:0 auto;
 
 }
 

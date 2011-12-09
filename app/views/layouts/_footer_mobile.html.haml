@@ -1,44 +1,49 @@
 
 
-.footer-mobile{:style=>"width:480px;padding:8px 16px;margin:0 auto;font-size:0.7em;"}
+.footer-mobile{:style=>"width:480px;padding:8px 0;margin:16px auto;font-size:0.7em;border-top:1px solid #{current_group.primary};border-radius:0 0 8px 8px"}
   .footer
-    .notice{:style=>"margin:0"}
+    .left{:style=>"margin:0;width:240px"}
+      = link_to "moFAQ", "http://moFAQ.com", :title => "Every business needs a mobile FAQ", :style=>"font-weight:bold;letter-spacing:-1px;"
+      = " v" + AppConfig.version.to_s
+      - if @render_start
+        - rendering_stop = Time.now
+        - rendering_time = rendering_stop - @render_start
+        = "#{rendering_time}"
+      = "<a style='border-radius:2px;background-color: #{current_group.secondary};color:white;padding:0 4px;letter-spacing:-1px;font-size:10px;font-weight:normal;'>BETA</a>"
+      = "|"
+      =  link_to "credits","/about/credits"
+      %br
+      = "view: <a href=\'/\'>classic</a> | mobile"
+    .right{:style=>"width:240px;height32px",:class=>"create-button"}
+      %button.create-button
+        = "Create your mobile FAQ"
+      %br
+        .resellers{:style=>"text-align:center"}
+          = "Resellers <a>click here</a>"
+    .clear
+
+    .clear
+
+
+
+    -if logged_in? && current_user.owner_of?(current_group)
       .entry.left
-        = link_to "moFAQ", "http://moFAQ.com", :title => "Every business needs a mobile FAQ", :style=>"font-weight:bold;letter-spacing:-1px;"
-        = " v" + AppConfig.version.to_s
-        - if @render_start
-          - rendering_stop = Time.now
-          - rendering_time = rendering_stop - @render_start
-          = "#{rendering_time}"
-        = "<a style='border-radius:2px;background-color: #{current_group.secondary};color:white;padding:0 4px;letter-spacing:-1px;font-size:10px;font-weight:normal;'>BETA</a>"
-        = "|"
-        =  link_to "credits","/about/credits"
-        .clear
+        = "<a href=\'#\' onclick=\'javascript:open(location,\'/\',\'innerWidth=\'+(320+15)+\',innerHeight=\'+(480+15)+\',scrollbars=yes\');\'>mobile test</a>"
+        %hr
+        - ua = request.env['HTTP_USER_AGENT'].downcase
+        = "#{ua}"
 
+      .debug
+        = "Group: #{current_group.id} / #{current_group.name}"
+      .entry.left
+        = "Parent:"
+        - if current_group.parent_id
+          = "#{current_group.parent_id}"
+        - else
+          = "Not set"
 
-
-
-        .clear
-        .entry.left
-          = "view: <a href=\'/\'>classic</a> | mobile"
-      -if logged_in? && current_user.owner_of?(current_group)
-        .entry.left
-          = "<a href=\'#\' onclick=\'javascript:open(location,\'/\',\'innerWidth=\'+(320+15)+\',innerHeight=\'+(480+15)+\',scrollbars=yes\');\'>mobile test</a>"
-          %hr
-          - ua = request.env['HTTP_USER_AGENT'].downcase
-          = "#{ua}"
-
-        .debug
-          = "Group: #{current_group.id} / #{current_group.name}"
-        .entry.left
-          = "Parent:"
-          - if current_group.parent_id
-            = "#{current_group.parent_id}"
-          - else
-            = "Not set"
-
-      -else
-        = "&nbsp;"
+    -else
+      = "&nbsp;"
 
 
 

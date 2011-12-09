@@ -50,7 +50,7 @@
       #logo-container{:style=>"background-image:url(\'#{current_group.header_bg_image}\');background-repeat:repeat-x;"}
 
         .logo-container-inner{:style => "height:#{current_group.logo_info['height']}px"}
-          -if current_group.logo_only?
+          -if !current_group.logo_only?
             .logo-text
               .filling
                 .left
