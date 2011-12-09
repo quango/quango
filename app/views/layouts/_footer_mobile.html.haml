@@ -16,33 +16,18 @@
       = "view: <a href=\'/\'>classic</a> | mobile"
     .right{:style=>"width:240px;height32px",:class=>"create-button"}
       %button.create-button
-        = "Create your mobile FAQ"
+        
+        = link_to "Create your mobile FAQ", "#{new_group_path}/?mobile=true"
       %br
         .resellers{:style=>"text-align:center"}
           = "Resellers <a>click here</a>"
     .clear
 
-    .clear
 
+    - if logged_in? && current_user.owner_of?(current_group)
+      = render :partial => "layouts/debug"
 
-
-    -if logged_in? && current_user.owner_of?(current_group)
-      .entry.left
-        = "<a href=\'#\' onclick=\'javascript:open(location,\'/\',\'innerWidth=\'+(320+15)+\',innerHeight=\'+(480+15)+\',scrollbars=yes\');\'>mobile test</a>"
-        %hr
-        - ua = request.env['HTTP_USER_AGENT'].downcase
-        = "#{ua}"
-
-      .debug
-        = "Group: #{current_group.id} / #{current_group.name}"
-      .entry.left
-        = "Parent:"
-        - if current_group.parent_id
-          = "#{current_group.parent_id}"
-        - else
-          = "Not set"
-
-    -else
+    - else
       = "&nbsp;"
 
 

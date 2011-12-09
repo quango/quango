@@ -59,11 +59,16 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :create, :action => :new, :as => "add"
   map.root :controller => "welcome"
 
+  #if current_group.group_type == "mobile"
+   # doctypes_rewrite = "mo"
+  #else
+   # doctypes_rewrite = "member"
+  #end
 
   def build_items_routes(router, options ={})
     router.with_options(options) do |route|
       route.se_url "/:doctype/:id/:slug", :controller => "items", :action => "show", :section => /\d+/, :id => /\d+/, :conditions => { :method => :get }
-      route.resources :doctypes, :as => 'member' do |doctypes|
+      route.resources :doctypes, :as => "member" do |doctypes|
 
         doctypes.resources :items, 
                            :collection => {:get_video_info => :get, :tags => :get,:tags_for_autocomplete => :get,:unanswered => :get,:related_items => :get},

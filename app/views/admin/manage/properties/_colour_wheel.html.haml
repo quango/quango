@@ -1,0 +1,56 @@
+-require_js "modules/colour_wheel"
+
+-content_for :inner_title do
+  %h1
+    = "Choose a colour"
+
+
+#colour-wheel{:style=>"height:480px;width:480px;backgrouns:pink"}
+  .wheel
+
+    = "<img src=\"/images/colour_wheel_temp.png\">"
+
+  .clear
+  .group
+    = "Use complementary colours http://colorschemedesigner.com/"
+
+  .group{:style=>"float:left; width:96px;"}
+    .swatch{:style => "background: #{current_group.primary_dark}"}
+    = f.text_field :primary_dark, :class => "text_field_short"
+    .mobile_label
+      = "Dark"
+
+  .group{:style=>"float:left; width:96px;"}
+    .swatch{:style => "background: #{current_group.primary}"}
+    = f.text_field :primary, :class => "text_field_short"
+    .mobile_label
+      = "Primary"
+
+  .group{:style=>"float:left; width:96px;"}
+    .swatch{:style => "background: #{current_group.secondary}"}
+
+    = f.text_field :secondary, :class => "text_field_short"
+    .mobile_label
+      = "Secondary"
+
+  .group{:style=>"float:left; width:96px;"}
+    .swatch{:style => "background: #{current_group.tertiary}"}
+
+    = f.text_field :tertiary, :class => "text_field_short"
+
+    .mobile_label
+      = "Tertiary"
+
+.clear
+
+.target{:style=>"border:1px solid pink;"}
+
+.group
+  = f.submit t('scaffold.update'), :class => "submit-button"
+.clear
+
+
+
+
+
+

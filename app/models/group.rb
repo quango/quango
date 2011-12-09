@@ -14,11 +14,16 @@ class Group
 
   key :_id, String
   key :parent_id, String #this will be used for groups hierarchies
+  key :group_type, String, :default => "classic"
 
   key :sandwich_top, String
 
+  key :title, String
   key :name, String, :required => true
   key :name_link, String
+
+  slug_key :title, :unique => false, :min_length => 4
+  key :slugs, Array, :index => true
 
   key :other_groups_facebook, String, :default => "http://www.facebook.com"
   key :other_groups_linkedin, String, :default => "http://www.linkedin.com"
@@ -298,6 +303,8 @@ class Group
       self[:domain] = "#{subdomain}.#{AppConfig.domain}"
     end
   end
+
+
 
   def disallow_javascript
     unless self.has_custom_js

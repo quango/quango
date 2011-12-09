@@ -1,216 +1,240 @@
 -require_js "modules/themes"
+- is_mobile = params[:mobile]
 
-%h2
-  = "Group Naming Conventions "
+-content_for :inner_title do
+  %h1
+    = "Choose a name"
 
-%hr
-
-.group
-  = form.check_box :disable_signups, :class => "checkbox"
-  = form.label :disable_signups, "Disable [public sign ups", :class => "radio"
-
-%hr
-
-%div{:style => "float:left"}
-  .group{:style => "width:312px;float:left"}
-    = form.label :name, h('Unique group name'), :class => "label"
-    = form.text_field :name, :class => "text_field", :value => params[:name]
-
-  .group{:style => "width:312px;float:right"}
-    = form.label :name_link, h('Group link'), :class => "label"
-    = form.text_field :name_link, :class => "text_field"
-    
-  .description
-    = "Each group must have a unique identifier"
-
-.clear
-
-
-
-
-%hr
-
-
-
-%div
-  %div{:style => "width:312px;float:left"}
+- if is_mobile
+  = form.hidden_field :group_type, :value=>"mobile"
+  %div{:style => "float:480px"}
+    .group{:style => "width:312px;float:left"}
+      = form.label :name, h('Unique group name'), :class => "label"
+      = form.text_field :name, :class => "text_field", :value => params[:name]
+    .clear
     .group
-      = form.label :welcome_layout, h('Welcome layout'), :class => "label"
-      = form.text_field :welcome_layout, :class => "text_field", :value => params[:name]
+      = form.label :subdomain, "URL", :class => "label"
+      %div
+        %span.description
+          ="#{request.protocol}"
+        = form.text_field :subdomain, :class=>"text_field", :style => "width: 20%"
+        %span.description
+          = ".#{request.domain}"
 
-    .group
-      = form.check_box :has_welcome_features, :class => "checkbox"
-      = form.label :has_welcome_features, "Show Welcome Features", :class => "radio"
+- if !is_mobile
 
-    .group
-      = form.check_box :has_video_on_homepage, :class => "checkbox"
-      = form.label :has_video_on_homepage, "Show Video on Homepage", :class => "radio"
 
-    .group
-      = form.check_box :above_the_fold, :class => "checkbox"
-      = form.label :above_the_fold, "Show above the fold", :class => "radio"
+  %h2
+    = "Group Naming Conventions "
 
-    .group
-      = form.check_box :below_the_fold, :class => "checkbox"
-      = form.label :below_the_fold, "Show below the fold", :class => "radio"
+  %hr
 
-    .group
-      = form.check_box :has_product_gallery, :class => "checkbox"
-      = form.label :has_product_gallery, "Show Product Gallery", :class => "radio"
+  .group
+    = form.check_box :disable_signups, :class => "checkbox"
+    = form.label :disable_signups, "Disable [public sign ups", :class => "radio"
 
-    .group
-      = form.check_box :has_quick_create, :class => "checkbox"
-      = form.label :has_quick_create, "Show quick create", :class => "radio"
-
-    .group
-      = form.check_box :show_context_navigation, :class => "checkbox"
-      = form.label :show_context_navigation, "Show the contextual navigation, usually only off for small groups (SiGs)", :class => "radio"
-
-%div
-  %div{:style => "width:312px;float:left"}
-    .group
-      = form.label :display_name_i, h('Display name #1'), :class => "label"
-      = form.text_field :display_name_i, :class => "text_field", :value => params[:name]
-
-    .group{:class => "small"}
-      = form.label :display_name_i_link, h('Display name #1 link'), :class => "label"
-      = form.text_field :display_name_i_link, :class => "text_field"
-
-  %div{:style => "width:312px;float:left"}
-    .group
-      = form.label :display_name_ii, h('Display name #2'), :class => "label"
-      = form.text_field :display_name_ii, :class => "text_field", :value => params[:name]
-
-    .group
-      = form.label :display_name_ii_link, h('Display name #2 link'), :class => "label"
-      = form.text_field :display_name_ii_link, :class => "text_field"
+  %hr
 
   %div{:style => "float:left"}
-    .group
-      = form.label :legend, h('Legend'), :class => "label"
-      = form.text_field :legend, :class => "text_field"
-      .description
-        = "This appears in the very last part of the page title "
+    .group{:style => "width:312px;float:left"}
+      = form.label :name, h('Unique group name'), :class => "label"
+      = form.text_field :name, :class => "text_field", :value => params[:name]
+
+    .group{:style => "width:312px;float:right"}
+      = form.label :name_link, h('Group link'), :class => "label"
+      = form.text_field :name_link, :class => "text_field"
+      
+    .description
+      = "Each group must have a unique identifier"
 
   .clear
 
 
-  %div{:style => "width:312px;float:left"}
-    .group
-      = form.label :strapline, h('Strapline'), :class => "label"
-      = form.text_field :strapline, :class => "text_field"
-    .description
-      = "Unless this is left blank the strapline will appear next to the logo"
-%hr
+
+
+  %hr
 
 
 
-
-%hr
-
-.group
-  = form.label :publish_label, t('publish_label', :scope => "activerecord.attributes.group"), :class => "label"
-  = form.text_field :publish_label, :class => "text_field"
-
-.group
-  = form.label :signup_heading, t('signup_heading', :scope => "activerecord.attributes.group"), :class => "label"
-  = form.text_field :signup_heading, :class => "text_field"
-
-.group
-  = form.label :leaders_label, t('leaders_label', :scope => "activerecord.attributes.group"), :class => "label"
-  = form.text_field :leaders_label, :class => "text_field"
-
-.group
-  = form.label :about_label, t('about_label', :scope => "activerecord.attributes.group"), :class => "label"
-  = form.text_field :about_label, :class => "text_field"
-
-
-.group
-  = form.label :subdomain, "URL", :class => "label"
   %div
-    %span.description
-      ="#{request.protocol}"
-    = form.text_field :subdomain, :class=>"text_field", :style => "width: 20%"
-    %span.description
-      = ".#{request.domain}"
+    %div{:style => "width:312px;float:left"}
+      .group
+        = form.label :welcome_layout, h('Welcome layout'), :class => "label"
+        = form.text_field :welcome_layout, :class => "text_field", :value => params[:name]
 
--if current_user.admin?
-  .group
-    = form.label :domain,  t('domain', :scope => "activerecord.attributes.group"), :class => "label"
-    %span.description
-      =request.protocol
-    = form.text_field :domain, :class=> "text_field", :style => "width: 20%"
+      .group
+        = form.check_box :has_welcome_features, :class => "checkbox"
+        = form.label :has_welcome_features, "Show Welcome Features", :class => "radio"
 
--if true
-  .group
-    = form.check_box :isolate, :class => "checkbox"
-    = form.label :isolate, t(".isolate_group"), :class => "radio"
-  .group
-    = form.check_box :private, :class => "checkbox"
-    = form.label :private, t(".members_only"), :class => "radio"
-  .group
-    = form.check_box :hidden, :class => "checkbox"
-    = form.label :hidden, h("Hide this group?"), :class => "radio"
-  .group
-    = form.check_box :has_custom_html, :class => "checkbox"
-    = form.label :has_custom_html, t(".custom_html"), :class => "radio"
-  .group
-    = form.check_box :has_custom_js, :class => "checkbox"
-    = form.label :has_custom_js, t(".custom_js"), :class => "radio"
+      .group
+        = form.check_box :has_video_on_homepage, :class => "checkbox"
+        = form.label :has_video_on_homepage, "Show Video on Homepage", :class => "radio"
+
+      .group
+        = form.check_box :above_the_fold, :class => "checkbox"
+        = form.label :above_the_fold, "Show above the fold", :class => "radio"
+
+      .group
+        = form.check_box :below_the_fold, :class => "checkbox"
+        = form.label :below_the_fold, "Show below the fold", :class => "radio"
+
+      .group
+        = form.check_box :has_product_gallery, :class => "checkbox"
+        = form.label :has_product_gallery, "Show Product Gallery", :class => "radio"
+
+      .group
+        = form.check_box :has_quick_create, :class => "checkbox"
+        = form.label :has_quick_create, "Show quick create", :class => "radio"
+
+      .group
+        = form.check_box :show_context_navigation, :class => "checkbox"
+        = form.label :show_context_navigation, "Show the contextual navigation, usually only off for small groups (SiGs)", :class => "radio"
+
+  %div
+    %div{:style => "width:312px;float:left"}
+      .group
+        = form.label :display_name_i, h('Display name #1'), :class => "label"
+        = form.text_field :display_name_i, :class => "text_field", :value => params[:name]
+
+      .group{:class => "small"}
+        = form.label :display_name_i_link, h('Display name #1 link'), :class => "label"
+        = form.text_field :display_name_i_link, :class => "text_field"
+
+    %div{:style => "width:312px;float:left"}
+      .group
+        = form.label :display_name_ii, h('Display name #2'), :class => "label"
+        = form.text_field :display_name_ii, :class => "text_field", :value => params[:name]
+
+      .group
+        = form.label :display_name_ii_link, h('Display name #2 link'), :class => "label"
+        = form.text_field :display_name_ii_link, :class => "text_field"
+
+    %div{:style => "float:left"}
+      .group
+        = form.label :legend, h('Legend'), :class => "label"
+        = form.text_field :legend, :class => "text_field"
+        .description
+          = "This appears in the very last part of the page title "
+
+    .clear
 
 
-  .group
-    = form.label :description,  t('description', :scope => "activerecord.attributes.group"), :class => "label"
-    -if current_group.wysiwyg_editor
-      = form.text_area :description, :class => "text_area", :id => "wysiwyg_editor", :value => markdown(@group.description)
-    -else
-      = form.text_area :description, :class => "text_area", :id => "markdown_editor"
+    %div{:style => "width:312px;float:left"}
+      .group
+        = form.label :strapline, h('Strapline'), :class => "label"
+        = form.text_field :strapline, :class => "text_field"
       .description
-        = t('.description_legend')
-      %label.label
-        = t("global.preview")
-      #markdown_preview.markdown
-        =markdown(@group.description)
+        = "Unless this is left blank the strapline will appear next to the logo"
+  %hr
+
+
+
+
+  %hr
 
   .group
-    = form.check_box :wysiwyg_editor, :class => "checkbox"
-    = form.label :wysiwyg_editor, t('wysiwyg_editor', :scope => "activerecord.attributes.group"), :class => "radio"
+    = form.label :publish_label, t('publish_label', :scope => "activerecord.attributes.group"), :class => "label"
+    = form.text_field :publish_label, :class => "text_field"
 
   .group
-    = form.check_box :fb_button, :class => "checkbox"
-    = form.label :fb_button, t('fb_button', :scope => "activerecord.attributes.group"), :class => "radio"
-
-  %h2
-    = t(".access")
+    = form.label :signup_heading, t('signup_heading', :scope => "activerecord.attributes.group"), :class => "label"
+    = form.text_field :signup_heading, :class => "text_field"
 
   .group
-    = form.check_box :forum, :class => "checkbox"
-    = form.label :forum, t('forum', :scope => "activerecord.attributes.group"), :class => "radio"
+    = form.label :leaders_label, t('leaders_label', :scope => "activerecord.attributes.group"), :class => "label"
+    = form.text_field :leaders_label, :class => "text_field"
 
   .group
-    = form.check_box :openid_only, :class => "checkbox"
-    = form.label :openid_only, t('openid_only', :scope => "activerecord.attributes.group"), :class => "radio"
+    = form.label :about_label, t('about_label', :scope => "activerecord.attributes.group"), :class => "label"
+    = form.text_field :about_label, :class => "text_field"
+
 
   .group
-    = form.check_box :registered_only, :class => "checkbox"
-    = form.label :registered_only, t('registered_only', :scope => "activerecord.attributes.group"), :class => "radio"
+    = form.label :subdomain, "URL", :class => "label"
+    %div
+      %span.description
+        ="#{request.protocol}"
+      = form.text_field :subdomain, :class=>"text_field", :style => "width: 20%"
+      %span.description
+        = ".#{request.domain}"
+
+  -if current_user.admin?
+    .group
+      = form.label :domain,  t('domain', :scope => "activerecord.attributes.group"), :class => "label"
+      %span.description
+        =request.protocol
+      = form.text_field :domain, :class=> "text_field", :style => "width: 20%"
+
+  -if true
+    .group
+      = form.check_box :isolate, :class => "checkbox"
+      = form.label :isolate, t(".isolate_group"), :class => "radio"
+    .group
+      = form.check_box :private, :class => "checkbox"
+      = form.label :private, t(".members_only"), :class => "radio"
+    .group
+      = form.check_box :hidden, :class => "checkbox"
+      = form.label :hidden, h("Hide this group?"), :class => "radio"
+    .group
+      = form.check_box :has_custom_html, :class => "checkbox"
+      = form.label :has_custom_html, t(".custom_html"), :class => "radio"
+    .group
+      = form.check_box :has_custom_js, :class => "checkbox"
+      = form.label :has_custom_js, t(".custom_js"), :class => "radio"
+
+
+    .group
+      = form.label :description,  t('description', :scope => "activerecord.attributes.group"), :class => "label"
+      -if current_group.wysiwyg_editor
+        = form.text_area :description, :class => "text_area", :id => "wysiwyg_editor", :value => markdown(@group.description)
+      -else
+        = form.text_area :description, :class => "text_area", :id => "markdown_editor"
+        .description
+          = t('.description_legend')
+        %label.label
+          = t("global.preview")
+        #markdown_preview.markdown
+          =markdown(@group.description)
+
+    .group
+      = form.check_box :wysiwyg_editor, :class => "checkbox"
+      = form.label :wysiwyg_editor, t('wysiwyg_editor', :scope => "activerecord.attributes.group"), :class => "radio"
+
+    .group
+      = form.check_box :fb_button, :class => "checkbox"
+      = form.label :fb_button, t('fb_button', :scope => "activerecord.attributes.group"), :class => "radio"
+
+    %h2
+      = t(".access")
+
+    .group
+      = form.check_box :forum, :class => "checkbox"
+      = form.label :forum, t('forum', :scope => "activerecord.attributes.group"), :class => "radio"
+
+    .group
+      = form.check_box :openid_only, :class => "checkbox"
+      = form.label :openid_only, t('openid_only', :scope => "activerecord.attributes.group"), :class => "radio"
+
+    .group
+      = form.check_box :registered_only, :class => "checkbox"
+      = form.label :registered_only, t('registered_only', :scope => "activerecord.attributes.group"), :class => "radio"
+
+    .group
+      = form.check_box :has_adult_content, :class => "checkbox"
+      = form.label :has_adult_content, t('may_contain_adult_content', :scope => "activerecord.attributes.group"), :class => "radio"
+
+  %hr
+
 
   .group
-    = form.check_box :has_adult_content, :class => "checkbox"
-    = form.label :has_adult_content, t('may_contain_adult_content', :scope => "activerecord.attributes.group"), :class => "radio"
-
-%hr
+    = form.check_box :has_bunnies, :class => "checkbox"
+    = form.label :has_bunnies, t('has_bunnies', :scope => "activerecord.attributes.group"), :class => "radio"
 
 
-.group
-  = form.check_box :has_bunnies, :class => "checkbox"
-  = form.label :has_bunnies, t('has_bunnies', :scope => "activerecord.attributes.group"), :class => "radio"
-
-
--if AppConfig.enable_i18n
-  .group
-    = form.label :language, t(:language, :scope => "activerecord.attributes.group"), :class => "label"
-    = form.select :language, AVAILABLE_LANGUAGES.collect {|lang| [ language_desc(lang), lang ] }+[[t(".any_language"), 'none']], :selected => @group.language || 'none', :class => "select"
--else
-  = form.hidden_field :language, :value => (AppConfig.default_language || 'en')
+  -if AppConfig.enable_i18n
+    .group
+      = form.label :language, t(:language, :scope => "activerecord.attributes.group"), :class => "label"
+      = form.select :language, AVAILABLE_LANGUAGES.collect {|lang| [ language_desc(lang), lang ] }+[[t(".any_language"), 'none']], :selected => @group.language || 'none', :class => "select"
+  -else
+    = form.hidden_field :language, :value => (AppConfig.default_language || 'en')
 

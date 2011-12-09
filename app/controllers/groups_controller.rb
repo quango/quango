@@ -93,11 +93,13 @@ class GroupsController < ApplicationController
   def edit
   end
 
+
+
   # POST /groups
   # POST /groups.json
   def create
     @group = Group.new
-    @group.safe_update(%w[name name_highlight legend description default_tags subdomain logo logo_path favicon_path forum
+    @group.safe_update(%w[name group_type name_highlight legend description default_tags subdomain logo logo_path favicon_path forum
                           custom_favicon language theme custom_css wysiwyg_editor], params[:group])
 
     @group.safe_update(%w[isolate domain private], params[:group]) if current_user.admin?
@@ -105,6 +107,11 @@ class GroupsController < ApplicationController
     @group.parent_id = current_group
     @group.owner = current_user
     @group.state = "active"
+
+
+    slug = @group.name
+
+    @group.subdomain = slug.to_slug
 
     #@group.widgets << TopUsersWidget.new
     #@group.widgets << UsersWidget.new
@@ -115,9 +122,11 @@ class GroupsController < ApplicationController
     doctypes << Doctype.new(:name => "questions", :doctype => "standard", :create_label => "Ask a question", :created_label => "asked a question", :group_id => @group.id)
     #doctypes << Doctype.new(:name => "links",:has_links => "true", :doctype => "bookmark", :create_label => "Share a link", :created_label => "shared a link", :group_id => @group.id)
 
+    @group.quick_create = doctypes.first
 
     doctypes.each do |doctype| 
      doctype.hidden = true
+
      doctype.save!
      puts "saved #{doctype}"
      #doctype.state = active
@@ -161,13 +170,22 @@ class GroupsController < ApplicationController
     end
 
     puts "Ending standard page creation /n"
+    #@group.subdomain = group.name
+
 
     respond_to do |format|
       if @group.save
         @group.add_member(current_user, "owner")
         flash[:notice] = I18n.t("groups.create.flash_notice")
-        format.html { redirect_to(domain_url(:custom => @group.domain, :controller => "admin/manage", :action => "properties")) }
-        format.json  { render :json => @group.to_json, :status => :created, :location => @group }
+
+        if @group.group_type == "mobile"
+          format.html { redirect_to(domain_url(:custom => @group.domain, :controller => "admin/manage", :action => "properties") << "?tab=colour_wheel") }
+          format.json  { render :json => @group.to_json, :status => :created, :location => @group }
+        else
+          format.html { redirect_to(domain_url(:custom => @group.domain, :controller => "admin/manage", :action => "properties")) }
+          format.json  { render :json => @group.to_json, :status => :created, :location => @group }
+        end
+
       else
         format.html { render :action => "new" }
         format.json { render :json => @group.errors, :status => :unprocessable_entity }
@@ -205,7 +223,9 @@ class GroupsController < ApplicationController
 
     respond_to do |format|
       if @group.save
-        flash[:notice] = 'Group was successfully updated.' # TODO: i18n
+        if @group.group_type != "mobile"
+          flash[:notice] = 'Group was successfully updated.' # TODO: i18n
+        end
         format.html { redirect_to(params[:source] ? params[:source] : group_path(@group)) }
         format.json  { head :ok }
       else
@@ -355,6 +375,11 @@ class GroupsController < ApplicationController
   end
 
   protected
+
+
+  
+
+
   def check_permissions
     @group = Group.find_by_slug_or_id(params[:id])
 

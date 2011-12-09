@@ -9,7 +9,7 @@
 
 
 
-  - form_for(item, :url => new_item_path(doctype), :html => {:class => "form",:method => "get"}) do |f|
+  - form_for(item, :url => new_item_path(current_group.quick_create), :html => {:class => "form",:method => "get"}) do |f|
     = render :partial => "items/form_quick_create_mobile", :locals => {:f => f, :doctype => doctype}
 
 .clear

@@ -1,9 +1,11 @@
 - grp = current_group
 
+\.text_field{width:442px;height:1.5em;border-radius:16px;border: 4px solid silver;font-size:2em;font-family:"Arial Black";font-weight:bold;padding:4px 16px;margin:32px 0 16px 0; background: -webkit-gradient(linear,left left,right right,from(#dcdcdc),to(#ffffff))}
+
+\.swatch{height:64px;width:128px;border:3px solid white}
+\.text_field_short{width:64px;}
 
 
-
-\.submit-button{border-radius:16px;text-transform:uppercase;letter-spacing:-1px;width:480px;height:56px:font-weight:bold;font-size:1.5em;margin-top:8px;margin-bottom:4px;margin:16px;line-height:56px;color:white}
 
 \ul{list-style-type:none;padding:0}
 \body{margin:0;padding:0;color:white}
@@ -12,9 +14,9 @@
 \.clear{clear:both}
 
 
-\#toolbar-mobile{z-index: 100;height: 64px; width: 100%;background: -webkit-gradient(linear,left top,left bottom,from(#525051),to(#000000));background: -moz-linear-gradient(top,#525051,#000000);filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,endColorstr='#000000',startColorstr='#525051');}
+\#toolbar-mobile{z-index: 100;height: 56px;line-height:56px; width: 100%;background: -webkit-gradient(linear,left top,left bottom,from(#525051),to(#000000));background: -moz-linear-gradient(top,#525051,#000000);filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,endColorstr='#000000',startColorstr='#525051');}
 
-\.toolbar-container-mobile{width:512px;margin:0 auto;}
+\.toolbar-container-mobile{width:510px;height:56px;margin:0 auto;border-left:1px solid black; border-right:1px solid black}
 
 
 \#logo-mobile {margin:0;}
@@ -48,11 +50,36 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{grp.primary
 border-top: 1px solid #{grp.primary};
 }
 
-\button.create-button{
+
+\.reputation{
 border-radius: 8px;
 color:white;
 font-weight:bold;
 font-size:1.5em;
+
+border: 2px outset #{grp.tertiary};
+text-shadow: -1px -1px 1px black;
+height:32px;
+width:240px;
+-#border-bottom: 1px solid #111111;
+background: #{grp.primary_dark}; /* Old browsers */
+background: -moz-linear-gradient(top, #111111 0%, #{grp.primary_dark} 40%, #{grp.primary_dark} 60%, #{grp.primary} 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#{grp.primary}), color-stop(24%,#{grp.primary_dark}), color-stop(76%,#{grp.primary}), color-stop(100%,#{grp.primary_dark})); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #{grp.primary} 0%,#{grp.primary_dark} 50%,#{grp.primary_dark} 60%,#{grp.primary_dark} 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #{grp.primary} 0%,#{grp.primary_dark} 50%,#{grp.secondary} 51%,#{grp.primary_dark} 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #{grp.primary} 0%,#{grp.primary_dark} 50%,#{grp.secondary} 51%,#{grp.primary_dark} 100%); /* IE10+ */
+background: linear-gradient(top, #{grp.primary} 0%,#{grp.primary_dark} 50%,#{grp.secondary} 51%,#{grp.primary_dark} 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{grp.primary_dark}', endColorstr='#{grp.primary_dark}',GradientType=0 ); /* IE6-9 */
+}
+
+\.submit-button{border:4px outset gainsboro;font-family:"Arial Black";border-radius:16px;text-transform:uppercase;letter-spacing:-1px;width:480px;height:56px:font-weight:bold;font-size:2em;margin-top:8px;margin-bottom:4px;line-height:56px;color:white; font-weight:bold; text-shadow:-2px -2px -4px black;}
+
+\button.create-button{
+height:1em;border-radius:16px;border: 4px outset silver;font-size:1em;font-family:"Arial Black";font-weight:bold;padding:4px 16px;margin:32px 0 16px 0;
+border-radius: 8px;
+color:white;
+font-weight:bold;
+
 
 border: 2px outset #{grp.tertiary};
 text-shadow: -1px -1px 1px black;
@@ -81,7 +108,20 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{grp.primary
 
 
 
-\input.submit-button{background: -webkit-gradient(linear,left top,left bottom,from(#{grp.supplementary_dark}),to(#{grp.supplementary}));background: -moz-linear-gradient(bottom,#{grp.supplementary},#{grp.supplementary_dark});filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{grp.supplementary_dark}',endColorstr='#{grp.supplementary}')}
+\input.submit-button{
+
+background: #{grp.supplementary_dark}; /* Old browsers */
+background: -moz-linear-gradient(top, #111111 0%, #{grp.supplementary_dark} 40%, #{grp.supplementary_dark} 60%, #{grp.supplementary} 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#{grp.supplementary}), color-stop(50%,#{grp.supplementary_dark}), color-stop(60%,#{grp.supplementary_dark}), color-stop(100%,#{grp.supplementary_dark})); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #{grp.supplementary} 0%,#{grp.supplementary_dark} 50%,#{grp.supplementary_dark} 60%,#{grp.supplementary_dark} 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #{grp.supplementary} 0%,#{grp.supplementary_dark} 50%,#{grp.secondary} 51%,#{grp.supplementary_dark} 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #{grp.supplementary} 0%,#{grp.supplementary_dark} 50%,#{grp.secondary} 51%,#{grp.supplementary_dark} 100%); /* IE10+ */
+background: linear-gradient(top, #{grp.supplementary} 0%,#{grp.supplementary_dark} 50%,#{grp.secondary} 51%,#{grp.supplementary_dark} 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{grp.supplementary_dark}', endColorstr='#{grp.supplementary_dark}',GradientType=0 ); /* IE6-9 */
+cursor:pointer;
+
+
+}
 
 
 -if grp.has_landing_bg?

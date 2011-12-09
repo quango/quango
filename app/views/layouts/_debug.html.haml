@@ -1,0 +1,52 @@
+
+- if !true
+
+.debug
+
+  .entry.left{:style=>"float:left; width:728px;"}
+    = render :partial => "shared/bug"
+    .clear
+
+  - if @render_start
+    .entry.left
+      .rendering{:style=>"margin-left:4px"}
+        - rendering_stop = Time.now
+        - rendering_time = rendering_stop - @render_start
+        = "#{rendering_time}"
+    .clear
+
+
+
+    .entry.left
+      = "<a href=\'#\' onclick=\'javascript:open(location,\'/\',\'innerWidth=\'+(320+15)+\',innerHeight=\'+(480+15)+\',scrollbars=yes\');\'>mobile test</a>"
+      %hr
+      - ua = request.env['HTTP_USER_AGENT'].downcase
+      = "#{ua}"
+
+    .entry.left
+      = "Group: #{current_group.id} / #{current_group.name}"
+    .entry.left
+      = "Parent:"
+      - if current_group.parent_id
+
+        - parent = current_group.parent_id
+
+        = "#{parent}"
+      - else
+        = "Not set"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
