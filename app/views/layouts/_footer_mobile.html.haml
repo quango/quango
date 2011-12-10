@@ -1,5 +1,5 @@
 
-
+.clear
 .footer-mobile{:style=>"width:480px;padding:8px 0;margin:16px auto;font-size:0.7em;border-top:1px solid #{current_group.primary};border-radius:0 0 8px 8px"}
   .footer
     .left{:style=>"margin:0;width:240px"}
@@ -24,7 +24,7 @@
     .clear
 
 
-    - if logged_in? && current_user.owner_of?(current_group)
+    - if logged_in? && !current_user.owner_of?(current_group)
       = render :partial => "layouts/debug"
 
     - else

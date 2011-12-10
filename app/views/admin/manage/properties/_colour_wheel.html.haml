@@ -1,53 +1,49 @@
 -require_js "modules/colour_wheel"
+-require_js "modules/farbtastic"
 
--content_for :inner_title do
-  %h1
-    = "Choose a colour"
+-#content_for :inner_title do
+  -#.heading{:style=>"height:80px;"}
+    -#= "Choose a colour"
 
+.targetX{:style=>"border:0;"}
 
-#colour-wheel{:style=>"height:480px;width:480px;backgrouns:pink"}
+#colour-wheel{:style=>"height:390px;width:390px;backgrouns:pink;margin:16px auto"}
   .wheel
-
-    = "<img src=\"/images/colour_wheel_temp.png\">"
+    = "<img src=\"/images/wheel.png\" style=\"height:390px;width:390px;backgrouns:pink\">"
 
   .clear
-  .group
-    = "Use complementary colours http://colorschemedesigner.com/"
 
-  .group{:style=>"float:left; width:96px;"}
-    .swatch{:style => "background: #{current_group.primary_dark}"}
-    = f.text_field :primary_dark, :class => "text_field_short"
-    .mobile_label
-      = "Dark"
 
-  .group{:style=>"float:left; width:96px;"}
+  .group{:style=>"float:left; width:90px;"}
+    .swatch{:style => "background: #{current_group.primary_dark};border-radius:12px 0 0 12px"}
+      = f.text_field :primary_dark, :class => "text_field_short",:style => "background: #{current_group.primary_dark}"
+      .mobile_label
+        = "Dark"
+
+  .group{:style=>"float:left; width:90px;"}
     .swatch{:style => "background: #{current_group.primary}"}
-    = f.text_field :primary, :class => "text_field_short"
-    .mobile_label
-      = "Primary"
+      = f.text_field :primary, :class => "text_field_short",:style => "background: #{current_group.primary}"
+      .mobile_label
+        = "Primary"
 
-  .group{:style=>"float:left; width:96px;"}
+  .group{:style=>"float:left; width:90px;"}
     .swatch{:style => "background: #{current_group.secondary}"}
+      = f.text_field :secondary, :class => "text_field_short",:style => "background: #{current_group.secondary}"
+      .mobile_label
+        = "Secondary"
 
-    = f.text_field :secondary, :class => "text_field_short"
-    .mobile_label
-      = "Secondary"
+  .group{:style=>"float:left; width:90px"}
+    .swatch{:style => "background: #{current_group.tertiary};border-radius:0 12px 12px 0"}
+      = f.text_field :tertiary, :class => "text_field_short", :style => "background: #{current_group.tertiary};border-radius:0 16px 16px 0"
+      .mobile_label
+        = "Tertiary"
 
-  .group{:style=>"float:left; width:96px;"}
-    .swatch{:style => "background: #{current_group.tertiary}"}
 
-    = f.text_field :tertiary, :class => "text_field_short"
 
-    .mobile_label
-      = "Tertiary"
 
-.clear
+#submit{:style=>"width:512px;height:64px;margin:0 auto"}
+  = f.submit "Preview", :class => "submit-button",:style=>"width:390px;float:left"
 
-.target{:style=>"border:1px solid pink;"}
-
-.group
-  = f.submit t('scaffold.update'), :class => "submit-button"
-.clear
 
 
 

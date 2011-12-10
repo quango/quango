@@ -42,13 +42,13 @@
 
             .logo-mobile{:style => "height:#{logo_height_mobile}px;width:#{logo_width_mobile}px; float:left; margin-left:16px"}
               = link_to image_tag(current_group.logo_path, :width => logo_width_mobile, :height => logo_height_mobile,  :style => "bottom:0px;"), "#{domain_url(:custom => current_group.domain)}/?mobile=true", :style=>"margin:0px;height:#{logo_height_mobile}px;width:#{logo_width_mobile}px", :alt => "Home"
-        - else
+        - if false
           .logo-container-mobile{:style => "width:480px;height:80px"}
             .logo-text
               .filling
                 .left{:style=>"float:left;margin-left:16px,font-size:2em;font-weight:bold;line-height:80px;text-shadow:-1px -1px 2px black;color:white;text-decoration:none"}
                   = yield :inner_title
-        - if false
+        - if true
           .logo-container-mobile{:style => "width:512px;height:80px"}
             .logo-text
               .filling
@@ -64,13 +64,12 @@
 
 
       #container{:class => @active_tab}
-        #wrapper
-          #main{:style=>"width: 100%"}
-
-            #fold{:style=>"width:480px;margin:0 auto;"}
-              = yield
+        #fold{:style=>"width:100%;margin:0;"}
+          .fold
+            = yield
           .clear
-      .clear
+        .clear
+
 
       #footer-mobile
         = render :partial => "layouts/footer_mobile"
