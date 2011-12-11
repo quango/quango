@@ -68,14 +68,14 @@ ActionController::Routing::Routes.draw do |map|
   def build_items_routes(router, options ={})
     router.with_options(options) do |route|
       route.se_url "/:doctype/:id/:slug", :controller => "items", :action => "show", :section => /\d+/, :id => /\d+/, :conditions => { :method => :get }
-      route.resources :doctypes, :as => "member" do |doctypes|
+      route.resources :doctypes, :as => "m" do |doctypes|
 
         doctypes.resources :items, 
                            :collection => {:get_video_info => :get, :tags => :get,:tags_for_autocomplete => :get,:unanswered => :get,:related_items => :get},
                            :member     => {:bump => :any,:solve => :get,:unsolve => :get,:favorite => :any,:unfavorite => :any,:watch => :any,:unwatch => :any,
                                                  :history => :get,:revert => :get,:diff => :get, :change_doctype => :get,
                                                  :move => :get,:move_to => :put, :retag => :get,:retag_to => :put,
-                                            :close => :put,:open => :put,:meta => :get,:distribute => :get,:describe => :get,:tag => :get, :advanced => :get, :link => :any}, :name_prefix => nil, :as => 'index'  do |items| #:name_prefix => nil,
+                                            :close => :put,:open => :put,:meta => :get,:distribute => :get,:describe => :get,:tag => :get, :advanced => :get, :link => :any}, :name_prefix => nil, :as => 'id'  do |items| #:name_prefix => nil,
 
         items.resources :comments
 

@@ -1,20 +1,23 @@
+- is_mobile = params[:mobile]
+
 -if logged_in?
 
   .entry-details
-    .entry-title{:style=>"width:568px;height:32px; line-height:32px; margin-bottom:4px;"}
-      = "Share your thoughts..."
+    .entry-title{:style=>"width:100%;height:32px; line-height:32px; margin-bottom:4px;"}
+      = "Please answer this question..."
   .clear
 
     = f.hidden_field :mode, :value=> local_assigns[:mode]
 
-  -opts = {:class => "answer_text_area", :rows => '3', :cols => 'auto'}
-  -if local_assigns[:markdown]
-    -if current_group.wysiwyg_editor
-      -opts[:id] = "wysiwyg_editor"
-      -opts[:value] = markdown(@answer.body)
-    -else
-      -opts[:id] = "markdown_editor"
-      -opts[:style] = "height:64px; width:547px; max-width:547px; margin:0"
+  -opts = {:class => "answer_text_area", :rows => '5', :cols => 'auto', :style=>"width:480px;"}
+  - if !is_mobile
+    -if local_assigns[:markdown]
+      -if current_group.wysiwyg_editor
+        -opts[:id] = "wysiwyg_editor"
+        -opts[:value] = markdown(@answer.body)
+      -else
+        -opts[:id] = "markdown_editor"
+        -opts[:style] = "height:64px; width:547px; max-width:547px; margin:0"
 
   #answer-form
 
@@ -52,8 +55,8 @@
             = link_to linked_check, "#", :title => "linked", :class => "linkedin button"
 
       .clear
-        .answer-actions{:style => "background-color: #dcdcdc;line-height:32px; height: 32px; width: 565px; margin: 0 0 16px 0; padding 4px"}
-          = submit_tag t('answers.form.submit'), :class => "submit-button", :style => "width:256px; height:24px; float:right;"
+        .answer-actions{:style => "line-height:32px; height: 32px; width: 100%; margin: 0 0 16px 0; padding 4px"}
+          = submit_tag "Save", :class => "class-button", :style => "width:256px; height:32px; float:right;font-size:1.5em;"
           .openedit{:style => "float:right; margin-right: 16px; display:none"}
             = f.label :wiki, "Anybody can edit? ", :class => "radio"
             = check_box :wiki, :class => "checkbox right"
@@ -75,11 +78,11 @@
   .answer-form-holder{:style=>"width:568px"}
     .entry-details
       .entry-title{:style=>"height:32px; line-height:32px; margin-bottom:4px;"}
-        = "Share your thoughts..."
+        = "Answer this question..."
 
     .clear
     %span.left{:style=>"margin:8px"}
-      = "You must be logged in to share your thoughts... Don't have an account? <a href='/members/new'>Signup now!</a>"
+      = "You must be logged in to answer this question... Don't have an account? <a href='/members/new'>Signup now!</a>"
     .clear
 
 

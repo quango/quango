@@ -19,7 +19,7 @@ javascripts:
 
 - mobile:
   - jquery
-
+  - modules/editor
 
 - welcome:
   - jcarousellite_1.0.1

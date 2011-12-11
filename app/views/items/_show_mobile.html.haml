@@ -66,16 +66,6 @@
                 - if @item.closed
                   =" [#{t("closed", :scope => "activerecord.attributes.item").upcase}]"
 
-              .entry-authors{:style => "border-bottom:1px solid gainsboro;"}
-                = render :partial => "entry_authors"
-
-              .tag-list
-                - @item.tags.each do |tag|
-                  %span.tag
-                    = link_to h(tag), url_for(:controller => "item", :action => "index", :tags => tag), :rel => "tag", :style => "background-color:#{current_group.primary}"
-                - if logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group)) #tofix
-                  .retag
-                    = link_to t('.retag'), retag_item_path(@doctype, @item), :id => 'retag',:style => "background-color:white;border:0; color:#{current_group.primary};", :class => "link"
 
             -#if @item.description?
               -#.description
@@ -86,7 +76,11 @@
 
                 = "<span style='font-weight:bold;color:#{current_group.primary}'>#{@item.article_link_publisher}</span> reports;"
 
+
+
               = item_body
+
+
             .clear
 
             -if @item.article_link?
@@ -103,7 +97,7 @@
             #answers
               -unless @item.closed
                 %a{:name=>"to_answer"}
-                -form_for @answer, :url => item_answers_path(@doctype, @item), :html => {:class => "form mainAnswerForm", :style=>"width:568px"} do |f|
+                -form_for @answer, :url => item_answers_path(@doctype, @item), :html => {:class => "form mainAnswerForm", :style=>"width:480px"} do |f|
                   = render :partial => "answers/form", :locals => {:f => f, :markdown => true, :mode => "item"}
                 .clear
 
@@ -112,7 +106,7 @@
 
                 .entry-details
                   .entry-title
-                    = h("What others think")
+                    = h("Other answers")
                 .secondary-navigation
                   .navcontrols
                     %ul{:style=>"list-style-type:none"}
