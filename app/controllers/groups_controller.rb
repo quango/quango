@@ -111,7 +111,7 @@ class GroupsController < ApplicationController
 
     slug = @group.name
 
-    @group.subdomain = slug.to_slug
+    @group.subdomain = slug
 
     #@group.widgets << TopUsersWidget.new
     #@group.widgets << UsersWidget.new
