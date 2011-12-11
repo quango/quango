@@ -111,7 +111,7 @@ class GroupsController < ApplicationController
 
     slug = @group.name
 
-    @group.subdomain = slug
+    #@group.subdomain = slug
 
     #@group.widgets << TopUsersWidget.new
     #@group.widgets << UsersWidget.new
@@ -170,7 +170,7 @@ class GroupsController < ApplicationController
     end
 
     puts "Ending standard page creation /n"
-    #@group.subdomain = group.name
+    @group.subdomain = @group.name
 
 
     respond_to do |format|
@@ -179,7 +179,7 @@ class GroupsController < ApplicationController
         flash[:notice] = I18n.t("groups.create.flash_notice")
 
         if @group.group_type == "mobile"
-          format.html { redirect_to(domain_url(:custom => @group.domain, :controller => "admin/manage", :action => "properties") << "?tab=colour_wheel") }
+          format.html { redirect_to(domain_url(:custom => @group.domain, :controller => "admin/manage", :action => "properties") << "?tab=welcome&mobile=true") }
           format.json  { render :json => @group.to_json, :status => :created, :location => @group }
         else
           format.html { redirect_to(domain_url(:custom => @group.domain, :controller => "admin/manage", :action => "properties")) }

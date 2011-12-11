@@ -41,8 +41,10 @@
 
 
 
-#submit{:style=>"width:512px;height:64px;margin:0 auto"}
-  = f.submit "Preview", :class => "submit-button",:style=>"width:390px;float:left"
+.submit{:style=>"width:480px;height:64px;margin:16px auto 0 auto;padding:0; border-top:1px solid #{current_group.tertiary}"}
+  = f.submit "Preview", :class => "submit-button",:style=>"width:300px;float:left"
+  %button{:class => "submit-button",:style=>"width:150px;float:right"}
+    = "Save"
 
 
 
