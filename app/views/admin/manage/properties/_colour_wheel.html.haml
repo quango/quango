@@ -1,5 +1,8 @@
+
+
 -require_js "modules/colour_wheel"
 -require_js "modules/farbtastic"
+-require_css "farbtastic"
 
 -#content_for :inner_title do
   -#.heading{:style=>"height:80px;"}
@@ -9,11 +12,31 @@
 
 #colour-wheel{:style=>"width:422px;height:422px;background:url(/images/wheel_BG.png);background-repeat:no-repeat;padding:16px;"}
   .wheel{:style=>"height:390px;width:390px;"}
-    = "<img src=\"/images/wheel.png\" style=\"height:390px;width:390px;backgrouns:pink\">"
+    -#= "<img src=\"/images/wheel.png\" style=\"height:390px;width:390px;backgrouns:pink\">"
+
+    %form{:action=>"", :style=>"width: 500px;"}
+      #picker{:style=>"float: right;"}
+      .clear
+      .form-item{:style=>"float:left; width:90px;"}
+        =  "Color 1:"
+        %input{:type=>"text",:id=>"color1",:name=>"color1",:class=>"colorwell",:value=>"#123456"}
+      .form-item{:style=>"float:left; width:90px;"}
+        =  "Color 2:"
+        %input{:type=>"text",:id=>"color2",:name=>"color2",:class=>"colorwell",:value=>"#123456"}
+      .form-item{:style=>"float:left; width:90px;"}
+        =  "Color 3:"
+        %input{:type=>"text",:id=>"color3",:name=>"color3",:class=>"colorwell",:value=>"#123456"}
+      .form-item{:style=>"float:left; width:90px;"}
+        =  "Color 3:"
+        %input{:type=>"text",:id=>"color4",:name=>"color4",:class=>"colorwell",:value=>"#123456"}
+  
+
+
+
 
   .clear
 
-
+#rails-stuff{:style=>"height:64px;margin:16px 0"}
   .group{:style=>"float:left; width:90px;"}
     .swatch{:style => "background: #{current_group.primary_dark};border-radius:12px 0 0 12px"}
       = f.text_field :primary_dark, :class => "text_field_short",:style => "background: #{current_group.primary_dark}"

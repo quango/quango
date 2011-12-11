@@ -36,9 +36,9 @@ jQuery._farbtastic = function (container, callback) {
   var e = $('.farbtastic', container);
   fb.wheel = $('.wheel', container).get(0);
   // Dimensions
-  fb.radius = 84;
-  fb.square = 100;
-  fb.width = 194;
+  fb.radius = 168;
+  fb.square = 200;
+  fb.width = 398;
 
   // Fix background PNGs in IE6
   if (navigator.appVersion.match(/MSIE [0-6]\./)) {

@@ -1,3 +1,21 @@
+
+
+
+
+ .colorwell {
+   border: 2px solid #fff;
+   width: 6em;
+   text-align: center;
+   cursor: pointer;
+ }
+ body .colorwell-selected {
+   border: 2px solid #000;
+   font-weight: bold;
+ }
+ 
+
+
+
 /**
  * Farbtastic Color Picker 1.2
  * © 2008 Steven Wittens
@@ -24,28 +42,28 @@
   cursor: crosshair;
 }
 .farbtastic, .farbtastic .wheel {
-  width: 195px;
-  height: 195px;
+  width: 390px;
+  height: 390px;
 }
 .farbtastic .color, .farbtastic .overlay {
-  top: 47px;
-  left: 47px;
-  width: 101px;
-  height: 101px;
+  top: 94px;
+  left: 94px;
+  width: 202px;
+  height: 202px;
 }
 .farbtastic .wheel {
-  background: url(wheel.png) no-repeat;
-  width: 195px;
-  height: 195px;
+  background: url(/images/wheel.png) no-repeat;
+  width: 390px;
+  height: 390px;
 }
 .farbtastic .overlay {
-  background: url(mask.png) no-repeat;
+  background: url(/images/mask.png) no-repeat;
 }
 .farbtastic .marker {
   width: 17px;
   height: 17px;
   margin: -8px 0 0 -8px;
   overflow: hidden; 
-  background: url(marker.png) no-repeat;
+  background: url(/images/marker.png) no-repeat;
 }
 
