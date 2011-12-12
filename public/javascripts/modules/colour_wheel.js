@@ -13,7 +13,7 @@ $(document).ready(function() {
       }
       f.linkTo(this);
       p.css('opacity', 1);
-      $(selected = this).css('opacity', 1).addClass('colorwell-selected');
+      $(selected = this).css('opacity', 1).addClass('colorwell-selected').blur();
       /*$(selected = this).parent('.form-item').style('background-image','0'));*/
     });
 });
