@@ -10,7 +10,7 @@
 
 
 
-#colour-wheel{:style=>"width:422px;height:422px;background:url(/images/wheel_BG.png);background-repeat:no-repeat;padding:16px 16px 0 16px;margin:16px auto;"}
+#colour-wheel{:style=>"width:422px;height:422px;background:url(/images/wheel_BG.png);background-repeat:no-repeat;padding:16px 16px 0 16px;margin:16px 32px 0;"}
   .wheel{:style=>"height:390px;width:390px;"}
     #picker{:style=>"float: right;"}
 
@@ -18,7 +18,7 @@
 
 
 
-#palette{:style=>"height:64px;width:422px;margin:0 auto"}
+#palette{:style=>"height:80px;width:422px;margin:0 auto"}
   .form-item{:style=>"float:left;width:20%;"}
     = f.text_field :primary_dark, :class => "colorwell colorwell-selected",:style => "background: #{current_group.primary_dark}"
     -#%input{:type=>"text",:id=>"primary_dark",:name=>"primary_dark",:class=>"colorwell",:value=>"#{current_group.primary_dark}"}
@@ -38,11 +38,11 @@
   .form-item{:style=>"float:left; width:20%;"}
     = f.text_field :text_colour, :class => "colorwell",:style => "background: #{current_group.text_colour}"
     -#%input{:type=>"text",:id=>"tertiary",:name=>"tertiary",:class=>"colorwell",:value=>"#{current_group.tertiary}"}
-#palette-indicator{}
-  %div{:style=>"margin:16px;border:4px solid white"}
+#palette-indicator{:style=>"height:40px;margin:16px 0;"}
+  %div{:style=>"height:32px;-webkit-box-shadow:0 0 8px black;outline: none;transition: all 0.25s ease-in-out;border: 3px solid #eeeeee;margin:16px;border-radius:40px;"}
     = "Indicator"
     %button{:style=>"float:right"}
-      = "Autopallete"
+      = "Autocompute"
 
 .submit{:style=>"width:480px;height:64px;margin:16px auto 0 auto;padding:0; border-top:1px solid #{current_group.tertiary}"}
   = f.submit "Preview", :class => "submit-button",:style=>"width:300px;float:left"

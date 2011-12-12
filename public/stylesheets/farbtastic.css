@@ -3,19 +3,19 @@
 
 
  .colorwell {
-   -webkit-box-shadow:0 0 4px black;
+   -webkit-box-shadow:0 0 8px black;
    outline: none;
    transition: all 0.25s ease-in-out;
-   border: 4px outset silver;
-   border-radius: 16px;
-   width: 4em;
-   height: 4em;
+   border: 3px solid #eeeeee;
+   border-radius: 40px;
+   width: 5em;
+   height: 5em;
    text-align: center;
    cursor: pointer;
  }
  body .colorwell-selected {
-   -webkit-box-shadow:0 0 4px white;
-   border: 4px inset white;
+   -webkit-box-shadow:0 0 8px white;
+   border: 3px solid white;
    padding: 4px
    font-weight: bold;
  }
@@ -67,9 +67,9 @@
   background: url(/images/mask.png) no-repeat;
 }
 .farbtastic .marker {
-  width: 17px;
-  height: 17px;
-  margin: -8px 0 0 -8px;
+  width: 34px;
+  height: 34px;
+  margin: -16px 0 0 -16px;
   overflow: hidden; 
   background: url(/images/marker.png) no-repeat;
 }

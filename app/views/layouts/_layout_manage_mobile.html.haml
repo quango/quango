@@ -6,7 +6,7 @@
     = "<meta http-equiv=\"cache-control\" content=\"public\" />"
     = "<meta http-equiv=\"content-language\" content=\"en\" />"
 
-    - if request.user_agent.include?("iPhone") then
+    - if request.user_agent.include?("iPad") then
       = "<meta name=\"viewport\" content=\"width=device-width; initial-scale=0.5; user-scalable=yes\">"
     - else
       = "<meta name=\"viewport\" content=\"width=device-width; initial-scale=1.0; user-scalable=no\">"
@@ -68,7 +68,7 @@
 
 
 
-      #container{:class => @active_tab}
+      #body{:class => @active_tab}
         #fold
           .fold
             = yield
@@ -78,3 +78,7 @@
 
       #footer-mobile
         = render :partial => "layouts/footer_mobile"
+
+
+      #debug
+        = render :partial => "layouts/debug"

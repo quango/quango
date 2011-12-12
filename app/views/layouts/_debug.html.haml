@@ -1,14 +1,14 @@
 
 - if !true
 
-.debug
+.debug{:style=>"width:512px;background-color:black;margin:0 auto;height:128px;"}
 
-  .entry.left{:style=>"float:left; width:728px;"}
+  .left
     = render :partial => "shared/bug"
-    .clear
+  .clear
 
   - if @render_start
-    .entry.left
+    .left
       .rendering{:style=>"margin-left:4px"}
         - rendering_stop = Time.now
         - rendering_time = rendering_stop - @render_start
@@ -17,23 +17,23 @@
 
 
 
-    .entry.left
-      = "<a href=\'#\' onclick=\'javascript:open(location,\'/\',\'innerWidth=\'+(320+15)+\',innerHeight=\'+(480+15)+\',scrollbars=yes\');\'>mobile test</a>"
-      %hr
-      - ua = request.env['HTTP_USER_AGENT'].downcase
-      = "#{ua}"
+  .left{:style=>"font-size:10px;"}
+    - ua = request.env['HTTP_USER_AGENT'].downcase
+    = "#{ua}"
+  .clear
 
-    .entry.left
-      = "Group: #{current_group.id} / #{current_group.name}"
-    .entry.left
-      = "Parent:"
-      - if current_group.parent_id
+  .left
+    = "Group: #{current_group.id} / #{current_group.name}"
+  .clear
+  .left
+    = "Parent:"
+    - if current_group.parent_id
 
-        - parent = current_group.parent_id
+      - parent = current_group.parent_id
 
-        = "#{parent}"
-      - else
-        = "Not set"
+      = "#{parent}"
+    - else
+      = "Not set"
 
 
 
