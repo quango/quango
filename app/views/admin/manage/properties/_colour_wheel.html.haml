@@ -20,23 +20,23 @@
 
 #palette{:style=>"height:80px;width:422px;margin:0 auto"}
   .form-item{:style=>"float:left;width:20%;"}
-    = f.text_field :primary_dark, :class => "colorwell colorwell-selected",:style => "background: #{current_group.primary_dark}"
+    = f.text_field :primary_dark, :class => "colorwell colorwell-selected",:style => "color: #{current_group.primary_dark};background: #{current_group.primary_dark}"
     -#%input{:type=>"text",:id=>"primary_dark",:name=>"primary_dark",:class=>"colorwell",:value=>"#{current_group.primary_dark}"}
     .label
       = "BG"
   .form-item{:style=>"float:left; width:20%;"}
-    = f.text_field :primary, :class => "colorwell",:style => "background: #{current_group.primary}"
+    = f.text_field :primary, :class => "colorwell",:style => "color: #{current_group.primary};background: #{current_group.primary}"
     .label
       = "stop 1"
     -#%input{:type=>"text",:id=>"primary",:name=>"primary",:class=>"colorwell",:value=>"#{current_group.primary}"}
   .form-item{:style=>"float:left; width:20%;"}
-    = f.text_field :secondary, :class => "colorwell",:style => "background: #{current_group.secondary}"
+    = f.text_field :secondary, :class => "colorwell",:style => "color: #{current_group.secondary};background: #{current_group.secondary}"
     -#%input{:type=>"text",:id=>"secondary",:name=>"secondary",:class=>"colorwell",:value=>"#{current_group.secondary}"}
   .form-item{:style=>"float:left; width:20%;"}
-    = f.text_field :tertiary, :class => "colorwell",:style => "background: #{current_group.secondary}"
+    = f.text_field :tertiary, :class => "colorwell",:style => "color: #{current_group.tertiary};background: #{current_group.tertiary}"
     -#%input{:type=>"text",:id=>"tertiary",:name=>"tertiary",:class=>"colorwell",:value=>"#{current_group.tertiary}"}
   .form-item{:style=>"float:left; width:20%;"}
-    = f.text_field :text_colour, :class => "colorwell",:style => "background: #{current_group.text_colour}"
+    = f.text_field :text_colour, :class => "colorwell",:style => "color: #{current_group.text_colour};background: #{current_group.text_colour}"
     -#%input{:type=>"text",:id=>"tertiary",:name=>"tertiary",:class=>"colorwell",:value=>"#{current_group.tertiary}"}
 #palette-indicator{:style=>"height:40px;margin:16px 0;"}
   %div{:style=>"height:32px;-webkit-box-shadow:0 0 8px black;outline: none;transition: all 0.25s ease-in-out;border: 3px solid #eeeeee;margin:16px;border-radius:40px;"}
