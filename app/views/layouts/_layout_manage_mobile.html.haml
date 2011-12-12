@@ -5,6 +5,7 @@
     = "<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />"
     = "<meta http-equiv=\"cache-control\" content=\"public\" />"
     = "<meta http-equiv=\"content-language\" content=\"en\" />"
+    = "<meta name=\"viewport\" content=\"width=device-width; initial-scale=1.0; user-scalable=no\">"
 
     %title
       &= page_title
@@ -16,7 +17,7 @@
 
     = current_group.head_tag
 
-    %body{:style=>"background:#{current_group.primary_dark};font-family:sans-serif;"}
+    %body{:style=>"background:#{current_group.primary_dark};font-family:sans-serif;color:#{current_group.text_colour};margin:0;"}
       = render :partial => "shared/analytics"
 
       #flash-mobile{:style=>"border-bottom:1px solid #333"}
@@ -53,7 +54,7 @@
             .logo-text
               .filling
                 .left{:style=>"float:left;margin-left:16px;"}
-                  =link_to h(current_group.name), "#{domain_url(:custom => current_group.domain)}/?mobile=true", :style=>"font-size:2em;font-weight:bold;line-height:80px;text-shadow:-1px -1px 2px black;color:white;text-decoration:none"
+                  =link_to h(current_group.name), "#{domain_url(:custom => current_group.domain)}/?mobile=true", :style=>"font-size:2em;font-weight:bold;line-height:80px;text-shadow:-1px -1px 2px #{current_group.primary_dark};text-decoration:none"
                 -if current_group.strapline?
                   .strapline{:style => "height:80px;line-height:80px;color:white;float:left; border-left:1px solid color:white; margin-left:8px;padding-left:8px;"}
                     ="#{current_group.strapline}"
@@ -64,7 +65,7 @@
 
 
       #container{:class => @active_tab}
-        #fold{:style=>"width:100%;margin:0;"}
+        #fold
           .fold
             = yield
           .clear

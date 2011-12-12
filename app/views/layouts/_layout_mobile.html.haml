@@ -5,6 +5,7 @@
     = "<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />"
     = "<meta http-equiv=\"cache-control\" content=\"public\" />"
     = "<meta http-equiv=\"content-language\" content=\"en\" />"
+    = "<meta name=\"viewport\" content=\"width=device-width\">"
 
     %title
       &= page_title
@@ -39,7 +40,7 @@
           .logo-container-mobile{:style => "height:#{logo_height_mobile}px"}
 
             .logo-mobile{:style => "height:#{logo_height_mobile}px;width:#{logo_width_mobile}px; float:left; margin-left:16px"}
-              = link_to image_tag(current_group.logo_path, :width => logo_width_mobile, :height => logo_height_mobile,  :style => "bottom:0px;"), "#{domain_url(:custom => current_group.domain)}/?mobile=true", :style=>"margin:0px;height:#{logo_height_mobile}px;width:#{logo_width_mobile}px", :alt => "Home"
+              = link_to image_tag(current_group.logo_path, :width => logo_width_mobile, :height => logo_height_mobile,  :style => "bottom:0px;"), "#{domain_url(:custom => current_group.domain)}/?mobile=true", :style=>"color:#{current_group.text_colour};margin:0px;height:#{logo_height_mobile}px;width:#{logo_width_mobile}px", :alt => "Home"
 
 
 

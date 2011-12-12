@@ -14,7 +14,7 @@ class Group
 
   key :_id, String
   key :parent_id, String #this will be used for groups hierarchies
-  key :group_type, String, :default => "classic"
+  key :group_type, String, :default => "mobile"
 
   key :sandwich_top, String
 
@@ -190,6 +190,7 @@ class Group
   key :edit_button_bg, String, :default => "#990000" #tabs, 
   key :edit_button_bg_image, String, :default => "/images/default_button_bg.png"
   key :link_colour, String, :default => "#00A08A"
+  key :text_colour, String, :default => "#ffffff"
 
   key :supplementary_dark, String, :default => "#A6691C" #action buttons and anything requiring high visibility
   key :supplementary, String, :default => "#FFB455" #action buttons and anything requiring high visibility

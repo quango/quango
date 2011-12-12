@@ -3,13 +3,20 @@
 
 
  .colorwell {
-   border: 2px solid #fff;
-   width: 6em;
+   -webkit-box-shadow:0 0 4px black;
+   outline: none;
+   transition: all 0.25s ease-in-out;
+   border: 4px outset silver;
+   border-radius: 16px;
+   width: 4em;
+   height: 4em;
    text-align: center;
    cursor: pointer;
  }
  body .colorwell-selected {
-   border: 2px solid #000;
+   -webkit-box-shadow:0 0 4px white;
+   border: 4px inset white;
+   padding: 4px
    font-weight: bold;
  }
  

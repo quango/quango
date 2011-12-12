@@ -3,68 +3,56 @@
 -require_js "modules/farbtastic"
 -require_css "farbtastic"
 
--#content_for :inner_title do
-  -#.heading{:style=>"height:80px;"}
-    -#= "Choose a colour"
-
-.targetX{:style=>"border:0;"}
-
-#rails-stuff{:style=>"height:64px;margin:16px 0"}
-  .group{:style=>"float:left; width:90px;"}
-    .swatch{:style => "background: #{current_group.primary_dark};border-radius:12px 0 0 12px"}
-      = f.text_field :primary_dark, :class => "text_field_short",:style => "background: #{current_group.primary_dark}"
-      .mobile_label
-        = "Dark"
-
-  .group{:style=>"float:left; width:90px;"}
-    .swatch{:style => "background: #{current_group.primary}"}
-      = f.text_field :primary, :class => "text_field_short",:style => "background: #{current_group.primary}"
-      .mobile_label
-        = "Primary"
-
-  .group{:style=>"float:left; width:90px;"}
-    .swatch{:style => "background: #{current_group.secondary}"}
-      = f.text_field :secondary, :class => "text_field_short",:style => "background: #{current_group.secondary}"
-      .mobile_label
-        = "Secondary"
-
-  .group{:style=>"float:left; width:90px"}
-    .swatch{:style => "background: #{current_group.tertiary};border-radius:0 12px 12px 0"}
-      = f.text_field :tertiary, :class => "text_field_short", :style => "background: #{current_group.tertiary};border-radius:0 16px 16px 0"
-      .mobile_label
-        = "Tertiary"
+-content_for :inner_title do
+  .heading{:style=>"height:80px;"}
+    = "Choose a colour"
 
 
 
+#colour-wheel{:style=>"width:422px;height:422px;background:url(/images/wheel_BG.png);background-repeat:no-repeat;padding:16px 16px 0 16px;margin:16px auto;"}
+  .wheel{:style=>"height:390px;width:390px;"}
+    #picker{:style=>"float: right;"}
+
+.clear
+
+
+
+#palette{:style=>"height:64px;width:422px;margin:0 auto"}
+  .form-item{:style=>"float:left;width:20%;"}
+    = f.text_field :primary_dark, :class => "colorwell colorwell-selected",:style => "background: #{current_group.primary_dark}"
+    -#%input{:type=>"text",:id=>"primary_dark",:name=>"primary_dark",:class=>"colorwell",:value=>"#{current_group.primary_dark}"}
+    .label
+      = "BG"
+  .form-item{:style=>"float:left; width:20%;"}
+    = f.text_field :primary, :class => "colorwell",:style => "background: #{current_group.primary}"
+    .label
+      = "stop 1"
+    -#%input{:type=>"text",:id=>"primary",:name=>"primary",:class=>"colorwell",:value=>"#{current_group.primary}"}
+  .form-item{:style=>"float:left; width:20%;"}
+    = f.text_field :secondary, :class => "colorwell",:style => "background: #{current_group.secondary}"
+    -#%input{:type=>"text",:id=>"secondary",:name=>"secondary",:class=>"colorwell",:value=>"#{current_group.secondary}"}
+  .form-item{:style=>"float:left; width:20%;"}
+    = f.text_field :tertiary, :class => "colorwell",:style => "background: #{current_group.secondary}"
+    -#%input{:type=>"text",:id=>"tertiary",:name=>"tertiary",:class=>"colorwell",:value=>"#{current_group.tertiary}"}
+  .form-item{:style=>"float:left; width:20%;"}
+    = f.text_field :text_colour, :class => "colorwell",:style => "background: #{current_group.text_colour}"
+    -#%input{:type=>"text",:id=>"tertiary",:name=>"tertiary",:class=>"colorwell",:value=>"#{current_group.tertiary}"}
+#palette-indicator{}
+  %div{:style=>"margin:16px;border:4px solid white"}
+    = "Indicator"
+    %button{:style=>"float:right"}
+      = "Autopallete"
 
 .submit{:style=>"width:480px;height:64px;margin:16px auto 0 auto;padding:0; border-top:1px solid #{current_group.tertiary}"}
   = f.submit "Preview", :class => "submit-button",:style=>"width:300px;float:left"
-  %button{:class => "submit-button",:style=>"width:150px;float:right"}
+  %button{:class => "create-button",:style=>"width:150px;float:right"}
     = "Save"
 
 
 -content_for :after_form do
-  #colour-wheel{:style=>"width:422px;height:422px;background:url(/images/wheel_BG.png);background-repeat:no-repeat;padding:16px;"}
-    .wheel{:style=>"height:390px;width:390px;"}
-      -#= "<img src=\"/images/wheel.png\" style=\"height:390px;width:390px;backgrouns:pink\">"
 
-      %form{:action=>"", :style=>"width: 500px;"}
-        #picker{:style=>"float: right;"}
-        .clear
-        .form-item{:style=>"float:left; width:90px;"}
-          =  "Color 1:"
-          %input{:type=>"text",:id=>"primary_dark",:name=>"primary_dark",:class=>"colorwell",:value=>"#{current_group.primary_dark}"}
-        .form-item{:style=>"float:left; width:90px;"}
-          =  "Color 2:"
-          %input{:type=>"text",:id=>"primary",:name=>"primary",:class=>"colorwell",:value=>"#{current_group.primary}"}
-        .form-item{:style=>"float:left; width:90px;"}
-          =  "Color 3:"
-          %input{:type=>"text",:id=>"secondary",:name=>"secondary",:class=>"colorwell",:value=>"#{current_group.secondary}"}
-        .form-item{:style=>"float:left; width:90px;"}
-          =  "Color 3:"
-          %input{:type=>"text",:id=>"tertiary",:name=>"tertiary",:class=>"colorwell",:value=>"#{current_group.tertiary}"}
     
-
+  .targetX{:style=>"border:0;"}
 
 
 

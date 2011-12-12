@@ -6,7 +6,7 @@ $(document).ready(function() {
   var p = $('#picker').css('opacity', 0.25);
   var selected;
   $('.colorwell')
-    .each(function () { f.linkTo(this); $(this).css('opacity', 0.75); })
+    .each(function () { f.linkTo(this); $(this).css('opacity', 1); })
     .focus(function() {
       if (selected) {
         $(selected).css('opacity', 0.75).removeClass('colorwell-selected');
@@ -14,10 +14,11 @@ $(document).ready(function() {
       f.linkTo(this);
       p.css('opacity', 1);
       $(selected = this).css('opacity', 1).addClass('colorwell-selected');
+      /*$(selected = this).parent('.form-item').style('background-image','0'));*/
     });
 });
 
 
 $(document).ready(function(){
-$(".target").html("I was injected by jQuery");
+$(".colorwell-selected").focus();
 });

@@ -212,7 +212,7 @@ class GroupsController < ApplicationController
                           hidden has_adult_content registered_only openid_only custom_css wysiwyg_editor fb_button share show_beta_tools
                           publish_label signup_heading leaders_label about_label has_landing landing_labels has_landing_bg landing_bg
                           primary primary_dark secondary tertiary supplementary supplementary_dark supplementary_lite header_bg_image background toolbar_bg toolbar_bg_image header_bg
-                          robots logo_path favicon_path link_colour  sponsor_logo_wide_info sponsor_logo_narrow_info
+                          robots logo_path favicon_path link_colour text_colour sponsor_logo_wide_info sponsor_logo_narrow_info
                           has_sponsor has_sponsors sponsor_label sponsors_label sponsor_name sponsor_link sponsor_logo_wide sponsor_logo_narrow show_sponsor_description show_sponsor_description_boxheader sponsor_description sponsor_description_boxheader
                           show_signup_button signup_button_title signup_button_description signup_button_label signup_button_footnote signup_custom_css
                          ], params[:group])
@@ -225,6 +225,8 @@ class GroupsController < ApplicationController
       if @group.save
         if @group.group_type != "mobile"
           flash[:notice] = 'Group was successfully updated.' # TODO: i18n
+          format.html { redirect_to(params[:source] ? params[:source] : group_path(@group)) }
+          format.json  { head :ok }
         end
         format.html { redirect_to(params[:source] ? params[:source] : group_path(@group)) }
         format.json  { head :ok }
