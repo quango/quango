@@ -182,7 +182,7 @@ jQuery._farbtastic = function (container, callback) {
     fb.circleDrag = Math.max(Math.abs(pos.x), Math.abs(pos.y)) * 2 > fb.square;
 
     // Process
-    fb.mousemove(event);
+    fb.mousemove(event).addTouch();
     return false;
   }
 
