@@ -1,5 +1,4 @@
 
-
 -require_js "modules/colour_wheel"
 -require_js "modules/farbtastic"
 -require_css "farbtastic"
@@ -9,32 +8,6 @@
     -#= "Choose a colour"
 
 .targetX{:style=>"border:0;"}
-
-#colour-wheel{:style=>"width:422px;height:422px;background:url(/images/wheel_BG.png);background-repeat:no-repeat;padding:16px;"}
-  .wheel{:style=>"height:390px;width:390px;"}
-    -#= "<img src=\"/images/wheel.png\" style=\"height:390px;width:390px;backgrouns:pink\">"
-
-    %form{:action=>"", :style=>"width: 500px;"}
-      #picker{:style=>"float: right;"}
-      .clear
-      .form-item{:style=>"float:left; width:90px;"}
-        =  "Color 1:"
-        %input{:type=>"text",:id=>"color1",:name=>"color1",:class=>"colorwell",:value=>"#123456"}
-      .form-item{:style=>"float:left; width:90px;"}
-        =  "Color 2:"
-        %input{:type=>"text",:id=>"color2",:name=>"color2",:class=>"colorwell",:value=>"#123456"}
-      .form-item{:style=>"float:left; width:90px;"}
-        =  "Color 3:"
-        %input{:type=>"text",:id=>"color3",:name=>"color3",:class=>"colorwell",:value=>"#123456"}
-      .form-item{:style=>"float:left; width:90px;"}
-        =  "Color 3:"
-        %input{:type=>"text",:id=>"color4",:name=>"color4",:class=>"colorwell",:value=>"#123456"}
-  
-
-
-
-
-  .clear
 
 #rails-stuff{:style=>"height:64px;margin:16px 0"}
   .group{:style=>"float:left; width:90px;"}
@@ -70,8 +43,32 @@
     = "Save"
 
 
+-content_for :after_form do
+  #colour-wheel{:style=>"width:422px;height:422px;background:url(/images/wheel_BG.png);background-repeat:no-repeat;padding:16px;"}
+    .wheel{:style=>"height:390px;width:390px;"}
+      -#= "<img src=\"/images/wheel.png\" style=\"height:390px;width:390px;backgrouns:pink\">"
+
+      %form{:action=>"", :style=>"width: 500px;"}
+        #picker{:style=>"float: right;"}
+        .clear
+        .form-item{:style=>"float:left; width:90px;"}
+          =  "Color 1:"
+          %input{:type=>"text",:id=>"primary_dark",:name=>"primary_dark",:class=>"colorwell",:value=>"#{current_group.primary_dark}"}
+        .form-item{:style=>"float:left; width:90px;"}
+          =  "Color 2:"
+          %input{:type=>"text",:id=>"primary",:name=>"primary",:class=>"colorwell",:value=>"#{current_group.primary}"}
+        .form-item{:style=>"float:left; width:90px;"}
+          =  "Color 3:"
+          %input{:type=>"text",:id=>"secondary",:name=>"secondary",:class=>"colorwell",:value=>"#{current_group.secondary}"}
+        .form-item{:style=>"float:left; width:90px;"}
+          =  "Color 3:"
+          %input{:type=>"text",:id=>"tertiary",:name=>"tertiary",:class=>"colorwell",:value=>"#{current_group.tertiary}"}
+    
 
 
+
+
+    .clear
 
 
 
