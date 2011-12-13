@@ -2,7 +2,7 @@
 
 - is_mobile = params[:mobile]
 
-- if is_mobile
+- if is_mobile || current_group.group_type == "mobile"
   = render :partial => "/layouts/layout_application_mobile"
 - else
   = render :partial => "/layouts/layout_application"

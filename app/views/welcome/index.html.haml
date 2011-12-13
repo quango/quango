@@ -23,11 +23,15 @@
 
 -is_guest = params[:guest]
 
-- if !is_mobile
-  -if !logged_in? && !is_guest && current_group.has_landing?
+- if is_mobile || current_group.group_type == "mobile"
+  -content_for :main do
+    = render:partial => "mobile"
+- else
+  - if !logged_in? && !is_guest && current_group.has_landing?
     -content_for :main do
       #landing{:style=>"width:1032px"}
         = render :partial => "landing"
+
   - else
     -content_for :main do
 
@@ -45,9 +49,8 @@
       -if current_group.below_the_fold
         = render :partial => "below_the_fold", :locals => {:expanded => true}
 
-- else
-  -content_for :main do
-    = render:partial => "mobile"
+
+
 
 -content_for :list do
  

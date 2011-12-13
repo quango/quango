@@ -1,6 +1,8 @@
+- rendering_start = Time.now
+- is_mobile = params[:mobile]
 = javascript_include_merged :login
-= stylesheet_link_tag '/javascripts/openid/css/style.css', :media => 'screen, projection'
--session["return_to"] = request.referrer unless request.referrer.blank?
+
+- session["return_to"] = request.referrer unless request.referrer.blank?
 
 -if current_group.registered_only
   %h1
@@ -8,84 +10,11 @@
 
 
 Layout
--content_for :main do
 
-  -if !current_group.landing_bg == 'false'
-    #landing{:style=>"width:1032px;height:356px;background-image:url('#{current_group.landing_bg}')"}
-  -else
-    #landing{:style=>"width:1032px;height:356px;"}
-
-
-      .content{:style=>"margin:0 auto;"}
-        .left{:style=>"padding:32px;width:664px; height:300px;"}
-          .holder{:style=>"padding:16px 32px 32px 32px;background-image:url(/images/landing_bg.png);background-repeat:repeat-x; margin:0 auto;"}
-
-            %h1{:style => "color:#ffffff; font-weight:bold; padding: 0)"}
-              = "Login to your account..."
-
-            -form_for :user, resource, :url => session_path(resource_name), :html => {:class => "form"} do |f|
-              %div.signup-form
-                .group
-                  = f.text_field :email, :class => "text_field right", :style => "width:300px; margin-bottom:4px"
-                  = f.label :email, "Email", :class => "label right", :style => "margin-right:16px;margin-top:4px;color:white"
-                .clear
-
-                .group
-                  = f.password_field :password, :class => "text_field right", :style => "width:300px;"
-                  = f.label :password, t("password", :scope => "activerecord.attributes.user"), :class => "label right", :style => "margin-right:16px;margin-top:4px;color:white"
-                .clear
-
-                -if devise_mapping.rememberable?
-                  .group
-                    .remember{:style=>"height:24px;line-height:24px;width:312px;float:right;color:white"}
-                      =f.check_box :remember_me, :style=>"font-size:14px;padding:2px"
-                      =f.label :remember_me, "Remember me?"
-
-
-                .form-footer
-
-                  .submit_button
-                    = submit_tag "Login now..!",:class=>"submit-button", :style=>"width:312px; height:32px;"
-
-                .devise{:style => "margin-left:32px; width:312px; float:right"}
-                  = render :partial => "shared/devise_links"
-
-                .clear
-
-
-        .right{:style=>"padding:32px 0;width:264px;float:left"}
-    
-
-
-          .holder{:style=>"padding:0 16px;margin:0 auto;"}
-          
-            %h1{:style=>"font-weight:bold;letter-spacing:-1px; color:white;margin:0"}
-              = "Not a member?"
-            %h4{:style=>"margin:0 0 8px 0;background:0;border:0;"}
-              = "Click here to..."
-
-
-            .center{:style=>"width:300px;float:left;"}
-
-              %a.standard-button-alternate{:style=>"margin-bottom:16px;width:194px;height:32px;font-size:14px;margin:0 auto;", :href=>"/?guest=true"}
-                .inner{:style=>"width:186px; height:16px;padding:8px;"}
-                  = "View site as guest"
-            .note{:style=>"margin-top:8px;width:200px;color:white; font-size:12px; line-height:12px; float:left "}
-              = "Guests cannot post content and/or comments"
-
-            .clear
-
-            %h4{:style=>"margin-top:8px;margin-bottom:8px;background:0;border:0"}
-              = "Alternatively..."
-            .center{:style=>"width:388px; float:left;"}
-              %a.standard-button{:style=>"margin-bottom:16px;width:194px;height:32px;font-size:14px;margin:0 auto;", :href=>"/members/new"}
-                .inner{:style=>"width:186px; height:16px;padding:8px;"}
-                  = "BECOME A MEMBER"
-            .note{:style=>"margin-top:8px;width:200px;color:white; font-size:12px; line-height:12px;float:left "}
-              = "Members can post content and/or comments. Membership is free."
-            .clear
-
-
+- if is_mobile || current_group.group_type == "mobile"
+  = render :partial => "/sessions/new_mobile"
+- else
+  = render :partial => "/sessions/new"
 
 
 

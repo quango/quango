@@ -29,7 +29,9 @@
     = "Group Naming Conventions "
 
   %hr
-
+  .group{:style => "width:312px;float:left"}
+    = form.label :group_type, h('Group type: classic or &quot;mobile&quot;'), :class => "label"
+    = form.text_field :group_type, :class => "text_field", :value => params[:group_type]
   .group
     = form.check_box :disable_signups, :class => "checkbox"
     = form.label :disable_signups, "Disable [public sign ups", :class => "radio"

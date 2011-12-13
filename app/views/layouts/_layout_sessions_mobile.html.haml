@@ -5,10 +5,8 @@
     = "<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />"
     = "<meta http-equiv=\"cache-control\" content=\"public\" />"
     = "<meta http-equiv=\"content-language\" content=\"en\" />"
-    - if request.user_agent.include?("iPhone") then
-      = "<meta name=\"viewport\" content=\"width=device-width\">"
-    - else
-      = "<meta name=\"viewport\" content=\"width=device-width\">"
+
+    = render :partial => "layouts/ua"
 
     %title
       &= page_title
@@ -66,6 +64,16 @@
       #footer-mobile
         = render :partial => "layouts/footer_mobile"
 
+      -if current_user
+        -if current_user.owner_of?(current_group)
+          #debug
+            = render :partial => "layouts/debug"
 
-      #debug
-        = render :partial => "layouts/debug"
+
+
+
+
+
+
+-#Fly be free!
+

@@ -5,11 +5,9 @@
     = "<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />"
     = "<meta http-equiv=\"cache-control\" content=\"public\" />"
     = "<meta http-equiv=\"content-language\" content=\"en\" />"
+    = render :partial => "layouts/ua"
 
-    - if request.user_agent.include?("iPad") then
-      = "<meta name=\"viewport\" content=\"width=device-width; initial-scale=0.5; user-scalable=yes\">"
-    - else
-      = "<meta name=\"viewport\" content=\"width=device-width; initial-scale=1.0; user-scalable=no\">"
+
 
     %title
       &= page_title
