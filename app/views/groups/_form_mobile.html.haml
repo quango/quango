@@ -11,6 +11,13 @@
 
 %hr
 
+.group
+  = form.text_field :group_type, :class => "checkbox"
+  = form.label :group_type, "Group type", :class => "radio"
+
+%hr
+
+
 %div{:style => "float:left"}
   .group{:style => "width:312px;float:left"}
     = form.label :name, h('Unique group name'), :class => "label"

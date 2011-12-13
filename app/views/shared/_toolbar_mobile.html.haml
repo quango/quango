@@ -1,41 +1,34 @@
 
-.left{:style=>"margin-right:16px;height:56px;width:80px;"}
+.container{:style=>"height:56px"}
+  .left{:style=>"height:56px;width:80px;"}
+    %a{:href=>"http://mofaq.com?mobile=true", :title => "moFAQ: Every business needs a mobile FAQ"}
+      = image_tag("/images/logos/mofaq_logo.png",:height=>"56px",:width=>"80px",  :style => "border:0", :title => "moFaq: Every business needs a mobile FAQ")
 
-  - if !current_group.has_custom_toolbar?
-    .edition
-      %a{:href=>"http://mofaq.com", :style=>"height:56px;width:80px;border:0"}
-        = image_tag("/images/logos/mofaq_logo.png",:height=>"56px",:width=>"80px",  :style => "margin:0 16px;border:0", :class => "main-icon")
-      -#=link_to "thinkingdaily", domain_url(:custom => current_group.domain), :style=>"font-family:georgia;line-height:32px;font-weight:bold;"
-      -#=link_to h(current_group.display_name_ii), domain_url(:custom => current_group.domain), :style=> "height:16px: width:16px; margin:4px 0 4px -4px"
-  - elsif current_group.has_custom_toolbar?
-    .edition
-      = link_to image_tag("#{current_group.custom_toolbar_image}",:height=>"32px",:width=>"128px",  :style => "margin:0px", :class => "main-icon")         
-
-.right{:style=>"margin-right:16px;"}
-  -if !logged_in?
-    .entry{:style => "margin-left:8px; font-size:1.5em; line-height:64px;text-shadow:-1px -1px 2px black"}
-      = link_to "Login", new_user_session_path, :style => "font-weight:bold;color:white;text-decoration:none", :title => "You do not need to login just to ask a question"
+  .right{:style=>"height:56px;"}
+    -if !logged_in?
+      .entry{:style => "margin-left:8px; font-size:1.5em; line-height:56px;text-shadow:-1px -1px 2px black"}
+        = link_to "Login", new_user_session_path, :style => "font-weight:bold;color:white;text-decoration:none", :title => "You do not need to login just to ask a question"
 
 
-  -if logged_in?
+    -if logged_in?
 
 
-    .entry.right
-      - if current_user.display_name?
-        - real_name = "#{current_user.display_name}"
-      - else
-        - real_name = "#{current_user.first_name} #{current_user.last_name}"
+      .entry.right
+        - if current_user.display_name?
+          - real_name = "#{current_user.display_name}"
+        - else
+          - real_name = "#{current_user.first_name} #{current_user.last_name}"
 
-      %strong
-        = link_to real_name, "/members/#{current_user.slug}", :style => "font-size:1.5em;font-weight:bold;color:white;text-decoration:none"
-      %span.reputation{:title => t("activerecord.attributes.user.reputation"), :style => "border-radius:4px;font-weight:bold;padding:0 8px;background-color:"+current_group.primary+";margin-left:16px;"}=format_number(current_user.reputation_on(current_group))
+        %strong
+          = link_to real_name, "/members/#{current_user.slug}", :style => "font-size:1.5em;font-weight:bold;color:white;text-decoration:none"
+        %span.reputation{:title => t("activerecord.attributes.user.reputation"), :style => "border-radius:4px;font-weight:bold;padding:0 8px;background-color:"+current_group.primary+";margin-left:16px;"}=format_number(current_user.reputation_on(current_group))
 
-    -#if current_user.mod_of?(current_group)
-      -#.entry
-        -#=link_to t("layouts.application.moderate"), moderate_path, :class => "moderate_link"
-    -if current_user.owner_of?(current_group)
-      .entry.right{:style=>"padding:12px 0;width:56px;height:40px;cursor:pointer;",:onclick=>"window.location.href=\'#{manage_properties_path}\'"}
-        =link_to "<img src=\'/images/icons/settings.png\' />", manage_properties_path, :class => "manage_link", :style => "height:40px;width:40px;margin-right:16px;"
+      -#if current_user.mod_of?(current_group)
+        -#.entry
+          -#=link_to t("layouts.application.moderate"), moderate_path, :class => "moderate_link"
+      -if current_user.owner_of?(current_group)
+        .entry.right{:style=>"padding:12px 0;width:56px;height:40px;cursor:pointer;",:onclick=>"window.location.href=\'#{manage_properties_path}\'"}
+          =link_to "<img src=\'/images/icons/settings.png\' />", manage_properties_path, :class => "manage_link", :style => "height:40px;width:40px;margin-right:16px;"
 
 
 

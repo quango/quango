@@ -179,7 +179,7 @@ class GroupsController < ApplicationController
         flash[:notice] = I18n.t("groups.create.flash_notice")
 
         if @group.group_type == "mobile"
-          format.html { redirect_to(domain_url(:custom => @group.domain, :controller => "admin/manage", :action => "properties") << "?tab=welcome&mobile=true") }
+          format.html { redirect_to(domain_url(:custom => @group.domain, :controller => "admin/manage", :action => "properties") << "?tab=colour_wheel") }
           format.json  { render :json => @group.to_json, :status => :created, :location => @group }
         else
           format.html { redirect_to(domain_url(:custom => @group.domain, :controller => "admin/manage", :action => "properties")) }

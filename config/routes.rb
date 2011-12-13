@@ -156,6 +156,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :widgets, :member => { :move => :post}, :path_prefix => "/manage"
   map.resources :sponsored_links, :member => {:image => :get,:move => :post}, :path_prefix => "/manage"
 
+  map.resources :transactions
+  map.resources :subscriptions
 
   map.resources :members, :path_prefix => "/manage"
 

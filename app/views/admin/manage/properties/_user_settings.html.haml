@@ -1,0 +1,37 @@
+#body
+  .content
+    %h1
+      = "My Accoutn Settings"
+      %button{:style=>"float:right;font-size:0.5em;"}
+        = "Help!"
+    %ul
+      %li
+        = image_tag "/images/icons/settings.png"
+        = link_to "Colours", "?tab=colour_wheel"
+
+      %li.locked
+        = image_tag "/images/locked-temp.png"
+        = link_to "Contact details", "?tab=colour_wheel"
+        .note
+          = "Such as your email to receive queries - ensure this is regularly checked"
+
+      %li.locked
+        = image_tag "/images/locked-temp.png"
+        = link_to "Transaction History", "?tab=transactions"
+
+
+    .note
+      = "You must have an active subscription to modify your FAQ settings: Subscribe now"
+
+    %h2
+      = "My Reseller account"
+      %button{:style=>"float:right;font-size:0.5em;"}
+        = "What's this?"
+
+
+
+    .note
+      = "You must have an active Resseler account to gain commission: Activate now!"
+
+
+  .clear

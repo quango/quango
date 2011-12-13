@@ -6,7 +6,7 @@ class Group
 
   timestamps!
 
-  BLACKLIST_GROUP_NAME = ["demo", "nigger", "wank", "cunt", "fuck", "www", "net", "org", "admin", "ftp", "mail", "test", "blog",
+  BLACKLIST_GROUP_NAME = ["agent", "agents", "demo", "nigger", "wank", "cunt", "fuck", "www", "net", "org", "admin", "ftp", "mail", "test", "blog",
                  "bug", "bugs", "dev", "ftp", "forum", "community", "mail", "email",
                  "webmail", "pop", "pop3", "imap", "secure", "smtp", "stage", "stats", "status",
                  "support", "survey", "download", "downloads", "faqs", "wiki",
@@ -15,6 +15,8 @@ class Group
   key :_id, String
   key :parent_id, String #this will be used for groups hierarchies
   key :group_type, String, :default => "mobile"
+
+  key :agent_id, String #stores the agent id
 
   key :sandwich_top, String
 
@@ -30,10 +32,10 @@ class Group
   key :other_groups_twitter, String, :default => "http://www.twitter.com"
   key :other_groups_google, String, :default => "http://www.google.com"
 
-  key :display_name_i, String, :default => "Quango"
+  key :display_name_i, String, :default => "moFAQ"
   key :display_name_i_link, String, :default => "/"
 
-  key :display_name_ii, String, :default => "Quango"
+  key :display_name_ii, String
   key :display_name_ii_link, String, :default => "/"
 
   key :name_highlight, String, :default => "daily"
@@ -43,7 +45,7 @@ class Group
 
   key :subdomain, String
   key :domain, String
-  key :legend, String
+  key :legend, String, :default => "Every business needs a mobile FAQ"
   key :description, :default => "This website allows members to share their news, articles and links. Here you can engage in an open debate with experts in their fields and share your knowledge with others."
 
   key :group_categories, Array
@@ -81,8 +83,8 @@ class Group
 
   key :has_quick_create, Boolean, :default => false
   key :quick_create, String
-  key :quick_create_heading, String, :default => "Quick Create"
-  key :quick_create_label, String, :default => "Quick Create" #submit button
+  key :quick_create_heading, String, :default => "How can we help?"
+  key :quick_create_label, String, :default => "Ask your question" #submit button
 
   key :has_welcome_features, Boolean, :default => false
   key :has_product_gallery, Boolean, :default => false
@@ -266,6 +268,7 @@ class Group
   has_many :pages, :dependent => :destroy
   has_many :sponsored_links, :dependent => :destroy
   has_many :announcements, :dependent => :destroy
+  has_many :subscriptions, :dependent => :destroy
 
   belongs_to :owner, :class_name => "User"
 
@@ -291,8 +294,7 @@ class Group
 
   validates_exclusion_of      :subdomain,
                               :within => BLACKLIST_GROUP_NAME,
-                              :message => "Sorry, this group subdomain is reserved by"+
-                                          " our system, please choose another one"
+                              :message => "Sorry, this subdomain is not available please choose another one"
 
   def downcase_domain
     domain.downcase!

@@ -24,9 +24,6 @@
     %body{:style=>"background:#{current_group.primary_dark};font-family:sans-serif;color:#{current_group.text_colour};margin:0;"}
       = render :partial => "shared/analytics"
 
-      #flash-mobile{:style=>"border-bottom:1px solid #333"}
-        = "<!--Placeholder for flash messaging-->"
-        = show_flash_messages(:class => "flash", :markdown => true)
 
       #toolbar-mobile{:style=>"border-bottom:1px solid #333"}
         .toolbar-container-mobile    
@@ -52,29 +49,28 @@
             .logo-text
               .filling
                 .left{:style=>"float:left;margin-left:16px,font-size:2em;font-weight:bold;line-height:80px;text-shadow:-1px -1px 2px black;color:white;text-decoration:none"}
-                  = yield :inner_title
+                  
         - if true
           .logo-container-mobile{:style => "width:512px;height:80px"}
             .logo-text
               .filling
                 .left{:style=>"float:left;margin-left:16px;"}
-                  =link_to h(current_group.name), "#{domain_url(:custom => current_group.domain)}/?mobile=true", :style=>"font-size:2em;font-weight:bold;line-height:80px;text-shadow:-1px -1px 2px #{current_group.primary_dark};text-decoration:none"
-                -if current_group.strapline?
-                  .strapline{:style => "height:80px;line-height:80px;color:white;float:left; border-left:1px solid color:white; margin-left:8px;padding-left:8px;"}
-                    ="#{current_group.strapline}"
+                  =link_to h(current_group.name), "#{domain_url(:custom => current_group.domain)}/?mobile=true", :style=>"color:#{current_group.text_colour};font-size:2em;font-weight:bold;line-height:80px;text-shadow:-1px -1px 2px #{current_group.primary_dark};text-decoration:none"
 
 
 
+      = yield :inner_title
 
 
-
-      #body{:class => @active_tab}
-        #fold
-          .fold
-            = yield
-          .clear
+      #fold{:class => @active_tab}
+        .fold.settings
+          = yield
         .clear
+      .clear
 
+      #flash-mobile
+        = "<!--Placeholder for flash messaging-->"
+        = show_flash_messages(:class => "flash", :markdown => true)
 
       #footer-mobile
         = render :partial => "layouts/footer_mobile"

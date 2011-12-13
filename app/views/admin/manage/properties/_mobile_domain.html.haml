@@ -1,0 +1,19 @@
+.description
+  %h2
+    = "Domain Settings"
+  .note
+    = "Do not change this setting until you have configured your domain. (Help!)"
+
+
+.mobile-form
+  .group.center
+    %span.description
+      =request.protocol
+    = f.text_field :domain, :class=> "text_field", :style => "width: 100%"
+
+  .group.navform
+    = f.submit t('scaffold.update')
+
+%ul
+  %li
+    = "How do I configure my existing website to detect mobile visitors?"

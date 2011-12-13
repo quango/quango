@@ -1,0 +1,16 @@
+-content_for :main do
+
+
+  %h1
+    = "New transaction"
+
+  %p
+    - form_for(@transaction) do |f|
+      = f.error_messages
+      %p
+        = f.text_field :transaction, :value => @transaction.name
+      %p
+        = f.submit 'Create'
+
+  %p
+    = link_to 'Back', transactions_path

@@ -1,0 +1,16 @@
+-content_for :main do
+
+
+  %h1
+    = "New subscription"
+
+  %p
+    - form_for(@subscription) do |f|
+      = f.error_messages
+      %p
+        = f.text_field :name, :value => @subscription.name
+      %p
+        = f.submit 'Create'
+
+  %p
+    = link_to 'Back', subscriptions_path

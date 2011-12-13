@@ -1,0 +1,16 @@
+-content_for :main do
+
+  %h1
+    = "Editing transaction"
+
+  %p
+    - form_for(@transaction) do |f|
+      = f.error_messages
+      %p
+        = f.text_field :name, :value => @transaction.name
+      %p
+        = f.submit 'Update'
+
+  %p
+    = link_to 'Show', @transaction |
+    = link_to 'Back', transaction_path

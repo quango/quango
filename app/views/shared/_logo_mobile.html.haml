@@ -1,0 +1,17 @@
+- logo_height = current_group.logo_info['height'].to_i
+- logo_height_mobile = (logo_height * 2)
+- logo_width = current_group.logo_info['width'].to_i
+- logo_width_mobile = (logo_width * 2)
+
+- if current_group.logo_only?
+  .container{:style => "height:#{logo_height_mobile}px"}
+    .logo-mobile{:style => "height:#{logo_height_mobile}px;width:#{logo_width_mobile}px; float:left; margin-left:16px"}
+      = link_to image_tag(current_group.logo_path, :width => logo_width_mobile, :height => logo_height_mobile,  :style => "bottom:0px;"), "#{domain_url(:custom => current_group.domain)}/?mobile=true", :style=>"color:#{current_group.text_colour};margin:0px;height:#{logo_height_mobile}px;width:#{logo_width_mobile}px", :alt => "Home"
+
+- else
+  .container{:style => "height:80px"}
+    .left
+      =link_to h(current_group.name), "#{domain_url(:custom => current_group.domain)}/?mobile=true", :style=>"font-size:2em;font-weight:bold;line-height:80px;text-shadow:-1px -1px 2px black;color:white;text-decoration:none"
+    -if current_group.strapline?
+      .strapline{:style => "height:80px;line-height:80px;color:white;float:left; border-left:1px solid color:white; margin-left:8px;padding-left:8px;"}
+        ="#{current_group.strapline}"

@@ -1,7 +1,33 @@
-%h1
-  = "Settings"
+#body
+  .content
+    %h1
+      = image_tag "/images/icons/settings.png", :height=>"32", :width=>"32", :style=>"height:32px;width:32px;"
+      = "Settings"
+      %button{:style=>"float:right;font-size:0.5em;"}
+        = "Help!"
+    %ul
+      %li
+        = image_tag "/images/unlocked-temp.png"
+        = link_to "General Settings", "?tab=mobile_settings"
+        .note
+          = "Make changes to your mobile FAQ"
+
+    %ul
+      %li
+        = image_tag "/images/unlocked-temp.png"
+        = link_to "My Settings", "?tab=user_settings"
+        .note
+          = "Make changes to your personal account"
 
 
-%ul
-  %li
-    = link_to "Wheel", "?tab=colour_wheel"
+      %hr
+      %li.locked
+        = image_tag "/images/locked-temp.png"
+        = link_to "Reseller Account", "?tab=reseller_settings"
+ 
+
+    .note
+      = "You must have an active reseller account to claim your commissions: Activate now!"
+
+
+  .clear

@@ -1,6 +1,20 @@
 - grp = current_group
 
+\.container{width:480px;margin:0 auto;padding:0 16px;}
+
+-#\ul.mobile li{height:32px;line-height:32px;font-weight:bold}
+-#\ul.mobile li.note{height:32px;line-height:32px;font-weight:normal}
+
+\#body{margin:0 auto}
+\#body .content{width:480px;margin:0 16px;}
+
+\#title{margin:0 auto}
+\#title .content{width:480px;margin:0 auto;text-align:center}
+
+
 \.text_field{width:442px;height:1.5em;border-radius:16px;border: 4px solid silver;font-size:2em;font-family:"Arial Black";font-weight:bold;padding:4px 16px;margin:32px 0 16px 0; background: -webkit-gradient(linear,left left,right right,from(#dcdcdc),to(#ffffff))}
+
+\.text_field_mobile{border-radius:16px;font-size:1.5em;width:472px;margin:8 16px; height:64px;border:3px inset white}
 
 \.swatch{height:32px;width:128px;border:3px solid white}
 \.text_field_short{width:64px;margin:0 16px;border:1px solid white; font-weight:bold;color:white}
@@ -8,7 +22,7 @@
 
 
 \ul{list-style-type:none;padding:0}
-\body{margin:0;padding:0;color:white}
+\body{font-family:sans-serif;margin:0;padding:0;color:#{grp.text_colour};background:#{grp.primary_dark}}
 \.left{float:left}
 \.right{float:right}
 \.clear{clear:both}
@@ -16,7 +30,6 @@
 
 \#toolbar-mobile{z-index: 100;height: 56px;line-height:56px; width: 100%;background: -webkit-gradient(linear,left top,left bottom,from(#525051),to(#000000));background: -moz-linear-gradient(top,#525051,#000000);filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,endColorstr='#000000',startColorstr='#525051');}
 
-\.toolbar-container-mobile{width:510px;height:56px;margin:0 auto;border-left:1px solid black; border-right:1px solid black}
 
 
 \#logo-mobile {margin:0;}
@@ -45,7 +58,7 @@ background: linear-gradient(top, #{grp.primary} 0%,#{grp.primary_dark} 50%,#{grp
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{grp.primary_dark}', endColorstr='#{grp.primary_dark}',GradientType=0 ); /* IE6-9 */
 }
 
-
+\.fold.settings{min-height:256px; height:auto}
 
 
 \.footer-mobile{

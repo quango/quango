@@ -1,0 +1,50 @@
+
+!!! Strict
+%html{"xml:lang" => I18n.locale, :lang => I18n.locale, :xmlns => "http://www.w3.org/1999/xhtml",  "xmlns:og" => "http://ogp.me/ns#"  }
+  %head
+    = "<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />"
+    = "<meta http-equiv=\"cache-control\" content=\"public\" />"
+    = "<meta http-equiv=\"content-language\" content=\"en\" />"
+    - if request.user_agent.include?("iPhone") then
+      = "<meta name=\"viewport\" content=\"width=512\">"
+    - else
+      = "<meta name=\"viewport\" content=\"width=device-width\">"
+
+    %title
+      &= page_title
+
+    = render :partial => "shared/layout/css_mobile"
+    = javascript_include_merged :mobile
+    = yield :custom_javascript
+    = yield :js
+
+    = current_group.head_tag
+
+  %body
+
+    #toolbar-mobile
+      = render :partial => "shared/toolbar_mobile"
+
+    #logo-mobile
+      = render :partial => "shared/logo_mobile"
+
+      -# Main div
+
+    = yield :main
+    .clear
+
+    #footer-mobile
+      = render :partial => "layouts/footer_mobile"
+
+
+    #debug
+      = render :partial => "layouts/debug"
+
+    #flash-mobile
+      = "<!--Placeholder for flash messaging-->"
+      = show_flash_messages(:class => "flash", :markdown => true)
+
+
+
+
+

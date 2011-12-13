@@ -1,0 +1,38 @@
+-content_for :main do
+
+  #main-index
+
+    %h1
+      = "Listing subscriptions"
+
+    %p
+      = link_to 'New subscription', new_subscription_path
+
+    %p
+      %table
+        %tr
+          %th
+            = "name"
+          %th
+            = "start"
+          %th
+            = "end"
+          %th
+            = "actions"
+        - @subscriptions.each do |subscription|
+          %tr
+            %td
+              = subscription.name
+            %td
+              = subscription.starts_at
+            %td
+              = subscription.ends_at
+            %td
+              = link_to 'Show', subscription
+              = link_to 'Edit', edit_subscription_path(subscription)
+              = link_to 'Destroy', subscription, :confirm => 'Are you sure?', :method => :delete
+
+
+
+
+

@@ -1,0 +1,11 @@
+-content_for :main do
+
+  %h1
+    = "Showing subscription"
+
+  %p
+    = @subscription.name
+
+  %p
+    = link_to 'Edit', edit_subscription_path(@subscription) |
+    = link_to 'Back', subscriptions_path

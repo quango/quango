@@ -7,16 +7,6 @@
     = render :partial => "shared/bug"
   .clear
 
-  - if @render_start
-    .left
-      .rendering{:style=>"margin-left:4px"}
-        - rendering_stop = Time.now
-        - rendering_time = rendering_stop - @render_start
-        = "#{rendering_time}"
-    .clear
-
-
-
   .left{:style=>"font-size:10px;"}
     - ua = request.env['HTTP_USER_AGENT'].downcase
     = "#{ua}"
@@ -25,13 +15,14 @@
   .left
     = "Group: #{current_group.id} / #{current_group.name}"
   .clear
+
   .left
     = "Parent:"
     - if current_group.parent_id
 
-      - parent = current_group.parent_id
+      - parent = Group.find(current_group.parent_id)
 
-      = "#{parent}"
+      = "#{parent.to_s}"
     - else
       = "Not set"
 

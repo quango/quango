@@ -1,0 +1,39 @@
+#body
+  .content
+
+
+    %h2
+      = "My Reseller account"
+      %button{:style=>"float:right;font-size:0.5em;"}
+        = "What's this?"
+
+
+    .note
+      = "You must have an active Resseler account to gain commission: Activate now!"
+
+    %ul
+      %li.locked
+        = image_tag "/images/locked-temp.png"
+        = link_to "My payment details", "?tab=reseller"
+      %li.locked
+        = image_tag "/images/locked-temp.png"
+        = link_to "Claim commision", "?tab=colour_wheel"
+
+      %li.locked
+        = image_tag "/images/locked-temp.png"
+        = link_to "pending commissions", "?tab=transactions"
+      %li.locked
+        = image_tag "/images/locked-temp.png"
+        = link_to "Transaction History", "?tab=reseller_transactions"
+
+
+    %h1
+      = "My moFAQ Settings"
+      %button{:style=>"float:right;font-size:0.5em;"}
+        = "Help!
+
+
+    .note
+      = "You must have an active subscription to modify your FAQ settings: Subscribe now"
+
+  .clear

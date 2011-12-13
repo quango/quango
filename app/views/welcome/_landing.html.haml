@@ -52,7 +52,7 @@
         %p{:style=>"font-weight:bold;letter-spacing:-1px; color:black; font-size:14px;"}
           = "Did you know?"
         %p{:style=>"color:white"}
-          = "<b>#{current_group.display_name_i.upcase} #{current_group.display_name_ii.upcase}</b> is a new type of website where any member can post content. Why not become a member and contribute to our community"
+          = "<b>#{current_group.display_name_i.upcase.to_s} #{current_group.display_name_ii.upcase.to_s}</b> is a new type of website where any member can post content. Why not become a member and contribute to our community"
   
 
     -# = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}

@@ -1,0 +1,48 @@
+#body
+  .content
+    %h1
+      = "moFAQ Settings"
+      %button{:style=>"float:right;font-size:0.5em;"}
+        = "Help!"
+    %ul.mobile
+      %li
+        = image_tag "/images/icons/settings.png"
+        = link_to "Colours", "?tab=colour_wheel"
+      %li.locked
+        = image_tag "/images/locked-temp.png"
+        = link_to "Logo", "?tab=colour_wheel"
+      %li.locked
+        = image_tag "/images/locked-temp.png"
+        = link_to "Contact details", "?tab=colour_wheel"
+        .note
+          = "Such as your email to receive queries - ensure this is regularly checked"
+      %li.locked
+        = image_tag "/images/locked-temp.png"
+        = link_to "Location", "?tab=transactions"
+        .note
+          = "The physical location of your business - for Google Maps"
+
+      %li.locked
+        = image_tag "/images/locked-temp.png"
+        = link_to "Domain", "?tab=mobile_domain"
+        .note
+          = "Use your own domain or subdomain eg. http://m.mybusiness.com"
+
+
+    .note
+      = "You must have an active subscription to modify your FAQ settings: Subscribe now"
+
+    %h2
+      = "My Reseller account"
+      %button{:style=>"float:right;font-size:0.5em;"}
+        = "What's this?"
+
+
+
+    .note
+      = "A unique feature of moFaq is our reseller programme... all current active subscribers are entitled to become resellers and gain $$ every time you make a referral"
+      = "however you must first activate this feature on your reseller account."
+      = "You must have an active reseller account to gain commission: Activate now!"
+
+
+  .clear

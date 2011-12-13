@@ -1,0 +1,12 @@
+= f.error_messages
+= f.hidden_field :user, :value => (current_user)
+
+
+.group
+  = f.label :name, "Temp text fiels", :class => "label"
+  = f.text_field :name, :class => "text_field"
+  .description
+    = t(".title_tip")
+
+
+

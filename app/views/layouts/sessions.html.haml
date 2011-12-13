@@ -1,68 +1,8 @@
-!!! Strict
-%html{"xml:lang" => I18n.locale, :lang => I18n.locale, :xmlns => "http://www.w3.org/1999/xhtml" }
-  %head
-    %title
-      &= page_title
-    = render :partial => "shared/layout/meta"
-    <!--[if lt IE 8]><link type="text/css" rel="stylesheet" media="screen" href="/stylesheets/ie7.css"><![endif]-->
-    = render :partial => "shared/layout/css"
+- rendering_start = Time.now
 
-    = render :partial => "shared/layout/javascript"
-    = current_group.head_tag
+- is_mobile = params[:mobile]
 
-  %body
-    = render :partial => "shared/analytics"
-    = @current_class
-
-    #flash
-      = "<!--Placeholder for flash messaging-->"
-      = show_flash_messages(:class => "flash", :markdown => true)
-
-    #toolbar-container
-      .toolbar-container-inner    
-        = render :partial => "shared/toolbar"
-
-    #logo-container
-      .logo-container-inner{:style => "height:#{current_group.logo_info['height']}px"}
-        -if current_group.logo_only?
-          .logo-text
-            .filling
-              .left
-                =link_to h(current_group.display_name_i), domain_url(:custom => current_group.domain), :class=>"display-name-i"
-              .left
-                =link_to h(current_group.display_name_ii), current_group.display_name_ii_link, :class=> "display-name-ii"
-              -if current_group.strapline?
-                .strapline{:style => "height:40px;color:white;margin:12px 10px 0 10px;float:left; border-left:1px solid white"}
-                  ="#{current_group.strapline}"
-
-        -else
-          .logo{:style => "height:#{current_group.logo_info['height']}px"}
-            = link_to image_tag(current_group.logo_path, :width => current_group.logo_info["width"], :height => current_group.logo_info["height"],  :style => "bottom:0px;"), domain_url(:custom => current_group.domain), :style=>"margin:0px;", :alt => "Home"
-
-
-    -if current_group.has_custom_channels
-      #channel-container
-        .channel-container-inner
-          = render :partial => "shared/channels"
-
-    #header-container
-      #header-container-inner
-        .navigation-container{:style=>"height:40px"}
-          .navigation{:style=>"float:left; height:32px; line-height:32px"}
-            = render :partial => "shared/contextual_navigation"
-
-
-    #container{:class => @current_class}
-      #announcement
-        = render :partial => "shared/announcements"
-
-      #wrapper
-        #main
-          = yield :main
-          .clear
-
-      .clear
-      #footer
-        .block.content
-          = render :partial => "layouts/footer"
-          = render :partial => "shared/ads/footer_ads"
+- if is_mobile || current_group.group_type == "mobile"
+  = render :partial => "/layouts/layout_sessions_mobile"
+- else
+  = render :partial => "/layouts/layout_sessions"

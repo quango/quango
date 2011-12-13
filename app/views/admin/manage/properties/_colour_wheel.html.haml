@@ -5,8 +5,10 @@
 -require_css "farbtastic"
 
 -content_for :inner_title do
-  .heading{:style=>"height:80px;"}
-    = "Choose a colour"
+  #title
+    .content
+      .heading{:style=>"font-weight:bold;padding:2px"}
+        = "Choose a colour"
 
 
 
@@ -38,15 +40,16 @@
   .form-item{:style=>"float:left; width:20%;"}
     = f.text_field :text_colour, :class => "colorwell",:style => "color: #{current_group.text_colour};background: #{current_group.text_colour}"
     -#%input{:type=>"text",:id=>"tertiary",:name=>"tertiary",:class=>"colorwell",:value=>"#{current_group.tertiary}"}
-#palette-indicator{:style=>"height:40px;margin:16px 0;"}
-  %div{:style=>"height:32px;-webkit-box-shadow:0 0 8px black;outline: none;transition: all 0.25s ease-in-out;border: 3px solid #eeeeee;margin:16px;border-radius:40px;"}
-    = "Indicator"
-    %button{:style=>"float:right"}
-      = "Autocompute"
-
+  .clear
+  .palette-indicator{:style=>"height:80px;margin:16px 0;"}
+    %div{:style=>"height:32px;-webkit-box-shadow:0 0 8px black;outline: none;transition: all 0.25s ease-in-out;border: 3px solid #eeeeee;margin:16px;border-radius:40px;"}
+      = "Indicator"
+      %button{:style=>"float:right"}
+        = "Auto"
+#submit{:style=>"height:80px;width:422px;margin:0 auto"}
 .submit{:style=>"width:480px;height:64px;margin:16px auto 0 auto;padding:0; border-top:1px solid #{current_group.tertiary}"}
   = f.submit "Preview", :class => "submit-button",:style=>"width:300px;float:left"
-  %button{:class => "create-button",:style=>"width:150px;float:right"}
+  %button{:class => "save-button",:style=>"width:150px;float:right"}
     = "Save"
 
 
