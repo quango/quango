@@ -1,13 +1,15 @@
-= yield :before_form
 
--form_for(@group, :html => {:class => "form", :multipart => true}) do |f|
-  = f.error_messages
-  - source = domain_url(:custom => @group.domain, :controller => "admin/manage", :action => "properties", :tab => @active_subtab)
-  - source = source << "&mobile=true"
-  = hidden_field_tag :source, source
+.container
+  = yield :before_form
 
-  =render :partial => "admin/manage/properties/subtabs"
-  =render :partial => "admin/manage/properties/#{@active_subtab||'welcome'}", :locals => {:f => f}
+  -form_for(@group, :html => {:class => "form", :multipart => true}) do |f|
+    = f.error_messages
+    - source = domain_url(:custom => @group.domain, :controller => "admin/manage", :action => "properties", :tab => @active_subtab)
+    - source = source << "&mobile=true"
+    = hidden_field_tag :source, source
+
+    =render :partial => "admin/manage/properties/subtabs"
+    =render :partial => "admin/manage/properties/#{@active_subtab||'welcome'}", :locals => {:f => f}
 
 
-= yield :after_form
+  = yield :after_form

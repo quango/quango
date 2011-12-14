@@ -16,19 +16,20 @@
         = link_to  t("scaffold.back"), groups_path, :class => "cancel button"
 
 
-- if is_mobile
+- if is_mobile || current_group.group_type == "mobile"
 
 
   -content_for :main do
     #fold  
-      .something{:style=>"width:480px;margin:0 auto;"}
-        -form_for(@group, :html => {:class => "form", :multipart => true}) do |f|
-          = f.error_messages
-          = render :partial => "form", :object => f
-          .group.navform
-            = f.submit  t("scaffold.create"), :class=>"submit-button"
-            = t("global.or")
-            = link_to  t("scaffold.back"), groups_path, :class => "cancel button"
+      .container
+        .note{:style=>"text-align:center;padding:16px 0 0 0;font-weight:bold;text-shadow:-1px -1px 2px #000000"}
+          = "Please choose a name for y<u>our</u> mobile FAQ (<a>Tips</a>)"
+        .form
+          -form_for(@group, :html => {:class => "form", :multipart => true}) do |f|
+            = f.error_messages
+            = render :partial => "form", :object => f
+            .group.navform
+              = f.submit  t("scaffold.create"), :class=>"submit-button"
 
 
 -yield :main

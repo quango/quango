@@ -5,62 +5,56 @@
 -require_css "farbtastic"
 
 -content_for :inner_title do
-  #title
-    .content
-      .heading{:style=>"font-weight:bold;padding:2px"}
-        = "Choose a colour"
+  -#title
+    -#.content
+      -#.heading{:style=>"font-weight:bold;padding:2px"}
+        -#= "Choose a colour"
 
 
+.container{:style=>"padding:16px 0;"}
+  #colour-wheel{:style=>"width:422px;height:422px;background:url(/images/wheel_BG.png);background-repeat:no-repeat;margin:0 auto;"}
+    .wheel{:style=>"height:390px;width:390px;padding:16px;"}
+      #picker
 
-#colour-wheel{:style=>"width:422px;height:422px;background:url(/images/wheel_BG.png);background-repeat:no-repeat;padding:16px 16px 0 16px;margin:16px 32px 0;"}
-  .wheel{:style=>"height:390px;width:390px;"}
-    #picker{:style=>"float: right;"}
-
-.clear
-
-
-
-#palette{:style=>"height:80px;width:422px;margin:0 auto"}
-  .form-item{:style=>"float:left;width:20%;"}
-    = f.text_field :primary_dark, :class => "colorwell colorwell-selected",:style => "color: #{current_group.primary_dark};background: #{current_group.primary_dark}"
-    -#%input{:type=>"text",:id=>"primary_dark",:name=>"primary_dark",:class=>"colorwell",:value=>"#{current_group.primary_dark}"}
-    .label
-      = "BG"
-  .form-item{:style=>"float:left; width:20%;"}
-    = f.text_field :primary, :class => "colorwell",:style => "color: #{current_group.primary};background: #{current_group.primary}"
-    .label
-      = "stop 1"
-    -#%input{:type=>"text",:id=>"primary",:name=>"primary",:class=>"colorwell",:value=>"#{current_group.primary}"}
-  .form-item{:style=>"float:left; width:20%;"}
-    = f.text_field :secondary, :class => "colorwell",:style => "color: #{current_group.secondary};background: #{current_group.secondary}"
-    -#%input{:type=>"text",:id=>"secondary",:name=>"secondary",:class=>"colorwell",:value=>"#{current_group.secondary}"}
-  .form-item{:style=>"float:left; width:20%;"}
-    = f.text_field :tertiary, :class => "colorwell",:style => "color: #{current_group.tertiary};background: #{current_group.tertiary}"
-    -#%input{:type=>"text",:id=>"tertiary",:name=>"tertiary",:class=>"colorwell",:value=>"#{current_group.tertiary}"}
-  .form-item{:style=>"float:left; width:20%;"}
-    = f.text_field :text_colour, :class => "colorwell",:style => "color: #{current_group.text_colour};background: #{current_group.text_colour}"
-    -#%input{:type=>"text",:id=>"tertiary",:name=>"tertiary",:class=>"colorwell",:value=>"#{current_group.tertiary}"}
   .clear
-  .palette-indicator{:style=>"height:80px;margin:16px 0;"}
-    %div{:style=>"height:32px;-webkit-box-shadow:0 0 8px black;outline: none;transition: all 0.25s ease-in-out;border: 3px solid #eeeeee;margin:16px;border-radius:40px;"}
-      = "Indicator"
-      %button{:style=>"float:right"}
-        = "Auto"
-#submit{:style=>"height:80px;width:422px;margin:0 auto"}
-.submit{:style=>"width:480px;height:64px;margin:16px auto 0 auto;padding:0; border-top:1px solid #{current_group.tertiary}"}
-  = f.submit "Preview", :class => "submit-button",:style=>"width:300px;float:left"
-  %button{:class => "save-button",:style=>"width:150px;float:right"}
-    = "Save"
+
+  #palette{:style=>"height:80px;width:422px;margin:8px auto 0;"}
+    .form-item{:style=>"float:left;width:20%;"}
+      = f.text_field :primary_dark, :class => "colorwell colorwell-selected",:style => "color: #{current_group.primary_dark};background: #{current_group.primary_dark}"
+    .form-item{:style=>"float:left;width:20%;"}
+      = f.text_field :primary, :class => "colorwell",:style => "color: #{current_group.primary};background: #{current_group.primary}"
+    .form-item{:style=>"float:left;width:20%;"}
+      = f.text_field :secondary, :class => "colorwell",:style => "color: #{current_group.secondary};background: #{current_group.secondary}"
+    .form-item{:style=>"float:left;width:20%;"}
+      = f.text_field :tertiary, :class => "colorwell",:style => "color: #{current_group.tertiary};background: #{current_group.tertiary}"
+    .form-item{:style=>"float:left;width:20%;"}
+      = f.text_field :text_colour, :class => "colorwell",:style => "color: #{current_group.text_colour};background: #{current_group.text_colour}"
 
 
--content_for :after_form do
+  #palette-indicator{:style=>"height:40px;margin:16px 0 0;border-radius:8px;"}
+    -#%div{:style=>"height:32px;-webkit-box-shadow:0 0 8px black;outline: none;transition: all 0.25s ease-in-out;border: 3px solid #eeeeee;margin:16px;border-radius:16px;"}
+    -#%div{:style=>"padding:8px ;height:30px;-webkit-box-shadow:0 0 8px black;outline: none;transition: all 0.25s ease-in-out;margin:0;border-radius:8px;"}
+    %button{:class=>"inner-button",:style=>"float:left;margin-right:4px;"}
+      %div{:style=>"height:16px;width:16px;background-color:black;border-radius:16px;"}
+        = "&nbsp"
+    %button{:class=>"inner-button",:style=>"float:left;margin-right:4px;"}
+      = "B"
+    %button{:class=>"inner-button",:style=>"float:left;margin-right:4px;"}
+      = "G"
+    %button{:class=>"inner-button",:style=>"float:left;margin-right:4px;"}
+      = "Invert Colours"
+    %button{:class=>"inner-button",:style=>"float:right"}
+      = "Auto Colours"
 
-    
-  .targetX{:style=>"border:0;"}
+  #submit
+    .submit{:style=>"width:480px;height:64px;margin:8px 0;padding:0;float:right;"}
+      %button{:class => "submit-button",:style=>"width:300px;float:left"}
+        = "Preview"
+      %button{:class => "save-button",:style=>"width:150px;float:right"}
+        = "Save"
 
 
 
-    .clear
 
 
 

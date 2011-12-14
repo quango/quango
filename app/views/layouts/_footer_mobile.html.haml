@@ -1,8 +1,17 @@
 
 .clear
-.footer-mobile{:style=>"width:480px;padding:8px 0;margin:16px auto;font-size:0.7em;border-top:1px solid #{current_group.primary};border-radius:0 0 8px 8px"}
+.footer-mobile{:style=>"width:480px;padding:8px 0 0;margin:16px auto;font-size:0.8em;border-top:1px solid #{current_group.primary};border-radius:0 0 8px 8px"}
   .footer
-    .left{:style=>"margin:0;width:240px"}
+    .left{:style=>"width:50%; font-weight:bold;line-height:32px;letter-spacing:-1px;"}
+      = "Every business needs a mobile FAQ : <a>Why?</a>"
+    .right
+      %button.inner-button{:onclick=>"window.location=\'#{new_group_path}/?mobile=true\'",:style=>"width:200px;"}
+        = "Get y<u>our</u> mobile FAQ"
+  .clear
+
+.footer-mobile{:style=>"width:480px;padding:4px 0;margin:0 auto;font-size:0.7em;border-top:1px solid #{current_group.primary};border-radius:0 0 8px 8px"}
+  .footer
+    .left{:style=>"width:40%"}
       = link_to "moFAQ", "http://moFAQ.com", :title => "Every business needs a mobile FAQ", :style=>"font-weight:bold;letter-spacing:-1px;"
       = " v" + AppConfig.version.to_s
       - if @render_start
@@ -10,20 +19,10 @@
         - rendering_time = rendering_stop - @render_start
         = "#{rendering_time}"
       = "<a style='border-radius:2px;background-color: #{current_group.secondary};color:white;padding:0 4px;letter-spacing:-1px;font-size:10px;font-weight:normal;'>BETA</a>"
-      = "|"
-      =  link_to "credits","/about/credits"
-      %br
-      = "view: <a href=\'/\'>classic</a> | mobile"
-    .right{:style=>"width:240px;height32px",:class=>"create-button"}
-      %button.create-button
-        
-        = link_to "Create your mobile FAQ", "#{new_group_path}/?mobile=true"
-      %br
-        .resellers{:style=>"text-align:center"}
-          = "Resellers <a>click here</a>"
-    .clear
-
-
+    .right
+      .resellers{:style=>"text-align:center"}
+        = "Resellers <a>click here</a>"
+  .clear
 
 
 

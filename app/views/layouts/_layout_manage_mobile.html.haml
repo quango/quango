@@ -1,4 +1,6 @@
 
+- debug = params[:debug]
+
 !!! Strict
 %html{"xml:lang" => I18n.locale, :lang => I18n.locale, :xmlns => "http://www.w3.org/1999/xhtml" }
   %head
@@ -6,8 +8,6 @@
     = "<meta http-equiv=\"cache-control\" content=\"public\" />"
     = "<meta http-equiv=\"content-language\" content=\"en\" />"
     = render :partial => "layouts/ua"
-
-
 
     %title
       &= page_title
@@ -19,60 +19,29 @@
 
     = current_group.head_tag
 
-    %body{:style=>"background:#{current_group.primary_dark};font-family:sans-serif;color:#{current_group.text_colour};margin:0;"}
-      = render :partial => "shared/analytics"
+  %body{:style=>"background:#{current_group.primary_dark};font-family:sans-serif;color:#{current_group.text_colour};margin:0;"}
+    = render :partial => "shared/analytics"
 
 
-      #toolbar-mobile{:style=>"border-bottom:1px solid #333"}
-        .toolbar-container-mobile    
-          = render :partial => "shared/toolbar_mobile"
+    #toolbar
+      = render :partial => "shared/toolbar_mobile"
+
+    #logo
+      = render :partial => "shared/logo_mobile"
+
+    -#= yield :inner_title
 
 
+    #body
+      = yield
 
-
-
-      #logo-mobile
-        - logo_height = current_group.logo_info['height'].to_i
-        - logo_height_mobile = (logo_height * 2)
-        - logo_width = current_group.logo_info['width'].to_i
-        - logo_width_mobile = (logo_width * 2)
-
-        - if current_group.logo_only?
-          .logo-container-mobile{:style => "height:#{logo_height_mobile}px"}
-
-            .logo-mobile{:style => "height:#{logo_height_mobile}px;width:#{logo_width_mobile}px; float:left; margin-left:16px"}
-              = link_to image_tag(current_group.logo_path, :width => logo_width_mobile, :height => logo_height_mobile,  :style => "bottom:0px;"), "#{domain_url(:custom => current_group.domain)}/?mobile=true", :style=>"margin:0px;height:#{logo_height_mobile}px;width:#{logo_width_mobile}px", :alt => "Home"
-        - if false
-          .logo-container-mobile{:style => "width:480px;height:80px"}
-            .logo-text
-              .filling
-                .left{:style=>"float:left;margin-left:16px,font-size:2em;font-weight:bold;line-height:80px;text-shadow:-1px -1px 2px black;color:white;text-decoration:none"}
-                  
-        - if true
-          .logo-container-mobile{:style => "width:512px;height:80px"}
-            .logo-text
-              .filling
-                .left{:style=>"float:left;margin-left:16px;"}
-                  =link_to h(current_group.name), "#{domain_url(:custom => current_group.domain)}/?mobile=true", :style=>"color:#{current_group.text_colour};font-size:2em;font-weight:bold;line-height:80px;text-shadow:-1px -1px 2px #{current_group.primary_dark};text-decoration:none"
-
-
-
-      = yield :inner_title
-
-
-      #fold{:class => @active_tab}
-        .fold.settings
-          = yield
-        .clear
-      .clear
-
-      #flash-mobile
-        = "<!--Placeholder for flash messaging-->"
+    #flash
+      .container
         = show_flash_messages(:class => "flash", :markdown => true)
 
-      #footer-mobile
-        = render :partial => "layouts/footer_mobile"
+    #footer
+      = render :partial => "layouts/footer_mobile"
 
-
+    - if debug
       #debug
         = render :partial => "layouts/debug"

@@ -2,23 +2,7 @@
 
 
 
- .colorwell {
-   -webkit-box-shadow:0 0 8px black;
-   outline: none;
-   transition: all 0.25s ease-in-out;
-   border: 3px solid #eeeeee;
-   border-radius: 40px;
-   width: 5em;
-   height: 5em;
-   text-align: center;
-   cursor: pointer;
- }
- body .colorwell-selected {
-   -webkit-box-shadow:0 0 8px white;
-   border: 3px solid white;
-   padding: 4px
-   font-weight: bold;
- }
+
  
 
 

@@ -15,8 +15,7 @@
 
   .clear
   .quick-create
-    .contain{:style=>"width:512px;margin:0 auto;"}
-      = render :partial => "shared/quick_create_mobile"
+    = render :partial => "shared/quick_create_mobile"
 
   %script{:type => "text/javascript"}
     = "// collapse:"
@@ -36,7 +35,6 @@
     = "$('.show_quick_create.fold').css('display','block');"
     = "$('.quick-create').hide();"
 
-.clear
 
 
 
