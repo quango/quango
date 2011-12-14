@@ -1,10 +1,8 @@
 
 -content_for :main do
 
-
-
   .container
-    %h2
+    .heading
       = "Login to your account..."
 
     -form_for :user, resource, :url => session_path(resource_name), :html => {:class => "form"} do |f|
@@ -26,25 +24,23 @@
               =f.label :remember_me, "Remember me?"
 
 
-        .form-footer
+        .group
+          %button.submit-button
+            = "Login"
 
-          .submit_button
-            = submit_tag "Login now..!",:class=>"submit-button"
-
-        .devise{:style => "margin-left:32px; width:312px; float:right"}
+        .devise
           = render :partial => "shared/devise_links"
 
         .clear
 
 
 
-
-        %h4{:style=>"margin-top:8px;margin-bottom:8px;background:0;border:0"}
-          = "Alternatively..."
-        .center{:style=>"width:388px; float:left;"}
-          %a.standard-button{:style=>"margin-bottom:16px;width:194px;height:32px;font-size:14px;margin:0 auto;", :href=>"/members/new"}
-            .inner{:style=>"width:186px; height:16px;padding:8px;"}
-              = "BECOME A MEMBER"
+      .after_form
+        .heading{:style=>"margin-top:8px;margin-bottom:8px;background:0;border:0"}
+          = "Don't have a login yet?"
+        .center
+          %button.inner-button{:href=>"/members/new"}
+            = "Become a member"
         .note{:style=>"margin-top:8px;width:200px;color:white; font-size:12px; line-height:12px;float:left "}
           = "Members can add answers and/or comments. Membership is free."
         .clear

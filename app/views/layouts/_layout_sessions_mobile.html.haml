@@ -1,4 +1,6 @@
 
+- debug = params[:debug]
+
 !!! Strict
 %html{"xml:lang" => I18n.locale, :lang => I18n.locale, :xmlns => "http://www.w3.org/1999/xhtml",  "xmlns:og" => "http://ogp.me/ns#"  }
   %head
@@ -18,29 +20,28 @@
 
     = current_group.head_tag
 
-    %body{:style=>"background:#{current_group.primary_dark};font-family:sans-serif;"}
+  %body{:style=>"background:#{current_group.primary_dark};font-family:sans-serif;"}
 
 
-      #toolbar-mobile
-        = render :partial => "shared/toolbar_mobile"
+    #toolbar
+      = render :partial => "shared/toolbar_mobile"
 
-      #logo-mobile
-        = render :partial => "shared/logo_mobile"
+    #logo
+      = render :partial => "shared/logo_mobile"
 
-        = yield :main
-        .clear
+    #body
+      = yield :main
 
-      #footer-mobile
-        = render :partial => "layouts/footer_mobile"
-
-      -if current_user
-        -if current_user.owner_of?(current_group)
-          #debug
-            = render :partial => "layouts/debug"
-
-      #flash-mobile
-        = "<!--Placeholder for flash messaging-->"
+    #flash
+      .container
         = show_flash_messages(:class => "flash", :markdown => true)
+
+    #footer
+      = render :partial => "layouts/footer_mobile"
+
+    -if debug
+      #debug
+        = render :partial => "layouts/debug"
 
 
 

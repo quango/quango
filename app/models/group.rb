@@ -41,12 +41,12 @@ class Group
   key :name_highlight, String, :default => "daily"
   key :name_highlight_link, String, :default => "http://thinkingdaily.com.au"
 
-  key :strapline, String, :default => "Strapline here..."
+  key :strapline, String
 
   key :subdomain, String
   key :domain, String
   key :legend, String, :default => "Every business needs a mobile FAQ"
-  key :description, :default => "This website allows members to share their news, articles and links. Here you can engage in an open debate with experts in their fields and share your knowledge with others."
+  key :description, :default => "This mobile FAQ allows customers to ask questions and get answers about a business directly from their mobile phone or tablet."
 
   key :group_categories, Array
   key :show_category_navigation, Boolean, :default => false
