@@ -1,0 +1,78 @@
+-content_for :list do
+  .supplementary-navigation
+    = t("groups.index.title")
+    -if @groups
+      == (#{format_number(@groups.total_entries)})  
+  .toolbox{:class => @active_subtab.to_s}
+    .navlabel.left
+      = "Sort"
+    .navcontrols.right
+      %ul
+        -if logged_in? && current_user.admin?
+          %li.active
+            = link_to t(".actives"), groups_path(:tab=>"actives"), :class => "standard-button"
+          %li.pending
+            = link_to t(".pendings"), groups_path(:tab=>"pendings"), :class => "standard-button"
+        %li.newest
+          = link_to t(".newest", :default => :"items.index.newest"), groups_path(:tab=>"newest"), :class => "standard-button"
+        %li.oldest
+          = link_to t(".oldest", :default => :"items.index.oldest"), groups_path(:tab=>"oldest"), :class => "standard-button"
+        %li.name
+          = link_to t(".name", :default => :"items.index.name"), groups_path(:tab=>"name"), :class => "standard-button"
+        %li.most_active
+          = link_to t(".most_active"), groups_path(:tab=>"most_active"), :class => "standard-button"
+
+
+
+  %ul.items#groups
+    = render :partial => "group", :collection => @groups
+
+#additional_info
+  =will_paginate @groups
+  .clear
+
+= link_to t(".request_group"), new_group_path, :class => "request_group"
+.clear
+
+-content_for :sidebar_inner do
+  #sidebar-inner
+    .block
+      %h3
+        = h("Search for a group")
+      .content{:style => "background-color: gainsboro"}
+        -form_tag groups_path, :class => "form", :id => "filter_groups", :method => "get" do
+          = label_tag :q, t(".filter"), :class => "label"
+          = text_field_tag "q", params[:q], :class => "text_field filter_field"
+          = submit_tag("filter")
+          .clear
+
+    = render :partial => "top_groups"
+
+    .block{:style => "display:none"}
+      %h3
+        = h("Something")
+      .content
+        = h("Something else")
+
+-content_for :sidebar do
+  #sidebar
+    -current_group.widgets.each do |widget|
+      .widget.block{:id => widget.name}
+        = render :partial => widget.partial_name, :locals => {:widget => widget, :width => "narrow"}
+
+    .block{:style => "display:none"}
+      %h3
+        = h("Something")
+      .content
+        = h("Something else")
+
+/Layout
+-content_for :main do
+
+  #main-index
+  
+    = yield :list
+
+
+
+

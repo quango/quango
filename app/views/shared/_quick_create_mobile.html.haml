@@ -1,16 +1,17 @@
 
+-if current_group.has_quick_create
 
-.container
-  .form
+  .container
+    .form
 
-    - quick_create = current_group.quick_create
-    - doctype = Doctype.find(quick_create)
-    - item = Item.new 
+      - quick_create = current_group.quick_create
+      - doctype = Doctype.find(quick_create)
+      - item = Item.new 
 
 
 
-    - form_for(item, :url => new_item_path(current_group.quick_create), :html => {:class => "form",:method => "get"}) do |f|
-      = render :partial => "items/form_quick_create_mobile", :locals => {:f => f, :doctype => doctype}
+      - form_for(item, :url => new_item_path(current_group.quick_create), :html => {:class => "form",:method => "get"}) do |f|
+        = render :partial => "items/form_quick_create_mobile", :locals => {:f => f, :doctype => doctype}
 
-  .clear
+    .clear
 

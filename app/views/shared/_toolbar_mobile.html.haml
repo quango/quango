@@ -13,7 +13,7 @@
     -if logged_in?
 
 
-      .entry.right{:style => "margin-left:8px; line-height:56px;text-shadow:-1px -1px 2px black"}
+      .entry.right{:style => "line-height:56px;text-shadow:-1px -1px 2px black"}
         - if current_user.display_name?
           - real_name = "#{current_user.display_name}"
         - else
@@ -28,7 +28,7 @@
           -#=link_to t("layouts.application.moderate"), moderate_path, :class => "moderate_link"
       -if current_user.owner_of?(current_group)
         .entry.right{:style=>"padding:12px 0;width:56px;height:40px;cursor:pointer;",:onclick=>"window.location.href=\'#{manage_properties_path}\'"}
-          =link_to "<img src=\'/images/icons/settings.png\' />", manage_properties_path, :class => "manage_link", :style => "height:40px;width:40px;margin-right:16px;"
+          =link_to "<img src=\'/images/icons/settings.png\' />", manage_properties_path, :class => "manage_link", :style => "height:40px;width:40px;"
 
 
 

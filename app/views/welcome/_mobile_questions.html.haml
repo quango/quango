@@ -6,9 +6,9 @@
         = "Top Questions"
 
     .right{:style=>"width:64px;margin-right:16px;"}
-      %a.show_below{:class => "fold navlinks showhide left", :style=>"color:white"}
+      %a.show_below{:class => "navlinks showhide left", :style=>"color:white"}
         = "<img src='/images/blank_icon.png' height='64px' width='64px'/>"
-      %a.hide_below{:class => "fold navlinks showhide left", :style=>"color:white"}
+      %a.hide_below{:class => "navlinks showhide left", :style=>"color:white"}
         = "<img src='/images/blank_icon_o.png' height='64px' width='64px'/>"
 
 
@@ -34,20 +34,20 @@
 
   %script{:type => "text/javascript"}
     = "// collapse:"
-    = "$('.hide_below.fold').click(function() {"
-    = "$('.hide_below.fold').css('display','none');"
-    = "$('.show_below.fold').css('display','block');"
+    = "$('.hide_below').click(function() {"
+    = "$('.hide_below').css('display','none');"
+    = "$('.show_below').css('display','block');"
     = "$('.below').hide('fast');"
     = "});"
     = "// expand:"
-    = "$('.show_below.fold').click(function() {"
-    = "$('.show_below.fold').css('display','none');"
-    = "$('.hide_below.fold').css('display','block');"
+    = "$('.show_below').click(function() {"
+    = "$('.show_below').css('display','none');"
+    = "$('.hide_below').css('display','block');"
     = "$('.below').show('fast');"
     = "});"
     = "// ok so far"
-    = "$('.hide_below.fold').css('display','none');"
-    = "$('.show_below.fold').css('display','block');"
+    = "$('.hide_below').css('display','none');"
+    = "$('.show_below').css('display','block');"
     = "$('.below').hide();"
 
 

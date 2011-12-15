@@ -11,6 +11,6 @@
 - else
   .container{:style => "height:80px;text-align:left;"}
     =link_to h(current_group.name), "#{domain_url(:custom => current_group.domain)}/?mobile=true", :style=>"font-size:2em;font-weight:bold;line-height:80px;text-shadow:-1px -1px 2px black;color:white;text-decoration:none;"
-    -if !current_group.strapline
+    -if current_group.strapline
       .strapline{:style => "height:80px;line-height:80px;color:white;float:left; border-left:1px solid color:white; margin-left:8px;padding-left:8px;"}
         ="#{current_group.strapline}"

@@ -169,8 +169,8 @@ class Group
   key :header_bg_image, String
   key :toolbar_bg, String
   key :toolbar_bg_image, String
-  key :primary, String, :default => "#456b83" #tabs, 
-  key :primary_dark, String, :default => "#3f5562" #tabs, 
+  key :primary, String, :default => "#202020" #tabs, 
+  key :primary_dark, String, :default => "#000000" #tabs, 
   key :primary_hover, String, :default => "#E1A970" #header_bg and edit buttons
   key :primary_selected, String, :default => "#990000"
 
@@ -180,23 +180,23 @@ class Group
   key :custom_toolbar_image, String
   key :custom_toolbar_image_info, Hash, :default => {"width" => 64, "height" => 32}
 
-  key :secondary, String, :default => "#7ca6c1" #tabs,
+  key :secondary, String, :default => "#404040" #tabs,
   key :secondary_hover, String, :default => "orange"
   key :secondary_selected, String, :default => "#E1A970"
   key :secondary_active, String, :default => "#990000"
-  key :tertiary, String, :default => "#8fadc1" #tabs, 
+  key :tertiary, String, :default => "#606060" #tabs, 
   key :complementary, String, :default => "#007500" #tabs, 
 
   key :secondary_navigation_bg, String, :default => "gainsboro"
   key :secondary_navigation_text, String, :default => "white"
   key :edit_button_bg, String, :default => "#990000" #tabs, 
   key :edit_button_bg_image, String, :default => "/images/default_button_bg.png"
-  key :link_colour, String, :default => "#00A08A"
+  key :link_colour, String, :default => "#532a2a"
   key :text_colour, String, :default => "#ffffff"
 
-  key :supplementary_dark, String, :default => "#A6691C" #action buttons and anything requiring high visibility
-  key :supplementary, String, :default => "#FFB455" #action buttons and anything requiring high visibility
-  key :supplementary_lite, String, :default => "#FFD6A2" #action buttons and anything requiring high visibility
+  key :supplementary_dark, String, :default => "#A64300" #action buttons and anything requiring high visibility
+  key :supplementary, String, :default => "#FF6600" #action buttons and anything requiring high visibility
+  key :supplementary_lite, String, :default => "#FF8D40" #action buttons and anything requiring high visibility
 
   key :has_landing, Boolean, :default => true
   key :has_landing_bg, Boolean, :default => false

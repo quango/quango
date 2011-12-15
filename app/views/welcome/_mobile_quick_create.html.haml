@@ -6,9 +6,9 @@
         = "How can we help?"
 
     .right{:style=>"width:64px;margin-right:16px;"}
-      %a.show_quick_create{:class => "fold navlinks showhide left", :style=>"color:white"}
+      %a.show_quick_create{:class => "navlinks showhide left", :style=>"color:white"}
         = "<img src='/images/blank_icon.png' height='64px' width='64px'/>"
-      %a.hide_quick_create{:class => "fold navlinks showhide left", :style=>"color:white"}
+      %a.hide_quick_create{:class => "navlinks showhide left", :style=>"color:white"}
         = "<img src='/images/blank_icon_o.png' height='64px' width='64px'/>"
 
 
@@ -19,20 +19,20 @@
 
   %script{:type => "text/javascript"}
     = "// collapse:"
-    = "$('.hide_quick_create.fold').click(function() {"
-    = "$('.hide_quick_create.fold').css('display','none');"
-    = "$('.show_quick_create.fold').css('display','block');"
+    = "$('.hide_quick_create').click(function() {"
+    = "$('.hide_quick_create').css('display','none');"
+    = "$('.show_quick_create').css('display','block');"
     = "$('.quick-create').hide('fast');"
     = "});"
     = "// expand:"
-    = "$('.show_quick_create.fold').click(function() {"
-    = "$('.show_quick_create.fold').css('display','none');"
-    = "$('.hide_quick_create.fold').css('display','block');"
+    = "$('.show_quick_create').click(function() {"
+    = "$('.show_quick_create').css('display','none');"
+    = "$('.hide_quick_create').css('display','block');"
     = "$('.quick-create').show('fast');"
     = "});"
     = "// ok so far"
-    = "$('.hide_quick_create.fold').css('display','none');"
-    = "$('.show_quick_create.fold').css('display','block');"
+    = "$('.hide_quick_create').css('display','none');"
+    = "$('.show_quick_create').css('display','block');"
     = "$('.quick-create').hide();"
 
 

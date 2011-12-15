@@ -122,7 +122,7 @@ class GroupsController < ApplicationController
     doctypes << Doctype.new(:name => "questions", :doctype => "standard", :create_label => "Ask a question", :created_label => "asked a question", :group_id => @group.id)
     #doctypes << Doctype.new(:name => "links",:has_links => "true", :doctype => "bookmark", :create_label => "Share a link", :created_label => "shared a link", :group_id => @group.id)
 
-    @group.quick_create = doctypes.first
+
 
     doctypes.each do |doctype| 
      doctype.hidden = true
@@ -140,6 +140,10 @@ class GroupsController < ApplicationController
      doctype.save!
      puts "saved #{doctype}"
     end
+
+    @group.has_quick_create = true
+    @group.quick_create = doctypes.first
+
 
     puts "Finished doctype creation /n"
 

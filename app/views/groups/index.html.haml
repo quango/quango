@@ -1,3 +1,6 @@
+- is_mobile = params[:mobile]
+
+
 -content_for :list do
   .supplementary-navigation
     = t("groups.index.title")
@@ -22,56 +25,69 @@
         %li.most_active
           = link_to t(".most_active"), groups_path(:tab=>"most_active"), :class => "standard-button"
 
+    - if current_group.group_type == "mobile"
+      %ul.items#groups
+        = render :partial => "group", :collection => @groups
+    - else
+      %ul.items#groups
+        = render :partial => "group", :collection => @groups
 
 
-  %ul.items#groups
-    = render :partial => "group", :collection => @groups
 
-#additional_info
-  =will_paginate @groups
-  .clear
 
-= link_to t(".request_group"), new_group_path, :class => "request_group"
-.clear
 
--content_for :sidebar_inner do
-  #sidebar-inner
-    .block
-      %h3
-        = h("Search for a group")
-      .content{:style => "background-color: gainsboro"}
-        -form_tag groups_path, :class => "form", :id => "filter_groups", :method => "get" do
-          = label_tag :q, t(".filter"), :class => "label"
-          = text_field_tag "q", params[:q], :class => "text_field filter_field"
-          = submit_tag("filter")
-          .clear
+- if is_mobile || current_group.group_type == "mobile"
+  -content_for :main do
 
-    = render :partial => "top_groups"
+    .container
+    
+      = yield :list
 
-    .block{:style => "display:none"}
-      %h3
-        = h("Something")
-      .content
-        = h("Something else")
+    #additional_info
+      =will_paginate @groups
+      .clear
 
--content_for :sidebar do
-  #sidebar
-    -current_group.widgets.each do |widget|
-      .widget.block{:id => widget.name}
-        = render :partial => widget.partial_name, :locals => {:widget => widget, :width => "narrow"}
 
-    .block{:style => "display:none"}
-      %h3
-        = h("Something")
-      .content
-        = h("Something else")
 
-/Layout
--content_for :main do
+- if current_group.group_type != "mobile"
+  -content_for :sidebar_inner do
+    #sidebar-inner
+      .block
+        %h3
+          = h("Search for a group")
+        .content{:style => "background-color: gainsboro"}
+          -form_tag groups_path, :class => "form", :id => "filter_groups", :method => "get" do
+            = label_tag :q, t(".filter"), :class => "label"
+            = text_field_tag "q", params[:q], :class => "text_field filter_field"
+            = submit_tag("filter")
+            .clear
 
-  #main-index
-  
-    = yield :list
+      = render :partial => "top_groups"
+
+      .block{:style => "display:none"}
+        %h3
+          = h("Something")
+        .content
+          = h("Something else")
+
+  -content_for :sidebar do
+    #sidebar
+      -current_group.widgets.each do |widget|
+        .widget.block{:id => widget.name}
+          = render :partial => widget.partial_name, :locals => {:widget => widget, :width => "narrow"}
+
+      .block{:style => "display:none"}
+        %h3
+          = h("Something")
+        .content
+          = h("Something else")
+
+
+  -content_for :main do
+
+    #main-index
+    
+      = yield :list
 
 
 
