@@ -10,10 +10,12 @@
   .quick-create-inner
 
     .group
-      = f.text_area :title, :class => "text_field_mobile",:value=>"Please touch here to start typing your question...",:onclick=>"this.value='';"
+      = f.text_area :title, :class => "text_field_mobile",:value=>"Please touch here to start typing your question...",:onclick=>"this.value='';",:style=>"width:456px;padding:0px 8px;line-height:28px;"
 
-      .related-item
-        %ul.items#related_items
+    .related-item
+      %ul.items#related_items
+
+
     .clear
 
 

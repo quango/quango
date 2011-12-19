@@ -1,0 +1,26 @@
+
+
+-content_for :main do
+
+  = javascript_include_merged :show
+
+  .container
+    .heading
+      = @item.doctype.create_label
+
+
+    -if logged_in?
+    .form-for-content
+      - form_for(@item, :html=>{:class => "form mainAnswerForm", :id => "ask_item"}) do |f|
+        =render :partial => "form_mobile", :locals => {:f => f, :doctype => @doctype}
+
+
+
+
+      .related-item
+        %ul.items#related_items
+
+
+
+
+

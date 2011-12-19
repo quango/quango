@@ -1,0 +1,37 @@
+.description{:style=>"height:32px"}
+  .heading
+    = "Physical Location"
+    %button.inner-button.right{:style=>"font-size:50%;"}
+      = "< Back"
+
+.clear
+.note
+  = "These settings affect your mofaq homepage"
+
+
+-# Just do Australia for now - internationalize later
+
+.mobile-form
+  .group
+    .note
+      = "Phone"
+    = f.text_field :group_phone, :class=> "text_field_mobile", :style => "width: 100%"
+
+  .group
+    .note
+      = "Fax"
+    = f.text_field :group_fax, :class=> "text_field_mobile", :style => "width: 100%"
+
+
+
+
+  .group
+    %button.submit-button.left{:style=>"margin:0 0 32px;"}
+      = "Save"
+    %button.submit-button.right{:style=>"margin:0 0 32px;"}
+      = link_to "Find on map", "?tab=group_map"
+
+
+%ul
+  %li
+    = "What if my business has multiple locations?"

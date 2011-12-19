@@ -1,0 +1,56 @@
+= local_assigns[f]
+= f.error_messages
+= error_messages_for(:user)
+
+-#= javascript_include_merged :show
+
+
+.answer-form-holder
+
+  = f.hidden_field :doctype_id, :value => @doctype
+  = f.hidden_field :anonymous, :value => params[:anonymous]
+  = f.hidden_field :anonymous_display_name, :value => params[:anonymous_display_name]
+  = f.hidden_field :anonymous_email, :value => params[:anonymous_email]
+
+  -# else
+
+
+
+
+  .answer-form
+
+    = f.label :title, "Your #{@doctype_id}", :class => "label"
+    .group
+      = f.text_area :title, :class => "text_field_mobile",:style=>"width:456px;padding:0px 8px;line-height:28px;"
+ 
+    .group
+
+      = f.label :body, t(:body, :scope => "activerecord.attributes.item"), :class => "label", :style=>"margin:16px 0 0 0"
+
+    .group
+
+      = f.text_area :body, :class => "text_area_mobile", :id => "editor"
+
+
+      = f.hidden_field :language, :value => (current_group.language || AppConfig.default_language)
+
+
+
+
+
+    .group
+      %button.submit-button{:style=>"margin:0 0 32px;"}
+        = "#{current_group.quick_create_label}"
+
+      = link_to t('scaffold.cancel'), items_path, :class => "submit-button cancel", :style => "background:red"
+
+
+    .related-item
+      %ul.items#related_items
+
+
+
+
+
+
+

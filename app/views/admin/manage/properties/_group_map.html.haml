@@ -1,0 +1,63 @@
+.description{:style=>"height:3em;margin-bottom:0.5em;"}
+  .heading
+    = "Map settings"
+    %span.help
+      = "Help!"
+    %button.inner-button.right{:style=>"font-size:50%;"}
+      = "< Back"
+
+.clear
+
+-# Just do Australia for now - internationalize later
+
+.mobile-form
+  .map-large-holder{:style=>"padding:8px;"}
+    .map-large
+
+
+#advanced
+  .fold
+    .left{:style=>"margin-left:16px;"}
+      .heading
+        = "Advanced "
+
+    .right{:style=>"width:64px;margin-right:16px;"}
+      %a.show_advanced{:class => "navlinks showhide left", :style=>"color:white;height:32px;line-height:32px"}
+        = "show"
+      %a.hide_advanced{:class => "navlinks showhide left", :style=>"color:white;height:32px;line-height:32px"}
+        = "hide"
+  .advanced
+    .group
+      = "Calculated geodata"
+    .group.left{:style=>"margin:0 0 32px;width:47%;"}
+      = "Longitude"
+      = f.text_field :display_name_i, :class=> "text_field_mobile.left", :style => "width: 47%"
+    .group.right{:style=>"margin:0 0 32px;width:47%;"}
+      = "Latitude"
+      = f.text_field :display_name_i, :class=> "text_field_mobile.right", :style => "width: 47%"
+
+.clear
+.group
+  %button.submit-button.left{:style=>"margin:0 0 32px;width:47%;"}
+    = "Update"
+  %button.submit-button.right{:style=>"margin:0 0 32px;width:47%;"}
+    = "Save"
+
+  %script{:type => "text/javascript"}
+    = "// collapse:"
+    = "$('.hide_advanced').click(function() {"
+    = "$('.hide_advanced').css('display','none');"
+    = "$('.show_advanced').css('display','block');"
+    = "$('.advanced').hide('fast');"
+    = "});"
+    = "// expand:"
+    = "$('.show_advanced').click(function() {"
+    = "$('.show_advanced').css('display','none');"
+    = "$('.hide_advanced').css('display','block');"
+    = "$('.advanced').show('fast');"
+    = "});"
+    = "// ok so far"
+    = "$('.hide_advanced').css('display','none');"
+    = "$('.show_advanced').css('display','block');"
+    = "$('.advanced').hide();"
+

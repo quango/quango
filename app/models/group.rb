@@ -27,6 +27,18 @@ class Group
   slug_key :title, :unique => false, :min_length => 4
   key :slugs, Array, :index => true
 
+  key :group_address_i, String, :default => "My unit"
+  key :group_address_ii, String, :default => "123 Mystreet"
+  key :group_city, String, :default => "Kingsville"
+  key :group_state, String, :default => "VIC"
+  key :group_region, String, :default => "Australia"
+  key :group_postcode, String, :default => "3012"
+  key :group_phone, String, :default => "555-12341234"
+  key :group_fax, String
+  key :group_longitude
+  key :group_latitude
+
+
   key :other_groups_facebook, String, :default => "http://www.facebook.com"
   key :other_groups_linkedin, String, :default => "http://www.linkedin.com"
   key :other_groups_twitter, String, :default => "http://www.twitter.com"

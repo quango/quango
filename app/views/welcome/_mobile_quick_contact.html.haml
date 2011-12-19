@@ -15,8 +15,42 @@
 
   .clear
   .contact
-    .container
-      = "Contact details"
+    .container{:style=>"height:280px;"}
+
+      .left{:style=>"width:200px;"}
+        .heading{:style=>"font-size:110%;"}
+          = "#{current_group.name}"
+        .group
+          = "#{current_group.group_address_i}"
+        .group
+          = "#{current_group.group_address_ii}"
+        .group
+          = "#{current_group.group_city}"
+        .group
+          = "#{current_group.group_state}"
+        .group
+          = "#{current_group.group_postcode}"
+        .group{:style=>"size:1em;text-transform:uppercase;color:#{current_group.tertiary}"}
+          = "#{current_group.group_region}"
+
+        -if current_group.group_phone
+          .group
+            = "TEL: #{current_group.group_phone}"
+        -if current_group.group_phone
+          .group
+            = "FAX: #{current_group.group_fax}"
+
+
+      .right{:style=>"width:280px;"}
+        .map-holder{:style=>"padding:8px;"}
+          .map
+
+
+
+
+
+
+
 
   %script{:type => "text/javascript"}
     = "// collapse:"

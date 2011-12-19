@@ -2,7 +2,7 @@
 .container{:style=>"height:56px"}
   .left{:style=>"height:56px;width:80px;"}
     %a{:href=>"http://mofaq.com?mobile=true", :title => "moFAQ: Every business needs a mobile FAQ"}
-      = image_tag("/images/logos/mofaq_logo.png",:height=>"56px",:width=>"80px",  :style => "border:0", :title => "moFaq: Every business needs a mobile FAQ")
+      = image_tag("/images/mofaq/mobile-faq-logo.png",:height=>"56px",:width=>"99px",  :style => "border:0", :title => "moFaq: Every business needs a mobile FAQ")
 
   .right{:style=>"height:56px;"}
     -if !logged_in?
@@ -22,6 +22,9 @@
         %strong
           = link_to real_name, "/members/#{current_user.slug}", :style => "font-size:1.5em;font-weight:bold;color:white;text-decoration:none"
         %span.reputation{:title => t("activerecord.attributes.user.reputation"), :style => "border-radius:4px;font-weight:bold;padding:0 8px;background-color:"+current_group.primary+";margin-left:16px;"}=format_number(current_user.reputation_on(current_group))
+
+        
+        =link_to "[X]", destroy_user_session_path, :class => "something"
 
       -#if current_user.mod_of?(current_group)
         -#.entry

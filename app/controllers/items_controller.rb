@@ -402,19 +402,37 @@ class ItemsController < ApplicationController
   # GET /items/new
   # GET /items/new.xml
   def new
-    @item = Item.new(params[:item])
+    if current_group.group_type == "mobile"
+      @item = Item.new(params[:item])
 
-    @doctypes = current_group.doctypes
-    @doctype = @doctypes.find_by_slug_or_id(params[:doctype_id])
+      @doctypes = current_group.doctypes
+      @doctype = @doctypes.find(params[:doctype_id])
 
-    @item.doctype_id = @doctype.id
+      @item.doctype_id = params[:doctype_id]
 
-    #@item.tags = current_group.default_tags.first
+      #@item.tags = current_group.default_tags.first
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json  { render :json => @item.to_json }
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json  { render :json => @item.to_json }
+      end
+    else
+
+      @item = Item.new(params[:item])
+
+      @doctypes = current_group.doctypes
+      @doctype = @doctypes.find_by_slug_or_id(params[:doctype_id])
+
+      @item.doctype_id = @doctype.id
+
+      #@item.tags = current_group.default_tags.first
+
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json  { render :json => @item.to_json }
+      end
     end
+
   end
 
   # GET /items/1/edit

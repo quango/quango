@@ -1,39 +1,36 @@
-#body
-  .content
+.description{:style=>"height:32px"}
+  .heading
+    = "Reseller Settings"
+    %button.inner-button.right{:style=>"font-size:50%;"}
+      = link_to "< Back", "/manage/properties?tab=mobile_settings"
+
+.clear
+.note
+  = "These settings affect your mofaq homepage"
 
 
-    %h2
-      = "My Reseller account"
-      %button{:style=>"float:right;font-size:0.5em;"}
-        = "What's this?"
+-# Just do Australia for now - internationalize later
+
+.mobile-form
+  .group
 
 
-    .note
-      = "You must have an active Resseler account to gain commission: Activate now!"
-
-    %ul
-      %li.locked
-        = image_tag "/images/locked-temp.png"
-        = link_to "My payment details", "?tab=reseller"
-      %li.locked
-        = image_tag "/images/locked-temp.png"
-        = link_to "Claim commision", "?tab=colour_wheel"
-
-      %li.locked
-        = image_tag "/images/locked-temp.png"
-        = link_to "pending commissions", "?tab=transactions"
-      %li.locked
-        = image_tag "/images/locked-temp.png"
-        = link_to "Transaction History", "?tab=reseller_transactions"
 
 
-    %h1
-      = "My moFAQ Settings"
-      %button{:style=>"float:right;font-size:0.5em;"}
-        = "Help!
+
+  .group
+    %button.submit-button.right{:style=>"margin:0 0 32px;"}
+      = link_to "Activate", "?tab=reseller_settings"
+
+.heading
+  = "My Reseller account"
+
+.note
+  = "A unique feature of moFaq is our reseller programme... all current active subscribers are entitled to become resellers and gain $$ every time you make a referral"
+  = "however you must first activate this feature on your reseller account."
+  = "You must have an active reseller account to gain commission: Activate now!"
 
 
-    .note
-      = "You must have an active subscription to modify your FAQ settings: Subscribe now"
-
-  .clear
+%ul
+  %li
+    = "What if my business has multiple locations?"

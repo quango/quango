@@ -1,0 +1,19 @@
+.description
+  %h2
+    = "Group details"
+  .note
+    = "These settings affect your mofaq homepage"
+
+
+.mobile-form
+  .group.center
+    %span.description
+      =request.protocol
+    = f.text_field :display_name_i, :class=> "text_field", :style => "width: 100%"
+
+  .group.navform
+    = f.submit t('scaffold.update')
+
+%ul
+  %li
+    = "What if my business has multiple locations?"
