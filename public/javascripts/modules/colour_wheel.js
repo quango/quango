@@ -66,7 +66,7 @@ $(document).ready(function() {
     .each(function () { f.linkTo(this); $(this).css('opacity', 1); })
     .focus(function() {
       if (selected) {
-        $(selected).css('opacity', 1).removeClass('colorwell-selected');
+        $(selected).css('opacity', 1).removeClass('colorwell-selected').blur();
       }
       f.linkTo(this);
       p.css('opacity', 1);
