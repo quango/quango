@@ -33,15 +33,12 @@
 
  
 - content_for :main do
-
+  = "mobile"
 
   #mobile-index{:style=>"margin:0 auto;padding:0"}
     .content{:style=>"width:512px;margin:0 auto;padding:0"}
 
-      -if logged_in?
-        -if current_user.owner_of?(current_group)
-          %div
-            = render :partial => "controls", :object=>@item
+
 
 
       #item-body-col.commentable.markdown{:style=>"width:480px;margin:0 16px"}
@@ -54,7 +51,7 @@
               - if !@item.close_reason.comment.empty?
                 .comment
                   =find_and_preserve(shapado_auto_link(@item.close_reason.comment))
-          .debug{:style => "display:none"}
+          .debug{:style => ""}
             = "This item's doctype: #{@item.doctype_id}"
 
 
@@ -97,8 +94,8 @@
             #answers
               -unless @item.closed
                 %a{:name=>"to_answer"}
-                -form_for @answer, :url => item_answers_path(@doctype, @item), :html => {:class => "form mainAnswerForm", :style=>"width:480px"} do |f|
-                  = render :partial => "answers/form", :locals => {:f => f, :markdown => true, :mode => "item"}
+                -form_for @answer, :url => item_answers_path(@item.doctype_id, @item), :html => {:class => "form mainAnswerForm", :style=>"width:480px"} do |f|
+                  = render :partial => "answers/form_mobile", :locals => {:f => f, :markdown => true, :mode => "item"}
                 .clear
 
 
@@ -113,11 +110,11 @@
                       %li
                         = "Sort by: "
                       %li
-                        = link_to "Fresh", item_path(@doctype, @item, :sort=>"fresh", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
+                        = link_to "Fresh", item_path(@item.doctype_id, @item, :sort=>"fresh", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
                       %li
-                        = link_to "Hot", item_path(@doctype, @item, :sort=>"hot", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
+                        = link_to "Hot", item_path(@item.doctype_id, @item, :sort=>"hot", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
                       %li
-                        = link_to "Historical", item_path(@doctype, @item, :sort=>"sweaty", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
+                        = link_to "Historical", item_path(@item.doctype_id, @item, :sort=>"sweaty", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
 
               .clear
 
@@ -132,7 +129,10 @@
 
 
 
-
+      -if logged_in?
+        -if current_user.owner_of?(current_group)
+          %div
+            = render :partial => "controls", :object=>@item
 
 
 

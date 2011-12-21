@@ -23,6 +23,6 @@
       .clear
 
   .inner{:style=>"float:right"}
-    = vote_box(@item, item_path(@doctype, @item), @item.closed)
+    = vote_box(@item, item_path(@item.doctype_id, @item), @item.closed)
 
 .clear

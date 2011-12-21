@@ -39,11 +39,7 @@
     -else
 
       .thumbnail-placeholder{:style => "background-color:#{current_group.secondary};width:140px;height:70px; float:left"  }
-        -#= "<b>#{doctype.name}</b>"
-        - if doctype.custom_icon?
-          = link_to image_tag(doctype.custom_icon, :style => "background-color:#{current_group.secondary};float:right;"), item_path(doctype.slug, item)
-        - else
-          = link_to image_tag("/images/spacer.gif", :style => "background-color:#{current_group.secondary};width:140px;height:70px"), item_path(doctype.id, item)
+        = link_to image_tag("/images/spacer.gif", :style => "background-color:#{current_group.secondary};width:140px;height:70px"), item_path(item.doctype_id, item)
 
     .summary{:style=>"float:right; width:580px;padding:0 0 0 8px"}
 
@@ -56,7 +52,7 @@
 
 
       .inner-author{:style=>"height:16px;margin-bottom:4px;float:right"}
-        = "#{doctype.created_by_label}" 
+        = "# {doctype.created_by_label}" 
         = link_to h(item.user.display_name), user_path(item.user)
 
   .clear

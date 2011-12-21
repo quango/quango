@@ -98,6 +98,7 @@ class Item
   key :group_id, String, :index => true
   belongs_to :group
 
+  key :doctype, String
 
   key :doctype_id, String, :index => true
   belongs_to :doctype

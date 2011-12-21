@@ -104,7 +104,7 @@ class AnswersController < ApplicationController
 
         flash[:notice] = t(:flubble_notice, :scope => "answers.create")
 
-        format.html { redirect_to item_path(@item.doctype, @item)}
+        format.html { redirect_to item_path(@item.doctype_id, @item)}
         #format.html{redirect_to item_path(@item)}
         #format.html { redirect_to("/#{@item.section}/#{@item.slug}") }
 
@@ -124,7 +124,7 @@ class AnswersController < ApplicationController
         puts errors.full_messages
 
         flash.now[:error] = errors.full_messages
-        format.html{redirect_to item_path(@item)}
+        format.html{redirect_to item_path(@item.doctype_id,@item)}
         format.json { render :json => errors, :status => :unprocessable_entity }
         format.js {render :json => {:success => false, :message => flash.now[:error] }.to_json }
       end

@@ -1,5 +1,6 @@
 - is_mobile = params[:mobile]
-
+- doctype = @item.doctype_id
+- dto = current_group.doctypes.find(doctype)
 
 -content_for :custom_javascript do
 
@@ -39,20 +40,7 @@
 
   -#if current_group.has_leaderboard && !@doctype.product_format?
 
-    -#lead{:style=>"margin:10px 0; height:90px"}
-      -#.welcome-index{:style => "float:left; width:729px;"}
-        -#.content
-          -#.inner
-            -#.leaderboard{:style=>"width:728px;height:90px; float:left;"}
-              -#= "<!--/ Leaderboard /-->"
-              -#= current_group.leaderboard_content
-      -#.sidebar-inner{:style => "float:right; width:300px;"}
-        -#.block
-          -#%div{:style=>"width:300px;height:90px;background:black"}
-            -#- if current_group.has_bumper
-              -#= current_group.bumper_content
-      -#.clear
-  - if !is_mobile
+  - if !is_mobile || current_group.group_type !="mobile"
     .sidebar-inner{:style=>"float:left;width:140px;background-color:#efefef;"}
       %h4{:style=>"width:136px; line-height:32px;padding-left:4px;"}
         = "Member"
@@ -103,12 +91,12 @@
                   = render :partial => "badges/badge", :object => badge, :locals => {:hide_user => false}
 
 
-  - if !is_mobile
+  - if !is_mobile || current_group.group_type !="mobile"
     #sidebar-inner{:style=>"float:right"}
       -#= render :partial => "author"
-      -if !@doctype.product_format || !@doctype.has_video
+      -#if !doctype.product_format
         = render :partial => "default_image", :locals => {:item => @item}
-      -if @doctype.has_video?
+      -#if doctype.has_video?
         = render :partial => "video_info", :locals => {:item => @item}
       = render :partial => "images", :locals => {:item => @item}
 
@@ -123,23 +111,12 @@
 
       -#= render :partial => "shared/sidebar_actions_show",  :locals => {:width => "wide"}
       = render :partial => "shared/community_sponsor",  :locals => {:width => "wide"}
+
       -#if current_group.has_medium_rectangle
-        -#.medium-rectangle{:style=>"background-color:white; width:300px;height:250px;margin:10px 0; padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
-          -#= current_group.medium_rectangle_content
-        -#.clear
 
       = render :partial => "shared/sponsored_links",  :locals => {:width => "wide"}
 
       -#if current_group.has_threeone_rectangle
-        -#.threeone-rectangle{:style=>"background-color:white; width:300px;height:100px;margin:10px 0; padding:2px 0; border-bottom:2px solid gainsboro; border-top:2px solid gainsboro"}
-          -#= current_group.threeone_rectangle_content
-        -#.clear
-      -#.block{:style => "margin-bottom:4px"}
-        -#%h3{:style=>"background:#{current_group.primary_dark}"}
-          -#= "About this site"
-        -#.content
-          -#.markdown{:style => "padding:10px"}
-            -#= markdown(current_group.description)
 
       -related_items = Item.related_items(@item, :language => find_languages)
       - if related_items
@@ -167,8 +144,8 @@
 
 
 
-  -if @doctype.product_format?
-    = render :partial => "show_product", :object=>@item
+  -#if doctype.product_format?
+    -#= render :partial => "show_product", :object=>@item
 
 
 
@@ -178,13 +155,13 @@
     .content
       .inner
         .toolbox{:style=>"width:576px;"}
-          = render :partial => "toolbox_show"
+          = render :partial => "toolbox_show", :object=>@item
         -if logged_in?
           -if current_user.owner_of?(current_group)
             %div
               = render :partial => "controls", :object=>@item
 
-    -if @doctype.has_video?
+    -if @item.doctype.has_video?
       = render :partial => "show_video", :object=>@item
 
 
@@ -219,7 +196,7 @@
                   = link_to h(tag), url_for(:controller => "item", :action => "index", :tags => tag), :rel => "tag", :style => "background-color:#{current_group.primary}"
               - if logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group)) #tofix
                 .retag
-                  = link_to t('.retag'), retag_item_path(@doctype, @item), :id => 'retag',:style => "background-color:white;border:0; color:#{current_group.primary};", :class => "link"
+                  = link_to t('.retag'), retag_item_path(doctype, @item), :id => 'retag',:style => "background-color:white;border:0; color:#{current_group.primary};", :class => "link"
 
           -#if @item.description?
             -#.description
@@ -247,7 +224,7 @@
           #answers
             -unless @item.closed
               %a{:name=>"to_answer"}
-              -form_for @answer, :url => item_answers_path(@doctype, @item), :html => {:class => "form mainAnswerForm", :style=>"width:568px"} do |f|
+              -form_for @answer, :url => item_answers_path(doctype, @item), :html => {:class => "form mainAnswerForm", :style=>"width:568px"} do |f|
                 = render :partial => "answers/form", :locals => {:f => f, :markdown => true, :mode => "item"}
               .clear
 
@@ -263,11 +240,11 @@
                     %li
                       = "Sort by: "
                     %li
-                      = link_to "Fresh", item_path(@doctype, @item, :sort=>"fresh", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
+                      = link_to "Fresh", item_path(@item.doctype_id, @item, :sort=>"fresh", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
                     %li
-                      = link_to "Hot", item_path(@doctype, @item, :sort=>"hot", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
+                      = link_to "Hot", item_path(@item.doctype_id, @item, :sort=>"hot", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
                     %li
-                      = link_to "Historical", item_path(@doctype, @item, :sort=>"sweaty", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
+                      = link_to "Historical", item_path(@item.doctype_id, @item, :sort=>"sweaty", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
 
             .clear
 

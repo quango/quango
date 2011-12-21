@@ -1,5 +1,5 @@
 -solution = item.accepted && item.answer_id == answer.id
--source = item_path(@doctype, @item)
+-source = item_path(@item.doctype_id, @item)
 
 - @aflag = current_user.has_flagged?(answer) if logged_in?
 - @aflag ||= Flag.new
@@ -18,7 +18,7 @@
           -if logged_in?
             -if (current_user.mod_of?(@item.group) || current_user.can_modify?(@item))
               -unless @item.accepted
-                = link_to t(".pick_answer"), solve_item_path(@doctype, @item, :answer_id => answer), :class=>"button"
+                = link_to t(".pick_answer"), solve_item_path(@item.doctype_id, @item, :answer_id => answer), :class=>"button"
               -if solution
                 = link_to t(".unset_answer"),  unsolve_item_path(@item.doctype_id, @item), :class=>"button"
             -if answer.wiki || current_user.can_edit_others_posts_on?(answer.group) || current_user.can_modify?(answer)
@@ -88,7 +88,7 @@
 
   .clear
   .forms.comment-form{:style => "background-color:#eee"}
-    -form_tag item_answer_comments_path(@doctype, @item, answer), :class => "form commentForm nestedAnswerForm" do
+    -form_tag item_answer_comments_path(@item.doctype_id, @item, answer), :class => "form commentForm nestedAnswerForm" do
       -@comment = Comment.new
       = render :partial => "comments/form", :locals => {:source => source, :commentable => answer}
       .group.navform

@@ -1,7 +1,17 @@
 
 = local_assigns[f]
+= local_assigns[doctype]
 = f.error_messages
 = error_messages_for(:user)
+
+
+-#= f.hidden_field :doctype_id, :value => params[:doctype_id]
+
+.debug
+  ="doctype: #{doctype}"
+
+
+
 
 -#= javascript_include_merged :show
 

@@ -1,4 +1,5 @@
 - is_mobile = params[:mobile]
+- is_classic = params[:classic]
 
 
 -content_for :custom_javascript do
@@ -34,16 +35,13 @@
  
 - content_for :main do
 
-  %div
-    = "&nbsp;"
-
-  - if !is_mobile
-    = render :partial => "show_classic", :locals=> {:item => @item}
-
-  - if is_mobile
-    = render :partial => "show_mobile", :locals=> {:item => @item}
 
 
+  - if current_group.group_type == "mobile"
+    = render :partial => "show_mobile", :locals=> {:item => @item, :doctype => @doctype}
+
+  - else is_classic || current_group.group_type == "classic"
+    = render :partial => "show_classic", :locals=> {:item => @item, :doctype => @doctype}
 
 
 

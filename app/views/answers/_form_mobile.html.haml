@@ -1,0 +1,79 @@
+
+
+-if logged_in?
+
+  .entry-details
+    .entry-title{:style=>"width:100%;height:32px; line-height:32px; margin-bottom:4px;"}
+      = "Please answer this question..."
+  .form
+
+    = f.hidden_field :mode, :value=> local_assigns[:mode]
+
+    -opts = {:class => "answer_text_area", :rows => '5', :cols => 'auto', :style=>"width:480px;"}
+
+    = f.text_area :body, opts
+
+    -if logged_in?
+
+      .answer-share{:style => "height: 32px; width: 512px; margin:0 auto 8px auto; display:none"}
+        %ul
+          %li{:style => "float:left; line-height:32px; margin-right:16px"}
+            = "Share: "
+          %li{:style => "float:left; line-height:32px; margin-right:4px"}
+            - google_check = ""
+            - google_check = google_check + "<input type='checkbox' class='check left' style='margin:3px;' />"
+            - google_check = google_check + "<img class='left' src='/images/logos/google.png' style='height:16px; float:left;'>"
+            = link_to google_check, google_authorize_path, :title => "Google", :class => "google button"
+
+          %li{:style => "float:left; line-height:32px; margin-right:4px"}
+            -if with_facebook?
+              - facebook_check = ""
+              - facebook_check = facebook_check + "<input type='checkbox' class='check left' style='margin:3px;' />"
+              - facebook_check = facebook_check + "<img class='right' src='/images/logos/facebook-cropped.png' style='height:14px; margin: 2px 0; border: 0; float:left;'>"
+              =link_to facebook_check, facebook_authorize_path, :title => "Facebook", :class => "facebook button"
+          %li{:style => "float:left; line-height:32px; margin-right:4px"}
+            -if AppConfig.twitter["activate"]
+              - twitter_check = ""
+              - twitter_check = twitter_check + "<input type='checkbox' class='check left' style='margin:3px;' checked />"
+              - twitter_check = twitter_check + "<img class='right' src='/images/logos/twitter-logo.png' style='height:12px; margin: 2px 0; border: 0; float:left;'>"
+              =link_to twitter_check, twitter_authorize_path, :title => "twitter", :class => "twitter button"
+
+          %li{:style => "float:left; line-height:32px; margin-right:4px"}
+            - linked_check = ""
+            - linked_check = linked_check + "<input type='checkbox' class='check left' style='margin:3px;' />"
+            - linked_check = linked_check + "<img class='left' src='/images/logos/linkedin.png' style='height:16px; float:left;'>"
+            = link_to linked_check, "#", :title => "linked", :class => "linkedin button"
+
+      .clear
+        .answer-actions{:style => "line-height:32px; height: 32px; width: 100%; margin: 0 0 16px 0; padding 4px"}
+          = submit_tag "Save", :class => "class-button", :style => "width:256px; height:32px; float:right;font-size:1.5em;"
+          .openedit{:style => "float:right; margin-right: 16px; display:none"}
+            = f.label :wiki, "Anybody can edit? ", :class => "radio"
+            = check_box :wiki, :class => "checkbox right"
+          .clear
+      .clear
+
+    -if !local_assigns[:markdown] && !current_group.wysiwyg_editor
+      %label.label
+        = t("global.preview")
+      #markdown_preview.markdown
+        =markdown(@answer.body)
+
+  -if !@answer.new?
+    .group{:style => "display:none"}
+      = f.label :version_message, t("wiki.model.attributes.message"), :class => "label"
+      = f.text_field :version_message, :class => "text_field"
+
+-elsif !logged_in?
+  .answer-form-holder{:style=>"width:568px"}
+    .entry-details
+      .entry-title{:style=>"height:32px; line-height:32px; margin-bottom:4px;"}
+        = "Answer this question..."
+
+    .clear
+    %span.left{:style=>"margin:8px"}
+      = "You must be logged in to answer this question... Don't have an account? <a href='/members/new'>Signup now!</a>"
+    .clear
+
+
+

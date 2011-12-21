@@ -1,6 +1,46 @@
 module ItemsHelper
 
+  def term_extract(item)
 
+    # here we do some tag extraction magic, if alchemy is enabled it will pull the data from there otherwise fallback to term extract
+    # AlchemyAPI is the best text extraction service I have found so far, mainly becuase it is very easy to use 
+
+
+    #if current_group.has_alchemy
+      #require 'semantic_extraction'
+      #SemanticExtraction.alchemy_api_key = current_group.alchemy_key
+      #terms = SemanticExtraction.find_keywords(@item.body)
+
+      #terms.each do |term|
+      #  keyword = "<li>" 
+      #  keyword = keyword << term.to_s << "</li>"
+      #  keywords_array << keyword
+      #end
+
+
+     # terms = get_terms(@item.body)
+
+
+
+     # @item.body << terms
+
+
+    #else
+
+      #require 'term-extract'    
+      #terms = TermExtract.extract(@item.body)
+
+      #terms.each do |term|
+        #keyword = "<li>" 
+        #keyword = keyword << term[0].to_s << "</li>"
+        #keywords_array = keywords_array << keyword
+      #end
+
+      #@item.body << terms.to_s
+
+    #end
+
+  end
 
 
   def has_images(item)
