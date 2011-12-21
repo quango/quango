@@ -19,7 +19,11 @@ javascripts:
 
 - mobile:
   - jquery
+  - jquery-ui
+  - jquery.easing.1.1
   - modules/editor
+
+
 
 - welcome:
   - jcarousellite_1.0.1
