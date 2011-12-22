@@ -161,7 +161,7 @@
             %div
               = render :partial => "controls", :object=>@item
 
-    -if @doctype.has_video?
+    -if @item.doctype.has_video?
       = render :partial => "show_video", :object=>@item
 
 

@@ -1,0 +1,84 @@
+-feed_url = url_for(:format => "atom", :tags => params[:tags])
+
+-content_for :rss do
+  %link{:rel=>"alternate", :type=>"application/atom+xml", :title => "atom", :href=> url_for(:format => "atom", :tags => params[:tags])}
+  %link{:rel=>"alternate", :type=>"application/atom+xml", :title => "atom", :href=> url_for(:format => "atom")}
+
+-content_for :secondary_navigation do
+  .secondary-navigation 
+    -#%h3
+      -#= h(@active_section.name.capitalize << " Listing")
+
+    .navcontrols
+      %ul{:style=>"display:inline"}
+        %li.label
+          = "Sort by:&nbsp;"
+        %li.freshness
+          = link_to t("items.index.fresh"), "?sort=fresh", :title => t("items.index.newest_tooltip"),:class=>"standard-button"
+        %li.hot
+          = link_to t("items.index.hot"), "?sort=hot", :title => t("items.index.hot_tooltip"),:class=>"standard-button", :rel => "nofollow"
+        %li.activity
+          = link_to t("items.index.activity"), "?sort=activity", :title => t("items.index.active_tooltip"),:class=>"standard-button", :rel => "nofollow"
+        %li.relevance
+          = link_to t("items.index.relevance"), "?sort=relevance", :title => t("items.index.active_tooltip"),:class=>"standard-button", :rel => "nofollow"
+  .clear
+
+
+/Items
+-content_for :main do
+
+  - if !@doctype
+    = "doctype not set #{@active_section}"
+    = "doctype #{@item.doctype_id}"
+
+
+
+  #index
+
+    .container
+
+      = yield :secondary_navigation
+
+      -if logged_in? && current_user.owner_of?(current_group)
+
+        .debug{:style=>"color:red;font-weight:bold; display:none"}
+          -#= "doctype:"
+          -#= "#{@doctype.id.to_s} / #{@doctype.name}"
+  
+      .inner
+        = @lang_conds.to_s
+        %ul.items#items
+          -if @items.empty?
+            %li.highlight
+              = t(".empty")
+
+          - index_array = Array.new
+
+          - @items.reverse.each do |item|
+
+            -# if item.doctype_id == @doctype
+            - index_array << item
+
+
+          - index_array.each do |item|
+            .summary-list-text
+              -#= "Page Id: #{item.title}, Group Id: #{item.group_id.to_s}, doctpe: #{item.doctype_id.to_s} </br>"
+              = render :partial => "item_mobile", :locals => {:item => item, :sort=>"hot"}
+
+
+
+        #additional_info
+          -#=will_paginate @items
+
+          .clear
+
+
+
+
+
+
+
+
+
+
+

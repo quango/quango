@@ -33,7 +33,6 @@
 
  
 - content_for :main do
-  = "mobile"
 
   #mobile-index{:style=>"margin:0 auto;padding:0"}
     .content{:style=>"width:512px;margin:0 auto;padding:0"}
@@ -51,7 +50,7 @@
               - if !@item.close_reason.comment.empty?
                 .comment
                   =find_and_preserve(shapado_auto_link(@item.close_reason.comment))
-          .debug{:style => ""}
+          .debug{:style => "display:none"}
             = "This item's doctype: #{@item.doctype_id}"
 
 
@@ -102,19 +101,15 @@
               .answers
 
                 .entry-details
-                  .entry-title
-                    = h("Other answers")
-                .secondary-navigation
-                  .navcontrols
-                    %ul{:style=>"list-style-type:none"}
-                      %li
-                        = "Sort by: "
-                      %li
-                        = link_to "Fresh", item_path(@item.doctype_id, @item, :sort=>"fresh", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
-                      %li
-                        = link_to "Hot", item_path(@item.doctype_id, @item, :sort=>"hot", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
-                      %li
-                        = link_to "Historical", item_path(@item.doctype_id, @item, :sort=>"sweaty", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
+                  .label.left
+                    = "Sort by: "
+                  %ul.right{:style=>"list-style-type:none; display:inline;"}
+                    %li{:style=>"display:inline"}
+                      = link_to "Fresh", item_path(@item.doctype_id, @item, :sort=>"fresh", :anchor => "answers"),:rel => "nofollow", :class => "a.submit-button"
+                    %li{:style=>"display:inline"}
+                      = link_to "Hot", item_path(@item.doctype_id, @item, :sort=>"hot", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
+                    %li{:style=>"display:inline"}
+                      = link_to "Historical", item_path(@item.doctype_id, @item, :sort=>"sweaty", :anchor => "answers"),:rel => "nofollow", :class => "standard-button"
 
               .clear
 
@@ -124,7 +119,7 @@
                   =render :partial=> "answer", :locals=> {:item => @item, :answer => solution} unless solution.nil?
                 .hentry
                   -@answers.each do |answer|
-                    =render :partial=> "answer", :locals=> {:item => @item, :answer => answer}
+                    =render :partial=> "answer_mobile", :locals=> {:item => @item, :answer => answer}
                 =will_paginate(@answers)
 
 

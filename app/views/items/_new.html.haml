@@ -15,7 +15,7 @@
   = javascript_include_merged :show
 
   %div
-    = "&nbsp;"
+    = "&nbsp;Y"
   #main-index{:style=>"width:728px;"}
     %h4
       -# if !@doctype.custom_icon.present
@@ -25,12 +25,12 @@
 
       -#= @doctype.create_label
 
-    -if @item.doctype.has_links? && !@item.doctype.is_link?
+    -if @doctype.has_links? && !@doctype.is_link?
       .answer-form-holder{:style=>"margin:0px auto; "}
         .call-to-action{:style=>"font-size:18px;color:white; font-weight:bold: letter-spacing:-1px; margin:16px 32px"}
           = "Please choose one of the options below to get started"
 
-        = "&nbsp;"
+        = "&nbsp;M"
 
         .selection-panel{:style=>"width:300px;float:left; padding-left:32px;margin-right:32px; border-left:1px solid gainsboro;"}
           %button.content{:style=>"width:256px;margin:8px 16px"}
@@ -89,34 +89,18 @@
         = "});"
         = "});"
 
-    -if @item.doctype.is_link
+    -if @doctype.is_link
 
       .form-for-link
         - form_for(@item, :html=>{:class => "form mainAnswerForm", :id => "ask_item"}) do |f|
           =render :partial => "form_for_links", :locals => {:f => f, :doctype => @doctype}
 
-
-    .clear
-
-      
-
-
-
-
-
-
-
-
-
-
-    -# Determine content creation paths
-
-    -if logged_in? && @item.doctype.has_video?
+    -if logged_in? && @doctype.has_video?
       - form_for(@item, :html=>{:class => "form mainAnswerForm", :id => "ask_item"}) do |f|
         =render :partial => "form_for_video", :locals => {:f => f, :doctype => @doctype}
 
 
-    -elsif !@item.doctype.has_links? && !@item.doctype.has_video?
+    -elsif !@doctype.has_links? && !@doctype.has_video?
       - form_for(@item, :html=>{:class => "form mainAnswerForm", :id => "ask_item"}) do |f|
         =render :partial => "form", :locals => {:f => f, :doctype => @doctype}
 

@@ -12,10 +12,10 @@
 
       - item = Item.new 
       = "QC: #{quick_create} </br>"
-      = "IDT: #{doctype.name}"
+      = "IDT: #{doctype.id}"
 
-      - form_for(item, :url => new_item_path(doctype.name), :html => {:class => "form",:method => "get"}) do |f|
-        = render :partial => "items/form_quick_create_mobile", :locals => {:f => f, :doctype => item.doctype_id}
+      - form_for(item, :url => new_item_path(doctype), :html => {:class => "form",:method => "get"}) do |f|
+        = render :partial => "items/form_quick_create_mobile", :locals => {:f => f, :doctype => doctype}
 
     .clear
 

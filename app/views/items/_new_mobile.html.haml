@@ -2,7 +2,7 @@
 
 -content_for :main do
 
-  = javascript_include_merged :show
+  -#= javascript_include_merged :show
 
   .container
     .heading
@@ -12,7 +12,32 @@
     -if logged_in?
     .form-for-content
       - form_for(@item, :html=>{:class => "form mainAnswerForm", :id => "ask_item"}) do |f|
-        =render :partial => "form_mobile", :locals => {:f => f, :doctype => @doctype}
+        = f.hidden_field :doctype_id, :value => @item.doctype.id
+        = f.hidden_field :anonymous, :value => params[:anonymous]
+        = f.hidden_field :anonymous_display_name, :value => params[:anonymous_display_name]
+        = f.hidden_field :anonymous_email, :value => params[:anonymous_email]
+        .answer-form-holder
+          .answer-form
+            = f.label :title, "Your #{@item.doctype.id}", :class => "label"
+            = f.text_area :title, :class => "text_field_mobile",:style=>"width:456px;padding:0px 8px;line-height:28px;"
+            = f.label :body, t(:body, :scope => "activerecord.attributes.item"), :class => "label", :style=>"margin:16px 0 0 0"
+            = f.text_area :body, :class => "text_area_mobile", :id => "editor"
+            = f.hidden_field :language, :value => (current_group.language || AppConfig.default_language)
+            .group
+              %button.submit-button{:style=>"margin:0 0 32px;"}
+                = "#{current_group.quick_create_label}"
+              = link_to t('scaffold.cancel'), items_path, :class => "submit-button cancel", :style => "background:red"
+
+
+    .related-item
+      %ul.items#related_items
+
+
+
+
+
+
+        -#=render :partial => "form_mobile", :locals => {:f => f, :doctype => @doctype}
 
 
 

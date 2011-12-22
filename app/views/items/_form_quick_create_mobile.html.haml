@@ -5,10 +5,10 @@
 = error_messages_for(:user)
 
 
--#= f.hidden_field :doctype_id, :value => params[:doctype_id]
+= f.text_field :doctype_id, :value => doctype.id
 
 .debug
-  ="doctype: #{doctype}"
+  ="doctype: #{doctype.id}"
 
 
 
