@@ -1,6 +1,6 @@
 - is_mobile = params[:mobile]
-- doctype = @item.doctype_id
-- dto = current_group.doctypes.find(doctype)
+-# doctype = @item.doctype_id
+- doctype = current_group.doctypes.find(@item.doctype_id)
 
 -content_for :custom_javascript do
 
@@ -161,7 +161,7 @@
             %div
               = render :partial => "controls", :object=>@item
 
-    -if @item.doctype.has_video?
+    -if @doctype.has_video?
       = render :partial => "show_video", :object=>@item
 
 
@@ -196,7 +196,7 @@
                   = link_to h(tag), url_for(:controller => "item", :action => "index", :tags => tag), :rel => "tag", :style => "background-color:#{current_group.primary}"
               - if logged_in? && (current_user.can_modify?(@item) || current_user.can_retag_others_items_on?(current_group)) #tofix
                 .retag
-                  = link_to t('.retag'), retag_item_path(doctype, @item), :id => 'retag',:style => "background-color:white;border:0; color:#{current_group.primary};", :class => "link"
+                  = link_to t('.retag'), retag_item_path(@item.doctype_id, @item), :id => 'retag',:style => "background-color:white;border:0; color:#{current_group.primary};", :class => "link"
 
           -#if @item.description?
             -#.description
@@ -224,7 +224,7 @@
           #answers
             -unless @item.closed
               %a{:name=>"to_answer"}
-              -form_for @answer, :url => item_answers_path(doctype, @item), :html => {:class => "form mainAnswerForm", :style=>"width:568px"} do |f|
+              -form_for @answer, :url => item_answers_path(@item.doctype_id, @item), :html => {:class => "form mainAnswerForm", :style=>"width:568px"} do |f|
                 = render :partial => "answers/form", :locals => {:f => f, :markdown => true, :mode => "item"}
               .clear
 

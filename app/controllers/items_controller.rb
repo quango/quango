@@ -341,7 +341,7 @@ class ItemsController < ApplicationController
 
     @doctypes = current_group.doctypes
 
-    @doctype = current_group.doctypes.find(@item.doctype_id)
+    @doctype = current_group.doctypes.find_by_slug_or_id(@item.doctype_id)
 
     if params[:language]
       params.delete(:language)
@@ -421,7 +421,7 @@ class ItemsController < ApplicationController
       @item = Item.new(params[:item])
 
       @doctypes = current_group.doctypes
-      @doctype = @doctypes.find(params[:item][:doctype_id])
+      @doctype = @doctypes.find_by_slug_or_id(params[:doctype_id])
 
       @item.doctype_id = @doctype
 
@@ -637,7 +637,7 @@ class ItemsController < ApplicationController
 
 
         if @item.video_link?
-          format.html { redirect_to item_path(@doctype, @item)}
+          format.html { redirect_to item_path(@item.doctype_id, @item)}
         elsif @item.article_link?
           format.html { redirect_to tag_item_path(@doctype, @item), :new=>true}
         #elsif !@item.doctype.has_images? 

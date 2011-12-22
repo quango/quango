@@ -23,7 +23,7 @@
       -# else
         -#= "<img src=\'/images/icons/pencil.png\' style='height:16px, width:16px; border:0;' >"
 
-      = @doctype.create_label
+      -#= @doctype.create_label
 
     -if @item.doctype.has_links? && !@item.doctype.is_link?
       .answer-form-holder{:style=>"margin:0px auto; "}
