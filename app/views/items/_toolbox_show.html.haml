@@ -43,6 +43,6 @@
           = link_to "Add images", new_item_image_path(@item.doctype_id, @item), :style => "height:20px;font-size:12px;font-weight:bold;letter-spacing:-1px;color:white;padding:2px 8px;float:right"
       - elsif !@item.images.empty?
         .submission-button{:style=>"float:right;line-height:14px"}    
-          = link_to "Edit images", item_images_path(@doctype.doctype_id, @item), :style => "height:20px;font-size:12px;font-weight:bold;letter-spacing:-1px;color:white;padding:2px 8px;float:right"
+          = link_to "Edit images", item_images_path(@item.doctype_id, @item), :style => "height:20px;font-size:12px;font-weight:bold;letter-spacing:-1px;color:white;padding:2px 8px;float:right"
 
 
