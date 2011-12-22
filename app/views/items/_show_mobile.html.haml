@@ -91,11 +91,7 @@
 
             %a{:name=>"answers"}
             #answers
-              -unless @item.closed
-                %a{:name=>"to_answer"}
-                -form_for @answer, :url => item_answers_path(@item.doctype_id, @item), :html => {:class => "form mainAnswerForm", :style=>"width:480px"} do |f|
-                  = render :partial => "answers/form_mobile", :locals => {:f => f, :markdown => true, :mode => "item"}
-                .clear
+
 
 
               .answers
@@ -121,6 +117,12 @@
                   -@answers.each do |answer|
                     =render :partial=> "answer_mobile", :locals=> {:item => @item, :answer => answer}
                 =will_paginate(@answers)
+
+              -unless @item.closed
+                %a{:name=>"to_answer"}
+                -form_for @answer, :url => item_answers_path(@item.doctype_id, @item), :html => {:class => "form mainAnswerForm", :style=>"width:480px"} do |f|
+                  = render :partial => "answers/form_mobile", :locals => {:f => f, :markdown => true, :mode => "item"}
+                .clear
 
 
 

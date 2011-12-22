@@ -5,9 +5,9 @@
 = error_messages_for(:user)
 
 
-= f.text_field :doctype_id, :value => doctype.id
+= f.hidden_field :doctype_id, :value => doctype.id
 
-.debug
+.debug{:style=>"display:none"}
   ="doctype: #{doctype.id}"
 
 
