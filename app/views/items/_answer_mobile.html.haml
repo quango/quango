@@ -4,6 +4,7 @@
 - @aflag = current_user.has_flagged?(answer) if logged_in?
 - @aflag ||= Flag.new
 
+
 .answer.commentable{:class => "post-#{answer.id} #{solution ? "solution" : ""}" }
   %a{:name=>answer.id}
   .toolbox-container
@@ -11,7 +12,7 @@
       =vote_box_inline(answer, item_path(@item.doctype_id, @item), item.closed)
       .controls
         .actions
-          = link_to t('activerecord.attributes.answer.link'), item_answer_path(@item.doctype_id, @item.id, answer.id), :class => "button"
+          = link_to "direct link", item_answer_path(@item.doctype_id, @item.id, answer.id), :class => "button"
           - if logged_in? && @aflag.new? && current_user != answer.user
             = link_to t(".flag"), new_item_answer_flag_path(@item.doctype, @item,answer), :class => "flag-link button", :rel => 'nofollow'
 
@@ -42,66 +43,39 @@
         .forms
       .clear
 
+  .member
+    = "#{@item.user_id}"
   .body-col
     .markdown.entry-content
       =find_and_preserve(shapado_auto_link(markdown(answer.body), :link_users => true))
 
-      .owner-data
-        .updated{:title => answer.updated_at}
 
-        .author
-          -unless answer.anonymous
-            = render :partial => "users/user_mini", :locals => {:user => answer.user, :width => "narrow"}
-          -else
-            %b=t("global.anonymous")
-          %small.time_ago
-            = t('activerecord.attributes.answer.created_at')
-            = t("time.ago", :time => time_ago_in_words(answer.created_at))
-
-    -if logged_in? && (current_user.mod_of?(current_group) || current_user.can_view_offensive_counts_on?(current_group)) && answer.flags.count > 0
-      %h3
-        = t(:flags, :scope => "activerecord.models")
-      = render :partial => "flags/list", :locals => {:flaggeable => answer}
-    -if !answer.updated_by.nil?
-      .owner-data{:style=>"width:128px;float:right;"}
-
-
-        .author
-          = render :partial => "users/user_mini", :locals => {:user => answer.updated_by, :width => "narrow"}
-          -unless answer.updated_by.hide_country
-            .adr
-              %small.country-name
-                = t("global.from", :site => answer.updated_by.country_name)
-                = country_flag(answer.updated_by.country_code, answer.updated_by.country_name)
-
-          %small.time_ago
-            = t('activerecord.attributes.answer.updated_at', :default => "updated")
-            = t("time.ago", :time => time_ago_in_words(answer.updated_at))
 
     .clear
     / Nested Answers
-    -if logged_in?
+    -#if logged_in?
+    -if false
       .actionbox-container{:style => "height:26px; width:100%; background-color:gainsboro"}
         .actionbox{:style => ""}
           = link_to h("Reply to this comment"), new_item_comment_path(@item.doctype_id, @item, @answer), :class => "addNestedAnswer add_answer_comment_link action-button"
 
+    -if false
+      .clear
+      .forms.comment-form{:style => "background-color:#eee"}
+        -form_tag item_answer_comments_path(@item.doctype_id, @item, answer), :class => "form commentForm nestedAnswerForm" do
+          -@comment = Comment.new
+          = render :partial => "comments/form", :locals => {:source => source, :commentable => answer}
+          .group.navform
+            = t("global.or")
+            = link_to t('scaffold.cancel'), '', :class => 'cancel_comment'
+            = submit_tag t("comments.shared.comment_submit"), :class => "create-button", :style => "width:128px; height:24px; float:right;"
 
-  .clear
-  .forms.comment-form{:style => "background-color:#eee"}
-    -form_tag item_answer_comments_path(@item.doctype_id, @item, answer), :class => "form commentForm nestedAnswerForm" do
-      -@comment = Comment.new
-      = render :partial => "comments/form", :locals => {:source => source, :commentable => answer}
-      .group.navform
-        = t("global.or")
-        = link_to t('scaffold.cancel'), '', :class => 'cancel_comment'
-        = submit_tag t("comments.shared.comment_submit"), :class => "create-button", :style => "width:128px; height:24px; float:right;"
+        .children.comments{:style => "border-top: 4px solid gainsboro; background-color:#eee"}
+          -answer.comments.each do |comment|
+            .inline-comment{:style => "border-bottom: 1px dotted gainsboro"}
+              = render :partial => "comments/comment", :object => comment, :locals => {:source => source, :mini => true}
 
-    .children.comments{:style => "border-top: 4px solid gainsboro; background-color:#eee"}
-      -answer.comments.each do |comment|
-        .inline-comment{:style => "border-bottom: 1px dotted gainsboro"}
-          = render :partial => "comments/comment", :object => comment, :locals => {:source => source, :mini => true}
-
-    .clear
+        .clear
 
 
 .clear

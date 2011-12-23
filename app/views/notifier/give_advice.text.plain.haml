@@ -1,8 +1,8 @@
-- referral_link = "http://" + @domain + item_path(@item.doctype, @item)
+- referral_link = "http://" + @domain + item_path(@item.doctype_id, @item)
 - profile_link = link_to "Profile","http://" + @domain + user_path(@user)
-- user = @user.first_name.capitalize
+- user = @user.name.capitalize
 - poster = @item.user.first_name + " " + @item.user.last_name
-- doctype = @item.doctype.name
+- doctype = @item.doctype_id
 
 = t('.hi', :user => user)
 

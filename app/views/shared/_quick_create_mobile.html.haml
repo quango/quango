@@ -5,10 +5,17 @@
     .form
 
       - quick_create = current_group.quick_create
-      - doctype = Doctype.find(quick_create)
-      - item = Item.new 
 
-      - form_for(item, :url => new_item_path(doctype, item), :html => {:class => "form",:method => "get"}) do |f|
+
+      - doctype = current_group.doctypes.find(quick_create)
+
+
+      - item = Item.new 
+      .debug{:style=>"display:none"}
+        = "QC: #{quick_create} </br>"
+        = "IDT: #{doctype.id}"
+
+      - form_for(item, :url => new_item_path(doctype), :html => {:class => "form",:method => "get"}) do |f|
         = render :partial => "items/form_quick_create_mobile", :locals => {:f => f, :doctype => doctype}
 
     .clear

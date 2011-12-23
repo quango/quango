@@ -139,7 +139,9 @@ class ItemsController < ApplicationController
 
     @doctypes = current_group.doctypes
     @doctype = @doctypes.find_by_slug_or_id(params[:doctype_id])
-    @items = current_group.items #.merge(conditions)
+    @items = @doctype.items #where("doctype_id = ?", params[:doctype_id])
+
+ #.merge(conditions)
 
     @langs_conds = scoped_conditions[:language][:$in]
 
@@ -341,7 +343,7 @@ class ItemsController < ApplicationController
 
     @doctypes = current_group.doctypes
 
-    @doctype = current_group.doctypes.find_by_slug_or_id(params[:doctype_id])
+    @doctype = @doctypes.find(@item.doctype_id)
 
     if params[:language]
       params.delete(:language)
@@ -366,7 +368,7 @@ class ItemsController < ApplicationController
 
     #@items = Item.all({:order => current_order}.merge(conditions))
 
-    @tag_cloud = Item.tag_cloud(:_id => @item.id, :banned => false)
+    #@tag_cloud = Item.tag_cloud(:_id => @item.id, :banned => false)
 
     options = {:per_page => 25, :page => params[:page] || 1,
                :order => current_order, :banned => false}
@@ -405,10 +407,10 @@ class ItemsController < ApplicationController
     if current_group.group_type == "mobile"
       @item = Item.new(params[:item])
 
-      @doctypes = current_group.doctypes
-      @doctype = @doctypes.find(params[:doctype_id])
+      #@doctypes = current_group.doctypes
+      #@doctype = @doctypes.find_by_id(params[:doctype_id])
 
-      @item.doctype_id = params[:doctype_id]
+      #@item.doctype_id = @doctype.id
 
       #@item.tags = current_group.default_tags.first
 
@@ -421,9 +423,10 @@ class ItemsController < ApplicationController
       @item = Item.new(params[:item])
 
       @doctypes = current_group.doctypes
+      #@doctype = @item.doctype
       @doctype = @doctypes.find_by_slug_or_id(params[:doctype_id])
 
-      @item.doctype_id = @doctype.id
+      #@item.doctype_id = @doctype
 
       #@item.tags = current_group.default_tags.first
 
@@ -464,77 +467,23 @@ class ItemsController < ApplicationController
     @item.group = current_group
     @item.user = current_user
 
+
+
     @doctypes = current_group.doctypes
-    @doctype = @doctypes.find_by_slug_or_id(params[:doctype_id])
-
-    @item.doctype_id = @doctype.id
-
-
-
-
-
-
-
-
+    @doctype = @doctypes.find(params[:item][:doctype_id])
+    #@item.doctype_id = @doctype  #params[:doctype_id]
+ 
 
     @item.description = @item.body #.concat(256)
-    #if current_user?
-      #@item.meta_author = current_user.display_name
-    #else
-      #@item.meta_author = "Guest"
-    #end
+
     @item.meta_title = @item.title
     @item.meta_description = @item.description
     @item.meta_publisher = current_group.domain
     @item.meta_abstract = @item.abstract
 
-
-    # here we do some tag extraction magic, if alchemy is enabled it will pull the data from there otherwise fallback to term extract
-    # AlchemyAPI is the best text extraction service I have found so far, mainly becuase it is very easy to use 
-
     keywords_array = Array.new
 
-    #if current_group.has_alchemy
-      #require 'semantic_extraction'
-      #SemanticExtraction.alchemy_api_key = current_group.alchemy_key
-      #terms = SemanticExtraction.find_keywords(@item.body)
-
-      #terms.each do |term|
-      #  keyword = "<li>" 
-      #  keyword = keyword << term.to_s << "</li>"
-      #  keywords_array << keyword
-      #end
-
-
-     # terms = get_terms(@item.body)
-
-
-
-     # @item.body << terms
-
-
-    #else
-
-      #require 'term-extract'    
-      #terms = TermExtract.extract(@item.body)
-
-      #terms.each do |term|
-        #keyword = "<li>" 
-        #keyword = keyword << term[0].to_s << "</li>"
-        #keywords_array = keywords_array << keyword
-      #end
-
-      #@item.body << terms.to_s
-
-    #end
-
-
-
-
-
-
-
-
+    # here we will call term_extract in the items_helper to get the keywords from text entered
 
     if @item.video_link?
 
@@ -586,32 +535,6 @@ class ItemsController < ApplicationController
       @item.article_link_publisher = get_host_without_www(@item.article_link)
 
 
-
-
-
-      #@item.tags = doc.keywords.to_s
-
-      #tag_array = Array.new
-
-        #doc.keywords[0..4].each do |tag|
-      
-      #temp_tag = tag[0]
-
-
-        #tag_array << tag
-
-        #end
-
-      #tag_array.each do |clean_tag|
-
-      #@item.tags = tag_array
-
-      #end
-
-      #@item.tags = tag_array
-
-      #body = "Standard link body: #{pass_title}"
-
       quote_body = doc.body.to_s
 
 
@@ -659,9 +582,6 @@ class ItemsController < ApplicationController
         current_group.tag_list.add_tags(*@item.tags)
         #@item.meta_keywords = @item.category << ", " << @item.tags
   
-        
-
-
         unless @item.anonymous
           @item.user.stats.add_item_tags(*@item.tags)
           @item.user.on_activity(:ask_item, current_group)
@@ -687,17 +607,20 @@ class ItemsController < ApplicationController
         end
 
         current_group.on_activity(:ask_item)
-        flash[:notice] = "Thanks, you have just " + @doctype.created_label.to_s
+        flash[:notice] = "Success " #+ @doctype.created_label.to_s
 
 
         if @item.video_link?
-          format.html { redirect_to item_path(@doctype, @item)}
+          format.html { redirect_to item_path(@item.doctype_id, @item)}
         elsif @item.article_link?
-          format.html { redirect_to tag_item_path(@doctype, @item), :new=>true}
-        elsif !@doctype.has_images? 
-          format.html { redirect_to item_images_path(@doctype, @item)}
+          format.html { redirect_to tag_item_path(@item.doctype_id, @item), :new=>true}
+        #elsif !@item.doctype.has_images? 
+          #format.html { redirect_to item_images_path(@item.doctype, @item)}
         else
-          format.html { redirect_to item_path(@doctype, @item)}
+
+
+
+          format.html { redirect_to item_path(@doctype.name, @item)}
         end
 
 
@@ -758,7 +681,7 @@ class ItemsController < ApplicationController
 
         flash[:notice] = t(:flash_notice, :scope => "items.update")
 
-        format.html { redirect_to(item_path(@doctype, @item)) }
+        format.html { redirect_to(item_path(@doctype.name, @item)) }
         format.json  { head :ok }
       else
         format.html { render :action => "edit" }

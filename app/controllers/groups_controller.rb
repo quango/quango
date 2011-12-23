@@ -119,7 +119,7 @@ class GroupsController < ApplicationController
     puts "Starting doctype creation /n"
 
     doctypes = Array.new
-    doctypes << Doctype.new(:name => "questions", :doctype => "standard", :create_label => "Ask a question", :created_label => "asked a question", :group_id => @group.id)
+    doctypes << Doctype.new(:name => "q", :doctype => "standard", :create_label => "Ask a question", :created_label => "asked a question", :group_id => @group.id)
     #doctypes << Doctype.new(:name => "links",:has_links => "true", :doctype => "bookmark", :create_label => "Share a link", :created_label => "shared a link", :group_id => @group.id)
 
 
@@ -142,7 +142,7 @@ class GroupsController < ApplicationController
     end
 
     @group.has_quick_create = true
-    @group.quick_create = doctypes.first
+    @group.quick_create = doctypes.first.id
 
 
     puts "Finished doctype creation /n"

@@ -2,8 +2,12 @@
 = f.error_messages
 = error_messages_for(:user)
 
+-# @doctype = current_group.doctypes.find(params[:doctype_id])
+
+
 -#= javascript_include_merged :show
 
+= @doctype.id.to_s
 
 .answer-form-holder
 
@@ -29,7 +33,7 @@
 
 
     .group
-
+      -# if false
       - if @doctype.has_video?
         = f.label :video_link, "#{t(:video_link, :scope => "activerecord.attributes")}", :class => "label", :style => "margin-left: 8px"
         = f.text_field :video_link, :class => "text_field", :style => "width:496px; max-width:496px; margin:0 16px"

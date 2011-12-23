@@ -1,0 +1,59 @@
+-title = h(item.title)
+
+
+-if item.closed
+  -title += " [#{t("closed", :scope => "activerecord.attributes.item").upcase}]"
+
+-if item.doctype?
+
+
+  -if !local_assigns[:mini]
+    -owner = nil
+    -if item.last_target.present?
+      -last_target = item.last_target
+      -if last_target.respond_to?(:updated_by) && last_target.updated_by.present?
+        -owner= last_target.updated_by
+      -else
+        -owner= last_target.user
+    -else
+      -last_target = item
+      -owner = item.user unless item.anonymous
+
+    %li.entry.item{:class => class_for_item(item)}
+
+      - if item.default_thumbnail?
+        .thumbnail{:style => "width:140px;height:70px; overflow:hidden; float:left;margin-right:10px;" }
+          - image = Image.find(item.default_thumbnail)
+          - base_image = image.image.process(:thumb,image.image_cropping)
+          - base_thumbnail = base_image.process(:thumb,"140x")
+          = link_to image_tag(base_thumbnail.url, :class => 'none', :alt => image.caption, :title => image.caption,:style => "width:140px;min-height:70px" ), item_path(item.doctype, item)
+      
+      
+      - if false
+        .summary{:style=>"width:400px;height:70px;"}
+          %small
+            =item.doctype.name #.has_images
+            =render :partial => "/items/stats", :locals => {:item => item}
+          
+
+      %h3{:style=>"width:400px;height:24px;line-height:24px;overflow:hidden;margin:0"}
+        = link_to title, item_path(item.doctype.name, item), :title => truncate(strip_tags(item.body), :length => 200)
+      .summary
+        = item.body
+        
+
+
+      .clear
+  -else
+    -#cache("mini_item_on_index_#{item.id}_#{I18n.locale}") do
+    %li.item{:class => "#{class_for_item(item)} #{local_assigns[:lite] ? 'lite' : ''}"}
+      .stats
+        .box.answers{:class => item.accepted ? "accepted" : "" }
+          .counter
+            =format_number(item.answers_count)
+          -if !local_assigns[:lite]
+            .text
+              =t(:answers, :scope => "activerecord.attributes.item")
+      .mini_item_link
+        = link_to title, item_path(item.doctype, item)
+      .clear
