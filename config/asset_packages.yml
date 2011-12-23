@@ -18,10 +18,11 @@ javascripts:
 
 
 - mobile:
-  - jquery
-  - jquery-ui
-  - jquery.easing.1.1
-  - modules/editor
+  - jquery.min
+  - jquery-ui.min
+  - jquery.ui.accordian
+  #- jquery.easing.1.1
+  #- modules/editor
 
 
 
@@ -82,6 +83,13 @@ stylesheets:
   - compiled/application
   - prettify
   - ../javascripts/openid/css/style
+
+- mobile:
+  - jquery-ui
+
+
+
+
 
 
 

@@ -9,10 +9,17 @@
   %meta{:name => "description", :content => markdown(current_group.description).gsub(/<\/?[^>]*>/, "")[0, 255] }
 
 -content_for :custom_javascript do
-  = javascript_include_merged :welcome
 
+  - if is_mobile || current_group.group_type == "mobile"
 
+    %script{:type=>"text/javascript"}
+      = "$(document).ready(function() {"
+      = "$('#accordian').accordian();"
+      -#= "$(\"#accordion\").accordion();"
+      = "});"
 
+  - else
+    = javascript_include_merged :welcome
 
 
 

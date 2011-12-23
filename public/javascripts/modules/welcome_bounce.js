@@ -1,20 +1,3 @@
-$(document).ready(function() {
-    $('#member_user_id').autocomplete('/users/autocomplete_for_user_login.json', {
-            multiple: false,
-            dataType: 'json',
-            delay: 200,
-            selectFirst: false,
-            parse: function(data) {
-                return $.map(data, function(item) {
-                    return {
-                        data: item,
-                        value: item.login,
-                        result: item.login
-                    };
-                });
-            },
-            formatItem: function(item) {
-                return item.login;
-            }
-        });
-})
+function(){  
+        $(this).stop().animate({height:'50px'},{queue:false, duration:600, easing: 'easeOutBounce'})  
+    })

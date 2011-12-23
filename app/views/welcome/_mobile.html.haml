@@ -1,9 +1,21 @@
 
 
-= render :partial => "mobile_quick_create", :locals => {:expanded => false}
-= render :partial => "mobile_questions", :locals => {:expanded => false}
-= render :partial => "mobile_quick_contact", :locals => {:expanded => false}
-
+#accordian
+  %h3
+    = link_to "create","#"    
+  %div
+    = "Something"
+    -#= render :partial => "mobile_quick_create", :locals => {:expanded => false}
+  %h3
+    = link_to "tops","#"    
+  %div
+    = "Something"
+    -#= render :partial => "mobile_questions", :locals => {:expanded => false}
+  %h3
+    = link_to "tops","#"   
+  %div
+    = "Something"
+    -#= render :partial => "mobile_quick_contact", :locals => {:expanded => false}
 
 
 
