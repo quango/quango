@@ -93,4 +93,3 @@ $(document).ready(function() {
   });
   //END FARBTASTIC
 });
-
