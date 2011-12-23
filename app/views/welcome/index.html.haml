@@ -14,8 +14,26 @@
 
     %script{:type=>"text/javascript"}
       = "$(document).ready(function() {"
-      = "$('#accordian').accordian();"
-      -#= "$(\"#accordion\").accordion();"
+
+      -#= "$('#accordion h3').click(function() {"
+      -#= "$(this).next().slideDown();"
+      -#= "return false;"
+      -#= "}).next().hide();"
+
+      -#="var animated = $(\"#accordion\" ).accordion(\"option\", \"animated\" );"
+
+      ="$( \"#accordion\" ).accordion();"
+
+      -if false
+        = "$('#accordion').accordion({ animated: 'bounceslide' });"
+        = "$(\"#accordion\").accordion("
+        = "{ "
+        = "animated: 'bounceslide',"
+        = "autoHeight: false, "
+        = "collapsible: true, "
+        = "event: 'click', "
+        = "active: 0"
+        = "});"
       = "});"
 
   - else

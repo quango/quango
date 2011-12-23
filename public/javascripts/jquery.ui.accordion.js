@@ -15,17 +15,17 @@
 
 $.widget( "ui.accordion", {
 	options: {
-		active: 0,
-		animated: "slide",
-		autoHeight: true,
+		active: 2,
+		animated: "bounceslide",
+		autoHeight: false,
 		clearStyle: false,
-		collapsible: false,
+		collapsible: true,
 		event: "click",
 		fillSpace: false,
 		header: "> li > :first-child,> :not(li):even",
 		icons: {
-			header: "ui-icon-triangle-1-e",
-			headerSelected: "ui-icon-triangle-1-s"
+			header: "fold-icon",
+			headerSelected: "fold-icon-open"
 		},
 		navigation: false,
 		navigationFilter: function() {

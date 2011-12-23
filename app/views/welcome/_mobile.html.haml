@@ -1,21 +1,42 @@
 
 
-#accordian
-  %h3
-    = link_to "create","#"    
+
+#accordion
+
+
+
+
+  .fold-header
+    %h3
+      = link_to "How can we help?","#",:style=>"color:#{current_group.text_colour};",:class=>"container"
+
   %div
-    = "Something"
-    -#= render :partial => "mobile_quick_create", :locals => {:expanded => false}
-  %h3
-    = link_to "tops","#"    
+    .container
+      = render :partial => "shared/quick_create_mobile"
+
+
+  %h3.fold-header
+    .container
+      = link_to "Frequently asked....","#",:style=>"color:#{current_group.text_colour};" 
   %div
-    = "Something"
-    -#= render :partial => "mobile_questions", :locals => {:expanded => false}
-  %h3
-    = link_to "tops","#"   
+    .container
+
+      %ul.features
+        -if current_group.items.empty?
+          %li.highlight
+            = t(".empty")
+        -else
+          - @items.reverse[0..5].each do |item|
+            %li
+              = render :partial => "/items/single_list_mobile", :locals => {:item => item, :sort=>"hot"}
+
+  %h3.fold-header
+    .container
+      = link_to "Contact","#",:style=>"color:#{current_group.text_colour};" 
+
   %div
-    = "Something"
-    -#= render :partial => "mobile_quick_contact", :locals => {:expanded => false}
+    .container
+      = render :partial => "mobile_quick_contact", :locals => {:expanded => false}
 
 
 

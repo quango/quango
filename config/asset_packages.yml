@@ -20,10 +20,14 @@ javascripts:
 - mobile:
   - jquery.min
   - jquery-ui.min
-  - jquery.ui.accordian
-  #- jquery.easing.1.1
-  #- modules/editor
+  - jquery.ui.core
+  - jquery.ui.widget
+  - jquery.easing.1.3
+  - jquery.ui.accordion
 
+  #- modules/editor
+  #- jquery.effects.core
+  #- jquery.effects.bounce
 
 
 - welcome:

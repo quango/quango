@@ -9,6 +9,62 @@
 - alt2 = grp.supplementary
 - alt3 = grp.supplementary_lite
 
+\.fold-icon{height:64px;width:64px;background-image:url(/images/blank_icon.png);float:left;}
+\.fold-icon-open{height:64px;width:64px;background-image:url(/images/blank_icon_o.png);float:left;}
+
+
+\.fold-header{
+color:#{stop5};
+width:480px;
+margin:0 auto;
+}
+
+
+\.fold-header h3{color:#{stop5};
+width:100%;
+border-top: 1px solid #222222;
+-#border-bottom: 1px solid #111111;
+background: #{stop1}; /* Old browsers */
+background: -moz-linear-gradient(top, #{stop2} 0%, #{stop1} 30%, #{stop1} 55%, #{stop2} 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#{stop2}), color-stop(30%,#{stop1}), color-stop(76%,#{stop2}), color-stop(100%,#{stop1})); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #{stop2} 0%,#{stop1} 50%,#{stop1} 60%,#{stop1} 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #{stop2} 0%,#{stop1} 50%,#{stop3} 51%,#{stop1} 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #{stop2} 0%,#{stop1} 50%,#{stop3} 51%,#{stop1} 100%); /* IE10+ */
+background: linear-gradient(top, #{stop2} 0%,#{stop1} 50%,#{stop3} 51%,#{stop1} 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{stop1}', endColorstr='#{stop1}',GradientType=0 ); /* IE6-9 */
+
+
+
+}
+\h3.fold-header a{color:#{stop5}}
+
+\.ui-accordion{padding:0;margin:0}
+\.ui-state-default{
+
+
+
+
+
+}
+
+
+
+
+\.ui-accordion-header{/*width:100%;margin:0;*/}
+
+\.ui-widget-content{
+border-top: 1px solid #222222;
+-#border-bottom: 1px solid #111111;
+background: #{stop1}; /* Old browsers */
+background: -moz-linear-gradient(top, #{stop2} 0%, #{stop1} 30%, #{stop1} 55%, #{stop2} 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#{stop2}), color-stop(30%,#{stop1}), color-stop(76%,#{stop2}), color-stop(100%,#{stop1})); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #{stop2} 0%,#{stop1} 50%,#{stop1} 60%,#{stop1} 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #{stop2} 0%,#{stop1} 50%,#{stop3} 51%,#{stop1} 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #{stop2} 0%,#{stop1} 50%,#{stop3} 51%,#{stop1} 100%); /* IE10+ */
+background: linear-gradient(top, #{stop2} 0%,#{stop1} 50%,#{stop3} 51%,#{stop1} 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{stop1}', endColorstr='#{stop1}',GradientType=0 ); /* IE6-9 */
+
+}
 
 \.map{height:256px;width:256px;background:#{stop4};}
 \.map-holder{height:256px;width:256px;border-radius:8px;background:#{stop5};}
@@ -212,7 +268,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{stop1}', en
 }
 
 
-\.submit-button{border-radius:16px;text-transform:uppercase;letter-spacing:-1px;width:480px;height:56px:font-weight:bold;font-size:2em;margin-top:8px;margin-bottom:4px;line-height:56px;color:white; font-weight:bold; text-shadow:-2px -2px 2px #{alt1},2px 2px 1px #{alt2};}
+\.submit-button{border-radius:16px;text-transform:uppercase;letter-spacing:-1px;width:480px;height:56px;font-weight:bold;font-size:2em;margin-top:8px;margin-bottom:4px;line-height:56px;color:white; font-weight:bold; text-shadow:-2px -2px 2px #{alt1},2px 2px 1px #{alt2};}
 
 \button.submit-button{
 border: 4px outset white;
@@ -234,6 +290,7 @@ cursor:pointer;
 \a{color:#{stop4};text-decoration: none;}
 \a:hover{color:#{stop2};text-decoration:none;} 
 \h2{text-shadow:-1px -1px 2px #000000,2px 2px 1px #{stop2};}
+\h3{text-shadow:-1px -1px 2px #000000,2px 2px 1px #{stop2};margin:0 auto;height:64px;border-bottom:1px solid #{current_group.primary};}
 
 \ul{list-style-type:none;padding:0}
 \body{font-family:sans-serif;margin:0;padding:0;color:#{stop5};background:#{stop1}}

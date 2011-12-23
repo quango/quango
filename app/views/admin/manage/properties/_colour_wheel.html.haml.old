@@ -1,3 +1,4 @@
+
 -require_js "modules/colour_wheel"
 -require_js "modules/farbtastic"
 -require_js "jquery.ui.touch"
@@ -19,7 +20,7 @@
 
   #palette{:style=>"height:80px;width:422px;margin:8px auto 0;"}
     .form-item{:style=>"float:left;width:20%;"}
-      = f.text_field :primary_dark, :class => "colorwell colorwell-selected",:style => "color: #{current_group.primary_dark};background: #{current_group.primary_dark}"
+      = f.text_field :primary_dark, :class => "colorwell",:style => "color: #{current_group.primary_dark};background: #{current_group.primary_dark}"
     .form-item{:style=>"float:left;width:20%;"}
       = f.text_field :primary, :class => "colorwell",:style => "color: #{current_group.primary};background: #{current_group.primary}"
     .form-item{:style=>"float:left;width:20%;"}
@@ -37,7 +38,7 @@
       = "Reset"
     %button{:class=>"inner-button",:style=>"float:left;margin-right:4px;"}
       = "Invert Colours"
-    %button{:class=>"inner-button",:style=>"float:left;margin-right:4px;",:type=>"button",:id=>"auto-colours"}
+    %a.button{:class=>"auto-colours inner-button",:style=>"float:right"}
       = "Auto Colours"
 
   #submit
@@ -46,3 +47,9 @@
         = "Preview"
       %button{:class => "submit-button",:style=>"width:150px;float:right"}
         = "Save"
+
+
+
+
+
+

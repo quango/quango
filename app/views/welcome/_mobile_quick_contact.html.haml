@@ -1,77 +1,36 @@
 - expanded = local_assigns[:expanded]
-#fold
-  .fold
-    .left{:style=>"margin-left:16px;"}
-      %h2
-        = "Contact & Location"
 
-    .right{:style=>"width:64px;margin-right:16px;"}
-      %a.show_contact{:class => "navlinks showhide left", :style=>"color:white"}
-        = "<img src='/images/blank_icon.png' height='64px' width='64px'/>"
-      %a.hide_contact{:class => "navlinks showhide left", :style=>"color:white"}
-        = "<img src='/images/blank_icon_o.png' height='64px' width='64px'/>"
+.contact
+  .container{:style=>"height:280px;"}
 
+    .left{:style=>"width:200px;"}
+      .heading{:style=>"font-size:110%;"}
+        = "#{current_group.name}"
+      .group
+        = "#{current_group.group_address_i}"
+      .group
+        = "#{current_group.group_address_ii}"
+      .group
+        = "#{current_group.group_city}"
+      .group
+        = "#{current_group.group_state}"
+      .group
+        = "#{current_group.group_postcode}"
+      .group{:style=>"size:1em;text-transform:uppercase;color:#{current_group.tertiary}"}
+        = "#{current_group.group_region}"
 
-
-  .clear
-  .contact
-    .container{:style=>"height:280px;"}
-
-      .left{:style=>"width:200px;"}
-        .heading{:style=>"font-size:110%;"}
-          = "#{current_group.name}"
+      -if current_group.group_phone
         .group
-          = "#{current_group.group_address_i}"
+          = "TEL: #{current_group.group_phone}"
+      -if current_group.group_phone
         .group
-          = "#{current_group.group_address_ii}"
-        .group
-          = "#{current_group.group_city}"
-        .group
-          = "#{current_group.group_state}"
-        .group
-          = "#{current_group.group_postcode}"
-        .group{:style=>"size:1em;text-transform:uppercase;color:#{current_group.tertiary}"}
-          = "#{current_group.group_region}"
-
-        -if current_group.group_phone
-          .group
-            = "TEL: #{current_group.group_phone}"
-        -if current_group.group_phone
-          .group
-            = "FAX: #{current_group.group_fax}"
+          = "FAX: #{current_group.group_fax}"
 
 
-      .right{:style=>"width:280px;"}
-        .map-holder{:style=>"padding:8px;"}
-          .map
+    .right{:style=>"width:280px;"}
+      .map-holder{:style=>"padding:8px;"}
+        .map
 
-
-
-
-
-
-
-
-  %script{:type => "text/javascript"}
-    = "// collapse:"
-    = "$('.hide_contact').click(function() {"
-    = "$('.hide_contact').css('display','none');"
-    = "$('.show_contact').css('display','block');"
-    = "$('.contact').hide('fast');"
-    = "});"
-    = "// expand:"
-    = "$('.show_contact').click(function() {"
-    = "$('.show_contact').css('display','none');"
-    = "$('.hide_contact').css('display','block');"
-    = "$('.contact').show('slow');"
-    = "$('.quick-create').hide('slow');"
-    = "$('.show_quick_create').css('display','block');"
-    = "$('.hide_quick_create').css('display','none');"
-    = "});"
-    = "// ok so far"
-    = "$('.hide_contact').css('display','none');"
-    = "$('.show_contact').css('display','block');"
-    = "$('.contact').hide();"
 
 .clear
 
