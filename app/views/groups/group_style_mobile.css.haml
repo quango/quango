@@ -13,25 +13,48 @@
 \.fold-icon-open{height:64px;width:64px;background-image:url(/images/blank_icon_o.png);float:left;}
 
 
-\.fold-header{
+\.ui-state-active{
 color:#{stop5};
 width:100%;
 margin:0 auto;
+
+-#border-bottom: 1px solid #111111;
+background: #{stop1}; /* Old browsers */
+background: -moz-linear-gradient(bottom, #{stop3} 0%, #{stop2} 50%, #{stop1} 60%, #{stop1} 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left bottom, left top, color-stop(0%,#{stop2}), color-stop(50%,#{stop1}), color-stop(60%,#{stop1}), color-stop(100%,#{stop1})); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(bottom, #{stop2} 0%,#{stop1} 50%,#{stop1} 60%,#{stop1} 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(bottom, #{stop2} 0%,#{stop1} 50%,#{stop3} 51%,#{stop1} 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(bottom, #{stop2} 0%,#{stop1} 50%,#{stop3} 51%,#{stop1} 100%); /* IE10+ */
+background: linear-gradient(bottom, #{stop2} 0%,#{stop1} 50%,#{stop3} 51%,#{stop1} 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{stop1}', endColorstr='#{stop1}',GradientType=0 ); /* IE6-9 */
+
+
 }
+
+\.ui-state-default{
+color:#{stop5};
+width:100%;
+margin:0 auto;
+
+-#border-bottom: 1px solid #111111;
+background: #{stop1}; /* Old browsers */
+background: -moz-linear-gradient(top, #{stop3} 0%, #{stop2} 50%, #{stop1} 60%, #{stop1} 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#{stop2}), color-stop(30%,#{stop1}), color-stop(76%,#{stop2}), color-stop(100%,#{stop1})); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #{stop3} 0%,#{stop2} 50%,#{stop1} 60%,#{stop1} 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #{stop2} 0%,#{stop1} 50%,#{stop3} 51%,#{stop1} 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #{stop2} 0%,#{stop1} 50%,#{stop3} 51%,#{stop1} 100%); /* IE10+ */
+background: linear-gradient(top, #{stop2} 0%,#{stop1} 50%,#{stop3} 51%,#{stop1} 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{stop1}', endColorstr='#{stop1}',GradientType=0 ); /* IE6-9 */
+
+
+}
+
 
 
 \.fold-header h3{color:#{stop5};
 width:100%;
 border-top: 1px solid #222222;
--#border-bottom: 1px solid #111111;
-background: #{stop1}; /* Old browsers */
-background: -moz-linear-gradient(top, #{stop2} 0%, #{stop1} 30%, #{stop1} 55%, #{stop2} 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#{stop2}), color-stop(30%,#{stop1}), color-stop(76%,#{stop2}), color-stop(100%,#{stop1})); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top, #{stop2} 0%,#{stop1} 50%,#{stop1} 60%,#{stop1} 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top, #{stop2} 0%,#{stop1} 50%,#{stop3} 51%,#{stop1} 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top, #{stop2} 0%,#{stop1} 50%,#{stop3} 51%,#{stop1} 100%); /* IE10+ */
-background: linear-gradient(top, #{stop2} 0%,#{stop1} 50%,#{stop3} 51%,#{stop1} 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{stop1}', endColorstr='#{stop1}',GradientType=0 ); /* IE6-9 */
+
 
 
 
@@ -47,7 +70,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{stop1}', en
 
 }
 
+\body{background-image:url(/images/black_25_bg.png);}
 
+-#\#footer{background-image:url(/images/black_25_bg.png);}
 
 
 \.ui-accordion-header{/*width:100%;margin:0;*/}
@@ -105,7 +130,7 @@ font-weight: bold;
 }
 
 
-\.container{margin:0 auto;padding:0 16px;}
+\.container{margin:0;padding:0 16px;}
 
 -#\ul.mobile li{height:32px;line-height:32px;font-weight:bold}
 -#\ul.mobile li.note{height:32px;line-height:32px;font-weight:normal}
@@ -121,9 +146,9 @@ font-weight: bold;
 
 \.text_field{width:442px;height:1.5em;border-radius:16px;border: 4px solid silver;font-size:2em;font-family:"Arial Black";font-weight:bold;padding:4px 16px;margin:16px 0 16px 0; background: -webkit-gradient(linear,left left,right right,from(#dcdcdc),to(#ffffff))}
 
-\.text_field_mobile{font-family:"Arial Black",Gadget,sans-serif;border-radius:8px;font-size:1.5em;width:472px;margin:8 16px; height:64px;border:2px inset white; overflow:hidden;}
+\.text_field_mobile{font-family:"Arial Black",Gadget,sans-serif;border-radius:8px;font-size:1.5em;width:442px;margin:8 16px; height:64px;border:2px inset white; overflow:hidden;}
 
-\.text_area_mobile{font-family:"Arial Black",Gadget,sans-serif;border-radius:16px;font-size:1.5em;width:472px;margin:8 16px; height:64px;border:4px inset white; overflow:hidden;}
+\.text_area_mobile{font-family:"Arial Black",Gadget,sans-serif;border-radius:16px;font-size:1.5em;width:442px;margin:8 16px; height:64px;border:4px inset white; overflow:hidden;}
 
 
 \.swatch{height:32px;width:128px;border:3px solid white}
@@ -146,12 +171,17 @@ font-weight: bold;
 
 \#fold.a{cursor:pointer}
 
-\#body{
+\#body{height:auto;}
 
+\#footer{
+border-top:1px solid black;
 background: #{stop1}; /* Old browsers */
+}
+
+\#null{
 background: -moz-linear-gradient(top, #{stop2} 0%, #{stop1} 30%, #{stop1} 55%, #{stop2} 100%); /* FF3.6+ */
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#{stop2}), color-stop(30%,#{stop1}), color-stop(76%,#{stop2}), color-stop(100%,#{stop1})); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top, #{stop2} 0%,#{stop1} 50%,#{stop1} 60%,#{stop1} 100%); /* Chrome10+,Safari5.1+ */
+background: -webkit-linear-gradient(top, #{stop3} 0%,#{stop2} 50%,#{stop1} 60%,#{stop1} 100%); /* Chrome10+,Safari5.1+ */
 background: -o-linear-gradient(top, #{stop2} 0%,#{stop1} 50%,#{stop3} 51%,#{stop1} 100%); /* Opera 11.10+ */
 background: -ms-linear-gradient(top, #{stop2} 0%,#{stop1} 50%,#{stop3} 51%,#{stop1} 100%); /* IE10+ */
 background: linear-gradient(top, #{stop2} 0%,#{stop1} 50%,#{stop3} 51%,#{stop1} 100%); /* W3C */
@@ -295,7 +325,14 @@ cursor:pointer;
 \h3{text-shadow:-1px -1px 2px #000000,2px 2px 1px #{stop2};margin:0 auto;height:64px;border-bottom:1px solid #{current_group.primary};}
 
 \ul{list-style-type:none;padding:0}
-\body{font-family:sans-serif;margin:0;padding:0;color:#{stop5};background:#{stop1}}
+\body{font-family:sans-serif;margin:0;padding:0;color:#{stop5};
+background:#{stop1};
+/*background: -moz-linear-gradient(top, #{stop2} 0%, #{stop1} 100%); /* FF3.6+ */
+/*background: -webkit-gradient(linear, left bottom, left top, color-stop(0%,#000000), color-stop(100%,#{stop1})); /* Chrome,Safari4+ */
+/*background: -webkit-linear-gradient(bottom, #{stop2} 0%,#{stop1} 100%); /* Chrome10+,Safari5.1+ */*/
+
+
+}
 \.left{float:left}
 \.right{float:right}
 \.clear{clear:both}

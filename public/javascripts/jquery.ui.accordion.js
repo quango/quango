@@ -15,7 +15,7 @@
 
 $.widget( "ui.accordion", {
 	options: {
-		active: 2,
+		active: -1,
 		animated: "bounceslide",
 		autoHeight: false,
 		clearStyle: false,

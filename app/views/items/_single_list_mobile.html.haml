@@ -23,7 +23,7 @@
 
   %p
     = render :partial => "shared/activity_markers", :locals => {:item => item}
-    = link_to title, "#{item_path(doctype.name, item)}/?mobile=true", :title => truncate(strip_tags(item.body), :length => 88), :style => "color:#{current_group.supplementary};font-weight:bold;"
+    = link_to title, "#{item_path(doctype.name, item)}/?mobile=true", :title => truncate(strip_tags(item.body), :length => 88), :style => "color:#{current_group.tertiary};font-weight:bold;"
 
   %p
     = h(truncate(strip_tags(item.body), :length => 160) )

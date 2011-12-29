@@ -6,20 +6,18 @@
 
 
 
-  .fold-header
-    %h3
-      = link_to "How can we help?","#",:style=>"color:#{current_group.text_colour};",:class=>"container"
+  %h3.fold-header
+    = link_to "How can we help?","#",:style=>"color:#{current_group.text_colour};line-height:56px;",:class=>"container"
 
   %div
-    .container
+    .container{:style=>"width:480px;padding:0;"}
       = render :partial => "shared/quick_create_mobile"
 
 
   %h3.fold-header
-    .container
-      = link_to "Frequently asked....","#",:style=>"color:#{current_group.text_colour};" 
+    = link_to "Frequently asked....","#",:style=>"color:#{current_group.text_colour};line-height:56px;" 
   %div
-    .container
+    .container{:style=>"width:480px;padding:0;"}
 
       %ul.features
         -if current_group.items.empty?
@@ -31,11 +29,10 @@
               = render :partial => "/items/single_list_mobile", :locals => {:item => item, :sort=>"hot"}
 
   %h3.fold-header
-    .container
-      = link_to "Contact","#",:style=>"color:#{current_group.text_colour};" 
+    = link_to "Contact","#",:style=>"color:#{current_group.text_colour};line-height:56px;" 
 
   %div
-    .container
+    .container{:style=>"width:480px;padding:0;"}
       = render :partial => "mobile_quick_contact", :locals => {:expanded => false}
 
 
