@@ -11,26 +11,13 @@
 
 
 .container{:style=>"padding:16px 0;"}
-  #colour-wheel{:style=>"width:422px;height:422px;background:url(/images/wheel_BG.png);background-repeat:no-repeat;margin:0;float:left;"}
+  #colour-wheel{:style=>"width:422px;height:422px;background:url(/images/wheel_BG.png);background-repeat:no-repeat;margin:0 auto;"}
     .wheel{:style=>"height:390px;width:390px;padding:16px;"}
       #picker
 
-  #palette-indicator{:style=>"width:128px;height:40px;margin:16px 0 0;border-radius:8px;float:right;"}
+  .clear
 
-    %button{:class=>"inner-button",:style=>"float:left;margin-right:4px;"}
-      = "Reset"
-    %button{:class=>"inner-button",:style=>"float:left;margin-right:4px;"}
-      = "Invert Colours"
-    %button{:class=>"inner-button",:style=>"float:left;margin-right:4px;",:type=>"button",:id=>"auto-colours"}
-      = "Auto Colours"
-
-    .submit{:style=>"margin:8px 0;padding:0;float:right;"}
-      %button{:class => "submit-button",:style=>"width:128px;float:left"}
-        = "Preview"
-      %button{:class => "submit-button",:style=>"width:128px;float:right"}
-        = "Save"
-
-  #palette{:style=>"height:80px;width:422px;margin:8px 0;float:left;"}
+  #palette{:style=>"height:80px;width:422px;margin:8px auto 0;"}
     .form-item{:style=>"float:left;width:20%;"}
       = f.text_field :primary_dark, :class => "colorwell colorwell-selected",:style => "color: #{current_group.primary_dark};background: #{current_group.primary_dark}"
     .form-item{:style=>"float:left;width:20%;"}
@@ -43,7 +30,19 @@
       = f.text_field :text_colour, :class => "colorwell",:style => "color: #{current_group.text_colour};background: #{current_group.text_colour}"
 
 
+  #palette-indicator{:style=>"height:40px;margin:16px 0 0;border-radius:8px;"}
+    -#%div{:style=>"height:32px;-webkit-box-shadow:0 0 8px black;outline: none;transition: all 0.25s ease-in-out;border: 3px solid #eeeeee;margin:16px;border-radius:16px;"}
+    -#%div{:style=>"padding:8px ;height:30px;-webkit-box-shadow:0 0 8px black;outline: none;transition: all 0.25s ease-in-out;margin:0;border-radius:8px;"}
+    %button{:class=>"inner-button",:style=>"float:left;margin-right:4px;"}
+      = "Reset"
+    %button{:class=>"inner-button",:style=>"float:left;margin-right:4px;"}
+      = "Invert Colours"
+    %button{:class=>"inner-button",:style=>"float:left;margin-right:4px;",:type=>"button",:id=>"auto-colours"}
+      = "Auto Colours"
 
-
-
-
+  #submit
+    .submit{:style=>"width:480px;height:64px;margin:8px 0;padding:0;float:right;"}
+      %button{:class => "submit-button",:style=>"width:300px;float:left"}
+        = "Preview"
+      %button{:class => "submit-button",:style=>"width:150px;float:right"}
+        = "Save"
