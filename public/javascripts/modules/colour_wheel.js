@@ -50,10 +50,10 @@ $(document).ready(function() {
         switch(swatch_id){
           case      'group_text_colour'  : hue_shift =  0.00; sat_shift = -1.00; lum_shift = (hsl_norm[2] >= 0.33)? -1.00 : 1.00; break;
 
-          case      'group_primary_dark' : hue_shift =  0.00; sat_shift =  0.00; lum_shift = -0.50; break;
-          case      'group_primary'      : hue_shift =  0.00; sat_shift =  0.00; lum_shift =  0.00; break;
-          case      'group_secondary'    : hue_shift =  0.08; sat_shift =  0.00; lum_shift =  0.00; break;
-          case      'group_tertiary'     : hue_shift = -0.08; sat_shift =  0.00; lum_shift =  0.00; break;
+          case      'group_primary_dark' : hue_shift =  0.00; sat_shift =  0.00; lum_shift =  0.00; break;
+          case      'group_primary'      : hue_shift =  0.00; sat_shift =  0.00; lum_shift =  0.25; break;
+          case      'group_secondary'    : hue_shift =  0.00; sat_shift =  0.00; lum_shift =  0.50; break;
+          case      'group_tertiary'     : hue_shift =  0.00; sat_shift =  0.00; lum_shift =  0.75; break;
 
           default                        : hue_shift =  0.00; sat_shift =  0.00; lum_shift =  0.00;
         }
@@ -73,6 +73,7 @@ $(document).ready(function() {
 
         swatch_rgb = fb.HSLToRGB(swatch_hsl);
         $('#' + swatch_id).css('background-color',fb.pack(swatch_rgb));
+        $('#' + swatch_id).attr('value', fb.pack(swatch_rgb));
       });
     }
     //END AUTO COLOUR
