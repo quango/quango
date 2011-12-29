@@ -11,24 +11,24 @@
 
 
 .container{:style=>"padding:16px 0;"}
-  #colour-wheel{:style=>"width:422px;height:422px;background:url(/images/wheel_BG.png);background-repeat:no-repeat;margin:0 auto;"}
+  #colour-wheel{:style=>"width:422px;height:422px;background:url(/images/wheel_BG.png);background-repeat:no-repeat;margin:0;float:left;"}
     .wheel{:style=>"height:390px;width:390px;padding:16px;"}
       #picker
 
-  .clear
 
-  #palette{:style=>"height:80px;width:422px;margin:8px auto 0;"}
-    .form-item{:style=>"float:left;width:20%;"}
+  #palette{:style=>"width:80px;margin:8px auto 0;float:left"}
+    .form-item{:style=>"float:left;height:20%;"}
       = f.text_field :primary_dark, :class => "colorwell colorwell-selected",:style => "color: #{current_group.primary_dark};background: #{current_group.primary_dark}"
-    .form-item{:style=>"float:left;width:20%;"}
+    .form-item{:style=>"float:left;height:20%;"}
       = f.text_field :primary, :class => "colorwell",:style => "color: #{current_group.primary};background: #{current_group.primary}"
-    .form-item{:style=>"float:left;width:20%;"}
+    .form-item{:style=>"float:left;height:20%;"}
       = f.text_field :secondary, :class => "colorwell",:style => "color: #{current_group.secondary};background: #{current_group.secondary}"
-    .form-item{:style=>"float:left;width:20%;"}
+    .form-item{:style=>"float:left;height:20%;"}
       = f.text_field :tertiary, :class => "colorwell",:style => "color: #{current_group.tertiary};background: #{current_group.tertiary}"
-    .form-item{:style=>"float:left;width:20%;"}
+    .form-item{:style=>"float:left;height:20%;"}
       = f.text_field :text_colour, :class => "colorwell",:style => "color: #{current_group.text_colour};background: #{current_group.text_colour}"
 
+  .clear
 
   #palette-indicator{:style=>"height:40px;margin:16px 0 0;border-radius:8px;"}
     -#%div{:style=>"height:32px;-webkit-box-shadow:0 0 8px black;outline: none;transition: all 0.25s ease-in-out;border: 3px solid #eeeeee;margin:16px;border-radius:16px;"}
@@ -40,9 +40,9 @@
     %button{:class=>"inner-button",:style=>"float:left;margin-right:4px;",:type=>"button",:id=>"auto-colours"}
       = "Auto Colours"
 
-  #submit
-    .submit{:style=>"width:480px;height:64px;margin:8px 0;padding:0;float:right;"}
-      %button{:class => "submit-button",:style=>"width:300px;float:left"}
+  #submit{:style=>"height:40px;margin:16px 0 0;border-radius:8px;"}
+    .submit{:style=>"width:480px;height:64px;margin:8px 0;padding:0;float:left;"}
+      %button{:class => "submit-button",:style=>"width:66%;float:left"}
         = "Preview"
-      %button{:class => "submit-button",:style=>"width:150px;float:right"}
+      %button{:class => "submit-button",:style=>"width:33%;float:right"}
         = "Save"
