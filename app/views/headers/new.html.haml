@@ -1,3 +1,10 @@
+-content_for :custom_javascript do
+
+  ="<script src=\"/javascripts/picup/prototype.js\"></script>"
+  ="<script src=\"/javascripts/picup/picup.js\"></script>"
+  ="<script src=\"/javascripts/picup/scratchpad.js\"></script>"
+
+
 -content_for :main do
 
   .container{:style=>"width:480px;"}
@@ -13,7 +20,16 @@
           .group
             .label{:style => "width:140px;float:left;"}
               = "Image file"
-            = f.file_field :header, :value => @header.header, :style => "width:312px; max-width:312px;"
+            - if request.user_agent.include?("iPhone") then
+              = "You are using an iphone - you need a program called picup - its free in the istore"
+              = "<input type=\"file\" name=\"filedata\" id=\"file_upload_input\" />"
+              = "<input type=\"button\" id=\"file_view_input\" style=\"display:none;\" onclick=\"viewScratchURL();return false;\" value=\"View Photo\" />"
+
+            - else
+              %hr
+              = f.file_field :header, :value => @header.header, :style => "width:312px; max-width:312px;"
+
+
             = f.hidden_field :name, :value => @header.name, :class => "text_field"
             .description{:style => "margin-left:140px;float:left;"}
               = "Browse your computer to find the header"

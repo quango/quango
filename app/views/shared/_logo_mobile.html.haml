@@ -26,4 +26,5 @@
           ="#{current_group.strapline}"
 
 -else
-  = "not set"
+  .container{:style => "height:80px;text-align:left;"}
+    =link_to h(current_group.name), "#{domain_url(:custom => current_group.domain)}", :style=>"font-size:2em;font-weight:bold;line-height:80px;text-shadow:-1px -1px 2px black;color:white;text-decoration:none;"
