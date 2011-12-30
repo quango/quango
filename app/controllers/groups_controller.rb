@@ -210,7 +210,7 @@ class GroupsController < ApplicationController
                           has_leaderboard leaderboard_content has_custom_leaderboard custom_leaderboard_content 
                           has_medium_rectangle medium_rectangle_content group_categories show_category_navigation show_context_navigation
                           has_threeone_rectangle threeone_rectangle_content has_bumper bumper_content welcome_layout has_slideshow slideshow_content
-                          logo logo_info logo_only
+                          logo logo_info logo_only text_only
                           has_custom_toolbar custom_toolbar_link custom_toolbar_image custom_toolbar_image_info
                           forum notification_from notification_email
                           custom_favicon language theme reputation_rewards reputation_constrains share_box

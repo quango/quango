@@ -1,0 +1,104 @@
+- content_for :custom_javascript do
+
+  = javascript_include_tag 'jquery.jcrop.min'
+  = stylesheet_link_tag 'jquery-jcrop'
+
+- content_for :main do
+
+  %script{:language => "Javascript"}
+    = "function showPreview(coords)"
+    = "{"
+    = "var aspect_ratio = #{@header.header_width} / #{@header.header_height};"
+    = "var multplier =(1.0 * #{@header.header_width} / #{Header::CROP_W});"
+    = "var crop_str = Math.round(coords.w * multplier) + 'x' + Math.round(coords.h * multplier) + '+' +"
+    = "               Math.round(coords.x * multplier) + '+' + Math.round(coords.y * multplier)"
+    -#= "               '=>#{Header::THUMB_W }x#{Header::THUMB_H}'"
+    = "$('#header_cropping').val(crop_str);"
+    = "var rx = #{Header::THUMB_W}/ coords.w;"
+    = "var ry = #{Header::THUMB_H}/ coords.h;"
+    = "var sx = 140/ coords.w;"
+    = "var sy = 140/ coords.h;"
+    = "$('#preview').css({"
+    = "width: Math.round(rx * #{Header::CROP_W}) + 'px',"
+    = "height: Math.round(ry * #{Header::CROP_W} * #{@header.header_height} / #{@header.header_width}) + 'px',"
+    = "marginLeft: '-' + Math.round(rx * coords.x) + 'px',"
+    = "marginTop: '-' + Math.round(ry * coords.y) + 'px'"
+    = "});"
+    = "}"
+
+    = "$(function() {"
+    = "$('#cropbox').Jcrop({"
+    = "onSelect: showPreview,"
+    = "onChange: showPreview,"
+    = "setSelect:   [ 0, 0, 240, 240 ],"
+    = "aspectRatio: #{Header::THUMB_W}/#{Header::THUMB_H}"
+    = "});"
+    = "});"
+
+
+
+  - dragonfly_link = "/media/" << @header.header_uid.to_s
+  - cropped_header = @header.header.process(:thumb, 'x588')
+
+  - @base_header = @default_thumbnail
+  -# base_header = @header.header.process(:thumb,header.header_cropping)
+  - expanded_header = @header.header.process(:thumb,"800x")
+  - base_thumbnail = @header.header.process(:thumb,"300x")
+
+
+  #main-index
+    .secondary-navigation  
+      %h3
+        = "Header Cropping"
+      .navcontrols  
+        = link_to 'Back', headers_path, :class => "standard-button right"
+
+    .clear
+
+    %div.left{:style => "width:100%"}
+      ="<b>Instructions:</b></br>"
+      ="Click and drag box and the press the big red Crop! button"
+      %div.right
+        - form_for @header, :url => header_path(@header), :html => {:multipart => true} do |f|
+          = f.hidden_field :header_cropping, :id => 'header_cropping'
+          = f.submit "Crop!", :class => "edit-button"   
+      %div.right
+        = link_to "Flip", flip_header_path(@header), :class => "standard-button"
+        = link_to "Flop", flop_header_path(@header), :class => "standard-button"
+        = link_to "-5", rotate_left_header_path(@header), :class => "standard-button"
+        = link_to "+5", rotate_right_header_path(@header), :class => "standard-button"
+        = link_to "180", rotate_180_header_path(@header), :class => "standard-button"
+
+    .clear
+    %p
+      = image_tag cropped_header.url, :width => "#{Header::CROP_W}px", :id => 'cropbox'
+
+    -#%div{:style => "width:#{Header::THUMB_W}px;height:#{Header::THUMB_H}px;overflow:hidden"}
+      -#= header_tag (dragonfly_link, :width => "#{Header::CROP_W}px", :id => 'preview2')
+
+    -# form_for @header do |f|
+      -#= f.text_field :header_cropping, :id => 'header_cropping'
+      -#= f.submit "Crop!"
+
+  #sidebar
+
+    .block
+      %h3
+        = "Metadata"
+      .controls
+        = "edit"
+      .content
+        ="<b>Name:</b>"
+        =h(@header.name)
+
+
+  .block
+    %h3
+      = "Header preview"
+    %div{:style => "width:#{Header::THUMB_W}px;height:#{Header::THUMB_H}px;overflow:hidden"}
+      = image_tag (cropped_header.url, :width => "256px", :id => 'preview')
+
+
+
+
+

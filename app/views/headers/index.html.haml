@@ -1,0 +1,73 @@
+
+- content_for :main do
+
+  .container{:style=>"width:480px"}
+    .supplementary-navigation{:class => @active_subtab.to_s, :style => "height:35px; line-height:35px; padding:0 8px 0 8px"}
+      = "Index of headers: "
+
+    -form_for(@group, :html => {:class => "form", :multipart => true}) do |f|
+      = f.error_messages
+      - source = headers_path
+      = hidden_field_tag :source, source
+      .group
+        = f.label :logo_only, "Use the image?", :class => "label"
+        = f.check_box :logo_only, :class => "text"
+      .group
+        = f.label :text_only, "Use the text?", :class => "label"
+        = f.check_box :text_only, :class => "text"
+
+
+
+
+      .group.navform
+        = f.submit t('scaffold.update')
+
+
+
+    .toolbox
+      = link_to 'Add an header to this post', new_header_path, :class => "button", :style => "float:right"
+
+
+    %p
+      %table{:class => "header-table", :style=>"width:480px;"}
+        %tr
+          %th
+            = "Active"
+
+          %th
+            = "thumbnail"
+          %th
+            = "actions"
+          - if true
+            - unless @group.headers.empty?
+              - @group.headers.each do |header|
+                %tr
+                  %td
+                    -if @group.default_header == header.id
+                      = image_tag("/images/buttons/radio_button_on.png" , :title => "selected")
+                      -#%input{:type => "radio", :name => "default_avatar", :style => "height:20px; width:20px", :checked => true}
+                    -else         
+                      = link_to "set", set_default_header_header_path(header)
+                      -#%input{:type => "radio", :name => "default_avatar"}
+
+                  %td
+                    - cropped_header = header.header.process(:thumb,header.header_cropping)
+                    = image_tag cropped_header.process(:thumb,"128x").url, :alt => header.name, :title => header.name
+
+
+                  %td
+                    = link_to 'Show', header_path(header)
+                    = link_to 'Edit', edit_header_path(header)
+                    = link_to 'Cropping', crop_header_path(header), :class => "action-link"
+                    = link_to 'Destroy', header_path(header), :confirm => 'Are you sure?', :method => :delete
+
+
+
+
+
+
+
+
+
+
+

@@ -139,6 +139,9 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_section
 
+  def default_header
+    @header
+  end
 
   def current_tags
     @current_tags ||=  if params[:tags].kind_of?(String)

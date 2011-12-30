@@ -1,0 +1,13 @@
+-content_for :main do
+
+  #main-index
+
+    %h1
+      = "Showing image"
+
+    %p
+      = @header.name
+
+    %p
+      = link_to 'Edit', edit_header_path
+      = link_to 'Back', headers_path

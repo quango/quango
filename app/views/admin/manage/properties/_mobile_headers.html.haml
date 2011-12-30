@@ -1,0 +1,11 @@
+
+
+.group
+  = f.label :logo_only, "Use only the logo?", :class => "label"
+  = f.check_box :logo_only, :class => "text_field"
+  = "If you check this box, it will hide the name and name highlight set under properties"
+
+
+
+.group.navform
+  = f.submit t('scaffold.update')

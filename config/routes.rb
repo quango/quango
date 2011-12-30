@@ -158,6 +158,12 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :transactions
   map.resources :subscriptions
+  map.resources :headers, :member => {:crop => :get,
+                                              :pull => :get, 
+                                              :set_default_header => :get, 
+                                              :flip => :get, :flop => :get,
+                                              :rotate_left => :get, :rotate_right => :get, :rotate_180 => :get,
+                                              :move => :post}
 
   map.resources :members, :path_prefix => "/manage"
 

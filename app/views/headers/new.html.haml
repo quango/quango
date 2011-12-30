@@ -1,0 +1,30 @@
+-content_for :main do
+
+  .container{:style=>"width:480px;"}
+
+    %h4
+      = "Add a new header"
+
+
+    - form_for @header, :url => headers_path, :html => {:multipart => true, :class => "form mainAnswerForm"} do |f|
+      = f.error_messages
+      .answer-form-holder
+        .answer-form
+          .group
+            .label{:style => "width:140px;float:left;"}
+              = "Image file"
+            = f.file_field :header, :value => @header.header, :style => "width:312px; max-width:312px;"
+            = f.hidden_field :name, :value => @header.name, :class => "text_field"
+            .description{:style => "margin-left:140px;float:left;"}
+              = "Browse your computer to find the header"
+            .clear
+
+          .group{:style=>"margin-bottom:32px;margin-left:140px;"}
+            = f.submit 'Add this header to post', :class=>"submit-button", :style=>"width:312px; height:32px"
+            = link_to 'cancel', headers_path(@header)
+
+
+
+
+
+

@@ -19,6 +19,8 @@ class Group
   key :agent_id, String #stores the agent id
 
   key :sandwich_top, String
+  key :default_header, String
+
 
   key :title, String
   key :name, String, :required => true
@@ -171,7 +173,10 @@ class Group
   # theme
   key :logo_path, String, :default => "/images/logos/default-logo.png"
   key :logo_info, Hash, :default => {"width" => 64, "height" => 64}
+
   key :logo_only, Boolean, :default => false
+  key :text_only, Boolean, :default => true
+
 
   key :favicon_path, String, :default => "/images/logos/star_32.png"
 
@@ -275,6 +280,7 @@ class Group
   has_many :badges, :dependent => :destroy
   has_many :doctypes, :dependent => :destroy
   has_many :items, :dependent => :destroy
+  has_many :headers, :dependent => :destroy
   has_many :answers, :dependent => :destroy
   has_many :votes, :dependent => :destroy
   has_many :pages, :dependent => :destroy
