@@ -1,0 +1,42 @@
+
+- if @custom_header
+  = yield :custom_header
+
+
+- else
+  - if current_group.default_header?
+    - header = Header.find(current_group.default_header)
+    - base_header = header.header.process!(:thumb,header.header_cropping)
+
+
+    #header{:style=>"height:136px; background-image:url(#{base_header.url});background-size:512px 136px;background-repeat:no-repeat"}
+      -#= render :partial => "shared/toolbar_mobile"
+
+
+      - if current_group.logo_only? && current_group.text_only?
+
+        #toolbar-alt{:style=>"background-image:url(/images/black_25_bg.png)"}
+          = render :partial => "shared/toolbar_mobile_alt"
+        .container{:style => "padding:0;height:80px;width:512px;"}
+          .logo-mobile{:style => "height:80px;width:512px; float:left;z-index:2;position:absolute;top:56px;left:0px;"}
+            = link_to h(current_group.name), "#{domain_url(:custom => current_group.domain)}", :style=>"font-size:2em;font-weight:bold;line-height:80px;text-shadow:-1px -1px 2px black,1px 1px 2px #{current_group.tertiary};color:#{current_group.text_colour};text-decoration:none;margin-left:16px;"
+          -#.logo-mobile{:style => "height:80px;width:512px; float:left;z-index:1;position:absolute;top:56px;left:0px;"}
+            -#= link_to image_tag(base_header.url, :width => "512px", :height => "136px",  :style => "/**/"), "#{domain_url(:custom => current_group.domain)}", :style=>"color:#{current_group.text_colour};margin:0px;height:80px;width:512px;", :alt => "Home"
+            -if current_group.strapline
+              .strapline{:style => "height:80px;line-height:80px;color:white;float:left; border-left:1px solid color:white; margin-left:8px;padding-left:8px;"}
+                ="#{current_group.strapline}"  
+
+
+
+
+    .clear
+
+
+  - else
+
+    #header
+      #toolbar
+        = render :partial => "shared/toolbar_mobile"
+
+      #logo
+        = render :partial => "shared/logo_mobile"

@@ -138,6 +138,9 @@ class HeadersController < ApplicationController
 
 
   def crop
+
+    @custom_header = true
+
     @group = current_group
     @header = Header.find(params[:id])
 
@@ -146,7 +149,7 @@ class HeadersController < ApplicationController
   end
 
   def flip
-    @group = Item.find_by_slug_or_id(params[:group_id])
+    @group = current_group
     @header = Header.find(params[:id])
     @header.image = @header.image.process!(:flip)
     @header.save
@@ -158,7 +161,7 @@ class HeadersController < ApplicationController
   end
 
   def flop
-    @group = Item.find_by_slug_or_id(params[:group_id])
+    @group = current_group
     @header = Header.find(params[:id])
     @header.image = @header.image.process!(:flop)
     @header.save
@@ -169,7 +172,7 @@ class HeadersController < ApplicationController
   end
 
   def rotate_right
-    @group = Item.find_by_slug_or_id(params[:group_id])
+    @group = current_group
     @header = Header.find(params[:id])
     @header.image = @header.image.process(:rotate, 5, :background_colour => 'white')
     @header.save
@@ -179,7 +182,7 @@ class HeadersController < ApplicationController
   end
 
   def rotate_left
-    @group = Item.find_by_slug_or_id(params[:group_id])
+    @group = current_group
     @header = Header.find(params[:id])
     @header.image = @header.image.process(:rotate, -5, :background_colour => 'white')
     @header.save
@@ -189,7 +192,7 @@ class HeadersController < ApplicationController
   end
 
   def rotate_180
-    @group = Item.find_by_slug_or_id(params[:group_id])
+    @group = current_group
     @header = Header.find(params[:id])
     @header.image = @header.image.process(:rotate, 180, :background_colour => 'white')
     @header.save
@@ -212,16 +215,7 @@ class HeadersController < ApplicationController
 
   end
 
-  def set_image_of_the_day
-#    @group = Item.find_by_slug_or_id(params[:group_id])
-#    @group.default_thumbnail = params[:id]
 
-#    if @group.save
-#      redirect_to group_images_path 
-#    end
-
-
-  end
 
 end
 

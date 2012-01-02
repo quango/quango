@@ -21,10 +21,15 @@
             .label{:style => "width:140px;float:left;"}
               = "Image file"
             - if request.user_agent.include?("iPhone") then
+
+              - callbackURL = ""
+
+
+
             
               = "You are using an iphone - you need a program called picup - its free in the istore"
               = "<input type=hidden id=scratch_action value=new/>"
-              = "<textarea id=\"scratch_url\">fileupload://new?callbackURL=http://picupapp.com/done.html&amp;referrername=Picup%20Scratchpad&amp;referrerfavicon=http%3A//picupapp.com/favicon.ico&amp;purpose=Select%20a%20sample%20image%20for%20the%20Picup%20Scratchpad%20tool.&amp;debug=true</textarea>"
+              = "<textarea id=\"scratch_url\">fileupload://new?callbackURL=http://picupapp.com/done.html&amp;debug=true</textarea>"
 
               = "<input type=\"file\" name=\"filedata\" id=\"file_upload_input\" />"
 

@@ -23,13 +23,10 @@
     = render :partial => "shared/analytics"
 
 
-    #toolbar
-      = render :partial => "shared/toolbar_mobile"
 
-    #logo
-      = render :partial => "shared/logo_mobile"
+    = render :partial => "shared/header_mobile"
 
-    -#= yield :inner_title
+    = render :partial => "shared/title_mobile"
 
 
     #body
@@ -39,7 +36,7 @@
       .container
         = show_flash_messages(:class => "flash", :markdown => true)
 
-    #footer
+    #footer{:style=>"position:relative;bottom:0px;left:0px;"}
       = render :partial => "layouts/footer_mobile"
 
     - if debug

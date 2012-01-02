@@ -1,3 +1,10 @@
+
+- content_for :title do
+  = "My elbos"
+
+
+
+
 - content_for :custom_javascript do
 
   = javascript_include_tag 'jquery.jcrop.min'
@@ -38,24 +45,17 @@
 
 
   - dragonfly_link = "/media/" << @header.header_uid.to_s
-  - cropped_header = @header.header.process(:thumb, 'x588')
+  - cropped_header = @header.header.process(:thumb, 'x512')
 
   - @base_header = @default_thumbnail
   -# base_header = @header.header.process(:thumb,header.header_cropping)
   - expanded_header = @header.header.process(:thumb,"800x")
   - base_thumbnail = @header.header.process(:thumb,"300x")
 
+  .clear
+  #main{:style=>"position:absolute; top:136px;left:0px;"}
 
-  #main-index
-    .secondary-navigation  
-      %h3
-        = "Header Cropping"
-      .navcontrols  
-        = link_to 'Back', headers_path, :class => "standard-button right"
-
-    .clear
-
-    %div.left{:style => "width:100%"}
+    .container{:style => "width:480px"}
       ="<b>Instructions:</b></br>"
       ="Click and drag box and the press the big red Crop! button"
       %div.right
@@ -73,30 +73,27 @@
     %p
       = image_tag cropped_header.url, :width => "#{Header::CROP_W}px", :id => 'cropbox'
 
-    -#%div{:style => "width:#{Header::THUMB_W}px;height:#{Header::THUMB_H}px;overflow:hidden"}
-      -#= header_tag (dragonfly_link, :width => "#{Header::CROP_W}px", :id => 'preview2')
-
-    -# form_for @header do |f|
-      -#= f.text_field :header_cropping, :id => 'header_cropping'
-      -#= f.submit "Crop!"
-
-  #sidebar
-
-    .block
-      %h3
-        = "Metadata"
-      .controls
-        = "edit"
-      .content
-        ="<b>Name:</b>"
-        =h(@header.name)
 
 
-  .block
-    %h3
-      = "Header preview"
-    %div{:style => "width:#{Header::THUMB_W}px;height:#{Header::THUMB_H}px;overflow:hidden"}
-      = image_tag (cropped_header.url, :width => "256px", :id => 'preview')
+- content_for :custom_header do
+  - cropped_header = @header.header.process(:thumb, 'x512')
+  %div{:style => "width:#{Header::THUMB_W}px;height:#{Header::THUMB_H}px;overflow:hidden;position:absolute;top:0px;left:0px;"}
+    = image_tag (cropped_header.url, :width => "256px", :id => 'preview')
+
+  .toolbar-alt{:style=>"background-image:url(/images/black_25_bg.png);height:28px;width:512px; float:left;z-index:3;position:absolute;top:0px;left:0px;"}
+    = render :partial => "shared/toolbar_mobile_alt"
+  .container{:style => "padding:0;height:80px;width:512px;"}
+    .logo-mobile{:style => "height:80px;width:512px; float:left;z-index:2;position:absolute;top:56px;left:0px;"}
+      = link_to h(current_group.name), "#{domain_url(:custom => current_group.domain)}", :style=>"font-size:2em;font-weight:bold;line-height:80px;text-shadow:-1px -1px 2px black;color:white;text-decoration:none;margin-left:16px;"
+    -#.logo-mobile{:style => "height:80px;width:512px; float:left;z-index:1;position:absolute;top:56px;left:0px;"}
+      -#= link_to image_tag(base_header.url, :width => "512px", :height => "136px",  :style => "/**/"), "#{domain_url(:custom => current_group.domain)}", :style=>"color:#{current_group.text_colour};margin:0px;height:80px;width:512px;", :alt => "Home"
+      -if current_group.strapline
+        .strapline{:style => "height:80px;line-height:80px;color:white;float:left; border-left:1px solid color:white; margin-left:8px;padding-left:8px;"}
+          ="#{current_group.strapline}"  
+
+
+
+
 
 
 

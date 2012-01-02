@@ -1,5 +1,5 @@
 
-.container{:style=>"height:56px"}
+.container{:style=>"height:28px; width:480px;"}
   - if current_group.default_header?
     .left{:style=>"height:28px;width:40px;"}
       %a{:href=>"http://mofaq.com", :title => "moFAQ: Every business needs a mobile FAQ"}
@@ -12,35 +12,36 @@
 
 
 
-  .right{:style=>"height:56px;"}
+  .right{:style=>"height:28px;"}
     -if !logged_in?
       .entry{:style => "margin-left:8px;text-shadow:-1px -1px 2px black"}
-        %button.inner-button{:style=>"font-size:1.1em;height:2em;line-height:0.6em;margin:0.2em 0"}
+        %button.inner-button{:style=>"font-size:0.7em;height:1em;line-height:0.6em;margin:0.2em 0"}
           = link_to "Login", new_user_session_path, :style => "MARGIN :0;padding:0;font-weight:bold;color:white;text-decoration:none", :title => "You do not need to login just to ask a question", :class=>"SOMETHING"
 
 
     -if logged_in?
 
+      .entry.right{:style => "margin-left:8px;text-shadow:-1px -1px 2px black"}
+        %button.inner-button-small{:style=>"font-size:0.55em;height:18px;line-height:9px;margin:5px 0"}        
+          =link_to "Logout", destroy_user_session_path, :style => "border:1px;MARGIN :0;padding:0;font-weight:bold;color:white;text-decoration:none", :title => "You do not need to login just to ask a question", :class=>"SOMETHING"
 
-      .entry.right{:style => "line-height:56px;text-shadow:-1px -1px 2px black"}
+      .entry.right{:style => "line-height:28px;text-shadow:-1px -1px 2px black"}
         - if current_user.display_name?
           - real_name = "#{current_user.display_name}"
         - else
           - real_name = "#{current_user.first_name} #{current_user.last_name}"
 
         %strong
-          = link_to real_name, "/members/#{current_user.slug}", :style => "font-size:1.5em;font-weight:bold;color:white;text-decoration:none"
-        %span.reputation{:title => t("activerecord.attributes.user.reputation"), :style => "border-radius:4px;font-weight:bold;padding:0 8px;background-color:"+current_group.primary+";margin-left:16px;"}=format_number(current_user.reputation_on(current_group))
+          = link_to real_name, "/members/#{current_user.slug}", :style => "font-size:1em;font-weight:bold;color:white;text-decoration:none"
 
-        
-        =link_to "[X]", destroy_user_session_path, :class => "something"
+
 
       -#if current_user.mod_of?(current_group)
         -#.entry
           -#=link_to t("layouts.application.moderate"), moderate_path, :class => "moderate_link"
       -if current_user.owner_of?(current_group)
-        .entry.right{:style=>"padding:12px 0;width:56px;height:40px;cursor:pointer;",:onclick=>"window.location.href=\'#{manage_properties_path}\'"}
-          =link_to "<img src=\'/images/icons/settings.png\' />", manage_properties_path, :class => "manage_link", :style => "height:40px;width:40px;"
+        .entry.right{:style=>"padding:6px 0;width:28px;height:28px;cursor:pointer;",:onclick=>"window.location.href=\'#{manage_properties_path}\'"}
+          =link_to "<img src=\'/images/icons/settings_alt.png\' />", manage_properties_path, :class => "manage_link", :style => "height:16px;width:16px;"
 
 
 

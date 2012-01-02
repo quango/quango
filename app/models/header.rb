@@ -15,7 +15,7 @@ class Header
   key :copyright_url, String
   key :header_uid, String
   key :header_width, Integer, :default => 512
-  key :header_height, Integer, :default => 80
+  key :header_height, Integer, :default => 136
   key :header_cropping, String
   key :is_default, Boolean, :default => false
 
@@ -26,7 +26,7 @@ class Header
   validates_presence_of :group_id
 
   THUMB_W = 512
-  THUMB_H = 80
+  THUMB_H = 136
   CROP_W = 512
 
   validates_format_of :name, :with => /\A[a-z0-9]+\z/i
