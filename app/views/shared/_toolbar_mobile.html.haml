@@ -1,6 +1,6 @@
 
 .container{:style=>"height:56px"}
-  - if current_group.default_header?
+  - if current_group.logo_only?
     .left{:style=>"height:28px;width:40px;"}
       %a{:href=>"http://mofaq.com", :title => "moFAQ: Every business needs a mobile FAQ"}
         = image_tag("/images/mofaq/mobile-faq-logo.png",:height=>"28px",:width=>"45px",  :style => "border:0", :title => "moFaq: Every business needs a mobile FAQ")
@@ -21,23 +21,19 @@
 
     -if logged_in?
 
+      .entry.right{:style => "margin-left:8px;text-shadow:-1px -1px 2px black"}
+        %button.inner-button-small{:style=>"font-size:1.1em;height:2em;line-height:0.6em;margin:0.2em 0"}        
+          =link_to "Logout", destroy_user_session_path, :style => "border:1px;MARGIN :0;padding:0;font-weight:bold;color:white;text-decoration:none", :title => "You do not need to login just to ask a question", :class=>"SOMETHING"
 
       .entry.right{:style => "line-height:56px;text-shadow:-1px -1px 2px black"}
         - if current_user.display_name?
           - real_name = "#{current_user.display_name}"
         - else
-          - real_name = "#{current_user.first_name} #{current_user.last_name}"
+          - real_name = "#{current_user.login}"
 
         %strong
           = link_to real_name, "/members/#{current_user.slug}", :style => "font-size:1.5em;font-weight:bold;color:white;text-decoration:none"
-        %span.reputation{:title => t("activerecord.attributes.user.reputation"), :style => "border-radius:4px;font-weight:bold;padding:0 8px;background-color:"+current_group.primary+";margin-left:16px;"}=format_number(current_user.reputation_on(current_group))
 
-        
-        =link_to "[X]", destroy_user_session_path, :class => "something"
-
-      -#if current_user.mod_of?(current_group)
-        -#.entry
-          -#=link_to t("layouts.application.moderate"), moderate_path, :class => "moderate_link"
       -if current_user.owner_of?(current_group)
         .entry.right{:style=>"padding:12px 0;width:56px;height:40px;cursor:pointer;",:onclick=>"window.location.href=\'#{manage_properties_path}\'"}
           =link_to "<img src=\'/images/icons/settings.png\' />", manage_properties_path, :class => "manage_link", :style => "height:40px;width:40px;"

@@ -1,42 +1,40 @@
 
-.heading
-  = "Mobile FAQ Settings"
-%ul.mobile
-  %li
-    = image_tag "/images/icons/settings.png"
-    = link_to "Colours", "?tab=colour_wheel"
-  %li
-    = image_tag "/images/icons/settings.png"
-    = link_to "Map settings", "?tab=group_map"
-  %li
-    = image_tag "/images/icons/settings.png"
-    = link_to "Physical Location", "?tab=group_location"
-  %li
-    = image_tag "/images/icons/settings.png"
-    = link_to "Contact Numbers", "?tab=group_contacts"
-  %li.locked
-    = image_tag "/images/icons/settings.png"
-    = link_to "Header & Logo", "/headers"
-  %li.locked
-    = image_tag "/images/locked-temp.png"
-    = link_to "Contact details", "?tab=colour_wheel"
-    .note
-      = "Such as your email to receive queries - ensure this is regularly checked"
-  %li.locked
-    = image_tag "/images/locked-temp.png"
-    = link_to "Location", "?tab=transactions"
-    .note
-      = "The physical location of your business - for Google Maps"
+.container{:style=>"width:480px;"}
+  .heading
+    = "Mobile FAQ Settings"
+  %ul.mobile
+    %li
+      = image_tag "/images/icons/settings.png"
+      = link_to "Colours", "?tab=colour_wheel"
+    %li
+      = image_tag "/images/icons/settings.png"
+      = link_to "Map settings", "?tab=group_map"
+    %li
+      = image_tag "/images/icons/settings.png"
+      = link_to "Physical Location", "?tab=group_location"
+    %li
+      = image_tag "/images/icons/settings.png"
+      = link_to "Contact Numbers", "?tab=group_contacts"
+    %li.locked
+      = image_tag "/images/icons/settings.png"
+      = link_to "Header & Logo", "/headers"
+    %li.locked
+      = image_tag "/images/locked-temp.png"
+      = link_to "Contact details", "?tab=colour_wheel"
+      .note
+        = "Such as your email to receive queries - ensure this is regularly checked"
+    %li.locked
+      = image_tag "/images/locked-temp.png"
+      = link_to "Location", "?tab=transactions"
+      .note
+        = "The physical location of your business - for Google Maps"
 
-  %li.locked
-    = image_tag "/images/locked-temp.png"
-    = link_to "Domain", "?tab=mobile_domain"
-    .note
-      = "Use your own domain or subdomain eg. <b>http://m.mybusiness.com</b>"
+    %li.locked
+      = image_tag "/images/locked-temp.png"
+      = link_to "Domain", "?tab=mobile_domain"
+      .note
+        = "Use your own domain or subdomain eg. <b>http://m.mybusiness.com</b>"
 
-
-.note
-  = "You must have an active subscription to modify your FAQ settings: Subscribe now"
 
 
 

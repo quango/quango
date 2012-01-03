@@ -3,71 +3,88 @@
   = "My elbos"
 
 
+- content_for :css do
+  %style
+    = "input[type=\'checkbox\']{}"
+    = ".checked{border:1px solid red}"
+
+- content_for :custom_javascript do
+  %script
+    = "$(document).ready(function(){$(\'span.check_box\').click()});"
+
 
 - content_for :main do
 
-  .container{:style=>"width:480px"}
-    .supplementary-navigation{:class => @active_subtab.to_s, :style => "height:35px; line-height:35px; padding:0 8px 0 8px"}
-      = "Index of headers: "
-
-    -form_for(@group, :html => {:class => "form", :multipart => true}) do |f|
-      = f.error_messages
-      - source = headers_path
-      = hidden_field_tag :source, source
-      .group
-        = f.label :logo_only, "Use the image?", :class => "label"
-        = f.check_box :logo_only, :class => "text"
-      .group
-        = f.label :text_only, "Use the text?", :class => "label"
-        = f.check_box :text_only, :class => "text"
 
 
+  #fold
+    .container{:style=>"width:480px"}
+      -form_for(@group, :html => {:class => "form", :multipart => true}) do |f|
+        = f.error_messages
+        - source = headers_path
+        = hidden_field_tag :source, source
+        .group
+          %span.check_box
+            = f.label :logo_only, "Use the image?", :class => "label"
+            = f.check_box :logo_only, :class => "check_box"
 
+          %span.check_box
+            = f.label :text_only, "Use the text?", :class => "label"
+            = f.check_box :text_only, :class => "check_box"
 
-      .group.navform
-        = f.submit t('scaffold.update')
+          %span.check_box
+            = f.label :has_strapline, "Use strapline?", :class => "label"
+            = f.check_box :has_strapline, :class => "check_box"
 
+          %button
+            = f.submit t('scaffold.update')
 
+    .clear
+    #fold
+      .container{:style=>"height:2em"}
+        .heading.left{:style=>"height:2em;line-height:2em"}
+          = "My Headers"
+        -#%button.inner-button.right
+          -#= link_to 'Add a new image', new_header_path, :class => "inner-button", :style => "float:right"
+        .right{:style=>"margin:8px 0"}
 
-    .toolbox
-      = link_to 'Add an header to this post', new_header_path, :class => "button", :style => "float:right"
-
-
-    %p
-      %table{:class => "header-table", :style=>"width:480px;"}
-        %tr
-          %th
-            = "Active"
-
-          %th
-            = "thumbnail"
-          %th
-            = "actions"
-          - if true
-            - unless @group.headers.empty?
-              - @group.headers.each do |header|
-                %tr
-                  %td
-                    -if @group.default_header == header.id
-                      = image_tag("/images/buttons/radio_button_on.png" , :title => "selected")
-                      -#%input{:type => "radio", :name => "default_avatar", :style => "height:20px; width:20px", :checked => true}
-                    -else         
-                      = link_to "set", set_default_header_header_path(header)
-                      -#%input{:type => "radio", :name => "default_avatar"}
-
-                  %td
-                    - cropped_header = header.header.process(:thumb,header.header_cropping)
-                    = image_tag cropped_header.process(:thumb,"128x").url, :alt => header.name, :title => header.name
-
-
-                  %td
-                    = link_to 'Show', header_path(header)
-                    = link_to 'Edit', edit_header_path(header)
-                    = link_to 'Cropping', crop_header_path(header), :class => "action-link"
-                    = link_to 'Destroy', header_path(header), :confirm => 'Are you sure?', :method => :delete
+          %button.inner-button.right{:onclick=>"window.location=\'#{new_header_path}\'", :style=>"/**/"}
+            = "Add a new header"
 
 
 
+      %table{:class => "header-table", :style=>"width:512px",:cellspacing=>"0"}
+
+        - if true
+          - if !@group.headers.empty?
+            - @group.headers.each do |header|
+              %tr#fold
+                %td{:style=>"padding:0 16px;"}
+                  -if @group.default_header == header.id
+                    = image_tag("/images/buttons/radio_button_on.png" , :title => "selected")
+                    -#%input{:type => "radio", :name => "default_avatar", :style => "height:20px; width:20px", :checked => true}
+                  -else         
+                    = link_to "Use", set_default_header_header_path(header)
+                    -#%input{:type => "radio", :name => "default_avatar"}
+
+                %td
+                  - cropped_header = header.header.process(:thumb,header.header_cropping)
+
+                  -if @group.default_header == header.id
+                    = image_tag cropped_header.process(:thumb,"240x").url, :alt => header.name, :title => header.name, :style=>"border: 2px inset #{current_group.text_colour}; margin:4px;-webkit-box-shadow: 0 0 8px #{current_group.text_colour};"
+                  -else         
+                    = link_to (image_tag cropped_header.process(:thumb,"240x").url, :alt => header.name, :title => header.name, :style=>"border: 2px outset #{current_group.text_colour}; margin:4px;"), set_default_header_header_path(header)
+
+
+                %td{:style=>"padding:0 16px;"}
+
+                  %button.inner-button.right{:onclick=>"window.location=\'#{crop_header_path(header)}\'"}
+                    = "Modify"
+                  %button.inner-button.right
+                    = link_to '<img src=\'/images/icons/delete.png\' style=\'height:1em; width:1em;\' />', header_path(header), :confirm => 'Are you sure?', :method => :delete
+
+          - else
+            = "none"
 
 
 

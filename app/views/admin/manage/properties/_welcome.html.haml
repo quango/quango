@@ -1,33 +1,46 @@
 
 
-.title
-  = image_tag "/images/icons/settings.png", :height=>"32", :width=>"32", :style=>"height:32px;width:32px;"
-  = "Settings"
-  %button{:style=>"float:right;font-size:0.5em;"}
-    = "Help!"
-%ul
-  %li
-    = image_tag "/images/unlocked-temp.png"
-    = link_to "General Settings", "?tab=mobile_settings"
-    .note
-      = "Make changes to your mobile FAQ"
-
-%ul
-  %li
-    = image_tag "/images/unlocked-temp.png"
-    = link_to "My Settings", "?tab=user_settings"
-    .note
-      = "Make changes to your personal account"
+.container{:style=>"width:480px"}
+  .heading
+    = "Mobile FAQ Settings"
+    .entry.right{:style => "margin-left:8px;text-shadow:-1px -1px 2px black"}
+      %button.inner-button-small{:style=>"font-size:0.55em;height:18px;line-height:9px;margin:5px 0"}        
+        =link_to "Logout", destroy_user_session_path, :style => "border:1px;MARGIN :0;padding:0;font-weight:bold;color:white;text-decoration:none", :title => "You do not need to login just to ask a question", :class=>"SOMETHING", :confirm => 'Are you sure you want to log out of Mofaq??'
 
 
-  %hr
-  %li.locked
-    = image_tag "/images/locked-temp.png"
-    = link_to "Reseller Account", "?tab=reseller_settings"
 
+  %ul.mobile
+    %li
+      = image_tag "/images/icons/settings.png"
+      = link_to "Colours", "?tab=colour_wheel"
+    %li
+      = image_tag "/images/icons/settings.png"
+      = link_to "Map settings", "?tab=group_map"
+    %li
+      = image_tag "/images/icons/settings.png"
+      = link_to "Physical Location", "?tab=group_location"
+    %li
+      = image_tag "/images/icons/settings.png"
+      = link_to "Contact Numbers", "?tab=group_contacts"
+    %li.locked
+      = image_tag "/images/icons/settings.png"
+      = link_to "Header & Logo", "/headers"
+    %li.locked
+      = image_tag "/images/locked-temp.png"
+      = link_to "Contact details", "?tab=colour_wheel"
+      .note
+        = "Such as your email to receive queries - ensure this is regularly checked"
+    %li.locked
+      = image_tag "/images/locked-temp.png"
+      = link_to "Location", "?tab=transactions"
+      .note
+        = "The physical location of your business - for Google Maps"
 
-.note
-  = "You must have an active reseller account to claim your commissions: Activate now!"
+    %li.locked
+      = image_tag "/images/locked-temp.png"
+      = link_to "Domain", "?tab=mobile_domain"
+      .note
+        = "Use your own domain or subdomain eg. <b>http://m.mybusiness.com</b>"
 
 
 .clear

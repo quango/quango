@@ -1,8 +1,15 @@
 
-- if request.user_agent.include?("iPhone") then
-  = "<meta name=\"viewport\" content=\"width=512, initial-scale=0.5, user-scalable=yes\" />"
+- if @custom_ua
+  = yield :custom_ua
+
 - else
-  = "<meta name=\"viewport\" content=\"width=512, initial-scale=1, user-scalable=yes\" />"
+
+  - if request.user_agent.include?("iPhone") then
+    = "<meta name=\"viewport\" content=\"width=512, initial-scale=0.5, user-scalable=yes\" />"
+  - else
+    = "<meta name=\"viewport\" content=\"width=512, initial-scale=1, user-scalable=yes\" />"
+
+-# persitent
 
 = "<meta name=\"apple-mobile-web-app-capable\" content=\"yes\" />"
 = "<meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black-translucent\" />"

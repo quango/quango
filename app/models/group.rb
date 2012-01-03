@@ -55,7 +55,8 @@ class Group
   key :name_highlight, String, :default => "daily"
   key :name_highlight_link, String, :default => "http://thinkingdaily.com.au"
 
-  key :strapline, String
+  key :has_strapline, Boolean, :default => true
+  key :strapline, String, :default => "Every business needs a mobile FAQ"
 
   key :subdomain, String
   key :domain, String

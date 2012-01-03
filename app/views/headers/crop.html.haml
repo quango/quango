@@ -53,21 +53,28 @@
   - base_thumbnail = @header.header.process(:thumb,"300x")
 
   .clear
-  #main{:style=>"position:absolute; top:136px;left:0px;"}
+  #main
 
     .container{:style => "width:480px"}
       ="<b>Instructions:</b></br>"
       ="Click and drag box and the press the big red Crop! button"
+
       %div.right
-        - form_for @header, :url => header_path(@header), :html => {:multipart => true} do |f|
-          = f.hidden_field :header_cropping, :id => 'header_cropping'
-          = f.submit "Crop!", :class => "edit-button"   
-      %div.right
-        = link_to "Flip", flip_header_path(@header), :class => "standard-button"
-        = link_to "Flop", flop_header_path(@header), :class => "standard-button"
-        = link_to "-5", rotate_left_header_path(@header), :class => "standard-button"
-        = link_to "+5", rotate_right_header_path(@header), :class => "standard-button"
-        = link_to "180", rotate_180_header_path(@header), :class => "standard-button"
+        %button.inner-button
+          = link_to "Flip", flip_header_path(@header), :class => "inner-button"
+        %button.inner-button
+          = link_to "Flop", flop_header_path(@header), :class => "inner-button"
+        %button.inner-button
+          = link_to "-5", rotate_left_header_path(@header), :class => "inner-button"
+        %button.inner-button
+          = link_to "+5", rotate_right_header_path(@header), :class => "inner-button"
+        %button.inner-button
+          = link_to "180", rotate_180_header_path(@header), :class => "inner-button"
+        %button.inner-button
+          - form_for @header, :url => header_path(@header), :html => {:multipart => true} do |f|
+            = f.hidden_field :header_cropping, :id => 'header_cropping'
+            = f.submit "Crop!", :class => "inner-button", :style=>"background:red"
+
 
     .clear
     %p
@@ -82,7 +89,7 @@
 
   .toolbar-alt{:style=>"background-image:url(/images/black_25_bg.png);height:28px;width:512px; float:left;z-index:3;position:absolute;top:0px;left:0px;"}
     = render :partial => "shared/toolbar_mobile_alt"
-  .container{:style => "padding:0;height:80px;width:512px;"}
+  .container{:style => "padding:0;height:136px;width:512px;"}
     .logo-mobile{:style => "height:80px;width:512px; float:left;z-index:2;position:absolute;top:56px;left:0px;"}
       = link_to h(current_group.name), "#{domain_url(:custom => current_group.domain)}", :style=>"font-size:2em;font-weight:bold;line-height:80px;text-shadow:-1px -1px 2px black;color:white;text-decoration:none;margin-left:16px;"
     -#.logo-mobile{:style => "height:80px;width:512px; float:left;z-index:1;position:absolute;top:56px;left:0px;"}
@@ -94,8 +101,12 @@
 
 
 
-
-
+- content_for :custom_ua do
+  = "<meta name=\"sausages\" />"
+  - if request.user_agent.include?("iPhone") then
+    = "<meta name=\"viewport\" content=\"width=512, initial-scale=0.5, user-scalable=no\" />"
+  - else
+    = "<meta name=\"viewport\" content=\"width=512, initial-scale=2, user-scalable=no\" />"
 
 
 

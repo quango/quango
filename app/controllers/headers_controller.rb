@@ -140,6 +140,8 @@ class HeadersController < ApplicationController
   def crop
 
     @custom_header = true
+    @custom_ua = true
+
 
     @group = current_group
     @header = Header.find(params[:id])
