@@ -36,7 +36,7 @@
 
   - else
 
-    #header{:style=>"height:136px; background-image:url(#{base_header.url});background-size:512px 136px;background-repeat:no-repeat", :onclick=>"window.location=(\'#{domain_url(:custom => current_group.domain)}\')"}
+    #header{:style=>"height:136px", :onclick=>"window.location=(\'#{domain_url(:custom => current_group.domain)}\')"}
       #toolbar
         = render :partial => "shared/toolbar_mobile"
 

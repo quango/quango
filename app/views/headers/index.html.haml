@@ -7,12 +7,11 @@
   %style
     = "input[type=\'checkbox\']{}"
     = ".checked{border:1px solid red}"
+    = ".unchecked{border:1px solid green}"
 
 - content_for :custom_javascript do
-  %script
-    = "$(document).ready(function(){$(\'span.check_box\').click()});"
-
-
+  %script{:src=>"/javascripts/modules/depressed.js",:type=>"text/javascript"}
+ 
 - content_for :main do
 
 
@@ -24,17 +23,21 @@
         - source = headers_path
         = hidden_field_tag :source, source
         .group
-          %span.check_box
-            = f.label :logo_only, "Use the image?", :class => "label"
-            = f.check_box :logo_only, :class => "check_box"
+          - if current_group.logo_only?
+            %span.check_box.checked
+          -else
+            %span.check_box.unchecked
+
+              = f.label :logo_only, "Use image?", :class => "label"
+              = f.check_box :logo_only
 
           %span.check_box
-            = f.label :text_only, "Use the text?", :class => "label"
-            = f.check_box :text_only, :class => "check_box"
+            = f.label :text_only, "Use text?", :class => "label"
+            = f.check_box :text_only
 
           %span.check_box
             = f.label :has_strapline, "Use strapline?", :class => "label"
-            = f.check_box :has_strapline, :class => "check_box"
+            = f.check_box :has_strapline
 
           %button
             = f.submit t('scaffold.update')
