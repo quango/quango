@@ -5,18 +5,14 @@ $(document).ready(function() {
 
 	$(".check_box").click(function(){
 
-		if($(this).children("input").attr("checked")){
+		if($(this).children("input").is(':checked')){
 			// uncheck
-			$(this).children("input").attr({checked: ""});
-			$(this).removeClass("checked");
-			$(this).addClass("unchecked");
+			$(this).children("input").attr({value: 0});
+      $("form").submit();
 		}else{
 			// check
-			$(this).children("input").attr({checked: "checked"});
-			$(this).removeClass("unchecked");
-			$(this).addClass("checked");
+			$(this).children("input").attr({value: 1});
+      $("form").submit();
 		}
-
-		//alert($(this).children("input").attr("checked"));
 	});
 });

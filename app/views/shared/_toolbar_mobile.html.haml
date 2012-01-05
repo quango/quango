@@ -35,7 +35,7 @@
           = link_to real_name, "/members/#{current_user.slug}", :style => "font-size:1.5em;font-weight:bold;color:white;text-decoration:none"
 
       -if current_user.owner_of?(current_group)
-        .entry.right{:style=>"padding:12px 0;width:56px;height:40px;cursor:pointer;",:onclick=>"window.location.href=\'#{manage_properties_path}\'"}
+        .entry.right{:style=>"padding:12px 0;width:40px;height:40px;cursor:pointer;",:onclick=>"window.location.href=\'#{manage_properties_path}\'"}
           =link_to "<img src=\'/images/icons/settings.png\' />", manage_properties_path, :class => "manage_link", :style => "height:40px;width:40px;"
 
 

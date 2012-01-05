@@ -5,13 +5,13 @@
       - if @avatar.present?
         - cropped_avatar = @avatar.avatar.process(:thumb,@avatar.avatar_cropping)
         - profile_image = cropped_avatar.process(:thumb,"64x64").url
-        = image_tag profile_image 
+        = image_tag profile_image, :style => "height:64px; width:64px;" 
       - else
         = image_tag "/images/anonymous_avatar.png", :style => "height:64px; width:64px;"
 
     .summary.left
       %h3{:style => "margin: 0px"}
-        = link_to h("#{user.first_name} #{user.last_name}"), user_path(user)
+        = link_to h("#{user.first_name} #{user.last_name}"), user_path(user.id)
         -#- if current_user.owner_of?(current_group)
           -#%span{:style => "color:red; font-size:8px"}
             -#= user.email
@@ -20,25 +20,26 @@
           =render :partial => "badges/badge", :object => badge, :locals => {:mini => true}
 
       -# TODO: Scope this, need to get the last updated posts and comments
-      .latest-thought{:style => "width:468px"}
+      - if false
+        .latest-thought{:style => "width:468px"}
 
-        = "Latest Post:"
-        -# item = user.items.last_updated
+          = "Latest Post:"
+          -# item = user.items.last_updated
 
-        -if !user.items   
+          -if !user.items   
 
-          - user.items.each do |item|
-            = link_to item.title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
-            = " in " << "#{item.doctype}"
+            - user.items.each do |item|
+              = link_to item.title, item_path(item.doctype, item), :title => truncate(strip_tags(item.body), :length => 200)
+              = " in " << "#{item.doctype}"
 
-      .latest-comment
-        = "Latest Comment:"
+        .latest-comment
+          = "Latest Comment:"
 
-        -if !user.answers
+          -if !user.answers
 
-          - user.answers[0..0].each do |answer|
-            = link_to "#{answer.item.title}", "/#{answer.item.section}/" << answer.item.slug
-            = " in " << "#{answer.item.section}"
+            - user.answers[0..0].each do |answer|
+              = link_to "#{answer.item.title}", "/#{answer.item.section}/" << answer.item.slug
+              = " in " << "#{answer.item.section}"
 
 
 

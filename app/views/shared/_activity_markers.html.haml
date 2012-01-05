@@ -2,7 +2,7 @@
 
 
 -if item.activity_at > Time.zone.now.yesterday && !item.last_target.present?
-  %span.new
+  %span.new{:style=>"background:#{current_group.supplementary}"}
     = "new"
 
 

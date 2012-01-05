@@ -35,6 +35,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
+  #before_filter :find_parent
   before_filter :find_group
 
   before_filter :find_section
@@ -48,6 +49,12 @@ class ApplicationController < ActionController::Base
 
 
   protected
+
+  def find_parent
+    @parent = "something"
+  end
+
+
 
   def to_slug(param=self.slug)
 

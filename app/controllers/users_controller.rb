@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     @user = User.find_by_login_or_id(params[:id])
     @first_thought = @user
 
-    @item = Item.find_by_slug_or_id(params[:id])
+    #@item = Item.find_by_slug_or_id(params[:id])
 
 
     respond_to do |format|

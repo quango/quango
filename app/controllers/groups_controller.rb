@@ -71,6 +71,7 @@ class GroupsController < ApplicationController
     @active_subtab = "New"
 
     @group = Group.new
+    #@group.parent_id = current_group.id
 
     respond_to do |format|
       format.html # new.html.erb
@@ -99,59 +100,49 @@ class GroupsController < ApplicationController
   # POST /groups.json
   def create
     @group = Group.new
-    @group.safe_update(%w[name group_type name_highlight legend description default_tags subdomain logo logo_path favicon_path forum
+    @group.safe_update(%w[name group_type agent_id owner_id parent_id name_highlight legend description default_tags subdomain logo logo_path favicon_path forum
                           custom_favicon language theme custom_css wysiwyg_editor], params[:group])
 
     @group.safe_update(%w[isolate domain private], params[:group]) if current_user.admin?
 
-    @group.parent_id = current_group
-    @group.owner = current_user
+    cu = current_user
+
+    @group.agent_id = cu
+    @group.parent_id = current_group.id
+    @group.owner_id = cu
+
     @group.state = "active"
 
 
     slug = @group.name
+    @group.subdomain = @group.name
 
     #@group.subdomain = slug
 
     #@group.widgets << TopUsersWidget.new
     #@group.widgets << UsersWidget.new
 
-    puts "Starting doctype creation /n"
+    #Create initial doctype
 
     doctypes = Array.new
     doctypes << Doctype.new(:name => "q", :doctype => "standard", :create_label => "Ask a question", :created_label => "asked a question", :group_id => @group.id)
-    #doctypes << Doctype.new(:name => "links",:has_links => "true", :doctype => "bookmark", :create_label => "Share a link", :created_label => "shared a link", :group_id => @group.id)
-
-
+    #doctypes << Doctype.new(:name => "something ...
 
     doctypes.each do |doctype| 
      doctype.hidden = true
-
      doctype.save!
-     puts "saved #{doctype}"
-     #doctype.state = active
-     #doctype.save!
-     #puts "saved #{doctype} again"
     end
 
     doctypes.each do |doctype| 
      doctype.hidden = false
-     @group.quick_create = doctype
+     #@group.quick_create = doctype
      doctype.save!
-     puts "saved #{doctype}"
     end
 
     @group.has_quick_create = true
     @group.quick_create = doctypes.first.id
 
-
-    puts "Finished doctype creation /n"
-
-    
-
     #Create standard pages
-
-    puts "Starting standard page creation /n"
 
     pages = Array.new
 
@@ -159,31 +150,47 @@ class GroupsController < ApplicationController
       basename = File.basename(page_path, ".markdown")
       title = basename.gsub(/\.(\w\w)/, "").titleize
       language = $1
-
       body = File.read(page_path)
 
-      puts "Loading: #{title.inspect} [lang=#{language}]"
-
-      #if Page.count(:title => title, :language => language, :group_id => current_group.id) == 0
-        pages << Page.create(:title => title, :language => language, :body => body, :user_id => current_group.owner, :group_id => @group.id)
-      #end
+      pages << Page.create(:title => title, :language => language, :body => body, :user_id => current_group.owner, :group_id => @group.id)
+      
     end
 
     pages.each do |page| 
      page.save!
     end
 
-    puts "Ending standard page creation /n"
-    @group.subdomain = @group.name
+    #Create the default question set
+    #TODO: Create default question sets based on the type of group being created - eg. Business, Personal etc
+
+    Dir.glob(RAILS_ROOT+"/db/fixtures/questions/*.yml") do |page_path|
+
+      doctype_id = @group.quick_create
+      question = Item.new
+      language = "en"
+      item_contents = YAML.load_file(page_path)
+      title = item_contents["title"]
+      body = item_contents["body"]      
+
+      question = Item.create(:doctype_id => doctype_id,:title => title, :language => language, :body => body, :user_id => current_group.owner, :group_id => @group.id)
+      question.save!
+
+
+    end
+
+ 
+
 
 
     respond_to do |format|
       if @group.save
         @group.add_member(current_user, "owner")
+        @group.add_member(current_user, "agent")
         flash[:notice] = I18n.t("groups.create.flash_notice")
 
         if @group.group_type == "mobile"
-          format.html { redirect_to(domain_url(:custom => @group.domain, :controller => "admin/manage", :action => "properties") << "?tab=colour_wheel") }
+          #format.html { redirect_to(domain_url(:custom => @group.domain, :controller => "admin/manage", :action => "properties") << "?tab=colour_wheel") }
+          format.html { redirect_to(domain_url(:custom => @group.domain))}
           format.json  { render :json => @group.to_json, :status => :created, :location => @group }
         else
           format.html { redirect_to(domain_url(:custom => @group.domain, :controller => "admin/manage", :action => "properties")) }

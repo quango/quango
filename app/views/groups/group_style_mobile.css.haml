@@ -296,7 +296,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{stop1}', en
 }
 
 
-\.check_box.checked{
+\button.inner-submit{
 
 
 font-size:1em;
@@ -310,6 +310,35 @@ border: 2px outset #{stop4};
 text-shadow: -1px -1px 1px black;
 height:3em;
 line-height:1.5em;
+
+
+background: #{alt1}; /* Old browsers */
+background: -moz-linear-gradient(top, #{alt1} 0%, #{alt2} 50%, #{alt3} 60%, #{alt1} 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#{alt1}), color-stop(50%,#{alt2}), color-stop(60%,#{alt3}), color-stop(100%,#{alt1})); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #{alt1} 0%,#{alt2} 50%,#{alt3} 60%,#{alt1} 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #{alt1} 0%,#{alt2} 50%,#{alt3} 60%,#{alt1} 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #{alt1} 0%,#{alt2} 50%,#{alt3} 60%,#{alt1} 100%); /* IE10+ */
+background: linear-gradient(top, #{alt1} 0%,#{alt2} 50%,#{alt3} 60%,#{alt1} 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{alt1}', endColorstr='#{alt3}',GradientType=0 ); /* IE6-9 */
+cursor:pointer;
+}
+
+
+
+\.check_box.checked{
+
+
+font-size:1em;
+padding:4px 16px;margin:0;
+border-radius: 8px;
+color:white;
+font-weight:bold;
+\-webkit-box-shadow:0 0 8px black;
+
+border: 2px outset #{stop4};
+text-shadow: -1px -1px 1px black;
+height:2em;
+line-height:2em;
 
 background: #{stop1}; /* Old browsers */
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#{stop2}), color-stop(24%,#{stop1}), color-stop(76%,#{stop2}), color-stop(100%,#{stop1})); /* Chrome,Safari4+ */
@@ -333,8 +362,8 @@ font-weight:bold;
 
 border: 2px outset #{stop4};
 text-shadow: -1px -1px 1px black;
-height:3em;
-line-height:1.5em;
+height:2em;
+line-height:2em;
 
 background: #{stop1}; /* Old browsers */
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#{stop2}), color-stop(24%,#{stop1}), color-stop(76%,#{stop2}), color-stop(100%,#{stop1})); /* Chrome,Safari4+ */

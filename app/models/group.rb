@@ -17,6 +17,7 @@ class Group
   key :group_type, String, :default => "mobile"
 
   key :agent_id, String #stores the agent id
+  key :owner_id, String
 
   key :sandwich_top, String
   key :default_header, String
@@ -117,7 +118,7 @@ class Group
   key :hidden, Boolean, :default => false
   key :real_names, Boolean, :default => true
   key :theme, String, :default => "ping"
-  key :owner_id, String
+
   key :has_bunnies, Boolean, :default => false
   key :show_group_create, Boolean, :default => true
   key :show_beta_links, Boolean, :default => true

@@ -1,21 +1,34 @@
+
+- is_mobile = params[:mobile]
+
+
 -content_for :subtabs do
-  .secondary-navigation{:class => @active_subtab.to_s}
+  - if is_mobile || current_group.group_type == "mobile"
     %h3
       = "Members"
       -if @users
         == (#{format_number(@users.total_entries)})
-    .navcontrols
-      %ul
-        %li.label
-          = "Sort by:&nbsp;"
-        %li.reputation
-          = link_to t(".reputation"), users_path(:sort=>"reputation"), :title => t(".reputation_tooltip"), :class => "standard-button"
-        %li.newest
-          = link_to t(".newest"), users_path(:sort=>"newest"), :title => t(".newest_tooltip"), :class => "standard-button"
-        %li.oldest
-          = link_to t(".oldest"), users_path(:sort=>"oldest"), :title => t(".oldest_tooltip"), :class => "standard-button"
-        %li.name
-          = link_to t(".name"), users_path(:sort=>"name"), :title => t(".name_tooltip"), :class => "standard-button"
+    = "This is a mobile FAQ"
+
+  - else
+
+    .secondary-navigation{:class => @active_subtab.to_s}
+      %h3
+        = "Members"
+        -if @users
+          == (#{format_number(@users.total_entries)})
+      .navcontrols
+        %ul
+          %li.label
+            = "Sort by:&nbsp;"
+          %li.reputation
+            = link_to t(".reputation"), users_path(:sort=>"reputation"), :title => t(".reputation_tooltip"), :class => "standard-button"
+          %li.newest
+            = link_to t(".newest"), users_path(:sort=>"newest"), :title => t(".newest_tooltip"), :class => "standard-button"
+          %li.oldest
+            = link_to t(".oldest"), users_path(:sort=>"oldest"), :title => t(".oldest_tooltip"), :class => "standard-button"
+          %li.name
+            = link_to t(".name"), users_path(:sort=>"name"), :title => t(".name_tooltip"), :class => "standard-button"
 
   
 
@@ -55,8 +68,8 @@
 
   %ul.members-list-index#users
     -@users.each do |user|
-      -if user.login != "admin"
-        = render :partial => "user", :object => user
+      -#if user.login != "admin"
+      = render :partial => "user", :object => user
 
   #additional_info
     =will_paginate @users

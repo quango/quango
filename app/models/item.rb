@@ -328,14 +328,15 @@ class Item
   end
 
   def disallow_spam
-    if new? && !disable_limits?
+    # TODO: temporarily disabled limits to enable faq population, need to make this admin or agent specific
+    if new? && disable_limits? 
       last_item = Item.first( :user_id => self.user_id,
                                       :group_id => self.group_id,
                                       :order => "created_at desc")
 
       valid = (last_item.nil? || (Time.now - last_item.created_at) > 20)
       if !valid
-        self.errors.add(:body, "Your item looks like spam. you need to wait 20 senconds before posting another item.")
+        self.errors.add(:body, "Your item could be spam. you need to wait 20 senconds before posting another item.")
       end
     end
   end

@@ -3,9 +3,8 @@
 
 .debug{:style=>"width:512px;background-color:black;margin:0 auto;height:128px;"}
 
-  .left
-    = render :partial => "shared/bug"
-  .clear
+  .heading
+    = "Debugs"
 
   .left{:style=>"font-size:10px;"}
     - ua = request.env['HTTP_USER_AGENT'].downcase
@@ -17,16 +16,23 @@
   .clear
 
   .left
+    - parent = Group.find(current_group.parent_id)
     = "Parent:"
-    - if current_group.parent_id
+    = "#{current_group.parent_id} / # {parent.name}"
+  .clear
 
-      - parent = Group.find(current_group.parent_id)
+  .left
+    - if current_group.agent_id?
+      - agent = current_group.agent_id.id
+      = "Agent:"
+      = "#{current_group.agent_id} / #{agent.id}"
 
-      = "#{parent.to_s}"
-    - else
-      = "Not set"
-
-
+  .clear
+  .left
+    - if current_group.owner_id?
+      - owner = User.find(current_group.owner_id)
+      = "Owner:"
+      = "#{current_group.owner_id.id} / # {owner.login}"
 
 
 
