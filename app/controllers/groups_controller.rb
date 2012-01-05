@@ -172,13 +172,20 @@ class GroupsController < ApplicationController
       title = item_contents["title"]
       body = item_contents["body"]      
 
-      question = Item.create(:doctype_id => doctype_id,:title => title, :language => language, :body => body, :user_id => current_group.owner, :group_id => @group.id)
+      question = Item.create(:doctype_id => doctype_id,:title => title, :language => language, :body => body, :user_id => current_user, :group_id => @group.id)
       question.save!
 
 
     end
 
  
+    ##Create the initial subscription
+  
+    #subscription = Subscripton.new
+    #subscription.group = current_group
+    #subscription.user = current_user
+
+
 
 
 

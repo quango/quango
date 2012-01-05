@@ -13,11 +13,6 @@ class Subscription
   key :is_active, Boolean, :default => false
   
 
-  key :transaction_status, String
-
-  key :transaction_id, String
-  belongs_to :transaction
-
   timestamps!
 
   key :group, String
