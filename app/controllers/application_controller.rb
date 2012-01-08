@@ -127,6 +127,10 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_group
 
+  def subscriptions
+    @subscriptions = current_group.subscriptions
+  end
+
   def current_item
     @item
   end

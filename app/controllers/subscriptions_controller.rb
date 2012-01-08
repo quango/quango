@@ -23,10 +23,21 @@ class SubscriptionsController < ApplicationController
 
     @subscription = Subscription.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @subscription }
+    if @subscription.ends_at < Time.now
+      @subscription.status = "Expired"
+      @subscription.save!
     end
+  
+
+
+
+      respond_to do |format|
+        format.html # show.html.erb
+        format.xml  { render :xml => @subscription }
+      end
+
+ 
+
   end
 
   # GET /subscriptions/new
@@ -61,7 +72,7 @@ class SubscriptionsController < ApplicationController
     @subscription.safe_update(%w[name], params[:subscription])
 
     @subscription.starts_at = Time.zone.now
-    @subscription.ends_at = Time.zone.now
+    @subscription.ends_at = Time.zone.now + 2.minutes
 
     @subscription.group = @group
     @subscription.user = @user
@@ -109,6 +120,22 @@ class SubscriptionsController < ApplicationController
       format.xml  { head :ok }
     end
   end
-end
 
-#Break out the subscriptions
+
+  #Break out the subscriptions
+  protected
+    def check_permissions
+      @group = Group.find_by_slug_or_id(params[:id])
+
+      if @group.nil?
+        redirect_to groups_path
+      elsif !current_user.owner_of?(@group)
+        flash[:error] = t("global.permission_denied")
+        redirect_to group_path(@group)
+      end
+    end
+
+  end
+
+
+

@@ -1,6 +1,20 @@
+
+
+
+- if false #@subscription.ends_at < Time.now
+  %p
+    = "This subscription has expired"
+-# else
+  -#%p
+    -#= "This subscription is active"
+
+
 - if current_group.default_header
   - header = Header.find(current_group.default_header)
   - base_header = header.header.process!(:thumb,header.header_cropping)
+
+
+  
 
   - if current_group.logo_only? && current_group.text_only?
     .container{:style => "padding:0;height:80px;width:512px;"}

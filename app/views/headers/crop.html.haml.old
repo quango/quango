@@ -61,12 +61,6 @@
 
       %div.right
         %button.inner-button
-          = link_to "Desat", desat_header_path(@header), :class => "inner-button"
-        %button.inner-button
-          = link_to "Negate", negate_header_path(@header), :class => "inner-button"
-        %button.inner-button
-          = link_to "Watermark", watermark_header_path(@header), :class => "inner-button"
-        %button.inner-button
           = link_to "Flip", flip_header_path(@header), :class => "inner-button"
         %button.inner-button
           = link_to "Flop", flop_header_path(@header), :class => "inner-button"

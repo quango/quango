@@ -1,11 +1,30 @@
 -content_for :main do
 
   %h1
-    = "Showing subscription"
+    = "Showing subscription : " + @status.to_s
 
-  %p
-    = @subscription.name
 
+  %p 
+    = "Status : " + @subscription.status
+  %p 
+    = "Name : " + @subscription.name
+  %p 
+    = "Starts : " + @subscription.starts_at.strftime('Activated on %m/%d/%Y at %I:%M%p') 
+
+  %p 
+    = "Ends : " + @subscription.ends_at.strftime('Expiring on %m/%d/%Y at %I:%M%p') 
+
+  - if @subscription.ends_at < Time.now
+    %p
+      = "This subscription has expired"
+  - else
+    %p
+      = "This subscription is active"
+
+
+
+  %p 
+    = "Is active? : " + @subscription.is_active.to_s
   %p
     = link_to 'Edit', edit_subscription_path(@subscription) |
     = link_to 'Back', subscriptions_path

@@ -30,7 +30,12 @@
     .right{:style=>"width:280px;"}
       .map-holder{:style=>"padding:8px;"}
         .map
-
+          - address = [current_group.group_address_ii,current_group.group_city,current_group.group_state].join(',')
+          - main_url = "http://maps.googleapis.com/maps/api/staticmap?"
+          - center = "center=" + address
+          - marker = "&markers=color:red%7Clabel:X%7C" + address
+          - other_params = "&zoom=14&size=256x256&maptype=roadmap&sensor=false"
+          %img{'src' => (main_url + center + marker + other_params)}/
 
 .clear
 

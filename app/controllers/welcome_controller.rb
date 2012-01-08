@@ -23,7 +23,11 @@ class WelcomeController < ApplicationController
 
     @items = current_group.items #.merge(conditions)
 
-
+    current_group.subscriptions.each do |subscription|
+      if subscription.is_active?
+        @subscription = subscription
+      end
+    end
     
     
    # @doctype = doctype

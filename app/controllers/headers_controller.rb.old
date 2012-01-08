@@ -150,50 +150,14 @@ class HeadersController < ApplicationController
 
   end
 
-  def desat
-    @group = current_group
-    @header = Header.find(params[:id])
-    @header.header = @header.header.process!(:desat)
-    @header.save
-
-    respond_to do |format|
-      format.html { redirect_to(crop_header_path, :notice => 'Header was desaturated.') }
-    end
-
-  end
-
-  def negate
-    @group = current_group
-    @header = Header.find(params[:id])
-    @header.header = @header.header.process!(:negate)
-    @header.save
-
-    respond_to do |format|
-      format.html { redirect_to(crop_header_path, :notice => 'Header was negated.') }
-    end
-
-  end
-
-  def watermark
-    @group = current_group
-    @header = Header.find(params[:id])
-    @header.header = @header.header.process!(:watermark,:mark => 'public/images/logos/buffys_icon.png')
-    @header.save
-
-    respond_to do |format|
-      format.html { redirect_to(crop_header_path, :notice => 'Header was watermarked.') }
-    end
-
-  end
-
   def flip
     @group = current_group
     @header = Header.find(params[:id])
-    @header.header = @header.header.process!(:flip)
+    @header.image = @header.image.process!(:flip)
     @header.save
 
     respond_to do |format|
-      format.html { redirect_to(crop_header_path, :notice => 'Header was successfully flipped so it claims.') }
+      format.html { redirect_to(crop_group_image_path, :notice => 'Header was successfully flipped so it claims.') }
     end
 
   end
@@ -201,41 +165,41 @@ class HeadersController < ApplicationController
   def flop
     @group = current_group
     @header = Header.find(params[:id])
-    @header.header = @header.header.process!(:flop)
+    @header.image = @header.image.process!(:flop)
     @header.save
 
     respond_to do |format|
-      format.html { redirect_to(crop_header_path, :notice => 'Header was successfully flopped so it claims.') }
+      format.html { redirect_to(crop_group_image_path, :notice => 'Header was successfully flopped so it claims.') }
     end
   end
 
   def rotate_right
     @group = current_group
     @header = Header.find(params[:id])
-    @header.header = @header.header.process(:rotate, 5, :background_colour => 'white')
+    @header.image = @header.image.process(:rotate, 5, :background_colour => 'white')
     @header.save
     respond_to do |format|
-      format.html { redirect_to(crop_header_path, :notice => 'Header was successfully flopped so it claims.') }
+      format.html { redirect_to(crop_group_image_path, :notice => 'Header was successfully flopped so it claims.') }
     end
   end
 
   def rotate_left
     @group = current_group
     @header = Header.find(params[:id])
-    @header.header = @header.header.process(:rotate, -5, :background_colour => 'white')
+    @header.image = @header.image.process(:rotate, -5, :background_colour => 'white')
     @header.save
     respond_to do |format|
-      format.html { redirect_to(crop_header_path, :notice => 'Header was successfully flopped so it claims.') }
+      format.html { redirect_to(crop_group_image_path, :notice => 'Header was successfully flopped so it claims.') }
     end
   end
 
   def rotate_180
     @group = current_group
     @header = Header.find(params[:id])
-    @header.header = @header.header.process(:rotate, 180, :background_colour => 'white')
+    @header.image = @header.image.process(:rotate, 180, :background_colour => 'white')
     @header.save
     respond_to do |format|
-      format.html { redirect_to(crop_header_path, :notice => 'Header was successfully flopped so it claims.') }
+      format.html { redirect_to(crop_group_image_path, :notice => 'Header was successfully flopped so it claims.') }
     end
   end
 

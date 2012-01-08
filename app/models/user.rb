@@ -9,7 +9,7 @@ class User
   devise :database_authenticatable, :http_authenticatable, :recoverable, :registerable, :rememberable,
          :lockable, :token_authenticatable
 
-  ROLES = %w[user editor moderator admin]
+  ROLES = %w[user editor moderator admin agent]
   LANGUAGE_FILTERS = %w[any user] + AVAILABLE_LANGUAGES
   LOGGED_OUT_LANGUAGE_FILTERS = %w[any] + AVAILABLE_LANGUAGES
 
@@ -274,6 +274,10 @@ Time.zone.now ? 1 : 0)
 
   def mod_of?(group)
     owner_of?(group) || role_on(group) == "moderator" || self.reputation_on(group) >= group.reputation_constrains["moderate"].to_i
+  end
+
+  def agent_of?(group)
+    owner_of?(group) || role_on(group) == "agent" || self.reputation_on(group) >= group.reputation_constrains["agent"].to_i
   end
 
   def editor_of?(group)

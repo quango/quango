@@ -20,17 +20,15 @@
 
     = current_group.head_tag
 
-  %body{:style=>"background:#{current_group.primary_dark};font-family:sans-serif;"}
+  %body
+
+    = render :partial => "shared/header_mobile"
 
 
-    #toolbar
-      = render :partial => "shared/toolbar_mobile"
-
-    #logo
-      = render :partial => "shared/logo_mobile"
 
     #body
       = yield :main
+    .clear
 
     #flash
       .container

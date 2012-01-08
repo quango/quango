@@ -180,12 +180,23 @@ class GroupsController < ApplicationController
 
  
     ##Create the initial subscription
-  
-    #subscription = Subscripton.new
-    #subscription.group = current_group
-    #subscription.user = current_user
+    subscriptions = Array.new
 
+    #@user = current_user
+    #@group = current_group
 
+    @subscription = Subscription.new
+    @subscription.name = @group.name + "subscription"
+    @subscription.group = @group
+    @subscription.user = @user
+    @subscription.starts_at = Time.now
+    @subscription.ends_at = Time.now + 2.minutes
+    @subscription.save!
+
+    subscriptions.each do |subscription|
+      #subscription = Subscription.new
+      subscription.save!
+    end
 
 
 

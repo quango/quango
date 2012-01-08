@@ -162,6 +162,7 @@ ActionController::Routing::Routes.draw do |map|
                                               :pull => :get, 
                                               :set_default_header => :get, 
                                               :flip => :get, :flop => :get,
+                                              :desat => :get, :negate => :get, :watermark => :get,
                                               :rotate_left => :get, :rotate_right => :get, :rotate_180 => :get,
                                               :move => :post}
 
